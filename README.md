@@ -74,6 +74,32 @@ opnsense.NewClient(url, key, secret,
 )
 ```
 
+### Pagination
+
+Search endpoints return `SearchResult[T]` with typed rows. Use `Pager` to iterate over all pages:
+
+```go
+pager := opnsense.NewPager(50, func(ctx context.Context, page, rowCount int) (*opnsense.SearchResult[firewall.Alias], error) {
+	return fw.AliasSearchItem(ctx, map[string]any{"current": page, "rowCount": rowCount})
+})
+for pager.Next(ctx) {
+	for _, alias := range pager.Items() {
+		fmt.Println(alias.Name)
+	}
+}
+if err := pager.Err(); err != nil {
+	log.Fatal(err)
+}
+```
+
+Or collect all results at once:
+
+```go
+aliases, err := opnsense.Collect(ctx, 50, func(ctx context.Context, page, rowCount int) (*opnsense.SearchResult[firewall.Alias], error) {
+	return fw.AliasSearchItem(ctx, map[string]any{"current": page, "rowCount": rowCount})
+})
+```
+
 ### Untyped endpoints
 
 Endpoints without a matching model type use `map[string]any`:
@@ -130,7 +156,8 @@ make build      # go build ./opnsense/...
 opnsense/
   client.go          # hand-written: HTTP client, auth, options
   request.go         # hand-written: Do() method, JSON marshaling
-  types.go           # hand-written: GenericResponse, SearchResult[T]
+  types.go           # hand-written: GenericResponse, SearchResult[T], OPNBool, OPNInt
+  pager.go           # hand-written: Pager[T], Collect[T] pagination helpers
   api/api.go         # hand-written: top-level API package
   firewall/           # generated module package
     firewall.go       #   endpoint methods (typed + untyped)
