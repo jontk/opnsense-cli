@@ -102,11 +102,11 @@ func (c *Client) MaintenanceSearchCertificateDiff(ctx context.Context) (map[stri
 }
 
 // MaintenanceSearchServer calls GET /api/haproxy/maintenance/searchServer
-func (c *Client) MaintenanceSearchServer(ctx context.Context) (map[string]any, error) {
+func (c *Client) MaintenanceSearchServer(ctx context.Context) (*opnsense.SearchResult[Server], error) {
 	path := "/api/haproxy/maintenance/searchServer"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Server]
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // MaintenanceServerState calls GET /api/haproxy/maintenance/serverState
@@ -671,107 +671,107 @@ func (c *Client) SettingsGetresolver(ctx context.Context, opts ...string) (map[s
 }
 
 // SettingsSearchAcls calls GET,POST /api/haproxy/settings/searchAcls
-func (c *Client) SettingsSearchAcls(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSearchAcls(ctx context.Context, body any) (*opnsense.SearchResult[Acl], error) {
 	path := "/api/haproxy/settings/searchAcls"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Acl]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // SettingsSearchActions calls GET,POST /api/haproxy/settings/searchActions
-func (c *Client) SettingsSearchActions(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSearchActions(ctx context.Context, body any) (*opnsense.SearchResult[Action], error) {
 	path := "/api/haproxy/settings/searchActions"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Action]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // SettingsSearchBackends calls GET,POST /api/haproxy/settings/searchBackends
-func (c *Client) SettingsSearchBackends(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSearchBackends(ctx context.Context, body any) (*opnsense.SearchResult[Backend], error) {
 	path := "/api/haproxy/settings/searchBackends"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Backend]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // SettingsSearchCpus calls GET,POST /api/haproxy/settings/searchCpus
-func (c *Client) SettingsSearchCpus(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSearchCpus(ctx context.Context, body any) (*opnsense.SearchResult[Cpu], error) {
 	path := "/api/haproxy/settings/searchCpus"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Cpu]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // SettingsSearchErrorfiles calls GET,POST /api/haproxy/settings/searchErrorfiles
-func (c *Client) SettingsSearchErrorfiles(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSearchErrorfiles(ctx context.Context, body any) (*opnsense.SearchResult[Errorfile], error) {
 	path := "/api/haproxy/settings/searchErrorfiles"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Errorfile]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // SettingsSearchFcgis calls GET,POST /api/haproxy/settings/searchFcgis
-func (c *Client) SettingsSearchFcgis(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSearchFcgis(ctx context.Context, body any) (*opnsense.SearchResult[Fcgi], error) {
 	path := "/api/haproxy/settings/searchFcgis"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Fcgi]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // SettingsSearchFrontends calls GET,POST /api/haproxy/settings/searchFrontends
-func (c *Client) SettingsSearchFrontends(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSearchFrontends(ctx context.Context, body any) (*opnsense.SearchResult[Frontend], error) {
 	path := "/api/haproxy/settings/searchFrontends"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Frontend]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // SettingsSearchGroups calls GET,POST /api/haproxy/settings/searchGroups
-func (c *Client) SettingsSearchGroups(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSearchGroups(ctx context.Context, body any) (*opnsense.SearchResult[Group], error) {
 	path := "/api/haproxy/settings/searchGroups"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Group]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // SettingsSearchHealthchecks calls GET,POST /api/haproxy/settings/searchHealthchecks
-func (c *Client) SettingsSearchHealthchecks(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSearchHealthchecks(ctx context.Context, body any) (*opnsense.SearchResult[Healthcheck], error) {
 	path := "/api/haproxy/settings/searchHealthchecks"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Healthcheck]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // SettingsSearchLuas calls GET,POST /api/haproxy/settings/searchLuas
-func (c *Client) SettingsSearchLuas(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSearchLuas(ctx context.Context, body any) (*opnsense.SearchResult[Lua], error) {
 	path := "/api/haproxy/settings/searchLuas"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Lua]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // SettingsSearchMapfiles calls GET,POST /api/haproxy/settings/searchMapfiles
-func (c *Client) SettingsSearchMapfiles(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSearchMapfiles(ctx context.Context, body any) (*opnsense.SearchResult[Mapfile], error) {
 	path := "/api/haproxy/settings/searchMapfiles"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Mapfile]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // SettingsSearchServers calls GET,POST /api/haproxy/settings/searchServers
-func (c *Client) SettingsSearchServers(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSearchServers(ctx context.Context, body any) (*opnsense.SearchResult[Server], error) {
 	path := "/api/haproxy/settings/searchServers"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Server]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // SettingsSearchUsers calls GET,POST /api/haproxy/settings/searchUsers
-func (c *Client) SettingsSearchUsers(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSearchUsers(ctx context.Context, body any) (*opnsense.SearchResult[User], error) {
 	path := "/api/haproxy/settings/searchUsers"
-	var resp map[string]any
+	var resp opnsense.SearchResult[User]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // SettingsSearchmailers calls GET,POST /api/haproxy/settings/searchmailers

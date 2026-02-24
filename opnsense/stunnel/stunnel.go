@@ -99,11 +99,11 @@ func (c *Client) ServicesGetItem(ctx context.Context, opts ...string) (*Service,
 }
 
 // ServicesSearchItem calls GET,POST /api/stunnel/services/searchItem
-func (c *Client) ServicesSearchItem(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServicesSearchItem(ctx context.Context, body any) (*opnsense.SearchResult[Service], error) {
 	path := "/api/stunnel/services/searchItem"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Service]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // ServicesSet calls POST /api/stunnel/services/set

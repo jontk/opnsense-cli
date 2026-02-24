@@ -278,51 +278,51 @@ func (c *Client) SettingsGetTagList(ctx context.Context) (map[string]any, error)
 }
 
 // SettingsSearchBoot calls GET,POST /api/dnsmasq/settings/searchBoot
-func (c *Client) SettingsSearchBoot(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSearchBoot(ctx context.Context, body any) (*opnsense.SearchResult[DhcpBoot], error) {
 	path := "/api/dnsmasq/settings/searchBoot"
-	var resp map[string]any
+	var resp opnsense.SearchResult[DhcpBoot]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // SettingsSearchDomain calls GET,POST /api/dnsmasq/settings/searchDomain
-func (c *Client) SettingsSearchDomain(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSearchDomain(ctx context.Context, body any) (*opnsense.SearchResult[Domainoverrides], error) {
 	path := "/api/dnsmasq/settings/searchDomain"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Domainoverrides]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // SettingsSearchHost calls GET,POST /api/dnsmasq/settings/searchHost
-func (c *Client) SettingsSearchHost(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSearchHost(ctx context.Context, body any) (*opnsense.SearchResult[Hosts], error) {
 	path := "/api/dnsmasq/settings/searchHost"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Hosts]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // SettingsSearchOption calls GET,POST /api/dnsmasq/settings/searchOption
-func (c *Client) SettingsSearchOption(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSearchOption(ctx context.Context, body any) (*opnsense.SearchResult[DhcpOptions], error) {
 	path := "/api/dnsmasq/settings/searchOption"
-	var resp map[string]any
+	var resp opnsense.SearchResult[DhcpOptions]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // SettingsSearchRange calls GET,POST /api/dnsmasq/settings/searchRange
-func (c *Client) SettingsSearchRange(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSearchRange(ctx context.Context, body any) (*opnsense.SearchResult[DhcpRanges], error) {
 	path := "/api/dnsmasq/settings/searchRange"
-	var resp map[string]any
+	var resp opnsense.SearchResult[DhcpRanges]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // SettingsSearchTag calls GET,POST /api/dnsmasq/settings/searchTag
-func (c *Client) SettingsSearchTag(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSearchTag(ctx context.Context, body any) (*opnsense.SearchResult[DhcpTags], error) {
 	path := "/api/dnsmasq/settings/searchTag"
-	var resp map[string]any
+	var resp opnsense.SearchResult[DhcpTags]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // SettingsSet calls POST /api/dnsmasq/settings/set

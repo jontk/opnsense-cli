@@ -516,11 +516,11 @@ func (c *Client) TunablesReset(ctx context.Context, body any) (map[string]any, e
 }
 
 // TunablesSearchItem calls GET,POST /api/core/tunables/searchItem
-func (c *Client) TunablesSearchItem(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) TunablesSearchItem(ctx context.Context, body any) (*opnsense.SearchResult[Item], error) {
 	path := "/api/core/tunables/searchItem"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Item]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // TunablesSet calls POST /api/core/tunables/set

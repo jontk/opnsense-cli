@@ -99,11 +99,11 @@ func (c *Client) SettingsGetEntry(ctx context.Context, opts ...string) (*Entries
 }
 
 // SettingsSearchEntry calls GET,POST /api/radvd/settings/searchEntry
-func (c *Client) SettingsSearchEntry(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSearchEntry(ctx context.Context, body any) (*opnsense.SearchResult[Entries], error) {
 	path := "/api/radvd/settings/searchEntry"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Entries]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // SettingsSet calls POST /api/radvd/settings/set

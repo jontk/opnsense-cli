@@ -232,11 +232,11 @@ func (c *Client) InstancesSearch(ctx context.Context, body any) (map[string]any,
 }
 
 // InstancesSearchStaticKey calls GET,POST /api/openvpn/instances/searchStaticKey
-func (c *Client) InstancesSearchStaticKey(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) InstancesSearchStaticKey(ctx context.Context, body any) (*opnsense.SearchResult[StaticKey], error) {
 	path := "/api/openvpn/instances/searchStaticKey"
-	var resp map[string]any
+	var resp opnsense.SearchResult[StaticKey]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // InstancesSet calls POST /api/openvpn/instances/set

@@ -104,11 +104,11 @@ func (c *Client) ClientPsk(ctx context.Context) (map[string]any, error) {
 }
 
 // ClientSearchClient calls GET,POST /api/wireguard/client/searchClient
-func (c *Client) ClientSearchClient(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ClientSearchClient(ctx context.Context, body any) (*opnsense.SearchResult[ClientConfig], error) {
 	path := "/api/wireguard/client/searchClient"
-	var resp map[string]any
+	var resp opnsense.SearchResult[ClientConfig]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // ClientSet calls POST /api/wireguard/client/set
@@ -208,11 +208,11 @@ func (c *Client) ServerKeyPair(ctx context.Context) (map[string]any, error) {
 }
 
 // ServerSearchServer calls GET,POST /api/wireguard/server/searchServer
-func (c *Client) ServerSearchServer(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServerSearchServer(ctx context.Context, body any) (*opnsense.SearchResult[Server], error) {
 	path := "/api/wireguard/server/searchServer"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Server]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // ServerSet calls POST /api/wireguard/server/set

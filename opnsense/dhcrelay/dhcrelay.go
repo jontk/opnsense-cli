@@ -98,19 +98,19 @@ func (c *Client) SettingsGetRelay(ctx context.Context, opts ...string) (*Relays,
 }
 
 // SettingsSearchDest calls GET,POST /api/dhcrelay/settings/searchDest
-func (c *Client) SettingsSearchDest(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSearchDest(ctx context.Context, body any) (*opnsense.SearchResult[Destinations], error) {
 	path := "/api/dhcrelay/settings/searchDest"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Destinations]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // SettingsSearchRelay calls GET,POST /api/dhcrelay/settings/searchRelay
-func (c *Client) SettingsSearchRelay(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSearchRelay(ctx context.Context, body any) (*opnsense.SearchResult[Relays], error) {
 	path := "/api/dhcrelay/settings/searchRelay"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Relays]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // SettingsSet calls POST /api/dhcrelay/settings/set

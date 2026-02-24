@@ -67,11 +67,11 @@ func (c *Client) BridgeSettingsReconfigure(ctx context.Context, body any) (map[s
 }
 
 // BridgeSettingsSearchItem calls GET,POST /api/interfaces/bridge_settings/searchItem
-func (c *Client) BridgeSettingsSearchItem(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) BridgeSettingsSearchItem(ctx context.Context, body any) (*opnsense.SearchResult[Bridged], error) {
 	path := "/api/interfaces/bridge_settings/searchItem"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Bridged]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // BridgeSettingsSet calls POST /api/interfaces/bridge_settings/set
@@ -148,11 +148,11 @@ func (c *Client) GifSettingsReconfigure(ctx context.Context, body any) (map[stri
 }
 
 // GifSettingsSearchItem calls GET,POST /api/interfaces/gif_settings/searchItem
-func (c *Client) GifSettingsSearchItem(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) GifSettingsSearchItem(ctx context.Context, body any) (*opnsense.SearchResult[Gif], error) {
 	path := "/api/interfaces/gif_settings/searchItem"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Gif]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // GifSettingsSet calls POST /api/interfaces/gif_settings/set
@@ -229,11 +229,11 @@ func (c *Client) GreSettingsReconfigure(ctx context.Context, body any) (map[stri
 }
 
 // GreSettingsSearchItem calls GET,POST /api/interfaces/gre_settings/searchItem
-func (c *Client) GreSettingsSearchItem(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) GreSettingsSearchItem(ctx context.Context, body any) (*opnsense.SearchResult[Gre], error) {
 	path := "/api/interfaces/gre_settings/searchItem"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Gre]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // GreSettingsSet calls POST /api/interfaces/gre_settings/set
@@ -302,11 +302,11 @@ func (c *Client) LaggSettingsReconfigure(ctx context.Context, body any) (map[str
 }
 
 // LaggSettingsSearchItem calls GET,POST /api/interfaces/lagg_settings/searchItem
-func (c *Client) LaggSettingsSearchItem(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) LaggSettingsSearchItem(ctx context.Context, body any) (*opnsense.SearchResult[Lagg], error) {
 	path := "/api/interfaces/lagg_settings/searchItem"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Lagg]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // LaggSettingsSet calls POST /api/interfaces/lagg_settings/set
@@ -375,11 +375,11 @@ func (c *Client) LoopbackSettingsReconfigure(ctx context.Context, body any) (map
 }
 
 // LoopbackSettingsSearchItem calls GET,POST /api/interfaces/loopback_settings/searchItem
-func (c *Client) LoopbackSettingsSearchItem(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) LoopbackSettingsSearchItem(ctx context.Context, body any) (*opnsense.SearchResult[Loopback], error) {
 	path := "/api/interfaces/loopback_settings/searchItem"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Loopback]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // LoopbackSettingsSet calls POST /api/interfaces/loopback_settings/set
@@ -448,11 +448,11 @@ func (c *Client) NeighborSettingsReconfigure(ctx context.Context, body any) (map
 }
 
 // NeighborSettingsSearchItem calls GET,POST /api/interfaces/neighbor_settings/searchItem
-func (c *Client) NeighborSettingsSearchItem(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) NeighborSettingsSearchItem(ctx context.Context, body any) (*opnsense.SearchResult[Neighbor], error) {
 	path := "/api/interfaces/neighbor_settings/searchItem"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Neighbor]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // NeighborSettingsSet calls POST /api/interfaces/neighbor_settings/set
@@ -600,11 +600,11 @@ func (c *Client) VipSettingsReconfigure(ctx context.Context, body any) (map[stri
 }
 
 // VipSettingsSearchItem calls GET,POST /api/interfaces/vip_settings/searchItem
-func (c *Client) VipSettingsSearchItem(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) VipSettingsSearchItem(ctx context.Context, body any) (*opnsense.SearchResult[Vip], error) {
 	path := "/api/interfaces/vip_settings/searchItem"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Vip]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // VipSettingsSet calls POST /api/interfaces/vip_settings/set
@@ -673,11 +673,11 @@ func (c *Client) VlanSettingsReconfigure(ctx context.Context, body any) (map[str
 }
 
 // VlanSettingsSearchItem calls GET,POST /api/interfaces/vlan_settings/searchItem
-func (c *Client) VlanSettingsSearchItem(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) VlanSettingsSearchItem(ctx context.Context, body any) (*opnsense.SearchResult[Vlan], error) {
 	path := "/api/interfaces/vlan_settings/searchItem"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Vlan]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // VlanSettingsSet calls POST /api/interfaces/vlan_settings/set
@@ -746,11 +746,11 @@ func (c *Client) VxlanSettingsReconfigure(ctx context.Context, body any) (map[st
 }
 
 // VxlanSettingsSearchItem calls GET,POST /api/interfaces/vxlan_settings/searchItem
-func (c *Client) VxlanSettingsSearchItem(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) VxlanSettingsSearchItem(ctx context.Context, body any) (*opnsense.SearchResult[Vxlan], error) {
 	path := "/api/interfaces/vxlan_settings/searchItem"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Vxlan]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // VxlanSettingsSet calls POST /api/interfaces/vxlan_settings/set

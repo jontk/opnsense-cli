@@ -91,11 +91,11 @@ func (c *Client) KeyGetKey(ctx context.Context, opts ...string) (*Key, error) {
 }
 
 // KeySearchKey calls GET,POST /api/telegraf/key/searchKey
-func (c *Client) KeySearchKey(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) KeySearchKey(ctx context.Context, body any) (*opnsense.SearchResult[Key], error) {
 	path := "/api/telegraf/key/searchKey"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Key]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // KeySet calls POST /api/telegraf/key/set

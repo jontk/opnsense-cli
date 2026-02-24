@@ -59,11 +59,11 @@ func (c *Client) CommandGetCommand(ctx context.Context, opts ...string) (*Comman
 }
 
 // CommandSearchCommand calls GET,POST /api/nrpe/command/searchCommand
-func (c *Client) CommandSearchCommand(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) CommandSearchCommand(ctx context.Context, body any) (*opnsense.SearchResult[Command], error) {
 	path := "/api/nrpe/command/searchCommand"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Command]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // CommandSet calls POST /api/nrpe/command/set

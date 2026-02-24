@@ -131,11 +131,11 @@ func (c *Client) UrlGetUrl(ctx context.Context, opts ...string) (*List, error) {
 }
 
 // UrlSearchUrl calls GET,POST /api/clamav/url/searchUrl
-func (c *Client) UrlSearchUrl(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) UrlSearchUrl(ctx context.Context, body any) (*opnsense.SearchResult[List], error) {
 	path := "/api/clamav/url/searchUrl"
-	var resp map[string]any
+	var resp opnsense.SearchResult[List]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // UrlSet calls POST /api/clamav/url/set

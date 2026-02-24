@@ -67,11 +67,11 @@ func (c *Client) SettingsReconfigure(ctx context.Context, body any) (map[string]
 }
 
 // SettingsSearchGateway calls GET /api/routing/settings/searchGateway
-func (c *Client) SettingsSearchGateway(ctx context.Context) (map[string]any, error) {
+func (c *Client) SettingsSearchGateway(ctx context.Context) (*opnsense.SearchResult[GatewayItem], error) {
 	path := "/api/routing/settings/searchGateway"
-	var resp map[string]any
+	var resp opnsense.SearchResult[GatewayItem]
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // SettingsSet calls POST /api/routing/settings/set

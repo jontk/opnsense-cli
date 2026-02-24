@@ -115,11 +115,11 @@ func (c *Client) SettingsGetDestination(ctx context.Context, opts ...string) (*D
 }
 
 // SettingsSearchDestinations calls GET,POST /api/syslog/settings/searchDestinations
-func (c *Client) SettingsSearchDestinations(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSearchDestinations(ctx context.Context, body any) (*opnsense.SearchResult[Destination], error) {
 	path := "/api/syslog/settings/searchDestinations"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Destination]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // SettingsSet calls POST /api/syslog/settings/set

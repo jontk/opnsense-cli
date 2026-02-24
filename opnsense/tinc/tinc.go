@@ -106,19 +106,19 @@ func (c *Client) SettingsGetNetwork(ctx context.Context, opts ...string) (*Netwo
 }
 
 // SettingsSearchHost calls GET /api/tinc/settings/searchHost
-func (c *Client) SettingsSearchHost(ctx context.Context) (map[string]any, error) {
+func (c *Client) SettingsSearchHost(ctx context.Context) (*opnsense.SearchResult[Host], error) {
 	path := "/api/tinc/settings/searchHost"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Host]
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // SettingsSearchNetwork calls GET /api/tinc/settings/searchNetwork
-func (c *Client) SettingsSearchNetwork(ctx context.Context) (map[string]any, error) {
+func (c *Client) SettingsSearchNetwork(ctx context.Context) (*opnsense.SearchResult[Network], error) {
 	path := "/api/tinc/settings/searchNetwork"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Network]
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // SettingsSet calls POST /api/tinc/settings/set

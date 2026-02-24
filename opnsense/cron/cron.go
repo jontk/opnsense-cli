@@ -67,11 +67,11 @@ func (c *Client) SettingsGetJob(ctx context.Context, opts ...string) (*Job, erro
 }
 
 // SettingsSearchJobs calls GET,POST /api/cron/settings/searchJobs
-func (c *Client) SettingsSearchJobs(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSearchJobs(ctx context.Context, body any) (*opnsense.SearchResult[Job], error) {
 	path := "/api/cron/settings/searchJobs"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Job]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // SettingsSet calls POST /api/cron/settings/set

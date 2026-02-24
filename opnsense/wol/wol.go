@@ -67,11 +67,11 @@ func (c *Client) WolGetwake(ctx context.Context) (map[string]any, error) {
 }
 
 // WolSearchHost calls GET,POST /api/wol/wol/searchHost
-func (c *Client) WolSearchHost(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) WolSearchHost(ctx context.Context, body any) (*opnsense.SearchResult[Wolentry], error) {
 	path := "/api/wol/wol/searchHost"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Wolentry]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // WolSet calls POST /api/wol/wol/set

@@ -59,11 +59,11 @@ func (c *Client) GeneralGetAlias(ctx context.Context, opts ...string) (*Alias, e
 }
 
 // GeneralSearchAlias calls GET,POST /api/ndpproxy/general/searchAlias
-func (c *Client) GeneralSearchAlias(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) GeneralSearchAlias(ctx context.Context, body any) (*opnsense.SearchResult[Alias], error) {
 	path := "/api/ndpproxy/general/searchAlias"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Alias]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // GeneralSet calls POST /api/ndpproxy/general/set

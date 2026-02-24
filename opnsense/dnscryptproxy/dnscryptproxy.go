@@ -59,11 +59,11 @@ func (c *Client) CloakGetCloak(ctx context.Context, opts ...string) (*Cloak, err
 }
 
 // CloakSearchCloak calls GET,POST /api/dnscryptproxy/cloak/searchCloak
-func (c *Client) CloakSearchCloak(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) CloakSearchCloak(ctx context.Context, body any) (*opnsense.SearchResult[Cloak], error) {
 	path := "/api/dnscryptproxy/cloak/searchCloak"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Cloak]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // CloakSet calls POST /api/dnscryptproxy/cloak/set
@@ -150,11 +150,11 @@ func (c *Client) ForwardGetForward(ctx context.Context, opts ...string) (*Forwar
 }
 
 // ForwardSearchForward calls GET,POST /api/dnscryptproxy/forward/searchForward
-func (c *Client) ForwardSearchForward(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ForwardSearchForward(ctx context.Context, body any) (*opnsense.SearchResult[Forward], error) {
 	path := "/api/dnscryptproxy/forward/searchForward"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Forward]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // ForwardSet calls POST /api/dnscryptproxy/forward/set
@@ -241,11 +241,11 @@ func (c *Client) ServerGetServer(ctx context.Context, opts ...string) (*Server, 
 }
 
 // ServerSearchServer calls GET,POST /api/dnscryptproxy/server/searchServer
-func (c *Client) ServerSearchServer(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServerSearchServer(ctx context.Context, body any) (*opnsense.SearchResult[Server], error) {
 	path := "/api/dnscryptproxy/server/searchServer"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Server]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // ServerSet calls POST /api/dnscryptproxy/server/set
@@ -364,11 +364,11 @@ func (c *Client) WhitelistGetWhitelist(ctx context.Context, opts ...string) (*Wh
 }
 
 // WhitelistSearchWhitelist calls GET,POST /api/dnscryptproxy/whitelist/searchWhitelist
-func (c *Client) WhitelistSearchWhitelist(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) WhitelistSearchWhitelist(ctx context.Context, body any) (*opnsense.SearchResult[Whitelist], error) {
 	path := "/api/dnscryptproxy/whitelist/searchWhitelist"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Whitelist]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // WhitelistSet calls POST /api/dnscryptproxy/whitelist/set

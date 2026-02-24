@@ -365,11 +365,11 @@ func (c *Client) LvtemplateGetItem(ctx context.Context, opts ...string) (*Templa
 }
 
 // LvtemplateSearchItem calls GET,POST /api/diagnostics/lvtemplate/searchItem
-func (c *Client) LvtemplateSearchItem(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) LvtemplateSearchItem(ctx context.Context, body any) (*opnsense.SearchResult[Template], error) {
 	path := "/api/diagnostics/lvtemplate/searchItem"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Template]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // LvtemplateSet calls POST /api/diagnostics/lvtemplate/set

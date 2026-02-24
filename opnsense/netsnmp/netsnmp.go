@@ -115,11 +115,11 @@ func (c *Client) UserGetUser(ctx context.Context, opts ...string) (*User, error)
 }
 
 // UserSearchUser calls GET,POST /api/netsnmp/user/searchUser
-func (c *Client) UserSearchUser(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) UserSearchUser(ctx context.Context, body any) (*opnsense.SearchResult[User], error) {
 	path := "/api/netsnmp/user/searchUser"
-	var resp map[string]any
+	var resp opnsense.SearchResult[User]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // UserSet calls POST /api/netsnmp/user/set

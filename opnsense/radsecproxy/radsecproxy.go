@@ -59,11 +59,11 @@ func (c *Client) ClientsGetItem(ctx context.Context, opts ...string) (*ClientCon
 }
 
 // ClientsSearchItem calls GET,POST /api/radsecproxy/clients/searchItem
-func (c *Client) ClientsSearchItem(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ClientsSearchItem(ctx context.Context, body any) (*opnsense.SearchResult[ClientConfig], error) {
 	path := "/api/radsecproxy/clients/searchItem"
-	var resp map[string]any
+	var resp opnsense.SearchResult[ClientConfig]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // ClientsSet calls POST /api/radsecproxy/clients/set
@@ -154,11 +154,11 @@ func (c *Client) RealmsGetItem(ctx context.Context, opts ...string) (*Realm, err
 }
 
 // RealmsSearchItem calls GET,POST /api/radsecproxy/realms/searchItem
-func (c *Client) RealmsSearchItem(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) RealmsSearchItem(ctx context.Context, body any) (*opnsense.SearchResult[Realm], error) {
 	path := "/api/radsecproxy/realms/searchItem"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Realm]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // RealmsSet calls POST /api/radsecproxy/realms/set
@@ -233,11 +233,11 @@ func (c *Client) RewritesGetItem(ctx context.Context, opts ...string) (*Rewrite,
 }
 
 // RewritesSearchItem calls GET,POST /api/radsecproxy/rewrites/searchItem
-func (c *Client) RewritesSearchItem(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) RewritesSearchItem(ctx context.Context, body any) (*opnsense.SearchResult[Rewrite], error) {
 	path := "/api/radsecproxy/rewrites/searchItem"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Rewrite]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // RewritesSet calls POST /api/radsecproxy/rewrites/set
@@ -312,11 +312,11 @@ func (c *Client) ServersGetItem(ctx context.Context, opts ...string) (*Server, e
 }
 
 // ServersSearchItem calls GET,POST /api/radsecproxy/servers/searchItem
-func (c *Client) ServersSearchItem(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServersSearchItem(ctx context.Context, body any) (*opnsense.SearchResult[Server], error) {
 	path := "/api/radsecproxy/servers/searchItem"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Server]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // ServersSet calls POST /api/radsecproxy/servers/set
@@ -431,11 +431,11 @@ func (c *Client) TlsGetItem(ctx context.Context, opts ...string) (*TlsConfig, er
 }
 
 // TlsSearchItem calls GET,POST /api/radsecproxy/tls/searchItem
-func (c *Client) TlsSearchItem(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) TlsSearchItem(ctx context.Context, body any) (*opnsense.SearchResult[TlsConfig], error) {
 	path := "/api/radsecproxy/tls/searchItem"
-	var resp map[string]any
+	var resp opnsense.SearchResult[TlsConfig]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // TlsSet calls POST /api/radsecproxy/tls/set

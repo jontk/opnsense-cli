@@ -130,19 +130,19 @@ func (c *Client) SettingsGetUserparameter(ctx context.Context, opts ...string) (
 }
 
 // SettingsSearchAliases calls GET,POST /api/zabbixagent/settings/searchAliases
-func (c *Client) SettingsSearchAliases(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSearchAliases(ctx context.Context, body any) (*opnsense.SearchResult[Alias], error) {
 	path := "/api/zabbixagent/settings/searchAliases"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Alias]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // SettingsSearchUserparameters calls GET,POST /api/zabbixagent/settings/searchUserparameters
-func (c *Client) SettingsSearchUserparameters(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSearchUserparameters(ctx context.Context, body any) (*opnsense.SearchResult[Userparameter], error) {
 	path := "/api/zabbixagent/settings/searchUserparameters"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Userparameter]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // SettingsSet calls POST /api/zabbixagent/settings/set

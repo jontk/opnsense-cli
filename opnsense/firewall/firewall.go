@@ -141,11 +141,11 @@ func (c *Client) AliasReconfigure(ctx context.Context, body any) (map[string]any
 }
 
 // AliasSearchItem calls GET,POST /api/firewall/alias/searchItem
-func (c *Client) AliasSearchItem(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) AliasSearchItem(ctx context.Context, body any) (*opnsense.SearchResult[Alias], error) {
 	path := "/api/firewall/alias/searchItem"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Alias]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // AliasSet calls POST /api/firewall/alias/set
@@ -286,14 +286,14 @@ func (c *Client) CategoryGetItem(ctx context.Context, opts ...string) (*Category
 // CategorySearchItem calls GET,POST /api/firewall/category/searchItem
 // Parameters:
 //   - add_empty (optional, default: 0)
-func (c *Client) CategorySearchItem(ctx context.Context, body any, opts ...string) (map[string]any, error) {
+func (c *Client) CategorySearchItem(ctx context.Context, body any, opts ...string) (*opnsense.SearchResult[Category], error) {
 	path := "/api/firewall/category/searchItem"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp opnsense.SearchResult[Category]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // CategorySet calls POST /api/firewall/category/set
@@ -357,11 +357,11 @@ func (c *Client) DNatMoveRuleBefore(ctx context.Context, selected_uuid string, t
 }
 
 // DNatSearchRule calls GET,POST /api/firewall/d_nat/searchRule
-func (c *Client) DNatSearchRule(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) DNatSearchRule(ctx context.Context, body any) (*opnsense.SearchResult[Source], error) {
 	path := "/api/firewall/d_nat/searchRule"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Source]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // DNatSetRule calls POST /api/firewall/d_nat/setRule
@@ -547,11 +547,11 @@ func (c *Client) FilterMoveRuleBefore(ctx context.Context, selected_uuid string,
 }
 
 // FilterSearchRule calls GET,POST /api/firewall/filter/searchRule
-func (c *Client) FilterSearchRule(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) FilterSearchRule(ctx context.Context, body any) (*opnsense.SearchResult[Rule], error) {
 	path := "/api/firewall/filter/searchRule"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Rule]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // FilterSetRule calls POST /api/firewall/filter/setRule
@@ -734,11 +734,11 @@ func (c *Client) GroupReconfigure(ctx context.Context, body any) (map[string]any
 }
 
 // GroupSearchItem calls GET,POST /api/firewall/group/searchItem
-func (c *Client) GroupSearchItem(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) GroupSearchItem(ctx context.Context, body any) (*opnsense.SearchResult[Ifgroupentry], error) {
 	path := "/api/firewall/group/searchItem"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Ifgroupentry]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // GroupSet calls POST /api/firewall/group/set
@@ -818,11 +818,11 @@ func (c *Client) NptMoveRuleBefore(ctx context.Context, selected_uuid string, ta
 }
 
 // NptSearchRule calls GET,POST /api/firewall/npt/searchRule
-func (c *Client) NptSearchRule(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) NptSearchRule(ctx context.Context, body any) (*opnsense.SearchResult[Rule], error) {
 	path := "/api/firewall/npt/searchRule"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Rule]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // NptSetRule calls POST /api/firewall/npt/setRule
@@ -984,11 +984,11 @@ func (c *Client) OneToOneMoveRuleBefore(ctx context.Context, selected_uuid strin
 }
 
 // OneToOneSearchRule calls GET,POST /api/firewall/one_to_one/searchRule
-func (c *Client) OneToOneSearchRule(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) OneToOneSearchRule(ctx context.Context, body any) (*opnsense.SearchResult[Rule], error) {
 	path := "/api/firewall/one_to_one/searchRule"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Rule]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // OneToOneSetRule calls POST /api/firewall/one_to_one/setRule
@@ -1150,11 +1150,11 @@ func (c *Client) SourceNatMoveRuleBefore(ctx context.Context, selected_uuid stri
 }
 
 // SourceNatSearchRule calls GET,POST /api/firewall/source_nat/searchRule
-func (c *Client) SourceNatSearchRule(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SourceNatSearchRule(ctx context.Context, body any) (*opnsense.SearchResult[Rule], error) {
 	path := "/api/firewall/source_nat/searchRule"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Rule]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // SourceNatSetRule calls POST /api/firewall/source_nat/setRule

@@ -59,11 +59,11 @@ func (c *Client) BfdGetNeighbor(ctx context.Context, opts ...string) (*Neighbor,
 }
 
 // BfdSearchNeighbor calls GET,POST /api/quagga/bfd/searchNeighbor
-func (c *Client) BfdSearchNeighbor(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) BfdSearchNeighbor(ctx context.Context, body any) (*opnsense.SearchResult[Neighbor], error) {
 	path := "/api/quagga/bfd/searchNeighbor"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Neighbor]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // BfdSet calls POST /api/quagga/bfd/set
@@ -320,59 +320,59 @@ func (c *Client) BgpGetRoutemap(ctx context.Context, opts ...string) (*Routemap,
 }
 
 // BgpSearchAspath calls GET,POST /api/quagga/bgp/searchAspath
-func (c *Client) BgpSearchAspath(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) BgpSearchAspath(ctx context.Context, body any) (*opnsense.SearchResult[Aspath], error) {
 	path := "/api/quagga/bgp/searchAspath"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Aspath]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // BgpSearchCommunitylist calls GET,POST /api/quagga/bgp/searchCommunitylist
-func (c *Client) BgpSearchCommunitylist(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) BgpSearchCommunitylist(ctx context.Context, body any) (*opnsense.SearchResult[Communitylist], error) {
 	path := "/api/quagga/bgp/searchCommunitylist"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Communitylist]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // BgpSearchNeighbor calls GET,POST /api/quagga/bgp/searchNeighbor
-func (c *Client) BgpSearchNeighbor(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) BgpSearchNeighbor(ctx context.Context, body any) (*opnsense.SearchResult[Neighbor], error) {
 	path := "/api/quagga/bgp/searchNeighbor"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Neighbor]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // BgpSearchPeergroup calls GET,POST /api/quagga/bgp/searchPeergroup
-func (c *Client) BgpSearchPeergroup(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) BgpSearchPeergroup(ctx context.Context, body any) (*opnsense.SearchResult[Peergroup], error) {
 	path := "/api/quagga/bgp/searchPeergroup"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Peergroup]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // BgpSearchPrefixlist calls GET,POST /api/quagga/bgp/searchPrefixlist
-func (c *Client) BgpSearchPrefixlist(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) BgpSearchPrefixlist(ctx context.Context, body any) (*opnsense.SearchResult[Prefixlist], error) {
 	path := "/api/quagga/bgp/searchPrefixlist"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Prefixlist]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // BgpSearchRedistribution calls GET,POST /api/quagga/bgp/searchRedistribution
-func (c *Client) BgpSearchRedistribution(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) BgpSearchRedistribution(ctx context.Context, body any) (*opnsense.SearchResult[Redistribution], error) {
 	path := "/api/quagga/bgp/searchRedistribution"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Redistribution]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // BgpSearchRoutemap calls GET,POST /api/quagga/bgp/searchRoutemap
-func (c *Client) BgpSearchRoutemap(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) BgpSearchRoutemap(ctx context.Context, body any) (*opnsense.SearchResult[Routemap], error) {
 	path := "/api/quagga/bgp/searchRoutemap"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Routemap]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // BgpSet calls POST /api/quagga/bgp/set
@@ -860,43 +860,43 @@ func (c *Client) Ospf6settingsGetRoutemap(ctx context.Context, opts ...string) (
 }
 
 // Ospf6settingsSearchInterface calls GET,POST /api/quagga/ospf6settings/searchInterface
-func (c *Client) Ospf6settingsSearchInterface(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) Ospf6settingsSearchInterface(ctx context.Context, body any) (*opnsense.SearchResult[Interface], error) {
 	path := "/api/quagga/ospf6settings/searchInterface"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Interface]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // Ospf6settingsSearchNetwork calls GET,POST /api/quagga/ospf6settings/searchNetwork
-func (c *Client) Ospf6settingsSearchNetwork(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) Ospf6settingsSearchNetwork(ctx context.Context, body any) (*opnsense.SearchResult[Network], error) {
 	path := "/api/quagga/ospf6settings/searchNetwork"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Network]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // Ospf6settingsSearchPrefixlist calls GET,POST /api/quagga/ospf6settings/searchPrefixlist
-func (c *Client) Ospf6settingsSearchPrefixlist(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) Ospf6settingsSearchPrefixlist(ctx context.Context, body any) (*opnsense.SearchResult[Prefixlist], error) {
 	path := "/api/quagga/ospf6settings/searchPrefixlist"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Prefixlist]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // Ospf6settingsSearchRedistribution calls GET,POST /api/quagga/ospf6settings/searchRedistribution
-func (c *Client) Ospf6settingsSearchRedistribution(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) Ospf6settingsSearchRedistribution(ctx context.Context, body any) (*opnsense.SearchResult[Redistribution], error) {
 	path := "/api/quagga/ospf6settings/searchRedistribution"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Redistribution]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // Ospf6settingsSearchRoutemap calls GET,POST /api/quagga/ospf6settings/searchRoutemap
-func (c *Client) Ospf6settingsSearchRoutemap(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) Ospf6settingsSearchRoutemap(ctx context.Context, body any) (*opnsense.SearchResult[Routemap], error) {
 	path := "/api/quagga/ospf6settings/searchRoutemap"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Routemap]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // Ospf6settingsSet calls POST /api/quagga/ospf6settings/set
@@ -1233,59 +1233,59 @@ func (c *Client) OspfsettingsGetRoutemap(ctx context.Context, opts ...string) (*
 }
 
 // OspfsettingsSearchArea calls GET,POST /api/quagga/ospfsettings/searchArea
-func (c *Client) OspfsettingsSearchArea(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) OspfsettingsSearchArea(ctx context.Context, body any) (*opnsense.SearchResult[Area], error) {
 	path := "/api/quagga/ospfsettings/searchArea"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Area]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // OspfsettingsSearchInterface calls GET,POST /api/quagga/ospfsettings/searchInterface
-func (c *Client) OspfsettingsSearchInterface(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) OspfsettingsSearchInterface(ctx context.Context, body any) (*opnsense.SearchResult[Interface], error) {
 	path := "/api/quagga/ospfsettings/searchInterface"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Interface]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // OspfsettingsSearchNeighbor calls GET,POST /api/quagga/ospfsettings/searchNeighbor
-func (c *Client) OspfsettingsSearchNeighbor(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) OspfsettingsSearchNeighbor(ctx context.Context, body any) (*opnsense.SearchResult[Neighbor], error) {
 	path := "/api/quagga/ospfsettings/searchNeighbor"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Neighbor]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // OspfsettingsSearchNetwork calls GET,POST /api/quagga/ospfsettings/searchNetwork
-func (c *Client) OspfsettingsSearchNetwork(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) OspfsettingsSearchNetwork(ctx context.Context, body any) (*opnsense.SearchResult[Network], error) {
 	path := "/api/quagga/ospfsettings/searchNetwork"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Network]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // OspfsettingsSearchPrefixlist calls GET,POST /api/quagga/ospfsettings/searchPrefixlist
-func (c *Client) OspfsettingsSearchPrefixlist(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) OspfsettingsSearchPrefixlist(ctx context.Context, body any) (*opnsense.SearchResult[Prefixlist], error) {
 	path := "/api/quagga/ospfsettings/searchPrefixlist"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Prefixlist]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // OspfsettingsSearchRedistribution calls GET,POST /api/quagga/ospfsettings/searchRedistribution
-func (c *Client) OspfsettingsSearchRedistribution(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) OspfsettingsSearchRedistribution(ctx context.Context, body any) (*opnsense.SearchResult[Redistribution], error) {
 	path := "/api/quagga/ospfsettings/searchRedistribution"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Redistribution]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // OspfsettingsSearchRoutemap calls GET,POST /api/quagga/ospfsettings/searchRoutemap
-func (c *Client) OspfsettingsSearchRoutemap(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) OspfsettingsSearchRoutemap(ctx context.Context, body any) (*opnsense.SearchResult[Routemap], error) {
 	path := "/api/quagga/ospfsettings/searchRoutemap"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Routemap]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // OspfsettingsSet calls POST /api/quagga/ospfsettings/set
@@ -1532,11 +1532,11 @@ func (c *Client) StaticGetRoute(ctx context.Context, opts ...string) (*Route, er
 }
 
 // StaticSearchRoute calls GET,POST /api/quagga/static/searchRoute
-func (c *Client) StaticSearchRoute(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) StaticSearchRoute(ctx context.Context, body any) (*opnsense.SearchResult[Route], error) {
 	path := "/api/quagga/static/searchRoute"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Route]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // StaticSet calls POST /api/quagga/static/set

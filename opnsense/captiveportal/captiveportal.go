@@ -240,11 +240,11 @@ func (c *Client) SettingsGetZone(ctx context.Context, opts ...string) (*Zone, er
 }
 
 // SettingsSearchZones calls GET,POST /api/captiveportal/settings/searchZones
-func (c *Client) SettingsSearchZones(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSearchZones(ctx context.Context, body any) (*opnsense.SearchResult[Zone], error) {
 	path := "/api/captiveportal/settings/searchZones"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Zone]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // SettingsSet calls POST /api/captiveportal/settings/set

@@ -332,67 +332,67 @@ func (c *Client) ReverseProxyGetSubdomain(ctx context.Context, opts ...string) (
 }
 
 // ReverseProxySearchAccessList calls GET,POST /api/caddy/reverse_proxy/searchAccessList
-func (c *Client) ReverseProxySearchAccessList(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ReverseProxySearchAccessList(ctx context.Context, body any) (*opnsense.SearchResult[Accesslist], error) {
 	path := "/api/caddy/reverse_proxy/searchAccessList"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Accesslist]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // ReverseProxySearchBasicAuth calls GET,POST /api/caddy/reverse_proxy/searchBasicAuth
-func (c *Client) ReverseProxySearchBasicAuth(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ReverseProxySearchBasicAuth(ctx context.Context, body any) (*opnsense.SearchResult[Basicauth], error) {
 	path := "/api/caddy/reverse_proxy/searchBasicAuth"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Basicauth]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // ReverseProxySearchHandle calls GET,POST /api/caddy/reverse_proxy/searchHandle
-func (c *Client) ReverseProxySearchHandle(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ReverseProxySearchHandle(ctx context.Context, body any) (*opnsense.SearchResult[Handle], error) {
 	path := "/api/caddy/reverse_proxy/searchHandle"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Handle]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // ReverseProxySearchHeader calls GET,POST /api/caddy/reverse_proxy/searchHeader
-func (c *Client) ReverseProxySearchHeader(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ReverseProxySearchHeader(ctx context.Context, body any) (*opnsense.SearchResult[Header], error) {
 	path := "/api/caddy/reverse_proxy/searchHeader"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Header]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // ReverseProxySearchLayer4 calls GET,POST /api/caddy/reverse_proxy/searchLayer4
-func (c *Client) ReverseProxySearchLayer4(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ReverseProxySearchLayer4(ctx context.Context, body any) (*opnsense.SearchResult[Layer4], error) {
 	path := "/api/caddy/reverse_proxy/searchLayer4"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Layer4]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // ReverseProxySearchLayer4Openvpn calls GET,POST /api/caddy/reverse_proxy/searchLayer4Openvpn
-func (c *Client) ReverseProxySearchLayer4Openvpn(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ReverseProxySearchLayer4Openvpn(ctx context.Context, body any) (*opnsense.SearchResult[Layer4openvpn], error) {
 	path := "/api/caddy/reverse_proxy/searchLayer4Openvpn"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Layer4openvpn]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // ReverseProxySearchReverseProxy calls GET,POST /api/caddy/reverse_proxy/searchReverseProxy
-func (c *Client) ReverseProxySearchReverseProxy(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ReverseProxySearchReverseProxy(ctx context.Context, body any) (*opnsense.SearchResult[Reverse], error) {
 	path := "/api/caddy/reverse_proxy/searchReverseProxy"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Reverse]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // ReverseProxySearchSubdomain calls GET,POST /api/caddy/reverse_proxy/searchSubdomain
-func (c *Client) ReverseProxySearchSubdomain(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ReverseProxySearchSubdomain(ctx context.Context, body any) (*opnsense.SearchResult[Subdomain], error) {
 	path := "/api/caddy/reverse_proxy/searchSubdomain"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Subdomain]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // ReverseProxySet calls POST /api/caddy/reverse_proxy/set

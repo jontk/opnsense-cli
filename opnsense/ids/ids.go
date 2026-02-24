@@ -283,27 +283,27 @@ func (c *Client) SettingsSearchInstalledRules(ctx context.Context, body any) (ma
 }
 
 // SettingsSearchPolicy calls GET,POST /api/ids/settings/searchPolicy
-func (c *Client) SettingsSearchPolicy(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSearchPolicy(ctx context.Context, body any) (*opnsense.SearchResult[Policy], error) {
 	path := "/api/ids/settings/searchPolicy"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Policy]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // SettingsSearchPolicyRule calls GET,POST /api/ids/settings/searchPolicyRule
-func (c *Client) SettingsSearchPolicyRule(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSearchPolicyRule(ctx context.Context, body any) (*opnsense.SearchResult[Rule], error) {
 	path := "/api/ids/settings/searchPolicyRule"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Rule]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // SettingsSearchUserRule calls GET,POST /api/ids/settings/searchUserRule
-func (c *Client) SettingsSearchUserRule(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSearchUserRule(ctx context.Context, body any) (*opnsense.SearchResult[Rule], error) {
 	path := "/api/ids/settings/searchUserRule"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Rule]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // SettingsSet calls POST /api/ids/settings/set

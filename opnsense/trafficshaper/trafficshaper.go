@@ -161,27 +161,27 @@ func (c *Client) SettingsGetRule(ctx context.Context, opts ...string) (*Rule, er
 }
 
 // SettingsSearchPipes calls GET,POST /api/trafficshaper/settings/searchPipes
-func (c *Client) SettingsSearchPipes(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSearchPipes(ctx context.Context, body any) (*opnsense.SearchResult[Pipe], error) {
 	path := "/api/trafficshaper/settings/searchPipes"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Pipe]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // SettingsSearchQueues calls GET,POST /api/trafficshaper/settings/searchQueues
-func (c *Client) SettingsSearchQueues(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSearchQueues(ctx context.Context, body any) (*opnsense.SearchResult[Queue], error) {
 	path := "/api/trafficshaper/settings/searchQueues"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Queue]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // SettingsSearchRules calls GET,POST /api/trafficshaper/settings/searchRules
-func (c *Client) SettingsSearchRules(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSearchRules(ctx context.Context, body any) (*opnsense.SearchResult[Rule], error) {
 	path := "/api/trafficshaper/settings/searchRules"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Rule]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // SettingsSet calls POST /api/trafficshaper/settings/set

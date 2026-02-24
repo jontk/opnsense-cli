@@ -59,11 +59,11 @@ func (c *Client) DomainGetDomain(ctx context.Context, opts ...string) (*Domain, 
 }
 
 // DomainSearchDomain calls GET /api/siproxd/domain/searchDomain
-func (c *Client) DomainSearchDomain(ctx context.Context) (map[string]any, error) {
+func (c *Client) DomainSearchDomain(ctx context.Context) (*opnsense.SearchResult[Domain], error) {
 	path := "/api/siproxd/domain/searchDomain"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Domain]
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // DomainSet calls POST /api/siproxd/domain/set
@@ -198,11 +198,11 @@ func (c *Client) UserGetUser(ctx context.Context, opts ...string) (*User, error)
 }
 
 // UserSearchUser calls GET /api/siproxd/user/searchUser
-func (c *Client) UserSearchUser(ctx context.Context) (map[string]any, error) {
+func (c *Client) UserSearchUser(ctx context.Context) (*opnsense.SearchResult[User], error) {
 	path := "/api/siproxd/user/searchUser"
-	var resp map[string]any
+	var resp opnsense.SearchResult[User]
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // UserSet calls POST /api/siproxd/user/set

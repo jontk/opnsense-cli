@@ -145,27 +145,27 @@ func (c *Client) Dhcpv4GetSubnet(ctx context.Context, opts ...string) (*Subnet4,
 }
 
 // Dhcpv4SearchPeer calls GET,POST /api/kea/dhcpv4/searchPeer
-func (c *Client) Dhcpv4SearchPeer(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) Dhcpv4SearchPeer(ctx context.Context, body any) (*opnsense.SearchResult[Peer], error) {
 	path := "/api/kea/dhcpv4/searchPeer"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Peer]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // Dhcpv4SearchReservation calls GET,POST /api/kea/dhcpv4/searchReservation
-func (c *Client) Dhcpv4SearchReservation(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) Dhcpv4SearchReservation(ctx context.Context, body any) (*opnsense.SearchResult[Reservation], error) {
 	path := "/api/kea/dhcpv4/searchReservation"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Reservation]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // Dhcpv4SearchSubnet calls GET,POST /api/kea/dhcpv4/searchSubnet
-func (c *Client) Dhcpv4SearchSubnet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) Dhcpv4SearchSubnet(ctx context.Context, body any) (*opnsense.SearchResult[Subnet4], error) {
 	path := "/api/kea/dhcpv4/searchSubnet"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Subnet4]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // Dhcpv4Set calls POST /api/kea/dhcpv4/set
@@ -355,35 +355,35 @@ func (c *Client) Dhcpv6GetSubnet(ctx context.Context, opts ...string) (*Subnet6,
 }
 
 // Dhcpv6SearchPdPool calls GET,POST /api/kea/dhcpv6/searchPdPool
-func (c *Client) Dhcpv6SearchPdPool(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) Dhcpv6SearchPdPool(ctx context.Context, body any) (*opnsense.SearchResult[PdPool], error) {
 	path := "/api/kea/dhcpv6/searchPdPool"
-	var resp map[string]any
+	var resp opnsense.SearchResult[PdPool]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // Dhcpv6SearchPeer calls GET,POST /api/kea/dhcpv6/searchPeer
-func (c *Client) Dhcpv6SearchPeer(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) Dhcpv6SearchPeer(ctx context.Context, body any) (*opnsense.SearchResult[Peer], error) {
 	path := "/api/kea/dhcpv6/searchPeer"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Peer]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // Dhcpv6SearchReservation calls GET,POST /api/kea/dhcpv6/searchReservation
-func (c *Client) Dhcpv6SearchReservation(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) Dhcpv6SearchReservation(ctx context.Context, body any) (*opnsense.SearchResult[Reservation], error) {
 	path := "/api/kea/dhcpv6/searchReservation"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Reservation]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // Dhcpv6SearchSubnet calls GET,POST /api/kea/dhcpv6/searchSubnet
-func (c *Client) Dhcpv6SearchSubnet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) Dhcpv6SearchSubnet(ctx context.Context, body any) (*opnsense.SearchResult[Subnet6], error) {
 	path := "/api/kea/dhcpv6/searchSubnet"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Subnet6]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // Dhcpv6Set calls POST /api/kea/dhcpv6/set

@@ -232,27 +232,27 @@ func (c *Client) SettingsGetRemoteBlacklist(ctx context.Context, opts ...string)
 }
 
 // SettingsSearchPacMatch calls GET,POST /api/proxy/settings/searchPacMatch
-func (c *Client) SettingsSearchPacMatch(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSearchPacMatch(ctx context.Context, body any) (*opnsense.SearchResult[Match], error) {
 	path := "/api/proxy/settings/searchPacMatch"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Match]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // SettingsSearchPacProxy calls GET,POST /api/proxy/settings/searchPacProxy
-func (c *Client) SettingsSearchPacProxy(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSearchPacProxy(ctx context.Context, body any) (*opnsense.SearchResult[Proxy], error) {
 	path := "/api/proxy/settings/searchPacProxy"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Proxy]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // SettingsSearchPacRule calls GET,POST /api/proxy/settings/searchPacRule
-func (c *Client) SettingsSearchPacRule(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSearchPacRule(ctx context.Context, body any) (*opnsense.SearchResult[Rule], error) {
 	path := "/api/proxy/settings/searchPacRule"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Rule]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // SettingsSearchRemoteBlacklists calls GET /api/proxy/settings/searchRemoteBlacklists

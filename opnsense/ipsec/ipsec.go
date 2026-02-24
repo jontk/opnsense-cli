@@ -170,35 +170,35 @@ func (c *Client) ConnectionsIsEnabled(ctx context.Context) (map[string]any, erro
 }
 
 // ConnectionsSearchChild calls GET,POST /api/ipsec/connections/searchChild
-func (c *Client) ConnectionsSearchChild(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ConnectionsSearchChild(ctx context.Context, body any) (*opnsense.SearchResult[Child], error) {
 	path := "/api/ipsec/connections/searchChild"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Child]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // ConnectionsSearchConnection calls GET,POST /api/ipsec/connections/searchConnection
-func (c *Client) ConnectionsSearchConnection(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ConnectionsSearchConnection(ctx context.Context, body any) (*opnsense.SearchResult[Connection], error) {
 	path := "/api/ipsec/connections/searchConnection"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Connection]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // ConnectionsSearchLocal calls GET,POST /api/ipsec/connections/searchLocal
-func (c *Client) ConnectionsSearchLocal(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ConnectionsSearchLocal(ctx context.Context, body any) (*opnsense.SearchResult[Local], error) {
 	path := "/api/ipsec/connections/searchLocal"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Local]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // ConnectionsSearchRemote calls GET,POST /api/ipsec/connections/searchRemote
-func (c *Client) ConnectionsSearchRemote(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ConnectionsSearchRemote(ctx context.Context, body any) (*opnsense.SearchResult[Remote], error) {
 	path := "/api/ipsec/connections/searchRemote"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Remote]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // ConnectionsSet calls POST /api/ipsec/connections/set
@@ -392,11 +392,11 @@ func (c *Client) KeyPairsGetItem(ctx context.Context, opts ...string) (*KeyPair,
 }
 
 // KeyPairsSearchItem calls GET,POST /api/ipsec/key_pairs/searchItem
-func (c *Client) KeyPairsSearchItem(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) KeyPairsSearchItem(ctx context.Context, body any) (*opnsense.SearchResult[KeyPair], error) {
 	path := "/api/ipsec/key_pairs/searchItem"
-	var resp map[string]any
+	var resp opnsense.SearchResult[KeyPair]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // KeyPairsSet calls POST /api/ipsec/key_pairs/set
@@ -624,11 +624,11 @@ func (c *Client) PreSharedKeysGetItem(ctx context.Context, opts ...string) (*Pre
 }
 
 // PreSharedKeysSearchItem calls GET,POST /api/ipsec/pre_shared_keys/searchItem
-func (c *Client) PreSharedKeysSearchItem(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) PreSharedKeysSearchItem(ctx context.Context, body any) (*opnsense.SearchResult[PreSharedKey], error) {
 	path := "/api/ipsec/pre_shared_keys/searchItem"
-	var resp map[string]any
+	var resp opnsense.SearchResult[PreSharedKey]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // PreSharedKeysSet calls POST /api/ipsec/pre_shared_keys/set

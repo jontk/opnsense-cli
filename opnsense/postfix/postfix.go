@@ -59,11 +59,11 @@ func (c *Client) AddressGetAddress(ctx context.Context, opts ...string) (*Addres
 }
 
 // AddressSearchAddress calls GET,POST /api/postfix/address/searchAddress
-func (c *Client) AddressSearchAddress(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) AddressSearchAddress(ctx context.Context, body any) (*opnsense.SearchResult[Address], error) {
 	path := "/api/postfix/address/searchAddress"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Address]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // AddressSet calls POST /api/postfix/address/set
@@ -150,11 +150,11 @@ func (c *Client) DomainGetDomain(ctx context.Context, opts ...string) (*Domain, 
 }
 
 // DomainSearchDomain calls GET,POST /api/postfix/domain/searchDomain
-func (c *Client) DomainSearchDomain(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) DomainSearchDomain(ctx context.Context, body any) (*opnsense.SearchResult[Domain], error) {
 	path := "/api/postfix/domain/searchDomain"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Domain]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // DomainSet calls POST /api/postfix/domain/set
@@ -241,11 +241,11 @@ func (c *Client) HeaderchecksGetHeadercheck(ctx context.Context, opts ...string)
 }
 
 // HeaderchecksSearchHeaderchecks calls GET,POST /api/postfix/headerchecks/searchHeaderchecks
-func (c *Client) HeaderchecksSearchHeaderchecks(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) HeaderchecksSearchHeaderchecks(ctx context.Context, body any) (*opnsense.SearchResult[Headercheck], error) {
 	path := "/api/postfix/headerchecks/searchHeaderchecks"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Headercheck]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // HeaderchecksSet calls POST /api/postfix/headerchecks/set
@@ -316,11 +316,11 @@ func (c *Client) RecipientGetRecipient(ctx context.Context, opts ...string) (*Re
 }
 
 // RecipientSearchRecipient calls GET,POST /api/postfix/recipient/searchRecipient
-func (c *Client) RecipientSearchRecipient(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) RecipientSearchRecipient(ctx context.Context, body any) (*opnsense.SearchResult[Recipient], error) {
 	path := "/api/postfix/recipient/searchRecipient"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Recipient]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // RecipientSet calls POST /api/postfix/recipient/set
@@ -391,11 +391,11 @@ func (c *Client) RecipientbccGetRecipientbcc(ctx context.Context, opts ...string
 }
 
 // RecipientbccSearchRecipientbcc calls GET,POST /api/postfix/recipientbcc/searchRecipientbcc
-func (c *Client) RecipientbccSearchRecipientbcc(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) RecipientbccSearchRecipientbcc(ctx context.Context, body any) (*opnsense.SearchResult[Recipientbcc], error) {
 	path := "/api/postfix/recipientbcc/searchRecipientbcc"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Recipientbcc]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // RecipientbccSet calls POST /api/postfix/recipientbcc/set
@@ -466,11 +466,11 @@ func (c *Client) SenderGetSender(ctx context.Context, opts ...string) (*Sender, 
 }
 
 // SenderSearchSender calls GET,POST /api/postfix/sender/searchSender
-func (c *Client) SenderSearchSender(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SenderSearchSender(ctx context.Context, body any) (*opnsense.SearchResult[Sender], error) {
 	path := "/api/postfix/sender/searchSender"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Sender]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // SenderSet calls POST /api/postfix/sender/set
@@ -541,11 +541,11 @@ func (c *Client) SenderbccGetSenderbcc(ctx context.Context, opts ...string) (*Se
 }
 
 // SenderbccSearchSenderbcc calls GET,POST /api/postfix/senderbcc/searchSenderbcc
-func (c *Client) SenderbccSearchSenderbcc(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SenderbccSearchSenderbcc(ctx context.Context, body any) (*opnsense.SearchResult[Senderbcc], error) {
 	path := "/api/postfix/senderbcc/searchSenderbcc"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Senderbcc]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // SenderbccSet calls POST /api/postfix/senderbcc/set
@@ -616,11 +616,11 @@ func (c *Client) SendercanonicalGetSendercanonical(ctx context.Context, opts ...
 }
 
 // SendercanonicalSearchSendercanonical calls GET,POST /api/postfix/sendercanonical/searchSendercanonical
-func (c *Client) SendercanonicalSearchSendercanonical(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SendercanonicalSearchSendercanonical(ctx context.Context, body any) (*opnsense.SearchResult[Sendercanonical], error) {
 	path := "/api/postfix/sendercanonical/searchSendercanonical"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Sendercanonical]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // SendercanonicalSet calls POST /api/postfix/sendercanonical/set

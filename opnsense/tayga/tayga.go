@@ -75,11 +75,11 @@ func (c *Client) MappingGetStaticmapping(ctx context.Context, opts ...string) (*
 }
 
 // MappingSearchStaticmapping calls GET,POST /api/tayga/mapping/searchStaticmapping
-func (c *Client) MappingSearchStaticmapping(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) MappingSearchStaticmapping(ctx context.Context, body any) (*opnsense.SearchResult[Staticmapping], error) {
 	path := "/api/tayga/mapping/searchStaticmapping"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Staticmapping]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // MappingSet calls POST /api/tayga/mapping/set

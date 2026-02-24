@@ -177,27 +177,27 @@ func (c *Client) SettingsGetTest(ctx context.Context, opts ...string) (*Test, er
 }
 
 // SettingsSearchAlert calls GET,POST /api/monit/settings/searchAlert
-func (c *Client) SettingsSearchAlert(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSearchAlert(ctx context.Context, body any) (*opnsense.SearchResult[Alert], error) {
 	path := "/api/monit/settings/searchAlert"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Alert]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // SettingsSearchService calls GET,POST /api/monit/settings/searchService
-func (c *Client) SettingsSearchService(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSearchService(ctx context.Context, body any) (*opnsense.SearchResult[Service], error) {
 	path := "/api/monit/settings/searchService"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Service]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // SettingsSearchTest calls GET,POST /api/monit/settings/searchTest
-func (c *Client) SettingsSearchTest(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSearchTest(ctx context.Context, body any) (*opnsense.SearchResult[Test], error) {
 	path := "/api/monit/settings/searchTest"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Test]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // SettingsSet calls POST /api/monit/settings/set

@@ -59,11 +59,11 @@ func (c *Client) AccountsGetItem(ctx context.Context, opts ...string) (*Account,
 }
 
 // AccountsSearchItem calls GET,POST /api/dyndns/accounts/searchItem
-func (c *Client) AccountsSearchItem(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) AccountsSearchItem(ctx context.Context, body any) (*opnsense.SearchResult[Account], error) {
 	path := "/api/dyndns/accounts/searchItem"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Account]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // AccountsSet calls POST /api/dyndns/accounts/set

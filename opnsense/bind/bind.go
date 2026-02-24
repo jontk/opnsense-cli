@@ -59,11 +59,11 @@ func (c *Client) AclGetAcl(ctx context.Context, opts ...string) (*Acl, error) {
 }
 
 // AclSearchAcl calls GET,POST /api/bind/acl/searchAcl
-func (c *Client) AclSearchAcl(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) AclSearchAcl(ctx context.Context, body any) (*opnsense.SearchResult[Acl], error) {
 	path := "/api/bind/acl/searchAcl"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Acl]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // AclSet calls POST /api/bind/acl/set
@@ -181,43 +181,43 @@ func (c *Client) DomainGetDomain(ctx context.Context, opts ...string) (*Domain, 
 }
 
 // DomainSearchForwardDomain calls GET,POST /api/bind/domain/searchForwardDomain
-func (c *Client) DomainSearchForwardDomain(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) DomainSearchForwardDomain(ctx context.Context, body any) (*opnsense.SearchResult[Domain], error) {
 	path := "/api/bind/domain/searchForwardDomain"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Domain]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // DomainSearchMasterDomain calls GET /api/bind/domain/searchMasterDomain
-func (c *Client) DomainSearchMasterDomain(ctx context.Context) (map[string]any, error) {
+func (c *Client) DomainSearchMasterDomain(ctx context.Context) (*opnsense.SearchResult[Domain], error) {
 	path := "/api/bind/domain/searchMasterDomain"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Domain]
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // DomainSearchPrimaryDomain calls GET,POST /api/bind/domain/searchPrimaryDomain
-func (c *Client) DomainSearchPrimaryDomain(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) DomainSearchPrimaryDomain(ctx context.Context, body any) (*opnsense.SearchResult[Domain], error) {
 	path := "/api/bind/domain/searchPrimaryDomain"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Domain]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // DomainSearchSecondaryDomain calls GET,POST /api/bind/domain/searchSecondaryDomain
-func (c *Client) DomainSearchSecondaryDomain(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) DomainSearchSecondaryDomain(ctx context.Context, body any) (*opnsense.SearchResult[Domain], error) {
 	path := "/api/bind/domain/searchSecondaryDomain"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Domain]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // DomainSearchSlaveDomain calls GET /api/bind/domain/searchSlaveDomain
-func (c *Client) DomainSearchSlaveDomain(ctx context.Context) (map[string]any, error) {
+func (c *Client) DomainSearchSlaveDomain(ctx context.Context) (*opnsense.SearchResult[Domain], error) {
 	path := "/api/bind/domain/searchSlaveDomain"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Domain]
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // DomainSet calls POST /api/bind/domain/set
@@ -333,11 +333,11 @@ func (c *Client) RecordGetRecord(ctx context.Context, opts ...string) (*Record, 
 }
 
 // RecordSearchRecord calls GET,POST /api/bind/record/searchRecord
-func (c *Client) RecordSearchRecord(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) RecordSearchRecord(ctx context.Context, body any) (*opnsense.SearchResult[Record], error) {
 	path := "/api/bind/record/searchRecord"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Record]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // RecordSet calls POST /api/bind/record/set

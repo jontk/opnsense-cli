@@ -59,11 +59,11 @@ func (c *Client) AvpairGetAvpair(ctx context.Context, opts ...string) (*Avpair, 
 }
 
 // AvpairSearchAvpair calls GET,POST /api/freeradius/avpair/searchAvpair
-func (c *Client) AvpairSearchAvpair(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) AvpairSearchAvpair(ctx context.Context, body any) (*opnsense.SearchResult[Avpair], error) {
 	path := "/api/freeradius/avpair/searchAvpair"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Avpair]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // AvpairSet calls POST /api/freeradius/avpair/set
@@ -134,11 +134,11 @@ func (c *Client) ClientGetClient(ctx context.Context, opts ...string) (*ClientCo
 }
 
 // ClientSearchClient calls GET /api/freeradius/client/searchClient
-func (c *Client) ClientSearchClient(ctx context.Context) (map[string]any, error) {
+func (c *Client) ClientSearchClient(ctx context.Context) (*opnsense.SearchResult[ClientConfig], error) {
 	path := "/api/freeradius/client/searchClient"
-	var resp map[string]any
+	var resp opnsense.SearchResult[ClientConfig]
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // ClientSet calls POST /api/freeradius/client/set
@@ -209,11 +209,11 @@ func (c *Client) DhcpGetDhcp(ctx context.Context, opts ...string) (*Dhcp, error)
 }
 
 // DhcpSearchDhcp calls GET,POST /api/freeradius/dhcp/searchDhcp
-func (c *Client) DhcpSearchDhcp(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) DhcpSearchDhcp(ctx context.Context, body any) (*opnsense.SearchResult[Dhcp], error) {
 	path := "/api/freeradius/dhcp/searchDhcp"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Dhcp]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // DhcpSet calls POST /api/freeradius/dhcp/set
@@ -332,11 +332,11 @@ func (c *Client) LdapgroupGetLdapgroup(ctx context.Context, opts ...string) (*Ld
 }
 
 // LdapgroupSearchLdapgroup calls GET /api/freeradius/ldapgroup/searchLdapgroup
-func (c *Client) LdapgroupSearchLdapgroup(ctx context.Context) (map[string]any, error) {
+func (c *Client) LdapgroupSearchLdapgroup(ctx context.Context) (*opnsense.SearchResult[Ldapgroup], error) {
 	path := "/api/freeradius/ldapgroup/searchLdapgroup"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Ldapgroup]
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // LdapgroupSet calls POST /api/freeradius/ldapgroup/set
@@ -407,11 +407,11 @@ func (c *Client) LeaseGetLease(ctx context.Context, opts ...string) (*Lease, err
 }
 
 // LeaseSearchLease calls GET,POST /api/freeradius/lease/searchLease
-func (c *Client) LeaseSearchLease(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) LeaseSearchLease(ctx context.Context, body any) (*opnsense.SearchResult[Lease], error) {
 	path := "/api/freeradius/lease/searchLease"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Lease]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // LeaseSet calls POST /api/freeradius/lease/set
@@ -544,27 +544,27 @@ func (c *Client) ProxyGetRealm(ctx context.Context, opts ...string) (*Realm, err
 }
 
 // ProxySearchHomeserver calls GET /api/freeradius/proxy/searchHomeserver
-func (c *Client) ProxySearchHomeserver(ctx context.Context) (map[string]any, error) {
+func (c *Client) ProxySearchHomeserver(ctx context.Context) (*opnsense.SearchResult[Homeserver], error) {
 	path := "/api/freeradius/proxy/searchHomeserver"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Homeserver]
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // ProxySearchHomeserverpool calls GET /api/freeradius/proxy/searchHomeserverpool
-func (c *Client) ProxySearchHomeserverpool(ctx context.Context) (map[string]any, error) {
+func (c *Client) ProxySearchHomeserverpool(ctx context.Context) (*opnsense.SearchResult[Homeserverpool], error) {
 	path := "/api/freeradius/proxy/searchHomeserverpool"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Homeserverpool]
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // ProxySearchRealm calls GET /api/freeradius/proxy/searchRealm
-func (c *Client) ProxySearchRealm(ctx context.Context) (map[string]any, error) {
+func (c *Client) ProxySearchRealm(ctx context.Context) (*opnsense.SearchResult[Realm], error) {
 	path := "/api/freeradius/proxy/searchRealm"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Realm]
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // ProxySet calls POST /api/freeradius/proxy/set
@@ -715,11 +715,11 @@ func (c *Client) UserGetUser(ctx context.Context, opts ...string) (*User, error)
 }
 
 // UserSearchUser calls GET /api/freeradius/user/searchUser
-func (c *Client) UserSearchUser(ctx context.Context) (map[string]any, error) {
+func (c *Client) UserSearchUser(ctx context.Context) (*opnsense.SearchResult[User], error) {
 	path := "/api/freeradius/user/searchUser"
-	var resp map[string]any
+	var resp opnsense.SearchResult[User]
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // UserSet calls POST /api/freeradius/user/set

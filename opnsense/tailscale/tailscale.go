@@ -123,11 +123,11 @@ func (c *Client) SettingsReload(ctx context.Context) (map[string]any, error) {
 }
 
 // SettingsSearchSubnet calls GET,POST /api/tailscale/settings/searchSubnet
-func (c *Client) SettingsSearchSubnet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSearchSubnet(ctx context.Context, body any) (*opnsense.SearchResult[Subnet4], error) {
 	path := "/api/tailscale/settings/searchSubnet"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Subnet4]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // SettingsSet calls POST /api/tailscale/settings/set

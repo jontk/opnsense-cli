@@ -364,43 +364,43 @@ func (c *Client) SettingsGetNameservers(ctx context.Context) (map[string]any, er
 }
 
 // SettingsSearchAcl calls GET,POST /api/unbound/settings/searchAcl
-func (c *Client) SettingsSearchAcl(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSearchAcl(ctx context.Context, body any) (*opnsense.SearchResult[Acl], error) {
 	path := "/api/unbound/settings/searchAcl"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Acl]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // SettingsSearchDnsbl calls GET,POST /api/unbound/settings/searchDnsbl
-func (c *Client) SettingsSearchDnsbl(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSearchDnsbl(ctx context.Context, body any) (*opnsense.SearchResult[Blocklist], error) {
 	path := "/api/unbound/settings/searchDnsbl"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Blocklist]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // SettingsSearchForward calls GET,POST /api/unbound/settings/searchForward
-func (c *Client) SettingsSearchForward(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSearchForward(ctx context.Context, body any) (*opnsense.SearchResult[Forwarding], error) {
 	path := "/api/unbound/settings/searchForward"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Forwarding]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // SettingsSearchHostAlias calls GET,POST /api/unbound/settings/searchHostAlias
-func (c *Client) SettingsSearchHostAlias(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSearchHostAlias(ctx context.Context, body any) (*opnsense.SearchResult[Alias], error) {
 	path := "/api/unbound/settings/searchHostAlias"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Alias]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // SettingsSearchHostOverride calls GET,POST /api/unbound/settings/searchHostOverride
-func (c *Client) SettingsSearchHostOverride(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSearchHostOverride(ctx context.Context, body any) (*opnsense.SearchResult[Host], error) {
 	path := "/api/unbound/settings/searchHostOverride"
-	var resp map[string]any
+	var resp opnsense.SearchResult[Host]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // SettingsSet calls POST /api/unbound/settings/set
