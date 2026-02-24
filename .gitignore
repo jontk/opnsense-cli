@@ -1,0 +1,4 @@
+docs/api/
+docs/models/
+.venv/
+__pycache__/
