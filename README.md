@@ -109,6 +109,20 @@ result, err := fw.AliasGetTableSize(ctx)
 // result is map[string]any
 ```
 
+### Examples
+
+Runnable examples are in [`examples/`](examples/):
+
+```sh
+# List all firewall aliases
+OPNSENSE_URL=https://192.168.1.1 OPNSENSE_KEY=key OPNSENSE_SECRET=secret \
+  go run ./examples/list-aliases
+
+# Check firmware update status
+OPNSENSE_URL=https://192.168.1.1 OPNSENSE_KEY=key OPNSENSE_SECRET=secret \
+  go run ./examples/firmware-status
+```
+
 ## Modules
 
 Each OPNsense API module is a separate Go package under `opnsense/`:
@@ -172,4 +186,12 @@ generate/             # Python code generator
   templates/          #   Jinja2 templates
 
 crawl_api_docs.py     # documentation scraper
+
+examples/             # runnable example programs
+  list-aliases/       #   list all firewall aliases
+  firmware-status/    #   check firmware update status
+
+.github/workflows/
+  ci.yml              # run Go + Python tests on push/PR
+  regenerate.yml      # weekly re-crawl + auto-PR
 ```
