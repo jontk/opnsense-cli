@@ -13,6 +13,8 @@ type Client struct {
 	apiKey     string
 	apiSecret  string
 	httpClient *http.Client
+	maxRetries int
+	retryDelay time.Duration
 }
 
 // NewClient creates a new OPNsense API client.
@@ -74,5 +76,15 @@ func WithInsecureTLS() Option {
 func WithTimeout(d time.Duration) Option {
 	return func(c *Client) {
 		c.httpClient.Timeout = d
+	}
+}
+
+// WithRetry enables automatic retry with exponential backoff for transient
+// errors (5xx responses, network errors). The initial delay doubles on each
+// attempt with jitter. Set maxRetries to 0 to disable (the default).
+func WithRetry(maxRetries int, initialDelay time.Duration) Option {
+	return func(c *Client) {
+		c.maxRetries = maxRetries
+		c.retryDelay = initialDelay
 	}
 }

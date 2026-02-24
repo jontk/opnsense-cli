@@ -67,9 +67,10 @@ func main() {
 
 ```go
 opnsense.NewClient(url, key, secret,
-	opnsense.WithInsecureTLS(),              // skip TLS verification
-	opnsense.WithTimeout(60 * time.Second),  // custom timeout
-	opnsense.WithHTTPClient(customClient),   // bring your own http.Client
+	opnsense.WithInsecureTLS(),                       // skip TLS verification
+	opnsense.WithTimeout(60 * time.Second),           // custom timeout
+	opnsense.WithRetry(3, 500 * time.Millisecond),   // retry 5xx/network errors
+	opnsense.WithHTTPClient(customClient),            // bring your own http.Client
 )
 ```
 
