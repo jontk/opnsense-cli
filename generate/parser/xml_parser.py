@@ -280,6 +280,8 @@ def _parse_field(field_elem: ET.Element) -> ModelField | None:
             opt_val = opt.tag
             options.append(opt_val)
 
+    go_type = _field_type_to_go(field_type)
+
     return ModelField(
         name=name,
         field_type=field_type,
@@ -290,7 +292,17 @@ def _parse_field(field_elem: ET.Element) -> ModelField | None:
         volatile=volatile,
         multiple=multiple,
         options=options,
+        go_type=go_type,
     )
+
+
+def _field_type_to_go(field_type: str) -> str:
+    """Map an OPNsense XML field type to a Go type."""
+    if field_type == "BooleanField":
+        return "opnsense.OPNBool"
+    if field_type == "IntegerField":
+        return "opnsense.OPNInt"
+    return "string"
 
 
 def _looks_like_field(elem: ET.Element) -> bool:

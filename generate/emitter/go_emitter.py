@@ -50,6 +50,7 @@ class ModuleView:
 class TypeFieldView:
     """Template-friendly view of a ModelField."""
     go_name: str
+    go_type: str  # "string", "opnsense.OPNBool", "*opnsense.OPNBool", etc.
     json_name: str
     omitempty: bool
     options: list[str]
@@ -106,7 +107,12 @@ def emit(spec: APISpec, output_dir: str | Path | None = None) -> None:
             item_views = [_type_item_view(item) for item in items]
             # Collect response wrappers needed for get_* typed endpoints
             wrappers = _collect_response_wrappers(ep_views)
-            _emit_types(env, pkg_dir, pkg, item_views, wrappers)
+            # Check if any field uses opnsense types (OPNBool, OPNInt)
+            needs_opnsense_import = any(
+                "opnsense." in f.go_type
+                for iv in item_views for f in iv.fields
+            )
+            _emit_types(env, pkg_dir, pkg, item_views, wrappers, needs_opnsense_import)
 
         # Track for api.go — deduplicate by field name
         field_name = _module_field_name(module.name)
@@ -234,10 +240,16 @@ def _type_item_view(item: ModelItem) -> TypeItemView:
         if go_name in seen_fields:
             continue
         seen_fields.add(go_name)
+        omitempty = not f.required or f.volatile
+        go_type = f.go_type
+        # Use pointer types for optional bool/int fields so nil = unset
+        if omitempty and go_type != "string":
+            go_type = "*" + go_type
         fields.append(TypeFieldView(
             go_name=go_name,
+            go_type=go_type,
             json_name=f.json_name,
-            omitempty=not f.required or f.volatile,
+            omitempty=omitempty,
             options=f.options,
         ))
 
@@ -299,6 +311,7 @@ def _emit_types(
     pkg: str,
     items: list[TypeItemView],
     wrappers: list[dict[str, str]] | None = None,
+    needs_opnsense_import: bool = False,
 ) -> None:
     """Emit the types Go file."""
     template = env.get_template("types.go.j2")
@@ -306,6 +319,7 @@ def _emit_types(
         package_name=pkg,
         items=items,
         wrappers=wrappers or [],
+        needs_opnsense_import=needs_opnsense_import,
     )
     (pkg_dir / "types.go").write_text(content, encoding="utf-8")
 

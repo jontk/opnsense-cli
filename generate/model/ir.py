@@ -38,6 +38,7 @@ class ModelField:
     volatile: bool = False
     multiple: bool = False
     options: list[str] = field(default_factory=list)
+    go_type: str = "string"  # Go type: "string", "opnsense.OPNBool", "opnsense.OPNInt"
 
 
 @dataclass
