@@ -54,6 +54,8 @@ class TypeFieldView:
     json_name: str
     omitempty: bool
     options: list[str]
+    required: bool = False
+    default: str | None = None
 
 
 @dataclass
@@ -251,6 +253,8 @@ def _type_item_view(item: ModelItem) -> TypeItemView:
             json_name=f.json_name,
             omitempty=omitempty,
             options=f.options,
+            required=f.required,
+            default=f.default,
         ))
 
     go_name = item.go_name
