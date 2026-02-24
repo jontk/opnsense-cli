@@ -2,27 +2,29 @@
 
 package stunnel
 
+import "github.com/jontk/opnsense-cli/opnsense"
+
 // General represents a general model item.
 type General struct {
-	Enabled           string `json:"enabled"`
-	Chroot            string `json:"chroot"`
-	EnableIdentServer string `json:"enable_ident_server"`
+	Enabled           opnsense.OPNBool `json:"enabled"`
+	Chroot            opnsense.OPNBool `json:"chroot"`
+	EnableIdentServer opnsense.OPNBool `json:"enable_ident_server"`
 }
 
 // Service represents a service model item.
 type Service struct {
-	Enabled        string `json:"enabled"`
-	AcceptPort     string `json:"accept_port"`
-	AcceptAddress  string `json:"accept_address"`
-	ConnectAddress string `json:"connect_address"`
-	ConnectPort    string `json:"connect_port"`
-	Protocol       string `json:"protocol,omitempty"` // Valid values: imap, ldap, nntp, pop3, smtp
-	Cacert         string `json:"cacert,omitempty"`
-	EnableCRL      string `json:"enableCRL"`
-	Clientmode     string `json:"clientmode"`
-	Ciphers        string `json:"ciphers"`
-	Servercert     string `json:"servercert"`
-	Description    string `json:"description,omitempty"`
+	Enabled        opnsense.OPNBool `json:"enabled"`
+	AcceptPort     opnsense.OPNInt  `json:"accept_port"`
+	AcceptAddress  string           `json:"accept_address"`
+	ConnectAddress string           `json:"connect_address"`
+	ConnectPort    opnsense.OPNInt  `json:"connect_port"`
+	Protocol       string           `json:"protocol,omitempty"` // Valid values: imap, ldap, nntp, pop3, smtp
+	Cacert         string           `json:"cacert,omitempty"`
+	EnableCRL      opnsense.OPNBool `json:"enableCRL"`
+	Clientmode     opnsense.OPNBool `json:"clientmode"`
+	Ciphers        string           `json:"ciphers"`
+	Servercert     string           `json:"servercert"`
+	Description    string           `json:"description,omitempty"`
 }
 
 type serviceGetItemResponse struct {

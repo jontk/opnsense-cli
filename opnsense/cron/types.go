@@ -2,19 +2,21 @@
 
 package cron
 
+import "github.com/jontk/opnsense-cli/opnsense"
+
 // Job represents a job model item.
 type Job struct {
-	Origin      string `json:"origin"`
-	Enabled     string `json:"enabled"`
-	Minutes     string `json:"minutes"`
-	Hours       string `json:"hours"`
-	Days        string `json:"days"`
-	Months      string `json:"months"`
-	Weekdays    string `json:"weekdays"`
-	Who         string `json:"who"`
-	Command     string `json:"command"`
-	Parameters  string `json:"parameters,omitempty"`
-	Description string `json:"description"`
+	Origin      string           `json:"origin"`
+	Enabled     opnsense.OPNBool `json:"enabled"`
+	Minutes     string           `json:"minutes"`
+	Hours       string           `json:"hours"`
+	Days        string           `json:"days"`
+	Months      string           `json:"months"`
+	Weekdays    string           `json:"weekdays"`
+	Who         string           `json:"who"`
+	Command     string           `json:"command"`
+	Parameters  string           `json:"parameters,omitempty"`
+	Description string           `json:"description"`
 }
 
 type jobGetItemResponse struct {

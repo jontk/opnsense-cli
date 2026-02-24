@@ -2,36 +2,38 @@
 
 package radsecproxy
 
+import "github.com/jontk/opnsense-cli/opnsense"
+
 // General represents a general model item.
 type General struct {
-	Enabled         string `json:"enabled"`
-	LogLevel        string `json:"logLevel"`        // Valid values: ll1, ll2, ll3, ll4, ll5
-	LogFullUsername string `json:"logFullUsername"` // Valid values: on, off
-	LogMac          string `json:"logMac"`          // Valid values: Static, Original, VendorHashed, VendorKeyHashed, FullyHashed, FullyKeyHashed
-	LoopPrevention  string `json:"loopPrevention"`  // Valid values: on, off
-	ListenUdp       string `json:"listenUdp,omitempty"`
-	ListenTcp       string `json:"listenTcp,omitempty"`
-	ListenTls       string `json:"listenTls,omitempty"`
-	ListenDtls      string `json:"listenDtls,omitempty"`
-	SourceUdp       string `json:"sourceUdp,omitempty"`
-	SourceTcp       string `json:"sourceTcp,omitempty"`
-	SourceTls       string `json:"sourceTls,omitempty"`
-	SourceDtls      string `json:"sourceDtls,omitempty"`
+	Enabled         opnsense.OPNBool `json:"enabled"`
+	LogLevel        string           `json:"logLevel"`        // Valid values: ll1, ll2, ll3, ll4, ll5
+	LogFullUsername string           `json:"logFullUsername"` // Valid values: on, off
+	LogMac          string           `json:"logMac"`          // Valid values: Static, Original, VendorHashed, VendorKeyHashed, FullyHashed, FullyKeyHashed
+	LoopPrevention  string           `json:"loopPrevention"`  // Valid values: on, off
+	ListenUdp       string           `json:"listenUdp,omitempty"`
+	ListenTcp       string           `json:"listenTcp,omitempty"`
+	ListenTls       string           `json:"listenTls,omitempty"`
+	ListenDtls      string           `json:"listenDtls,omitempty"`
+	SourceUdp       string           `json:"sourceUdp,omitempty"`
+	SourceTcp       string           `json:"sourceTcp,omitempty"`
+	SourceTls       string           `json:"sourceTls,omitempty"`
+	SourceDtls      string           `json:"sourceDtls,omitempty"`
 }
 
 // ClientConfig represents a client model item.
 type ClientConfig struct {
-	Enabled                   string `json:"enabled"`
-	Identifier                string `json:"identifier"`
-	Description               string `json:"description,omitempty"`
-	Host                      string `json:"host"`
-	Type                      string `json:"type"` // Valid values: udp, tcp, tls, dtls
-	Secret                    string `json:"secret,omitempty"`
-	TlsConfig                 string `json:"tlsConfig,omitempty"`
-	CertificateNameCheck      string `json:"certificateNameCheck"` // Valid values: on, off
-	MatchCertificateAttribute string `json:"matchCertificateAttribute,omitempty"`
-	RewriteIn                 string `json:"rewriteIn,omitempty"`
-	RewriteOut                string `json:"rewriteOut,omitempty"`
+	Enabled                   opnsense.OPNBool `json:"enabled"`
+	Identifier                string           `json:"identifier"`
+	Description               string           `json:"description,omitempty"`
+	Host                      string           `json:"host"`
+	Type                      string           `json:"type"` // Valid values: udp, tcp, tls, dtls
+	Secret                    string           `json:"secret,omitempty"`
+	TlsConfig                 string           `json:"tlsConfig,omitempty"`
+	CertificateNameCheck      string           `json:"certificateNameCheck"` // Valid values: on, off
+	MatchCertificateAttribute string           `json:"matchCertificateAttribute,omitempty"`
+	RewriteIn                 string           `json:"rewriteIn,omitempty"`
+	RewriteOut                string           `json:"rewriteOut,omitempty"`
 }
 
 // Server represents a server model item.
@@ -52,41 +54,41 @@ type Server struct {
 
 // TlsConfig represents a tlsConfig model item.
 type TlsConfig struct {
-	Name                  string `json:"name"`
-	Description           string `json:"description,omitempty"`
-	CaCertificateRefId    string `json:"caCertificateRefId"`
-	ProxyCertificateRefId string `json:"proxyCertificateRefId"`
-	PolicyOids            string `json:"policyOids,omitempty"`
-	CrlCheck              string `json:"crlCheck"` // Valid values: on, off
-	CacheExpiry           string `json:"cacheExpiry,omitempty"`
+	Name                  string           `json:"name"`
+	Description           string           `json:"description,omitempty"`
+	CaCertificateRefId    string           `json:"caCertificateRefId"`
+	ProxyCertificateRefId string           `json:"proxyCertificateRefId"`
+	PolicyOids            string           `json:"policyOids,omitempty"`
+	CrlCheck              string           `json:"crlCheck"` // Valid values: on, off
+	CacheExpiry           *opnsense.OPNInt `json:"cacheExpiry,omitempty"`
 }
 
 // Realm represents a realm model item.
 type Realm struct {
-	Enabled            string `json:"enabled"`
-	Description        string `json:"description,omitempty"`
-	Realm              string `json:"realm"`
-	Server             string `json:"server,omitempty"`
-	AccountingServer   string `json:"accountingServer,omitempty"`
-	AccountingResponse string `json:"accountingResponse"` // Valid values: on, off
-	ReplyMessage       string `json:"replyMessage,omitempty"`
+	Enabled            opnsense.OPNBool `json:"enabled"`
+	Description        string           `json:"description,omitempty"`
+	Realm              string           `json:"realm"`
+	Server             string           `json:"server,omitempty"`
+	AccountingServer   string           `json:"accountingServer,omitempty"`
+	AccountingResponse string           `json:"accountingResponse"` // Valid values: on, off
+	ReplyMessage       string           `json:"replyMessage,omitempty"`
 }
 
 // Rewrite represents a rewrite model item.
 type Rewrite struct {
-	Enabled                    string `json:"enabled"`
-	Name                       string `json:"name"`
-	AddAttributes              string `json:"addAttributes,omitempty"`
-	AddVendorAttributes        string `json:"addVendorAttributes,omitempty"`
-	SupplementAttributes       string `json:"supplementAttributes,omitempty"`
-	SupplementVendorAttributes string `json:"supplementVendorAttributes,omitempty"`
-	ModifyAttributes           string `json:"modifyAttributes,omitempty"`
-	ModifyVendorAttributes     string `json:"modifyVendorAttributes,omitempty"`
-	RemoveAttributes           string `json:"removeAttributes,omitempty"`
-	RemoveVendorAttributes     string `json:"removeVendorAttributes,omitempty"`
-	WhitelistMode              string `json:"whitelistMode"` // Valid values: on, off
-	WhitelistAttributes        string `json:"whitelistAttributes,omitempty"`
-	WhitelistVendorAttributes  string `json:"whitelistVendorAttributes,omitempty"`
+	Enabled                    opnsense.OPNBool `json:"enabled"`
+	Name                       string           `json:"name"`
+	AddAttributes              string           `json:"addAttributes,omitempty"`
+	AddVendorAttributes        string           `json:"addVendorAttributes,omitempty"`
+	SupplementAttributes       string           `json:"supplementAttributes,omitempty"`
+	SupplementVendorAttributes string           `json:"supplementVendorAttributes,omitempty"`
+	ModifyAttributes           string           `json:"modifyAttributes,omitempty"`
+	ModifyVendorAttributes     string           `json:"modifyVendorAttributes,omitempty"`
+	RemoveAttributes           string           `json:"removeAttributes,omitempty"`
+	RemoveVendorAttributes     string           `json:"removeVendorAttributes,omitempty"`
+	WhitelistMode              string           `json:"whitelistMode"` // Valid values: on, off
+	WhitelistAttributes        string           `json:"whitelistAttributes,omitempty"`
+	WhitelistVendorAttributes  string           `json:"whitelistVendorAttributes,omitempty"`
 }
 
 type clientGetItemResponse struct {

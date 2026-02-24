@@ -2,11 +2,13 @@
 
 package telegraf
 
+import "github.com/jontk/opnsense-cli/opnsense"
+
 // Key represents a key model item.
 type Key struct {
-	Enabled string `json:"enabled"`
-	Name    string `json:"name,omitempty"`
-	Value   string `json:"value,omitempty"`
+	Enabled opnsense.OPNBool `json:"enabled"`
+	Name    string           `json:"name,omitempty"`
+	Value   string           `json:"value,omitempty"`
 }
 
 type keyGetItemResponse struct {

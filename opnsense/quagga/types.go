@@ -2,132 +2,134 @@
 
 package quagga
 
+import "github.com/jontk/opnsense-cli/opnsense"
+
 // Settings represents a settings model item.
 type Settings struct {
-	Enabled string `json:"enabled"`
+	Enabled opnsense.OPNBool `json:"enabled"`
 }
 
 // Neighbor represents a neighbor model item.
 type Neighbor struct {
-	Enabled          string `json:"enabled"`
-	Description      string `json:"description,omitempty"`
-	Address          string `json:"address"`
-	Multihop         string `json:"multihop"`
-	DetectMultiplier string `json:"detect_multiplier"`
-	ReceiveInterval  string `json:"receive_interval"`
-	TransmitInterval string `json:"transmit_interval"`
+	Enabled          opnsense.OPNBool `json:"enabled"`
+	Description      string           `json:"description,omitempty"`
+	Address          string           `json:"address"`
+	Multihop         opnsense.OPNBool `json:"multihop"`
+	DetectMultiplier opnsense.OPNInt  `json:"detect_multiplier"`
+	ReceiveInterval  opnsense.OPNInt  `json:"receive_interval"`
+	TransmitInterval opnsense.OPNInt  `json:"transmit_interval"`
 }
 
 // Aspath represents a aspath model item.
 type Aspath struct {
-	Enabled     string `json:"enabled"`
-	Description string `json:"description,omitempty"`
-	Number      string `json:"number"`
-	Action      string `json:"action"` // Valid values: permit, deny
-	As          string `json:"as"`
+	Enabled     opnsense.OPNBool `json:"enabled"`
+	Description string           `json:"description,omitempty"`
+	Number      opnsense.OPNInt  `json:"number"`
+	Action      string           `json:"action"` // Valid values: permit, deny
+	As          string           `json:"as"`
 }
 
 // Prefixlist represents a prefixlist model item.
 type Prefixlist struct {
-	Enabled     string `json:"enabled"`
-	Description string `json:"description,omitempty"`
-	Name        string `json:"name"`
-	Version     string `json:"version"` // Valid values: IPv4, IPv6
-	Seqnumber   string `json:"seqnumber"`
-	Action      string `json:"action"` // Valid values: permit, deny
-	Network     string `json:"network"`
+	Enabled     opnsense.OPNBool `json:"enabled"`
+	Description string           `json:"description,omitempty"`
+	Name        string           `json:"name"`
+	Version     string           `json:"version"` // Valid values: IPv4, IPv6
+	Seqnumber   opnsense.OPNInt  `json:"seqnumber"`
+	Action      string           `json:"action"` // Valid values: permit, deny
+	Network     string           `json:"network"`
 }
 
 // Communitylist represents a communitylist model item.
 type Communitylist struct {
-	Enabled     string `json:"enabled"`
-	Description string `json:"description,omitempty"`
-	Number      string `json:"number"`
-	Seqnumber   string `json:"seqnumber"`
-	Action      string `json:"action"` // Valid values: permit, deny
-	Community   string `json:"community"`
+	Enabled     opnsense.OPNBool `json:"enabled"`
+	Description string           `json:"description,omitempty"`
+	Number      opnsense.OPNInt  `json:"number"`
+	Seqnumber   opnsense.OPNInt  `json:"seqnumber"`
+	Action      string           `json:"action"` // Valid values: permit, deny
+	Community   string           `json:"community"`
 }
 
 // Routemap represents a routemap model item.
 type Routemap struct {
-	Enabled     string `json:"enabled"`
-	Description string `json:"description,omitempty"`
-	Name        string `json:"name"`
-	Action      string `json:"action"` // Valid values: permit, deny
-	Id          string `json:"id"`
-	Match       string `json:"match,omitempty"`
-	Match2      string `json:"match2,omitempty"`
-	Match3      string `json:"match3,omitempty"`
-	Set         string `json:"set,omitempty"`
+	Enabled     opnsense.OPNBool `json:"enabled"`
+	Description string           `json:"description,omitempty"`
+	Name        string           `json:"name"`
+	Action      string           `json:"action"` // Valid values: permit, deny
+	Id          opnsense.OPNInt  `json:"id"`
+	Match       string           `json:"match,omitempty"`
+	Match2      string           `json:"match2,omitempty"`
+	Match3      string           `json:"match3,omitempty"`
+	Set         string           `json:"set,omitempty"`
 }
 
 // Peergroup represents a peergroup model item.
 type Peergroup struct {
-	Enabled             string `json:"enabled"`
-	Name                string `json:"name"`
-	RemoteAsMode        string `json:"remote_as_mode,omitempty"` // Valid values: internal, external
-	Remoteas            string `json:"remoteas,omitempty"`
-	Family              string `json:"family"` // Valid values: ipv4, ipv6
-	Listenranges        string `json:"listenranges,omitempty"`
-	Updatesource        string `json:"updatesource,omitempty"`
-	Nexthopself         string `json:"nexthopself,omitempty"`
-	Defaultoriginate    string `json:"defaultoriginate,omitempty"`
-	LinkedPrefixlistIn  string `json:"linkedPrefixlistIn,omitempty"`
-	LinkedPrefixlistOut string `json:"linkedPrefixlistOut,omitempty"`
-	LinkedRoutemapIn    string `json:"linkedRoutemapIn,omitempty"`
-	LinkedRoutemapOut   string `json:"linkedRoutemapOut,omitempty"`
+	Enabled             opnsense.OPNBool  `json:"enabled"`
+	Name                string            `json:"name"`
+	RemoteAsMode        string            `json:"remote_as_mode,omitempty"` // Valid values: internal, external
+	Remoteas            *opnsense.OPNInt  `json:"remoteas,omitempty"`
+	Family              string            `json:"family"` // Valid values: ipv4, ipv6
+	Listenranges        string            `json:"listenranges,omitempty"`
+	Updatesource        string            `json:"updatesource,omitempty"`
+	Nexthopself         *opnsense.OPNBool `json:"nexthopself,omitempty"`
+	Defaultoriginate    *opnsense.OPNBool `json:"defaultoriginate,omitempty"`
+	LinkedPrefixlistIn  string            `json:"linkedPrefixlistIn,omitempty"`
+	LinkedPrefixlistOut string            `json:"linkedPrefixlistOut,omitempty"`
+	LinkedRoutemapIn    string            `json:"linkedRoutemapIn,omitempty"`
+	LinkedRoutemapOut   string            `json:"linkedRoutemapOut,omitempty"`
 }
 
 // Redistribution represents a redistribution model item.
 type Redistribution struct {
-	Enabled        string `json:"enabled"`
-	Description    string `json:"description,omitempty"`
-	Redistribute   string `json:"redistribute"` // Valid values: ospf, connected, kernel, rip, static
-	LinkedRoutemap string `json:"linkedRoutemap,omitempty"`
+	Enabled        opnsense.OPNBool `json:"enabled"`
+	Description    string           `json:"description,omitempty"`
+	Redistribute   string           `json:"redistribute"` // Valid values: ospf, connected, kernel, rip, static
+	LinkedRoutemap string           `json:"linkedRoutemap,omitempty"`
 }
 
 // Network represents a network model item.
 type Network struct {
-	Enabled             string `json:"enabled"`
-	Ipaddr              string `json:"ipaddr"`
-	Netmask             string `json:"netmask"`
-	Area                string `json:"area"`
-	Arearange           string `json:"arearange,omitempty"`
-	LinkedPrefixlistIn  string `json:"linkedPrefixlistIn,omitempty"`
-	LinkedPrefixlistOut string `json:"linkedPrefixlistOut,omitempty"`
+	Enabled             opnsense.OPNBool `json:"enabled"`
+	Ipaddr              string           `json:"ipaddr"`
+	Netmask             opnsense.OPNInt  `json:"netmask"`
+	Area                string           `json:"area"`
+	Arearange           string           `json:"arearange,omitempty"`
+	LinkedPrefixlistIn  string           `json:"linkedPrefixlistIn,omitempty"`
+	LinkedPrefixlistOut string           `json:"linkedPrefixlistOut,omitempty"`
 }
 
 // Interface represents a interface model item.
 type Interface struct {
-	Enabled            string `json:"enabled"`
-	Interfacename      string `json:"interfacename,omitempty"`
-	Area               string `json:"area"`
-	Passive            string `json:"passive"`
-	Cost               string `json:"cost,omitempty"`
-	CostDemoted        string `json:"cost_demoted,omitempty"`
-	CarpDependOn       string `json:"carp_depend_on,omitempty"`
-	Hellointerval      string `json:"hellointerval,omitempty"`
-	Deadinterval       string `json:"deadinterval,omitempty"`
-	Retransmitinterval string `json:"retransmitinterval,omitempty"`
-	Transmitdelay      string `json:"transmitdelay,omitempty"`
-	Priority           string `json:"priority,omitempty"`
-	Bfd                string `json:"bfd,omitempty"`
-	Networktype        string `json:"networktype,omitempty"` // Valid values: broadcast, point-to-point
+	Enabled            opnsense.OPNBool  `json:"enabled"`
+	Interfacename      string            `json:"interfacename,omitempty"`
+	Area               string            `json:"area"`
+	Passive            opnsense.OPNBool  `json:"passive"`
+	Cost               *opnsense.OPNInt  `json:"cost,omitempty"`
+	CostDemoted        *opnsense.OPNInt  `json:"cost_demoted,omitempty"`
+	CarpDependOn       string            `json:"carp_depend_on,omitempty"`
+	Hellointerval      *opnsense.OPNInt  `json:"hellointerval,omitempty"`
+	Deadinterval       *opnsense.OPNInt  `json:"deadinterval,omitempty"`
+	Retransmitinterval *opnsense.OPNInt  `json:"retransmitinterval,omitempty"`
+	Transmitdelay      *opnsense.OPNInt  `json:"transmitdelay,omitempty"`
+	Priority           *opnsense.OPNInt  `json:"priority,omitempty"`
+	Bfd                *opnsense.OPNBool `json:"bfd,omitempty"`
+	Networktype        string            `json:"networktype,omitempty"` // Valid values: broadcast, point-to-point
 }
 
 // Area represents a area model item.
 type Area struct {
-	Enabled string `json:"enabled"`
-	Id      string `json:"id"`
-	Type    string `json:"type"` // Valid values: stub, stub-no-summary, nssa, nssa-no-summary
+	Enabled opnsense.OPNBool `json:"enabled"`
+	Id      string           `json:"id"`
+	Type    string           `json:"type"` // Valid values: stub, stub-no-summary, nssa, nssa-no-summary
 }
 
 // Route represents a route model item.
 type Route struct {
-	Enabled       string `json:"enabled"`
-	Network       string `json:"network"`
-	Gateway       string `json:"gateway,omitempty"`
-	Interfacename string `json:"interfacename,omitempty"`
+	Enabled       opnsense.OPNBool `json:"enabled"`
+	Network       string           `json:"network"`
+	Gateway       string           `json:"gateway,omitempty"`
+	Interfacename string           `json:"interfacename,omitempty"`
 }
 
 type neighborGetItemResponse struct {

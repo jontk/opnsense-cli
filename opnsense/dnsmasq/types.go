@@ -2,64 +2,66 @@
 
 package dnsmasq
 
+import "github.com/jontk/opnsense-cli/opnsense"
+
 // Settings represents a settings model item.
 type Settings struct {
-	Enable           string `json:"enable,omitempty"`
-	Regdhcp          string `json:"regdhcp,omitempty"`
-	Regdhcpstatic    string `json:"regdhcpstatic,omitempty"`
-	Dhcpfirst        string `json:"dhcpfirst,omitempty"`
-	StrictOrder      string `json:"strict_order,omitempty"`
-	DomainNeeded     string `json:"domain_needed,omitempty"`
-	NoPrivateReverse string `json:"no_private_reverse,omitempty"`
-	NoResolv         string `json:"no_resolv,omitempty"`
-	LogQueries       string `json:"log_queries,omitempty"`
-	NoHosts          string `json:"no_hosts,omitempty"`
-	Strictbind       string `json:"strictbind,omitempty"`
-	Dnssec           string `json:"dnssec,omitempty"`
-	Regdhcpdomain    string `json:"regdhcpdomain,omitempty"`
-	Interface        string `json:"interface,omitempty"`
-	Port             string `json:"port,omitempty"`
-	DnsPort          string `json:"dns_port,omitempty"`
-	DnsForwardMax    string `json:"dns_forward_max,omitempty"`
-	CacheSize        string `json:"cache_size,omitempty"`
-	LocalTtl         string `json:"local_ttl,omitempty"`
-	AddMac           string `json:"add_mac,omitempty"` // Valid values: standard, base64, text
-	AddSubnet        string `json:"add_subnet,omitempty"`
-	StripSubnet      string `json:"strip_subnet,omitempty"`
-	NoIdent          string `json:"no_ident"`
+	Enable           *opnsense.OPNBool `json:"enable,omitempty"`
+	Regdhcp          *opnsense.OPNBool `json:"regdhcp,omitempty"`
+	Regdhcpstatic    *opnsense.OPNBool `json:"regdhcpstatic,omitempty"`
+	Dhcpfirst        *opnsense.OPNBool `json:"dhcpfirst,omitempty"`
+	StrictOrder      *opnsense.OPNBool `json:"strict_order,omitempty"`
+	DomainNeeded     *opnsense.OPNBool `json:"domain_needed,omitempty"`
+	NoPrivateReverse *opnsense.OPNBool `json:"no_private_reverse,omitempty"`
+	NoResolv         *opnsense.OPNBool `json:"no_resolv,omitempty"`
+	LogQueries       *opnsense.OPNBool `json:"log_queries,omitempty"`
+	NoHosts          *opnsense.OPNBool `json:"no_hosts,omitempty"`
+	Strictbind       *opnsense.OPNBool `json:"strictbind,omitempty"`
+	Dnssec           *opnsense.OPNBool `json:"dnssec,omitempty"`
+	Regdhcpdomain    string            `json:"regdhcpdomain,omitempty"`
+	Interface        string            `json:"interface,omitempty"`
+	Port             *opnsense.OPNInt  `json:"port,omitempty"`
+	DnsPort          *opnsense.OPNInt  `json:"dns_port,omitempty"`
+	DnsForwardMax    *opnsense.OPNInt  `json:"dns_forward_max,omitempty"`
+	CacheSize        *opnsense.OPNInt  `json:"cache_size,omitempty"`
+	LocalTtl         *opnsense.OPNInt  `json:"local_ttl,omitempty"`
+	AddMac           string            `json:"add_mac,omitempty"` // Valid values: standard, base64, text
+	AddSubnet        *opnsense.OPNBool `json:"add_subnet,omitempty"`
+	StripSubnet      *opnsense.OPNBool `json:"strip_subnet,omitempty"`
+	NoIdent          opnsense.OPNBool  `json:"no_ident"`
 }
 
 // Dhcp represents a dhcp model item.
 type Dhcp struct {
-	NoInterface    string `json:"no_interface,omitempty"`
-	Fqdn           string `json:"fqdn"`
-	Domain         string `json:"domain,omitempty"`
-	Local          string `json:"local"`
-	LeaseMax       string `json:"lease_max,omitempty"`
-	Authoritative  string `json:"authoritative,omitempty"`
-	DefaultFwRules string `json:"default_fw_rules"`
-	ReplyDelay     string `json:"reply_delay,omitempty"`
-	EnableRa       string `json:"enable_ra,omitempty"`
-	Nosync         string `json:"nosync,omitempty"`
-	LogDhcp        string `json:"log_dhcp,omitempty"`
-	LogQuiet       string `json:"log_quiet,omitempty"`
+	NoInterface    string            `json:"no_interface,omitempty"`
+	Fqdn           opnsense.OPNBool  `json:"fqdn"`
+	Domain         string            `json:"domain,omitempty"`
+	Local          opnsense.OPNBool  `json:"local"`
+	LeaseMax       *opnsense.OPNInt  `json:"lease_max,omitempty"`
+	Authoritative  *opnsense.OPNBool `json:"authoritative,omitempty"`
+	DefaultFwRules opnsense.OPNBool  `json:"default_fw_rules"`
+	ReplyDelay     *opnsense.OPNInt  `json:"reply_delay,omitempty"`
+	EnableRa       *opnsense.OPNBool `json:"enable_ra,omitempty"`
+	Nosync         *opnsense.OPNBool `json:"nosync,omitempty"`
+	LogDhcp        *opnsense.OPNBool `json:"log_dhcp,omitempty"`
+	LogQuiet       *opnsense.OPNBool `json:"log_quiet,omitempty"`
 }
 
 // Hosts represents a hosts model item.
 type Hosts struct {
-	Host      string `json:"host,omitempty"`
-	Domain    string `json:"domain,omitempty"`
-	Local     string `json:"local,omitempty"`
-	Ip        string `json:"ip,omitempty"`
-	Cnames    string `json:"cnames,omitempty"`
-	ClientId  string `json:"client_id,omitempty"`
-	Hwaddr    string `json:"hwaddr,omitempty"`
-	LeaseTime string `json:"lease_time,omitempty"`
-	Ignore    string `json:"ignore,omitempty"`
-	SetTag    string `json:"set_tag,omitempty"`
-	Descr     string `json:"descr,omitempty"`
-	Comments  string `json:"comments,omitempty"`
-	Aliases   string `json:"aliases,omitempty"`
+	Host      string            `json:"host,omitempty"`
+	Domain    string            `json:"domain,omitempty"`
+	Local     *opnsense.OPNBool `json:"local,omitempty"`
+	Ip        string            `json:"ip,omitempty"`
+	Cnames    string            `json:"cnames,omitempty"`
+	ClientId  string            `json:"client_id,omitempty"`
+	Hwaddr    string            `json:"hwaddr,omitempty"`
+	LeaseTime *opnsense.OPNInt  `json:"lease_time,omitempty"`
+	Ignore    *opnsense.OPNBool `json:"ignore,omitempty"`
+	SetTag    string            `json:"set_tag,omitempty"`
+	Descr     string            `json:"descr,omitempty"`
+	Comments  string            `json:"comments,omitempty"`
+	Aliases   string            `json:"aliases,omitempty"`
 }
 
 // Domainoverrides represents a domainoverrides model item.
@@ -80,37 +82,37 @@ type DhcpTags struct {
 
 // DhcpRanges represents a dhcp_ranges model item.
 type DhcpRanges struct {
-	Interface        string `json:"interface,omitempty"`
-	SetTag           string `json:"set_tag,omitempty"`
-	StartAddr        string `json:"start_addr"`
-	EndAddr          string `json:"end_addr,omitempty"`
-	SubnetMask       string `json:"subnet_mask,omitempty"`
-	Constructor      string `json:"constructor,omitempty"`
-	Mode             string `json:"mode,omitempty"` // Valid values: static
-	PrefixLen        string `json:"prefix_len,omitempty"`
-	LeaseTime        string `json:"lease_time,omitempty"`
-	DomainType       string `json:"domain_type"` // Valid values: interface, range
-	Domain           string `json:"domain,omitempty"`
-	Nosync           string `json:"nosync,omitempty"`
-	RaMode           string `json:"ra_mode,omitempty"`     // Valid values: ra-only, slaac, ra-names, ra-stateless, ra-advrouter, off-link
-	RaPriority       string `json:"ra_priority,omitempty"` // Valid values: high, low
-	RaMtu            string `json:"ra_mtu,omitempty"`
-	RaInterval       string `json:"ra_interval,omitempty"`
-	RaRouterLifetime string `json:"ra_router_lifetime,omitempty"`
-	Description      string `json:"description,omitempty"`
+	Interface        string            `json:"interface,omitempty"`
+	SetTag           string            `json:"set_tag,omitempty"`
+	StartAddr        string            `json:"start_addr"`
+	EndAddr          string            `json:"end_addr,omitempty"`
+	SubnetMask       string            `json:"subnet_mask,omitempty"`
+	Constructor      string            `json:"constructor,omitempty"`
+	Mode             string            `json:"mode,omitempty"` // Valid values: static
+	PrefixLen        *opnsense.OPNInt  `json:"prefix_len,omitempty"`
+	LeaseTime        *opnsense.OPNInt  `json:"lease_time,omitempty"`
+	DomainType       string            `json:"domain_type"` // Valid values: interface, range
+	Domain           string            `json:"domain,omitempty"`
+	Nosync           *opnsense.OPNBool `json:"nosync,omitempty"`
+	RaMode           string            `json:"ra_mode,omitempty"`     // Valid values: ra-only, slaac, ra-names, ra-stateless, ra-advrouter, off-link
+	RaPriority       string            `json:"ra_priority,omitempty"` // Valid values: high, low
+	RaMtu            *opnsense.OPNInt  `json:"ra_mtu,omitempty"`
+	RaInterval       *opnsense.OPNInt  `json:"ra_interval,omitempty"`
+	RaRouterLifetime *opnsense.OPNInt  `json:"ra_router_lifetime,omitempty"`
+	Description      string            `json:"description,omitempty"`
 }
 
 // DhcpOptions represents a dhcp_options model item.
 type DhcpOptions struct {
-	Type        string `json:"type"`              // Valid values: set, match
-	Option      string `json:"option,omitempty"`  // Valid values: optgroup1, optgroup2, optgroup3
-	Option6     string `json:"option6,omitempty"` // Valid values: optgroup1, optgroup2, optgroup3
-	Interface   string `json:"interface,omitempty"`
-	Tag         string `json:"tag,omitempty"`
-	SetTag      string `json:"set_tag,omitempty"`
-	Value       string `json:"value,omitempty"`
-	Force       string `json:"force,omitempty"`
-	Description string `json:"description,omitempty"`
+	Type        string            `json:"type"`              // Valid values: set, match
+	Option      string            `json:"option,omitempty"`  // Valid values: optgroup1, optgroup2, optgroup3
+	Option6     string            `json:"option6,omitempty"` // Valid values: optgroup1, optgroup2, optgroup3
+	Interface   string            `json:"interface,omitempty"`
+	Tag         string            `json:"tag,omitempty"`
+	SetTag      string            `json:"set_tag,omitempty"`
+	Value       string            `json:"value,omitempty"`
+	Force       *opnsense.OPNBool `json:"force,omitempty"`
+	Description string            `json:"description,omitempty"`
 }
 
 // DhcpBoot represents a dhcp_boot model item.

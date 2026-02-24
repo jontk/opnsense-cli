@@ -2,10 +2,12 @@
 
 package muninnode
 
+import "github.com/jontk/opnsense-cli/opnsense"
+
 // Settings represents a settings model item.
 type Settings struct {
-	Enabled         string `json:"enabled"`
-	Hostname        string `json:"hostname"`
-	Port            string `json:"port"`
-	Allowednetworks string `json:"allowednetworks,omitempty"`
+	Enabled         opnsense.OPNBool `json:"enabled"`
+	Hostname        string           `json:"hostname"`
+	Port            string           `json:"port"`
+	Allowednetworks string           `json:"allowednetworks,omitempty"`
 }

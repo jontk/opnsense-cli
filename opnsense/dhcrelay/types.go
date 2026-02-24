@@ -2,13 +2,15 @@
 
 package dhcrelay
 
+import "github.com/jontk/opnsense-cli/opnsense"
+
 // Relays represents a relays model item.
 type Relays struct {
-	Enabled      string `json:"enabled"`
-	Interface    string `json:"interface"`
-	Destination  string `json:"destination"`
-	AgentInfo    string `json:"agent_info"`
-	CarpDependOn string `json:"carp_depend_on,omitempty"`
+	Enabled      opnsense.OPNBool `json:"enabled"`
+	Interface    string           `json:"interface"`
+	Destination  string           `json:"destination"`
+	AgentInfo    opnsense.OPNBool `json:"agent_info"`
+	CarpDependOn string           `json:"carp_depend_on,omitempty"`
 }
 
 // Destinations represents a destinations model item.

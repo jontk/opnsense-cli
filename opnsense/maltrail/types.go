@@ -2,12 +2,14 @@
 
 package maltrail
 
+import "github.com/jontk/opnsense-cli/opnsense"
+
 // Settings represents a settings model item.
 type Settings struct {
-	Heuristics       string `json:"heuristics"`
-	Checkhostheader  string `json:"checkhostheader"`
-	Updateperiod     string `json:"updateperiod"`
-	Adminpassword    string `json:"adminpassword"`
-	Monitorinterface string `json:"monitorinterface,omitempty"`
-	Whitelist        string `json:"whitelist,omitempty"`
+	Heuristics       opnsense.OPNBool `json:"heuristics"`
+	Checkhostheader  opnsense.OPNBool `json:"checkhostheader"`
+	Updateperiod     opnsense.OPNInt  `json:"updateperiod"`
+	Adminpassword    string           `json:"adminpassword"`
+	Monitorinterface string           `json:"monitorinterface,omitempty"`
+	Whitelist        string           `json:"whitelist,omitempty"`
 }

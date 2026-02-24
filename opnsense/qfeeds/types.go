@@ -2,16 +2,18 @@
 
 package qfeeds
 
+import "github.com/jontk/opnsense-cli/opnsense"
+
 // General represents a general model item.
 type General struct {
-	Apikey          string `json:"apikey,omitempty"`
-	EnableUnboundBl string `json:"enable_unbound_bl,omitempty"`
+	Apikey          string            `json:"apikey,omitempty"`
+	EnableUnboundBl *opnsense.OPNBool `json:"enable_unbound_bl,omitempty"`
 }
 
 // Unbound represents a unbound model item.
 type Unbound struct {
-	Allowlists string `json:"allowlists,omitempty"`
-	SourceNets string `json:"source_nets,omitempty"`
-	Address    string `json:"address,omitempty"`
-	Nxdomain   string `json:"nxdomain,omitempty"`
+	Allowlists string            `json:"allowlists,omitempty"`
+	SourceNets string            `json:"source_nets,omitempty"`
+	Address    string            `json:"address,omitempty"`
+	Nxdomain   *opnsense.OPNBool `json:"nxdomain,omitempty"`
 }

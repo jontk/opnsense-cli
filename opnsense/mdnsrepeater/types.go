@@ -2,10 +2,12 @@
 
 package mdnsrepeater
 
+import "github.com/jontk/opnsense-cli/opnsense"
+
 // Settings represents a settings model item.
 type Settings struct {
-	Enabled    string `json:"enabled"`
-	Enablecarp string `json:"enablecarp"`
-	Interfaces string `json:"interfaces"`
-	Blocklist  string `json:"blocklist,omitempty"`
+	Enabled    opnsense.OPNBool `json:"enabled"`
+	Enablecarp opnsense.OPNBool `json:"enablecarp"`
+	Interfaces string           `json:"interfaces"`
+	Blocklist  string           `json:"blocklist,omitempty"`
 }

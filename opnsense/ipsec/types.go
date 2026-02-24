@@ -2,151 +2,153 @@
 
 package ipsec
 
+import "github.com/jontk/opnsense-cli/opnsense"
+
 // Connection represents a Connection model item.
 type Connection struct {
-	Enabled     string `json:"enabled"`
-	Proposals   string `json:"proposals"`
-	Unique      string `json:"unique"` // Valid values: no, never, keep, replace
-	Aggressive  string `json:"aggressive"`
-	Version     string `json:"version"` // Valid values: ike, ikev1, ikev2
-	Mobike      string `json:"mobike"`
-	LocalAddrs  string `json:"local_addrs,omitempty"`
-	LocalPort   string `json:"local_port,omitempty"` // Valid values: port500, port4500
-	RemoteAddrs string `json:"remote_addrs,omitempty"`
-	RemotePort  string `json:"remote_port,omitempty"` // Valid values: port500, port4500
-	Encap       string `json:"encap"`
-	ReauthTime  string `json:"reauth_time,omitempty"`
-	RekeyTime   string `json:"rekey_time,omitempty"`
-	OverTime    string `json:"over_time,omitempty"`
-	DpdDelay    string `json:"dpd_delay,omitempty"`
-	DpdTimeout  string `json:"dpd_timeout,omitempty"`
-	Pools       string `json:"pools,omitempty"`
-	SendCertreq string `json:"send_certreq"`
-	SendCert    string `json:"send_cert,omitempty"` // Valid values: ifasked, never, always
-	Keyingtries string `json:"keyingtries,omitempty"`
-	Description string `json:"description"`
-	LocalTs     string `json:"local_ts,omitempty"`
-	RemoteTs    string `json:"remote_ts,omitempty"`
+	Enabled     opnsense.OPNBool `json:"enabled"`
+	Proposals   string           `json:"proposals"`
+	Unique      string           `json:"unique"` // Valid values: no, never, keep, replace
+	Aggressive  opnsense.OPNBool `json:"aggressive"`
+	Version     string           `json:"version"` // Valid values: ike, ikev1, ikev2
+	Mobike      opnsense.OPNBool `json:"mobike"`
+	LocalAddrs  string           `json:"local_addrs,omitempty"`
+	LocalPort   string           `json:"local_port,omitempty"` // Valid values: port500, port4500
+	RemoteAddrs string           `json:"remote_addrs,omitempty"`
+	RemotePort  string           `json:"remote_port,omitempty"` // Valid values: port500, port4500
+	Encap       opnsense.OPNBool `json:"encap"`
+	ReauthTime  *opnsense.OPNInt `json:"reauth_time,omitempty"`
+	RekeyTime   *opnsense.OPNInt `json:"rekey_time,omitempty"`
+	OverTime    *opnsense.OPNInt `json:"over_time,omitempty"`
+	DpdDelay    *opnsense.OPNInt `json:"dpd_delay,omitempty"`
+	DpdTimeout  *opnsense.OPNInt `json:"dpd_timeout,omitempty"`
+	Pools       string           `json:"pools,omitempty"`
+	SendCertreq opnsense.OPNBool `json:"send_certreq"`
+	SendCert    string           `json:"send_cert,omitempty"` // Valid values: ifasked, never, always
+	Keyingtries *opnsense.OPNInt `json:"keyingtries,omitempty"`
+	Description string           `json:"description"`
+	LocalTs     string           `json:"local_ts,omitempty"`
+	RemoteTs    string           `json:"remote_ts,omitempty"`
 }
 
 // Local represents a local model item.
 type Local struct {
-	Enabled     string `json:"enabled"`
-	Connection  string `json:"connection"`
-	Round       string `json:"round"`
-	Auth        string `json:"auth"` // Valid values: psk, pubkey, eap_tls, eap_mschapv2, xauth_pam, eap_radius
-	Id          string `json:"id,omitempty"`
-	EapId       string `json:"eap_id,omitempty"`
-	Certs       string `json:"certs,omitempty"`
-	Pubkeys     string `json:"pubkeys,omitempty"`
-	Description string `json:"description,omitempty"`
+	Enabled     opnsense.OPNBool `json:"enabled"`
+	Connection  string           `json:"connection"`
+	Round       opnsense.OPNInt  `json:"round"`
+	Auth        string           `json:"auth"` // Valid values: psk, pubkey, eap_tls, eap_mschapv2, xauth_pam, eap_radius
+	Id          string           `json:"id,omitempty"`
+	EapId       string           `json:"eap_id,omitempty"`
+	Certs       string           `json:"certs,omitempty"`
+	Pubkeys     string           `json:"pubkeys,omitempty"`
+	Description string           `json:"description,omitempty"`
 }
 
 // Remote represents a remote model item.
 type Remote struct {
-	Enabled     string `json:"enabled"`
-	Connection  string `json:"connection"`
-	Round       string `json:"round"`
-	Auth        string `json:"auth"` // Valid values: psk, pubkey, eap_tls, eap_mschapv2, xauth_pam, eap_radius
-	Id          string `json:"id,omitempty"`
-	EapId       string `json:"eap_id,omitempty"`
-	Groups      string `json:"groups,omitempty"`
-	Certs       string `json:"certs,omitempty"`
-	Cacerts     string `json:"cacerts,omitempty"`
-	Pubkeys     string `json:"pubkeys,omitempty"`
-	Description string `json:"description,omitempty"`
+	Enabled     opnsense.OPNBool `json:"enabled"`
+	Connection  string           `json:"connection"`
+	Round       opnsense.OPNInt  `json:"round"`
+	Auth        string           `json:"auth"` // Valid values: psk, pubkey, eap_tls, eap_mschapv2, xauth_pam, eap_radius
+	Id          string           `json:"id,omitempty"`
+	EapId       string           `json:"eap_id,omitempty"`
+	Groups      string           `json:"groups,omitempty"`
+	Certs       string           `json:"certs,omitempty"`
+	Cacerts     string           `json:"cacerts,omitempty"`
+	Pubkeys     string           `json:"pubkeys,omitempty"`
+	Description string           `json:"description,omitempty"`
 }
 
 // Child represents a child model item.
 type Child struct {
-	Enabled      string `json:"enabled"`
-	Connection   string `json:"connection"`
-	Reqid        string `json:"reqid,omitempty"`
-	EspProposals string `json:"esp_proposals"`
-	Sha25696     string `json:"sha256_96"`
-	StartAction  string `json:"start_action"` // Valid values: none, trap_start, route, start, trap
-	CloseAction  string `json:"close_action"` // Valid values: none, trap, start
-	DpdAction    string `json:"dpd_action"`   // Valid values: clear, trap, start
-	Mode         string `json:"mode"`         // Valid values: tunnel, transport, pass, drop
-	Policies     string `json:"policies"`
-	LocalTs      string `json:"local_ts,omitempty"`
-	RemoteTs     string `json:"remote_ts,omitempty"`
-	RekeyTime    string `json:"rekey_time"`
-	Description  string `json:"description,omitempty"`
+	Enabled      opnsense.OPNBool `json:"enabled"`
+	Connection   string           `json:"connection"`
+	Reqid        *opnsense.OPNInt `json:"reqid,omitempty"`
+	EspProposals string           `json:"esp_proposals"`
+	Sha25696     opnsense.OPNBool `json:"sha256_96"`
+	StartAction  string           `json:"start_action"` // Valid values: none, trap_start, route, start, trap
+	CloseAction  string           `json:"close_action"` // Valid values: none, trap, start
+	DpdAction    string           `json:"dpd_action"`   // Valid values: clear, trap, start
+	Mode         string           `json:"mode"`         // Valid values: tunnel, transport, pass, drop
+	Policies     opnsense.OPNBool `json:"policies"`
+	LocalTs      string           `json:"local_ts,omitempty"`
+	RemoteTs     string           `json:"remote_ts,omitempty"`
+	RekeyTime    opnsense.OPNInt  `json:"rekey_time"`
+	Description  string           `json:"description,omitempty"`
 }
 
 // Pool represents a Pool model item.
 type Pool struct {
-	Enabled string `json:"enabled"`
-	Name    string `json:"name"`
-	Addrs   string `json:"addrs"`
-	Dns     string `json:"dns,omitempty"`
+	Enabled opnsense.OPNBool `json:"enabled"`
+	Name    string           `json:"name"`
+	Addrs   string           `json:"addrs"`
+	Dns     string           `json:"dns,omitempty"`
 }
 
 // VTI represents a VTI model item.
 type VTI struct {
-	Enabled       string `json:"enabled"`
-	Reqid         string `json:"reqid"`
-	Local         string `json:"local,omitempty"`
-	Remote        string `json:"remote,omitempty"`
-	TunnelLocal   string `json:"tunnel_local"`
-	TunnelRemote  string `json:"tunnel_remote"`
-	TunnelLocal2  string `json:"tunnel_local2,omitempty"`
-	TunnelRemote2 string `json:"tunnel_remote2,omitempty"`
-	SkipFw        string `json:"skip_fw,omitempty"`
-	Origin        string `json:"origin,omitempty"`
-	Description   string `json:"description,omitempty"`
+	Enabled       opnsense.OPNBool  `json:"enabled"`
+	Reqid         opnsense.OPNInt   `json:"reqid"`
+	Local         string            `json:"local,omitempty"`
+	Remote        string            `json:"remote,omitempty"`
+	TunnelLocal   string            `json:"tunnel_local"`
+	TunnelRemote  string            `json:"tunnel_remote"`
+	TunnelLocal2  string            `json:"tunnel_local2,omitempty"`
+	TunnelRemote2 string            `json:"tunnel_remote2,omitempty"`
+	SkipFw        *opnsense.OPNBool `json:"skip_fw,omitempty"`
+	Origin        string            `json:"origin,omitempty"`
+	Description   string            `json:"description,omitempty"`
 }
 
 // SPD represents a SPD model item.
 type SPD struct {
-	Enabled         string `json:"enabled"`
-	Protocol        string `json:"protocol"` // Valid values: esp, ah
-	Reqid           string `json:"reqid,omitempty"`
-	ConnectionChild string `json:"connection_child,omitempty"`
-	Source          string `json:"source"`
-	Destination     string `json:"destination,omitempty"`
-	Description     string `json:"description,omitempty"`
-	Origin          string `json:"origin,omitempty"`
+	Enabled         opnsense.OPNBool `json:"enabled"`
+	Protocol        string           `json:"protocol"` // Valid values: esp, ah
+	Reqid           *opnsense.OPNInt `json:"reqid,omitempty"`
+	ConnectionChild string           `json:"connection_child,omitempty"`
+	Source          string           `json:"source"`
+	Destination     string           `json:"destination,omitempty"`
+	Description     string           `json:"description,omitempty"`
+	Origin          string           `json:"origin,omitempty"`
 }
 
 // General represents a general model item.
 type General struct {
-	Enabled             string `json:"enabled,omitempty"`
-	PreferredOldsa      string `json:"preferred_oldsa"`
-	Disablevpnrules     string `json:"disablevpnrules"`
-	PassthroughNetworks string `json:"passthrough_networks,omitempty"`
-	UserSource          string `json:"user_source,omitempty"`
-	LocalGroup          string `json:"local_group,omitempty"`
+	Enabled             string           `json:"enabled,omitempty"`
+	PreferredOldsa      opnsense.OPNBool `json:"preferred_oldsa"`
+	Disablevpnrules     opnsense.OPNBool `json:"disablevpnrules"`
+	PassthroughNetworks string           `json:"passthrough_networks,omitempty"`
+	UserSource          string           `json:"user_source,omitempty"`
+	LocalGroup          string           `json:"local_group,omitempty"`
 }
 
 // Charon represents a charon model item.
 type Charon struct {
-	MaxIkev1Exchanges  string `json:"max_ikev1_exchanges,omitempty"`
-	Threads            string `json:"threads"`
-	IkesaTableSize     string `json:"ikesa_table_size"`
-	IkesaTableSegments string `json:"ikesa_table_segments"`
-	InitLimitHalfOpen  string `json:"init_limit_half_open"`
-	IgnoreAcquireTs    string `json:"ignore_acquire_ts"`
-	InstallRoutes      string `json:"install_routes,omitempty"`
-	CiscoUnity         string `json:"cisco_unity,omitempty"`
-	MakeBeforeBreak    string `json:"make_before_break"`
-	RetransmitTries    string `json:"retransmit_tries,omitempty"`
-	RetransmitTimeout  string `json:"retransmit_timeout,omitempty"`
-	RetransmitBase     string `json:"retransmit_base,omitempty"`
-	RetransmitJitter   string `json:"retransmit_jitter,omitempty"`
-	RetransmitLimit    string `json:"retransmit_limit,omitempty"`
-	ReqidBase          string `json:"reqid_base,omitempty"`
+	MaxIkev1Exchanges  *opnsense.OPNInt  `json:"max_ikev1_exchanges,omitempty"`
+	Threads            opnsense.OPNInt   `json:"threads"`
+	IkesaTableSize     opnsense.OPNInt   `json:"ikesa_table_size"`
+	IkesaTableSegments opnsense.OPNInt   `json:"ikesa_table_segments"`
+	InitLimitHalfOpen  opnsense.OPNInt   `json:"init_limit_half_open"`
+	IgnoreAcquireTs    opnsense.OPNBool  `json:"ignore_acquire_ts"`
+	InstallRoutes      *opnsense.OPNBool `json:"install_routes,omitempty"`
+	CiscoUnity         *opnsense.OPNBool `json:"cisco_unity,omitempty"`
+	MakeBeforeBreak    opnsense.OPNBool  `json:"make_before_break"`
+	RetransmitTries    *opnsense.OPNInt  `json:"retransmit_tries,omitempty"`
+	RetransmitTimeout  string            `json:"retransmit_timeout,omitempty"`
+	RetransmitBase     string            `json:"retransmit_base,omitempty"`
+	RetransmitJitter   *opnsense.OPNInt  `json:"retransmit_jitter,omitempty"`
+	RetransmitLimit    *opnsense.OPNInt  `json:"retransmit_limit,omitempty"`
+	ReqidBase          *opnsense.OPNInt  `json:"reqid_base,omitempty"`
 }
 
 // KeyPair represents a keyPair model item.
 type KeyPair struct {
-	Name           string `json:"name"`
-	KeyType        string `json:"keyType"` // Valid values: rsa, ecdsa
-	PublicKey      string `json:"publicKey"`
-	PrivateKey     string `json:"privateKey,omitempty"`
-	KeySize        string `json:"keySize,omitempty"`
-	KeyFingerprint string `json:"keyFingerprint,omitempty"`
+	Name           string           `json:"name"`
+	KeyType        string           `json:"keyType"` // Valid values: rsa, ecdsa
+	PublicKey      string           `json:"publicKey"`
+	PrivateKey     string           `json:"privateKey,omitempty"`
+	KeySize        *opnsense.OPNInt `json:"keySize,omitempty"`
+	KeyFingerprint string           `json:"keyFingerprint,omitempty"`
 }
 
 // PreSharedKey represents a preSharedKey model item.

@@ -2,38 +2,40 @@
 
 package tinc
 
+import "github.com/jontk/opnsense-cli/opnsense"
+
 // Network represents a network model item.
 type Network struct {
-	Id                  string `json:"id"`
-	Name                string `json:"name"`
-	Hostname            string `json:"hostname"`
-	Extaddress          string `json:"extaddress,omitempty"`
-	Extport             string `json:"extport"`
-	Intaddress          string `json:"intaddress"`
-	Subnet              string `json:"subnet,omitempty"`
-	Pingtimeout         string `json:"pingtimeout"`
-	StrictSubnets       string `json:"StrictSubnets"`
-	Disablesubnetroutes string `json:"disablesubnetroutes"`
-	Privkey             string `json:"privkey"`
-	Pubkey              string `json:"pubkey"`
-	Cipher              string `json:"cipher"`
-	Mode                string `json:"mode"` // Valid values: router, switch
-	PMTUDiscovery       string `json:"PMTUDiscovery"`
-	Enabled             string `json:"enabled"`
-	Debuglevel          string `json:"debuglevel"` // Valid values: d0, d1, d2, d3, d4, d5
+	Id                  string           `json:"id"`
+	Name                string           `json:"name"`
+	Hostname            string           `json:"hostname"`
+	Extaddress          string           `json:"extaddress,omitempty"`
+	Extport             opnsense.OPNInt  `json:"extport"`
+	Intaddress          string           `json:"intaddress"`
+	Subnet              string           `json:"subnet,omitempty"`
+	Pingtimeout         opnsense.OPNInt  `json:"pingtimeout"`
+	StrictSubnets       opnsense.OPNBool `json:"StrictSubnets"`
+	Disablesubnetroutes opnsense.OPNBool `json:"disablesubnetroutes"`
+	Privkey             string           `json:"privkey"`
+	Pubkey              string           `json:"pubkey"`
+	Cipher              string           `json:"cipher"`
+	Mode                string           `json:"mode"` // Valid values: router, switch
+	PMTUDiscovery       opnsense.OPNBool `json:"PMTUDiscovery"`
+	Enabled             opnsense.OPNBool `json:"enabled"`
+	Debuglevel          string           `json:"debuglevel"` // Valid values: d0, d1, d2, d3, d4, d5
 }
 
 // Host represents a host model item.
 type Host struct {
-	Network    string `json:"network"`
-	Hostname   string `json:"hostname"`
-	Extport    string `json:"extport"`
-	Extaddress string `json:"extaddress,omitempty"`
-	Subnet     string `json:"subnet,omitempty"`
-	Pubkey     string `json:"pubkey"`
-	Cipher     string `json:"cipher"`
-	ConnectTo  string `json:"connectTo"`
-	Enabled    string `json:"enabled"`
+	Network    string           `json:"network"`
+	Hostname   string           `json:"hostname"`
+	Extport    opnsense.OPNInt  `json:"extport"`
+	Extaddress string           `json:"extaddress,omitempty"`
+	Subnet     string           `json:"subnet,omitempty"`
+	Pubkey     string           `json:"pubkey"`
+	Cipher     string           `json:"cipher"`
+	ConnectTo  opnsense.OPNBool `json:"connectTo"`
+	Enabled    opnsense.OPNBool `json:"enabled"`
 }
 
 type hostGetItemResponse struct {

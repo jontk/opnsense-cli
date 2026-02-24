@@ -2,8 +2,10 @@
 
 package vnstat
 
+import "github.com/jontk/opnsense-cli/opnsense"
+
 // Settings represents a settings model item.
 type Settings struct {
-	Enabled   string `json:"enabled"`
-	Interface string `json:"interface,omitempty"`
+	Enabled   opnsense.OPNBool `json:"enabled"`
+	Interface string           `json:"interface,omitempty"`
 }

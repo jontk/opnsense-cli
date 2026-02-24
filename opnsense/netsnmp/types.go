@@ -2,26 +2,28 @@
 
 package netsnmp
 
+import "github.com/jontk/opnsense-cli/opnsense"
+
 // Settings represents a settings model item.
 type Settings struct {
-	Enabled         string `json:"enabled"`
-	Community       string `json:"community,omitempty"`
-	Syslocation     string `json:"syslocation,omitempty"`
-	Syscontact      string `json:"syscontact,omitempty"`
-	L3visibility    string `json:"l3visibility"`
-	Versionoid      string `json:"versionoid"`
-	Enableagentx    string `json:"enableagentx"`
-	Enableobservium string `json:"enableobservium"`
-	Listen          string `json:"listen,omitempty"`
+	Enabled         opnsense.OPNBool `json:"enabled"`
+	Community       string           `json:"community,omitempty"`
+	Syslocation     string           `json:"syslocation,omitempty"`
+	Syscontact      string           `json:"syscontact,omitempty"`
+	L3visibility    opnsense.OPNBool `json:"l3visibility"`
+	Versionoid      opnsense.OPNBool `json:"versionoid"`
+	Enableagentx    opnsense.OPNBool `json:"enableagentx"`
+	Enableobservium opnsense.OPNBool `json:"enableobservium"`
+	Listen          string           `json:"listen,omitempty"`
 }
 
 // User represents a user model item.
 type User struct {
-	Enabled   string `json:"enabled"`
-	Username  string `json:"username"`
-	Password  string `json:"password"`
-	Enckey    string `json:"enckey"`
-	Readwrite string `json:"readwrite"`
+	Enabled   opnsense.OPNBool `json:"enabled"`
+	Username  string           `json:"username"`
+	Password  string           `json:"password"`
+	Enckey    string           `json:"enckey"`
+	Readwrite opnsense.OPNBool `json:"readwrite"`
 }
 
 type userGetItemResponse struct {

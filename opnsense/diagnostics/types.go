@@ -2,6 +2,8 @@
 
 package diagnostics
 
+import "github.com/jontk/opnsense-cli/opnsense"
+
 // Settings represents a settings model item.
 type Settings struct {
 	Hostname string `json:"hostname"`
@@ -10,9 +12,9 @@ type Settings struct {
 
 // Template represents a template model item.
 type Template struct {
-	Name    string `json:"name"`
-	Or      string `json:"or"`
-	Filters string `json:"filters"`
+	Name    string           `json:"name"`
+	Or      opnsense.OPNBool `json:"or"`
+	Filters string           `json:"filters"`
 }
 
 type templateGetItemResponse struct {

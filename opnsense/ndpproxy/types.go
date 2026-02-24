@@ -2,21 +2,23 @@
 
 package ndpproxy
 
+import "github.com/jontk/opnsense-cli/opnsense"
+
 // General represents a general model item.
 type General struct {
-	Enabled      string `json:"enabled"`
-	Upstream     string `json:"upstream,omitempty"`
-	Downstream   string `json:"downstream,omitempty"`
-	Ra           string `json:"ra"`
-	Routes       string `json:"routes"`
-	CacheTtl     string `json:"cache_ttl,omitempty"`
-	CacheMax     string `json:"cache_max,omitempty"`
-	CacheFile    string `json:"cache_file"`
-	RouteQps     string `json:"route_qps,omitempty"`
-	PfQps        string `json:"pf_qps,omitempty"`
-	PcapTimeout  string `json:"pcap_timeout,omitempty"`
-	Debug        string `json:"debug"`
-	CarpDependOn string `json:"carp_depend_on"`
+	Enabled      opnsense.OPNBool `json:"enabled"`
+	Upstream     string           `json:"upstream,omitempty"`
+	Downstream   string           `json:"downstream,omitempty"`
+	Ra           opnsense.OPNBool `json:"ra"`
+	Routes       opnsense.OPNBool `json:"routes"`
+	CacheTtl     *opnsense.OPNInt `json:"cache_ttl,omitempty"`
+	CacheMax     *opnsense.OPNInt `json:"cache_max,omitempty"`
+	CacheFile    opnsense.OPNBool `json:"cache_file"`
+	RouteQps     *opnsense.OPNInt `json:"route_qps,omitempty"`
+	PfQps        *opnsense.OPNInt `json:"pf_qps,omitempty"`
+	PcapTimeout  *opnsense.OPNInt `json:"pcap_timeout,omitempty"`
+	Debug        opnsense.OPNBool `json:"debug"`
+	CarpDependOn opnsense.OPNBool `json:"carp_depend_on"`
 }
 
 // Alias represents a alias model item.

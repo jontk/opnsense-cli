@@ -2,11 +2,13 @@
 
 package ndproxy
 
+import "github.com/jontk/opnsense-cli/opnsense"
+
 // General represents a general model item.
 type General struct {
-	Enabled                       string `json:"enabled"`
-	NdproxyUplinkInterface        string `json:"ndproxy_uplink_interface,omitempty"`
-	NdproxyDownlinkMacAddress     string `json:"ndproxy_downlink_mac_address,omitempty"`
-	NdproxyExceptionIpv6Addresses string `json:"ndproxy_exception_ipv6_addresses,omitempty"`
-	NdproxyUplinkIpv6Addresses    string `json:"ndproxy_uplink_ipv6_addresses,omitempty"`
+	Enabled                       opnsense.OPNBool `json:"enabled"`
+	NdproxyUplinkInterface        string           `json:"ndproxy_uplink_interface,omitempty"`
+	NdproxyDownlinkMacAddress     string           `json:"ndproxy_downlink_mac_address,omitempty"`
+	NdproxyExceptionIpv6Addresses string           `json:"ndproxy_exception_ipv6_addresses,omitempty"`
+	NdproxyUplinkIpv6Addresses    string           `json:"ndproxy_uplink_ipv6_addresses,omitempty"`
 }

@@ -2,71 +2,73 @@
 
 package relayd
 
+import "github.com/jontk/opnsense-cli/opnsense"
+
 // General represents a general model item.
 type General struct {
-	Enabled  string `json:"enabled"`
-	Interval string `json:"interval,omitempty"`
-	Log      string `json:"log,omitempty"` // Valid values: updates, all
-	Prefork  string `json:"prefork,omitempty"`
-	Timeout  string `json:"timeout,omitempty"`
+	Enabled  opnsense.OPNBool `json:"enabled"`
+	Interval *opnsense.OPNInt `json:"interval,omitempty"`
+	Log      string           `json:"log,omitempty"` // Valid values: updates, all
+	Prefork  *opnsense.OPNInt `json:"prefork,omitempty"`
+	Timeout  *opnsense.OPNInt `json:"timeout,omitempty"`
 }
 
 // Host represents a host model item.
 type Host struct {
-	Enabled  string `json:"enabled"`
-	Name     string `json:"name"`
-	Address  string `json:"address"`
-	IpTTL    string `json:"ipTTL,omitempty"`
-	Priority string `json:"priority,omitempty"`
-	Retry    string `json:"retry,omitempty"`
+	Enabled  opnsense.OPNBool `json:"enabled"`
+	Name     string           `json:"name"`
+	Address  string           `json:"address"`
+	IpTTL    *opnsense.OPNInt `json:"ipTTL,omitempty"`
+	Priority *opnsense.OPNInt `json:"priority,omitempty"`
+	Retry    *opnsense.OPNInt `json:"retry,omitempty"`
 }
 
 // Table represents a table model item.
 type Table struct {
-	Name    string `json:"name"`
-	Enabled string `json:"enabled"`
-	Hosts   string `json:"hosts"`
+	Name    string           `json:"name"`
+	Enabled opnsense.OPNBool `json:"enabled"`
+	Hosts   string           `json:"hosts"`
 }
 
 // Tablecheck represents a tablecheck model item.
 type Tablecheck struct {
-	Name   string `json:"name"`
-	Type   string `json:"type"` // Valid values: icmp, tcp, tls, send, script, http
-	Path   string `json:"path,omitempty"`
-	Host   string `json:"host,omitempty"`
-	Code   string `json:"code,omitempty"`
-	Digest string `json:"digest,omitempty"`
-	Data   string `json:"data,omitempty"`
-	Expect string `json:"expect,omitempty"`
-	Ssl    string `json:"ssl,omitempty"`
+	Name   string            `json:"name"`
+	Type   string            `json:"type"` // Valid values: icmp, tcp, tls, send, script, http
+	Path   string            `json:"path,omitempty"`
+	Host   string            `json:"host,omitempty"`
+	Code   *opnsense.OPNInt  `json:"code,omitempty"`
+	Digest string            `json:"digest,omitempty"`
+	Data   string            `json:"data,omitempty"`
+	Expect string            `json:"expect,omitempty"`
+	Ssl    *opnsense.OPNBool `json:"ssl,omitempty"`
 }
 
 // Virtualserver represents a virtualserver model item.
 type Virtualserver struct {
-	Name                      string `json:"name"`
-	Enabled                   string `json:"enabled"`
-	Type                      string `json:"type"` // Valid values: relay, redirect
-	ListenAddress             string `json:"listen_address"`
-	ListenProto               string `json:"listen_proto"` // Valid values: tcp, udp
-	ListenStartport           string `json:"listen_startport"`
-	ListenEndport             string `json:"listen_endport,omitempty"`
-	ListenInterface           string `json:"listen_interface,omitempty"`
-	TransportType             string `json:"transport_type"` // Valid values: forward, route
-	RoutingInterface          string `json:"routing_interface,omitempty"`
-	TransportTable            string `json:"transport_table"`
-	TransportPort             string `json:"transport_port,omitempty"`
-	TransportInterval         string `json:"transport_interval,omitempty"`
-	TransportTimeout          string `json:"transport_timeout,omitempty"`
-	TransportTablemode        string `json:"transport_tablemode"` // Valid values: hash, least-states, loadbalance, random, roundrobin, source-hash
-	TransportTablecheck       string `json:"transport_tablecheck"`
-	BackuptransportTable      string `json:"backuptransport_table,omitempty"`
-	BackuptransportInterval   string `json:"backuptransport_interval,omitempty"`
-	BackuptransportTimeout    string `json:"backuptransport_timeout,omitempty"`
-	BackuptransportTablecheck string `json:"backuptransport_tablecheck,omitempty"`
-	BackuptransportTablemode  string `json:"backuptransport_tablemode"` // Valid values: hash, least-states, loadbalance, random, roundrobin, source-hash
-	Sessiontimeout            string `json:"sessiontimeout,omitempty"`
-	Stickyaddress             string `json:"stickyaddress,omitempty"`
-	Protocol                  string `json:"protocol,omitempty"`
+	Name                      string            `json:"name"`
+	Enabled                   opnsense.OPNBool  `json:"enabled"`
+	Type                      string            `json:"type"` // Valid values: relay, redirect
+	ListenAddress             string            `json:"listen_address"`
+	ListenProto               string            `json:"listen_proto"` // Valid values: tcp, udp
+	ListenStartport           string            `json:"listen_startport"`
+	ListenEndport             string            `json:"listen_endport,omitempty"`
+	ListenInterface           string            `json:"listen_interface,omitempty"`
+	TransportType             string            `json:"transport_type"` // Valid values: forward, route
+	RoutingInterface          string            `json:"routing_interface,omitempty"`
+	TransportTable            string            `json:"transport_table"`
+	TransportPort             string            `json:"transport_port,omitempty"`
+	TransportInterval         *opnsense.OPNInt  `json:"transport_interval,omitempty"`
+	TransportTimeout          *opnsense.OPNInt  `json:"transport_timeout,omitempty"`
+	TransportTablemode        string            `json:"transport_tablemode"` // Valid values: hash, least-states, loadbalance, random, roundrobin, source-hash
+	TransportTablecheck       string            `json:"transport_tablecheck"`
+	BackuptransportTable      string            `json:"backuptransport_table,omitempty"`
+	BackuptransportInterval   *opnsense.OPNInt  `json:"backuptransport_interval,omitempty"`
+	BackuptransportTimeout    *opnsense.OPNInt  `json:"backuptransport_timeout,omitempty"`
+	BackuptransportTablecheck string            `json:"backuptransport_tablecheck,omitempty"`
+	BackuptransportTablemode  string            `json:"backuptransport_tablemode"` // Valid values: hash, least-states, loadbalance, random, roundrobin, source-hash
+	Sessiontimeout            *opnsense.OPNInt  `json:"sessiontimeout,omitempty"`
+	Stickyaddress             *opnsense.OPNBool `json:"stickyaddress,omitempty"`
+	Protocol                  string            `json:"protocol,omitempty"`
 }
 
 // Protocol represents a protocol model item.

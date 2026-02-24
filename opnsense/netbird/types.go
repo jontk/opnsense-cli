@@ -2,6 +2,8 @@
 
 package netbird
 
+import "github.com/jontk/opnsense-cli/opnsense"
+
 // Settings represents a settings model item.
 type Settings struct {
 	ManagementUrl string `json:"managementUrl"`
@@ -10,42 +12,42 @@ type Settings struct {
 
 // General represents a general model item.
 type General struct {
-	Enable        string `json:"enable"`
-	WireguardPort string `json:"wireguardPort"`
+	Enable        opnsense.OPNBool `json:"enable"`
+	WireguardPort opnsense.OPNInt  `json:"wireguardPort"`
 }
 
 // Firewall represents a firewall model item.
 type Firewall struct {
-	AllowConfig            string `json:"allowConfig"`
-	BlockInboundConnection string `json:"blockInboundConnection"`
+	AllowConfig            opnsense.OPNBool `json:"allowConfig"`
+	BlockInboundConnection opnsense.OPNBool `json:"blockInboundConnection"`
 }
 
 // Ssh represents a ssh model item.
 type Ssh struct {
-	Enable                     string `json:"enable"`
-	EnableRoot                 string `json:"enableRoot"`
-	EnableSFTP                 string `json:"enableSFTP"`
-	EnableLocalPortForwarding  string `json:"enableLocalPortForwarding"`
-	EnableRemotePortForwarding string `json:"enableRemotePortForwarding"`
-	EnableAuth                 string `json:"enableAuth"`
+	Enable                     opnsense.OPNBool `json:"enable"`
+	EnableRoot                 opnsense.OPNBool `json:"enableRoot"`
+	EnableSFTP                 opnsense.OPNBool `json:"enableSFTP"`
+	EnableLocalPortForwarding  opnsense.OPNBool `json:"enableLocalPortForwarding"`
+	EnableRemotePortForwarding opnsense.OPNBool `json:"enableRemotePortForwarding"`
+	EnableAuth                 opnsense.OPNBool `json:"enableAuth"`
 }
 
 // Dns represents a dns model item.
 type Dns struct {
-	Enable string `json:"enable"`
+	Enable opnsense.OPNBool `json:"enable"`
 }
 
 // Routing represents a routing model item.
 type Routing struct {
-	AccessLan          string `json:"accessLan"`
-	AcceptClientRoutes string `json:"acceptClientRoutes"`
-	AcceptServerRoutes string `json:"acceptServerRoutes"`
+	AccessLan          opnsense.OPNBool `json:"accessLan"`
+	AcceptClientRoutes opnsense.OPNBool `json:"acceptClientRoutes"`
+	AcceptServerRoutes opnsense.OPNBool `json:"acceptServerRoutes"`
 }
 
 // Postquantum represents a postquantum model item.
 type Postquantum struct {
-	EnableRosenpass     string `json:"enableRosenpass"`
-	RosenpassPermissive string `json:"rosenpassPermissive"`
+	EnableRosenpass     opnsense.OPNBool `json:"enableRosenpass"`
+	RosenpassPermissive opnsense.OPNBool `json:"rosenpassPermissive"`
 }
 
 // Syslog represents a syslog model item.

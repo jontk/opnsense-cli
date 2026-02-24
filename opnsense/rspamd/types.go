@@ -2,137 +2,139 @@
 
 package rspamd
 
+import "github.com/jontk/opnsense-cli/opnsense"
+
 // General represents a general model item.
 type General struct {
-	Enabled              string `json:"enabled"`
-	EnableRedisPlugin    string `json:"enable_redis_plugin"`
-	EnableBayesAutolearn string `json:"enable_bayes_autolearn"`
-	Rejectscore          string `json:"rejectscore,omitempty"`
-	Headerscore          string `json:"headerscore,omitempty"`
-	Greylistscore        string `json:"greylistscore,omitempty"`
-	Subjectscore         string `json:"subjectscore,omitempty"`
-	Rewritesubject       string `json:"rewritesubject,omitempty"`
-	Historyrows          string `json:"historyrows"`
-	Nameserver           string `json:"nameserver"`
+	Enabled              opnsense.OPNBool `json:"enabled"`
+	EnableRedisPlugin    opnsense.OPNBool `json:"enable_redis_plugin"`
+	EnableBayesAutolearn opnsense.OPNBool `json:"enable_bayes_autolearn"`
+	Rejectscore          *opnsense.OPNInt `json:"rejectscore,omitempty"`
+	Headerscore          *opnsense.OPNInt `json:"headerscore,omitempty"`
+	Greylistscore        *opnsense.OPNInt `json:"greylistscore,omitempty"`
+	Subjectscore         *opnsense.OPNInt `json:"subjectscore,omitempty"`
+	Rewritesubject       string           `json:"rewritesubject,omitempty"`
+	Historyrows          opnsense.OPNInt  `json:"historyrows"`
+	Nameserver           string           `json:"nameserver"`
 }
 
 // MilterHeaders represents a milter_headers model item.
 type MilterHeaders struct {
-	Enabled                     string `json:"enabled"`
-	EnableExtendedSpamHeaders   string `json:"enable_extended_spam_headers"`
-	EnableAuthenticationResults string `json:"enable_authentication_results"`
-	EnableSpamdBar              string `json:"enable_spamd_bar"`
-	SkipLocal                   string `json:"skip_local"`
-	SkipAuthenticated           string `json:"skip_authenticated"`
-	ExtendedHeadersRcpt         string `json:"extended_headers_rcpt,omitempty"`
+	Enabled                     opnsense.OPNBool `json:"enabled"`
+	EnableExtendedSpamHeaders   opnsense.OPNBool `json:"enable_extended_spam_headers"`
+	EnableAuthenticationResults opnsense.OPNBool `json:"enable_authentication_results"`
+	EnableSpamdBar              opnsense.OPNBool `json:"enable_spamd_bar"`
+	SkipLocal                   opnsense.OPNBool `json:"skip_local"`
+	SkipAuthenticated           opnsense.OPNBool `json:"skip_authenticated"`
+	ExtendedHeadersRcpt         string           `json:"extended_headers_rcpt,omitempty"`
 }
 
 // Graylist represents a graylist model item.
 type Graylist struct {
-	Expire      string `json:"expire,omitempty"`
-	Timeout     string `json:"timeout,omitempty"`
-	MaxDataLen  string `json:"max_data_len,omitempty"`
-	Ipv4mask    string `json:"ipv4mask,omitempty"`
-	Ipv6mask    string `json:"ipv6mask,omitempty"`
-	WhitelistIp string `json:"whitelist_ip,omitempty"`
+	Expire      *opnsense.OPNInt `json:"expire,omitempty"`
+	Timeout     *opnsense.OPNInt `json:"timeout,omitempty"`
+	MaxDataLen  *opnsense.OPNInt `json:"max_data_len,omitempty"`
+	Ipv4mask    *opnsense.OPNInt `json:"ipv4mask,omitempty"`
+	Ipv6mask    *opnsense.OPNInt `json:"ipv6mask,omitempty"`
+	WhitelistIp string           `json:"whitelist_ip,omitempty"`
 }
 
 // Dkim represents a dkim model item.
 type Dkim struct {
-	CacheSize             string `json:"cache_size,omitempty"`
-	CacheExpire           string `json:"cache_expire,omitempty"`
-	TimeJitter            string `json:"time_jitter,omitempty"`
-	TrustedOnly           string `json:"trusted_only"`
-	SkipMulti             string `json:"skip_multi"`
-	AllowEnvfromEmpty     string `json:"allow_envfrom_empty"`
-	AllowHdrfromMismatch  string `json:"allow_hdrfrom_mismatch"`
-	AllowHdrfromMultiple  string `json:"allow_hdrfrom_multiple"`
-	AllowUsernameMismatch string `json:"allow_username_mismatch"`
-	AuthOnly              string `json:"auth_only"`
-	SignLocal             string `json:"sign_local"`
-	TryFallback           string `json:"try_fallback"`
-	UseDomain             string `json:"use_domain"` // Valid values: header, envelope
-	UseEsld               string `json:"use_esld"`
+	CacheSize             *opnsense.OPNInt `json:"cache_size,omitempty"`
+	CacheExpire           *opnsense.OPNInt `json:"cache_expire,omitempty"`
+	TimeJitter            *opnsense.OPNInt `json:"time_jitter,omitempty"`
+	TrustedOnly           opnsense.OPNBool `json:"trusted_only"`
+	SkipMulti             opnsense.OPNBool `json:"skip_multi"`
+	AllowEnvfromEmpty     opnsense.OPNBool `json:"allow_envfrom_empty"`
+	AllowHdrfromMismatch  opnsense.OPNBool `json:"allow_hdrfrom_mismatch"`
+	AllowHdrfromMultiple  opnsense.OPNBool `json:"allow_hdrfrom_multiple"`
+	AllowUsernameMismatch opnsense.OPNBool `json:"allow_username_mismatch"`
+	AuthOnly              opnsense.OPNBool `json:"auth_only"`
+	SignLocal             opnsense.OPNBool `json:"sign_local"`
+	TryFallback           opnsense.OPNBool `json:"try_fallback"`
+	UseDomain             string           `json:"use_domain"` // Valid values: header, envelope
+	UseEsld               opnsense.OPNBool `json:"use_esld"`
 }
 
 // MxCheck represents a mx-check model item.
 type MxCheck struct {
-	Enabled string `json:"enabled"`
-	Expire  string `json:"expire,omitempty"`
+	Enabled opnsense.OPNBool `json:"enabled"`
+	Expire  *opnsense.OPNInt `json:"expire,omitempty"`
 }
 
 // Phishing represents a phishing model item.
 type Phishing struct {
-	OpenphishEnabled        string `json:"openphish_enabled"`
-	OpenphishMap            string `json:"openphish_map,omitempty"`
-	OpenphishPremiumEnabled string `json:"openphish_premium_enabled"`
-	PhishtankEnabled        string `json:"phishtank_enabled"`
-	PhishtankMap            string `json:"phishtank_map,omitempty"`
-	Exclusion               string `json:"exclusion,omitempty"`
+	OpenphishEnabled        opnsense.OPNBool `json:"openphish_enabled"`
+	OpenphishMap            string           `json:"openphish_map,omitempty"`
+	OpenphishPremiumEnabled opnsense.OPNBool `json:"openphish_premium_enabled"`
+	PhishtankEnabled        opnsense.OPNBool `json:"phishtank_enabled"`
+	PhishtankMap            string           `json:"phishtank_map,omitempty"`
+	Exclusion               string           `json:"exclusion,omitempty"`
 }
 
 // PerRecipient represents a per_recipient model item.
 type PerRecipient struct {
-	Count    string `json:"count,omitempty"`
-	Time     string `json:"time,omitempty"`
-	TimeUnit string `json:"time_unit"` // Valid values: s, m, h
+	Count    *opnsense.OPNInt `json:"count,omitempty"`
+	Time     *opnsense.OPNInt `json:"time,omitempty"`
+	TimeUnit string           `json:"time_unit"` // Valid values: s, m, h
 }
 
 // PerIp represents a per_ip model item.
 type PerIp struct {
-	Count    string `json:"count,omitempty"`
-	Time     string `json:"time,omitempty"`
-	TimeUnit string `json:"time_unit"` // Valid values: s, m, h
+	Count    *opnsense.OPNInt `json:"count,omitempty"`
+	Time     *opnsense.OPNInt `json:"time,omitempty"`
+	TimeUnit string           `json:"time_unit"` // Valid values: s, m, h
 }
 
 // PerIpFrom represents a per_ip_from model item.
 type PerIpFrom struct {
-	Count    string `json:"count,omitempty"`
-	Time     string `json:"time,omitempty"`
-	TimeUnit string `json:"time_unit"` // Valid values: s, m, h
+	Count    *opnsense.OPNInt `json:"count,omitempty"`
+	Time     *opnsense.OPNInt `json:"time,omitempty"`
+	TimeUnit string           `json:"time_unit"` // Valid values: s, m, h
 }
 
 // Bounce represents a bounce model item.
 type Bounce struct {
-	Count    string `json:"count,omitempty"`
-	Time     string `json:"time,omitempty"`
-	TimeUnit string `json:"time_unit"` // Valid values: s, m, h
+	Count    *opnsense.OPNInt `json:"count,omitempty"`
+	Time     *opnsense.OPNInt `json:"time,omitempty"`
+	TimeUnit string           `json:"time_unit"` // Valid values: s, m, h
 }
 
 // BounceIp represents a bounce_ip model item.
 type BounceIp struct {
-	Count    string `json:"count,omitempty"`
-	Time     string `json:"time,omitempty"`
-	TimeUnit string `json:"time_unit"` // Valid values: s, m, h
+	Count    *opnsense.OPNInt `json:"count,omitempty"`
+	Time     *opnsense.OPNInt `json:"time,omitempty"`
+	TimeUnit string           `json:"time_unit"` // Valid values: s, m, h
 }
 
 // User represents a user model item.
 type User struct {
-	Count    string `json:"count,omitempty"`
-	Time     string `json:"time,omitempty"`
-	TimeUnit string `json:"time_unit"` // Valid values: s, m, h
+	Count    *opnsense.OPNInt `json:"count,omitempty"`
+	Time     *opnsense.OPNInt `json:"time,omitempty"`
+	TimeUnit string           `json:"time_unit"` // Valid values: s, m, h
 }
 
 // Spamtrap represents a spamtrap model item.
 type Spamtrap struct {
-	Enabled        string `json:"enabled"`
-	FuzzyLearning  string `json:"fuzzy_learning"`
-	SpamLearning   string `json:"spam_learning"`
-	SpamRecipients string `json:"spam_recipients,omitempty"`
+	Enabled        opnsense.OPNBool `json:"enabled"`
+	FuzzyLearning  opnsense.OPNBool `json:"fuzzy_learning"`
+	SpamLearning   opnsense.OPNBool `json:"spam_learning"`
+	SpamRecipients string           `json:"spam_recipients,omitempty"`
 }
 
 // Spf represents a spf model item.
 type Spf struct {
-	SpfCacheSize   string `json:"spf_cache_size,omitempty"`
-	SpfCacheExpire string `json:"spf_cache_expire,omitempty"`
+	SpfCacheSize   *opnsense.OPNInt `json:"spf_cache_size,omitempty"`
+	SpfCacheExpire *opnsense.OPNInt `json:"spf_cache_expire,omitempty"`
 }
 
 // Av represents a av model item.
 type Av struct {
-	ForceReject     string `json:"force-reject"`
-	AttachmentsOnly string `json:"attachments-only"`
-	MaxSize         string `json:"max-size,omitempty"`
-	Whitelist       string `json:"whitelist,omitempty"`
+	ForceReject     opnsense.OPNBool `json:"force-reject"`
+	AttachmentsOnly opnsense.OPNBool `json:"attachments-only"`
+	MaxSize         *opnsense.OPNInt `json:"max-size,omitempty"`
+	Whitelist       string           `json:"whitelist,omitempty"`
 }
 
 // Surbl represents a surbl model item.

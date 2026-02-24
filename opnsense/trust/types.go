@@ -2,82 +2,84 @@
 
 package trust
 
+import "github.com/jontk/opnsense-cli/opnsense"
+
 // Ca represents a ca model item.
 type Ca struct {
-	Refid              string `json:"refid,omitempty"`
-	Descr              string `json:"descr"`
-	Crt                string `json:"crt,omitempty"`
-	Prv                string `json:"prv,omitempty"`
-	Serial             string `json:"serial,omitempty"`
-	Caref              string `json:"caref,omitempty"`
-	Action             string `json:"action,omitempty"`   // Valid values: existing, internal, ocsp
-	KeyType            string `json:"key_type,omitempty"` // Valid values: RSA-512, RSA-1024, RSA-2048, RSA-3072, RSA-4096, RSA-8192, prime256v1, secp384r1, secp521r1
-	Digest             string `json:"digest,omitempty"`   // Valid values: sha1, sha224, sha256, sha384, sha512
-	Lifetime           string `json:"lifetime,omitempty"`
-	City               string `json:"city,omitempty"`
-	State              string `json:"state,omitempty"`
-	Organization       string `json:"organization,omitempty"`
-	Organizationalunit string `json:"organizationalunit,omitempty"`
-	Country            string `json:"country,omitempty"`
-	Email              string `json:"email,omitempty"`
-	Commonname         string `json:"commonname,omitempty"`
-	OcspUri            string `json:"ocsp_uri,omitempty"`
-	CrtPayload         string `json:"crt_payload,omitempty"`
-	PrvPayload         string `json:"prv_payload,omitempty"`
-	Refcount           string `json:"refcount,omitempty"`
-	Name               string `json:"name,omitempty"`
-	ValidFrom          string `json:"valid_from,omitempty"`
-	ValidTo            string `json:"valid_to,omitempty"`
+	Refid              string           `json:"refid,omitempty"`
+	Descr              string           `json:"descr"`
+	Crt                string           `json:"crt,omitempty"`
+	Prv                string           `json:"prv,omitempty"`
+	Serial             *opnsense.OPNInt `json:"serial,omitempty"`
+	Caref              string           `json:"caref,omitempty"`
+	Action             string           `json:"action,omitempty"`   // Valid values: existing, internal, ocsp
+	KeyType            string           `json:"key_type,omitempty"` // Valid values: RSA-512, RSA-1024, RSA-2048, RSA-3072, RSA-4096, RSA-8192, prime256v1, secp384r1, secp521r1
+	Digest             string           `json:"digest,omitempty"`   // Valid values: sha1, sha224, sha256, sha384, sha512
+	Lifetime           *opnsense.OPNInt `json:"lifetime,omitempty"`
+	City               string           `json:"city,omitempty"`
+	State              string           `json:"state,omitempty"`
+	Organization       string           `json:"organization,omitempty"`
+	Organizationalunit string           `json:"organizationalunit,omitempty"`
+	Country            string           `json:"country,omitempty"`
+	Email              string           `json:"email,omitempty"`
+	Commonname         string           `json:"commonname,omitempty"`
+	OcspUri            string           `json:"ocsp_uri,omitempty"`
+	CrtPayload         string           `json:"crt_payload,omitempty"`
+	PrvPayload         string           `json:"prv_payload,omitempty"`
+	Refcount           *opnsense.OPNInt `json:"refcount,omitempty"`
+	Name               string           `json:"name,omitempty"`
+	ValidFrom          string           `json:"valid_from,omitempty"`
+	ValidTo            string           `json:"valid_to,omitempty"`
 }
 
 // Cert represents a cert model item.
 type Cert struct {
-	Refid              string `json:"refid,omitempty"`
-	Descr              string `json:"descr"`
-	Caref              string `json:"caref,omitempty"`
-	Crt                string `json:"crt,omitempty"`
-	Csr                string `json:"csr,omitempty"`
-	Prv                string `json:"prv,omitempty"`
-	Action             string `json:"action,omitempty"`    // Valid values: internal, external, import, sign_csr, import_csr, reissue, manual
-	KeyType            string `json:"key_type,omitempty"`  // Valid values: RSA-512, RSA-1024, RSA-2048, RSA-3072, RSA-4096, RSA-8192, prime256v1, secp384r1, secp521r1
-	Digest             string `json:"digest,omitempty"`    // Valid values: sha1, sha224, sha256, sha384, sha512
-	CertType           string `json:"cert_type,omitempty"` // Valid values: usr_cert, server_cert, combined_server_client, v3_ca
-	Lifetime           string `json:"lifetime,omitempty"`
-	PrivateKeyLocation string `json:"private_key_location,omitempty"` // Valid values: firewall, local
-	City               string `json:"city,omitempty"`
-	State              string `json:"state,omitempty"`
-	Organization       string `json:"organization,omitempty"`
-	Organizationalunit string `json:"organizationalunit,omitempty"`
-	Country            string `json:"country,omitempty"`
-	Email              string `json:"email,omitempty"`
-	Commonname         string `json:"commonname,omitempty"`
-	OcspUri            string `json:"ocsp_uri,omitempty"`
-	AltnamesDns        string `json:"altnames_dns,omitempty"`
-	AltnamesIp         string `json:"altnames_ip,omitempty"`
-	AltnamesUri        string `json:"altnames_uri,omitempty"`
-	AltnamesEmail      string `json:"altnames_email,omitempty"`
-	CrtPayload         string `json:"crt_payload,omitempty"`
-	CsrPayload         string `json:"csr_payload,omitempty"`
-	PrvPayload         string `json:"prv_payload,omitempty"`
-	Rfc3280Purpose     string `json:"rfc3280_purpose,omitempty"`
-	InUse              string `json:"in_use,omitempty"`
-	IsUser             string `json:"is_user,omitempty"`
-	Name               string `json:"name,omitempty"`
-	ValidFrom          string `json:"valid_from,omitempty"`
-	ValidTo            string `json:"valid_to,omitempty"`
+	Refid              string            `json:"refid,omitempty"`
+	Descr              string            `json:"descr"`
+	Caref              string            `json:"caref,omitempty"`
+	Crt                string            `json:"crt,omitempty"`
+	Csr                string            `json:"csr,omitempty"`
+	Prv                string            `json:"prv,omitempty"`
+	Action             string            `json:"action,omitempty"`    // Valid values: internal, external, import, sign_csr, import_csr, reissue, manual
+	KeyType            string            `json:"key_type,omitempty"`  // Valid values: RSA-512, RSA-1024, RSA-2048, RSA-3072, RSA-4096, RSA-8192, prime256v1, secp384r1, secp521r1
+	Digest             string            `json:"digest,omitempty"`    // Valid values: sha1, sha224, sha256, sha384, sha512
+	CertType           string            `json:"cert_type,omitempty"` // Valid values: usr_cert, server_cert, combined_server_client, v3_ca
+	Lifetime           *opnsense.OPNInt  `json:"lifetime,omitempty"`
+	PrivateKeyLocation string            `json:"private_key_location,omitempty"` // Valid values: firewall, local
+	City               string            `json:"city,omitempty"`
+	State              string            `json:"state,omitempty"`
+	Organization       string            `json:"organization,omitempty"`
+	Organizationalunit string            `json:"organizationalunit,omitempty"`
+	Country            string            `json:"country,omitempty"`
+	Email              string            `json:"email,omitempty"`
+	Commonname         string            `json:"commonname,omitempty"`
+	OcspUri            string            `json:"ocsp_uri,omitempty"`
+	AltnamesDns        string            `json:"altnames_dns,omitempty"`
+	AltnamesIp         string            `json:"altnames_ip,omitempty"`
+	AltnamesUri        string            `json:"altnames_uri,omitempty"`
+	AltnamesEmail      string            `json:"altnames_email,omitempty"`
+	CrtPayload         string            `json:"crt_payload,omitempty"`
+	CsrPayload         string            `json:"csr_payload,omitempty"`
+	PrvPayload         string            `json:"prv_payload,omitempty"`
+	Rfc3280Purpose     string            `json:"rfc3280_purpose,omitempty"`
+	InUse              *opnsense.OPNBool `json:"in_use,omitempty"`
+	IsUser             *opnsense.OPNBool `json:"is_user,omitempty"`
+	Name               string            `json:"name,omitempty"`
+	ValidFrom          string            `json:"valid_from,omitempty"`
+	ValidTo            string            `json:"valid_to,omitempty"`
 }
 
 // Settings represents a settings model item.
 type Settings struct {
-	StoreIntermediateCerts  string `json:"store_intermediate_certs"`
-	InstallCrls             string `json:"install_crls"`
-	FetchCrls               string `json:"fetch_crls"`
-	EnableLegacySect        string `json:"enable_legacy_sect"`
-	EnableConfigConstraints string `json:"enable_config_constraints"`
-	CipherString            string `json:"CipherString,omitempty"`
-	Ciphersuites            string `json:"Ciphersuites,omitempty"`
-	SignatureAlgorithms     string `json:"SignatureAlgorithms,omitempty"` // Valid values: o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15
-	Groups                  string `json:"groups,omitempty"`
-	MinProtocol             string `json:"MinProtocol,omitempty"`      // Valid values: TLSv1, TLSv1.1, TLSv1.2, TLSv1.3
-	MinProtocolDTLS         string `json:"MinProtocol_DTLS,omitempty"` // Valid values: DTLSv1, DTLSv1.1
+	StoreIntermediateCerts  opnsense.OPNBool `json:"store_intermediate_certs"`
+	InstallCrls             opnsense.OPNBool `json:"install_crls"`
+	FetchCrls               opnsense.OPNBool `json:"fetch_crls"`
+	EnableLegacySect        opnsense.OPNBool `json:"enable_legacy_sect"`
+	EnableConfigConstraints opnsense.OPNBool `json:"enable_config_constraints"`
+	CipherString            string           `json:"CipherString,omitempty"`
+	Ciphersuites            string           `json:"Ciphersuites,omitempty"`
+	SignatureAlgorithms     string           `json:"SignatureAlgorithms,omitempty"` // Valid values: o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15
+	Groups                  string           `json:"groups,omitempty"`
+	MinProtocol             string           `json:"MinProtocol,omitempty"`      // Valid values: TLSv1, TLSv1.1, TLSv1.2, TLSv1.3
+	MinProtocolDTLS         string           `json:"MinProtocol_DTLS,omitempty"` // Valid values: DTLSv1, DTLSv1.1
 }

@@ -2,13 +2,15 @@
 
 package lldpd
 
+import "github.com/jontk/opnsense-cli/opnsense"
+
 // Settings represents a settings model item.
 type Settings struct {
-	Enabled   string `json:"enabled"`
-	Cdp       string `json:"cdp"`
-	Fdp       string `json:"fdp"`
-	Edp       string `json:"edp"`
-	Sonmp     string `json:"sonmp"`
-	Agentx    string `json:"agentx"`
-	Interface string `json:"interface,omitempty"`
+	Enabled   opnsense.OPNBool `json:"enabled"`
+	Cdp       opnsense.OPNBool `json:"cdp"`
+	Fdp       opnsense.OPNBool `json:"fdp"`
+	Edp       opnsense.OPNBool `json:"edp"`
+	Sonmp     opnsense.OPNBool `json:"sonmp"`
+	Agentx    opnsense.OPNBool `json:"agentx"`
+	Interface string           `json:"interface,omitempty"`
 }

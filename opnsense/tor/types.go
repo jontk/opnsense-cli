@@ -2,60 +2,62 @@
 
 package tor
 
+import "github.com/jontk/opnsense-cli/opnsense"
+
 // Policy represents a policy model item.
 type Policy struct {
-	Enabled   string `json:"enabled"`
-	Type      string `json:"type"` // Valid values: both, v4, v6
-	Network   string `json:"network"`
-	Startport string `json:"startport,omitempty"`
-	Endport   string `json:"endport,omitempty"`
-	Action    string `json:"action"` // Valid values: accept, reject
+	Enabled   opnsense.OPNBool `json:"enabled"`
+	Type      string           `json:"type"` // Valid values: both, v4, v6
+	Network   string           `json:"network"`
+	Startport *opnsense.OPNInt `json:"startport,omitempty"`
+	Endport   *opnsense.OPNInt `json:"endport,omitempty"`
+	Action    string           `json:"action"` // Valid values: accept, reject
 }
 
 // Settings represents a settings model item.
 type Settings struct {
-	Enabled                   string `json:"enabled"`
-	SocksListenIp             string `json:"socks_listen_ip,omitempty"`
-	SocksListenPort           string `json:"socks_listen_port"`
-	ControlPort               string `json:"control_port,omitempty"`
-	ControlPortPassword       string `json:"control_port_password,omitempty"`
-	ControlPortPasswordHashed string `json:"control_port_password_hashed,omitempty"`
-	Enablelogfile             string `json:"enablelogfile"`
-	DormantCanceledByStartup  string `json:"dormant_canceled_by_startup"`
-	Logfilelevel              string `json:"logfilelevel"` // Valid values: err, warn, notice, info, debug
-	Enablesyslog              string `json:"enablesyslog"`
-	Sysloglevel               string `json:"sysloglevel"` // Valid values: err, warn, notice, info, debug
-	Scheduler                 string `json:"scheduler"`   // Valid values: KISTLiteVanilla, VanillaKISTLite, KISTLite, Vanilla
-	FascistFirewall           string `json:"fascist_firewall"`
-	FascistFirewallPorts      string `json:"fascist_firewall_ports"`
-	EnableTransparent         string `json:"enable_transparent"`
-	TransparentPort           string `json:"transparent_port"`
-	TransparentDns            string `json:"transparent_dns"`
-	TransparentIpPool         string `json:"transparent_ip_pool"`
-	DnsMapHosts               string `json:"dns_map_hosts"`
-	MaxMemoryInQueues         string `json:"max_memory_in_queues,omitempty"`
+	Enabled                   opnsense.OPNBool `json:"enabled"`
+	SocksListenIp             string           `json:"socks_listen_ip,omitempty"`
+	SocksListenPort           opnsense.OPNInt  `json:"socks_listen_port"`
+	ControlPort               *opnsense.OPNInt `json:"control_port,omitempty"`
+	ControlPortPassword       string           `json:"control_port_password,omitempty"`
+	ControlPortPasswordHashed string           `json:"control_port_password_hashed,omitempty"`
+	Enablelogfile             opnsense.OPNBool `json:"enablelogfile"`
+	DormantCanceledByStartup  opnsense.OPNBool `json:"dormant_canceled_by_startup"`
+	Logfilelevel              string           `json:"logfilelevel"` // Valid values: err, warn, notice, info, debug
+	Enablesyslog              opnsense.OPNBool `json:"enablesyslog"`
+	Sysloglevel               string           `json:"sysloglevel"` // Valid values: err, warn, notice, info, debug
+	Scheduler                 string           `json:"scheduler"`   // Valid values: KISTLiteVanilla, VanillaKISTLite, KISTLite, Vanilla
+	FascistFirewall           opnsense.OPNBool `json:"fascist_firewall"`
+	FascistFirewallPorts      string           `json:"fascist_firewall_ports"`
+	EnableTransparent         opnsense.OPNBool `json:"enable_transparent"`
+	TransparentPort           opnsense.OPNInt  `json:"transparent_port"`
+	TransparentDns            opnsense.OPNInt  `json:"transparent_dns"`
+	TransparentIpPool         string           `json:"transparent_ip_pool"`
+	DnsMapHosts               opnsense.OPNBool `json:"dns_map_hosts"`
+	MaxMemoryInQueues         *opnsense.OPNInt `json:"max_memory_in_queues,omitempty"`
 }
 
 // ClientAuth represents a client_auth model item.
 type ClientAuth struct {
-	Enabled      string `json:"enabled"`
-	OnionService string `json:"onion_service"`
-	AuthCookie   string `json:"auth_cookie"`
+	Enabled      opnsense.OPNBool `json:"enabled"`
+	OnionService string           `json:"onion_service"`
+	AuthCookie   string           `json:"auth_cookie"`
 }
 
 // Service represents a service model item.
 type Service struct {
-	Enabled string `json:"enabled"`
-	Name    string `json:"name"`
-	Type    string `json:"type"` // Valid values: basic, stealth
-	Clients string `json:"clients,omitempty"`
+	Enabled opnsense.OPNBool `json:"enabled"`
+	Name    string           `json:"name"`
+	Type    string           `json:"type"` // Valid values: basic, stealth
+	Clients string           `json:"clients,omitempty"`
 }
 
 // Hiddenserviceacl represents a hiddenserviceacl model item.
 type Hiddenserviceacl struct {
-	Enabled       string `json:"enabled"`
-	Hiddenservice string `json:"hiddenservice"`
-	Port          string `json:"port"`
-	TargetHost    string `json:"target_host"`
-	TargetPort    string `json:"target_port"`
+	Enabled       opnsense.OPNBool `json:"enabled"`
+	Hiddenservice string           `json:"hiddenservice"`
+	Port          opnsense.OPNInt  `json:"port"`
+	TargetHost    string           `json:"target_host"`
+	TargetPort    opnsense.OPNInt  `json:"target_port"`
 }

@@ -2,23 +2,25 @@
 
 package turnserver
 
+import "github.com/jontk/opnsense-cli/opnsense"
+
 // Settings represents a settings model item.
 type Settings struct {
-	Enabled             string `json:"Enabled"`
-	ListenIP            string `json:"ListenIP"`
-	ListenPort          string `json:"ListenPort"`
-	MinPort             string `json:"MinPort"`
-	MaxPort             string `json:"MaxPort"`
-	TlsEnabled          string `json:"TlsEnabled"`
-	TlsCertificate      string `json:"TlsCertificate,omitempty"`
-	TlsPort             string `json:"TlsPort"`
-	UseAuthSecret       string `json:"UseAuthSecret"`
-	StaticAuthSecret    string `json:"StaticAuthSecret,omitempty"`
-	Realm               string `json:"Realm,omitempty"`
-	FingerprintsEnabled string `json:"FingerprintsEnabled"`
-	UserQuota           string `json:"UserQuota"`
-	TotalQuota          string `json:"TotalQuota"`
-	StaleNonce          string `json:"StaleNonce"`
-	ChannelLifetime     string `json:"ChannelLifetime"`
-	PermissionLifetime  string `json:"PermissionLifetime"`
+	Enabled             opnsense.OPNBool `json:"Enabled"`
+	ListenIP            string           `json:"ListenIP"`
+	ListenPort          string           `json:"ListenPort"`
+	MinPort             string           `json:"MinPort"`
+	MaxPort             string           `json:"MaxPort"`
+	TlsEnabled          opnsense.OPNBool `json:"TlsEnabled"`
+	TlsCertificate      string           `json:"TlsCertificate,omitempty"`
+	TlsPort             string           `json:"TlsPort"`
+	UseAuthSecret       opnsense.OPNBool `json:"UseAuthSecret"`
+	StaticAuthSecret    string           `json:"StaticAuthSecret,omitempty"`
+	Realm               string           `json:"Realm,omitempty"`
+	FingerprintsEnabled opnsense.OPNBool `json:"FingerprintsEnabled"`
+	UserQuota           opnsense.OPNInt  `json:"UserQuota"`
+	TotalQuota          opnsense.OPNInt  `json:"TotalQuota"`
+	StaleNonce          opnsense.OPNInt  `json:"StaleNonce"`
+	ChannelLifetime     opnsense.OPNInt  `json:"ChannelLifetime"`
+	PermissionLifetime  opnsense.OPNInt  `json:"PermissionLifetime"`
 }

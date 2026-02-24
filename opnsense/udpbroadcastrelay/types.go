@@ -2,14 +2,16 @@
 
 package udpbroadcastrelay
 
+import "github.com/jontk/opnsense-cli/opnsense"
+
 // Udpbroadcastrelay represents a udpbroadcastrelay model item.
 type Udpbroadcastrelay struct {
-	Enabled          string `json:"enabled"`
-	Interfaces       string `json:"interfaces"`
-	Multicastaddress string `json:"multicastaddress,omitempty"`
-	Sourceaddress    string `json:"sourceaddress,omitempty"`
-	Listenport       string `json:"listenport"`
-	InstanceID       string `json:"InstanceID"`
-	RevertTTL        string `json:"RevertTTL"`
-	Description      string `json:"description,omitempty"`
+	Enabled          opnsense.OPNBool `json:"enabled"`
+	Interfaces       string           `json:"interfaces"`
+	Multicastaddress string           `json:"multicastaddress,omitempty"`
+	Sourceaddress    string           `json:"sourceaddress,omitempty"`
+	Listenport       opnsense.OPNInt  `json:"listenport"`
+	InstanceID       opnsense.OPNInt  `json:"InstanceID"`
+	RevertTTL        opnsense.OPNBool `json:"RevertTTL"`
+	Description      string           `json:"description,omitempty"`
 }

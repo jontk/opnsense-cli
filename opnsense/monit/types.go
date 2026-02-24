@@ -2,61 +2,63 @@
 
 package monit
 
+import "github.com/jontk/opnsense-cli/opnsense"
+
 // General represents a general model item.
 type General struct {
-	Enabled                   string `json:"enabled"`
-	Interval                  string `json:"interval"`
-	Startdelay                string `json:"startdelay"`
-	Mailserver                string `json:"mailserver"`
-	Port                      string `json:"port"`
-	Username                  string `json:"username,omitempty"`
-	Password                  string `json:"password,omitempty"`
-	Ssl                       string `json:"ssl"`
-	Sslversion                string `json:"sslversion"` // Valid values: auto, tlsv1, tlsv11, tlsv12, tlsv13
-	Sslverify                 string `json:"sslverify"`
-	Logfile                   string `json:"logfile,omitempty"`
-	Statefile                 string `json:"statefile,omitempty"`
-	EventqueuePath            string `json:"eventqueuePath,omitempty"`
-	EventqueueSlots           string `json:"eventqueueSlots,omitempty"`
-	HttpdEnabled              string `json:"httpdEnabled"`
-	HttpdUsername             string `json:"httpdUsername"`
-	HttpdPassword             string `json:"httpdPassword,omitempty"`
-	HttpdPort                 string `json:"httpdPort"`
-	HttpdAllow                string `json:"httpdAllow,omitempty"`
-	MmonitUrl                 string `json:"mmonitUrl,omitempty"`
-	MmonitTimeout             string `json:"mmonitTimeout"`
-	MmonitRegisterCredentials string `json:"mmonitRegisterCredentials"`
+	Enabled                   opnsense.OPNBool `json:"enabled"`
+	Interval                  opnsense.OPNInt  `json:"interval"`
+	Startdelay                opnsense.OPNInt  `json:"startdelay"`
+	Mailserver                string           `json:"mailserver"`
+	Port                      opnsense.OPNInt  `json:"port"`
+	Username                  string           `json:"username,omitempty"`
+	Password                  string           `json:"password,omitempty"`
+	Ssl                       opnsense.OPNBool `json:"ssl"`
+	Sslversion                string           `json:"sslversion"` // Valid values: auto, tlsv1, tlsv11, tlsv12, tlsv13
+	Sslverify                 opnsense.OPNBool `json:"sslverify"`
+	Logfile                   string           `json:"logfile,omitempty"`
+	Statefile                 string           `json:"statefile,omitempty"`
+	EventqueuePath            string           `json:"eventqueuePath,omitempty"`
+	EventqueueSlots           *opnsense.OPNInt `json:"eventqueueSlots,omitempty"`
+	HttpdEnabled              opnsense.OPNBool `json:"httpdEnabled"`
+	HttpdUsername             string           `json:"httpdUsername"`
+	HttpdPassword             string           `json:"httpdPassword,omitempty"`
+	HttpdPort                 opnsense.OPNInt  `json:"httpdPort"`
+	HttpdAllow                string           `json:"httpdAllow,omitempty"`
+	MmonitUrl                 string           `json:"mmonitUrl,omitempty"`
+	MmonitTimeout             opnsense.OPNInt  `json:"mmonitTimeout"`
+	MmonitRegisterCredentials opnsense.OPNBool `json:"mmonitRegisterCredentials"`
 }
 
 // Alert represents a alert model item.
 type Alert struct {
-	Enabled     string `json:"enabled"`
-	Recipient   string `json:"recipient"`
-	Noton       string `json:"noton"`
-	Events      string `json:"events,omitempty"` // Valid values: action, checksum, bytein, byteout, connection, content, data, exec, fsflags, gid, icmp, instance, invalid, link, nonexist, packetin, packetout, permission, pid, ppid, resource, saturation, size, speed, status, timeout, timestamp, uid, uptime
-	Format      string `json:"format,omitempty"`
-	Reminder    string `json:"reminder,omitempty"`
-	Description string `json:"description,omitempty"`
+	Enabled     opnsense.OPNBool `json:"enabled"`
+	Recipient   string           `json:"recipient"`
+	Noton       opnsense.OPNBool `json:"noton"`
+	Events      string           `json:"events,omitempty"` // Valid values: action, checksum, bytein, byteout, connection, content, data, exec, fsflags, gid, icmp, instance, invalid, link, nonexist, packetin, packetout, permission, pid, ppid, resource, saturation, size, speed, status, timeout, timestamp, uid, uptime
+	Format      string           `json:"format,omitempty"`
+	Reminder    *opnsense.OPNInt `json:"reminder,omitempty"`
+	Description string           `json:"description,omitempty"`
 }
 
 // Service represents a service model item.
 type Service struct {
-	Enabled      string `json:"enabled"`
-	Name         string `json:"name"`
-	Description  string `json:"description,omitempty"`
-	Type         string `json:"type"` // Valid values: process, file, fifo, filesystem, directory, host, system, custom, network
-	Pidfile      string `json:"pidfile,omitempty"`
-	Match        string `json:"match,omitempty"`
-	Path         string `json:"path,omitempty"`
-	Timeout      string `json:"timeout"`
-	Starttimeout string `json:"starttimeout"`
-	Address      string `json:"address,omitempty"`
-	Interface    string `json:"interface,omitempty"`
-	Start        string `json:"start,omitempty"`
-	Stop         string `json:"stop,omitempty"`
-	Tests        string `json:"tests,omitempty"`
-	Depends      string `json:"depends,omitempty"`
-	Polltime     string `json:"polltime,omitempty"`
+	Enabled      opnsense.OPNBool `json:"enabled"`
+	Name         string           `json:"name"`
+	Description  string           `json:"description,omitempty"`
+	Type         string           `json:"type"` // Valid values: process, file, fifo, filesystem, directory, host, system, custom, network
+	Pidfile      string           `json:"pidfile,omitempty"`
+	Match        string           `json:"match,omitempty"`
+	Path         string           `json:"path,omitempty"`
+	Timeout      opnsense.OPNInt  `json:"timeout"`
+	Starttimeout opnsense.OPNInt  `json:"starttimeout"`
+	Address      string           `json:"address,omitempty"`
+	Interface    string           `json:"interface,omitempty"`
+	Start        string           `json:"start,omitempty"`
+	Stop         string           `json:"stop,omitempty"`
+	Tests        string           `json:"tests,omitempty"`
+	Depends      string           `json:"depends,omitempty"`
+	Polltime     string           `json:"polltime,omitempty"`
 }
 
 // Test represents a test model item.

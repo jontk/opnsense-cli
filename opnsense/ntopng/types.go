@@ -2,12 +2,14 @@
 
 package ntopng
 
+import "github.com/jontk/opnsense-cli/opnsense"
+
 // Settings represents a settings model item.
 type Settings struct {
-	Enabled   string `json:"enabled"`
-	Interface string `json:"interface,omitempty"`
-	Httpport  string `json:"httpport"`
-	Httpsport string `json:"httpsport,omitempty"`
-	Cert      string `json:"cert,omitempty"`
-	Dnsmode   string `json:"dnsmode,omitempty"` // Valid values: Option0, Option1, Option2, Option3
+	Enabled   opnsense.OPNBool `json:"enabled"`
+	Interface string           `json:"interface,omitempty"`
+	Httpport  string           `json:"httpport"`
+	Httpsport string           `json:"httpsport,omitempty"`
+	Cert      string           `json:"cert,omitempty"`
+	Dnsmode   string           `json:"dnsmode,omitempty"` // Valid values: Option0, Option1, Option2, Option3
 }

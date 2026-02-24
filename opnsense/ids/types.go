@@ -2,30 +2,32 @@
 
 package ids
 
+import "github.com/jontk/opnsense-cli/opnsense"
+
 // Rule represents a rule model item.
 type Rule struct {
-	Sid     string `json:"sid"`
-	Enabled string `json:"enabled"`
-	Action  string `json:"action"` // Valid values: alert, drop
-	Msg     string `json:"msg,omitempty"`
-	Source  string `json:"source,omitempty"`
+	Sid     opnsense.OPNInt  `json:"sid"`
+	Enabled opnsense.OPNBool `json:"enabled"`
+	Action  string           `json:"action"` // Valid values: alert, drop
+	Msg     string           `json:"msg,omitempty"`
+	Source  string           `json:"source,omitempty"`
 }
 
 // Policy represents a policy model item.
 type Policy struct {
-	Enabled     string `json:"enabled"`
-	Prio        string `json:"prio"`
-	Action      string `json:"action,omitempty"` // Valid values: disable, alert, drop
-	Rulesets    string `json:"rulesets,omitempty"`
-	Content     string `json:"content,omitempty"`
-	NewAction   string `json:"new_action"` // Valid values: default, alert, drop, disable
-	Description string `json:"description,omitempty"`
+	Enabled     opnsense.OPNBool `json:"enabled"`
+	Prio        opnsense.OPNInt  `json:"prio"`
+	Action      string           `json:"action,omitempty"` // Valid values: disable, alert, drop
+	Rulesets    string           `json:"rulesets,omitempty"`
+	Content     string           `json:"content,omitempty"`
+	NewAction   string           `json:"new_action"` // Valid values: default, alert, drop, disable
+	Description string           `json:"description,omitempty"`
 }
 
 // File represents a file model item.
 type File struct {
-	Filename string `json:"filename"`
-	Enabled  string `json:"enabled"`
+	Filename string           `json:"filename"`
+	Enabled  opnsense.OPNBool `json:"enabled"`
 }
 
 // Tag represents a tag model item.
@@ -36,9 +38,9 @@ type Tag struct {
 
 // Detect represents a detect model item.
 type Detect struct {
-	Profile        string `json:"Profile,omitempty"` // Valid values: low, medium, high, custom
-	ToclientGroups string `json:"toclient_groups,omitempty"`
-	ToserverGroups string `json:"toserver_groups,omitempty"`
+	Profile        string           `json:"Profile,omitempty"` // Valid values: low, medium, high, custom
+	ToclientGroups *opnsense.OPNInt `json:"toclient_groups,omitempty"`
+	ToserverGroups *opnsense.OPNInt `json:"toserver_groups,omitempty"`
 }
 
 type policyGetItemResponse struct {

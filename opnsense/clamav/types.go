@@ -2,50 +2,52 @@
 
 package clamav
 
+import "github.com/jontk/opnsense-cli/opnsense"
+
 // Settings represents a settings model item.
 type Settings struct {
-	Enabled          string `json:"enabled"`
-	FcEnabled        string `json:"fc_enabled"`
-	Enabletcp        string `json:"enabletcp"`
-	Maxthreads       string `json:"maxthreads,omitempty"`
-	Maxqueue         string `json:"maxqueue,omitempty"`
-	Idletimeout      string `json:"idletimeout,omitempty"`
-	Maxdirrecursion  string `json:"maxdirrecursion,omitempty"`
-	Followdirsym     string `json:"followdirsym,omitempty"`
-	Followfilesym    string `json:"followfilesym,omitempty"`
-	Disablecache     string `json:"disablecache,omitempty"`
-	Scanpe           string `json:"scanpe,omitempty"`
-	Scanelf          string `json:"scanelf,omitempty"`
-	Detectbroken     string `json:"detectbroken,omitempty"`
-	Scanole2         string `json:"scanole2,omitempty"`
-	Ole2blockmarcros string `json:"ole2blockmarcros,omitempty"`
-	Scanpdf          string `json:"scanpdf,omitempty"`
-	Scanswf          string `json:"scanswf,omitempty"`
-	Scanxmldocs      string `json:"scanxmldocs,omitempty"`
-	Scanhwp3         string `json:"scanhwp3,omitempty"`
-	Scanmailfiles    string `json:"scanmailfiles,omitempty"`
-	Scanhtml         string `json:"scanhtml,omitempty"`
-	Scanarchive      string `json:"scanarchive,omitempty"`
-	Arcblockenc      string `json:"arcblockenc,omitempty"`
-	Maxscansize      string `json:"maxscansize,omitempty"`
-	Maxfilesize      string `json:"maxfilesize,omitempty"`
-	Maxrecursion     string `json:"maxrecursion,omitempty"`
-	Maxfiles         string `json:"maxfiles,omitempty"`
-	Logverbose       string `json:"logverbose,omitempty"`
-	FcLogverbose     string `json:"fc_logverbose,omitempty"`
-	FcDatabasemirror string `json:"fc_databasemirror"`
-	FcTimeout        string `json:"fc_timeout"`
-	FcMalwareexpert  string `json:"fc_malwareexpert,omitempty"`
-	FcBlurl          string `json:"fc_blurl,omitempty"`
-	FcJurlbla        string `json:"fc_jurlbla,omitempty"`
-	FcBofhland       string `json:"fc_bofhland,omitempty"`
+	Enabled          opnsense.OPNBool  `json:"enabled"`
+	FcEnabled        opnsense.OPNBool  `json:"fc_enabled"`
+	Enabletcp        opnsense.OPNBool  `json:"enabletcp"`
+	Maxthreads       *opnsense.OPNInt  `json:"maxthreads,omitempty"`
+	Maxqueue         *opnsense.OPNInt  `json:"maxqueue,omitempty"`
+	Idletimeout      *opnsense.OPNInt  `json:"idletimeout,omitempty"`
+	Maxdirrecursion  *opnsense.OPNInt  `json:"maxdirrecursion,omitempty"`
+	Followdirsym     *opnsense.OPNBool `json:"followdirsym,omitempty"`
+	Followfilesym    *opnsense.OPNBool `json:"followfilesym,omitempty"`
+	Disablecache     string            `json:"disablecache,omitempty"`
+	Scanpe           *opnsense.OPNBool `json:"scanpe,omitempty"`
+	Scanelf          *opnsense.OPNBool `json:"scanelf,omitempty"`
+	Detectbroken     *opnsense.OPNBool `json:"detectbroken,omitempty"`
+	Scanole2         *opnsense.OPNBool `json:"scanole2,omitempty"`
+	Ole2blockmarcros *opnsense.OPNBool `json:"ole2blockmarcros,omitempty"`
+	Scanpdf          *opnsense.OPNBool `json:"scanpdf,omitempty"`
+	Scanswf          *opnsense.OPNBool `json:"scanswf,omitempty"`
+	Scanxmldocs      *opnsense.OPNBool `json:"scanxmldocs,omitempty"`
+	Scanhwp3         *opnsense.OPNBool `json:"scanhwp3,omitempty"`
+	Scanmailfiles    *opnsense.OPNBool `json:"scanmailfiles,omitempty"`
+	Scanhtml         *opnsense.OPNBool `json:"scanhtml,omitempty"`
+	Scanarchive      *opnsense.OPNBool `json:"scanarchive,omitempty"`
+	Arcblockenc      *opnsense.OPNBool `json:"arcblockenc,omitempty"`
+	Maxscansize      string            `json:"maxscansize,omitempty"`
+	Maxfilesize      string            `json:"maxfilesize,omitempty"`
+	Maxrecursion     *opnsense.OPNInt  `json:"maxrecursion,omitempty"`
+	Maxfiles         *opnsense.OPNInt  `json:"maxfiles,omitempty"`
+	Logverbose       *opnsense.OPNBool `json:"logverbose,omitempty"`
+	FcLogverbose     *opnsense.OPNBool `json:"fc_logverbose,omitempty"`
+	FcDatabasemirror string            `json:"fc_databasemirror"`
+	FcTimeout        string            `json:"fc_timeout"`
+	FcMalwareexpert  *opnsense.OPNBool `json:"fc_malwareexpert,omitempty"`
+	FcBlurl          *opnsense.OPNBool `json:"fc_blurl,omitempty"`
+	FcJurlbla        *opnsense.OPNBool `json:"fc_jurlbla,omitempty"`
+	FcBofhland       *opnsense.OPNBool `json:"fc_bofhland,omitempty"`
 }
 
 // List represents a list model item.
 type List struct {
-	Enabled string `json:"enabled"`
-	Name    string `json:"name"`
-	Link    string `json:"link"`
+	Enabled opnsense.OPNBool `json:"enabled"`
+	Name    string           `json:"name"`
+	Link    string           `json:"link"`
 }
 
 type listGetItemResponse struct {

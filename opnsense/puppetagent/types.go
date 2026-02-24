@@ -2,12 +2,14 @@
 
 package puppetagent
 
+import "github.com/jontk/opnsense-cli/opnsense"
+
 // General represents a general model item.
 type General struct {
-	Enabled           string `json:"Enabled"`
-	FQDN              string `json:"FQDN"`
-	Environment       string `json:"Environment"`
-	RunInterval       string `json:"RunInterval"`
-	RunTimeout        string `json:"RunTimeout"`
-	UseCacheOnFailure string `json:"UseCacheOnFailure"`
+	Enabled           opnsense.OPNBool `json:"Enabled"`
+	FQDN              string           `json:"FQDN"`
+	Environment       string           `json:"Environment"`
+	RunInterval       string           `json:"RunInterval"`
+	RunTimeout        string           `json:"RunTimeout"`
+	UseCacheOnFailure opnsense.OPNBool `json:"UseCacheOnFailure"`
 }

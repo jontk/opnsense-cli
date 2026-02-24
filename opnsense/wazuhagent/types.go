@@ -2,48 +2,50 @@
 
 package wazuhagent
 
+import "github.com/jontk/opnsense-cli/opnsense"
+
 // General represents a general model item.
 type General struct {
-	Enabled       string `json:"enabled"`
-	ServerAddress string `json:"server_address"`
-	AgentName     string `json:"agent_name,omitempty"`
-	Protocol      string `json:"protocol"` // Valid values: tcp, udp
-	Port          string `json:"port"`
-	DebugLevel    string `json:"debug_level"` // Valid values: val0, val1, val2
+	Enabled       opnsense.OPNBool `json:"enabled"`
+	ServerAddress string           `json:"server_address"`
+	AgentName     string           `json:"agent_name,omitempty"`
+	Protocol      string           `json:"protocol"` // Valid values: tcp, udp
+	Port          opnsense.OPNInt  `json:"port"`
+	DebugLevel    string           `json:"debug_level"` // Valid values: val0, val1, val2
 }
 
 // Auth represents a auth model item.
 type Auth struct {
-	Password string `json:"password,omitempty"`
-	Port     string `json:"port"`
+	Password string          `json:"password,omitempty"`
+	Port     opnsense.OPNInt `json:"port"`
 }
 
 // Logcollector represents a logcollector model item.
 type Logcollector struct {
-	RemoteCommands string `json:"remote_commands"`
-	SyslogPrograms string `json:"syslog_programs,omitempty"`
-	SuricataEveLog string `json:"suricata_eve_log"`
+	RemoteCommands opnsense.OPNBool `json:"remote_commands"`
+	SyslogPrograms string           `json:"syslog_programs,omitempty"`
+	SuricataEveLog opnsense.OPNBool `json:"suricata_eve_log"`
 }
 
 // Rootcheck represents a rootcheck model item.
 type Rootcheck struct {
-	Enabled string `json:"enabled"`
+	Enabled opnsense.OPNBool `json:"enabled"`
 }
 
 // Syscollector represents a syscollector model item.
 type Syscollector struct {
-	Enabled string `json:"enabled"`
+	Enabled opnsense.OPNBool `json:"enabled"`
 }
 
 // Syscheck represents a syscheck model item.
 type Syscheck struct {
-	Enabled string `json:"enabled"`
+	Enabled opnsense.OPNBool `json:"enabled"`
 }
 
 // ActiveResponse represents a active_response model item.
 type ActiveResponse struct {
-	Enabled           string `json:"enabled"`
-	RemoteCommands    string `json:"remote_commands"`
-	FwAliasIgnore     string `json:"fw_alias_ignore,omitempty"`
-	RepeatedOffenders string `json:"repeated_offenders,omitempty"`
+	Enabled           opnsense.OPNBool `json:"enabled"`
+	RemoteCommands    opnsense.OPNBool `json:"remote_commands"`
+	FwAliasIgnore     string           `json:"fw_alias_ignore,omitempty"`
+	RepeatedOffenders string           `json:"repeated_offenders,omitempty"`
 }

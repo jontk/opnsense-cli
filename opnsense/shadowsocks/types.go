@@ -2,15 +2,17 @@
 
 package shadowsocks
 
+import "github.com/jontk/opnsense-cli/opnsense"
+
 // Settings represents a settings model item.
 type Settings struct {
-	Enabled       string `json:"enabled"`
-	Serveraddress string `json:"serveraddress"`
-	Serverport    string `json:"serverport"`
-	Localport     string `json:"localport"`
-	Password      string `json:"password,omitempty"`
-	Cipher        string `json:"cipher"`     // Valid values: Secure, Deprecated, Insecure
-	Tcpudpmode    string `json:"tcpudpmode"` // Valid values: tcp_only, udp_only, tcp_and_udp
-	Timeout       string `json:"timeout"`
-	Fragmentation string `json:"fragmentation"`
+	Enabled       opnsense.OPNBool `json:"enabled"`
+	Serveraddress string           `json:"serveraddress"`
+	Serverport    opnsense.OPNInt  `json:"serverport"`
+	Localport     opnsense.OPNInt  `json:"localport"`
+	Password      string           `json:"password,omitempty"`
+	Cipher        string           `json:"cipher"`     // Valid values: Secure, Deprecated, Insecure
+	Tcpudpmode    string           `json:"tcpudpmode"` // Valid values: tcp_only, udp_only, tcp_and_udp
+	Timeout       opnsense.OPNInt  `json:"timeout"`
+	Fragmentation opnsense.OPNBool `json:"fragmentation"`
 }

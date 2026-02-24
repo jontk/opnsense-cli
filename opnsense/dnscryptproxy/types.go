@@ -2,38 +2,40 @@
 
 package dnscryptproxy
 
+import "github.com/jontk/opnsense-cli/opnsense"
+
 // Cloak represents a cloak model item.
 type Cloak struct {
-	Enabled     string `json:"enabled"`
-	Name        string `json:"name"`
-	Destination string `json:"destination"`
+	Enabled     opnsense.OPNBool `json:"enabled"`
+	Name        string           `json:"name"`
+	Destination string           `json:"destination"`
 }
 
 // Settings represents a settings model item.
 type Settings struct {
-	Enabled string `json:"enabled"`
-	Type    string `json:"type,omitempty"` // Valid values: aa, ag, bla, blf, blp, el, ep, nc, pt, qf, sa, st, sb, ws, wsu, wse, yy
+	Enabled opnsense.OPNBool `json:"enabled"`
+	Type    string           `json:"type,omitempty"` // Valid values: aa, ag, bla, blf, blp, el, ep, nc, pt, qf, sa, st, sb, ws, wsu, wse, yy
 }
 
 // Forward represents a forward model item.
 type Forward struct {
-	Enabled   string `json:"enabled"`
-	Domain    string `json:"domain"`
-	Dnsserver string `json:"dnsserver"`
+	Enabled   opnsense.OPNBool `json:"enabled"`
+	Domain    string           `json:"domain"`
+	Dnsserver string           `json:"dnsserver"`
 }
 
 // Server represents a server model item.
 type Server struct {
-	Enabled string `json:"enabled"`
-	Name    string `json:"name"`
-	Stamp   string `json:"stamp"`
+	Enabled opnsense.OPNBool `json:"enabled"`
+	Name    string           `json:"name"`
+	Stamp   string           `json:"stamp"`
 }
 
 // Whitelist represents a whitelist model item.
 type Whitelist struct {
-	Enabled     string `json:"enabled"`
-	Name        string `json:"name"`
-	Description string `json:"description,omitempty"`
+	Enabled     opnsense.OPNBool `json:"enabled"`
+	Name        string           `json:"name"`
+	Description string           `json:"description,omitempty"`
 }
 
 type cloakGetItemResponse struct {

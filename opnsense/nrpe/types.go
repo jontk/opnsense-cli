@@ -2,24 +2,26 @@
 
 package nrpe
 
+import "github.com/jontk/opnsense-cli/opnsense"
+
 // Command represents a command model item.
 type Command struct {
-	Enabled     string `json:"enabled"`
-	Name        string `json:"name"`
-	Nrpecommand string `json:"nrpecommand"`
-	Arguments   string `json:"arguments"`
+	Enabled     opnsense.OPNBool `json:"enabled"`
+	Name        string           `json:"name"`
+	Nrpecommand string           `json:"nrpecommand"`
+	Arguments   string           `json:"arguments"`
 }
 
 // Settings represents a settings model item.
 type Settings struct {
-	Enabled                      string `json:"enabled"`
-	ServerPort                   string `json:"server_port"`
-	ServerAddress                string `json:"server_address"`
-	AllowedHosts                 string `json:"allowed_hosts"`
-	DontBlameNrpe                string `json:"dont_blame_nrpe"`
-	AllowBashCommandSubstitution string `json:"allow_bash_command_substitution"`
-	CommandTimeout               string `json:"command_timeout"`
-	ConnectionTimeout            string `json:"connection_timeout"`
+	Enabled                      opnsense.OPNBool `json:"enabled"`
+	ServerPort                   string           `json:"server_port"`
+	ServerAddress                string           `json:"server_address"`
+	AllowedHosts                 string           `json:"allowed_hosts"`
+	DontBlameNrpe                opnsense.OPNBool `json:"dont_blame_nrpe"`
+	AllowBashCommandSubstitution opnsense.OPNBool `json:"allow_bash_command_substitution"`
+	CommandTimeout               opnsense.OPNInt  `json:"command_timeout"`
+	ConnectionTimeout            opnsense.OPNInt  `json:"connection_timeout"`
 }
 
 type commandGetItemResponse struct {

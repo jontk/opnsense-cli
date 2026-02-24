@@ -2,9 +2,11 @@
 
 package qemuguestagent
 
+import "github.com/jontk/opnsense-cli/opnsense"
+
 // General represents a general model item.
 type General struct {
-	Enabled      string `json:"Enabled"`
-	LogDebug     string `json:"LogDebug,omitempty"`
-	DisabledRPCs string `json:"DisabledRPCs,omitempty"` // Valid values: guest-exec, guest-exec-status, guest-file-close, guest-file-flush, guest-file-open, guest-file-read, guest-file-seek, guest-file-write, guest-fsfreeze-freeze, guest-fsfreeze-freeze-list, guest-fsfreeze-status, guest-fsfreeze-thaw, guest-fstrim, guest-get-fsinfo, guest-get-host-name, guest-get-memory-block-info, guest-get-memory-blocks, guest-get-osinfo, guest-get-time, guest-get-timezone, guest-get-users, guest-get-vcpus, guest-info, guest-network-get-interfaces, guest-ping, guest-set-memory-blocks, guest-set-time, guest-set-user-password, guest-set-vcpus, guest-shutdown, guest-suspend-disk, guest-suspend-hybrid, guest-suspend-ram, guest-sync, guest-sync-delimited
+	Enabled      opnsense.OPNBool  `json:"Enabled"`
+	LogDebug     *opnsense.OPNBool `json:"LogDebug,omitempty"`
+	DisabledRPCs string            `json:"DisabledRPCs,omitempty"` // Valid values: guest-exec, guest-exec-status, guest-file-close, guest-file-flush, guest-file-open, guest-file-read, guest-file-seek, guest-file-write, guest-fsfreeze-freeze, guest-fsfreeze-freeze-list, guest-fsfreeze-status, guest-fsfreeze-thaw, guest-fstrim, guest-get-fsinfo, guest-get-host-name, guest-get-memory-block-info, guest-get-memory-blocks, guest-get-osinfo, guest-get-time, guest-get-timezone, guest-get-users, guest-get-vcpus, guest-info, guest-network-get-interfaces, guest-ping, guest-set-memory-blocks, guest-set-time, guest-set-user-password, guest-set-vcpus, guest-shutdown, guest-suspend-disk, guest-suspend-hybrid, guest-suspend-ram, guest-sync, guest-sync-delimited
 }

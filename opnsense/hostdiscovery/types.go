@@ -2,11 +2,13 @@
 
 package hostdiscovery
 
+import "github.com/jontk/opnsense-cli/opnsense"
+
 // General represents a general model item.
 type General struct {
-	Enabled   string `json:"enabled"`
-	Promisc   string `json:"promisc"`
-	Verbose   string `json:"verbose"`
-	SkipNets  string `json:"skip_nets,omitempty"`
-	Interface string `json:"interface,omitempty"`
+	Enabled   opnsense.OPNBool `json:"enabled"`
+	Promisc   opnsense.OPNBool `json:"promisc"`
+	Verbose   opnsense.OPNBool `json:"verbose"`
+	SkipNets  string           `json:"skip_nets,omitempty"`
+	Interface string           `json:"interface,omitempty"`
 }

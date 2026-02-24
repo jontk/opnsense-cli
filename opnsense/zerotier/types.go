@@ -2,16 +2,18 @@
 
 package zerotier
 
+import "github.com/jontk/opnsense-cli/opnsense"
+
 // Settings represents a settings model item.
 type Settings struct {
-	Enabled        string `json:"enabled"`
-	ApiAccessToken string `json:"apiAccessToken,omitempty"`
-	Localconf      string `json:"localconf,omitempty"`
+	Enabled        opnsense.OPNBool `json:"enabled"`
+	ApiAccessToken string           `json:"apiAccessToken,omitempty"`
+	Localconf      string           `json:"localconf,omitempty"`
 }
 
 // Network represents a network model item.
 type Network struct {
-	Enabled     string `json:"enabled"`
-	NetworkId   string `json:"networkId"`
-	Description string `json:"description,omitempty"`
+	Enabled     opnsense.OPNBool `json:"enabled"`
+	NetworkId   string           `json:"networkId"`
+	Description string           `json:"description,omitempty"`
 }

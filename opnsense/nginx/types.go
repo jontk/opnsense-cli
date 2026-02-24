@@ -2,33 +2,35 @@
 
 package nginx
 
+import "github.com/jontk/opnsense-cli/opnsense"
+
 // General represents a general model item.
 type General struct {
-	Enabled string `json:"enabled"`
-	BanTtl  string `json:"ban_ttl"`
+	Enabled opnsense.OPNBool `json:"enabled"`
+	BanTtl  opnsense.OPNInt  `json:"ban_ttl"`
 }
 
 // Webgui represents a webgui model item.
 type Webgui struct {
-	Limitnetworks string `json:"limitnetworks"`
+	Limitnetworks opnsense.OPNBool `json:"limitnetworks"`
 }
 
 // Http represents a http model item.
 type Http struct {
-	Workerprocesses           string `json:"workerprocesses"`
-	Workerconnections         string `json:"workerconnections"`
-	Sendfile                  string `json:"sendfile,omitempty"`
-	KeepaliveTimeout          string `json:"keepalive_timeout,omitempty"`
-	ResetTimedout             string `json:"reset_timedout"`
-	DefaultType               string `json:"default_type,omitempty"`
-	ServerNamesHashBucketSize string `json:"server_names_hash_bucket_size,omitempty"`
-	ServerNamesHashMaxSize    string `json:"server_names_hash_max_size,omitempty"`
-	VariablesHashMaxSize      string `json:"variables_hash_max_size,omitempty"`
-	VariablesHashBucketSize   string `json:"variables_hash_bucket_size,omitempty"`
-	BanResponse               string `json:"ban_response"` // Valid values: http_403, http_444
-	LogPermBan                string `json:"log_perm_ban"`
-	BotsUa                    string `json:"bots_ua"`
-	HeadersMoreEnable         string `json:"headers_more_enable,omitempty"`
+	Workerprocesses           opnsense.OPNInt   `json:"workerprocesses"`
+	Workerconnections         opnsense.OPNInt   `json:"workerconnections"`
+	Sendfile                  *opnsense.OPNBool `json:"sendfile,omitempty"`
+	KeepaliveTimeout          *opnsense.OPNInt  `json:"keepalive_timeout,omitempty"`
+	ResetTimedout             opnsense.OPNBool  `json:"reset_timedout"`
+	DefaultType               string            `json:"default_type,omitempty"`
+	ServerNamesHashBucketSize *opnsense.OPNInt  `json:"server_names_hash_bucket_size,omitempty"`
+	ServerNamesHashMaxSize    *opnsense.OPNInt  `json:"server_names_hash_max_size,omitempty"`
+	VariablesHashMaxSize      *opnsense.OPNInt  `json:"variables_hash_max_size,omitempty"`
+	VariablesHashBucketSize   *opnsense.OPNInt  `json:"variables_hash_bucket_size,omitempty"`
+	BanResponse               string            `json:"ban_response"` // Valid values: http_403, http_444
+	LogPermBan                opnsense.OPNBool  `json:"log_perm_ban"`
+	BotsUa                    string            `json:"bots_ua"`
+	HeadersMoreEnable         *opnsense.OPNBool `json:"headers_more_enable,omitempty"`
 }
 
 // Userlist represents a userlist model item.
@@ -45,199 +47,199 @@ type Credential struct {
 
 // Upstream represents a upstream model item.
 type Upstream struct {
-	Description            string `json:"description"`
-	Serverentries          string `json:"serverentries"`
-	LoadBalancingAlgorithm string `json:"load_balancing_algorithm,omitempty"` // Valid values: ip_hash
-	Keepalive              string `json:"keepalive,omitempty"`
-	KeepaliveRequests      string `json:"keepalive_requests,omitempty"`
-	KeepaliveTimeout       string `json:"keepalive_timeout,omitempty"`
-	HostPort               string `json:"host_port,omitempty"`
-	XForwardedHostVerbatim string `json:"x_forwarded_host_verbatim"`
-	ProxyProtocol          string `json:"proxy_protocol"`
-	Store                  string `json:"store"`
-	TlsEnable              string `json:"tls_enable"`
-	TlsClientCertificate   string `json:"tls_client_certificate,omitempty"`
-	TlsNameOverride        string `json:"tls_name_override,omitempty"`
-	TlsProtocolVersions    string `json:"tls_protocol_versions,omitempty"` // Valid values: TLSv1, TLSv1_1, TLSv1_2, TLSv1_3
-	TlsSessionReuse        string `json:"tls_session_reuse"`
-	TlsTrustedCertificate  string `json:"tls_trusted_certificate,omitempty"`
-	TlsVerify              string `json:"tls_verify"`
-	TlsVerifyDepth         string `json:"tls_verify_depth,omitempty"`
+	Description            string           `json:"description"`
+	Serverentries          string           `json:"serverentries"`
+	LoadBalancingAlgorithm string           `json:"load_balancing_algorithm,omitempty"` // Valid values: ip_hash
+	Keepalive              *opnsense.OPNInt `json:"keepalive,omitempty"`
+	KeepaliveRequests      *opnsense.OPNInt `json:"keepalive_requests,omitempty"`
+	KeepaliveTimeout       *opnsense.OPNInt `json:"keepalive_timeout,omitempty"`
+	HostPort               *opnsense.OPNInt `json:"host_port,omitempty"`
+	XForwardedHostVerbatim opnsense.OPNBool `json:"x_forwarded_host_verbatim"`
+	ProxyProtocol          opnsense.OPNBool `json:"proxy_protocol"`
+	Store                  opnsense.OPNBool `json:"store"`
+	TlsEnable              opnsense.OPNBool `json:"tls_enable"`
+	TlsClientCertificate   string           `json:"tls_client_certificate,omitempty"`
+	TlsNameOverride        string           `json:"tls_name_override,omitempty"`
+	TlsProtocolVersions    string           `json:"tls_protocol_versions,omitempty"` // Valid values: TLSv1, TLSv1_1, TLSv1_2, TLSv1_3
+	TlsSessionReuse        opnsense.OPNBool `json:"tls_session_reuse"`
+	TlsTrustedCertificate  string           `json:"tls_trusted_certificate,omitempty"`
+	TlsVerify              opnsense.OPNBool `json:"tls_verify"`
+	TlsVerifyDepth         *opnsense.OPNInt `json:"tls_verify_depth,omitempty"`
 }
 
 // UpstreamServer represents a upstream_server model item.
 type UpstreamServer struct {
-	Description string `json:"description"`
-	Server      string `json:"server"`
-	Port        string `json:"port"`
-	Priority    string `json:"priority"`
-	MaxConns    string `json:"max_conns,omitempty"`
-	MaxFails    string `json:"max_fails,omitempty"`
-	FailTimeout string `json:"fail_timeout,omitempty"`
-	NoUse       string `json:"no_use,omitempty"` // Valid values: down, backup
+	Description string           `json:"description"`
+	Server      string           `json:"server"`
+	Port        string           `json:"port"`
+	Priority    opnsense.OPNInt  `json:"priority"`
+	MaxConns    *opnsense.OPNInt `json:"max_conns,omitempty"`
+	MaxFails    *opnsense.OPNInt `json:"max_fails,omitempty"`
+	FailTimeout *opnsense.OPNInt `json:"fail_timeout,omitempty"`
+	NoUse       string           `json:"no_use,omitempty"` // Valid values: down, backup
 }
 
 // Location represents a location model item.
 type Location struct {
-	Description             string `json:"description"`
-	Urlpattern              string `json:"urlpattern"`
-	Matchtype               string `json:"matchtype,omitempty"` // Valid values: option1, option2, option3, option4
-	EnableSecrules          string `json:"enable_secrules"`
-	EnableLearningMode      string `json:"enable_learning_mode"`
-	SecrulesErrorpage       string `json:"secrules_errorpage,omitempty"`
-	XssBlockScore           string `json:"xss_block_score,omitempty"`
-	SqliBlockScore          string `json:"sqli_block_score,omitempty"`
-	CustomPolicy            string `json:"custom_policy,omitempty"`
-	Upstream                string `json:"upstream,omitempty"`
-	PathPrefix              string `json:"path_prefix,omitempty"`
-	CachePath               string `json:"cache_path,omitempty"`
-	CacheUseStale           string `json:"cache_use_stale,omitempty"` // Valid values: error, timeout, invalid_header, updating, http_403, http_404, http_429, http_500, http_502, http_503, http_504
-	CacheMethods            string `json:"cache_methods,omitempty"`   // Valid values: POST
-	CacheMinUses            string `json:"cache_min_uses"`
-	CacheValid              string `json:"cache_valid,omitempty"`
-	ProxyCacheValid         string `json:"proxy_cache_valid,omitempty"`
-	CacheBackgroundUpdate   string `json:"cache_background_update"`
-	CacheLock               string `json:"cache_lock"`
-	CacheRevalidate         string `json:"cache_revalidate"`
-	Root                    string `json:"root,omitempty"`
-	Rewrites                string `json:"rewrites,omitempty"`
-	Index                   string `json:"index,omitempty"`
-	Autoindex               string `json:"autoindex,omitempty"`
-	Authbasic               string `json:"authbasic,omitempty"`
-	Authbasicuserfile       string `json:"authbasicuserfile,omitempty"`
-	AdvancedAcl             string `json:"advanced_acl"`
-	ForceHttps              string `json:"force_https,omitempty"`
-	PhpEnable               string `json:"php_enable"`
-	PhpOverrideScriptname   string `json:"php_override_scriptname,omitempty"`
-	LimitRequestConnections string `json:"limit_request_connections,omitempty"`
-	MaxBodySize             string `json:"max_body_size,omitempty"`
-	BodyBufferSize          string `json:"body_buffer_size,omitempty"`
-	Honeypot                string `json:"honeypot"`
-	Websocket               string `json:"websocket"`
-	UpstreamKeepalive       string `json:"upstream_keepalive"`
-	ProxyBufferSize         string `json:"proxy_buffer_size,omitempty"`
-	ProxyBuffersCount       string `json:"proxy_buffers_count,omitempty"`
-	ProxyBuffersSize        string `json:"proxy_buffers_size,omitempty"`
-	ProxyBusyBuffersSize    string `json:"proxy_busy_buffers_size,omitempty"`
-	ProxyIgnoreClientAbort  string `json:"proxy_ignore_client_abort"`
-	ProxyRequestBuffering   string `json:"proxy_request_buffering"`
-	ProxyBuffering          string `json:"proxy_buffering"`
-	ProxyReadTimeout        string `json:"proxy_read_timeout,omitempty"`
-	ProxySendTimeout        string `json:"proxy_send_timeout,omitempty"`
-	IpAcl                   string `json:"ip_acl,omitempty"`
-	Satisfy                 string `json:"satisfy,omitempty"` // Valid values: any, all
-	ProxyMaxTempFileSize    string `json:"proxy_max_temp_file_size,omitempty"`
-	ProxySslServerName      string `json:"proxy_ssl_server_name"`
-	Errorpages              string `json:"errorpages,omitempty"`
-	ProxyInterceptErrors    string `json:"proxy_intercept_errors"` // Valid values: Inherit, on, off
+	Description             string            `json:"description"`
+	Urlpattern              string            `json:"urlpattern"`
+	Matchtype               string            `json:"matchtype,omitempty"` // Valid values: option1, option2, option3, option4
+	EnableSecrules          opnsense.OPNBool  `json:"enable_secrules"`
+	EnableLearningMode      opnsense.OPNBool  `json:"enable_learning_mode"`
+	SecrulesErrorpage       string            `json:"secrules_errorpage,omitempty"`
+	XssBlockScore           *opnsense.OPNInt  `json:"xss_block_score,omitempty"`
+	SqliBlockScore          *opnsense.OPNInt  `json:"sqli_block_score,omitempty"`
+	CustomPolicy            string            `json:"custom_policy,omitempty"`
+	Upstream                string            `json:"upstream,omitempty"`
+	PathPrefix              string            `json:"path_prefix,omitempty"`
+	CachePath               string            `json:"cache_path,omitempty"`
+	CacheUseStale           string            `json:"cache_use_stale,omitempty"` // Valid values: error, timeout, invalid_header, updating, http_403, http_404, http_429, http_500, http_502, http_503, http_504
+	CacheMethods            string            `json:"cache_methods,omitempty"`   // Valid values: POST
+	CacheMinUses            opnsense.OPNInt   `json:"cache_min_uses"`
+	CacheValid              *opnsense.OPNInt  `json:"cache_valid,omitempty"`
+	ProxyCacheValid         string            `json:"proxy_cache_valid,omitempty"`
+	CacheBackgroundUpdate   opnsense.OPNBool  `json:"cache_background_update"`
+	CacheLock               opnsense.OPNBool  `json:"cache_lock"`
+	CacheRevalidate         opnsense.OPNBool  `json:"cache_revalidate"`
+	Root                    string            `json:"root,omitempty"`
+	Rewrites                string            `json:"rewrites,omitempty"`
+	Index                   string            `json:"index,omitempty"`
+	Autoindex               *opnsense.OPNBool `json:"autoindex,omitempty"`
+	Authbasic               string            `json:"authbasic,omitempty"`
+	Authbasicuserfile       string            `json:"authbasicuserfile,omitempty"`
+	AdvancedAcl             opnsense.OPNBool  `json:"advanced_acl"`
+	ForceHttps              string            `json:"force_https,omitempty"`
+	PhpEnable               opnsense.OPNBool  `json:"php_enable"`
+	PhpOverrideScriptname   string            `json:"php_override_scriptname,omitempty"`
+	LimitRequestConnections string            `json:"limit_request_connections,omitempty"`
+	MaxBodySize             string            `json:"max_body_size,omitempty"`
+	BodyBufferSize          string            `json:"body_buffer_size,omitempty"`
+	Honeypot                opnsense.OPNBool  `json:"honeypot"`
+	Websocket               opnsense.OPNBool  `json:"websocket"`
+	UpstreamKeepalive       opnsense.OPNBool  `json:"upstream_keepalive"`
+	ProxyBufferSize         *opnsense.OPNInt  `json:"proxy_buffer_size,omitempty"`
+	ProxyBuffersCount       *opnsense.OPNInt  `json:"proxy_buffers_count,omitempty"`
+	ProxyBuffersSize        *opnsense.OPNInt  `json:"proxy_buffers_size,omitempty"`
+	ProxyBusyBuffersSize    *opnsense.OPNInt  `json:"proxy_busy_buffers_size,omitempty"`
+	ProxyIgnoreClientAbort  opnsense.OPNBool  `json:"proxy_ignore_client_abort"`
+	ProxyRequestBuffering   opnsense.OPNBool  `json:"proxy_request_buffering"`
+	ProxyBuffering          opnsense.OPNBool  `json:"proxy_buffering"`
+	ProxyReadTimeout        *opnsense.OPNInt  `json:"proxy_read_timeout,omitempty"`
+	ProxySendTimeout        *opnsense.OPNInt  `json:"proxy_send_timeout,omitempty"`
+	IpAcl                   string            `json:"ip_acl,omitempty"`
+	Satisfy                 string            `json:"satisfy,omitempty"` // Valid values: any, all
+	ProxyMaxTempFileSize    *opnsense.OPNInt  `json:"proxy_max_temp_file_size,omitempty"`
+	ProxySslServerName      opnsense.OPNBool  `json:"proxy_ssl_server_name"`
+	Errorpages              string            `json:"errorpages,omitempty"`
+	ProxyInterceptErrors    string            `json:"proxy_intercept_errors"` // Valid values: Inherit, on, off
 }
 
 // CustomPolicy represents a custom_policy model item.
 type CustomPolicy struct {
-	Name       string `json:"name"`
-	NaxsiRules string `json:"naxsi_rules"`
-	Value      string `json:"value"`
-	Operator   string `json:"operator"` // Valid values: option1, option2, option3, option4
-	Action     string `json:"action"`   // Valid values: BLOCK, ALLOW, DROP, LOG
+	Name       string          `json:"name"`
+	NaxsiRules string          `json:"naxsi_rules"`
+	Value      opnsense.OPNInt `json:"value"`
+	Operator   string          `json:"operator"` // Valid values: option1, option2, option3, option4
+	Action     string          `json:"action"`   // Valid values: BLOCK, ALLOW, DROP, LOG
 }
 
 // NaxsiRule represents a naxsi_rule model item.
 type NaxsiRule struct {
-	Description      string `json:"description"`
-	Ruletype         string `json:"ruletype"` // Valid values: main, basic
-	Message          string `json:"message,omitempty"`
-	Identifier       string `json:"identifier"`
-	DollarUrl        string `json:"dollar_url,omitempty"`
-	MatchValue       string `json:"match_value,omitempty"`
-	MatchType        string `json:"match_type"` // Valid values: id, wl
-	Negate           string `json:"negate"`
-	Score            string `json:"score,omitempty"`
-	Regex            string `json:"regex"`
-	Args             string `json:"args"`
-	Url              string `json:"url"`
-	Headers          string `json:"headers"`
-	Body             string `json:"body"`
-	DollarArgsVar    string `json:"dollar_args_var,omitempty"`
-	DollarBodyVar    string `json:"dollar_body_var,omitempty"`
-	DollarHeadersVar string `json:"dollar_headers_var,omitempty"`
-	FileExtension    string `json:"file_extension"`
-	RawBody          string `json:"raw_body"`
-	Name             string `json:"name"`
+	Description      string           `json:"description"`
+	Ruletype         string           `json:"ruletype"` // Valid values: main, basic
+	Message          string           `json:"message,omitempty"`
+	Identifier       string           `json:"identifier"`
+	DollarUrl        string           `json:"dollar_url,omitempty"`
+	MatchValue       string           `json:"match_value,omitempty"`
+	MatchType        string           `json:"match_type"` // Valid values: id, wl
+	Negate           opnsense.OPNBool `json:"negate"`
+	Score            *opnsense.OPNInt `json:"score,omitempty"`
+	Regex            opnsense.OPNBool `json:"regex"`
+	Args             opnsense.OPNBool `json:"args"`
+	Url              opnsense.OPNBool `json:"url"`
+	Headers          opnsense.OPNBool `json:"headers"`
+	Body             opnsense.OPNBool `json:"body"`
+	DollarArgsVar    string           `json:"dollar_args_var,omitempty"`
+	DollarBodyVar    string           `json:"dollar_body_var,omitempty"`
+	DollarHeadersVar string           `json:"dollar_headers_var,omitempty"`
+	FileExtension    opnsense.OPNBool `json:"file_extension"`
+	RawBody          opnsense.OPNBool `json:"raw_body"`
+	Name             opnsense.OPNBool `json:"name"`
 }
 
 // HttpServer represents a http_server model item.
 type HttpServer struct {
-	Servername                     string `json:"servername"`
-	SyslogTargets                  string `json:"syslog_targets,omitempty"`
-	ListenHttpAddress              string `json:"listen_http_address,omitempty"`
-	ListenHttpsAddress             string `json:"listen_https_address,omitempty"`
-	DefaultServer                  string `json:"default_server"`
-	TlsRejectHandshake             string `json:"tls_reject_handshake"`
-	ProxyProtocol                  string `json:"proxy_protocol"`
-	TrustedProxies                 string `json:"trusted_proxies,omitempty"`
-	TrustedProxiesAlias            string `json:"trusted_proxies_alias,omitempty"`
-	RealIpSource                   string `json:"real_ip_source,omitempty"` // Valid values: X-Real-IP, X-Forwarded-For, proxy_protocol, CF-Connecting-IP
-	Locations                      string `json:"locations,omitempty"`
-	Rewrites                       string `json:"rewrites,omitempty"`
-	Root                           string `json:"root,omitempty"`
-	Certificate                    string `json:"certificate,omitempty"`
-	Ca                             string `json:"ca,omitempty"`
-	VerifyClient                   string `json:"verify_client"`     // Valid values: off, on, optional, optional_no_ca
-	AccessLogFormat                string `json:"access_log_format"` // Valid values: main, main_ext, anonymized, disabled
-	ErrorLogLevel                  string `json:"error_log_level"`   // Valid values: emerg, alert, crit, error, warn, notice, info
-	LogHandshakes                  string `json:"log_handshakes"`
-	EnableAcmeSupport              string `json:"enable_acme_support"`
-	Charset                        string `json:"charset,omitempty"` // Valid values: utf-8
-	HttpsOnly                      string `json:"https_only"`
-	Http2                          string `json:"http2"`
-	EnableHttp3                    string `json:"enable_http3"`
-	TlsProtocols                   string `json:"tls_protocols"` // Valid values: TLSv1_2, TLSv1_3
-	TlsCiphers                     string `json:"tls_ciphers,omitempty"`
-	TlsEcdhCurve                   string `json:"tls_ecdh_curve,omitempty"`
-	TlsPreferServerCiphers         string `json:"tls_prefer_server_ciphers"`
-	Resolver                       string `json:"resolver,omitempty"`
-	OcspStapling                   string `json:"ocsp_stapling"`
-	OcspVerify                     string `json:"ocsp_verify"`
-	BlockNonpublicData             string `json:"block_nonpublic_data"`
-	DisableBotProtection           string `json:"disable_bot_protection"`
-	DisableGzip                    string `json:"disable_gzip"`
-	NaxsiWhitelistSrcip            string `json:"naxsi_whitelist_srcip,omitempty"`
-	NaxsiExtensiveLog              string `json:"naxsi_extensive_log"`
-	Sendfile                       string `json:"sendfile"`
-	ClientHeaderBufferSize         string `json:"client_header_buffer_size"`
-	LargeClientHeaderBuffersNumber string `json:"large_client_header_buffers_number"`
-	LargeClientHeaderBuffersSize   string `json:"large_client_header_buffers_size"`
-	SecurityHeader                 string `json:"security_header,omitempty"`
-	LimitRequestConnections        string `json:"limit_request_connections,omitempty"`
-	MaxBodySize                    string `json:"max_body_size,omitempty"`
-	BodyBufferSize                 string `json:"body_buffer_size,omitempty"`
-	IpAcl                          string `json:"ip_acl,omitempty"`
-	AdvancedAclServer              string `json:"advanced_acl_server,omitempty"`
-	Satisfy                        string `json:"satisfy,omitempty"` // Valid values: any, all
-	ZeroRtt                        string `json:"zero_rtt"`
-	Errorpages                     string `json:"errorpages,omitempty"`
-	ProxyInterceptErrors           string `json:"proxy_intercept_errors"`
+	Servername                     string           `json:"servername"`
+	SyslogTargets                  string           `json:"syslog_targets,omitempty"`
+	ListenHttpAddress              string           `json:"listen_http_address,omitempty"`
+	ListenHttpsAddress             string           `json:"listen_https_address,omitempty"`
+	DefaultServer                  opnsense.OPNBool `json:"default_server"`
+	TlsRejectHandshake             opnsense.OPNBool `json:"tls_reject_handshake"`
+	ProxyProtocol                  opnsense.OPNBool `json:"proxy_protocol"`
+	TrustedProxies                 string           `json:"trusted_proxies,omitempty"`
+	TrustedProxiesAlias            string           `json:"trusted_proxies_alias,omitempty"`
+	RealIpSource                   string           `json:"real_ip_source,omitempty"` // Valid values: X-Real-IP, X-Forwarded-For, proxy_protocol, CF-Connecting-IP
+	Locations                      string           `json:"locations,omitempty"`
+	Rewrites                       string           `json:"rewrites,omitempty"`
+	Root                           string           `json:"root,omitempty"`
+	Certificate                    string           `json:"certificate,omitempty"`
+	Ca                             string           `json:"ca,omitempty"`
+	VerifyClient                   string           `json:"verify_client"`     // Valid values: off, on, optional, optional_no_ca
+	AccessLogFormat                string           `json:"access_log_format"` // Valid values: main, main_ext, anonymized, disabled
+	ErrorLogLevel                  string           `json:"error_log_level"`   // Valid values: emerg, alert, crit, error, warn, notice, info
+	LogHandshakes                  opnsense.OPNBool `json:"log_handshakes"`
+	EnableAcmeSupport              opnsense.OPNBool `json:"enable_acme_support"`
+	Charset                        string           `json:"charset,omitempty"` // Valid values: utf-8
+	HttpsOnly                      opnsense.OPNBool `json:"https_only"`
+	Http2                          opnsense.OPNBool `json:"http2"`
+	EnableHttp3                    opnsense.OPNBool `json:"enable_http3"`
+	TlsProtocols                   string           `json:"tls_protocols"` // Valid values: TLSv1_2, TLSv1_3
+	TlsCiphers                     string           `json:"tls_ciphers,omitempty"`
+	TlsEcdhCurve                   string           `json:"tls_ecdh_curve,omitempty"`
+	TlsPreferServerCiphers         opnsense.OPNBool `json:"tls_prefer_server_ciphers"`
+	Resolver                       string           `json:"resolver,omitempty"`
+	OcspStapling                   opnsense.OPNBool `json:"ocsp_stapling"`
+	OcspVerify                     opnsense.OPNBool `json:"ocsp_verify"`
+	BlockNonpublicData             opnsense.OPNBool `json:"block_nonpublic_data"`
+	DisableBotProtection           opnsense.OPNBool `json:"disable_bot_protection"`
+	DisableGzip                    opnsense.OPNBool `json:"disable_gzip"`
+	NaxsiWhitelistSrcip            string           `json:"naxsi_whitelist_srcip,omitempty"`
+	NaxsiExtensiveLog              opnsense.OPNBool `json:"naxsi_extensive_log"`
+	Sendfile                       opnsense.OPNBool `json:"sendfile"`
+	ClientHeaderBufferSize         opnsense.OPNInt  `json:"client_header_buffer_size"`
+	LargeClientHeaderBuffersNumber opnsense.OPNInt  `json:"large_client_header_buffers_number"`
+	LargeClientHeaderBuffersSize   opnsense.OPNInt  `json:"large_client_header_buffers_size"`
+	SecurityHeader                 string           `json:"security_header,omitempty"`
+	LimitRequestConnections        string           `json:"limit_request_connections,omitempty"`
+	MaxBodySize                    string           `json:"max_body_size,omitempty"`
+	BodyBufferSize                 string           `json:"body_buffer_size,omitempty"`
+	IpAcl                          string           `json:"ip_acl,omitempty"`
+	AdvancedAclServer              string           `json:"advanced_acl_server,omitempty"`
+	Satisfy                        string           `json:"satisfy,omitempty"` // Valid values: any, all
+	ZeroRtt                        opnsense.OPNBool `json:"zero_rtt"`
+	Errorpages                     string           `json:"errorpages,omitempty"`
+	ProxyInterceptErrors           opnsense.OPNBool `json:"proxy_intercept_errors"`
 }
 
 // StreamServer represents a stream_server model item.
 type StreamServer struct {
-	ListenAddress       string `json:"listen_address,omitempty"`
-	SyslogTargets       string `json:"syslog_targets,omitempty"`
-	Udp                 string `json:"udp"`
-	TrustedProxies      string `json:"trusted_proxies,omitempty"`
-	ProxyProtocol       string `json:"proxy_protocol"`
-	Certificate         string `json:"certificate,omitempty"`
-	Ca                  string `json:"ca,omitempty"`
-	VerifyClient        string `json:"verify_client"`     // Valid values: off, on, optional, optional_no_ca
-	AccessLogFormat     string `json:"access_log_format"` // Valid values: main, main_ext, anonymized, disabled
-	ErrorLogLevel       string `json:"error_log_level"`   // Valid values: emerg, alert, crit, error, warn, notice, info
-	RouteField          string `json:"route_field"`       // Valid values: upstream, sni_upstream_map
-	Upstream            string `json:"upstream,omitempty"`
-	SniUpstreamMap      string `json:"sni_upstream_map,omitempty"`
-	IpAcl               string `json:"ip_acl,omitempty"`
-	ProxyResponses      string `json:"proxy_responses,omitempty"`
-	ProxyConnectTimeout string `json:"proxy_connect_timeout,omitempty"`
-	ProxyTimeout        string `json:"proxy_timeout,omitempty"`
+	ListenAddress       string           `json:"listen_address,omitempty"`
+	SyslogTargets       string           `json:"syslog_targets,omitempty"`
+	Udp                 opnsense.OPNBool `json:"udp"`
+	TrustedProxies      string           `json:"trusted_proxies,omitempty"`
+	ProxyProtocol       opnsense.OPNBool `json:"proxy_protocol"`
+	Certificate         string           `json:"certificate,omitempty"`
+	Ca                  string           `json:"ca,omitempty"`
+	VerifyClient        string           `json:"verify_client"`     // Valid values: off, on, optional, optional_no_ca
+	AccessLogFormat     string           `json:"access_log_format"` // Valid values: main, main_ext, anonymized, disabled
+	ErrorLogLevel       string           `json:"error_log_level"`   // Valid values: emerg, alert, crit, error, warn, notice, info
+	RouteField          string           `json:"route_field"`       // Valid values: upstream, sni_upstream_map
+	Upstream            string           `json:"upstream,omitempty"`
+	SniUpstreamMap      string           `json:"sni_upstream_map,omitempty"`
+	IpAcl               string           `json:"ip_acl,omitempty"`
+	ProxyResponses      *opnsense.OPNInt `json:"proxy_responses,omitempty"`
+	ProxyConnectTimeout *opnsense.OPNInt `json:"proxy_connect_timeout,omitempty"`
+	ProxyTimeout        *opnsense.OPNInt `json:"proxy_timeout,omitempty"`
 }
 
 // SniHostnameUpstreamMap represents a sni_hostname_upstream_map model item.
@@ -267,12 +269,12 @@ type IpAclItem struct {
 
 // Resolver represents a resolver model item.
 type Resolver struct {
-	Description string `json:"description"`
-	Address     string `json:"address"`
-	Valid       string `json:"valid,omitempty"`
-	Ipv4Off     string `json:"ipv4_off,omitempty"`
-	Ipv6Off     string `json:"ipv6_off,omitempty"`
-	Timeout     string `json:"timeout,omitempty"`
+	Description string            `json:"description"`
+	Address     string            `json:"address"`
+	Valid       *opnsense.OPNInt  `json:"valid,omitempty"`
+	Ipv4Off     *opnsense.OPNBool `json:"ipv4_off,omitempty"`
+	Ipv6Off     *opnsense.OPNBool `json:"ipv6_off,omitempty"`
+	Timeout     *opnsense.OPNInt  `json:"timeout,omitempty"`
 }
 
 // HttpRewrite represents a http_rewrite model item.
@@ -285,125 +287,125 @@ type HttpRewrite struct {
 
 // SecurityHeader represents a security_header model item.
 type SecurityHeader struct {
-	Description                              string `json:"description"`
-	Referrer                                 string `json:"referrer,omitempty"`      // Valid values: no-referrer, no-referrer-when-downgrade, same-origin, origin, strict-origin, strict-origin-when-cross-origin, origin-when-cross-origin, unsafe-url
-	Xssprotection                            string `json:"xssprotection,omitempty"` // Valid values: val1, val2, val3
-	ContentTypeOptions                       string `json:"content_type_options"`
-	StrictTransportSecurityTime              string `json:"strict_transport_security_time,omitempty"`
-	StrictTransportSecurityIncludeSubdomains string `json:"strict_transport_security_include_subdomains"`
-	StrictTransportSecurityPreload           string `json:"strict_transport_security_preload"`
-	EnableCsp                                string `json:"enable_csp"`
-	CspLogViolations                         string `json:"csp_log_violations"`
-	CspReportOnly                            string `json:"csp_report_only"`
-	CspDefaultSrcEnabled                     string `json:"csp_default_src_enabled"`
-	CspDefaultSrcDataUrls                    string `json:"csp_default_src_data_urls"`
-	CspDefaultSrcHttpUrls                    string `json:"csp_default_src_http_urls,omitempty"`
-	CspDefaultSrcInline                      string `json:"csp_default_src_inline"`
-	CspDefaultSrcEval                        string `json:"csp_default_src_eval"`
-	CspDefaultSrcSelf                        string `json:"csp_default_src_self"`
-	CspDefaultSrcBlob                        string `json:"csp_default_src_blob"`
-	CspDefaultSrcMediastream                 string `json:"csp_default_src_mediastream"`
-	CspDefaultSrcFilesystem                  string `json:"csp_default_src_filesystem"`
-	CspDefaultSrcNone                        string `json:"csp_default_src_none"`
-	CspScriptSrcEnabled                      string `json:"csp_script_src_enabled"`
-	CspScriptSrcDataUrls                     string `json:"csp_script_src_data_urls"`
-	CspScriptSrcHttpUrls                     string `json:"csp_script_src_http_urls,omitempty"`
-	CspScriptSrcInline                       string `json:"csp_script_src_inline"`
-	CspScriptSrcEval                         string `json:"csp_script_src_eval"`
-	CspScriptSrcSelf                         string `json:"csp_script_src_self"`
-	CspScriptSrcBlob                         string `json:"csp_script_src_blob"`
-	CspScriptSrcMediastream                  string `json:"csp_script_src_mediastream"`
-	CspScriptSrcFilesystem                   string `json:"csp_script_src_filesystem"`
-	CspScriptSrcNone                         string `json:"csp_script_src_none"`
-	CspImgSrcEnabled                         string `json:"csp_img_src_enabled"`
-	CspImgSrcDataUrls                        string `json:"csp_img_src_data_urls"`
-	CspImgSrcHttpUrls                        string `json:"csp_img_src_http_urls,omitempty"`
-	CspImgSrcInline                          string `json:"csp_img_src_inline"`
-	CspImgSrcEval                            string `json:"csp_img_src_eval"`
-	CspImgSrcSelf                            string `json:"csp_img_src_self"`
-	CspImgSrcBlob                            string `json:"csp_img_src_blob"`
-	CspImgSrcMediastream                     string `json:"csp_img_src_mediastream"`
-	CspImgSrcFilesystem                      string `json:"csp_img_src_filesystem"`
-	CspImgSrcNone                            string `json:"csp_img_src_none"`
-	CspStyleSrcEnabled                       string `json:"csp_style_src_enabled"`
-	CspStyleSrcDataUrls                      string `json:"csp_style_src_data_urls"`
-	CspStyleSrcHttpUrls                      string `json:"csp_style_src_http_urls,omitempty"`
-	CspStyleSrcInline                        string `json:"csp_style_src_inline"`
-	CspStyleSrcEval                          string `json:"csp_style_src_eval"`
-	CspStyleSrcSelf                          string `json:"csp_style_src_self"`
-	CspStyleSrcBlob                          string `json:"csp_style_src_blob"`
-	CspStyleSrcMediastream                   string `json:"csp_style_src_mediastream"`
-	CspStyleSrcFilesystem                    string `json:"csp_style_src_filesystem"`
-	CspStyleSrcNone                          string `json:"csp_style_src_none"`
-	CspMediaSrcEnabled                       string `json:"csp_media_src_enabled"`
-	CspMediaSrcDataUrls                      string `json:"csp_media_src_data_urls"`
-	CspMediaSrcHttpUrls                      string `json:"csp_media_src_http_urls,omitempty"`
-	CspMediaSrcInline                        string `json:"csp_media_src_inline"`
-	CspMediaSrcEval                          string `json:"csp_media_src_eval"`
-	CspMediaSrcSelf                          string `json:"csp_media_src_self"`
-	CspMediaSrcBlob                          string `json:"csp_media_src_blob"`
-	CspMediaSrcMediastream                   string `json:"csp_media_src_mediastream"`
-	CspMediaSrcFilesystem                    string `json:"csp_media_src_filesystem"`
-	CspMediaSrcNone                          string `json:"csp_media_src_none"`
-	CspFontSrcEnabled                        string `json:"csp_font_src_enabled"`
-	CspFontSrcDataUrls                       string `json:"csp_font_src_data_urls"`
-	CspFontSrcHttpUrls                       string `json:"csp_font_src_http_urls,omitempty"`
-	CspFontSrcInline                         string `json:"csp_font_src_inline"`
-	CspFontSrcEval                           string `json:"csp_font_src_eval"`
-	CspFontSrcSelf                           string `json:"csp_font_src_self"`
-	CspFontSrcBlob                           string `json:"csp_font_src_blob"`
-	CspFontSrcMediastream                    string `json:"csp_font_src_mediastream"`
-	CspFontSrcFilesystem                     string `json:"csp_font_src_filesystem"`
-	CspFontSrcNone                           string `json:"csp_font_src_none"`
-	CspFrameSrcEnabled                       string `json:"csp_frame_src_enabled"`
-	CspFrameSrcDataUrls                      string `json:"csp_frame_src_data_urls"`
-	CspFrameSrcHttpUrls                      string `json:"csp_frame_src_http_urls,omitempty"`
-	CspFrameSrcInline                        string `json:"csp_frame_src_inline"`
-	CspFrameSrcEval                          string `json:"csp_frame_src_eval"`
-	CspFrameSrcSelf                          string `json:"csp_frame_src_self"`
-	CspFrameSrcBlob                          string `json:"csp_frame_src_blob"`
-	CspFrameSrcMediastream                   string `json:"csp_frame_src_mediastream"`
-	CspFrameSrcFilesystem                    string `json:"csp_frame_src_filesystem"`
-	CspFrameSrcNone                          string `json:"csp_frame_src_none"`
-	CspFrameAncestorsEnabled                 string `json:"csp_frame_ancestors_enabled"`
-	CspFrameAncestorsDataUrls                string `json:"csp_frame_ancestors_data_urls"`
-	CspFrameAncestorsHttpUrls                string `json:"csp_frame_ancestors_http_urls,omitempty"`
-	CspFrameAncestorsSelf                    string `json:"csp_frame_ancestors_self"`
-	CspFrameAncestorsBlob                    string `json:"csp_frame_ancestors_blob"`
-	CspFrameAncestorsMediastream             string `json:"csp_frame_ancestors_mediastream"`
-	CspFrameAncestorsFilesystem              string `json:"csp_frame_ancestors_filesystem"`
-	CspFrameAncestorsNone                    string `json:"csp_frame_ancestors_none"`
-	CspConnectSrcEnabled                     string `json:"csp_connect_src_enabled"`
-	CspConnectSrcHttpUrls                    string `json:"csp_connect_src_http_urls,omitempty"`
-	CspConnectSrcNone                        string `json:"csp_connect_src_none"`
-	CspWorkerSrcEnabled                      string `json:"csp_worker_src_enabled"`
-	CspWorkerSrcDataUrls                     string `json:"csp_worker_src_data_urls"`
-	CspWorkerSrcHttpUrls                     string `json:"csp_worker_src_http_urls,omitempty"`
-	CspWorkerSrcInline                       string `json:"csp_worker_src_inline"`
-	CspWorkerSrcEval                         string `json:"csp_worker_src_eval"`
-	CspWorkerSrcSelf                         string `json:"csp_worker_src_self"`
-	CspWorkerSrcBlob                         string `json:"csp_worker_src_blob"`
-	CspWorkerSrcFilesystem                   string `json:"csp_worker_src_filesystem"`
-	CspWorkerSrcNone                         string `json:"csp_worker_src_none"`
-	CspFormActionEnabled                     string `json:"csp_form_action_enabled"`
-	CspFormActionDataUrls                    string `json:"csp_form_action_data_urls"`
-	CspFormActionHttpUrls                    string `json:"csp_form_action_http_urls,omitempty"`
-	CspFormActionInline                      string `json:"csp_form_action_inline"`
-	CspFormActionEval                        string `json:"csp_form_action_eval"`
-	CspFormActionSelf                        string `json:"csp_form_action_self"`
-	CspFormActionBlob                        string `json:"csp_form_action_blob"`
-	CspFormActionMediastream                 string `json:"csp_form_action_mediastream"`
-	CspFormActionFilesystem                  string `json:"csp_form_action_filesystem"`
-	CspFormActionNone                        string `json:"csp_form_action_none"`
+	Description                              string           `json:"description"`
+	Referrer                                 string           `json:"referrer,omitempty"`      // Valid values: no-referrer, no-referrer-when-downgrade, same-origin, origin, strict-origin, strict-origin-when-cross-origin, origin-when-cross-origin, unsafe-url
+	Xssprotection                            string           `json:"xssprotection,omitempty"` // Valid values: val1, val2, val3
+	ContentTypeOptions                       opnsense.OPNBool `json:"content_type_options"`
+	StrictTransportSecurityTime              *opnsense.OPNInt `json:"strict_transport_security_time,omitempty"`
+	StrictTransportSecurityIncludeSubdomains opnsense.OPNBool `json:"strict_transport_security_include_subdomains"`
+	StrictTransportSecurityPreload           opnsense.OPNBool `json:"strict_transport_security_preload"`
+	EnableCsp                                opnsense.OPNBool `json:"enable_csp"`
+	CspLogViolations                         opnsense.OPNBool `json:"csp_log_violations"`
+	CspReportOnly                            opnsense.OPNBool `json:"csp_report_only"`
+	CspDefaultSrcEnabled                     opnsense.OPNBool `json:"csp_default_src_enabled"`
+	CspDefaultSrcDataUrls                    opnsense.OPNBool `json:"csp_default_src_data_urls"`
+	CspDefaultSrcHttpUrls                    string           `json:"csp_default_src_http_urls,omitempty"`
+	CspDefaultSrcInline                      opnsense.OPNBool `json:"csp_default_src_inline"`
+	CspDefaultSrcEval                        opnsense.OPNBool `json:"csp_default_src_eval"`
+	CspDefaultSrcSelf                        opnsense.OPNBool `json:"csp_default_src_self"`
+	CspDefaultSrcBlob                        opnsense.OPNBool `json:"csp_default_src_blob"`
+	CspDefaultSrcMediastream                 opnsense.OPNBool `json:"csp_default_src_mediastream"`
+	CspDefaultSrcFilesystem                  opnsense.OPNBool `json:"csp_default_src_filesystem"`
+	CspDefaultSrcNone                        opnsense.OPNBool `json:"csp_default_src_none"`
+	CspScriptSrcEnabled                      opnsense.OPNBool `json:"csp_script_src_enabled"`
+	CspScriptSrcDataUrls                     opnsense.OPNBool `json:"csp_script_src_data_urls"`
+	CspScriptSrcHttpUrls                     string           `json:"csp_script_src_http_urls,omitempty"`
+	CspScriptSrcInline                       opnsense.OPNBool `json:"csp_script_src_inline"`
+	CspScriptSrcEval                         opnsense.OPNBool `json:"csp_script_src_eval"`
+	CspScriptSrcSelf                         opnsense.OPNBool `json:"csp_script_src_self"`
+	CspScriptSrcBlob                         opnsense.OPNBool `json:"csp_script_src_blob"`
+	CspScriptSrcMediastream                  opnsense.OPNBool `json:"csp_script_src_mediastream"`
+	CspScriptSrcFilesystem                   opnsense.OPNBool `json:"csp_script_src_filesystem"`
+	CspScriptSrcNone                         opnsense.OPNBool `json:"csp_script_src_none"`
+	CspImgSrcEnabled                         opnsense.OPNBool `json:"csp_img_src_enabled"`
+	CspImgSrcDataUrls                        opnsense.OPNBool `json:"csp_img_src_data_urls"`
+	CspImgSrcHttpUrls                        string           `json:"csp_img_src_http_urls,omitempty"`
+	CspImgSrcInline                          opnsense.OPNBool `json:"csp_img_src_inline"`
+	CspImgSrcEval                            opnsense.OPNBool `json:"csp_img_src_eval"`
+	CspImgSrcSelf                            opnsense.OPNBool `json:"csp_img_src_self"`
+	CspImgSrcBlob                            opnsense.OPNBool `json:"csp_img_src_blob"`
+	CspImgSrcMediastream                     opnsense.OPNBool `json:"csp_img_src_mediastream"`
+	CspImgSrcFilesystem                      opnsense.OPNBool `json:"csp_img_src_filesystem"`
+	CspImgSrcNone                            opnsense.OPNBool `json:"csp_img_src_none"`
+	CspStyleSrcEnabled                       opnsense.OPNBool `json:"csp_style_src_enabled"`
+	CspStyleSrcDataUrls                      opnsense.OPNBool `json:"csp_style_src_data_urls"`
+	CspStyleSrcHttpUrls                      string           `json:"csp_style_src_http_urls,omitempty"`
+	CspStyleSrcInline                        opnsense.OPNBool `json:"csp_style_src_inline"`
+	CspStyleSrcEval                          opnsense.OPNBool `json:"csp_style_src_eval"`
+	CspStyleSrcSelf                          opnsense.OPNBool `json:"csp_style_src_self"`
+	CspStyleSrcBlob                          opnsense.OPNBool `json:"csp_style_src_blob"`
+	CspStyleSrcMediastream                   opnsense.OPNBool `json:"csp_style_src_mediastream"`
+	CspStyleSrcFilesystem                    opnsense.OPNBool `json:"csp_style_src_filesystem"`
+	CspStyleSrcNone                          opnsense.OPNBool `json:"csp_style_src_none"`
+	CspMediaSrcEnabled                       opnsense.OPNBool `json:"csp_media_src_enabled"`
+	CspMediaSrcDataUrls                      opnsense.OPNBool `json:"csp_media_src_data_urls"`
+	CspMediaSrcHttpUrls                      string           `json:"csp_media_src_http_urls,omitempty"`
+	CspMediaSrcInline                        opnsense.OPNBool `json:"csp_media_src_inline"`
+	CspMediaSrcEval                          opnsense.OPNBool `json:"csp_media_src_eval"`
+	CspMediaSrcSelf                          opnsense.OPNBool `json:"csp_media_src_self"`
+	CspMediaSrcBlob                          opnsense.OPNBool `json:"csp_media_src_blob"`
+	CspMediaSrcMediastream                   opnsense.OPNBool `json:"csp_media_src_mediastream"`
+	CspMediaSrcFilesystem                    opnsense.OPNBool `json:"csp_media_src_filesystem"`
+	CspMediaSrcNone                          opnsense.OPNBool `json:"csp_media_src_none"`
+	CspFontSrcEnabled                        opnsense.OPNBool `json:"csp_font_src_enabled"`
+	CspFontSrcDataUrls                       opnsense.OPNBool `json:"csp_font_src_data_urls"`
+	CspFontSrcHttpUrls                       string           `json:"csp_font_src_http_urls,omitempty"`
+	CspFontSrcInline                         opnsense.OPNBool `json:"csp_font_src_inline"`
+	CspFontSrcEval                           opnsense.OPNBool `json:"csp_font_src_eval"`
+	CspFontSrcSelf                           opnsense.OPNBool `json:"csp_font_src_self"`
+	CspFontSrcBlob                           opnsense.OPNBool `json:"csp_font_src_blob"`
+	CspFontSrcMediastream                    opnsense.OPNBool `json:"csp_font_src_mediastream"`
+	CspFontSrcFilesystem                     opnsense.OPNBool `json:"csp_font_src_filesystem"`
+	CspFontSrcNone                           opnsense.OPNBool `json:"csp_font_src_none"`
+	CspFrameSrcEnabled                       opnsense.OPNBool `json:"csp_frame_src_enabled"`
+	CspFrameSrcDataUrls                      opnsense.OPNBool `json:"csp_frame_src_data_urls"`
+	CspFrameSrcHttpUrls                      string           `json:"csp_frame_src_http_urls,omitempty"`
+	CspFrameSrcInline                        opnsense.OPNBool `json:"csp_frame_src_inline"`
+	CspFrameSrcEval                          opnsense.OPNBool `json:"csp_frame_src_eval"`
+	CspFrameSrcSelf                          opnsense.OPNBool `json:"csp_frame_src_self"`
+	CspFrameSrcBlob                          opnsense.OPNBool `json:"csp_frame_src_blob"`
+	CspFrameSrcMediastream                   opnsense.OPNBool `json:"csp_frame_src_mediastream"`
+	CspFrameSrcFilesystem                    opnsense.OPNBool `json:"csp_frame_src_filesystem"`
+	CspFrameSrcNone                          opnsense.OPNBool `json:"csp_frame_src_none"`
+	CspFrameAncestorsEnabled                 opnsense.OPNBool `json:"csp_frame_ancestors_enabled"`
+	CspFrameAncestorsDataUrls                opnsense.OPNBool `json:"csp_frame_ancestors_data_urls"`
+	CspFrameAncestorsHttpUrls                string           `json:"csp_frame_ancestors_http_urls,omitempty"`
+	CspFrameAncestorsSelf                    opnsense.OPNBool `json:"csp_frame_ancestors_self"`
+	CspFrameAncestorsBlob                    opnsense.OPNBool `json:"csp_frame_ancestors_blob"`
+	CspFrameAncestorsMediastream             opnsense.OPNBool `json:"csp_frame_ancestors_mediastream"`
+	CspFrameAncestorsFilesystem              opnsense.OPNBool `json:"csp_frame_ancestors_filesystem"`
+	CspFrameAncestorsNone                    opnsense.OPNBool `json:"csp_frame_ancestors_none"`
+	CspConnectSrcEnabled                     opnsense.OPNBool `json:"csp_connect_src_enabled"`
+	CspConnectSrcHttpUrls                    string           `json:"csp_connect_src_http_urls,omitempty"`
+	CspConnectSrcNone                        opnsense.OPNBool `json:"csp_connect_src_none"`
+	CspWorkerSrcEnabled                      opnsense.OPNBool `json:"csp_worker_src_enabled"`
+	CspWorkerSrcDataUrls                     opnsense.OPNBool `json:"csp_worker_src_data_urls"`
+	CspWorkerSrcHttpUrls                     string           `json:"csp_worker_src_http_urls,omitempty"`
+	CspWorkerSrcInline                       opnsense.OPNBool `json:"csp_worker_src_inline"`
+	CspWorkerSrcEval                         opnsense.OPNBool `json:"csp_worker_src_eval"`
+	CspWorkerSrcSelf                         opnsense.OPNBool `json:"csp_worker_src_self"`
+	CspWorkerSrcBlob                         opnsense.OPNBool `json:"csp_worker_src_blob"`
+	CspWorkerSrcFilesystem                   opnsense.OPNBool `json:"csp_worker_src_filesystem"`
+	CspWorkerSrcNone                         opnsense.OPNBool `json:"csp_worker_src_none"`
+	CspFormActionEnabled                     opnsense.OPNBool `json:"csp_form_action_enabled"`
+	CspFormActionDataUrls                    opnsense.OPNBool `json:"csp_form_action_data_urls"`
+	CspFormActionHttpUrls                    string           `json:"csp_form_action_http_urls,omitempty"`
+	CspFormActionInline                      opnsense.OPNBool `json:"csp_form_action_inline"`
+	CspFormActionEval                        opnsense.OPNBool `json:"csp_form_action_eval"`
+	CspFormActionSelf                        opnsense.OPNBool `json:"csp_form_action_self"`
+	CspFormActionBlob                        opnsense.OPNBool `json:"csp_form_action_blob"`
+	CspFormActionMediastream                 opnsense.OPNBool `json:"csp_form_action_mediastream"`
+	CspFormActionFilesystem                  opnsense.OPNBool `json:"csp_form_action_filesystem"`
+	CspFormActionNone                        opnsense.OPNBool `json:"csp_form_action_none"`
 }
 
 // LimitZone represents a limit_zone model item.
 type LimitZone struct {
-	Description string `json:"description"`
-	Key         string `json:"key"`       // Valid values: binary_remote_addr
-	RateUnit    string `json:"rate_unit"` // Valid values: val1, val2
-	Size        string `json:"size"`
-	Rate        string `json:"rate"`
+	Description string          `json:"description"`
+	Key         string          `json:"key"`       // Valid values: binary_remote_addr
+	RateUnit    string          `json:"rate_unit"` // Valid values: val1, val2
+	Size        opnsense.OPNInt `json:"size"`
+	Rate        opnsense.OPNInt `json:"rate"`
 }
 
 // Errorpage represents a errorpage model item.
@@ -417,51 +419,51 @@ type Errorpage struct {
 
 // TlsFingerprint represents a tls_fingerprint model item.
 type TlsFingerprint struct {
-	Description string `json:"description"`
-	UserAgent   string `json:"user_agent"`
-	Trusted     string `json:"trusted"`
-	Curves      string `json:"curves,omitempty"`
-	Ciphers     string `json:"ciphers"`
+	Description string           `json:"description"`
+	UserAgent   string           `json:"user_agent"`
+	Trusted     opnsense.OPNBool `json:"trusted"`
+	Curves      string           `json:"curves,omitempty"`
+	Ciphers     string           `json:"ciphers"`
 }
 
 // LimitRequestConnection represents a limit_request_connection model item.
 type LimitRequestConnection struct {
-	LimitZone       string `json:"limit_zone"`
-	ConnectionCount string `json:"connection_count"`
-	Burst           string `json:"burst,omitempty"`
-	Nodelay         string `json:"nodelay"`
-	Description     string `json:"description"`
+	LimitZone       string           `json:"limit_zone"`
+	ConnectionCount opnsense.OPNInt  `json:"connection_count"`
+	Burst           *opnsense.OPNInt `json:"burst,omitempty"`
+	Nodelay         opnsense.OPNBool `json:"nodelay"`
+	Description     string           `json:"description"`
 }
 
 // Ban represents a ban model item.
 type Ban struct {
-	Ip   string `json:"ip"`
-	Time string `json:"time,omitempty"`
+	Ip   string           `json:"ip"`
+	Time *opnsense.OPNInt `json:"time,omitempty"`
 }
 
 // CachePath represents a cache_path model item.
 type CachePath struct {
-	Path        string `json:"path"`
-	Size        string `json:"size,omitempty"`
-	Inactive    string `json:"inactive,omitempty"`
-	UseTempPath string `json:"use_temp_path"`
-	MaxSize     string `json:"max_size,omitempty"`
+	Path        string           `json:"path"`
+	Size        *opnsense.OPNInt `json:"size,omitempty"`
+	Inactive    *opnsense.OPNInt `json:"inactive,omitempty"`
+	UseTempPath opnsense.OPNBool `json:"use_temp_path"`
+	MaxSize     *opnsense.OPNInt `json:"max_size,omitempty"`
 }
 
 // ProxyCacheValid represents a proxy_cache_valid model item.
 type ProxyCacheValid struct {
-	Description string `json:"description"`
-	Code        string `json:"code"`
-	Valid       string `json:"valid"`
+	Description string          `json:"description"`
+	Code        string          `json:"code"`
+	Valid       opnsense.OPNInt `json:"valid"`
 }
 
 // SyslogTarget represents a syslog_target model item.
 type SyslogTarget struct {
-	Description string `json:"description"`
-	Host        string `json:"host"`
-	Port        string `json:"port,omitempty"`
-	Facility    string `json:"facility"` // Valid values: kern, user, mail, daemon, auth, intern, lpr, news, uucp, clock, authpriv, ftp, ntp, audit, alert, cron, local0, local1, local2, local3, local4, local5, local6, local7
-	Severity    string `json:"severity"` // Valid values: debug, info, notice, warn, error, crit, alert, emerg
-	Tag         string `json:"tag,omitempty"`
-	Nohostname  string `json:"nohostname"`
+	Description string           `json:"description"`
+	Host        string           `json:"host"`
+	Port        string           `json:"port,omitempty"`
+	Facility    string           `json:"facility"` // Valid values: kern, user, mail, daemon, auth, intern, lpr, news, uucp, clock, authpriv, ftp, ntp, audit, alert, cron, local0, local1, local2, local3, local4, local5, local6, local7
+	Severity    string           `json:"severity"` // Valid values: debug, info, notice, warn, error, crit, alert, emerg
+	Tag         string           `json:"tag,omitempty"`
+	Nohostname  opnsense.OPNBool `json:"nohostname"`
 }

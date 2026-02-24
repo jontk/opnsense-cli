@@ -2,24 +2,26 @@
 
 package tayga
 
+import "github.com/jontk/opnsense-cli/opnsense"
+
 // Settings represents a settings model item.
 type Settings struct {
-	Enabled         string `json:"enabled"`
-	V4address       string `json:"v4address"`
-	V4destination   string `json:"v4destination"`
-	V6address       string `json:"v6address,omitempty"`
-	V6destination   string `json:"v6destination"`
-	V6prefix        string `json:"v6prefix"`
-	V4pool          string `json:"v4pool"`
-	V6routedisabled string `json:"v6routedisabled"`
+	Enabled         opnsense.OPNBool `json:"enabled"`
+	V4address       string           `json:"v4address"`
+	V4destination   string           `json:"v4destination"`
+	V6address       string           `json:"v6address,omitempty"`
+	V6destination   string           `json:"v6destination"`
+	V6prefix        string           `json:"v6prefix"`
+	V4pool          string           `json:"v4pool"`
+	V6routedisabled opnsense.OPNBool `json:"v6routedisabled"`
 }
 
 // Staticmapping represents a staticmapping model item.
 type Staticmapping struct {
-	Enabled     string `json:"enabled"`
-	V4          string `json:"v4"`
-	V6          string `json:"v6"`
-	Description string `json:"description,omitempty"`
+	Enabled     opnsense.OPNBool `json:"enabled"`
+	V4          string           `json:"v4"`
+	V6          string           `json:"v6"`
+	Description string           `json:"description,omitempty"`
 }
 
 type staticmappingGetItemResponse struct {

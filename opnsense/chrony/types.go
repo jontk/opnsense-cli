@@ -2,13 +2,15 @@
 
 package chrony
 
+import "github.com/jontk/opnsense-cli/opnsense"
+
 // Settings represents a settings model item.
 type Settings struct {
-	Enabled         string `json:"enabled"`
-	Port            string `json:"port"`
-	Ntsclient       string `json:"ntsclient"`
-	Ntsnocert       string `json:"ntsnocert"`
-	Peers           string `json:"peers"`
-	Fallbackpeers   string `json:"fallbackpeers,omitempty"`
-	Allowednetworks string `json:"allowednetworks,omitempty"`
+	Enabled         opnsense.OPNBool `json:"enabled"`
+	Port            string           `json:"port"`
+	Ntsclient       opnsense.OPNBool `json:"ntsclient"`
+	Ntsnocert       opnsense.OPNBool `json:"ntsnocert"`
+	Peers           string           `json:"peers"`
+	Fallbackpeers   string           `json:"fallbackpeers,omitempty"`
+	Allowednetworks string           `json:"allowednetworks,omitempty"`
 }

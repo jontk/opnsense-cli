@@ -2,44 +2,46 @@
 
 package zabbixproxy
 
+import "github.com/jontk/opnsense-cli/opnsense"
+
 // Settings represents a settings model item.
 type Settings struct {
-	Enabled                      string `json:"enabled"`
-	Proxymode                    string `json:"proxymode"`
-	Remotecommands               string `json:"remotecommands"`
-	Server                       string `json:"server,omitempty"`
-	Serverport                   string `json:"serverport,omitempty"`
-	Hostname                     string `json:"hostname"`
-	Listenport                   string `json:"listenport,omitempty"`
-	Listenip                     string `json:"listenip,omitempty"`
-	Sourceip                     string `json:"sourceip,omitempty"`
-	Listenbacklog                string `json:"listenbacklog,omitempty"`
-	Startpollers                 string `json:"startpollers,omitempty"`
-	Startipmipollers             string `json:"startipmipollers,omitempty"`
-	Startpollersunreachable      string `json:"startpollersunreachable,omitempty"`
-	Startagentpollers            string `json:"startagentpollers,omitempty"`
-	Maxconcurrentchecksperpoller string `json:"maxconcurrentchecksperpoller,omitempty"`
-	Starttrappers                string `json:"starttrappers,omitempty"`
-	Startpingers                 string `json:"startpingers,omitempty"`
-	Startdiscoverers             string `json:"startdiscoverers,omitempty"`
-	Startvmwarecollectors        string `json:"startvmwarecollectors,omitempty"`
-	Starthttppollers             string `json:"starthttppollers,omitempty"`
-	Cachesize                    string `json:"cachesize,omitempty"`
-	Historycachesize             string `json:"historycachesize,omitempty"`
-	Historyindexcachesize        string `json:"historyindexcachesize,omitempty"`
-	Proxyofflinebuffer           string `json:"proxyofflinebuffer,omitempty"`
-	Timeout                      string `json:"timeout,omitempty"`
-	Configfrequency              string `json:"configfrequency,omitempty"`
-	Datasenderfrequency          string `json:"datasenderfrequency,omitempty"`
-	Statsip                      string `json:"statsip,omitempty"`
-	Vmwarecachesize              string `json:"vmwarecachesize,omitempty"`
-	Vmwarefrequency              string `json:"vmwarefrequency,omitempty"`
-	Vmwareperffrequency          string `json:"vmwareperffrequency,omitempty"`
-	Vmwaretimeout                string `json:"vmwaretimeout,omitempty"`
-	SyslogEnable                 string `json:"syslogEnable"`
-	LogFileSize                  string `json:"logFileSize"`
-	DebugLevel                   string `json:"debugLevel"` // Valid values: val_0, val_1, val_2, val_3, val_4, val_5
-	Encryption                   string `json:"encryption"`
-	Encryptionidentity           string `json:"encryptionidentity,omitempty"`
-	Encryptionpsk                string `json:"encryptionpsk,omitempty"`
+	Enabled                      opnsense.OPNBool `json:"enabled"`
+	Proxymode                    opnsense.OPNBool `json:"proxymode"`
+	Remotecommands               opnsense.OPNBool `json:"remotecommands"`
+	Server                       string           `json:"server,omitempty"`
+	Serverport                   string           `json:"serverport,omitempty"`
+	Hostname                     string           `json:"hostname"`
+	Listenport                   string           `json:"listenport,omitempty"`
+	Listenip                     string           `json:"listenip,omitempty"`
+	Sourceip                     string           `json:"sourceip,omitempty"`
+	Listenbacklog                *opnsense.OPNInt `json:"listenbacklog,omitempty"`
+	Startpollers                 string           `json:"startpollers,omitempty"`
+	Startipmipollers             *opnsense.OPNInt `json:"startipmipollers,omitempty"`
+	Startpollersunreachable      *opnsense.OPNInt `json:"startpollersunreachable,omitempty"`
+	Startagentpollers            *opnsense.OPNInt `json:"startagentpollers,omitempty"`
+	Maxconcurrentchecksperpoller *opnsense.OPNInt `json:"maxconcurrentchecksperpoller,omitempty"`
+	Starttrappers                *opnsense.OPNInt `json:"starttrappers,omitempty"`
+	Startpingers                 *opnsense.OPNInt `json:"startpingers,omitempty"`
+	Startdiscoverers             *opnsense.OPNInt `json:"startdiscoverers,omitempty"`
+	Startvmwarecollectors        *opnsense.OPNInt `json:"startvmwarecollectors,omitempty"`
+	Starthttppollers             *opnsense.OPNInt `json:"starthttppollers,omitempty"`
+	Cachesize                    string           `json:"cachesize,omitempty"`
+	Historycachesize             string           `json:"historycachesize,omitempty"`
+	Historyindexcachesize        string           `json:"historyindexcachesize,omitempty"`
+	Proxyofflinebuffer           *opnsense.OPNInt `json:"proxyofflinebuffer,omitempty"`
+	Timeout                      *opnsense.OPNInt `json:"timeout,omitempty"`
+	Configfrequency              *opnsense.OPNInt `json:"configfrequency,omitempty"`
+	Datasenderfrequency          *opnsense.OPNInt `json:"datasenderfrequency,omitempty"`
+	Statsip                      string           `json:"statsip,omitempty"`
+	Vmwarecachesize              string           `json:"vmwarecachesize,omitempty"`
+	Vmwarefrequency              *opnsense.OPNInt `json:"vmwarefrequency,omitempty"`
+	Vmwareperffrequency          *opnsense.OPNInt `json:"vmwareperffrequency,omitempty"`
+	Vmwaretimeout                *opnsense.OPNInt `json:"vmwaretimeout,omitempty"`
+	SyslogEnable                 opnsense.OPNBool `json:"syslogEnable"`
+	LogFileSize                  opnsense.OPNInt  `json:"logFileSize"`
+	DebugLevel                   string           `json:"debugLevel"` // Valid values: val_0, val_1, val_2, val_3, val_4, val_5
+	Encryption                   opnsense.OPNBool `json:"encryption"`
+	Encryptionidentity           string           `json:"encryptionidentity,omitempty"`
+	Encryptionpsk                string           `json:"encryptionpsk,omitempty"`
 }

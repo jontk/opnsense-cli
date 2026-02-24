@@ -2,17 +2,19 @@
 
 package crowdsec
 
+import "github.com/jontk/opnsense-cli/opnsense"
+
 // Settings represents a settings model item.
 type Settings struct {
-	AgentEnabled            string `json:"agent_enabled"`
-	LapiEnabled             string `json:"lapi_enabled"`
-	FirewallBouncerEnabled  string `json:"firewall_bouncer_enabled"`
-	LapiManualConfiguration string `json:"lapi_manual_configuration"`
-	LapiListenAddress       string `json:"lapi_listen_address"`
-	LapiListenPort          string `json:"lapi_listen_port"`
-	RulesEnabled            string `json:"rules_enabled"`
-	RulesLog                string `json:"rules_log"`
-	RulesTag                string `json:"rules_tag,omitempty"`
-	EnrollKey               string `json:"enroll_key,omitempty"`
-	CrowdsecFirewallVerbose string `json:"crowdsec_firewall_verbose"`
+	AgentEnabled            opnsense.OPNBool `json:"agent_enabled"`
+	LapiEnabled             opnsense.OPNBool `json:"lapi_enabled"`
+	FirewallBouncerEnabled  opnsense.OPNBool `json:"firewall_bouncer_enabled"`
+	LapiManualConfiguration opnsense.OPNBool `json:"lapi_manual_configuration"`
+	LapiListenAddress       string           `json:"lapi_listen_address"`
+	LapiListenPort          string           `json:"lapi_listen_port"`
+	RulesEnabled            opnsense.OPNBool `json:"rules_enabled"`
+	RulesLog                opnsense.OPNBool `json:"rules_log"`
+	RulesTag                string           `json:"rules_tag,omitempty"`
+	EnrollKey               string           `json:"enroll_key,omitempty"`
+	CrowdsecFirewallVerbose opnsense.OPNBool `json:"crowdsec_firewall_verbose"`
 }

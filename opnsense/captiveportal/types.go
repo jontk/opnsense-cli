@@ -2,25 +2,27 @@
 
 package captiveportal
 
+import "github.com/jontk/opnsense-cli/opnsense"
+
 // Zone represents a zone model item.
 type Zone struct {
-	Enabled                  string `json:"enabled"`
-	Zoneid                   string `json:"zoneid"`
-	Interfaces               string `json:"interfaces"`
-	DisableRules             string `json:"disableRules"`
-	Authservers              string `json:"authservers,omitempty"`
-	AlwaysSendAccountingReqs string `json:"alwaysSendAccountingReqs"`
-	AuthEnforceGroup         string `json:"authEnforceGroup,omitempty"`
-	Idletimeout              string `json:"idletimeout"`
-	Hardtimeout              string `json:"hardtimeout"`
-	Concurrentlogins         string `json:"concurrentlogins"`
-	Certificate              string `json:"certificate,omitempty"`
-	Servername               string `json:"servername,omitempty"`
-	AllowedAddresses         string `json:"allowedAddresses,omitempty"`
-	AllowedMACAddresses      string `json:"allowedMACAddresses,omitempty"`
-	ExtendedPreAuthData      string `json:"extendedPreAuthData"`
-	Template                 string `json:"template,omitempty"`
-	Description              string `json:"description"`
+	Enabled                  opnsense.OPNBool `json:"enabled"`
+	Zoneid                   string           `json:"zoneid"`
+	Interfaces               string           `json:"interfaces"`
+	DisableRules             opnsense.OPNBool `json:"disableRules"`
+	Authservers              string           `json:"authservers,omitempty"`
+	AlwaysSendAccountingReqs opnsense.OPNBool `json:"alwaysSendAccountingReqs"`
+	AuthEnforceGroup         string           `json:"authEnforceGroup,omitempty"`
+	Idletimeout              opnsense.OPNInt  `json:"idletimeout"`
+	Hardtimeout              opnsense.OPNInt  `json:"hardtimeout"`
+	Concurrentlogins         opnsense.OPNBool `json:"concurrentlogins"`
+	Certificate              string           `json:"certificate,omitempty"`
+	Servername               string           `json:"servername,omitempty"`
+	AllowedAddresses         string           `json:"allowedAddresses,omitempty"`
+	AllowedMACAddresses      string           `json:"allowedMACAddresses,omitempty"`
+	ExtendedPreAuthData      opnsense.OPNBool `json:"extendedPreAuthData"`
+	Template                 string           `json:"template,omitempty"`
+	Description              string           `json:"description"`
 }
 
 // Template represents a template model item.

@@ -2,9 +2,11 @@
 
 package netdata
 
+import "github.com/jontk/opnsense-cli/opnsense"
+
 // Settings represents a settings model item.
 type Settings struct {
-	Enabled string `json:"enabled"`
-	Listen  string `json:"listen"`
-	Port    string `json:"port"`
+	Enabled opnsense.OPNBool `json:"enabled"`
+	Listen  string           `json:"listen"`
+	Port    string           `json:"port"`
 }

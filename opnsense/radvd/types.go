@@ -2,31 +2,33 @@
 
 package radvd
 
+import "github.com/jontk/opnsense-cli/opnsense"
+
 // Entries represents a entries model item.
 type Entries struct {
-	Enabled              string `json:"enabled"`
-	Interface            string `json:"interface"`
-	Base6Interface       string `json:"Base6Interface,omitempty"`
-	Mode                 string `json:"mode"`                      // Valid values: router, unmanaged, managed, assist, stateless
-	DeprecatePrefix      string `json:"DeprecatePrefix,omitempty"` // Valid values: on, off
-	RemoveAdvOnExit      string `json:"RemoveAdvOnExit,omitempty"` // Valid values: on, off
-	RemoveRoute          string `json:"RemoveRoute,omitempty"`     // Valid values: on, off
-	Routes               string `json:"routes,omitempty"`
-	RDNSS                string `json:"RDNSS,omitempty"`
-	DNSSL                string `json:"DNSSL,omitempty"`
-	Dns                  string `json:"dns"`
-	MinRtrAdvInterval    string `json:"MinRtrAdvInterval"`
-	MaxRtrAdvInterval    string `json:"MaxRtrAdvInterval"`
-	AdvDNSSLLifetime     string `json:"AdvDNSSLLifetime,omitempty"`
-	AdvDefaultLifetime   string `json:"AdvDefaultLifetime,omitempty"`
-	AdvLinkMTU           string `json:"AdvLinkMTU,omitempty"`
-	AdvPreferredLifetime string `json:"AdvPreferredLifetime,omitempty"`
-	AdvRASrcAddress      string `json:"AdvRASrcAddress,omitempty"`
-	AdvRDNSSLifetime     string `json:"AdvRDNSSLifetime,omitempty"`
-	AdvRouteLifetime     string `json:"AdvRouteLifetime,omitempty"`
-	AdvValidLifetime     string `json:"AdvValidLifetime,omitempty"`
-	AdvDefaultPreference string `json:"AdvDefaultPreference"` // Valid values: low, medium, high
-	Nat64prefix          string `json:"nat64prefix,omitempty"`
+	Enabled              opnsense.OPNBool `json:"enabled"`
+	Interface            string           `json:"interface"`
+	Base6Interface       string           `json:"Base6Interface,omitempty"`
+	Mode                 string           `json:"mode"`                      // Valid values: router, unmanaged, managed, assist, stateless
+	DeprecatePrefix      string           `json:"DeprecatePrefix,omitempty"` // Valid values: on, off
+	RemoveAdvOnExit      string           `json:"RemoveAdvOnExit,omitempty"` // Valid values: on, off
+	RemoveRoute          string           `json:"RemoveRoute,omitempty"`     // Valid values: on, off
+	Routes               string           `json:"routes,omitempty"`
+	RDNSS                string           `json:"RDNSS,omitempty"`
+	DNSSL                string           `json:"DNSSL,omitempty"`
+	Dns                  opnsense.OPNBool `json:"dns"`
+	MinRtrAdvInterval    opnsense.OPNInt  `json:"MinRtrAdvInterval"`
+	MaxRtrAdvInterval    opnsense.OPNInt  `json:"MaxRtrAdvInterval"`
+	AdvDNSSLLifetime     *opnsense.OPNInt `json:"AdvDNSSLLifetime,omitempty"`
+	AdvDefaultLifetime   *opnsense.OPNInt `json:"AdvDefaultLifetime,omitempty"`
+	AdvLinkMTU           *opnsense.OPNInt `json:"AdvLinkMTU,omitempty"`
+	AdvPreferredLifetime *opnsense.OPNInt `json:"AdvPreferredLifetime,omitempty"`
+	AdvRASrcAddress      string           `json:"AdvRASrcAddress,omitempty"`
+	AdvRDNSSLifetime     *opnsense.OPNInt `json:"AdvRDNSSLifetime,omitempty"`
+	AdvRouteLifetime     *opnsense.OPNInt `json:"AdvRouteLifetime,omitempty"`
+	AdvValidLifetime     *opnsense.OPNInt `json:"AdvValidLifetime,omitempty"`
+	AdvDefaultPreference string           `json:"AdvDefaultPreference"` // Valid values: low, medium, high
+	Nat64prefix          string           `json:"nat64prefix,omitempty"`
 }
 
 type entriesGetItemResponse struct {

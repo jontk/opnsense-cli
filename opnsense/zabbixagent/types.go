@@ -2,6 +2,8 @@
 
 package zabbixagent
 
+import "github.com/jontk/opnsense-cli/opnsense"
+
 // Local represents a local model item.
 type Local struct {
 	Hostname string `json:"hostname"`
@@ -9,55 +11,55 @@ type Local struct {
 
 // Main represents a main model item.
 type Main struct {
-	Enabled       string `json:"enabled"`
-	ServerList    string `json:"serverList"`
-	ListenPort    string `json:"listenPort"`
-	ListenIP      string `json:"listenIP"`
-	SourceIP      string `json:"sourceIP,omitempty"`
-	ListenBacklog string `json:"listenBacklog,omitempty"`
-	SyslogEnable  string `json:"syslogEnable,omitempty"`
-	LogFileSize   string `json:"logFileSize"`
-	DebugLevel    string `json:"debugLevel"` // Valid values: val_0, val_1, val_2, val_3, val_4, val_5
-	SudoRoot      string `json:"sudoRoot"`
+	Enabled       opnsense.OPNBool  `json:"enabled"`
+	ServerList    string            `json:"serverList"`
+	ListenPort    opnsense.OPNInt   `json:"listenPort"`
+	ListenIP      string            `json:"listenIP"`
+	SourceIP      string            `json:"sourceIP,omitempty"`
+	ListenBacklog *opnsense.OPNInt  `json:"listenBacklog,omitempty"`
+	SyslogEnable  *opnsense.OPNBool `json:"syslogEnable,omitempty"`
+	LogFileSize   opnsense.OPNInt   `json:"logFileSize"`
+	DebugLevel    string            `json:"debugLevel"` // Valid values: val_0, val_1, val_2, val_3, val_4, val_5
+	SudoRoot      opnsense.OPNBool  `json:"sudoRoot"`
 }
 
 // Tuning represents a tuning model item.
 type Tuning struct {
-	StartAgents       string `json:"startAgents"`
-	BufferSend        string `json:"bufferSend"`
-	BufferSize        string `json:"bufferSize"`
-	MaxLinesPerSecond string `json:"maxLinesPerSecond"`
-	Timeout           string `json:"timeout"`
+	StartAgents       opnsense.OPNInt `json:"startAgents"`
+	BufferSend        opnsense.OPNInt `json:"bufferSend"`
+	BufferSize        opnsense.OPNInt `json:"bufferSize"`
+	MaxLinesPerSecond opnsense.OPNInt `json:"maxLinesPerSecond"`
+	Timeout           opnsense.OPNInt `json:"timeout"`
 }
 
 // Features represents a features model item.
 type Features struct {
-	EnableActiveChecks   string `json:"enableActiveChecks"`
-	ActiveCheckServers   string `json:"activeCheckServers,omitempty"`
-	RefreshActiveChecks  string `json:"refreshActiveChecks"`
-	EnableRemoteCommands string `json:"enableRemoteCommands"`
-	LogRemoteCommands    string `json:"logRemoteCommands"`
-	Encryption           string `json:"encryption"`
-	Encryptionidentity   string `json:"encryptionidentity,omitempty"`
-	Encryptionpsk        string `json:"encryptionpsk,omitempty"`
+	EnableActiveChecks   opnsense.OPNBool `json:"enableActiveChecks"`
+	ActiveCheckServers   string           `json:"activeCheckServers,omitempty"`
+	RefreshActiveChecks  opnsense.OPNInt  `json:"refreshActiveChecks"`
+	EnableRemoteCommands opnsense.OPNBool `json:"enableRemoteCommands"`
+	LogRemoteCommands    opnsense.OPNBool `json:"logRemoteCommands"`
+	Encryption           opnsense.OPNBool `json:"encryption"`
+	Encryptionidentity   string           `json:"encryptionidentity,omitempty"`
+	Encryptionpsk        string           `json:"encryptionpsk,omitempty"`
 }
 
 // Userparameter represents a userparameter model item.
 type Userparameter struct {
-	Id           string `json:"id"`
-	Enabled      string `json:"enabled"`
-	Key          string `json:"key"`
-	Command      string `json:"command"`
-	AcceptParams string `json:"acceptParams"`
+	Id           string           `json:"id"`
+	Enabled      opnsense.OPNBool `json:"enabled"`
+	Key          string           `json:"key"`
+	Command      string           `json:"command"`
+	AcceptParams opnsense.OPNBool `json:"acceptParams"`
 }
 
 // Alias represents a alias model item.
 type Alias struct {
-	Id           string `json:"id"`
-	Enabled      string `json:"enabled"`
-	Key          string `json:"key"`
-	SourceKey    string `json:"sourceKey"`
-	AcceptParams string `json:"acceptParams"`
+	Id           string           `json:"id"`
+	Enabled      opnsense.OPNBool `json:"enabled"`
+	Key          string           `json:"key"`
+	SourceKey    string           `json:"sourceKey"`
+	AcceptParams opnsense.OPNBool `json:"acceptParams"`
 }
 
 type aliasGetItemResponse struct {

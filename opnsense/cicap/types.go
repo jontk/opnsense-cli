@@ -2,13 +2,15 @@
 
 package cicap
 
+import "github.com/jontk/opnsense-cli/opnsense"
+
 // Settings represents a settings model item.
 type Settings struct {
-	EnableClamav              string `json:"enable_clamav"`
-	Scanfiletypes             string `json:"scanfiletypes"` // Valid values: TEXT, DATA, EXECUTABLE, ARCHIVE, GIF, JPEG, MSOFFICE
-	Sendpercentdata           string `json:"sendpercentdata"`
-	Startsendpercentdataafter string `json:"startsendpercentdataafter"`
-	Allow204responses         string `json:"allow204responses"`
-	Passonerror               string `json:"passonerror"`
-	Maxobjectsize             string `json:"maxobjectsize"`
+	EnableClamav              opnsense.OPNBool `json:"enable_clamav"`
+	Scanfiletypes             string           `json:"scanfiletypes"` // Valid values: TEXT, DATA, EXECUTABLE, ARCHIVE, GIF, JPEG, MSOFFICE
+	Sendpercentdata           opnsense.OPNInt  `json:"sendpercentdata"`
+	Startsendpercentdataafter string           `json:"startsendpercentdataafter"`
+	Allow204responses         opnsense.OPNBool `json:"allow204responses"`
+	Passonerror               opnsense.OPNBool `json:"passonerror"`
+	Maxobjectsize             string           `json:"maxobjectsize"`
 }

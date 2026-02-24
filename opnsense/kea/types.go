@@ -2,38 +2,40 @@
 
 package kea
 
+import "github.com/jontk/opnsense-cli/opnsense"
+
 // General represents a general model item.
 type General struct {
-	Enabled  string `json:"enabled"`
-	HttpHost string `json:"http_host"`
-	HttpPort string `json:"http_port"`
+	Enabled  opnsense.OPNBool `json:"enabled"`
+	HttpHost string           `json:"http_host"`
+	HttpPort string           `json:"http_port"`
 }
 
 // Lexpire represents a lexpire model item.
 type Lexpire struct {
-	HoldReclaimedTime           string `json:"hold_reclaimed_time,omitempty"`
-	ReclaimTimerWaitTime        string `json:"reclaim_timer_wait_time,omitempty"`
-	FlushReclaimedTimerWaitTime string `json:"flush_reclaimed_timer_wait_time,omitempty"`
-	MaxReclaimTime              string `json:"max_reclaim_time,omitempty"`
-	MaxReclaimLeases            string `json:"max_reclaim_leases,omitempty"`
-	UnwarnedReclaimCycles       string `json:"unwarned_reclaim_cycles,omitempty"`
+	HoldReclaimedTime           *opnsense.OPNInt `json:"hold_reclaimed_time,omitempty"`
+	ReclaimTimerWaitTime        *opnsense.OPNInt `json:"reclaim_timer_wait_time,omitempty"`
+	FlushReclaimedTimerWaitTime *opnsense.OPNInt `json:"flush_reclaimed_timer_wait_time,omitempty"`
+	MaxReclaimTime              *opnsense.OPNInt `json:"max_reclaim_time,omitempty"`
+	MaxReclaimLeases            *opnsense.OPNInt `json:"max_reclaim_leases,omitempty"`
+	UnwarnedReclaimCycles       *opnsense.OPNInt `json:"unwarned_reclaim_cycles,omitempty"`
 }
 
 // Ha represents a ha model item.
 type Ha struct {
-	Enabled           string `json:"enabled"`
-	ThisServerName    string `json:"this_server_name,omitempty"`
-	MaxUnackedClients string `json:"max_unacked_clients"`
+	Enabled           opnsense.OPNBool `json:"enabled"`
+	ThisServerName    string           `json:"this_server_name,omitempty"`
+	MaxUnackedClients opnsense.OPNInt  `json:"max_unacked_clients"`
 }
 
 // Subnet4 represents a subnet4 model item.
 type Subnet4 struct {
-	Subnet                string `json:"subnet"`
-	NextServer            string `json:"next_server,omitempty"`
-	OptionDataAutocollect string `json:"option_data_autocollect"`
-	MatchClientId         string `json:"match-client-id"`
-	Pools                 string `json:"pools,omitempty"`
-	Description           string `json:"description,omitempty"`
+	Subnet                string           `json:"subnet"`
+	NextServer            string           `json:"next_server,omitempty"`
+	OptionDataAutocollect opnsense.OPNBool `json:"option_data_autocollect"`
+	MatchClientId         opnsense.OPNBool `json:"match-client-id"`
+	Pools                 string           `json:"pools,omitempty"`
+	Description           string           `json:"description,omitempty"`
 }
 
 // Reservation represents a reservation model item.
@@ -64,11 +66,11 @@ type Subnet6 struct {
 
 // PdPool represents a pd_pool model item.
 type PdPool struct {
-	Subnet       string `json:"subnet"`
-	Prefix       string `json:"prefix,omitempty"`
-	PrefixLen    string `json:"prefix_len"`
-	DelegatedLen string `json:"delegated_len"`
-	Description  string `json:"description,omitempty"`
+	Subnet       string          `json:"subnet"`
+	Prefix       string          `json:"prefix,omitempty"`
+	PrefixLen    opnsense.OPNInt `json:"prefix_len"`
+	DelegatedLen opnsense.OPNInt `json:"delegated_len"`
+	Description  string          `json:"description,omitempty"`
 }
 
 type peerGetItemResponse struct {

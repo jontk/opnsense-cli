@@ -2,20 +2,22 @@
 
 package sslh
 
+import "github.com/jontk/opnsense-cli/opnsense"
+
 // Settings represents a settings model item.
 type Settings struct {
-	Enabled         string `json:"enabled"`
-	ListenAddresses string `json:"listen_addresses"`
-	Mode            string `json:"mode"` // Valid values: option, option
-	Timeout         string `json:"timeout,omitempty"`
-	TlsTarget       string `json:"tls_target,omitempty"`
-	SshTarget       string `json:"ssh_target,omitempty"`
-	OpenvpnTarget   string `json:"openvpn_target,omitempty"`
-	HttpTarget      string `json:"http_target,omitempty"`
-	XmppTarget      string `json:"xmpp_target,omitempty"`
-	TincTarget      string `json:"tinc_target,omitempty"`
-	AnyprotTarget   string `json:"anyprot_target,omitempty"`
-	OnTimeout       string `json:"on_timeout"` // Valid values: option, option, option, option, option, option
-	Verbose         string `json:"verbose,omitempty"`
-	Numeric         string `json:"numeric,omitempty"`
+	Enabled         opnsense.OPNBool  `json:"enabled"`
+	ListenAddresses string            `json:"listen_addresses"`
+	Mode            string            `json:"mode"` // Valid values: option, option
+	Timeout         *opnsense.OPNInt  `json:"timeout,omitempty"`
+	TlsTarget       string            `json:"tls_target,omitempty"`
+	SshTarget       string            `json:"ssh_target,omitempty"`
+	OpenvpnTarget   string            `json:"openvpn_target,omitempty"`
+	HttpTarget      string            `json:"http_target,omitempty"`
+	XmppTarget      string            `json:"xmpp_target,omitempty"`
+	TincTarget      string            `json:"tinc_target,omitempty"`
+	AnyprotTarget   string            `json:"anyprot_target,omitempty"`
+	OnTimeout       string            `json:"on_timeout"` // Valid values: option, option, option, option, option, option
+	Verbose         *opnsense.OPNBool `json:"verbose,omitempty"`
+	Numeric         *opnsense.OPNBool `json:"numeric,omitempty"`
 }

@@ -2,20 +2,22 @@
 
 package nodeexporter
 
+import "github.com/jontk/opnsense-cli/opnsense"
+
 // Settings represents a settings model item.
 type Settings struct {
-	Enabled       string `json:"enabled"`
-	Listenaddress string `json:"listenaddress"`
-	Listenport    string `json:"listenport"`
-	Cpu           string `json:"cpu,omitempty"`
-	Exec          string `json:"exec,omitempty"`
-	Filesystem    string `json:"filesystem,omitempty"`
-	Loadavg       string `json:"loadavg,omitempty"`
-	Meminfo       string `json:"meminfo,omitempty"`
-	Netdev        string `json:"netdev,omitempty"`
-	Time          string `json:"time,omitempty"`
-	Devstat       string `json:"devstat,omitempty"`
-	Interrupts    string `json:"interrupts,omitempty"`
-	Ntp           string `json:"ntp,omitempty"`
-	Zfs           string `json:"zfs,omitempty"`
+	Enabled       opnsense.OPNBool  `json:"enabled"`
+	Listenaddress string            `json:"listenaddress"`
+	Listenport    string            `json:"listenport"`
+	Cpu           *opnsense.OPNBool `json:"cpu,omitempty"`
+	Exec          *opnsense.OPNBool `json:"exec,omitempty"`
+	Filesystem    *opnsense.OPNBool `json:"filesystem,omitempty"`
+	Loadavg       *opnsense.OPNBool `json:"loadavg,omitempty"`
+	Meminfo       *opnsense.OPNBool `json:"meminfo,omitempty"`
+	Netdev        *opnsense.OPNBool `json:"netdev,omitempty"`
+	Time          *opnsense.OPNBool `json:"time,omitempty"`
+	Devstat       *opnsense.OPNBool `json:"devstat,omitempty"`
+	Interrupts    *opnsense.OPNBool `json:"interrupts,omitempty"`
+	Ntp           *opnsense.OPNBool `json:"ntp,omitempty"`
+	Zfs           *opnsense.OPNBool `json:"zfs,omitempty"`
 }

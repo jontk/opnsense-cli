@@ -2,25 +2,27 @@
 
 package apcupsd
 
+import "github.com/jontk/opnsense-cli/opnsense"
+
 // General represents a general model item.
 type General struct {
-	Enabled          string `json:"Enabled"`
-	UPSName          string `json:"UPSName,omitempty"`
-	UPSCable         string `json:"UPSCable"` // Valid values: option, option, option, option, option, option, option, option, option, option, option, option, option, option, option, option, option, option, option
-	UPSType          string `json:"UPSType"`  // Valid values: apcsmart, usb, net, snmp, netsnmp, dumb, pcnet, modbus
-	Device           string `json:"Device,omitempty"`
-	Polltime         string `json:"Polltime"`
-	Netserver        string `json:"Netserver"`
-	NetserverAddress string `json:"NetserverAddress"`
-	NetserverPort    string `json:"NetserverPort"`
-	OnBatteryDelay   string `json:"OnBatteryDelay"`
-	BatteryLevel     string `json:"BatteryLevel"`
-	Minutes          string `json:"Minutes"`
-	Timeout          string `json:"Timeout"`
-	Annoy            string `json:"Annoy"`
-	AnnoyDelay       string `json:"AnnoyDelay"`
-	KillDelay        string `json:"KillDelay"`
-	UPSClass         string `json:"UPSClass"` // Valid values: standalone, shareslave, sharemaster
-	UPSMode          string `json:"UPSMode"`  // Valid values: disable, share
-	NoLogon          string `json:"NoLogon"`  // Valid values: disable, timeout, percent, minutes, always
+	Enabled          opnsense.OPNBool `json:"Enabled"`
+	UPSName          string           `json:"UPSName,omitempty"`
+	UPSCable         string           `json:"UPSCable"` // Valid values: option, option, option, option, option, option, option, option, option, option, option, option, option, option, option, option, option, option, option
+	UPSType          string           `json:"UPSType"`  // Valid values: apcsmart, usb, net, snmp, netsnmp, dumb, pcnet, modbus
+	Device           string           `json:"Device,omitempty"`
+	Polltime         opnsense.OPNInt  `json:"Polltime"`
+	Netserver        opnsense.OPNBool `json:"Netserver"`
+	NetserverAddress string           `json:"NetserverAddress"`
+	NetserverPort    string           `json:"NetserverPort"`
+	OnBatteryDelay   opnsense.OPNInt  `json:"OnBatteryDelay"`
+	BatteryLevel     opnsense.OPNInt  `json:"BatteryLevel"`
+	Minutes          opnsense.OPNInt  `json:"Minutes"`
+	Timeout          opnsense.OPNInt  `json:"Timeout"`
+	Annoy            opnsense.OPNInt  `json:"Annoy"`
+	AnnoyDelay       opnsense.OPNInt  `json:"AnnoyDelay"`
+	KillDelay        opnsense.OPNInt  `json:"KillDelay"`
+	UPSClass         string           `json:"UPSClass"` // Valid values: standalone, shareslave, sharemaster
+	UPSMode          string           `json:"UPSMode"`  // Valid values: disable, share
+	NoLogon          string           `json:"NoLogon"`  // Valid values: disable, timeout, percent, minutes, always
 }

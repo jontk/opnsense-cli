@@ -2,12 +2,14 @@
 
 package nut
 
+import "github.com/jontk/opnsense-cli/opnsense"
+
 // General represents a general model item.
 type General struct {
-	Enable string `json:"enable"`
-	Mode   string `json:"mode"` // Valid values: standalone, netclient
-	Name   string `json:"name"`
-	Listen string `json:"listen"`
+	Enable opnsense.OPNBool `json:"enable"`
+	Mode   string           `json:"mode"` // Valid values: standalone, netclient
+	Name   string           `json:"name"`
+	Listen string           `json:"listen"`
 }
 
 // Account represents a account model item.
@@ -18,64 +20,64 @@ type Account struct {
 
 // Usbhid represents a usbhid model item.
 type Usbhid struct {
-	Enable string `json:"enable"`
-	Args   string `json:"args,omitempty"`
+	Enable opnsense.OPNBool `json:"enable"`
+	Args   string           `json:"args,omitempty"`
 }
 
 // Apcsmart represents a apcsmart model item.
 type Apcsmart struct {
-	Enable string `json:"enable"`
-	Args   string `json:"args,omitempty"`
+	Enable opnsense.OPNBool `json:"enable"`
+	Args   string           `json:"args,omitempty"`
 }
 
 // Apcupsd represents a apcupsd model item.
 type Apcupsd struct {
-	Enable   string `json:"enable"`
-	Hostname string `json:"hostname"`
-	Port     string `json:"port,omitempty"`
+	Enable   opnsense.OPNBool `json:"enable"`
+	Hostname string           `json:"hostname"`
+	Port     string           `json:"port,omitempty"`
 }
 
 // Bcmxcpusb represents a bcmxcpusb model item.
 type Bcmxcpusb struct {
-	Enable string `json:"enable"`
-	Args   string `json:"args,omitempty"`
+	Enable opnsense.OPNBool `json:"enable"`
+	Args   string           `json:"args,omitempty"`
 }
 
 // Blazerusb represents a blazerusb model item.
 type Blazerusb struct {
-	Enable string `json:"enable"`
-	Args   string `json:"args,omitempty"`
+	Enable opnsense.OPNBool `json:"enable"`
+	Args   string           `json:"args,omitempty"`
 }
 
 // Blazerser represents a blazerser model item.
 type Blazerser struct {
-	Enable string `json:"enable"`
-	Args   string `json:"args,omitempty"`
+	Enable opnsense.OPNBool `json:"enable"`
+	Args   string           `json:"args,omitempty"`
 }
 
 // Netclient represents a netclient model item.
 type Netclient struct {
-	Enable   string `json:"enable"`
-	Address  string `json:"address,omitempty"`
-	Port     string `json:"port,omitempty"`
-	User     string `json:"user,omitempty"`
-	Password string `json:"password,omitempty"`
+	Enable   opnsense.OPNBool `json:"enable"`
+	Address  string           `json:"address,omitempty"`
+	Port     string           `json:"port,omitempty"`
+	User     string           `json:"user,omitempty"`
+	Password string           `json:"password,omitempty"`
 }
 
 // Qx represents a qx model item.
 type Qx struct {
-	Enable string `json:"enable"`
-	Args   string `json:"args,omitempty"`
+	Enable opnsense.OPNBool `json:"enable"`
+	Args   string           `json:"args,omitempty"`
 }
 
 // Riello represents a riello model item.
 type Riello struct {
-	Enable string `json:"enable"`
-	Args   string `json:"args,omitempty"`
+	Enable opnsense.OPNBool `json:"enable"`
+	Args   string           `json:"args,omitempty"`
 }
 
 // Snmp represents a snmp model item.
 type Snmp struct {
-	Enable string `json:"enable"`
-	Args   string `json:"args,omitempty"`
+	Enable opnsense.OPNBool `json:"enable"`
+	Args   string           `json:"args,omitempty"`
 }

@@ -2,11 +2,13 @@
 
 package gridexample
 
+import "github.com/jontk/opnsense-cli/opnsense"
+
 // Address represents a address model item.
 type Address struct {
-	Enabled     string `json:"enabled"`
-	Email       string `json:"email"`
-	Description string `json:"description,omitempty"`
+	Enabled     opnsense.OPNBool `json:"enabled"`
+	Email       string           `json:"email"`
+	Description string           `json:"description,omitempty"`
 }
 
 type addressGetItemResponse struct {

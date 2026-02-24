@@ -2,56 +2,58 @@
 
 package bind
 
+import "github.com/jontk/opnsense-cli/opnsense"
+
 // Acl represents a acl model item.
 type Acl struct {
-	Enabled  string `json:"enabled"`
-	Name     string `json:"name"`
-	Networks string `json:"networks"`
+	Enabled  opnsense.OPNBool `json:"enabled"`
+	Name     string           `json:"name"`
+	Networks string           `json:"networks"`
 }
 
 // Settings represents a settings model item.
 type Settings struct {
-	Enabled             string `json:"enabled"`
-	Type                string `json:"type,omitempty"` // Valid values: aa, ag, bla, blf, blp, ca, el, emd, ep, hpa, hpf, hpp, hup, mw, nc, pt, rw, sa, st, sb, ws, wsu, wse, yy
-	Whitelists          string `json:"whitelists,omitempty"`
-	Forcesafegoogle     string `json:"forcesafegoogle"`
-	Forcesafeduckduckgo string `json:"forcesafeduckduckgo"`
-	Forcesafeyoutube    string `json:"forcesafeyoutube"`
-	Forcestrictbing     string `json:"forcestrictbing"`
+	Enabled             opnsense.OPNBool `json:"enabled"`
+	Type                string           `json:"type,omitempty"` // Valid values: aa, ag, bla, blf, blp, ca, el, emd, ep, hpa, hpf, hpp, hup, mw, nc, pt, rw, sa, st, sb, ws, wsu, wse, yy
+	Whitelists          string           `json:"whitelists,omitempty"`
+	Forcesafegoogle     opnsense.OPNBool `json:"forcesafegoogle"`
+	Forcesafeduckduckgo opnsense.OPNBool `json:"forcesafeduckduckgo"`
+	Forcesafeyoutube    opnsense.OPNBool `json:"forcesafeyoutube"`
+	Forcestrictbing     opnsense.OPNBool `json:"forcestrictbing"`
 }
 
 // Domain represents a domain model item.
 type Domain struct {
-	Enabled              string `json:"enabled"`
-	Type                 string `json:"type"` // Valid values: primary, secondary, forward
-	Primaryip            string `json:"primaryip,omitempty"`
-	Forwardserver        string `json:"forwardserver,omitempty"`
-	Transferkeyalgo      string `json:"transferkeyalgo,omitempty"` // Valid values: hmac-sha512, hmac-sha384, hmac-sha256, hmac-sha224, hmac-sha1, hmac-md5
-	Transferkeyname      string `json:"transferkeyname,omitempty"`
-	Transferkey          string `json:"transferkey,omitempty"`
-	Allownotifysecondary string `json:"allownotifysecondary,omitempty"`
-	Domainname           string `json:"domainname"`
-	Allowtransfer        string `json:"allowtransfer,omitempty"`
-	Allowrndctransfer    string `json:"allowrndctransfer,omitempty"`
-	Allowquery           string `json:"allowquery,omitempty"`
-	Allowrndcupdate      string `json:"allowrndcupdate"`
-	Serial               string `json:"serial,omitempty"`
-	Ttl                  string `json:"ttl"`
-	Refresh              string `json:"refresh"`
-	Retry                string `json:"retry"`
-	Expire               string `json:"expire"`
-	Negative             string `json:"negative"`
-	Mailadmin            string `json:"mailadmin"`
-	Dnsserver            string `json:"dnsserver"`
+	Enabled              opnsense.OPNBool  `json:"enabled"`
+	Type                 string            `json:"type"` // Valid values: primary, secondary, forward
+	Primaryip            string            `json:"primaryip,omitempty"`
+	Forwardserver        string            `json:"forwardserver,omitempty"`
+	Transferkeyalgo      string            `json:"transferkeyalgo,omitempty"` // Valid values: hmac-sha512, hmac-sha384, hmac-sha256, hmac-sha224, hmac-sha1, hmac-md5
+	Transferkeyname      string            `json:"transferkeyname,omitempty"`
+	Transferkey          string            `json:"transferkey,omitempty"`
+	Allownotifysecondary string            `json:"allownotifysecondary,omitempty"`
+	Domainname           string            `json:"domainname"`
+	Allowtransfer        string            `json:"allowtransfer,omitempty"`
+	Allowrndctransfer    *opnsense.OPNBool `json:"allowrndctransfer,omitempty"`
+	Allowquery           string            `json:"allowquery,omitempty"`
+	Allowrndcupdate      opnsense.OPNBool  `json:"allowrndcupdate"`
+	Serial               string            `json:"serial,omitempty"`
+	Ttl                  opnsense.OPNInt   `json:"ttl"`
+	Refresh              opnsense.OPNInt   `json:"refresh"`
+	Retry                opnsense.OPNInt   `json:"retry"`
+	Expire               opnsense.OPNInt   `json:"expire"`
+	Negative             opnsense.OPNInt   `json:"negative"`
+	Mailadmin            string            `json:"mailadmin"`
+	Dnsserver            string            `json:"dnsserver"`
 }
 
 // Record represents a record model item.
 type Record struct {
-	Enabled string `json:"enabled"`
-	Domain  string `json:"domain"`
-	Name    string `json:"name,omitempty"`
-	Type    string `json:"type"` // Valid values: A, AAAA, CAA, CNAME, DNAME, DNSKEY, DS, MX, NS, PTR, RP, RRSIG, SRV, SSHFP, TLSA, TXT
-	Value   string `json:"value"`
+	Enabled opnsense.OPNBool `json:"enabled"`
+	Domain  string           `json:"domain"`
+	Name    string           `json:"name,omitempty"`
+	Type    string           `json:"type"` // Valid values: A, AAAA, CAA, CNAME, DNAME, DNSKEY, DS, MX, NS, PTR, RP, RRSIG, SRV, SSHFP, TLSA, TXT
+	Value   string           `json:"value"`
 }
 
 type aclGetItemResponse struct {

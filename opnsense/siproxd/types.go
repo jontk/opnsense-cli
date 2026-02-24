@@ -2,19 +2,21 @@
 
 package siproxd
 
+import "github.com/jontk/opnsense-cli/opnsense"
+
 // Domain represents a domain model item.
 type Domain struct {
-	Enabled string `json:"enabled"`
-	Name    string `json:"name"`
-	Host    string `json:"host"`
-	Port    string `json:"port"`
+	Enabled opnsense.OPNBool `json:"enabled"`
+	Name    string           `json:"name"`
+	Host    string           `json:"host"`
+	Port    opnsense.OPNInt  `json:"port"`
 }
 
 // User represents a user model item.
 type User struct {
-	Enabled  string `json:"enabled"`
-	Username string `json:"username"`
-	Password string `json:"password"`
+	Enabled  opnsense.OPNBool `json:"enabled"`
+	Username string           `json:"username"`
+	Password string           `json:"password"`
 }
 
 type domainGetItemResponse struct {

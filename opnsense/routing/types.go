@@ -2,32 +2,34 @@
 
 package routing
 
+import "github.com/jontk/opnsense-cli/opnsense"
+
 // GatewayItem represents a gateway_item model item.
 type GatewayItem struct {
-	Disabled                  string `json:"disabled"`
-	Name                      string `json:"name"`
-	Descr                     string `json:"descr,omitempty"`
-	Interface                 string `json:"interface"`
-	Ipprotocol                string `json:"ipprotocol"` // Valid values: inet, inet6
-	Gateway                   string `json:"gateway,omitempty"`
-	Defaultgw                 string `json:"defaultgw,omitempty"`
-	Fargw                     string `json:"fargw,omitempty"`
-	MonitorDisable            string `json:"monitor_disable"`
-	MonitorNoroute            string `json:"monitor_noroute,omitempty"`
-	MonitorKillstates         string `json:"monitor_killstates,omitempty"`
-	MonitorKillstatesPriority string `json:"monitor_killstates_priority,omitempty"`
-	Monitor                   string `json:"monitor,omitempty"`
-	ForceDown                 string `json:"force_down,omitempty"`
-	Priority                  string `json:"priority"`
-	Weight                    string `json:"weight"`
-	Latencylow                string `json:"latencylow,omitempty"`
-	Latencyhigh               string `json:"latencyhigh,omitempty"`
-	Losslow                   string `json:"losslow,omitempty"`
-	Losshigh                  string `json:"losshigh,omitempty"`
-	Interval                  string `json:"interval,omitempty"`
-	TimePeriod                string `json:"time_period,omitempty"`
-	LossInterval              string `json:"loss_interval,omitempty"`
-	DataLength                string `json:"data_length,omitempty"`
+	Disabled                  opnsense.OPNBool  `json:"disabled"`
+	Name                      string            `json:"name"`
+	Descr                     string            `json:"descr,omitempty"`
+	Interface                 string            `json:"interface"`
+	Ipprotocol                string            `json:"ipprotocol"` // Valid values: inet, inet6
+	Gateway                   string            `json:"gateway,omitempty"`
+	Defaultgw                 *opnsense.OPNBool `json:"defaultgw,omitempty"`
+	Fargw                     *opnsense.OPNBool `json:"fargw,omitempty"`
+	MonitorDisable            opnsense.OPNBool  `json:"monitor_disable"`
+	MonitorNoroute            *opnsense.OPNBool `json:"monitor_noroute,omitempty"`
+	MonitorKillstates         *opnsense.OPNBool `json:"monitor_killstates,omitempty"`
+	MonitorKillstatesPriority *opnsense.OPNBool `json:"monitor_killstates_priority,omitempty"`
+	Monitor                   string            `json:"monitor,omitempty"`
+	ForceDown                 *opnsense.OPNBool `json:"force_down,omitempty"`
+	Priority                  opnsense.OPNInt   `json:"priority"`
+	Weight                    opnsense.OPNInt   `json:"weight"`
+	Latencylow                *opnsense.OPNInt  `json:"latencylow,omitempty"`
+	Latencyhigh               *opnsense.OPNInt  `json:"latencyhigh,omitempty"`
+	Losslow                   *opnsense.OPNInt  `json:"losslow,omitempty"`
+	Losshigh                  *opnsense.OPNInt  `json:"losshigh,omitempty"`
+	Interval                  *opnsense.OPNInt  `json:"interval,omitempty"`
+	TimePeriod                *opnsense.OPNInt  `json:"time_period,omitempty"`
+	LossInterval              *opnsense.OPNInt  `json:"loss_interval,omitempty"`
+	DataLength                *opnsense.OPNInt  `json:"data_length,omitempty"`
 }
 
 type gateway_itemGetItemResponse struct {

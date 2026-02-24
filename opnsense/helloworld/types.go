@@ -2,11 +2,13 @@
 
 package helloworld
 
+import "github.com/jontk/opnsense-cli/opnsense"
+
 // General represents a general model item.
 type General struct {
-	Enabled     string `json:"Enabled"`
-	SMTPHost    string `json:"SMTPHost"`
-	FromEmail   string `json:"FromEmail"`
-	ToEmail     string `json:"ToEmail"`
-	Description string `json:"Description"`
+	Enabled     opnsense.OPNBool `json:"Enabled"`
+	SMTPHost    string           `json:"SMTPHost"`
+	FromEmail   string           `json:"FromEmail"`
+	ToEmail     string           `json:"ToEmail"`
+	Description string           `json:"Description"`
 }

@@ -2,135 +2,137 @@
 
 package freeradius
 
+import "github.com/jontk/opnsense-cli/opnsense"
+
 // Avpair represents a avpair model item.
 type Avpair struct {
-	Enabled  string `json:"enabled"`
-	Name     string `json:"name"`
-	Operator string `json:"operator"`
-	Value    string `json:"value"`
+	Enabled  opnsense.OPNBool `json:"enabled"`
+	Name     string           `json:"name"`
+	Operator string           `json:"operator"`
+	Value    string           `json:"value"`
 }
 
 // ClientConfig represents a client model item.
 type ClientConfig struct {
-	Enabled   string `json:"enabled"`
-	Name      string `json:"name"`
-	Secret    string `json:"secret"`
-	Ip        string `json:"ip,omitempty"`
-	RequireMa string `json:"require_ma"`
+	Enabled   opnsense.OPNBool `json:"enabled"`
+	Name      string           `json:"name"`
+	Secret    string           `json:"secret"`
+	Ip        string           `json:"ip,omitempty"`
+	RequireMa opnsense.OPNBool `json:"require_ma"`
 }
 
 // Dhcp represents a dhcp model item.
 type Dhcp struct {
-	Enabled   string `json:"enabled"`
-	Dns       string `json:"dns"`
-	Netmask   string `json:"netmask"`
-	Gatewayip string `json:"gatewayip"`
+	Enabled   opnsense.OPNBool `json:"enabled"`
+	Dns       string           `json:"dns"`
+	Netmask   string           `json:"netmask"`
+	Gatewayip string           `json:"gatewayip"`
 }
 
 // Settings represents a settings model item.
 type Settings struct {
-	Innertunnel  string `json:"innertunnel"`
-	Protocol     string `json:"protocol"` // Valid values: LDAP, LDAPS
-	Server       string `json:"server,omitempty"`
-	Serverport   string `json:"serverport,omitempty"`
-	Ldapcert     string `json:"ldapcert,omitempty"`
-	Ldapstarttls string `json:"ldapstarttls"`
-	Identity     string `json:"identity,omitempty"`
-	Password     string `json:"password,omitempty"`
-	BaseDn       string `json:"base_dn,omitempty"`
-	UserFilter   string `json:"user_filter,omitempty"`
-	GroupFilter  string `json:"group_filter,omitempty"`
+	Innertunnel  opnsense.OPNBool `json:"innertunnel"`
+	Protocol     string           `json:"protocol"` // Valid values: LDAP, LDAPS
+	Server       string           `json:"server,omitempty"`
+	Serverport   string           `json:"serverport,omitempty"`
+	Ldapcert     string           `json:"ldapcert,omitempty"`
+	Ldapstarttls opnsense.OPNBool `json:"ldapstarttls"`
+	Identity     string           `json:"identity,omitempty"`
+	Password     string           `json:"password,omitempty"`
+	BaseDn       string           `json:"base_dn,omitempty"`
+	UserFilter   string           `json:"user_filter,omitempty"`
+	GroupFilter  string           `json:"group_filter,omitempty"`
 }
 
 // Ldapgroup represents a ldapgroup model item.
 type Ldapgroup struct {
-	Enabled       string `json:"enabled"`
-	Ldapgroupname string `json:"ldapgroupname"`
-	Vlan          string `json:"vlan,omitempty"`
+	Enabled       opnsense.OPNBool `json:"enabled"`
+	Ldapgroupname string           `json:"ldapgroupname"`
+	Vlan          *opnsense.OPNInt `json:"vlan,omitempty"`
 }
 
 // Lease represents a lease model item.
 type Lease struct {
-	Enabled string `json:"enabled"`
-	Mac     string `json:"mac"`
-	Ip      string `json:"ip"`
+	Enabled opnsense.OPNBool `json:"enabled"`
+	Mac     string           `json:"mac"`
+	Ip      string           `json:"ip"`
 }
 
 // Homeserver represents a homeserver model item.
 type Homeserver struct {
-	Enabled             string `json:"enabled"`
-	Name                string `json:"name"`
-	Type                string `json:"type"`        // Valid values: auth, acct, authacct, coa
-	Addresstype         string `json:"addresstype"` // Valid values: ipv4, ipv6, virtual_server
-	Ipaddr              string `json:"ipaddr,omitempty"`
-	Ipaddr6             string `json:"ipaddr6,omitempty"`
-	Virtualserver       string `json:"virtualserver,omitempty"`
-	Port                string `json:"port"`
-	Proto               string `json:"proto"` // Valid values: udp, tcp
-	Secret              string `json:"secret,omitempty"`
-	Sourceip            string `json:"sourceip,omitempty"`
-	ResponseWindow      string `json:"response_window"`
-	NoResponseFail      string `json:"no_response_fail,omitempty"`
-	Zombieperiod        string `json:"zombieperiod"`
-	Reviveinterval      string `json:"reviveinterval"`
-	Statuscheck         string `json:"statuscheck"` // Valid values: none, status-server, request
-	Checkinterval       string `json:"checkinterval"`
-	Numanswersalive     string `json:"numanswersalive"`
-	MaxOutstanding      string `json:"max_outstanding"`
-	LimitMaxconnections string `json:"limit_maxconnections"`
-	LimitMaxrequests    string `json:"limit_maxrequests"`
-	LimitLifetime       string `json:"limit_lifetime"`
-	LimitIdletimeout    string `json:"limit_idletimeout"`
+	Enabled             opnsense.OPNBool  `json:"enabled"`
+	Name                string            `json:"name"`
+	Type                string            `json:"type"`        // Valid values: auth, acct, authacct, coa
+	Addresstype         string            `json:"addresstype"` // Valid values: ipv4, ipv6, virtual_server
+	Ipaddr              string            `json:"ipaddr,omitempty"`
+	Ipaddr6             string            `json:"ipaddr6,omitempty"`
+	Virtualserver       string            `json:"virtualserver,omitempty"`
+	Port                opnsense.OPNInt   `json:"port"`
+	Proto               string            `json:"proto"` // Valid values: udp, tcp
+	Secret              string            `json:"secret,omitempty"`
+	Sourceip            string            `json:"sourceip,omitempty"`
+	ResponseWindow      opnsense.OPNInt   `json:"response_window"`
+	NoResponseFail      *opnsense.OPNBool `json:"no_response_fail,omitempty"`
+	Zombieperiod        opnsense.OPNInt   `json:"zombieperiod"`
+	Reviveinterval      opnsense.OPNInt   `json:"reviveinterval"`
+	Statuscheck         string            `json:"statuscheck"` // Valid values: none, status-server, request
+	Checkinterval       opnsense.OPNInt   `json:"checkinterval"`
+	Numanswersalive     opnsense.OPNInt   `json:"numanswersalive"`
+	MaxOutstanding      opnsense.OPNInt   `json:"max_outstanding"`
+	LimitMaxconnections opnsense.OPNInt   `json:"limit_maxconnections"`
+	LimitMaxrequests    opnsense.OPNInt   `json:"limit_maxrequests"`
+	LimitLifetime       opnsense.OPNInt   `json:"limit_lifetime"`
+	LimitIdletimeout    opnsense.OPNInt   `json:"limit_idletimeout"`
 }
 
 // Homeserverpool represents a homeserverpool model item.
 type Homeserverpool struct {
-	Enabled       string `json:"enabled"`
-	Name          string `json:"name"`
-	Type          string `json:"type"` // Valid values: fail-over, load-balance, client-balance, client-port-balance, keyed-balance
-	Virtualserver string `json:"virtualserver,omitempty"`
-	Homeservers   string `json:"homeservers"`
-	Fallback      string `json:"fallback,omitempty"`
+	Enabled       opnsense.OPNBool `json:"enabled"`
+	Name          string           `json:"name"`
+	Type          string           `json:"type"` // Valid values: fail-over, load-balance, client-balance, client-port-balance, keyed-balance
+	Virtualserver string           `json:"virtualserver,omitempty"`
+	Homeservers   string           `json:"homeservers"`
+	Fallback      string           `json:"fallback,omitempty"`
 }
 
 // Realm represents a realm model item.
 type Realm struct {
-	Enabled  string `json:"enabled"`
-	Name     string `json:"name"`
-	AuthPool string `json:"auth_pool,omitempty"`
-	AcctPool string `json:"acct_pool,omitempty"`
-	Nostrip  string `json:"nostrip,omitempty"`
+	Enabled  opnsense.OPNBool  `json:"enabled"`
+	Name     string            `json:"name"`
+	AuthPool string            `json:"auth_pool,omitempty"`
+	AcctPool string            `json:"acct_pool,omitempty"`
+	Nostrip  *opnsense.OPNBool `json:"nostrip,omitempty"`
 }
 
 // User represents a user model item.
 type User struct {
-	Enabled                     string `json:"enabled"`
-	Username                    string `json:"username"`
-	Password                    string `json:"password"`
-	Passwordencryption          string `json:"passwordencryption"` // Valid values: cleartext, ntprehashed
-	Description                 string `json:"description,omitempty"`
-	Ip                          string `json:"ip,omitempty"`
-	Subnet                      string `json:"subnet,omitempty"`
-	Route                       string `json:"route,omitempty"`
-	Ip6                         string `json:"ip6,omitempty"`
-	Vlan                        string `json:"vlan,omitempty"`
-	Logintime                   string `json:"logintime,omitempty"`
-	Simuse                      string `json:"simuse,omitempty"`
-	ExosVlanUntagged            string `json:"exos_vlan_untagged,omitempty"`
-	ExosVlanTagged              string `json:"exos_vlan_tagged,omitempty"`
-	ExosPolicy                  string `json:"exos_policy,omitempty"`
-	WisprBwMinUp                string `json:"wispr_bw_min_up,omitempty"`
-	WisprBwMaxUp                string `json:"wispr_bw_max_up,omitempty"`
-	WisprBwMinDown              string `json:"wispr_bw_min_down,omitempty"`
-	WisprBwMaxDown              string `json:"wispr_bw_max_down,omitempty"`
-	ChillispotBwMaxUp           string `json:"chillispot_bw_max_up,omitempty"`
-	ChillispotBwMaxDown         string `json:"chillispot_bw_max_down,omitempty"`
-	MikrotikVlanIdNumber        string `json:"mikrotik_vlan_id_number,omitempty"`
-	MikrotikVlanIdType          string `json:"mikrotik_vlan_id_type,omitempty"`
-	SessionlimitMaxSessionLimit string `json:"sessionlimit_max_session_limit,omitempty"`
-	Servicetype                 string `json:"servicetype,omitempty"` // Valid values: Option1, Option2, Option3, Option4, Option5, Option6, Option7, Option8, Option9, Option10, Option11, Option12, Option13, Option14, Option15, Option16, Option17, Option18, Option19
-	LinkedAVPair                string `json:"linkedAVPair,omitempty"`
-	TunnelPassword              string `json:"tunnel_password,omitempty"`
+	Enabled                     opnsense.OPNBool `json:"enabled"`
+	Username                    string           `json:"username"`
+	Password                    string           `json:"password"`
+	Passwordencryption          string           `json:"passwordencryption"` // Valid values: cleartext, ntprehashed
+	Description                 string           `json:"description,omitempty"`
+	Ip                          string           `json:"ip,omitempty"`
+	Subnet                      string           `json:"subnet,omitempty"`
+	Route                       string           `json:"route,omitempty"`
+	Ip6                         string           `json:"ip6,omitempty"`
+	Vlan                        *opnsense.OPNInt `json:"vlan,omitempty"`
+	Logintime                   string           `json:"logintime,omitempty"`
+	Simuse                      *opnsense.OPNInt `json:"simuse,omitempty"`
+	ExosVlanUntagged            *opnsense.OPNInt `json:"exos_vlan_untagged,omitempty"`
+	ExosVlanTagged              string           `json:"exos_vlan_tagged,omitempty"`
+	ExosPolicy                  string           `json:"exos_policy,omitempty"`
+	WisprBwMinUp                *opnsense.OPNInt `json:"wispr_bw_min_up,omitempty"`
+	WisprBwMaxUp                *opnsense.OPNInt `json:"wispr_bw_max_up,omitempty"`
+	WisprBwMinDown              *opnsense.OPNInt `json:"wispr_bw_min_down,omitempty"`
+	WisprBwMaxDown              *opnsense.OPNInt `json:"wispr_bw_max_down,omitempty"`
+	ChillispotBwMaxUp           *opnsense.OPNInt `json:"chillispot_bw_max_up,omitempty"`
+	ChillispotBwMaxDown         *opnsense.OPNInt `json:"chillispot_bw_max_down,omitempty"`
+	MikrotikVlanIdNumber        *opnsense.OPNInt `json:"mikrotik_vlan_id_number,omitempty"`
+	MikrotikVlanIdType          *opnsense.OPNInt `json:"mikrotik_vlan_id_type,omitempty"`
+	SessionlimitMaxSessionLimit *opnsense.OPNInt `json:"sessionlimit_max_session_limit,omitempty"`
+	Servicetype                 string           `json:"servicetype,omitempty"` // Valid values: Option1, Option2, Option3, Option4, Option5, Option6, Option7, Option8, Option9, Option10, Option11, Option12, Option13, Option14, Option15, Option16, Option17, Option18, Option19
+	LinkedAVPair                string           `json:"linkedAVPair,omitempty"`
+	TunnelPassword              string           `json:"tunnel_password,omitempty"`
 }
 
 type avpairGetItemResponse struct {

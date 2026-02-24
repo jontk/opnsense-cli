@@ -2,6 +2,8 @@
 
 package proxy
 
+import "github.com/jontk/opnsense-cli/opnsense"
+
 // Logging represents a logging model item.
 type Logging struct {
 	IgnoreLogACL string `json:"ignoreLogACL,omitempty"`
@@ -10,63 +12,63 @@ type Logging struct {
 
 // Traffic represents a traffic model item.
 type Traffic struct {
-	Enabled                    string `json:"enabled"`
-	MaxDownloadSize            string `json:"maxDownloadSize,omitempty"`
-	MaxUploadSize              string `json:"maxUploadSize,omitempty"`
-	OverallBandwidthTrotteling string `json:"OverallBandwidthTrotteling,omitempty"`
-	PerHostTrotteling          string `json:"perHostTrotteling,omitempty"`
+	Enabled                    opnsense.OPNBool `json:"enabled"`
+	MaxDownloadSize            *opnsense.OPNInt `json:"maxDownloadSize,omitempty"`
+	MaxUploadSize              *opnsense.OPNInt `json:"maxUploadSize,omitempty"`
+	OverallBandwidthTrotteling *opnsense.OPNInt `json:"OverallBandwidthTrotteling,omitempty"`
+	PerHostTrotteling          *opnsense.OPNInt `json:"perHostTrotteling,omitempty"`
 }
 
 // Parentproxy represents a parentproxy model item.
 type Parentproxy struct {
-	Enabled      string `json:"enabled"`
-	Host         string `json:"host,omitempty"`
-	Enableauth   string `json:"enableauth"`
-	User         string `json:"user"`
-	Password     string `json:"password"`
-	Port         string `json:"port,omitempty"`
-	Localdomains string `json:"localdomains,omitempty"`
-	Localips     string `json:"localips,omitempty"`
+	Enabled      opnsense.OPNBool `json:"enabled"`
+	Host         string           `json:"host,omitempty"`
+	Enableauth   opnsense.OPNBool `json:"enableauth"`
+	User         string           `json:"user"`
+	Password     string           `json:"password"`
+	Port         string           `json:"port,omitempty"`
+	Localdomains string           `json:"localdomains,omitempty"`
+	Localips     string           `json:"localips,omitempty"`
 }
 
 // Acl represents a acl model item.
 type Acl struct {
-	AllowedSubnets            string `json:"allowedSubnets,omitempty"`
-	Unrestricted              string `json:"unrestricted,omitempty"`
-	BannedHosts               string `json:"bannedHosts,omitempty"`
-	AllowWhitelistBannedHosts string `json:"allowWhitelistBannedHosts"`
-	WhiteList                 string `json:"whiteList,omitempty"`
-	BlackList                 string `json:"blackList,omitempty"`
-	Browser                   string `json:"browser,omitempty"`
-	MimeType                  string `json:"mimeType,omitempty"`
-	Googleapps                string `json:"googleapps,omitempty"`
-	Youtube                   string `json:"youtube,omitempty"` // Valid values: strict, moderate
-	SafePorts                 string `json:"safePorts"`
-	SslPorts                  string `json:"sslPorts"`
+	AllowedSubnets            string           `json:"allowedSubnets,omitempty"`
+	Unrestricted              string           `json:"unrestricted,omitempty"`
+	BannedHosts               string           `json:"bannedHosts,omitempty"`
+	AllowWhitelistBannedHosts opnsense.OPNBool `json:"allowWhitelistBannedHosts"`
+	WhiteList                 string           `json:"whiteList,omitempty"`
+	BlackList                 string           `json:"blackList,omitempty"`
+	Browser                   string           `json:"browser,omitempty"`
+	MimeType                  string           `json:"mimeType,omitempty"`
+	Googleapps                string           `json:"googleapps,omitempty"`
+	Youtube                   string           `json:"youtube,omitempty"` // Valid values: strict, moderate
+	SafePorts                 string           `json:"safePorts"`
+	SslPorts                  string           `json:"sslPorts"`
 }
 
 // Icap represents a icap model item.
 type Icap struct {
-	Enable         string `json:"enable"`
-	RequestURL     string `json:"RequestURL,omitempty"`
-	ResponseURL    string `json:"ResponseURL,omitempty"`
-	SendClientIP   string `json:"SendClientIP"`
-	SendUsername   string `json:"SendUsername"`
-	EncodeUsername string `json:"EncodeUsername"`
-	UsernameHeader string `json:"UsernameHeader"`
-	EnablePreview  string `json:"EnablePreview"`
-	PreviewSize    string `json:"PreviewSize"`
-	OptionsTTL     string `json:"OptionsTTL"`
-	Exclude        string `json:"exclude,omitempty"`
+	Enable         opnsense.OPNBool `json:"enable"`
+	RequestURL     string           `json:"RequestURL,omitempty"`
+	ResponseURL    string           `json:"ResponseURL,omitempty"`
+	SendClientIP   opnsense.OPNBool `json:"SendClientIP"`
+	SendUsername   opnsense.OPNBool `json:"SendUsername"`
+	EncodeUsername opnsense.OPNBool `json:"EncodeUsername"`
+	UsernameHeader string           `json:"UsernameHeader"`
+	EnablePreview  opnsense.OPNBool `json:"EnablePreview"`
+	PreviewSize    opnsense.OPNInt  `json:"PreviewSize"`
+	OptionsTTL     opnsense.OPNInt  `json:"OptionsTTL"`
+	Exclude        string           `json:"exclude,omitempty"`
 }
 
 // Authentication represents a authentication model item.
 type Authentication struct {
-	Method           string `json:"method,omitempty"`
-	AuthEnforceGroup string `json:"authEnforceGroup,omitempty"`
-	Realm            string `json:"realm,omitempty"`
-	Credentialsttl   string `json:"credentialsttl,omitempty"`
-	Children         string `json:"children,omitempty"`
+	Method           string           `json:"method,omitempty"`
+	AuthEnforceGroup string           `json:"authEnforceGroup,omitempty"`
+	Realm            string           `json:"realm,omitempty"`
+	Credentialsttl   *opnsense.OPNInt `json:"credentialsttl,omitempty"`
+	Children         *opnsense.OPNInt `json:"children,omitempty"`
 }
 
 // Proxy represents a proxy model item.
@@ -79,31 +81,31 @@ type Proxy struct {
 
 // Match represents a match model item.
 type Match struct {
-	Name            string `json:"name"`
-	Description     string `json:"description,omitempty"`
-	Negate          string `json:"negate"`
-	MatchType       string `json:"match_type"` // Valid values: url_matches, hostname_matches, dns_domain_is, destination_in_net, my_ip_in_net, plain_hostname, is_resolvable, dns_domain_levels, weekday_range, date_range, time_range
-	Hostname        string `json:"hostname,omitempty"`
-	Url             string `json:"url,omitempty"`
-	Network         string `json:"network,omitempty"`
-	DomainLevelFrom string `json:"domain_level_from,omitempty"`
-	DomainLevelTo   string `json:"domain_level_to,omitempty"`
-	TimeFrom        string `json:"time_from,omitempty"`
-	TimeTo          string `json:"time_to,omitempty"`
-	DateFrom        string `json:"date_from"`    // Valid values: JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC
-	DateTo          string `json:"date_to"`      // Valid values: JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC
-	WeekdayFrom     string `json:"weekday_from"` // Valid values: MON, TUE, WED, THU, FRI, SAT, SUN
-	WeekdayTo       string `json:"weekday_to"`   // Valid values: MON, TUE, WED, THU, FRI, SAT, SUN
+	Name            string           `json:"name"`
+	Description     string           `json:"description,omitempty"`
+	Negate          opnsense.OPNBool `json:"negate"`
+	MatchType       string           `json:"match_type"` // Valid values: url_matches, hostname_matches, dns_domain_is, destination_in_net, my_ip_in_net, plain_hostname, is_resolvable, dns_domain_levels, weekday_range, date_range, time_range
+	Hostname        string           `json:"hostname,omitempty"`
+	Url             string           `json:"url,omitempty"`
+	Network         string           `json:"network,omitempty"`
+	DomainLevelFrom *opnsense.OPNInt `json:"domain_level_from,omitempty"`
+	DomainLevelTo   *opnsense.OPNInt `json:"domain_level_to,omitempty"`
+	TimeFrom        *opnsense.OPNInt `json:"time_from,omitempty"`
+	TimeTo          *opnsense.OPNInt `json:"time_to,omitempty"`
+	DateFrom        string           `json:"date_from"`    // Valid values: JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC
+	DateTo          string           `json:"date_to"`      // Valid values: JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC
+	WeekdayFrom     string           `json:"weekday_from"` // Valid values: MON, TUE, WED, THU, FRI, SAT, SUN
+	WeekdayTo       string           `json:"weekday_to"`   // Valid values: MON, TUE, WED, THU, FRI, SAT, SUN
 }
 
 // Rule represents a rule model item.
 type Rule struct {
-	Enabled     string `json:"enabled"`
-	Description string `json:"description,omitempty"`
-	Matches     string `json:"matches"`
-	JoinType    string `json:"join_type"`  // Valid values: and, or
-	MatchType   string `json:"match_type"` // Valid values: if, unless
-	Proxies     string `json:"proxies"`
+	Enabled     opnsense.OPNBool `json:"enabled"`
+	Description string           `json:"description,omitempty"`
+	Matches     string           `json:"matches"`
+	JoinType    string           `json:"join_type"`  // Valid values: and, or
+	MatchType   string           `json:"match_type"` // Valid values: if, unless
+	Proxies     string           `json:"proxies"`
 }
 
 // ErrorPages represents a error_pages model item.
