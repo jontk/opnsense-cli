@@ -7,8 +7,8 @@ import "github.com/jontk/opnsense-cli/opnsense"
 // Group represents a group model item.
 type Group struct {
 	Gid            string `json:"gid,omitempty"`
-	Name           string `json:"name"`
-	Scope          string `json:"scope"`
+	Name           string `json:"name"`  // Required.
+	Scope          string `json:"scope"` // Required. Default: user.
 	Description    string `json:"description,omitempty"`
 	Priv           string `json:"priv,omitempty"`
 	Member         string `json:"member,omitempty"`
@@ -24,9 +24,9 @@ type Settings struct {
 // User represents a user model item.
 type User struct {
 	Uid               string            `json:"uid,omitempty"`
-	Name              string            `json:"name"`
-	Disabled          opnsense.OPNBool  `json:"disabled"`
-	Scope             string            `json:"scope"`
+	Name              string            `json:"name"`     // Required.
+	Disabled          opnsense.OPNBool  `json:"disabled"` // Required. Default: 0.
+	Scope             string            `json:"scope"`    // Required. Default: user.
 	Expires           string            `json:"expires,omitempty"`
 	Authorizedkeys    string            `json:"authorizedkeys,omitempty"`
 	OtpSeed           string            `json:"otp_seed,omitempty"`

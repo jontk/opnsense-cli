@@ -25,21 +25,21 @@ type Settings struct {
 	DnsForwardMax    *opnsense.OPNInt  `json:"dns_forward_max,omitempty"`
 	CacheSize        *opnsense.OPNInt  `json:"cache_size,omitempty"`
 	LocalTtl         *opnsense.OPNInt  `json:"local_ttl,omitempty"`
-	AddMac           string            `json:"add_mac,omitempty"` // Valid values: standard, base64, text
+	AddMac           string            `json:"add_mac,omitempty"` // Valid: standard, base64, text.
 	AddSubnet        *opnsense.OPNBool `json:"add_subnet,omitempty"`
 	StripSubnet      *opnsense.OPNBool `json:"strip_subnet,omitempty"`
-	NoIdent          opnsense.OPNBool  `json:"no_ident"`
+	NoIdent          opnsense.OPNBool  `json:"no_ident"` // Required. Default: 1.
 }
 
 // Dhcp represents a dhcp model item.
 type Dhcp struct {
 	NoInterface    string            `json:"no_interface,omitempty"`
-	Fqdn           opnsense.OPNBool  `json:"fqdn"`
+	Fqdn           opnsense.OPNBool  `json:"fqdn"` // Required. Default: 1.
 	Domain         string            `json:"domain,omitempty"`
-	Local          opnsense.OPNBool  `json:"local"`
+	Local          opnsense.OPNBool  `json:"local"` // Required. Default: 1.
 	LeaseMax       *opnsense.OPNInt  `json:"lease_max,omitempty"`
 	Authoritative  *opnsense.OPNBool `json:"authoritative,omitempty"`
-	DefaultFwRules opnsense.OPNBool  `json:"default_fw_rules"`
+	DefaultFwRules opnsense.OPNBool  `json:"default_fw_rules"` // Required. Default: 1.
 	ReplyDelay     *opnsense.OPNInt  `json:"reply_delay,omitempty"`
 	EnableRa       *opnsense.OPNBool `json:"enable_ra,omitempty"`
 	Nosync         *opnsense.OPNBool `json:"nosync,omitempty"`
@@ -66,8 +66,8 @@ type Hosts struct {
 
 // Domainoverrides represents a domainoverrides model item.
 type Domainoverrides struct {
-	Sequence string `json:"sequence"`
-	Domain   string `json:"domain"`
+	Sequence string `json:"sequence"` // Required. Default: 1.
+	Domain   string `json:"domain"`   // Required.
 	Ipset    string `json:"ipset,omitempty"`
 	Srcip    string `json:"srcip,omitempty"`
 	Port     string `json:"port,omitempty"`
@@ -77,25 +77,25 @@ type Domainoverrides struct {
 
 // DhcpTags represents a dhcp_tags model item.
 type DhcpTags struct {
-	Tag string `json:"tag"`
+	Tag string `json:"tag"` // Required.
 }
 
 // DhcpRanges represents a dhcp_ranges model item.
 type DhcpRanges struct {
 	Interface        string            `json:"interface,omitempty"`
 	SetTag           string            `json:"set_tag,omitempty"`
-	StartAddr        string            `json:"start_addr"`
+	StartAddr        string            `json:"start_addr"` // Required.
 	EndAddr          string            `json:"end_addr,omitempty"`
 	SubnetMask       string            `json:"subnet_mask,omitempty"`
 	Constructor      string            `json:"constructor,omitempty"`
-	Mode             string            `json:"mode,omitempty"` // Valid values: static
+	Mode             string            `json:"mode,omitempty"` // Valid: static.
 	PrefixLen        *opnsense.OPNInt  `json:"prefix_len,omitempty"`
 	LeaseTime        *opnsense.OPNInt  `json:"lease_time,omitempty"`
-	DomainType       string            `json:"domain_type"` // Valid values: interface, range
+	DomainType       string            `json:"domain_type"` // Required. Default: range. Valid: interface, range.
 	Domain           string            `json:"domain,omitempty"`
 	Nosync           *opnsense.OPNBool `json:"nosync,omitempty"`
-	RaMode           string            `json:"ra_mode,omitempty"`     // Valid values: ra-only, slaac, ra-names, ra-stateless, ra-advrouter, off-link
-	RaPriority       string            `json:"ra_priority,omitempty"` // Valid values: high, low
+	RaMode           string            `json:"ra_mode,omitempty"`     // Valid: ra-only, slaac, ra-names, ra-stateless, ra-advrouter, off-link.
+	RaPriority       string            `json:"ra_priority,omitempty"` // Valid: high, low.
 	RaMtu            *opnsense.OPNInt  `json:"ra_mtu,omitempty"`
 	RaInterval       *opnsense.OPNInt  `json:"ra_interval,omitempty"`
 	RaRouterLifetime *opnsense.OPNInt  `json:"ra_router_lifetime,omitempty"`
@@ -104,9 +104,9 @@ type DhcpRanges struct {
 
 // DhcpOptions represents a dhcp_options model item.
 type DhcpOptions struct {
-	Type        string            `json:"type"`              // Valid values: set, match
-	Option      string            `json:"option,omitempty"`  // Valid values: optgroup1, optgroup2, optgroup3
-	Option6     string            `json:"option6,omitempty"` // Valid values: optgroup1, optgroup2, optgroup3
+	Type        string            `json:"type"`              // Required. Default: set. Valid: set, match.
+	Option      string            `json:"option,omitempty"`  // Valid: optgroup1, optgroup2, optgroup3.
+	Option6     string            `json:"option6,omitempty"` // Valid: optgroup1, optgroup2, optgroup3.
 	Interface   string            `json:"interface,omitempty"`
 	Tag         string            `json:"tag,omitempty"`
 	SetTag      string            `json:"set_tag,omitempty"`
@@ -119,7 +119,7 @@ type DhcpOptions struct {
 type DhcpBoot struct {
 	Interface   string `json:"interface,omitempty"`
 	Tag         string `json:"tag,omitempty"`
-	Filename    string `json:"filename"`
+	Filename    string `json:"filename"` // Required.
 	Servername  string `json:"servername,omitempty"`
 	Address     string `json:"address,omitempty"`
 	Description string `json:"description,omitempty"`

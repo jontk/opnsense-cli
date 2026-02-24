@@ -6,48 +6,48 @@ import "github.com/jontk/opnsense-cli/opnsense"
 
 // Settings represents a settings model item.
 type Settings struct {
-	Enabled          opnsense.OPNBool  `json:"enabled"`
-	FcEnabled        opnsense.OPNBool  `json:"fc_enabled"`
-	Enabletcp        opnsense.OPNBool  `json:"enabletcp"`
-	Maxthreads       *opnsense.OPNInt  `json:"maxthreads,omitempty"`
-	Maxqueue         *opnsense.OPNInt  `json:"maxqueue,omitempty"`
-	Idletimeout      *opnsense.OPNInt  `json:"idletimeout,omitempty"`
-	Maxdirrecursion  *opnsense.OPNInt  `json:"maxdirrecursion,omitempty"`
-	Followdirsym     *opnsense.OPNBool `json:"followdirsym,omitempty"`
-	Followfilesym    *opnsense.OPNBool `json:"followfilesym,omitempty"`
-	Disablecache     string            `json:"disablecache,omitempty"`
-	Scanpe           *opnsense.OPNBool `json:"scanpe,omitempty"`
-	Scanelf          *opnsense.OPNBool `json:"scanelf,omitempty"`
-	Detectbroken     *opnsense.OPNBool `json:"detectbroken,omitempty"`
-	Scanole2         *opnsense.OPNBool `json:"scanole2,omitempty"`
-	Ole2blockmarcros *opnsense.OPNBool `json:"ole2blockmarcros,omitempty"`
-	Scanpdf          *opnsense.OPNBool `json:"scanpdf,omitempty"`
-	Scanswf          *opnsense.OPNBool `json:"scanswf,omitempty"`
-	Scanxmldocs      *opnsense.OPNBool `json:"scanxmldocs,omitempty"`
-	Scanhwp3         *opnsense.OPNBool `json:"scanhwp3,omitempty"`
-	Scanmailfiles    *opnsense.OPNBool `json:"scanmailfiles,omitempty"`
-	Scanhtml         *opnsense.OPNBool `json:"scanhtml,omitempty"`
-	Scanarchive      *opnsense.OPNBool `json:"scanarchive,omitempty"`
-	Arcblockenc      *opnsense.OPNBool `json:"arcblockenc,omitempty"`
-	Maxscansize      string            `json:"maxscansize,omitempty"`
-	Maxfilesize      string            `json:"maxfilesize,omitempty"`
-	Maxrecursion     *opnsense.OPNInt  `json:"maxrecursion,omitempty"`
-	Maxfiles         *opnsense.OPNInt  `json:"maxfiles,omitempty"`
-	Logverbose       *opnsense.OPNBool `json:"logverbose,omitempty"`
-	FcLogverbose     *opnsense.OPNBool `json:"fc_logverbose,omitempty"`
-	FcDatabasemirror string            `json:"fc_databasemirror"`
-	FcTimeout        string            `json:"fc_timeout"`
-	FcMalwareexpert  *opnsense.OPNBool `json:"fc_malwareexpert,omitempty"`
-	FcBlurl          *opnsense.OPNBool `json:"fc_blurl,omitempty"`
-	FcJurlbla        *opnsense.OPNBool `json:"fc_jurlbla,omitempty"`
-	FcBofhland       *opnsense.OPNBool `json:"fc_bofhland,omitempty"`
+	Enabled          opnsense.OPNBool  `json:"enabled"`                    // Required. Default: 0.
+	FcEnabled        opnsense.OPNBool  `json:"fc_enabled"`                 // Required. Default: 0.
+	Enabletcp        opnsense.OPNBool  `json:"enabletcp"`                  // Required. Default: 1.
+	Maxthreads       *opnsense.OPNInt  `json:"maxthreads,omitempty"`       // Default: 10.
+	Maxqueue         *opnsense.OPNInt  `json:"maxqueue,omitempty"`         // Default: 100.
+	Idletimeout      *opnsense.OPNInt  `json:"idletimeout,omitempty"`      // Default: 30.
+	Maxdirrecursion  *opnsense.OPNInt  `json:"maxdirrecursion,omitempty"`  // Default: 20.
+	Followdirsym     *opnsense.OPNBool `json:"followdirsym,omitempty"`     // Default: 0.
+	Followfilesym    *opnsense.OPNBool `json:"followfilesym,omitempty"`    // Default: 0.
+	Disablecache     string            `json:"disablecache,omitempty"`     // Default: 0.
+	Scanpe           *opnsense.OPNBool `json:"scanpe,omitempty"`           // Default: 1.
+	Scanelf          *opnsense.OPNBool `json:"scanelf,omitempty"`          // Default: 1.
+	Detectbroken     *opnsense.OPNBool `json:"detectbroken,omitempty"`     // Default: 0.
+	Scanole2         *opnsense.OPNBool `json:"scanole2,omitempty"`         // Default: 1.
+	Ole2blockmarcros *opnsense.OPNBool `json:"ole2blockmarcros,omitempty"` // Default: 0.
+	Scanpdf          *opnsense.OPNBool `json:"scanpdf,omitempty"`          // Default: 1.
+	Scanswf          *opnsense.OPNBool `json:"scanswf,omitempty"`          // Default: 1.
+	Scanxmldocs      *opnsense.OPNBool `json:"scanxmldocs,omitempty"`      // Default: 1.
+	Scanhwp3         *opnsense.OPNBool `json:"scanhwp3,omitempty"`         // Default: 1.
+	Scanmailfiles    *opnsense.OPNBool `json:"scanmailfiles,omitempty"`    // Default: 1.
+	Scanhtml         *opnsense.OPNBool `json:"scanhtml,omitempty"`         // Default: 1.
+	Scanarchive      *opnsense.OPNBool `json:"scanarchive,omitempty"`      // Default: 1.
+	Arcblockenc      *opnsense.OPNBool `json:"arcblockenc,omitempty"`      // Default: 0.
+	Maxscansize      string            `json:"maxscansize,omitempty"`      // Default: 100M.
+	Maxfilesize      string            `json:"maxfilesize,omitempty"`      // Default: 25M.
+	Maxrecursion     *opnsense.OPNInt  `json:"maxrecursion,omitempty"`     // Default: 16.
+	Maxfiles         *opnsense.OPNInt  `json:"maxfiles,omitempty"`         // Default: 10000.
+	Logverbose       *opnsense.OPNBool `json:"logverbose,omitempty"`       // Default: 0.
+	FcLogverbose     *opnsense.OPNBool `json:"fc_logverbose,omitempty"`    // Default: 0.
+	FcDatabasemirror string            `json:"fc_databasemirror"`          // Required. Default: database.clamav.net.
+	FcTimeout        string            `json:"fc_timeout"`                 // Required. Default: 60.
+	FcMalwareexpert  *opnsense.OPNBool `json:"fc_malwareexpert,omitempty"` // Default: 0.
+	FcBlurl          *opnsense.OPNBool `json:"fc_blurl,omitempty"`         // Default: 0.
+	FcJurlbla        *opnsense.OPNBool `json:"fc_jurlbla,omitempty"`       // Default: 0.
+	FcBofhland       *opnsense.OPNBool `json:"fc_bofhland,omitempty"`      // Default: 0.
 }
 
 // List represents a list model item.
 type List struct {
-	Enabled opnsense.OPNBool `json:"enabled"`
-	Name    string           `json:"name"`
-	Link    string           `json:"link"`
+	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
+	Name    string           `json:"name"`    // Required.
+	Link    string           `json:"link"`    // Required.
 }
 
 type listGetItemResponse struct {

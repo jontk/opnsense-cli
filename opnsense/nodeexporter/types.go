@@ -6,9 +6,9 @@ import "github.com/jontk/opnsense-cli/opnsense"
 
 // Settings represents a settings model item.
 type Settings struct {
-	Enabled       opnsense.OPNBool  `json:"enabled"`
-	Listenaddress string            `json:"listenaddress"`
-	Listenport    string            `json:"listenport"`
+	Enabled       opnsense.OPNBool  `json:"enabled"`       // Required. Default: 0.
+	Listenaddress string            `json:"listenaddress"` // Required. Default: 0.0.0.0.
+	Listenport    string            `json:"listenport"`    // Required. Default: 9100.
 	Cpu           *opnsense.OPNBool `json:"cpu,omitempty"`
 	Exec          *opnsense.OPNBool `json:"exec,omitempty"`
 	Filesystem    *opnsense.OPNBool `json:"filesystem,omitempty"`

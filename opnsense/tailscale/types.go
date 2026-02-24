@@ -4,13 +4,13 @@ package tailscale
 
 // Settings represents a settings model item.
 type Settings struct {
-	LoginServer string `json:"loginServer"`
+	LoginServer string `json:"loginServer"` // Required. Default: https://controlplane.tailscale.com.
 	PreAuthKey  string `json:"preAuthKey,omitempty"`
 }
 
 // Subnet4 represents a subnet4 model item.
 type Subnet4 struct {
-	Subnet      string `json:"subnet"`
+	Subnet      string `json:"subnet"` // Required.
 	Description string `json:"description,omitempty"`
 }
 

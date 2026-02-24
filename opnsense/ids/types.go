@@ -6,39 +6,39 @@ import "github.com/jontk/opnsense-cli/opnsense"
 
 // Rule represents a rule model item.
 type Rule struct {
-	Sid     opnsense.OPNInt  `json:"sid"`
-	Enabled opnsense.OPNBool `json:"enabled"`
-	Action  string           `json:"action"` // Valid values: alert, drop
+	Sid     opnsense.OPNInt  `json:"sid"`     // Required.
+	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
+	Action  string           `json:"action"`  // Required. Default: alert. Valid: alert, drop.
 	Msg     string           `json:"msg,omitempty"`
 	Source  string           `json:"source,omitempty"`
 }
 
 // Policy represents a policy model item.
 type Policy struct {
-	Enabled     opnsense.OPNBool `json:"enabled"`
-	Prio        opnsense.OPNInt  `json:"prio"`
-	Action      string           `json:"action,omitempty"` // Valid values: disable, alert, drop
+	Enabled     opnsense.OPNBool `json:"enabled"`          // Required. Default: 1.
+	Prio        opnsense.OPNInt  `json:"prio"`             // Required. Default: 0.
+	Action      string           `json:"action,omitempty"` // Valid: disable, alert, drop.
 	Rulesets    string           `json:"rulesets,omitempty"`
 	Content     string           `json:"content,omitempty"`
-	NewAction   string           `json:"new_action"` // Valid values: default, alert, drop, disable
+	NewAction   string           `json:"new_action"` // Required. Default: alert. Valid: default, alert, drop, disable.
 	Description string           `json:"description,omitempty"`
 }
 
 // File represents a file model item.
 type File struct {
-	Filename string           `json:"filename"`
-	Enabled  opnsense.OPNBool `json:"enabled"`
+	Filename string           `json:"filename"` // Required.
+	Enabled  opnsense.OPNBool `json:"enabled"`  // Required. Default: 0.
 }
 
 // Tag represents a tag model item.
 type Tag struct {
-	Property string `json:"property"`
+	Property string `json:"property"` // Required.
 	Value    string `json:"value,omitempty"`
 }
 
 // Detect represents a detect model item.
 type Detect struct {
-	Profile        string           `json:"Profile,omitempty"` // Valid values: low, medium, high, custom
+	Profile        string           `json:"Profile,omitempty"` // Valid: low, medium, high, custom.
 	ToclientGroups *opnsense.OPNInt `json:"toclient_groups,omitempty"`
 	ToserverGroups *opnsense.OPNInt `json:"toserver_groups,omitempty"`
 }

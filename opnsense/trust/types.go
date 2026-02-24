@@ -7,20 +7,20 @@ import "github.com/jontk/opnsense-cli/opnsense"
 // Ca represents a ca model item.
 type Ca struct {
 	Refid              string           `json:"refid,omitempty"`
-	Descr              string           `json:"descr"`
+	Descr              string           `json:"descr"` // Required.
 	Crt                string           `json:"crt,omitempty"`
 	Prv                string           `json:"prv,omitempty"`
 	Serial             *opnsense.OPNInt `json:"serial,omitempty"`
 	Caref              string           `json:"caref,omitempty"`
-	Action             string           `json:"action,omitempty"`   // Valid values: existing, internal, ocsp
-	KeyType            string           `json:"key_type,omitempty"` // Valid values: RSA-512, RSA-1024, RSA-2048, RSA-3072, RSA-4096, RSA-8192, prime256v1, secp384r1, secp521r1
-	Digest             string           `json:"digest,omitempty"`   // Valid values: sha1, sha224, sha256, sha384, sha512
-	Lifetime           *opnsense.OPNInt `json:"lifetime,omitempty"`
+	Action             string           `json:"action,omitempty"`   // Required. Default: internal. Valid: existing, internal, ocsp.
+	KeyType            string           `json:"key_type,omitempty"` // Required. Default: 2048. Valid: RSA-512, RSA-1024, RSA-2048, RSA-3072, RSA-4096, RSA-8192, prime256v1, secp384r1, secp521r1.
+	Digest             string           `json:"digest,omitempty"`   // Required. Default: sha256. Valid: sha1, sha224, sha256, sha384, sha512.
+	Lifetime           *opnsense.OPNInt `json:"lifetime,omitempty"` // Required. Default: 825.
 	City               string           `json:"city,omitempty"`
 	State              string           `json:"state,omitempty"`
 	Organization       string           `json:"organization,omitempty"`
 	Organizationalunit string           `json:"organizationalunit,omitempty"`
-	Country            string           `json:"country,omitempty"`
+	Country            string           `json:"country,omitempty"` // Required. Default: NL.
 	Email              string           `json:"email,omitempty"`
 	Commonname         string           `json:"commonname,omitempty"`
 	OcspUri            string           `json:"ocsp_uri,omitempty"`
@@ -35,22 +35,22 @@ type Ca struct {
 // Cert represents a cert model item.
 type Cert struct {
 	Refid              string            `json:"refid,omitempty"`
-	Descr              string            `json:"descr"`
+	Descr              string            `json:"descr"` // Required.
 	Caref              string            `json:"caref,omitempty"`
 	Crt                string            `json:"crt,omitempty"`
 	Csr                string            `json:"csr,omitempty"`
 	Prv                string            `json:"prv,omitempty"`
-	Action             string            `json:"action,omitempty"`    // Valid values: internal, external, import, sign_csr, import_csr, reissue, manual
-	KeyType            string            `json:"key_type,omitempty"`  // Valid values: RSA-512, RSA-1024, RSA-2048, RSA-3072, RSA-4096, RSA-8192, prime256v1, secp384r1, secp521r1
-	Digest             string            `json:"digest,omitempty"`    // Valid values: sha1, sha224, sha256, sha384, sha512
-	CertType           string            `json:"cert_type,omitempty"` // Valid values: usr_cert, server_cert, combined_server_client, v3_ca
-	Lifetime           *opnsense.OPNInt  `json:"lifetime,omitempty"`
-	PrivateKeyLocation string            `json:"private_key_location,omitempty"` // Valid values: firewall, local
+	Action             string            `json:"action,omitempty"`               // Required. Default: internal. Valid: internal, external, import, sign_csr, import_csr, reissue, manual.
+	KeyType            string            `json:"key_type,omitempty"`             // Required. Default: 2048. Valid: RSA-512, RSA-1024, RSA-2048, RSA-3072, RSA-4096, RSA-8192, prime256v1, secp384r1, secp521r1.
+	Digest             string            `json:"digest,omitempty"`               // Required. Default: sha256. Valid: sha1, sha224, sha256, sha384, sha512.
+	CertType           string            `json:"cert_type,omitempty"`            // Required. Default: usr_cert. Valid: usr_cert, server_cert, combined_server_client, v3_ca.
+	Lifetime           *opnsense.OPNInt  `json:"lifetime,omitempty"`             // Required. Default: 397.
+	PrivateKeyLocation string            `json:"private_key_location,omitempty"` // Required. Default: firewall. Valid: firewall, local.
 	City               string            `json:"city,omitempty"`
 	State              string            `json:"state,omitempty"`
 	Organization       string            `json:"organization,omitempty"`
 	Organizationalunit string            `json:"organizationalunit,omitempty"`
-	Country            string            `json:"country,omitempty"`
+	Country            string            `json:"country,omitempty"` // Required. Default: NL.
 	Email              string            `json:"email,omitempty"`
 	Commonname         string            `json:"commonname,omitempty"`
 	OcspUri            string            `json:"ocsp_uri,omitempty"`
@@ -71,15 +71,15 @@ type Cert struct {
 
 // Settings represents a settings model item.
 type Settings struct {
-	StoreIntermediateCerts  opnsense.OPNBool `json:"store_intermediate_certs"`
-	InstallCrls             opnsense.OPNBool `json:"install_crls"`
-	FetchCrls               opnsense.OPNBool `json:"fetch_crls"`
-	EnableLegacySect        opnsense.OPNBool `json:"enable_legacy_sect"`
-	EnableConfigConstraints opnsense.OPNBool `json:"enable_config_constraints"`
+	StoreIntermediateCerts  opnsense.OPNBool `json:"store_intermediate_certs"`  // Required. Default: 0.
+	InstallCrls             opnsense.OPNBool `json:"install_crls"`              // Required. Default: 0.
+	FetchCrls               opnsense.OPNBool `json:"fetch_crls"`                // Required. Default: 0.
+	EnableLegacySect        opnsense.OPNBool `json:"enable_legacy_sect"`        // Required. Default: 1.
+	EnableConfigConstraints opnsense.OPNBool `json:"enable_config_constraints"` // Required. Default: 0.
 	CipherString            string           `json:"CipherString,omitempty"`
 	Ciphersuites            string           `json:"Ciphersuites,omitempty"`
-	SignatureAlgorithms     string           `json:"SignatureAlgorithms,omitempty"` // Valid values: o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15
+	SignatureAlgorithms     string           `json:"SignatureAlgorithms,omitempty"` // Valid: o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15.
 	Groups                  string           `json:"groups,omitempty"`
-	MinProtocol             string           `json:"MinProtocol,omitempty"`      // Valid values: TLSv1, TLSv1.1, TLSv1.2, TLSv1.3
-	MinProtocolDTLS         string           `json:"MinProtocol_DTLS,omitempty"` // Valid values: DTLSv1, DTLSv1.1
+	MinProtocol             string           `json:"MinProtocol,omitempty"`      // Valid: TLSv1, TLSv1.1, TLSv1.2, TLSv1.3.
+	MinProtocolDTLS         string           `json:"MinProtocol_DTLS,omitempty"` // Valid: DTLSv1, DTLSv1.1.
 }

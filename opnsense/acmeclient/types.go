@@ -6,81 +6,81 @@ import "github.com/jontk/opnsense-cli/opnsense"
 
 // Settings represents a settings model item.
 type Settings struct {
-	Enabled            opnsense.OPNBool  `json:"enabled"`
-	AutoRenewal        opnsense.OPNBool  `json:"autoRenewal"`
+	Enabled            opnsense.OPNBool  `json:"enabled"`     // Required. Default: 0.
+	AutoRenewal        opnsense.OPNBool  `json:"autoRenewal"` // Required. Default: 1.
 	UpdateCron         string            `json:"UpdateCron,omitempty"`
-	Environment        string            `json:"environment,omitempty"` // Valid values: prod, stg
-	ChallengePort      string            `json:"challengePort"`
-	TLSchallengePort   string            `json:"TLSchallengePort"`
-	RestartTimeout     opnsense.OPNInt   `json:"restartTimeout"`
-	HaproxyIntegration *opnsense.OPNBool `json:"haproxyIntegration,omitempty"`
+	Environment        string            `json:"environment,omitempty"`        // Default: prod. Valid: prod, stg.
+	ChallengePort      string            `json:"challengePort"`                // Required. Default: 43580.
+	TLSchallengePort   string            `json:"TLSchallengePort"`             // Required. Default: 43581.
+	RestartTimeout     opnsense.OPNInt   `json:"restartTimeout"`               // Required. Default: 600.
+	HaproxyIntegration *opnsense.OPNBool `json:"haproxyIntegration,omitempty"` // Default: 0.
 	HaproxyAclRef      string            `json:"haproxyAclRef,omitempty"`
 	HaproxyActionRef   string            `json:"haproxyActionRef,omitempty"`
 	HaproxyServerRef   string            `json:"haproxyServerRef,omitempty"`
 	HaproxyBackendRef  string            `json:"haproxyBackendRef,omitempty"`
-	LogLevel           string            `json:"logLevel"` // Valid values: normal, extended, debug, debug2, debug3
-	ShowIntro          opnsense.OPNBool  `json:"showIntro"`
+	LogLevel           string            `json:"logLevel"`  // Required. Default: normal. Valid: normal, extended, debug, debug2, debug3.
+	ShowIntro          opnsense.OPNBool  `json:"showIntro"` // Required. Default: 1.
 }
 
 // Account represents a account model item.
 type Account struct {
 	Id               string           `json:"id,omitempty"`
-	Enabled          opnsense.OPNBool `json:"enabled"`
-	Name             string           `json:"name"`
+	Enabled          opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
+	Name             string           `json:"name"`    // Required.
 	Description      string           `json:"description,omitempty"`
 	Email            string           `json:"email,omitempty"`
-	Ca               string           `json:"ca"` // Valid values: buypass, buypass_test, google, google_test, letsencrypt, letsencrypt_test, sslcom, zerossl, custom
+	Ca               string           `json:"ca"` // Required. Default: letsencrypt. Valid: buypass, buypass_test, google, google_test, letsencrypt, letsencrypt_test, sslcom, zerossl, custom.
 	CustomCa         string           `json:"custom_ca,omitempty"`
 	EabKid           string           `json:"eab_kid,omitempty"`
 	EabHmac          string           `json:"eab_hmac,omitempty"`
 	Key              string           `json:"key,omitempty"`
-	StatusCode       *opnsense.OPNInt `json:"statusCode,omitempty"`
+	StatusCode       *opnsense.OPNInt `json:"statusCode,omitempty"` // Default: 100.
 	StatusLastUpdate *opnsense.OPNInt `json:"statusLastUpdate,omitempty"`
 }
 
 // Certificate represents a certificate model item.
 type Certificate struct {
 	Id               string            `json:"id,omitempty"`
-	Enabled          opnsense.OPNBool  `json:"enabled"`
-	Name             string            `json:"name"`
+	Enabled          opnsense.OPNBool  `json:"enabled"` // Required. Default: 1.
+	Name             string            `json:"name"`    // Required.
 	Description      string            `json:"description,omitempty"`
 	AltNames         string            `json:"altNames,omitempty"`
-	Account          string            `json:"account"`
-	ValidationMethod string            `json:"validationMethod"`
-	KeyLength        string            `json:"keyLength"` // Valid values: key_2048, key_3072, key_4096, key_ec256, key_ec384
-	Ocsp             *opnsense.OPNBool `json:"ocsp,omitempty"`
+	Account          string            `json:"account"`          // Required.
+	ValidationMethod string            `json:"validationMethod"` // Required.
+	KeyLength        string            `json:"keyLength"`        // Required. Default: key_4096. Valid: key_2048, key_3072, key_4096, key_ec256, key_ec384.
+	Ocsp             *opnsense.OPNBool `json:"ocsp,omitempty"`   // Default: 0.
 	Profile          string            `json:"profile,omitempty"`
 	RestartActions   string            `json:"restartActions,omitempty"`
-	AutoRenewal      opnsense.OPNBool  `json:"autoRenewal"`
-	RenewInterval    opnsense.OPNInt   `json:"renewInterval"`
-	Aliasmode        string            `json:"aliasmode"` // Valid values: none, automatic, domain, challenge
+	AutoRenewal      opnsense.OPNBool  `json:"autoRenewal"`   // Required. Default: 1.
+	RenewInterval    opnsense.OPNInt   `json:"renewInterval"` // Required. Default: 60.
+	Aliasmode        string            `json:"aliasmode"`     // Required. Default: none. Valid: none, automatic, domain, challenge.
 	Domainalias      string            `json:"domainalias,omitempty"`
 	Challengealias   string            `json:"challengealias,omitempty"`
 	CertRefId        string            `json:"certRefId,omitempty"`
 	LastUpdate       *opnsense.OPNInt  `json:"lastUpdate,omitempty"`
-	StatusCode       *opnsense.OPNInt  `json:"statusCode,omitempty"`
+	StatusCode       *opnsense.OPNInt  `json:"statusCode,omitempty"` // Default: 100.
 	StatusLastUpdate *opnsense.OPNInt  `json:"statusLastUpdate,omitempty"`
 }
 
 // Validation represents a validation model item.
 type Validation struct {
 	Id                          string            `json:"id,omitempty"`
-	Enabled                     opnsense.OPNBool  `json:"enabled"`
-	Name                        string            `json:"name"`
+	Enabled                     opnsense.OPNBool  `json:"enabled"` // Required. Default: 1.
+	Name                        string            `json:"name"`    // Required.
 	Description                 string            `json:"description,omitempty"`
-	Method                      string            `json:"method"`       // Valid values: http01, dns01, tlsalpn01
-	HttpService                 string            `json:"http_service"` // Valid values: opnsense, haproxy
-	HttpOpnAutodiscovery        *opnsense.OPNBool `json:"http_opn_autodiscovery,omitempty"`
+	Method                      string            `json:"method"`                           // Required. Default: dns01. Valid: http01, dns01, tlsalpn01.
+	HttpService                 string            `json:"http_service"`                     // Required. Default: opnsense. Valid: opnsense, haproxy.
+	HttpOpnAutodiscovery        *opnsense.OPNBool `json:"http_opn_autodiscovery,omitempty"` // Default: 1.
 	HttpOpnInterface            string            `json:"http_opn_interface,omitempty"`
 	HttpOpnIpaddresses          string            `json:"http_opn_ipaddresses,omitempty"`
-	HttpHaproxyInject           *opnsense.OPNBool `json:"http_haproxyInject,omitempty"`
+	HttpHaproxyInject           *opnsense.OPNBool `json:"http_haproxyInject,omitempty"` // Default: 1.
 	HttpHaproxyFrontends        string            `json:"http_haproxyFrontends,omitempty"`
-	TlsalpnService              string            `json:"tlsalpn_service"` // Valid values: acme
-	TlsalpnAcmeAutodiscovery    *opnsense.OPNBool `json:"tlsalpn_acme_autodiscovery,omitempty"`
+	TlsalpnService              string            `json:"tlsalpn_service"`                      // Required. Default: acme. Valid: acme.
+	TlsalpnAcmeAutodiscovery    *opnsense.OPNBool `json:"tlsalpn_acme_autodiscovery,omitempty"` // Default: 1.
 	TlsalpnAcmeInterface        string            `json:"tlsalpn_acme_interface,omitempty"`
 	TlsalpnAcmeIpaddresses      string            `json:"tlsalpn_acme_ipaddresses,omitempty"`
-	DnsService                  string            `json:"dns_service"` // Valid values: dns_1984hosting, dns_acmedns, dns_acmeproxy, dns_active24, dns_ad, dns_ali, dns_kas, dns_arvan, dns_artfiles, dns_aurora, dns_autodns, dns_aws, dns_azure, dns_bunny, dns_cloudns, dns_cf, dns_cx, dns_cn, dns_conoha, dns_constellix, dns_cpanel, dns_cyon, dns_ddnss, dns_desec, dns_dgon, dns_da, dns_dnsexit, dns_dnshome, dns_dnsimple, dns_dnsservices, dns_domeneshop, dns_me, dns_dp, dns_doapi, dns_do, dns_dreamhost, dns_duckdns, dns_dyn, dns_dynu, dns_dynv6, dns_easydns, dns_euserv, dns_exoscale, dns_fornex, dns_freedns, dns_gandi_livedns, dns_gd, dns_gcloud, dns_googledomains, dns_gdnsdk, dns_hetzner, dns_hetznercloud, dns_hexonet, dns_hostingde, dns_he, dns_he_ddns, dns_infoblox, dns_infomaniak, dns_internetbs, dns_inwx, dns_ionos, dns_ipv64, dns_ispconfig, dns_jd, dns_joker, dns_kinghost, dns_knot, dns_leaseweb, dns_lexicon, dns_limacity, dns_linode, dns_linode_v4, dns_loopia, dns_lua, dns_miab, dns_mijnhost, dns_mydnsjp, dns_mythic_beasts, dns_namecom, dns_namecheap, dns_namesilo, dns_nederhost, dns_netcup, dns_nic, dns_njalla, dns_nsone, dns_nsupdate, dns_online, dns_opnsense, dns_oci, dns_ovh, dns_pdns, dns_pleskxml, dns_pointhq, dns_porkbun, dns_rackspace, dns_rage4, dns_regru, dns_scaleway, dns_schlundtech, dns_selectel, dns_selfhost, dns_servercow, dns_simply, dns_spaceship, dns_technitium, dns_timeweb, dns_transip, dns_udr, dns_unoeuro, dns_variomedia, dns_vscale, dns_vultr, dns_websupport, dns_world4you, dns_yandex, dns_zilore, dns_zone, dns_zoneedit, dns_zonomi
-	DnsSleep                    opnsense.OPNInt   `json:"dns_sleep"`
+	DnsService                  string            `json:"dns_service"` // Required. Default: dns_freedns. Valid: dns_1984hosting, dns_acmedns, dns_acmeproxy, dns_active24, dns_ad, dns_ali, dns_kas, dns_arvan, dns_artfiles, dns_aurora, dns_autodns, dns_aws, dns_azure, dns_bunny, dns_cloudns, dns_cf, dns_cx, dns_cn, dns_conoha, dns_constellix, dns_cpanel, dns_cyon, dns_ddnss, dns_desec, dns_dgon, dns_da, dns_dnsexit, dns_dnshome, dns_dnsimple, dns_dnsservices, dns_domeneshop, dns_me, dns_dp, dns_doapi, dns_do, dns_dreamhost, dns_duckdns, dns_dyn, dns_dynu, dns_dynv6, dns_easydns, dns_euserv, dns_exoscale, dns_fornex, dns_freedns, dns_gandi_livedns, dns_gd, dns_gcloud, dns_googledomains, dns_gdnsdk, dns_hetzner, dns_hetznercloud, dns_hexonet, dns_hostingde, dns_he, dns_he_ddns, dns_infoblox, dns_infomaniak, dns_internetbs, dns_inwx, dns_ionos, dns_ipv64, dns_ispconfig, dns_jd, dns_joker, dns_kinghost, dns_knot, dns_leaseweb, dns_lexicon, dns_limacity, dns_linode, dns_linode_v4, dns_loopia, dns_lua, dns_miab, dns_mijnhost, dns_mydnsjp, dns_mythic_beasts, dns_namecom, dns_namecheap, dns_namesilo, dns_nederhost, dns_netcup, dns_nic, dns_njalla, dns_nsone, dns_nsupdate, dns_online, dns_opnsense, dns_oci, dns_ovh, dns_pdns, dns_pleskxml, dns_pointhq, dns_porkbun, dns_rackspace, dns_rage4, dns_regru, dns_scaleway, dns_schlundtech, dns_selectel, dns_selfhost, dns_servercow, dns_simply, dns_spaceship, dns_technitium, dns_timeweb, dns_transip, dns_udr, dns_unoeuro, dns_variomedia, dns_vscale, dns_vultr, dns_websupport, dns_world4you, dns_yandex, dns_zilore, dns_zone, dns_zoneedit, dns_zonomi.
+	DnsSleep                    opnsense.OPNInt   `json:"dns_sleep"`   // Required. Default: 0.
 	DnsActive24Token            string            `json:"dns_active24_token,omitempty"`
 	DnsAdKey                    string            `json:"dns_ad_key,omitempty"`
 	DnsAliKey                   string            `json:"dns_ali_key,omitempty"`
@@ -94,7 +94,7 @@ type Validation struct {
 	DnsAzurednsTenantid         string            `json:"dns_azuredns_tenantid,omitempty"`
 	DnsAzurednsAppid            string            `json:"dns_azuredns_appid,omitempty"`
 	DnsAzurednsClientsecret     string            `json:"dns_azuredns_clientsecret,omitempty"`
-	DnsAzurednsManagedidentity  *opnsense.OPNBool `json:"dns_azuredns_managedidentity,omitempty"`
+	DnsAzurednsManagedidentity  *opnsense.OPNBool `json:"dns_azuredns_managedidentity,omitempty"` // Default: 0.
 	DnsBunnyApiKey              string            `json:"dns_bunny_api_key,omitempty"`
 	DnsCfEmail                  string            `json:"dns_cf_email,omitempty"`
 	DnsCfKey                    string            `json:"dns_cf_key,omitempty"`
@@ -109,7 +109,7 @@ type Validation struct {
 	DnsCyonUser                 string            `json:"dns_cyon_user,omitempty"`
 	DnsCyonPassword             string            `json:"dns_cyon_password,omitempty"`
 	DnsDaKey                    string            `json:"dns_da_key,omitempty"`
-	DnsDaInsecure               *opnsense.OPNBool `json:"dns_da_insecure,omitempty"`
+	DnsDaInsecure               *opnsense.OPNBool `json:"dns_da_insecure,omitempty"` // Default: 1.
 	DnsDdnssToken               string            `json:"dns_ddnss_token,omitempty"`
 	DnsDgonKey                  string            `json:"dns_dgon_key,omitempty"`
 	DnsDnsexitAuthUser          string            `json:"dns_dnsexit_auth_user,omitempty"`
@@ -161,7 +161,7 @@ type Validation struct {
 	DnsIspconfigUser            string            `json:"dns_ispconfig_user,omitempty"`
 	DnsIspconfigPassword        string            `json:"dns_ispconfig_password,omitempty"`
 	DnsIspconfigApi             string            `json:"dns_ispconfig_api,omitempty"`
-	DnsIspconfigInsecure        *opnsense.OPNBool `json:"dns_ispconfig_insecure,omitempty"`
+	DnsIspconfigInsecure        *opnsense.OPNBool `json:"dns_ispconfig_insecure,omitempty"` // Default: 1.
 	DnsJdId                     string            `json:"dns_jd_id,omitempty"`
 	DnsJdRegion                 string            `json:"dns_jd_region,omitempty"`
 	DnsJdSecret                 string            `json:"dns_jd_secret,omitempty"`
@@ -171,13 +171,13 @@ type Validation struct {
 	DnsKinghostPassword         string            `json:"dns_kinghost_password,omitempty"`
 	DnsKnotServer               string            `json:"dns_knot_server,omitempty"`
 	DnsKnotKey                  string            `json:"dns_knot_key,omitempty"`
-	DnsLexiconProvider          string            `json:"dns_lexicon_provider,omitempty"` // Valid values: aliyun, aurora, auto, azure, cloudflare, cloudns, cloudxns, conoha, constellix, digitalocean, dinahosting, directadmin, dnsimple, dnsmadeeasy, dnspark, dnspod, dreamhost, easydns, easyname, exoscale, gandi, gehirn, glesys, godaddy, googleclouddns, gratisdns, henet, hetzner, hover, infoblox, internetbs, inwx, linode, linode4, localzone, luadns, memset, namecheap, namesilo, netcup, nfsn, nsone, onapp, online, ovh, plesk, pointhq, powerdns, rackspace, rage4, route53, safedns, sakuracloud, softlayer, subreg, transip, vultr, yandex, zeit, zilore, zonomi
+	DnsLexiconProvider          string            `json:"dns_lexicon_provider,omitempty"` // Default: cloudflare. Valid: aliyun, aurora, auto, azure, cloudflare, cloudns, cloudxns, conoha, constellix, digitalocean, dinahosting, directadmin, dnsimple, dnsmadeeasy, dnspark, dnspod, dreamhost, easydns, easyname, exoscale, gandi, gehirn, glesys, godaddy, googleclouddns, gratisdns, henet, hetzner, hover, infoblox, internetbs, inwx, linode, linode4, localzone, luadns, memset, namecheap, namesilo, netcup, nfsn, nsone, onapp, online, ovh, plesk, pointhq, powerdns, rackspace, rage4, route53, safedns, sakuracloud, softlayer, subreg, transip, vultr, yandex, zeit, zilore, zonomi.
 	DnsLexiconUser              string            `json:"dns_lexicon_user,omitempty"`
 	DnsLexiconToken             string            `json:"dns_lexicon_token,omitempty"`
 	DnsLimacityApikey           string            `json:"dns_limacity_apikey,omitempty"`
 	DnsLinodeKey                string            `json:"dns_linode_key,omitempty"`
 	DnsLinodeV4Key              string            `json:"dns_linode_v4_key,omitempty"`
-	DnsLoopiaApi                string            `json:"dns_loopia_api,omitempty"`
+	DnsLoopiaApi                string            `json:"dns_loopia_api,omitempty"` // Default: https://api.loopia.se/RPCSERV.
 	DnsLoopiaUser               string            `json:"dns_loopia_user,omitempty"`
 	DnsLoopiaPassword           string            `json:"dns_loopia_password,omitempty"`
 	DnsLuaEmail                 string            `json:"dns_lua_email,omitempty"`
@@ -211,11 +211,11 @@ type Validation struct {
 	DnsOciCliRegion             string            `json:"dns_oci_cli_region,omitempty"`
 	DnsOciCliKey                string            `json:"dns_oci_cli_key,omitempty"`
 	DnsOnlineKey                string            `json:"dns_online_key,omitempty"`
-	DnsOpnsenseHost             string            `json:"dns_opnsense_host,omitempty"`
-	DnsOpnsensePort             string            `json:"dns_opnsense_port,omitempty"`
+	DnsOpnsenseHost             string            `json:"dns_opnsense_host,omitempty"` // Default: localhost.
+	DnsOpnsensePort             string            `json:"dns_opnsense_port,omitempty"` // Default: 443.
 	DnsOpnsenseKey              string            `json:"dns_opnsense_key,omitempty"`
 	DnsOpnsenseToken            string            `json:"dns_opnsense_token,omitempty"`
-	DnsOpnsenseInsecure         *opnsense.OPNBool `json:"dns_opnsense_insecure,omitempty"`
+	DnsOpnsenseInsecure         *opnsense.OPNBool `json:"dns_opnsense_insecure,omitempty"` // Default: 0.
 	DnsOvhAppKey                string            `json:"dns_ovh_app_key,omitempty"`
 	DnsOvhAppSecret             string            `json:"dns_ovh_app_secret,omitempty"`
 	DnsOvhConsumerKey           string            `json:"dns_ovh_consumer_key,omitempty"`
@@ -229,7 +229,7 @@ type Validation struct {
 	DnsPorkbunKey               string            `json:"dns_porkbun_key,omitempty"`
 	DnsPorkbunSecret            string            `json:"dns_porkbun_secret,omitempty"`
 	DnsSlKey                    string            `json:"dns_sl_key,omitempty"`
-	DnsSlApiver                 string            `json:"dns_sl_apiver,omitempty"` // Valid values: v1, v2
+	DnsSlApiver                 string            `json:"dns_sl_apiver,omitempty"` // Valid: v1, v2.
 	DnsSlTokenLifetime          string            `json:"dns_sl_token_lifetime,omitempty"`
 	DnsSlAccountId              string            `json:"dns_sl_account_id,omitempty"`
 	DnsSlProjectName            string            `json:"dns_sl_project_name,omitempty"`
@@ -249,7 +249,7 @@ type Validation struct {
 	DnsTechnitiumHostname       string            `json:"dns_technitium_hostname,omitempty"`
 	DnsTransipUsername          string            `json:"dns_transip_username,omitempty"`
 	DnsTransipKey               string            `json:"dns_transip_key,omitempty"`
-	DnsTransipTokenGlobalKey    *opnsense.OPNBool `json:"dns_transip_token_global_key,omitempty"`
+	DnsTransipTokenGlobalKey    *opnsense.OPNBool `json:"dns_transip_token_global_key,omitempty"` // Default: 0.
 	DnsTimewebToken             string            `json:"dns_timeweb_token,omitempty"`
 	DnsUdrUser                  string            `json:"dns_udr_user,omitempty"`
 	DnsUdrPassword              string            `json:"dns_udr_password,omitempty"`
@@ -291,7 +291,7 @@ type Validation struct {
 	Dns1984hostingPassword      string            `json:"dns_1984hosting_password,omitempty"`
 	DnsKasLogin                 string            `json:"dns_kas_login,omitempty"`
 	DnsKasAuthdata              string            `json:"dns_kas_authdata,omitempty"`
-	DnsKasAuthtype              string            `json:"dns_kas_authtype,omitempty"` // Valid values: plain, sha1
+	DnsKasAuthtype              string            `json:"dns_kas_authtype,omitempty"` // Default: plain. Valid: plain, sha1.
 	DnsDesecToken               string            `json:"dns_desec_token,omitempty"`
 	DnsDesecName                string            `json:"dns_desec_name,omitempty"`
 	DnsInfomaniakToken          string            `json:"dns_infomaniak_token,omitempty"`
@@ -316,7 +316,7 @@ type Validation struct {
 	DnsConohaUser               string            `json:"dns_conoha_user,omitempty"`
 	DnsConohaPassword           string            `json:"dns_conoha_password,omitempty"`
 	DnsConohaTenantid           string            `json:"dns_conoha_tenantid,omitempty"`
-	DnsConohaIdapi              string            `json:"dns_conoha_idapi,omitempty"`
+	DnsConohaIdapi              string            `json:"dns_conoha_idapi,omitempty"` // Default: https://identity.xxxx.conoha.io/v2.0.
 	DnsConstellixKey            string            `json:"dns_constellix_key,omitempty"`
 	DnsConstellixSecret         string            `json:"dns_constellix_secret,omitempty"`
 	DnsExoscaleKey              string            `json:"dns_exoscale_key,omitempty"`
@@ -338,38 +338,38 @@ type Validation struct {
 // Action represents a action model item.
 type Action struct {
 	Id                        string            `json:"id,omitempty"`
-	Enabled                   opnsense.OPNBool  `json:"enabled"`
-	Name                      string            `json:"name"`
+	Enabled                   opnsense.OPNBool  `json:"enabled"` // Required. Default: 1.
+	Name                      string            `json:"name"`    // Required.
 	Description               string            `json:"description,omitempty"`
-	Type                      string            `json:"type"` // Valid values: configd_restart_gui, configd_restart_haproxy, configd_restart_nginx, configd_reload_caddy, configd_upload_sftp, configd_remote_ssh, acme_fritzbox, acme_panos, acme_proxmoxbs, acme_proxmoxve, acme_ruckus, acme_vault, acme_synology_dsm, acme_truenas, acme_zyxel_gs1900, acme_unifi, configd_generic
+	Type                      string            `json:"type"` // Required. Valid: configd_restart_gui, configd_restart_haproxy, configd_restart_nginx, configd_reload_caddy, configd_upload_sftp, configd_remote_ssh, acme_fritzbox, acme_panos, acme_proxmoxbs, acme_proxmoxve, acme_ruckus, acme_vault, acme_synology_dsm, acme_truenas, acme_zyxel_gs1900, acme_unifi, configd_generic.
 	SftpHost                  string            `json:"sftp_host,omitempty"`
 	SftpHostKey               string            `json:"sftp_host_key,omitempty"`
-	SftpPort                  *opnsense.OPNInt  `json:"sftp_port,omitempty"`
+	SftpPort                  *opnsense.OPNInt  `json:"sftp_port,omitempty"` // Default: 22.
 	SftpUser                  string            `json:"sftp_user,omitempty"`
-	SftpIdentityType          string            `json:"sftp_identity_type,omitempty"` // Valid values: ecdsa, rsa, ed25519
+	SftpIdentityType          string            `json:"sftp_identity_type,omitempty"` // Valid: ecdsa, rsa, ed25519.
 	SftpRemotePath            string            `json:"sftp_remote_path,omitempty"`
 	SftpChgrp                 string            `json:"sftp_chgrp,omitempty"`
 	SftpChmod                 string            `json:"sftp_chmod,omitempty"`
 	SftpChmodKey              string            `json:"sftp_chmod_key,omitempty"`
-	SftpModtime               *opnsense.OPNBool `json:"sftp_modtime,omitempty"`
+	SftpModtime               *opnsense.OPNBool `json:"sftp_modtime,omitempty"` // Default: 0.
 	SftpFilenameCert          string            `json:"sftp_filename_cert,omitempty"`
 	SftpFilenameKey           string            `json:"sftp_filename_key,omitempty"`
 	SftpFilenameCa            string            `json:"sftp_filename_ca,omitempty"`
 	SftpFilenameFullchain     string            `json:"sftp_filename_fullchain,omitempty"`
 	RemoteSshHost             string            `json:"remote_ssh_host,omitempty"`
 	RemoteSshHostKey          string            `json:"remote_ssh_host_key,omitempty"`
-	RemoteSshPort             *opnsense.OPNInt  `json:"remote_ssh_port,omitempty"`
+	RemoteSshPort             *opnsense.OPNInt  `json:"remote_ssh_port,omitempty"` // Default: 22.
 	RemoteSshUser             string            `json:"remote_ssh_user,omitempty"`
-	RemoteSshIdentityType     string            `json:"remote_ssh_identity_type,omitempty"` // Valid values: ecdsa, rsa, ed25519
+	RemoteSshIdentityType     string            `json:"remote_ssh_identity_type,omitempty"` // Valid: ecdsa, rsa, ed25519.
 	RemoteSshCommand          string            `json:"remote_ssh_command,omitempty"`
 	Configd                   string            `json:"configd,omitempty"`
 	ConfigdGenericCommand     string            `json:"configd_generic_command,omitempty"`
 	AcmeSynologyDsmHostname   string            `json:"acme_synology_dsm_hostname,omitempty"`
-	AcmeSynologyDsmPort       string            `json:"acme_synology_dsm_port,omitempty"`
-	AcmeSynologyDsmScheme     string            `json:"acme_synology_dsm_scheme,omitempty"` // Valid values: http, https
+	AcmeSynologyDsmPort       string            `json:"acme_synology_dsm_port,omitempty"`   // Default: 5000.
+	AcmeSynologyDsmScheme     string            `json:"acme_synology_dsm_scheme,omitempty"` // Default: http. Valid: http, https.
 	AcmeSynologyDsmUsername   string            `json:"acme_synology_dsm_username,omitempty"`
 	AcmeSynologyDsmPassword   string            `json:"acme_synology_dsm_password,omitempty"`
-	AcmeSynologyDsmCreate     *opnsense.OPNBool `json:"acme_synology_dsm_create,omitempty"`
+	AcmeSynologyDsmCreate     *opnsense.OPNBool `json:"acme_synology_dsm_create,omitempty"` // Default: 1.
 	AcmeSynologyDsmDeviceid   string            `json:"acme_synology_dsm_deviceid,omitempty"`
 	AcmeSynologyDsmDevicename string            `json:"acme_synology_dsm_devicename,omitempty"`
 	AcmeSynologyDsmOtpcode    string            `json:"acme_synology_dsm_otpcode,omitempty"`
@@ -379,34 +379,34 @@ type Action struct {
 	AcmePanosUsername         string            `json:"acme_panos_username,omitempty"`
 	AcmePanosPassword         string            `json:"acme_panos_password,omitempty"`
 	AcmePanosHost             string            `json:"acme_panos_host,omitempty"`
-	AcmeProxmoxveUser         string            `json:"acme_proxmoxve_user,omitempty"`
+	AcmeProxmoxveUser         string            `json:"acme_proxmoxve_user,omitempty"` // Default: root.
 	AcmeProxmoxveServer       string            `json:"acme_proxmoxve_server,omitempty"`
-	AcmeProxmoxvePort         string            `json:"acme_proxmoxve_port,omitempty"`
+	AcmeProxmoxvePort         string            `json:"acme_proxmoxve_port,omitempty"` // Default: 8006.
 	AcmeProxmoxveNodename     string            `json:"acme_proxmoxve_nodename,omitempty"`
-	AcmeProxmoxveRealm        string            `json:"acme_proxmoxve_realm,omitempty"`
-	AcmeProxmoxveTokenid      string            `json:"acme_proxmoxve_tokenid,omitempty"`
+	AcmeProxmoxveRealm        string            `json:"acme_proxmoxve_realm,omitempty"`   // Default: pam.
+	AcmeProxmoxveTokenid      string            `json:"acme_proxmoxve_tokenid,omitempty"` // Default: acme.
 	AcmeProxmoxveTokenkey     string            `json:"acme_proxmoxve_tokenkey,omitempty"`
-	AcmeProxmoxbsUser         string            `json:"acme_proxmoxbs_user,omitempty"`
+	AcmeProxmoxbsUser         string            `json:"acme_proxmoxbs_user,omitempty"` // Default: root.
 	AcmeProxmoxbsServer       string            `json:"acme_proxmoxbs_server,omitempty"`
-	AcmeProxmoxbsPort         string            `json:"acme_proxmoxbs_port,omitempty"`
-	AcmeProxmoxbsNodename     string            `json:"acme_proxmoxbs_nodename,omitempty"`
-	AcmeProxmoxbsRealm        string            `json:"acme_proxmoxbs_realm,omitempty"`
-	AcmeProxmoxbsTokenid      string            `json:"acme_proxmoxbs_tokenid,omitempty"`
+	AcmeProxmoxbsPort         string            `json:"acme_proxmoxbs_port,omitempty"`     // Default: 8007.
+	AcmeProxmoxbsNodename     string            `json:"acme_proxmoxbs_nodename,omitempty"` // Default: localhost.
+	AcmeProxmoxbsRealm        string            `json:"acme_proxmoxbs_realm,omitempty"`    // Default: pam.
+	AcmeProxmoxbsTokenid      string            `json:"acme_proxmoxbs_tokenid,omitempty"`  // Default: acme.
 	AcmeProxmoxbsTokenkey     string            `json:"acme_proxmoxbs_tokenkey,omitempty"`
 	AcmeRuckusHost            string            `json:"acme_ruckus_host,omitempty"`
 	AcmeRuckusUser            string            `json:"acme_ruckus_user,omitempty"`
 	AcmeRuckusPass            string            `json:"acme_ruckus_pass,omitempty"`
 	AcmeTruenasApikey         string            `json:"acme_truenas_apikey,omitempty"`
-	AcmeTruenasHostname       string            `json:"acme_truenas_hostname,omitempty"`
-	AcmeTruenasScheme         string            `json:"acme_truenas_scheme,omitempty"` // Valid values: http, https
-	AcmeUnifiKeystore         string            `json:"acme_unifi_keystore,omitempty"`
+	AcmeTruenasHostname       string            `json:"acme_truenas_hostname,omitempty"` // Default: localhost.
+	AcmeTruenasScheme         string            `json:"acme_truenas_scheme,omitempty"`   // Default: http. Valid: http, https.
+	AcmeUnifiKeystore         string            `json:"acme_unifi_keystore,omitempty"`   // Default: /usr/local/share/java/unifi/data/keystore.
 	AcmeVaultUrl              string            `json:"acme_vault_url,omitempty"`
-	AcmeVaultPrefix           string            `json:"acme_vault_prefix,omitempty"`
+	AcmeVaultPrefix           string            `json:"acme_vault_prefix,omitempty"` // Default: acme.
 	AcmeVaultToken            string            `json:"acme_vault_token,omitempty"`
-	AcmeVaultKvv2             *opnsense.OPNBool `json:"acme_vault_kvv2,omitempty"`
+	AcmeVaultKvv2             *opnsense.OPNBool `json:"acme_vault_kvv2,omitempty"` // Default: 1.
 	AcmeZyxelGs1900Host       string            `json:"acme_zyxel_gs1900_host,omitempty"`
-	AcmeZyxelGs1900User       string            `json:"acme_zyxel_gs1900_user,omitempty"`
+	AcmeZyxelGs1900User       string            `json:"acme_zyxel_gs1900_user,omitempty"` // Default: admin.
 	AcmeZyxelGs1900Password   string            `json:"acme_zyxel_gs1900_password,omitempty"`
-	AcmeZyxelGs1900Insecure   *opnsense.OPNBool `json:"acme_zyxel_gs1900_insecure,omitempty"`
-	AcmeZyxelGs1900Reboot     *opnsense.OPNBool `json:"acme_zyxel_gs1900_reboot,omitempty"`
+	AcmeZyxelGs1900Insecure   *opnsense.OPNBool `json:"acme_zyxel_gs1900_insecure,omitempty"` // Default: 0.
+	AcmeZyxelGs1900Reboot     *opnsense.OPNBool `json:"acme_zyxel_gs1900_reboot,omitempty"`   // Default: 0.
 }

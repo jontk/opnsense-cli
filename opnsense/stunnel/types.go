@@ -6,24 +6,24 @@ import "github.com/jontk/opnsense-cli/opnsense"
 
 // General represents a general model item.
 type General struct {
-	Enabled           opnsense.OPNBool `json:"enabled"`
-	Chroot            opnsense.OPNBool `json:"chroot"`
-	EnableIdentServer opnsense.OPNBool `json:"enable_ident_server"`
+	Enabled           opnsense.OPNBool `json:"enabled"`             // Required. Default: 1.
+	Chroot            opnsense.OPNBool `json:"chroot"`              // Required. Default: 0.
+	EnableIdentServer opnsense.OPNBool `json:"enable_ident_server"` // Required. Default: 0.
 }
 
 // Service represents a service model item.
 type Service struct {
-	Enabled        opnsense.OPNBool `json:"enabled"`
-	AcceptPort     opnsense.OPNInt  `json:"accept_port"`
-	AcceptAddress  string           `json:"accept_address"`
-	ConnectAddress string           `json:"connect_address"`
-	ConnectPort    opnsense.OPNInt  `json:"connect_port"`
-	Protocol       string           `json:"protocol,omitempty"` // Valid values: imap, ldap, nntp, pop3, smtp
+	Enabled        opnsense.OPNBool `json:"enabled"`            // Required. Default: 1.
+	AcceptPort     opnsense.OPNInt  `json:"accept_port"`        // Required.
+	AcceptAddress  string           `json:"accept_address"`     // Required. Default: 127.0.0.1.
+	ConnectAddress string           `json:"connect_address"`    // Required.
+	ConnectPort    opnsense.OPNInt  `json:"connect_port"`       // Required.
+	Protocol       string           `json:"protocol,omitempty"` // Valid: imap, ldap, nntp, pop3, smtp.
 	Cacert         string           `json:"cacert,omitempty"`
-	EnableCRL      opnsense.OPNBool `json:"enableCRL"`
-	Clientmode     opnsense.OPNBool `json:"clientmode"`
-	Ciphers        string           `json:"ciphers"`
-	Servercert     string           `json:"servercert"`
+	EnableCRL      opnsense.OPNBool `json:"enableCRL"`  // Required. Default: 0.
+	Clientmode     opnsense.OPNBool `json:"clientmode"` // Required. Default: 0.
+	Ciphers        string           `json:"ciphers"`    // Required. Default: TLS_AES_128_GCM_SHA256,TLS_AES_256_GCM_SHA384,TLS_CHACHA20_POLY1305_SHA256,ECDHE-ECDSA-AES128-GCM-SHA256,ECDHE-RSA-AES128-GCM-SHA256,ECDHE-ECDSA-AES256-GCM-SHA384,ECDHE-RSA-AES256-GCM-SHA384,ECDHE-ECDSA-CHACHA20-POLY1305,ECDHE-RSA-CHACHA20-POLY1305,DHE-RSA-AES128-GCM-SHA256,DHE-RSA-AES256-GCM-SHA384.
+	Servercert     string           `json:"servercert"` // Required.
 	Description    string           `json:"description,omitempty"`
 }
 

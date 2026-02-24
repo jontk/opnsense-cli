@@ -6,21 +6,21 @@ import "github.com/jontk/opnsense-cli/opnsense"
 
 // Settings represents a settings model item.
 type Settings struct {
-	Enabled         opnsense.OPNBool `json:"enabled"`
-	V4address       string           `json:"v4address"`
-	V4destination   string           `json:"v4destination"`
+	Enabled         opnsense.OPNBool `json:"enabled"`       // Required. Default: 0.
+	V4address       string           `json:"v4address"`     // Required. Default: 192.168.255.1.
+	V4destination   string           `json:"v4destination"` // Required. Default: 192.168.254.1.
 	V6address       string           `json:"v6address,omitempty"`
-	V6destination   string           `json:"v6destination"`
-	V6prefix        string           `json:"v6prefix"`
-	V4pool          string           `json:"v4pool"`
-	V6routedisabled opnsense.OPNBool `json:"v6routedisabled"`
+	V6destination   string           `json:"v6destination"`   // Required. Default: 2001:db8:1:ffff::1.
+	V6prefix        string           `json:"v6prefix"`        // Required. Default: 64:ff9b::/96.
+	V4pool          string           `json:"v4pool"`          // Required. Default: 192.168.255.0/24.
+	V6routedisabled opnsense.OPNBool `json:"v6routedisabled"` // Required. Default: 0.
 }
 
 // Staticmapping represents a staticmapping model item.
 type Staticmapping struct {
-	Enabled     opnsense.OPNBool `json:"enabled"`
-	V4          string           `json:"v4"`
-	V6          string           `json:"v6"`
+	Enabled     opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
+	V4          string           `json:"v4"`      // Required.
+	V6          string           `json:"v6"`      // Required.
 	Description string           `json:"description,omitempty"`
 }
 

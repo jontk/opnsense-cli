@@ -6,21 +6,21 @@ import "github.com/jontk/opnsense-cli/opnsense"
 
 // Settings represents a settings model item.
 type Settings struct {
-	Enabled opnsense.OPNBool `json:"enabled"`
+	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 0.
 }
 
 // Modules represents a modules model item.
 type Modules struct {
-	Enabled string `json:"enabled,omitempty"` // Valid values: suricata
+	Enabled string `json:"enabled,omitempty"` // Valid: suricata.
 }
 
 // Inputs represents a inputs model item.
 type Inputs struct {
-	Enabled string `json:"enabled,omitempty"` // Valid values: audit, configd, boot, system, lighttpd
+	Enabled string `json:"enabled,omitempty"` // Valid: audit, configd, boot, system, lighttpd.
 }
 
 // Elasticsearch represents a elasticsearch model item.
 type Elasticsearch struct {
-	Hosts  string `json:"hosts"`
-	ApiKey string `json:"api_key"`
+	Hosts  string `json:"hosts"`   // Required.
+	ApiKey string `json:"api_key"` // Required.
 }

@@ -6,9 +6,9 @@ import "github.com/jontk/opnsense-cli/opnsense"
 
 // Settings represents a settings model item.
 type Settings struct {
-	Enabled         opnsense.OPNBool  `json:"enabled"`
-	ListenAddresses string            `json:"listen_addresses"`
-	Mode            string            `json:"mode"` // Valid values: option, option
+	Enabled         opnsense.OPNBool  `json:"enabled"`          // Required. Default: 0.
+	ListenAddresses string            `json:"listen_addresses"` // Required. Default: localhost:443.
+	Mode            string            `json:"mode"`             // Required. Default: fork. Valid: option, option.
 	Timeout         *opnsense.OPNInt  `json:"timeout,omitempty"`
 	TlsTarget       string            `json:"tls_target,omitempty"`
 	SshTarget       string            `json:"ssh_target,omitempty"`
@@ -17,7 +17,7 @@ type Settings struct {
 	XmppTarget      string            `json:"xmpp_target,omitempty"`
 	TincTarget      string            `json:"tinc_target,omitempty"`
 	AnyprotTarget   string            `json:"anyprot_target,omitempty"`
-	OnTimeout       string            `json:"on_timeout"` // Valid values: option, option, option, option, option, option
+	OnTimeout       string            `json:"on_timeout"` // Required. Default: ssh. Valid: option, option, option, option, option, option.
 	Verbose         *opnsense.OPNBool `json:"verbose,omitempty"`
 	Numeric         *opnsense.OPNBool `json:"numeric,omitempty"`
 }

@@ -6,23 +6,23 @@ import "github.com/jontk/opnsense-cli/opnsense"
 
 // General represents a general model item.
 type General struct {
-	Enabled          opnsense.OPNBool `json:"Enabled"`
+	Enabled          opnsense.OPNBool `json:"Enabled"` // Required. Default: 0.
 	UPSName          string           `json:"UPSName,omitempty"`
-	UPSCable         string           `json:"UPSCable"` // Valid values: option, option, option, option, option, option, option, option, option, option, option, option, option, option, option, option, option, option, option
-	UPSType          string           `json:"UPSType"`  // Valid values: apcsmart, usb, net, snmp, netsnmp, dumb, pcnet, modbus
+	UPSCable         string           `json:"UPSCable"` // Required. Default: smart. Valid: option, option, option, option, option, option, option, option, option, option, option, option, option, option, option, option, option, option, option.
+	UPSType          string           `json:"UPSType"`  // Required. Default: apcsmart. Valid: apcsmart, usb, net, snmp, netsnmp, dumb, pcnet, modbus.
 	Device           string           `json:"Device,omitempty"`
-	Polltime         opnsense.OPNInt  `json:"Polltime"`
-	Netserver        opnsense.OPNBool `json:"Netserver"`
-	NetserverAddress string           `json:"NetserverAddress"`
-	NetserverPort    string           `json:"NetserverPort"`
-	OnBatteryDelay   opnsense.OPNInt  `json:"OnBatteryDelay"`
-	BatteryLevel     opnsense.OPNInt  `json:"BatteryLevel"`
-	Minutes          opnsense.OPNInt  `json:"Minutes"`
-	Timeout          opnsense.OPNInt  `json:"Timeout"`
-	Annoy            opnsense.OPNInt  `json:"Annoy"`
-	AnnoyDelay       opnsense.OPNInt  `json:"AnnoyDelay"`
-	KillDelay        opnsense.OPNInt  `json:"KillDelay"`
-	UPSClass         string           `json:"UPSClass"` // Valid values: standalone, shareslave, sharemaster
-	UPSMode          string           `json:"UPSMode"`  // Valid values: disable, share
-	NoLogon          string           `json:"NoLogon"`  // Valid values: disable, timeout, percent, minutes, always
+	Polltime         opnsense.OPNInt  `json:"Polltime"`         // Required. Default: 60.
+	Netserver        opnsense.OPNBool `json:"Netserver"`        // Required. Default: 1.
+	NetserverAddress string           `json:"NetserverAddress"` // Required. Default: 127.0.0.1.
+	NetserverPort    string           `json:"NetserverPort"`    // Required. Default: 3551.
+	OnBatteryDelay   opnsense.OPNInt  `json:"OnBatteryDelay"`   // Required. Default: 6.
+	BatteryLevel     opnsense.OPNInt  `json:"BatteryLevel"`     // Required. Default: 5.
+	Minutes          opnsense.OPNInt  `json:"Minutes"`          // Required. Default: 3.
+	Timeout          opnsense.OPNInt  `json:"Timeout"`          // Required. Default: 0.
+	Annoy            opnsense.OPNInt  `json:"Annoy"`            // Required. Default: 300.
+	AnnoyDelay       opnsense.OPNInt  `json:"AnnoyDelay"`       // Required. Default: 60.
+	KillDelay        opnsense.OPNInt  `json:"KillDelay"`        // Required. Default: 0.
+	UPSClass         string           `json:"UPSClass"`         // Required. Default: standalone. Valid: standalone, shareslave, sharemaster.
+	UPSMode          string           `json:"UPSMode"`          // Required. Default: disable. Valid: disable, share.
+	NoLogon          string           `json:"NoLogon"`          // Required. Default: disable. Valid: disable, timeout, percent, minutes, always.
 }

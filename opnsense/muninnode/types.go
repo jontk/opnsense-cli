@@ -6,8 +6,8 @@ import "github.com/jontk/opnsense-cli/opnsense"
 
 // Settings represents a settings model item.
 type Settings struct {
-	Enabled         opnsense.OPNBool `json:"enabled"`
-	Hostname        string           `json:"hostname"`
-	Port            string           `json:"port"`
+	Enabled         opnsense.OPNBool `json:"enabled"`  // Required. Default: 0.
+	Hostname        string           `json:"hostname"` // Required. Default: OPNsense.
+	Port            string           `json:"port"`     // Required. Default: 4949.
 	Allowednetworks string           `json:"allowednetworks,omitempty"`
 }

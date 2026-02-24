@@ -6,64 +6,64 @@ import "github.com/jontk/opnsense-cli/opnsense"
 
 // Address represents a address model item.
 type Address struct {
-	Enabled opnsense.OPNBool `json:"enabled"`
-	From    string           `json:"from"`
-	To      string           `json:"to"`
+	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
+	From    string           `json:"from"`    // Required.
+	To      string           `json:"to"`      // Required.
 }
 
 // Settings represents a settings model item.
 type Settings struct {
-	EnableRspamd  opnsense.OPNBool `json:"enable_rspamd"`
-	DefaultAction string           `json:"default_action"` // Valid values: accept, tempfail
+	EnableRspamd  opnsense.OPNBool `json:"enable_rspamd"`  // Required. Default: 0.
+	DefaultAction string           `json:"default_action"` // Required. Default: accept. Valid: accept, tempfail.
 }
 
 // Domain represents a domain model item.
 type Domain struct {
-	Enabled     opnsense.OPNBool `json:"enabled"`
-	Domainname  string           `json:"domainname"`
+	Enabled     opnsense.OPNBool `json:"enabled"`    // Required. Default: 1.
+	Domainname  string           `json:"domainname"` // Required.
 	Destination string           `json:"destination,omitempty"`
 }
 
 // Headercheck represents a headercheck model item.
 type Headercheck struct {
-	Enabled    opnsense.OPNBool `json:"enabled"`
-	Expression string           `json:"expression"`
-	Filter     string           `json:"filter"` // Valid values: WHILE_DELIVERING, WHILE_RECEIVING
+	Enabled    opnsense.OPNBool `json:"enabled"`    // Required. Default: 1.
+	Expression string           `json:"expression"` // Required.
+	Filter     string           `json:"filter"`     // Required. Valid: WHILE_DELIVERING, WHILE_RECEIVING.
 }
 
 // Recipient represents a recipient model item.
 type Recipient struct {
-	Enabled opnsense.OPNBool `json:"enabled"`
-	Address string           `json:"address"`
-	Action  string           `json:"action"` // Valid values: OK, REJECT
+	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
+	Address string           `json:"address"` // Required.
+	Action  string           `json:"action"`  // Required. Valid: OK, REJECT.
 }
 
 // Recipientbcc represents a recipientbcc model item.
 type Recipientbcc struct {
-	Enabled opnsense.OPNBool `json:"enabled"`
-	From    string           `json:"from"`
-	To      string           `json:"to"`
+	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
+	From    string           `json:"from"`    // Required.
+	To      string           `json:"to"`      // Required.
 }
 
 // Sender represents a sender model item.
 type Sender struct {
-	Enabled opnsense.OPNBool `json:"enabled"`
-	Address string           `json:"address"`
-	Action  string           `json:"action"` // Valid values: OK, REJECT
+	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
+	Address string           `json:"address"` // Required.
+	Action  string           `json:"action"`  // Required. Valid: OK, REJECT.
 }
 
 // Senderbcc represents a senderbcc model item.
 type Senderbcc struct {
-	Enabled opnsense.OPNBool `json:"enabled"`
-	From    string           `json:"from"`
-	To      string           `json:"to"`
+	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
+	From    string           `json:"from"`    // Required.
+	To      string           `json:"to"`      // Required.
 }
 
 // Sendercanonical represents a sendercanonical model item.
 type Sendercanonical struct {
-	Enabled opnsense.OPNBool `json:"enabled"`
-	From    string           `json:"from"`
-	To      string           `json:"to"`
+	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
+	From    string           `json:"from"`    // Required.
+	To      string           `json:"to"`      // Required.
 }
 
 type addressGetItemResponse struct {

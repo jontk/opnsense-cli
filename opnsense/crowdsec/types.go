@@ -6,15 +6,15 @@ import "github.com/jontk/opnsense-cli/opnsense"
 
 // Settings represents a settings model item.
 type Settings struct {
-	AgentEnabled            opnsense.OPNBool `json:"agent_enabled"`
-	LapiEnabled             opnsense.OPNBool `json:"lapi_enabled"`
-	FirewallBouncerEnabled  opnsense.OPNBool `json:"firewall_bouncer_enabled"`
-	LapiManualConfiguration opnsense.OPNBool `json:"lapi_manual_configuration"`
-	LapiListenAddress       string           `json:"lapi_listen_address"`
-	LapiListenPort          string           `json:"lapi_listen_port"`
-	RulesEnabled            opnsense.OPNBool `json:"rules_enabled"`
-	RulesLog                opnsense.OPNBool `json:"rules_log"`
+	AgentEnabled            opnsense.OPNBool `json:"agent_enabled"`             // Required. Default: 1.
+	LapiEnabled             opnsense.OPNBool `json:"lapi_enabled"`              // Required. Default: 1.
+	FirewallBouncerEnabled  opnsense.OPNBool `json:"firewall_bouncer_enabled"`  // Required. Default: 1.
+	LapiManualConfiguration opnsense.OPNBool `json:"lapi_manual_configuration"` // Required. Default: 0.
+	LapiListenAddress       string           `json:"lapi_listen_address"`       // Required. Default: 127.0.0.1.
+	LapiListenPort          string           `json:"lapi_listen_port"`          // Required. Default: 8080.
+	RulesEnabled            opnsense.OPNBool `json:"rules_enabled"`             // Required. Default: 1.
+	RulesLog                opnsense.OPNBool `json:"rules_log"`                 // Required. Default: 0.
 	RulesTag                string           `json:"rules_tag,omitempty"`
 	EnrollKey               string           `json:"enroll_key,omitempty"`
-	CrowdsecFirewallVerbose opnsense.OPNBool `json:"crowdsec_firewall_verbose"`
+	CrowdsecFirewallVerbose opnsense.OPNBool `json:"crowdsec_firewall_verbose"` // Required. Default: 0.
 }

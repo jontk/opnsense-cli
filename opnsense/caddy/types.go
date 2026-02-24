@@ -6,13 +6,13 @@ import "github.com/jontk/opnsense-cli/opnsense"
 
 // General represents a general model item.
 type General struct {
-	Enabled                        opnsense.OPNBool  `json:"enabled"`
+	Enabled                        opnsense.OPNBool  `json:"enabled"` // Required. Default: 0.
 	EnableLayer4                   *opnsense.OPNBool `json:"EnableLayer4,omitempty"`
 	HttpPort                       string            `json:"HttpPort,omitempty"`
 	HttpsPort                      string            `json:"HttpsPort,omitempty"`
 	TlsEmail                       string            `json:"TlsEmail,omitempty"`
-	TlsAutoHttps                   string            `json:"TlsAutoHttps,omitempty"`   // Valid values: off, disable_redirects, disable_certs, ignore_loaded_certs
-	TlsDnsProvider                 string            `json:"TlsDnsProvider,omitempty"` // Valid values: cloudflare
+	TlsAutoHttps                   string            `json:"TlsAutoHttps,omitempty"`   // Valid: off, disable_redirects, disable_certs, ignore_loaded_certs.
+	TlsDnsProvider                 string            `json:"TlsDnsProvider,omitempty"` // Valid: cloudflare.
 	TlsDnsApiKey                   string            `json:"TlsDnsApiKey,omitempty"`
 	TlsDnsPropagationTimeout       *opnsense.OPNBool `json:"TlsDnsPropagationTimeout,omitempty"`
 	TlsDnsPropagationTimeoutPeriod *opnsense.OPNInt  `json:"TlsDnsPropagationTimeoutPeriod,omitempty"`
@@ -21,35 +21,35 @@ type General struct {
 	TlsDnsEchDomain                string            `json:"TlsDnsEchDomain,omitempty"`
 	Accesslist                     string            `json:"accesslist,omitempty"`
 	ClientIpHeaders                string            `json:"ClientIpHeaders,omitempty"`
-	DisableSuperuser               string            `json:"DisableSuperuser"` // Valid values: root, www
-	GracePeriod                    opnsense.OPNInt   `json:"GracePeriod"`
-	HttpVersions                   string            `json:"HttpVersions"` // Valid values: h1, h2, h3
+	DisableSuperuser               string            `json:"DisableSuperuser"` // Required. Default: 0. Valid: root, www.
+	GracePeriod                    opnsense.OPNInt   `json:"GracePeriod"`      // Required. Default: 10.
+	HttpVersions                   string            `json:"HttpVersions"`     // Required. Default: h1,h2. Valid: h1, h2, h3.
 	TimeoutReadBody                *opnsense.OPNInt  `json:"timeout_read_body,omitempty"`
 	TimeoutReadHeader              *opnsense.OPNInt  `json:"timeout_read_header,omitempty"`
 	TimeoutWrite                   *opnsense.OPNInt  `json:"timeout_write,omitempty"`
 	TimeoutIdle                    *opnsense.OPNInt  `json:"timeout_idle,omitempty"`
 	LogCredentials                 *opnsense.OPNBool `json:"LogCredentials,omitempty"`
 	LogAccessPlain                 *opnsense.OPNBool `json:"LogAccessPlain,omitempty"`
-	LogAccessPlainKeep             opnsense.OPNInt   `json:"LogAccessPlainKeep"`
-	LogLevel                       string            `json:"LogLevel,omitempty"` // Valid values: DEBUG, WARN, ERROR, PANIC, FATAL
+	LogAccessPlainKeep             opnsense.OPNInt   `json:"LogAccessPlainKeep"` // Required. Default: 10.
+	LogLevel                       string            `json:"LogLevel,omitempty"` // Valid: DEBUG, WARN, ERROR, PANIC, FATAL.
 	DynDnsSimpleHttp               string            `json:"DynDnsSimpleHttp,omitempty"`
 	DynDnsInterface                string            `json:"DynDnsInterface,omitempty"`
 	DynDnsInterval                 *opnsense.OPNInt  `json:"DynDnsInterval,omitempty"`
-	DynDnsIpVersions               string            `json:"DynDnsIpVersions,omitempty"` // Valid values: ipv4, ipv6
+	DynDnsIpVersions               string            `json:"DynDnsIpVersions,omitempty"` // Valid: ipv4, ipv6.
 	DynDnsTtl                      *opnsense.OPNInt  `json:"DynDnsTtl,omitempty"`
 	DynDnsUpdateOnly               *opnsense.OPNBool `json:"DynDnsUpdateOnly,omitempty"`
-	AuthProvider                   string            `json:"AuthProvider,omitempty"` // Valid values: authelia, authentik
+	AuthProvider                   string            `json:"AuthProvider,omitempty"` // Valid: authelia, authentik.
 	AuthToDomain                   string            `json:"AuthToDomain,omitempty"`
 	AuthToPort                     string            `json:"AuthToPort,omitempty"`
-	AuthToTls                      string            `json:"AuthToTls"` // Valid values: http, https
+	AuthToTls                      string            `json:"AuthToTls"` // Required. Default: 0. Valid: http, https.
 	AuthToUri                      string            `json:"AuthToUri,omitempty"`
 	CopyHeaders                    string            `json:"CopyHeaders,omitempty"`
 }
 
 // Reverse represents a reverse model item.
 type Reverse struct {
-	Enabled                    opnsense.OPNBool  `json:"enabled"`
-	FromDomain                 string            `json:"FromDomain"`
+	Enabled                    opnsense.OPNBool  `json:"enabled"`    // Required. Default: 1.
+	FromDomain                 string            `json:"FromDomain"` // Required.
 	FromPort                   string            `json:"FromPort,omitempty"`
 	Accesslist                 string            `json:"accesslist,omitempty"`
 	Basicauth                  string            `json:"basicauth,omitempty"`
@@ -60,48 +60,48 @@ type Reverse struct {
 	AccessLog                  *opnsense.OPNBool `json:"AccessLog,omitempty"`
 	DynDns                     *opnsense.OPNBool `json:"DynDns,omitempty"`
 	AcmePassthrough            string            `json:"AcmePassthrough,omitempty"`
-	DisableTls                 string            `json:"DisableTls"`               // Valid values: https, http
-	ClientAuthMode             string            `json:"ClientAuthMode,omitempty"` // Valid values: request, require, verify_if_given
+	DisableTls                 string            `json:"DisableTls"`               // Required. Default: 0. Valid: https, http.
+	ClientAuthMode             string            `json:"ClientAuthMode,omitempty"` // Valid: request, require, verify_if_given.
 	ClientAuthTrustPool        string            `json:"ClientAuthTrustPool,omitempty"`
 }
 
 // Subdomain represents a subdomain model item.
 type Subdomain struct {
-	Enabled             opnsense.OPNBool  `json:"enabled"`
-	Reverse             string            `json:"reverse"`
-	FromDomain          string            `json:"FromDomain"`
+	Enabled             opnsense.OPNBool  `json:"enabled"`    // Required. Default: 1.
+	Reverse             string            `json:"reverse"`    // Required.
+	FromDomain          string            `json:"FromDomain"` // Required.
 	Accesslist          string            `json:"accesslist,omitempty"`
 	Basicauth           string            `json:"basicauth,omitempty"`
 	Description         string            `json:"description,omitempty"`
 	DynDns              *opnsense.OPNBool `json:"DynDns,omitempty"`
 	AcmePassthrough     string            `json:"AcmePassthrough,omitempty"`
-	ClientAuthMode      string            `json:"ClientAuthMode,omitempty"` // Valid values: request, require, verify_if_given
+	ClientAuthMode      string            `json:"ClientAuthMode,omitempty"` // Valid: request, require, verify_if_given.
 	ClientAuthTrustPool string            `json:"ClientAuthTrustPool,omitempty"`
 }
 
 // Handle represents a handle model item.
 type Handle struct {
-	Enabled                            opnsense.OPNBool  `json:"enabled"`
-	Reverse                            string            `json:"reverse"`
+	Enabled                            opnsense.OPNBool  `json:"enabled"` // Required. Default: 1.
+	Reverse                            string            `json:"reverse"` // Required.
 	Subdomain                          string            `json:"subdomain,omitempty"`
-	HandleType                         string            `json:"HandleType"` // Valid values: handle, handle_path
+	HandleType                         string            `json:"HandleType"` // Required. Default: handle. Valid: handle, handle_path.
 	HandlePath                         string            `json:"HandlePath,omitempty"`
 	Accesslist                         string            `json:"accesslist,omitempty"`
 	Basicauth                          string            `json:"basicauth,omitempty"`
 	Header                             string            `json:"header,omitempty"`
-	HandleDirective                    string            `json:"HandleDirective"` // Valid values: reverse_proxy, redir
-	ToDomain                           string            `json:"ToDomain"`
+	HandleDirective                    string            `json:"HandleDirective"` // Required. Default: reverse_proxy. Valid: reverse_proxy, redir.
+	ToDomain                           string            `json:"ToDomain"`        // Required.
 	ToPort                             string            `json:"ToPort,omitempty"`
 	ToPath                             string            `json:"ToPath,omitempty"`
 	ForwardAuth                        *opnsense.OPNBool `json:"ForwardAuth,omitempty"`
-	HttpTls                            string            `json:"HttpTls"`               // Valid values: http, https, h2c
-	HttpVersion                        string            `json:"HttpVersion,omitempty"` // Valid values: http1, http2, http3
+	HttpTls                            string            `json:"HttpTls"`               // Required. Default: 0. Valid: http, https, h2c.
+	HttpVersion                        string            `json:"HttpVersion,omitempty"` // Valid: http1, http2, http3.
 	HttpKeepalive                      *opnsense.OPNInt  `json:"HttpKeepalive,omitempty"`
 	HttpNtlm                           *opnsense.OPNBool `json:"HttpNtlm,omitempty"`
 	HttpTlsInsecureSkipVerify          *opnsense.OPNBool `json:"HttpTlsInsecureSkipVerify,omitempty"`
 	HttpTlsTrustedCaCerts              string            `json:"HttpTlsTrustedCaCerts,omitempty"`
 	HttpTlsServerName                  string            `json:"HttpTlsServerName,omitempty"`
-	LbPolicy                           string            `json:"lb_policy,omitempty"` // Valid values: first, round_robin, least_conn, ip_hash, client_ip_hash, uri_hash
+	LbPolicy                           string            `json:"lb_policy,omitempty"` // Valid: first, round_robin, least_conn, ip_hash, client_ip_hash, uri_hash.
 	LbRetries                          *opnsense.OPNInt  `json:"lb_retries,omitempty"`
 	LbTryDuration                      *opnsense.OPNInt  `json:"lb_try_duration,omitempty"`
 	LbTryInterval                      *opnsense.OPNInt  `json:"lb_try_interval,omitempty"`
@@ -125,26 +125,26 @@ type Handle struct {
 
 // Accesslist represents a accesslist model item.
 type Accesslist struct {
-	AccesslistName      string            `json:"accesslistName"`
-	ClientIps           string            `json:"clientIps"`
+	AccesslistName      string            `json:"accesslistName"` // Required.
+	ClientIps           string            `json:"clientIps"`      // Required.
 	AccesslistInvert    *opnsense.OPNBool `json:"accesslistInvert,omitempty"`
 	HttpResponseCode    *opnsense.OPNInt  `json:"HttpResponseCode,omitempty"`
 	HttpResponseMessage string            `json:"HttpResponseMessage,omitempty"`
-	RequestMatcher      string            `json:"RequestMatcher"` // Valid values: client_ip, remote_ip
+	RequestMatcher      string            `json:"RequestMatcher"` // Required. Default: client_ip. Valid: client_ip, remote_ip.
 	Description         string            `json:"description,omitempty"`
 }
 
 // Basicauth represents a basicauth model item.
 type Basicauth struct {
-	Basicauthuser string `json:"basicauthuser"`
-	Basicauthpass string `json:"basicauthpass"`
+	Basicauthuser string `json:"basicauthuser"` // Required.
+	Basicauthpass string `json:"basicauthpass"` // Required.
 	Description   string `json:"description,omitempty"`
 }
 
 // Header represents a header model item.
 type Header struct {
-	HeaderUpDown  string `json:"HeaderUpDown"` // Valid values: header_up, header_down
-	HeaderType    string `json:"HeaderType"`
+	HeaderUpDown  string `json:"HeaderUpDown"` // Required. Default: header_up. Valid: header_up, header_down.
+	HeaderType    string `json:"HeaderType"`   // Required.
 	HeaderValue   string `json:"HeaderValue,omitempty"`
 	HeaderReplace string `json:"HeaderReplace,omitempty"`
 	Description   string `json:"description,omitempty"`
@@ -152,21 +152,21 @@ type Header struct {
 
 // Layer4 represents a layer4 model item.
 type Layer4 struct {
-	Enabled                   opnsense.OPNBool  `json:"enabled"`
+	Enabled                   opnsense.OPNBool  `json:"enabled"` // Required. Default: 1.
 	Sequence                  string            `json:"Sequence,omitempty"`
-	Type                      string            `json:"Type"`     // Valid values: listener_wrappers, global
-	Protocol                  string            `json:"Protocol"` // Valid values: tcp, udp
+	Type                      string            `json:"Type"`     // Required. Default: listener_wrappers. Valid: listener_wrappers, global.
+	Protocol                  string            `json:"Protocol"` // Required. Default: tcp. Valid: tcp, udp.
 	FromPort                  string            `json:"FromPort,omitempty"`
 	FromDomain                string            `json:"FromDomain,omitempty"`
-	FromOpenvpnModes          string            `json:"FromOpenvpnModes,omitempty"` // Valid values: auth_sha256_normal, auth_sha256_inverse, auth_sha512_normal, auth_sha512_inverse, crypt, crypt2_client, crypt2_server
+	FromOpenvpnModes          string            `json:"FromOpenvpnModes,omitempty"` // Valid: auth_sha256_normal, auth_sha256_inverse, auth_sha512_normal, auth_sha512_inverse, crypt, crypt2_client, crypt2_server.
 	FromOpenvpnStaticKey      string            `json:"FromOpenvpnStaticKey,omitempty"`
-	Matchers                  string            `json:"Matchers"` // Valid values: any, dns, http, httphost, openvpn, postgres, proxy_protocol, quic, quicsni, rdp, socks4, socks5, ssh, tls, tlssni, winbox, wireguard, xmpp
+	Matchers                  string            `json:"Matchers"` // Required. Default: tlssni. Valid: any, dns, http, httphost, openvpn, postgres, proxy_protocol, quic, quicsni, rdp, socks4, socks5, ssh, tls, tlssni, winbox, wireguard, xmpp.
 	InvertMatchers            *opnsense.OPNBool `json:"InvertMatchers,omitempty"`
-	ToDomain                  string            `json:"ToDomain"`
+	ToDomain                  string            `json:"ToDomain"` // Required.
 	TerminateTls              *opnsense.OPNBool `json:"TerminateTls,omitempty"`
-	ToPort                    string            `json:"ToPort"`
-	ProxyProtocol             string            `json:"ProxyProtocol,omitempty"` // Valid values: v1, v2
-	LbPolicy                  string            `json:"lb_policy,omitempty"`     // Valid values: first, round_robin, least_conn, ip_hash, client_ip_hash, uri_hash
+	ToPort                    string            `json:"ToPort"`                  // Required.
+	ProxyProtocol             string            `json:"ProxyProtocol,omitempty"` // Valid: v1, v2.
+	LbPolicy                  string            `json:"lb_policy,omitempty"`     // Valid: first, round_robin, least_conn, ip_hash, client_ip_hash, uri_hash.
 	PassiveHealthFailDuration *opnsense.OPNInt  `json:"PassiveHealthFailDuration,omitempty"`
 	PassiveHealthMaxFails     *opnsense.OPNInt  `json:"PassiveHealthMaxFails,omitempty"`
 	RemoteIp                  string            `json:"RemoteIp,omitempty"`
@@ -175,8 +175,8 @@ type Layer4 struct {
 
 // Layer4openvpn represents a layer4openvpn model item.
 type Layer4openvpn struct {
-	StaticKey   string `json:"StaticKey"`
-	Description string `json:"description"`
+	StaticKey   string `json:"StaticKey"`   // Required.
+	Description string `json:"description"` // Required.
 }
 
 type accesslistGetItemResponse struct {

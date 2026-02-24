@@ -6,14 +6,14 @@ import "github.com/jontk/opnsense-cli/opnsense"
 
 // General represents a general model item.
 type General struct {
-	Enabled        opnsense.OPNBool `json:"enabled"`
+	Enabled        opnsense.OPNBool `json:"enabled"` // Required. Default: 0.
 	Listen         string           `json:"listen,omitempty"`
-	ProtectedMode  opnsense.OPNBool `json:"protected_mode"`
-	Port           *opnsense.OPNInt `json:"port,omitempty"`
-	LogLevel       string           `json:"log_level"` // Valid values: debug, verbose, notice, warning
-	SyslogEnabled  opnsense.OPNBool `json:"syslog_enabled"`
-	SyslogFacility string           `json:"syslog_facility"` // Valid values: USER, LOCAL0, LOCAL1, LOCAL2, LOCAL3, LOCAL4, LOCAL5, LOCAL6, LOCAL7
-	Databases      opnsense.OPNInt  `json:"databases"`
+	ProtectedMode  opnsense.OPNBool `json:"protected_mode"`  // Required. Default: 1.
+	Port           *opnsense.OPNInt `json:"port,omitempty"`  // Default: 6379.
+	LogLevel       string           `json:"log_level"`       // Required. Default: warning. Valid: debug, verbose, notice, warning.
+	SyslogEnabled  opnsense.OPNBool `json:"syslog_enabled"`  // Required. Default: 0.
+	SyslogFacility string           `json:"syslog_facility"` // Required. Default: LOCAL0. Valid: USER, LOCAL0, LOCAL1, LOCAL2, LOCAL3, LOCAL4, LOCAL5, LOCAL6, LOCAL7.
+	Databases      opnsense.OPNInt  `json:"databases"`       // Required. Default: 16.
 }
 
 // Security represents a security model item.
@@ -24,14 +24,14 @@ type Security struct {
 
 // Limits represents a limits model item.
 type Limits struct {
-	Maxclients       *opnsense.OPNInt `json:"maxclients,omitempty"`
+	Maxclients       *opnsense.OPNInt `json:"maxclients,omitempty"` // Default: 10000.
 	Maxmemory        *opnsense.OPNInt `json:"maxmemory,omitempty"`
-	MaxmemoryPolicy  string           `json:"maxmemory_policy"` // Valid values: noeviction, volatile-ttl, allkeys-random, volatile-random, allkeys-lru, volatile-lru
-	MaxmemorySamples *opnsense.OPNInt `json:"maxmemory_samples,omitempty"`
+	MaxmemoryPolicy  string           `json:"maxmemory_policy"`            // Required. Default: noeviction. Valid: noeviction, volatile-ttl, allkeys-random, volatile-random, allkeys-lru, volatile-lru.
+	MaxmemorySamples *opnsense.OPNInt `json:"maxmemory_samples,omitempty"` // Default: 5.
 }
 
 // Slowlog represents a slowlog model item.
 type Slowlog struct {
-	SlowerThan *opnsense.OPNInt `json:"slower_than,omitempty"`
-	MaxLen     *opnsense.OPNInt `json:"max_len,omitempty"`
+	SlowerThan *opnsense.OPNInt `json:"slower_than,omitempty"` // Default: 10000.
+	MaxLen     *opnsense.OPNInt `json:"max_len,omitempty"`     // Default: 128.
 }

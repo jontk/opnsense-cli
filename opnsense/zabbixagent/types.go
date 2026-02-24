@@ -6,60 +6,60 @@ import "github.com/jontk/opnsense-cli/opnsense"
 
 // Local represents a local model item.
 type Local struct {
-	Hostname string `json:"hostname"`
+	Hostname string `json:"hostname"` // Required. Default: Zabbix agent.
 }
 
 // Main represents a main model item.
 type Main struct {
-	Enabled       opnsense.OPNBool  `json:"enabled"`
-	ServerList    string            `json:"serverList"`
-	ListenPort    opnsense.OPNInt   `json:"listenPort"`
-	ListenIP      string            `json:"listenIP"`
+	Enabled       opnsense.OPNBool  `json:"enabled"`    // Required. Default: 0.
+	ServerList    string            `json:"serverList"` // Required. Default: 127.0.0.1.
+	ListenPort    opnsense.OPNInt   `json:"listenPort"` // Required. Default: 10050.
+	ListenIP      string            `json:"listenIP"`   // Required. Default: 0.0.0.0.
 	SourceIP      string            `json:"sourceIP,omitempty"`
 	ListenBacklog *opnsense.OPNInt  `json:"listenBacklog,omitempty"`
 	SyslogEnable  *opnsense.OPNBool `json:"syslogEnable,omitempty"`
-	LogFileSize   opnsense.OPNInt   `json:"logFileSize"`
-	DebugLevel    string            `json:"debugLevel"` // Valid values: val_0, val_1, val_2, val_3, val_4, val_5
-	SudoRoot      opnsense.OPNBool  `json:"sudoRoot"`
+	LogFileSize   opnsense.OPNInt   `json:"logFileSize"` // Required. Default: 100.
+	DebugLevel    string            `json:"debugLevel"`  // Required. Default: val_3. Valid: val_0, val_1, val_2, val_3, val_4, val_5.
+	SudoRoot      opnsense.OPNBool  `json:"sudoRoot"`    // Required. Default: 0.
 }
 
 // Tuning represents a tuning model item.
 type Tuning struct {
-	StartAgents       opnsense.OPNInt `json:"startAgents"`
-	BufferSend        opnsense.OPNInt `json:"bufferSend"`
-	BufferSize        opnsense.OPNInt `json:"bufferSize"`
-	MaxLinesPerSecond opnsense.OPNInt `json:"maxLinesPerSecond"`
-	Timeout           opnsense.OPNInt `json:"timeout"`
+	StartAgents       opnsense.OPNInt `json:"startAgents"`       // Required. Default: 3.
+	BufferSend        opnsense.OPNInt `json:"bufferSend"`        // Required. Default: 5.
+	BufferSize        opnsense.OPNInt `json:"bufferSize"`        // Required. Default: 100.
+	MaxLinesPerSecond opnsense.OPNInt `json:"maxLinesPerSecond"` // Required. Default: 100.
+	Timeout           opnsense.OPNInt `json:"timeout"`           // Required. Default: 3.
 }
 
 // Features represents a features model item.
 type Features struct {
-	EnableActiveChecks   opnsense.OPNBool `json:"enableActiveChecks"`
+	EnableActiveChecks   opnsense.OPNBool `json:"enableActiveChecks"` // Required. Default: 1.
 	ActiveCheckServers   string           `json:"activeCheckServers,omitempty"`
-	RefreshActiveChecks  opnsense.OPNInt  `json:"refreshActiveChecks"`
-	EnableRemoteCommands opnsense.OPNBool `json:"enableRemoteCommands"`
-	LogRemoteCommands    opnsense.OPNBool `json:"logRemoteCommands"`
-	Encryption           opnsense.OPNBool `json:"encryption"`
+	RefreshActiveChecks  opnsense.OPNInt  `json:"refreshActiveChecks"`  // Required. Default: 120.
+	EnableRemoteCommands opnsense.OPNBool `json:"enableRemoteCommands"` // Required. Default: 0.
+	LogRemoteCommands    opnsense.OPNBool `json:"logRemoteCommands"`    // Required. Default: 0.
+	Encryption           opnsense.OPNBool `json:"encryption"`           // Required. Default: 0.
 	Encryptionidentity   string           `json:"encryptionidentity,omitempty"`
 	Encryptionpsk        string           `json:"encryptionpsk,omitempty"`
 }
 
 // Userparameter represents a userparameter model item.
 type Userparameter struct {
-	Id           string           `json:"id"`
-	Enabled      opnsense.OPNBool `json:"enabled"`
-	Key          string           `json:"key"`
-	Command      string           `json:"command"`
-	AcceptParams opnsense.OPNBool `json:"acceptParams"`
+	Id           string           `json:"id"`           // Required.
+	Enabled      opnsense.OPNBool `json:"enabled"`      // Required. Default: 1.
+	Key          string           `json:"key"`          // Required.
+	Command      string           `json:"command"`      // Required.
+	AcceptParams opnsense.OPNBool `json:"acceptParams"` // Required. Default: 0.
 }
 
 // Alias represents a alias model item.
 type Alias struct {
-	Id           string           `json:"id"`
-	Enabled      opnsense.OPNBool `json:"enabled"`
-	Key          string           `json:"key"`
-	SourceKey    string           `json:"sourceKey"`
-	AcceptParams opnsense.OPNBool `json:"acceptParams"`
+	Id           string           `json:"id"`           // Required.
+	Enabled      opnsense.OPNBool `json:"enabled"`      // Required. Default: 1.
+	Key          string           `json:"key"`          // Required.
+	SourceKey    string           `json:"sourceKey"`    // Required.
+	AcceptParams opnsense.OPNBool `json:"acceptParams"` // Required. Default: 0.
 }
 
 type aliasGetItemResponse struct {

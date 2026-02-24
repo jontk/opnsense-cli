@@ -6,9 +6,9 @@ import "github.com/jontk/opnsense-cli/opnsense"
 
 // General represents a general model item.
 type General struct {
-	Enabled  opnsense.OPNBool `json:"enabled"`
-	HttpHost string           `json:"http_host"`
-	HttpPort string           `json:"http_port"`
+	Enabled  opnsense.OPNBool `json:"enabled"`   // Required. Default: 0.
+	HttpHost string           `json:"http_host"` // Required. Default: 127.0.0.1.
+	HttpPort string           `json:"http_port"` // Required. Default: 8000.
 }
 
 // Lexpire represents a lexpire model item.
@@ -23,53 +23,53 @@ type Lexpire struct {
 
 // Ha represents a ha model item.
 type Ha struct {
-	Enabled           opnsense.OPNBool `json:"enabled"`
+	Enabled           opnsense.OPNBool `json:"enabled"` // Required. Default: 0.
 	ThisServerName    string           `json:"this_server_name,omitempty"`
-	MaxUnackedClients opnsense.OPNInt  `json:"max_unacked_clients"`
+	MaxUnackedClients opnsense.OPNInt  `json:"max_unacked_clients"` // Required. Default: 2.
 }
 
 // Subnet4 represents a subnet4 model item.
 type Subnet4 struct {
-	Subnet                string           `json:"subnet"`
+	Subnet                string           `json:"subnet"` // Required.
 	NextServer            string           `json:"next_server,omitempty"`
-	OptionDataAutocollect opnsense.OPNBool `json:"option_data_autocollect"`
-	MatchClientId         opnsense.OPNBool `json:"match-client-id"`
+	OptionDataAutocollect opnsense.OPNBool `json:"option_data_autocollect"` // Required. Default: 1.
+	MatchClientId         opnsense.OPNBool `json:"match-client-id"`         // Required. Default: 1.
 	Pools                 string           `json:"pools,omitempty"`
 	Description           string           `json:"description,omitempty"`
 }
 
 // Reservation represents a reservation model item.
 type Reservation struct {
-	Subnet      string `json:"subnet"`
+	Subnet      string `json:"subnet"` // Required.
 	IpAddress   string `json:"ip_address,omitempty"`
-	HwAddress   string `json:"hw_address"`
+	HwAddress   string `json:"hw_address"` // Required.
 	Hostname    string `json:"hostname,omitempty"`
 	Description string `json:"description,omitempty"`
 }
 
 // Peer represents a peer model item.
 type Peer struct {
-	Name string `json:"name"`
-	Role string `json:"role"` // Valid values: primary, standby
-	Url  string `json:"url"`
+	Name string `json:"name"` // Required.
+	Role string `json:"role"` // Required. Default: primary. Valid: primary, standby.
+	Url  string `json:"url"`  // Required.
 }
 
 // Subnet6 represents a subnet6 model item.
 type Subnet6 struct {
-	Subnet      string `json:"subnet"`
-	Allocator   string `json:"allocator,omitempty"`    // Valid values: iterative, random
-	PdAllocator string `json:"pd-allocator,omitempty"` // Valid values: iterative, random, flq
+	Subnet      string `json:"subnet"`                 // Required.
+	Allocator   string `json:"allocator,omitempty"`    // Valid: iterative, random.
+	PdAllocator string `json:"pd-allocator,omitempty"` // Valid: iterative, random, flq.
 	Pools       string `json:"pools,omitempty"`
-	Interface   string `json:"interface"`
+	Interface   string `json:"interface"` // Required.
 	Description string `json:"description,omitempty"`
 }
 
 // PdPool represents a pd_pool model item.
 type PdPool struct {
-	Subnet       string          `json:"subnet"`
+	Subnet       string          `json:"subnet"` // Required.
 	Prefix       string          `json:"prefix,omitempty"`
-	PrefixLen    opnsense.OPNInt `json:"prefix_len"`
-	DelegatedLen opnsense.OPNInt `json:"delegated_len"`
+	PrefixLen    opnsense.OPNInt `json:"prefix_len"`    // Required. Default: 56.
+	DelegatedLen opnsense.OPNInt `json:"delegated_len"` // Required. Default: 64.
 	Description  string          `json:"description,omitempty"`
 }
 

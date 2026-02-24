@@ -6,51 +6,51 @@ import "github.com/jontk/opnsense-cli/opnsense"
 
 // Settings represents a settings model item.
 type Settings struct {
-	ManagementUrl string `json:"managementUrl"`
+	ManagementUrl string `json:"managementUrl"` // Required. Default: https://api.netbird.io:443.
 	SetupKey      string `json:"setupKey,omitempty"`
 }
 
 // General represents a general model item.
 type General struct {
-	Enable        opnsense.OPNBool `json:"enable"`
-	WireguardPort opnsense.OPNInt  `json:"wireguardPort"`
+	Enable        opnsense.OPNBool `json:"enable"`        // Required. Default: 0.
+	WireguardPort opnsense.OPNInt  `json:"wireguardPort"` // Required. Default: 51820.
 }
 
 // Firewall represents a firewall model item.
 type Firewall struct {
-	AllowConfig            opnsense.OPNBool `json:"allowConfig"`
-	BlockInboundConnection opnsense.OPNBool `json:"blockInboundConnection"`
+	AllowConfig            opnsense.OPNBool `json:"allowConfig"`            // Required. Default: 1.
+	BlockInboundConnection opnsense.OPNBool `json:"blockInboundConnection"` // Required. Default: 0.
 }
 
 // Ssh represents a ssh model item.
 type Ssh struct {
-	Enable                     opnsense.OPNBool `json:"enable"`
-	EnableRoot                 opnsense.OPNBool `json:"enableRoot"`
-	EnableSFTP                 opnsense.OPNBool `json:"enableSFTP"`
-	EnableLocalPortForwarding  opnsense.OPNBool `json:"enableLocalPortForwarding"`
-	EnableRemotePortForwarding opnsense.OPNBool `json:"enableRemotePortForwarding"`
-	EnableAuth                 opnsense.OPNBool `json:"enableAuth"`
+	Enable                     opnsense.OPNBool `json:"enable"`                     // Required. Default: 0.
+	EnableRoot                 opnsense.OPNBool `json:"enableRoot"`                 // Required. Default: 0.
+	EnableSFTP                 opnsense.OPNBool `json:"enableSFTP"`                 // Required. Default: 0.
+	EnableLocalPortForwarding  opnsense.OPNBool `json:"enableLocalPortForwarding"`  // Required. Default: 0.
+	EnableRemotePortForwarding opnsense.OPNBool `json:"enableRemotePortForwarding"` // Required. Default: 0.
+	EnableAuth                 opnsense.OPNBool `json:"enableAuth"`                 // Required. Default: 1.
 }
 
 // Dns represents a dns model item.
 type Dns struct {
-	Enable opnsense.OPNBool `json:"enable"`
+	Enable opnsense.OPNBool `json:"enable"` // Required. Default: 1.
 }
 
 // Routing represents a routing model item.
 type Routing struct {
-	AccessLan          opnsense.OPNBool `json:"accessLan"`
-	AcceptClientRoutes opnsense.OPNBool `json:"acceptClientRoutes"`
-	AcceptServerRoutes opnsense.OPNBool `json:"acceptServerRoutes"`
+	AccessLan          opnsense.OPNBool `json:"accessLan"`          // Required. Default: 1.
+	AcceptClientRoutes opnsense.OPNBool `json:"acceptClientRoutes"` // Required. Default: 1.
+	AcceptServerRoutes opnsense.OPNBool `json:"acceptServerRoutes"` // Required. Default: 1.
 }
 
 // Postquantum represents a postquantum model item.
 type Postquantum struct {
-	EnableRosenpass     opnsense.OPNBool `json:"enableRosenpass"`
-	RosenpassPermissive opnsense.OPNBool `json:"rosenpassPermissive"`
+	EnableRosenpass     opnsense.OPNBool `json:"enableRosenpass"`     // Required. Default: 0.
+	RosenpassPermissive opnsense.OPNBool `json:"rosenpassPermissive"` // Required. Default: 0.
 }
 
 // Syslog represents a syslog model item.
 type Syslog struct {
-	LogLevel string `json:"logLevel"` // Valid values: fatal, error, warn, info, debug, trace
+	LogLevel string `json:"logLevel"` // Required. Default: info. Valid: fatal, error, warn, info, debug, trace.
 }

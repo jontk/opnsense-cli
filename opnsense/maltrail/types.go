@@ -6,10 +6,10 @@ import "github.com/jontk/opnsense-cli/opnsense"
 
 // Settings represents a settings model item.
 type Settings struct {
-	Heuristics       opnsense.OPNBool `json:"heuristics"`
-	Checkhostheader  opnsense.OPNBool `json:"checkhostheader"`
-	Updateperiod     opnsense.OPNInt  `json:"updateperiod"`
-	Adminpassword    string           `json:"adminpassword"`
+	Heuristics       opnsense.OPNBool `json:"heuristics"`      // Required. Default: 1.
+	Checkhostheader  opnsense.OPNBool `json:"checkhostheader"` // Required. Default: 0.
+	Updateperiod     opnsense.OPNInt  `json:"updateperiod"`    // Required. Default: 86400.
+	Adminpassword    string           `json:"adminpassword"`   // Required. Default: 9ab3cd9d67bf49d01f6a2e33d0bd9bc804ddbe6ce1ff5d219c42624851db5dbc.
 	Monitorinterface string           `json:"monitorinterface,omitempty"`
 	Whitelist        string           `json:"whitelist,omitempty"`
 }

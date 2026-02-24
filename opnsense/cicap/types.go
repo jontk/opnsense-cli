@@ -6,11 +6,11 @@ import "github.com/jontk/opnsense-cli/opnsense"
 
 // Settings represents a settings model item.
 type Settings struct {
-	EnableClamav              opnsense.OPNBool `json:"enable_clamav"`
-	Scanfiletypes             string           `json:"scanfiletypes"` // Valid values: TEXT, DATA, EXECUTABLE, ARCHIVE, GIF, JPEG, MSOFFICE
-	Sendpercentdata           opnsense.OPNInt  `json:"sendpercentdata"`
-	Startsendpercentdataafter string           `json:"startsendpercentdataafter"`
-	Allow204responses         opnsense.OPNBool `json:"allow204responses"`
-	Passonerror               opnsense.OPNBool `json:"passonerror"`
-	Maxobjectsize             string           `json:"maxobjectsize"`
+	EnableClamav              opnsense.OPNBool `json:"enable_clamav"`             // Required. Default: 0.
+	Scanfiletypes             string           `json:"scanfiletypes"`             // Required. Default: TEXT,DATA,EXECUTABLE,ARCHIVE,GIF,JPEG,MSOFFICE. Valid: TEXT, DATA, EXECUTABLE, ARCHIVE, GIF, JPEG, MSOFFICE.
+	Sendpercentdata           opnsense.OPNInt  `json:"sendpercentdata"`           // Required. Default: 5.
+	Startsendpercentdataafter string           `json:"startsendpercentdataafter"` // Required. Default: 2M.
+	Allow204responses         opnsense.OPNBool `json:"allow204responses"`         // Required. Default: 1.
+	Passonerror               opnsense.OPNBool `json:"passonerror"`               // Required. Default: 0.
+	Maxobjectsize             string           `json:"maxobjectsize"`             // Required. Default: 5M.
 }

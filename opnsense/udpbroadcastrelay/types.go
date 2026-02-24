@@ -6,12 +6,12 @@ import "github.com/jontk/opnsense-cli/opnsense"
 
 // Udpbroadcastrelay represents a udpbroadcastrelay model item.
 type Udpbroadcastrelay struct {
-	Enabled          opnsense.OPNBool `json:"enabled"`
-	Interfaces       string           `json:"interfaces"`
+	Enabled          opnsense.OPNBool `json:"enabled"`    // Required. Default: 1.
+	Interfaces       string           `json:"interfaces"` // Required. Default: lan.
 	Multicastaddress string           `json:"multicastaddress,omitempty"`
 	Sourceaddress    string           `json:"sourceaddress,omitempty"`
-	Listenport       opnsense.OPNInt  `json:"listenport"`
-	InstanceID       opnsense.OPNInt  `json:"InstanceID"`
-	RevertTTL        opnsense.OPNBool `json:"RevertTTL"`
+	Listenport       opnsense.OPNInt  `json:"listenport"` // Required.
+	InstanceID       opnsense.OPNInt  `json:"InstanceID"` // Required. Default: 0.
+	RevertTTL        opnsense.OPNBool `json:"RevertTTL"`  // Required. Default: 0.
 	Description      string           `json:"description,omitempty"`
 }

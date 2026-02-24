@@ -6,30 +6,30 @@ import "github.com/jontk/opnsense-cli/opnsense"
 
 // General represents a general model item.
 type General struct {
-	Enabled     opnsense.OPNBool `json:"enabled"`
-	Verbose     opnsense.OPNBool `json:"verbose"`
-	Allowipv6   opnsense.OPNBool `json:"allowipv6"`
-	DaemonDelay opnsense.OPNInt  `json:"daemon_delay"`
-	Backend     string           `json:"backend"` // Valid values: ddclient, opnsense
+	Enabled     opnsense.OPNBool `json:"enabled"`      // Required. Default: 1.
+	Verbose     opnsense.OPNBool `json:"verbose"`      // Required. Default: 0.
+	Allowipv6   opnsense.OPNBool `json:"allowipv6"`    // Required. Default: 0.
+	DaemonDelay opnsense.OPNInt  `json:"daemon_delay"` // Required. Default: 300.
+	Backend     string           `json:"backend"`      // Required. Default: opnsense. Valid: ddclient, opnsense.
 }
 
 // Account represents a account model item.
 type Account struct {
-	Enabled        opnsense.OPNBool `json:"enabled"`
-	Service        string           `json:"service"`            // Valid values: hosting1984, changeip, cloudflare, cloudns, digitalocean, dinahosting, dnsmadeeasy, dns-o-matic, dnsexit2, dyndns2, dnspark, dnspodcn, dslreports1, dondominio, duckdns, dynu, easydns, freedns, freemyip, gandi, godaddy, googledomains, he-net, he-net-tunnel, hetzner, inwx, keysystems, loopia, mythicdyn, namecheap, nfsn, njalla, noip, nsupdatev4, nsupdatev6, ovh, porkbun, regfishde, servercow, sitelutions, spdyn, strato, woima, yandex, zoneedit1, custom
-	Protocol       string           `json:"protocol,omitempty"` // Valid values: dyndns1, dyndns2, get, post, put
+	Enabled        opnsense.OPNBool `json:"enabled"`            // Required. Default: 1.
+	Service        string           `json:"service"`            // Required. Valid: hosting1984, changeip, cloudflare, cloudns, digitalocean, dinahosting, dnsmadeeasy, dns-o-matic, dnsexit2, dyndns2, dnspark, dnspodcn, dslreports1, dondominio, duckdns, dynu, easydns, freedns, freemyip, gandi, godaddy, googledomains, he-net, he-net-tunnel, hetzner, inwx, keysystems, loopia, mythicdyn, namecheap, nfsn, njalla, noip, nsupdatev4, nsupdatev6, ovh, porkbun, regfishde, servercow, sitelutions, spdyn, strato, woima, yandex, zoneedit1, custom.
+	Protocol       string           `json:"protocol,omitempty"` // Valid: dyndns1, dyndns2, get, post, put.
 	Server         string           `json:"server,omitempty"`
 	Username       string           `json:"username,omitempty"`
 	Password       string           `json:"password,omitempty"`
 	ResourceId     string           `json:"resourceId,omitempty"`
-	Hostnames      string           `json:"hostnames"`
-	Wildcard       opnsense.OPNBool `json:"wildcard"`
+	Hostnames      string           `json:"hostnames"` // Required.
+	Wildcard       opnsense.OPNBool `json:"wildcard"`  // Required. Default: 0.
 	Zone           string           `json:"zone,omitempty"`
-	Checkip        string           `json:"checkip"` // Valid values: web_akamai, web_akamai_ipv4, web_akamai_ipv6, web_cloudflare, web_cloudflare_ipv4, web_cloudflare_ipv6, dns_cloudflare, web_dynu_ipv4, web_dynu_ipv6, web_freedns, web_he, web_icanhazip, web_ipify_ipv4, web_ipify_ipv6, web_loopia, web_myonlineportal, web_noip_ipv4, web_noip_ipv6, web_nsupdate_info_ipv4, web_nsupdate_info_ipv6, web_zoneedit, if
+	Checkip        string           `json:"checkip"` // Required. Default: web_dyndns. Valid: web_akamai, web_akamai_ipv4, web_akamai_ipv6, web_cloudflare, web_cloudflare_ipv4, web_cloudflare_ipv6, dns_cloudflare, web_dynu_ipv4, web_dynu_ipv6, web_freedns, web_he, web_icanhazip, web_ipify_ipv4, web_ipify_ipv6, web_loopia, web_myonlineportal, web_noip_ipv4, web_noip_ipv6, web_nsupdate_info_ipv4, web_nsupdate_info_ipv6, web_zoneedit, if.
 	Dynipv6host    string           `json:"dynipv6host,omitempty"`
-	CheckipTimeout opnsense.OPNInt  `json:"checkip_timeout"`
-	ForceSsl       opnsense.OPNBool `json:"force_ssl"`
-	Ttl            opnsense.OPNInt  `json:"ttl"`
+	CheckipTimeout opnsense.OPNInt  `json:"checkip_timeout"` // Required. Default: 10.
+	ForceSsl       opnsense.OPNBool `json:"force_ssl"`       // Required. Default: 1.
+	Ttl            opnsense.OPNInt  `json:"ttl"`             // Required. Default: 300.
 	Interface      string           `json:"interface,omitempty"`
 	Description    string           `json:"description,omitempty"`
 	CurrentIp      string           `json:"current_ip,omitempty"`

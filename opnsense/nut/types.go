@@ -6,78 +6,78 @@ import "github.com/jontk/opnsense-cli/opnsense"
 
 // General represents a general model item.
 type General struct {
-	Enable opnsense.OPNBool `json:"enable"`
-	Mode   string           `json:"mode"` // Valid values: standalone, netclient
-	Name   string           `json:"name"`
-	Listen string           `json:"listen"`
+	Enable opnsense.OPNBool `json:"enable"` // Required. Default: 0.
+	Mode   string           `json:"mode"`   // Required. Default: standalone. Valid: standalone, netclient.
+	Name   string           `json:"name"`   // Required. Default: UPSName.
+	Listen string           `json:"listen"` // Required. Default: 127.0.0.1,::1.
 }
 
 // Account represents a account model item.
 type Account struct {
-	AdminPassword string `json:"admin_password"`
-	MonPassword   string `json:"mon_password"`
+	AdminPassword string `json:"admin_password"` // Required. Default: Password.
+	MonPassword   string `json:"mon_password"`   // Required. Default: Password.
 }
 
 // Usbhid represents a usbhid model item.
 type Usbhid struct {
-	Enable opnsense.OPNBool `json:"enable"`
-	Args   string           `json:"args,omitempty"`
+	Enable opnsense.OPNBool `json:"enable"`         // Required. Default: 0.
+	Args   string           `json:"args,omitempty"` // Default: port=auto.
 }
 
 // Apcsmart represents a apcsmart model item.
 type Apcsmart struct {
-	Enable opnsense.OPNBool `json:"enable"`
-	Args   string           `json:"args,omitempty"`
+	Enable opnsense.OPNBool `json:"enable"`         // Required. Default: 0.
+	Args   string           `json:"args,omitempty"` // Default: port=auto.
 }
 
 // Apcupsd represents a apcupsd model item.
 type Apcupsd struct {
-	Enable   opnsense.OPNBool `json:"enable"`
-	Hostname string           `json:"hostname"`
+	Enable   opnsense.OPNBool `json:"enable"`   // Required. Default: 0.
+	Hostname string           `json:"hostname"` // Required. Default: localhost.
 	Port     string           `json:"port,omitempty"`
 }
 
 // Bcmxcpusb represents a bcmxcpusb model item.
 type Bcmxcpusb struct {
-	Enable opnsense.OPNBool `json:"enable"`
-	Args   string           `json:"args,omitempty"`
+	Enable opnsense.OPNBool `json:"enable"`         // Required. Default: 0.
+	Args   string           `json:"args,omitempty"` // Default: port=auto.
 }
 
 // Blazerusb represents a blazerusb model item.
 type Blazerusb struct {
-	Enable opnsense.OPNBool `json:"enable"`
-	Args   string           `json:"args,omitempty"`
+	Enable opnsense.OPNBool `json:"enable"`         // Required. Default: 0.
+	Args   string           `json:"args,omitempty"` // Default: port=auto.
 }
 
 // Blazerser represents a blazerser model item.
 type Blazerser struct {
-	Enable opnsense.OPNBool `json:"enable"`
-	Args   string           `json:"args,omitempty"`
+	Enable opnsense.OPNBool `json:"enable"`         // Required. Default: 0.
+	Args   string           `json:"args,omitempty"` // Default: port=auto.
 }
 
 // Netclient represents a netclient model item.
 type Netclient struct {
-	Enable   opnsense.OPNBool `json:"enable"`
+	Enable   opnsense.OPNBool `json:"enable"` // Required. Default: 0.
 	Address  string           `json:"address,omitempty"`
-	Port     string           `json:"port,omitempty"`
+	Port     string           `json:"port,omitempty"` // Default: 3493.
 	User     string           `json:"user,omitempty"`
 	Password string           `json:"password,omitempty"`
 }
 
 // Qx represents a qx model item.
 type Qx struct {
-	Enable opnsense.OPNBool `json:"enable"`
-	Args   string           `json:"args,omitempty"`
+	Enable opnsense.OPNBool `json:"enable"`         // Required. Default: 0.
+	Args   string           `json:"args,omitempty"` // Default: port=auto.
 }
 
 // Riello represents a riello model item.
 type Riello struct {
-	Enable opnsense.OPNBool `json:"enable"`
-	Args   string           `json:"args,omitempty"`
+	Enable opnsense.OPNBool `json:"enable"`         // Required. Default: 0.
+	Args   string           `json:"args,omitempty"` // Default: port=auto.
 }
 
 // Snmp represents a snmp model item.
 type Snmp struct {
-	Enable opnsense.OPNBool `json:"enable"`
-	Args   string           `json:"args,omitempty"`
+	Enable opnsense.OPNBool `json:"enable"`         // Required. Default: 0.
+	Args   string           `json:"args,omitempty"` // Default: community=public.
 }

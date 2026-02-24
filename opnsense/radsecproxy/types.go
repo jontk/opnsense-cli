@@ -6,11 +6,11 @@ import "github.com/jontk/opnsense-cli/opnsense"
 
 // General represents a general model item.
 type General struct {
-	Enabled         opnsense.OPNBool `json:"enabled"`
-	LogLevel        string           `json:"logLevel"`        // Valid values: ll1, ll2, ll3, ll4, ll5
-	LogFullUsername string           `json:"logFullUsername"` // Valid values: on, off
-	LogMac          string           `json:"logMac"`          // Valid values: Static, Original, VendorHashed, VendorKeyHashed, FullyHashed, FullyKeyHashed
-	LoopPrevention  string           `json:"loopPrevention"`  // Valid values: on, off
+	Enabled         opnsense.OPNBool `json:"enabled"`         // Required. Default: 0.
+	LogLevel        string           `json:"logLevel"`        // Required. Default: 2. Valid: ll1, ll2, ll3, ll4, ll5.
+	LogFullUsername string           `json:"logFullUsername"` // Required. Default: off. Valid: on, off.
+	LogMac          string           `json:"logMac"`          // Required. Default: Original. Valid: Static, Original, VendorHashed, VendorKeyHashed, FullyHashed, FullyKeyHashed.
+	LoopPrevention  string           `json:"loopPrevention"`  // Required. Default: on. Valid: on, off.
 	ListenUdp       string           `json:"listenUdp,omitempty"`
 	ListenTcp       string           `json:"listenTcp,omitempty"`
 	ListenTls       string           `json:"listenTls,omitempty"`
@@ -23,14 +23,14 @@ type General struct {
 
 // ClientConfig represents a client model item.
 type ClientConfig struct {
-	Enabled                   opnsense.OPNBool `json:"enabled"`
-	Identifier                string           `json:"identifier"`
+	Enabled                   opnsense.OPNBool `json:"enabled"`    // Required. Default: 1.
+	Identifier                string           `json:"identifier"` // Required.
 	Description               string           `json:"description,omitempty"`
-	Host                      string           `json:"host"`
-	Type                      string           `json:"type"` // Valid values: udp, tcp, tls, dtls
+	Host                      string           `json:"host"` // Required.
+	Type                      string           `json:"type"` // Required. Default: udp. Valid: udp, tcp, tls, dtls.
 	Secret                    string           `json:"secret,omitempty"`
 	TlsConfig                 string           `json:"tlsConfig,omitempty"`
-	CertificateNameCheck      string           `json:"certificateNameCheck"` // Valid values: on, off
+	CertificateNameCheck      string           `json:"certificateNameCheck"` // Required. Default: off. Valid: on, off.
 	MatchCertificateAttribute string           `json:"matchCertificateAttribute,omitempty"`
 	RewriteIn                 string           `json:"rewriteIn,omitempty"`
 	RewriteOut                string           `json:"rewriteOut,omitempty"`
@@ -38,15 +38,15 @@ type ClientConfig struct {
 
 // Server represents a server model item.
 type Server struct {
-	Identifier                string `json:"identifier"`
+	Identifier                string `json:"identifier"` // Required.
 	Description               string `json:"description,omitempty"`
-	Host                      string `json:"host"`
+	Host                      string `json:"host"` // Required.
 	Port                      string `json:"port,omitempty"`
-	StatusServer              string `json:"statusServer"` // Valid values: on, off, minimal, auto
-	Type                      string `json:"type"`         // Valid values: udp, tcp, tls, dtls
+	StatusServer              string `json:"statusServer"` // Required. Default: off. Valid: on, off, minimal, auto.
+	Type                      string `json:"type"`         // Required. Default: udp. Valid: udp, tcp, tls, dtls.
 	Secret                    string `json:"secret,omitempty"`
 	TlsConfig                 string `json:"tlsConfig,omitempty"`
-	CertificateNameCheck      string `json:"certificateNameCheck"` // Valid values: on, off
+	CertificateNameCheck      string `json:"certificateNameCheck"` // Required. Default: off. Valid: on, off.
 	MatchCertificateAttribute string `json:"matchCertificateAttribute,omitempty"`
 	RewriteIn                 string `json:"rewriteIn,omitempty"`
 	RewriteOut                string `json:"rewriteOut,omitempty"`
@@ -54,30 +54,30 @@ type Server struct {
 
 // TlsConfig represents a tlsConfig model item.
 type TlsConfig struct {
-	Name                  string           `json:"name"`
+	Name                  string           `json:"name"` // Required. Default: default.
 	Description           string           `json:"description,omitempty"`
-	CaCertificateRefId    string           `json:"caCertificateRefId"`
-	ProxyCertificateRefId string           `json:"proxyCertificateRefId"`
+	CaCertificateRefId    string           `json:"caCertificateRefId"`    // Required.
+	ProxyCertificateRefId string           `json:"proxyCertificateRefId"` // Required.
 	PolicyOids            string           `json:"policyOids,omitempty"`
-	CrlCheck              string           `json:"crlCheck"` // Valid values: on, off
+	CrlCheck              string           `json:"crlCheck"` // Required. Default: off. Valid: on, off.
 	CacheExpiry           *opnsense.OPNInt `json:"cacheExpiry,omitempty"`
 }
 
 // Realm represents a realm model item.
 type Realm struct {
-	Enabled            opnsense.OPNBool `json:"enabled"`
+	Enabled            opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
 	Description        string           `json:"description,omitempty"`
-	Realm              string           `json:"realm"`
+	Realm              string           `json:"realm"` // Required.
 	Server             string           `json:"server,omitempty"`
 	AccountingServer   string           `json:"accountingServer,omitempty"`
-	AccountingResponse string           `json:"accountingResponse"` // Valid values: on, off
+	AccountingResponse string           `json:"accountingResponse"` // Required. Default: off. Valid: on, off.
 	ReplyMessage       string           `json:"replyMessage,omitempty"`
 }
 
 // Rewrite represents a rewrite model item.
 type Rewrite struct {
-	Enabled                    opnsense.OPNBool `json:"enabled"`
-	Name                       string           `json:"name"`
+	Enabled                    opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
+	Name                       string           `json:"name"`    // Required. Default: default.
 	AddAttributes              string           `json:"addAttributes,omitempty"`
 	AddVendorAttributes        string           `json:"addVendorAttributes,omitempty"`
 	SupplementAttributes       string           `json:"supplementAttributes,omitempty"`
@@ -86,7 +86,7 @@ type Rewrite struct {
 	ModifyVendorAttributes     string           `json:"modifyVendorAttributes,omitempty"`
 	RemoveAttributes           string           `json:"removeAttributes,omitempty"`
 	RemoveVendorAttributes     string           `json:"removeVendorAttributes,omitempty"`
-	WhitelistMode              string           `json:"whitelistMode"` // Valid values: on, off
+	WhitelistMode              string           `json:"whitelistMode"` // Required. Default: off. Valid: on, off.
 	WhitelistAttributes        string           `json:"whitelistAttributes,omitempty"`
 	WhitelistVendorAttributes  string           `json:"whitelistVendorAttributes,omitempty"`
 }

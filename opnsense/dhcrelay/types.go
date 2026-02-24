@@ -6,17 +6,17 @@ import "github.com/jontk/opnsense-cli/opnsense"
 
 // Relays represents a relays model item.
 type Relays struct {
-	Enabled      opnsense.OPNBool `json:"enabled"`
-	Interface    string           `json:"interface"`
-	Destination  string           `json:"destination"`
-	AgentInfo    opnsense.OPNBool `json:"agent_info"`
+	Enabled      opnsense.OPNBool `json:"enabled"`     // Required.
+	Interface    string           `json:"interface"`   // Required.
+	Destination  string           `json:"destination"` // Required.
+	AgentInfo    opnsense.OPNBool `json:"agent_info"`  // Required.
 	CarpDependOn string           `json:"carp_depend_on,omitempty"`
 }
 
 // Destinations represents a destinations model item.
 type Destinations struct {
-	Name   string `json:"name"`
-	Server string `json:"server"`
+	Name   string `json:"name"`   // Required.
+	Server string `json:"server"` // Required.
 }
 
 type destinationsGetItemResponse struct {

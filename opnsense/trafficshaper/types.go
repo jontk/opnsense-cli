@@ -6,61 +6,61 @@ import "github.com/jontk/opnsense-cli/opnsense"
 
 // Pipe represents a pipe model item.
 type Pipe struct {
-	Number          opnsense.OPNInt  `json:"number"`
-	Enabled         opnsense.OPNBool `json:"enabled"`
-	Bandwidth       opnsense.OPNInt  `json:"bandwidth"`
-	BandwidthMetric string           `json:"bandwidthMetric"` // Valid values: bit, Kbit, Mbit, Gbit
+	Number          opnsense.OPNInt  `json:"number"`          // Required.
+	Enabled         opnsense.OPNBool `json:"enabled"`         // Required. Default: 1.
+	Bandwidth       opnsense.OPNInt  `json:"bandwidth"`       // Required.
+	BandwidthMetric string           `json:"bandwidthMetric"` // Required. Default: Kbit. Valid: bit, Kbit, Mbit, Gbit.
 	Queue           *opnsense.OPNInt `json:"queue,omitempty"`
-	Mask            string           `json:"mask"` // Valid values: none, src-ip, dst-ip, src-ip6, dst-ip6
+	Mask            string           `json:"mask"` // Required. Default: none. Valid: none, src-ip, dst-ip, src-ip6, dst-ip6.
 	Buckets         *opnsense.OPNInt `json:"buckets,omitempty"`
-	Scheduler       string           `json:"scheduler,omitempty"` // Valid values: fifo, rr, qfq, fq_codel, fq_pie
-	CodelEnable     opnsense.OPNBool `json:"codel_enable"`
+	Scheduler       string           `json:"scheduler,omitempty"` // Valid: fifo, rr, qfq, fq_codel, fq_pie.
+	CodelEnable     opnsense.OPNBool `json:"codel_enable"`        // Required. Default: 0.
 	CodelTarget     *opnsense.OPNInt `json:"codel_target,omitempty"`
 	CodelInterval   *opnsense.OPNInt `json:"codel_interval,omitempty"`
-	CodelEcnEnable  opnsense.OPNBool `json:"codel_ecn_enable"`
-	PieEnable       opnsense.OPNBool `json:"pie_enable"`
+	CodelEcnEnable  opnsense.OPNBool `json:"codel_ecn_enable"` // Required. Default: 0.
+	PieEnable       opnsense.OPNBool `json:"pie_enable"`       // Required. Default: 0.
 	FqcodelQuantum  *opnsense.OPNInt `json:"fqcodel_quantum,omitempty"`
 	FqcodelLimit    *opnsense.OPNInt `json:"fqcodel_limit,omitempty"`
 	FqcodelFlows    *opnsense.OPNInt `json:"fqcodel_flows,omitempty"`
 	Origin          string           `json:"origin,omitempty"`
 	Delay           *opnsense.OPNInt `json:"delay,omitempty"`
-	Description     string           `json:"description"`
+	Description     string           `json:"description"` // Required.
 }
 
 // Queue represents a queue model item.
 type Queue struct {
-	Number         opnsense.OPNInt  `json:"number"`
-	Enabled        opnsense.OPNBool `json:"enabled"`
-	Pipe           string           `json:"pipe"`
-	Weight         opnsense.OPNInt  `json:"weight"`
-	Mask           string           `json:"mask"` // Valid values: none, src-ip, dst-ip, src-ip6, dst-ip6
+	Number         opnsense.OPNInt  `json:"number"`  // Required.
+	Enabled        opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
+	Pipe           string           `json:"pipe"`    // Required.
+	Weight         opnsense.OPNInt  `json:"weight"`  // Required. Default: 100.
+	Mask           string           `json:"mask"`    // Required. Default: none. Valid: none, src-ip, dst-ip, src-ip6, dst-ip6.
 	Buckets        *opnsense.OPNInt `json:"buckets,omitempty"`
-	CodelEnable    opnsense.OPNBool `json:"codel_enable"`
+	CodelEnable    opnsense.OPNBool `json:"codel_enable"` // Required. Default: 0.
 	CodelTarget    *opnsense.OPNInt `json:"codel_target,omitempty"`
 	CodelInterval  *opnsense.OPNInt `json:"codel_interval,omitempty"`
-	CodelEcnEnable opnsense.OPNBool `json:"codel_ecn_enable"`
-	PieEnable      opnsense.OPNBool `json:"pie_enable"`
-	Description    string           `json:"description"`
+	CodelEcnEnable opnsense.OPNBool `json:"codel_ecn_enable"` // Required. Default: 0.
+	PieEnable      opnsense.OPNBool `json:"pie_enable"`       // Required. Default: 0.
+	Description    string           `json:"description"`      // Required.
 	Origin         string           `json:"origin,omitempty"`
 }
 
 // Rule represents a rule model item.
 type Rule struct {
-	Enabled        opnsense.OPNBool `json:"enabled"`
-	Sequence       opnsense.OPNInt  `json:"sequence"`
-	Interface      string           `json:"interface"`
+	Enabled        opnsense.OPNBool `json:"enabled"`   // Required. Default: 1.
+	Sequence       opnsense.OPNInt  `json:"sequence"`  // Required. Default: 1.
+	Interface      string           `json:"interface"` // Required. Default: wan.
 	Interface2     string           `json:"interface2,omitempty"`
-	Proto          string           `json:"proto"` // Valid values: ip, ip4, ip6, udp, tcp, tcp_ack, tcp_ack_not, icmp, ipv6_icmp, igmp, esp, ah, gre
+	Proto          string           `json:"proto"` // Required. Default: ip. Valid: ip, ip4, ip6, udp, tcp, tcp_ack, tcp_ack_not, icmp, ipv6_icmp, igmp, esp, ah, gre.
 	Iplen          *opnsense.OPNInt `json:"iplen,omitempty"`
-	Source         string           `json:"source"`
-	SourceNot      opnsense.OPNBool `json:"source_not"`
-	SrcPort        string           `json:"src_port"`
-	Destination    string           `json:"destination"`
-	DestinationNot opnsense.OPNBool `json:"destination_not"`
-	DstPort        string           `json:"dst_port"`
-	Dscp           string           `json:"dscp,omitempty"`      // Valid values: be, ef, af11, af12, af13, af21, af22, af23, af31, af32, af33, af41, af42, af43, cs1, cs2, cs3, cs4, cs5, cs6, cs7
-	Direction      string           `json:"direction,omitempty"` // Valid values: in, out
-	Target         string           `json:"target"`
+	Source         string           `json:"source"`              // Required. Default: any.
+	SourceNot      opnsense.OPNBool `json:"source_not"`          // Required. Default: 0.
+	SrcPort        string           `json:"src_port"`            // Required. Default: any.
+	Destination    string           `json:"destination"`         // Required. Default: any.
+	DestinationNot opnsense.OPNBool `json:"destination_not"`     // Required. Default: 0.
+	DstPort        string           `json:"dst_port"`            // Required. Default: any.
+	Dscp           string           `json:"dscp,omitempty"`      // Valid: be, ef, af11, af12, af13, af21, af22, af23, af31, af32, af33, af41, af42, af43, cs1, cs2, cs3, cs4, cs5, cs6, cs7.
+	Direction      string           `json:"direction,omitempty"` // Valid: in, out.
+	Target         string           `json:"target"`              // Required.
 	Description    string           `json:"description,omitempty"`
 	Origin         string           `json:"origin,omitempty"`
 }

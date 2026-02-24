@@ -7,12 +7,12 @@ import "github.com/jontk/opnsense-cli/opnsense"
 // Logging represents a logging model item.
 type Logging struct {
 	IgnoreLogACL string `json:"ignoreLogACL,omitempty"`
-	Target       string `json:"target,omitempty"` // Valid values: file_extendend, file_json, syslog, syslog_json
+	Target       string `json:"target,omitempty"` // Valid: file_extendend, file_json, syslog, syslog_json.
 }
 
 // Traffic represents a traffic model item.
 type Traffic struct {
-	Enabled                    opnsense.OPNBool `json:"enabled"`
+	Enabled                    opnsense.OPNBool `json:"enabled"` // Required. Default: 0.
 	MaxDownloadSize            *opnsense.OPNInt `json:"maxDownloadSize,omitempty"`
 	MaxUploadSize              *opnsense.OPNInt `json:"maxUploadSize,omitempty"`
 	OverallBandwidthTrotteling *opnsense.OPNInt `json:"OverallBandwidthTrotteling,omitempty"`
@@ -21,11 +21,11 @@ type Traffic struct {
 
 // Parentproxy represents a parentproxy model item.
 type Parentproxy struct {
-	Enabled      opnsense.OPNBool `json:"enabled"`
+	Enabled      opnsense.OPNBool `json:"enabled"` // Required. Default: 0.
 	Host         string           `json:"host,omitempty"`
-	Enableauth   opnsense.OPNBool `json:"enableauth"`
-	User         string           `json:"user"`
-	Password     string           `json:"password"`
+	Enableauth   opnsense.OPNBool `json:"enableauth"` // Required. Default: 0.
+	User         string           `json:"user"`       // Required. Default: username.
+	Password     string           `json:"password"`   // Required. Default: password.
 	Port         string           `json:"port,omitempty"`
 	Localdomains string           `json:"localdomains,omitempty"`
 	Localips     string           `json:"localips,omitempty"`
@@ -36,29 +36,29 @@ type Acl struct {
 	AllowedSubnets            string           `json:"allowedSubnets,omitempty"`
 	Unrestricted              string           `json:"unrestricted,omitempty"`
 	BannedHosts               string           `json:"bannedHosts,omitempty"`
-	AllowWhitelistBannedHosts opnsense.OPNBool `json:"allowWhitelistBannedHosts"`
+	AllowWhitelistBannedHosts opnsense.OPNBool `json:"allowWhitelistBannedHosts"` // Required. Default: 1.
 	WhiteList                 string           `json:"whiteList,omitempty"`
 	BlackList                 string           `json:"blackList,omitempty"`
 	Browser                   string           `json:"browser,omitempty"`
 	MimeType                  string           `json:"mimeType,omitempty"`
 	Googleapps                string           `json:"googleapps,omitempty"`
-	Youtube                   string           `json:"youtube,omitempty"` // Valid values: strict, moderate
-	SafePorts                 string           `json:"safePorts"`
-	SslPorts                  string           `json:"sslPorts"`
+	Youtube                   string           `json:"youtube,omitempty"` // Valid: strict, moderate.
+	SafePorts                 string           `json:"safePorts"`         // Required. Default: 80:http,21:ftp,443:https,70:gopher,210:wais,1025-65535:unregistered ports,280:http-mgmt,488:gss-http,591:filemaker,777:multiling http.
+	SslPorts                  string           `json:"sslPorts"`          // Required. Default: 443:https.
 }
 
 // Icap represents a icap model item.
 type Icap struct {
-	Enable         opnsense.OPNBool `json:"enable"`
+	Enable         opnsense.OPNBool `json:"enable"` // Required. Default: 0.
 	RequestURL     string           `json:"RequestURL,omitempty"`
 	ResponseURL    string           `json:"ResponseURL,omitempty"`
-	SendClientIP   opnsense.OPNBool `json:"SendClientIP"`
-	SendUsername   opnsense.OPNBool `json:"SendUsername"`
-	EncodeUsername opnsense.OPNBool `json:"EncodeUsername"`
-	UsernameHeader string           `json:"UsernameHeader"`
-	EnablePreview  opnsense.OPNBool `json:"EnablePreview"`
-	PreviewSize    opnsense.OPNInt  `json:"PreviewSize"`
-	OptionsTTL     opnsense.OPNInt  `json:"OptionsTTL"`
+	SendClientIP   opnsense.OPNBool `json:"SendClientIP"`   // Required. Default: 1.
+	SendUsername   opnsense.OPNBool `json:"SendUsername"`   // Required. Default: 0.
+	EncodeUsername opnsense.OPNBool `json:"EncodeUsername"` // Required. Default: 0.
+	UsernameHeader string           `json:"UsernameHeader"` // Required. Default: X-Username.
+	EnablePreview  opnsense.OPNBool `json:"EnablePreview"`  // Required. Default: 1.
+	PreviewSize    opnsense.OPNInt  `json:"PreviewSize"`    // Required. Default: 1024.
+	OptionsTTL     opnsense.OPNInt  `json:"OptionsTTL"`     // Required. Default: 60.
 	Exclude        string           `json:"exclude,omitempty"`
 }
 
@@ -73,18 +73,18 @@ type Authentication struct {
 
 // Proxy represents a proxy model item.
 type Proxy struct {
-	Name        string `json:"name"`
-	ProxyType   string `json:"proxy_type"` // Valid values: PROXY, DIRECT, HTTP, HTTPS, SOCKS, SOCKS4, SOCKS5
+	Name        string `json:"name"`       // Required.
+	ProxyType   string `json:"proxy_type"` // Required. Valid: PROXY, DIRECT, HTTP, HTTPS, SOCKS, SOCKS4, SOCKS5.
 	Url         string `json:"url,omitempty"`
 	Description string `json:"description,omitempty"`
 }
 
 // Match represents a match model item.
 type Match struct {
-	Name            string           `json:"name"`
+	Name            string           `json:"name"` // Required.
 	Description     string           `json:"description,omitempty"`
-	Negate          opnsense.OPNBool `json:"negate"`
-	MatchType       string           `json:"match_type"` // Valid values: url_matches, hostname_matches, dns_domain_is, destination_in_net, my_ip_in_net, plain_hostname, is_resolvable, dns_domain_levels, weekday_range, date_range, time_range
+	Negate          opnsense.OPNBool `json:"negate"`     // Required. Default: 0.
+	MatchType       string           `json:"match_type"` // Required. Valid: url_matches, hostname_matches, dns_domain_is, destination_in_net, my_ip_in_net, plain_hostname, is_resolvable, dns_domain_levels, weekday_range, date_range, time_range.
 	Hostname        string           `json:"hostname,omitempty"`
 	Url             string           `json:"url,omitempty"`
 	Network         string           `json:"network,omitempty"`
@@ -92,20 +92,20 @@ type Match struct {
 	DomainLevelTo   *opnsense.OPNInt `json:"domain_level_to,omitempty"`
 	TimeFrom        *opnsense.OPNInt `json:"time_from,omitempty"`
 	TimeTo          *opnsense.OPNInt `json:"time_to,omitempty"`
-	DateFrom        string           `json:"date_from"`    // Valid values: JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC
-	DateTo          string           `json:"date_to"`      // Valid values: JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC
-	WeekdayFrom     string           `json:"weekday_from"` // Valid values: MON, TUE, WED, THU, FRI, SAT, SUN
-	WeekdayTo       string           `json:"weekday_to"`   // Valid values: MON, TUE, WED, THU, FRI, SAT, SUN
+	DateFrom        string           `json:"date_from"`    // Required. Valid: JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC.
+	DateTo          string           `json:"date_to"`      // Required. Valid: JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC.
+	WeekdayFrom     string           `json:"weekday_from"` // Required. Valid: MON, TUE, WED, THU, FRI, SAT, SUN.
+	WeekdayTo       string           `json:"weekday_to"`   // Required. Valid: MON, TUE, WED, THU, FRI, SAT, SUN.
 }
 
 // Rule represents a rule model item.
 type Rule struct {
-	Enabled     opnsense.OPNBool `json:"enabled"`
+	Enabled     opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
 	Description string           `json:"description,omitempty"`
-	Matches     string           `json:"matches"`
-	JoinType    string           `json:"join_type"`  // Valid values: and, or
-	MatchType   string           `json:"match_type"` // Valid values: if, unless
-	Proxies     string           `json:"proxies"`
+	Matches     string           `json:"matches"`    // Required.
+	JoinType    string           `json:"join_type"`  // Required. Valid: and, or.
+	MatchType   string           `json:"match_type"` // Required. Valid: if, unless.
+	Proxies     string           `json:"proxies"`    // Required.
 }
 
 // ErrorPages represents a error_pages model item.

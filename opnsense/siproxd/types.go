@@ -6,17 +6,17 @@ import "github.com/jontk/opnsense-cli/opnsense"
 
 // Domain represents a domain model item.
 type Domain struct {
-	Enabled opnsense.OPNBool `json:"enabled"`
-	Name    string           `json:"name"`
-	Host    string           `json:"host"`
-	Port    opnsense.OPNInt  `json:"port"`
+	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
+	Name    string           `json:"name"`    // Required.
+	Host    string           `json:"host"`    // Required.
+	Port    opnsense.OPNInt  `json:"port"`    // Required. Default: 5060.
 }
 
 // User represents a user model item.
 type User struct {
-	Enabled  opnsense.OPNBool `json:"enabled"`
-	Username string           `json:"username"`
-	Password string           `json:"password"`
+	Enabled  opnsense.OPNBool `json:"enabled"`  // Required. Default: 1.
+	Username string           `json:"username"` // Required.
+	Password string           `json:"password"` // Required.
 }
 
 type domainGetItemResponse struct {

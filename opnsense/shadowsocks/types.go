@@ -6,13 +6,13 @@ import "github.com/jontk/opnsense-cli/opnsense"
 
 // Settings represents a settings model item.
 type Settings struct {
-	Enabled       opnsense.OPNBool `json:"enabled"`
-	Serveraddress string           `json:"serveraddress"`
-	Serverport    opnsense.OPNInt  `json:"serverport"`
-	Localport     opnsense.OPNInt  `json:"localport"`
+	Enabled       opnsense.OPNBool `json:"enabled"`       // Required. Default: 0.
+	Serveraddress string           `json:"serveraddress"` // Required. Default: 127.0.0.1.
+	Serverport    opnsense.OPNInt  `json:"serverport"`    // Required. Default: 8388.
+	Localport     opnsense.OPNInt  `json:"localport"`     // Required. Default: 1080.
 	Password      string           `json:"password,omitempty"`
-	Cipher        string           `json:"cipher"`     // Valid values: Secure, Deprecated, Insecure
-	Tcpudpmode    string           `json:"tcpudpmode"` // Valid values: tcp_only, udp_only, tcp_and_udp
-	Timeout       opnsense.OPNInt  `json:"timeout"`
-	Fragmentation opnsense.OPNBool `json:"fragmentation"`
+	Cipher        string           `json:"cipher"`        // Required. Default: aes-256-gcm. Valid: Secure, Deprecated, Insecure.
+	Tcpudpmode    string           `json:"tcpudpmode"`    // Required. Default: tcp_only. Valid: tcp_only, udp_only, tcp_and_udp.
+	Timeout       opnsense.OPNInt  `json:"timeout"`       // Required. Default: 60.
+	Fragmentation opnsense.OPNBool `json:"fragmentation"` // Required. Default: 0.
 }

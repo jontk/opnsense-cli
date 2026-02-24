@@ -6,22 +6,22 @@ import "github.com/jontk/opnsense-cli/opnsense"
 
 // GatewayItem represents a gateway_item model item.
 type GatewayItem struct {
-	Disabled                  opnsense.OPNBool  `json:"disabled"`
-	Name                      string            `json:"name"`
+	Disabled                  opnsense.OPNBool  `json:"disabled"` // Required. Default: 0.
+	Name                      string            `json:"name"`     // Required.
 	Descr                     string            `json:"descr,omitempty"`
-	Interface                 string            `json:"interface"`
-	Ipprotocol                string            `json:"ipprotocol"` // Valid values: inet, inet6
+	Interface                 string            `json:"interface"`  // Required. Default: wan.
+	Ipprotocol                string            `json:"ipprotocol"` // Required. Default: inet. Valid: inet, inet6.
 	Gateway                   string            `json:"gateway,omitempty"`
 	Defaultgw                 *opnsense.OPNBool `json:"defaultgw,omitempty"`
 	Fargw                     *opnsense.OPNBool `json:"fargw,omitempty"`
-	MonitorDisable            opnsense.OPNBool  `json:"monitor_disable"`
+	MonitorDisable            opnsense.OPNBool  `json:"monitor_disable"` // Required. Default: 1.
 	MonitorNoroute            *opnsense.OPNBool `json:"monitor_noroute,omitempty"`
 	MonitorKillstates         *opnsense.OPNBool `json:"monitor_killstates,omitempty"`
 	MonitorKillstatesPriority *opnsense.OPNBool `json:"monitor_killstates_priority,omitempty"`
 	Monitor                   string            `json:"monitor,omitempty"`
 	ForceDown                 *opnsense.OPNBool `json:"force_down,omitempty"`
-	Priority                  opnsense.OPNInt   `json:"priority"`
-	Weight                    opnsense.OPNInt   `json:"weight"`
+	Priority                  opnsense.OPNInt   `json:"priority"` // Required. Default: 255.
+	Weight                    opnsense.OPNInt   `json:"weight"`   // Required. Default: 1.
 	Latencylow                *opnsense.OPNInt  `json:"latencylow,omitempty"`
 	Latencyhigh               *opnsense.OPNInt  `json:"latencyhigh,omitempty"`
 	Losslow                   *opnsense.OPNInt  `json:"losslow,omitempty"`

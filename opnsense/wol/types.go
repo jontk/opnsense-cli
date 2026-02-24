@@ -4,8 +4,8 @@ package wol
 
 // Wolentry represents a wolentry model item.
 type Wolentry struct {
-	Interface string `json:"interface"`
-	Mac       string `json:"mac"`
+	Interface string `json:"interface"` // Required.
+	Mac       string `json:"mac"`       // Required. Default: 00:00:00:00:00:00.
 	Descr     string `json:"descr,omitempty"`
 }
 

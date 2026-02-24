@@ -6,9 +6,9 @@ import "github.com/jontk/opnsense-cli/opnsense"
 
 // General represents a general model item.
 type General struct {
-	Enabled     opnsense.OPNBool `json:"Enabled"`
-	SMTPHost    string           `json:"SMTPHost"`
-	FromEmail   string           `json:"FromEmail"`
-	ToEmail     string           `json:"ToEmail"`
-	Description string           `json:"Description"`
+	Enabled     opnsense.OPNBool `json:"Enabled"`     // Required. Default: 1.
+	SMTPHost    string           `json:"SMTPHost"`    // Required.
+	FromEmail   string           `json:"FromEmail"`   // Required. Default: sample@example.com.
+	ToEmail     string           `json:"ToEmail"`     // Required.
+	Description string           `json:"Description"` // Required.
 }

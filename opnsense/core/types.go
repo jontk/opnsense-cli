@@ -6,14 +6,14 @@ import "github.com/jontk/opnsense-cli/opnsense"
 
 // Settings represents a settings model item.
 type Settings struct {
-	Disablepreempt  opnsense.OPNBool  `json:"disablepreempt"`
-	Disconnectppps  opnsense.OPNBool  `json:"disconnectppps"`
+	Disablepreempt  opnsense.OPNBool  `json:"disablepreempt"` // Required. Default: 0.
+	Disconnectppps  opnsense.OPNBool  `json:"disconnectppps"` // Required. Default: 0.
 	Pfsyncinterface string            `json:"pfsyncinterface,omitempty"`
 	Pfsyncpeerip    string            `json:"pfsyncpeerip,omitempty"`
-	Pfsyncversion   string            `json:"pfsyncversion"` // Valid values: v1301, v1400
+	Pfsyncversion   string            `json:"pfsyncversion"` // Required. Default: 1400. Valid: v1301, v1400.
 	Pfsyncdefer     *opnsense.OPNBool `json:"pfsyncdefer,omitempty"`
 	Synchronizetoip string            `json:"synchronizetoip,omitempty"`
-	Verifypeer      opnsense.OPNBool  `json:"verifypeer"`
+	Verifypeer      opnsense.OPNBool  `json:"verifypeer"` // Required. Default: 0.
 	Username        string            `json:"username,omitempty"`
 	Password        string            `json:"password,omitempty"`
 	Syncitems       string            `json:"syncitems,omitempty"`
@@ -21,15 +21,15 @@ type Settings struct {
 
 // Unbound represents a unbound model item.
 type Unbound struct {
-	Enabled        opnsense.OPNBool `json:"enabled"`
-	Dnssec         opnsense.OPNBool `json:"dnssec"`
-	Dnssecstripped opnsense.OPNBool `json:"dnssecstripped"`
+	Enabled        opnsense.OPNBool `json:"enabled"`        // Required.
+	Dnssec         opnsense.OPNBool `json:"dnssec"`         // Required.
+	Dnssecstripped opnsense.OPNBool `json:"dnssecstripped"` // Required.
 }
 
 // Wan represents a wan model item.
 type Wan struct {
 	Disable       *opnsense.OPNBool `json:"disable,omitempty"`
-	Ipv4Type      string            `json:"ipv4_type"` // Valid values: dhcp, static, pppoe
+	Ipv4Type      string            `json:"ipv4_type"` // Required. Default: dhcp. Valid: dhcp, static, pppoe.
 	Spoofmac      string            `json:"spoofmac,omitempty"`
 	Mtu           *opnsense.OPNInt  `json:"mtu,omitempty"`
 	Mss           *opnsense.OPNInt  `json:"mss,omitempty"`
@@ -47,7 +47,7 @@ type Wan struct {
 type Lan struct {
 	Ipaddr        string            `json:"ipaddr,omitempty"`
 	Disable       *opnsense.OPNBool `json:"disable,omitempty"`
-	ConfigureDhcp opnsense.OPNBool  `json:"configure_dhcp"`
+	ConfigureDhcp opnsense.OPNBool  `json:"configure_dhcp"` // Required. Default: 1.
 }
 
 // DeploymentType represents a deployment_type model item.

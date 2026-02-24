@@ -4,5 +4,5 @@ package iperf
 
 // Settings represents a settings model item.
 type Settings struct {
-	Interface string `json:"interface"`
+	Interface string `json:"interface"` // Required. Default: lan.
 }

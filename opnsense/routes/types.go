@@ -6,8 +6,8 @@ import "github.com/jontk/opnsense-cli/opnsense"
 
 // Route represents a route model item.
 type Route struct {
-	Network  string           `json:"network"`
-	Gateway  string           `json:"gateway"`
+	Network  string           `json:"network"` // Required.
+	Gateway  string           `json:"gateway"` // Required.
 	Descr    string           `json:"descr,omitempty"`
-	Disabled opnsense.OPNBool `json:"disabled"`
+	Disabled opnsense.OPNBool `json:"disabled"` // Required. Default: 0.
 }

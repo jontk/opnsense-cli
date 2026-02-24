@@ -6,12 +6,12 @@ import "github.com/jontk/opnsense-cli/opnsense"
 
 // Settings represents a settings model item.
 type Settings struct {
-	Enabled                      opnsense.OPNBool `json:"enabled"`
-	Proxymode                    opnsense.OPNBool `json:"proxymode"`
-	Remotecommands               opnsense.OPNBool `json:"remotecommands"`
+	Enabled                      opnsense.OPNBool `json:"enabled"`        // Required. Default: 0.
+	Proxymode                    opnsense.OPNBool `json:"proxymode"`      // Required. Default: 0.
+	Remotecommands               opnsense.OPNBool `json:"remotecommands"` // Required. Default: 0.
 	Server                       string           `json:"server,omitempty"`
 	Serverport                   string           `json:"serverport,omitempty"`
-	Hostname                     string           `json:"hostname"`
+	Hostname                     string           `json:"hostname"` // Required. Default: Zabbix proxy.
 	Listenport                   string           `json:"listenport,omitempty"`
 	Listenip                     string           `json:"listenip,omitempty"`
 	Sourceip                     string           `json:"sourceip,omitempty"`
@@ -38,10 +38,10 @@ type Settings struct {
 	Vmwarefrequency              *opnsense.OPNInt `json:"vmwarefrequency,omitempty"`
 	Vmwareperffrequency          *opnsense.OPNInt `json:"vmwareperffrequency,omitempty"`
 	Vmwaretimeout                *opnsense.OPNInt `json:"vmwaretimeout,omitempty"`
-	SyslogEnable                 opnsense.OPNBool `json:"syslogEnable"`
-	LogFileSize                  opnsense.OPNInt  `json:"logFileSize"`
-	DebugLevel                   string           `json:"debugLevel"` // Valid values: val_0, val_1, val_2, val_3, val_4, val_5
-	Encryption                   opnsense.OPNBool `json:"encryption"`
+	SyslogEnable                 opnsense.OPNBool `json:"syslogEnable"` // Required. Default: 0.
+	LogFileSize                  opnsense.OPNInt  `json:"logFileSize"`  // Required. Default: 100.
+	DebugLevel                   string           `json:"debugLevel"`   // Required. Default: val_3. Valid: val_0, val_1, val_2, val_3, val_4, val_5.
+	Encryption                   opnsense.OPNBool `json:"encryption"`   // Required. Default: 0.
 	Encryptionidentity           string           `json:"encryptionidentity,omitempty"`
 	Encryptionpsk                string           `json:"encryptionpsk,omitempty"`
 }

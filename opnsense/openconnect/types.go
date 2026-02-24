@@ -6,16 +6,16 @@ import "github.com/jontk/opnsense-cli/opnsense"
 
 // Settings represents a settings model item.
 type Settings struct {
-	Enabled           opnsense.OPNBool `json:"enabled"`
-	Server            string           `json:"server"`
-	User              string           `json:"user"`
-	Password          string           `json:"password"`
+	Enabled           opnsense.OPNBool `json:"enabled"`  // Required. Default: 0.
+	Server            string           `json:"server"`   // Required. Default: server.
+	User              string           `json:"user"`     // Required. Default: user.
+	Password          string           `json:"password"` // Required. Default: password.
 	Servercert        string           `json:"servercert,omitempty"`
-	Hash              string           `json:"hash"` // Valid values: sha256, sha1, pin-sha256
+	Hash              string           `json:"hash"` // Required. Default: sha256. Valid: sha256, sha1, pin-sha256.
 	Group             string           `json:"group,omitempty"`
 	Clientcertificate string           `json:"clientcertificate,omitempty"`
-	Tokenmode         string           `json:"tokenmode,omitempty"` // Valid values: rsa, totp, hotp, oidc
+	Tokenmode         string           `json:"tokenmode,omitempty"` // Valid: rsa, totp, hotp, oidc.
 	Tokensecret       string           `json:"tokensecret,omitempty"`
-	Allowinsecure     opnsense.OPNBool `json:"allowinsecure"`
-	Protocol          string           `json:"protocol"` // Valid values: anyconnect, nc, pulse, gp, f5, fortinet, array
+	Allowinsecure     opnsense.OPNBool `json:"allowinsecure"` // Required. Default: 0.
+	Protocol          string           `json:"protocol"`      // Required. Default: anyconnect. Valid: anyconnect, nc, pulse, gp, f5, fortinet, array.
 }
