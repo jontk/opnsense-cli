@@ -2,8 +2,8 @@ name: Regenerate SDK
 
 on:
   schedule:
-    # Run every Monday at 06:00 UTC
-    - cron: "0 6 * * 1"
+    # Run on the 1st of each month at 06:00 UTC (aligns with OPNsense quarterly releases)
+    - cron: "0 6 1 * *"
   workflow_dispatch: # allow manual trigger
 
 jobs:
