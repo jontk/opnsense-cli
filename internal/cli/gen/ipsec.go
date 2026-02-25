@@ -78,7 +78,10 @@ var ipsecChildColumns = []cli.Column{
 	}},
 	{Header: "REQID", Extract: func(row any) string {
 		if v, ok := row.(sdk.Child); ok {
-			return fmt.Sprint(v.Reqid)
+			if v.Reqid != nil {
+				return fmt.Sprint(*v.Reqid)
+			}
+			return ""
 		}
 		return ""
 	}},
@@ -993,7 +996,10 @@ var ipsecKeyPairsColumns = []cli.Column{
 	}},
 	{Header: "KEYSIZE", Extract: func(row any) string {
 		if v, ok := row.(sdk.KeyPair); ok {
-			return fmt.Sprint(v.KeySize)
+			if v.KeySize != nil {
+				return fmt.Sprint(*v.KeySize)
+			}
+			return ""
 		}
 		return ""
 	}},

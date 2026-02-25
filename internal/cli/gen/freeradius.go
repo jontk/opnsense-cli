@@ -835,7 +835,10 @@ var freeradiusLdapgroupColumns = []cli.Column{
 	}},
 	{Header: "VLAN", Extract: func(row any) string {
 		if v, ok := row.(sdk.Ldapgroup); ok {
-			return fmt.Sprint(v.Vlan)
+			if v.Vlan != nil {
+				return fmt.Sprint(*v.Vlan)
+			}
+			return ""
 		}
 		return ""
 	}},
@@ -1645,7 +1648,10 @@ var freeradiusRealmColumns = []cli.Column{
 	}},
 	{Header: "NOSTRIP", Extract: func(row any) string {
 		if v, ok := row.(sdk.Realm); ok {
-			return fmt.Sprint(v.Nostrip)
+			if v.Nostrip != nil {
+				return fmt.Sprint(*v.Nostrip)
+			}
+			return ""
 		}
 		return ""
 	}},

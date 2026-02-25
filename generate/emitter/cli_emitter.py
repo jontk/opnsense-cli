@@ -145,10 +145,15 @@ def _columns_for_item(item: ModelItem) -> list[dict[str, str]]:
 
     result = []
     for f in ordered:
+        # Mirror go_emitter pointer logic: optional non-string fields use *Type
+        omitempty = not f.required or f.volatile
+        go_type = f.go_type
+        if omitempty and go_type != "string":
+            go_type = "*" + go_type
         result.append({
             "header": f.json_name.upper().replace("_", " "),
             "field_name": f.go_name,
-            "go_type": f.go_type,
+            "go_type": go_type,
         })
     return result
 

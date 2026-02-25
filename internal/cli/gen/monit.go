@@ -416,7 +416,10 @@ var monitAlertColumns = []cli.Column{
 	}},
 	{Header: "REMINDER", Extract: func(row any) string {
 		if v, ok := row.(sdk.Alert); ok {
-			return fmt.Sprint(v.Reminder)
+			if v.Reminder != nil {
+				return fmt.Sprint(*v.Reminder)
+			}
+			return ""
 		}
 		return ""
 	}},

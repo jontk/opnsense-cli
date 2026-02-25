@@ -73,13 +73,19 @@ var interfacesBridgeSettingsColumns = []cli.Column{
 	}},
 	{Header: "LINKLOCAL", Extract: func(row any) string {
 		if v, ok := row.(sdk.Bridged); ok {
-			return fmt.Sprint(v.Linklocal)
+			if v.Linklocal != nil {
+				return fmt.Sprint(*v.Linklocal)
+			}
+			return ""
 		}
 		return ""
 	}},
 	{Header: "ENABLESTP", Extract: func(row any) string {
 		if v, ok := row.(sdk.Bridged); ok {
-			return fmt.Sprint(v.Enablestp)
+			if v.Enablestp != nil {
+				return fmt.Sprint(*v.Enablestp)
+			}
+			return ""
 		}
 		return ""
 	}},
@@ -91,13 +97,19 @@ var interfacesBridgeSettingsColumns = []cli.Column{
 	}},
 	{Header: "MAXAGE", Extract: func(row any) string {
 		if v, ok := row.(sdk.Bridged); ok {
-			return fmt.Sprint(v.Maxage)
+			if v.Maxage != nil {
+				return fmt.Sprint(*v.Maxage)
+			}
+			return ""
 		}
 		return ""
 	}},
 	{Header: "FWDELAY", Extract: func(row any) string {
 		if v, ok := row.(sdk.Bridged); ok {
-			return fmt.Sprint(v.Fwdelay)
+			if v.Fwdelay != nil {
+				return fmt.Sprint(*v.Fwdelay)
+			}
+			return ""
 		}
 		return ""
 	}},

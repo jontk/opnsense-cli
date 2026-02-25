@@ -748,7 +748,10 @@ var firewallCategoryColumns = []cli.Column{
 	}},
 	{Header: "AUTO", Extract: func(row any) string {
 		if v, ok := row.(sdk.Category); ok {
-			return fmt.Sprint(v.Auto)
+			if v.Auto != nil {
+				return fmt.Sprint(*v.Auto)
+			}
+			return ""
 		}
 		return ""
 	}},
@@ -936,7 +939,10 @@ var firewallRuleColumns = []cli.Column{
 	}},
 	{Header: "NOT", Extract: func(row any) string {
 		if v, ok := row.(sdk.Source); ok {
-			return fmt.Sprint(v.Not)
+			if v.Not != nil {
+				return fmt.Sprint(*v.Not)
+			}
+			return ""
 		}
 		return ""
 	}},
@@ -1780,7 +1786,10 @@ var firewallGroupColumns = []cli.Column{
 	}},
 	{Header: "NOGROUP", Extract: func(row any) string {
 		if v, ok := row.(sdk.Ifgroupentry); ok {
-			return fmt.Sprint(v.Nogroup)
+			if v.Nogroup != nil {
+				return fmt.Sprint(*v.Nogroup)
+			}
+			return ""
 		}
 		return ""
 	}},

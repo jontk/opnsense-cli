@@ -911,7 +911,10 @@ func newUnboundDnsblToggleCmd() *cobra.Command {
 var unboundForwardColumns = []cli.Column{
 	{Header: "ENABLED", Extract: func(row any) string {
 		if v, ok := row.(sdk.Forwarding); ok {
-			return fmt.Sprint(v.Enabled)
+			if v.Enabled != nil {
+				return fmt.Sprint(*v.Enabled)
+			}
+			return ""
 		}
 		return ""
 	}},
@@ -1295,7 +1298,10 @@ var unboundHostOverrideColumns = []cli.Column{
 	}},
 	{Header: "MXPRIO", Extract: func(row any) string {
 		if v, ok := row.(sdk.Host); ok {
-			return fmt.Sprint(v.Mxprio)
+			if v.Mxprio != nil {
+				return fmt.Sprint(*v.Mxprio)
+			}
+			return ""
 		}
 		return ""
 	}},
@@ -1307,7 +1313,10 @@ var unboundHostOverrideColumns = []cli.Column{
 	}},
 	{Header: "TTL", Extract: func(row any) string {
 		if v, ok := row.(sdk.Host); ok {
-			return fmt.Sprint(v.Ttl)
+			if v.Ttl != nil {
+				return fmt.Sprint(*v.Ttl)
+			}
+			return ""
 		}
 		return ""
 	}},

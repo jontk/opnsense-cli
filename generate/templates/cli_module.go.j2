@@ -50,7 +50,14 @@ var {{ m.package_name }}{{ res.go_ident }}Columns = []cli.Column{
 {% for col in res.columns %}
 	{Header: "{{ col.header }}", Extract: func(row any) string {
 		if v, ok := row.(sdk.{{ res.item_type }}); ok {
+{% if col.go_type.startswith('*') %}
+			if v.{{ col.field_name }} != nil {
+				return fmt.Sprint(*v.{{ col.field_name }})
+			}
+			return ""
+{% else %}
 			return fmt.Sprint(v.{{ col.field_name }})
+{% endif %}
 		}
 		return ""
 	}},

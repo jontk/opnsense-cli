@@ -213,13 +213,19 @@ var caddyAccessListColumns = []cli.Column{
 	}},
 	{Header: "ACCESSLISTINVERT", Extract: func(row any) string {
 		if v, ok := row.(sdk.Accesslist); ok {
-			return fmt.Sprint(v.AccesslistInvert)
+			if v.AccesslistInvert != nil {
+				return fmt.Sprint(*v.AccesslistInvert)
+			}
+			return ""
 		}
 		return ""
 	}},
 	{Header: "HTTPRESPONSECODE", Extract: func(row any) string {
 		if v, ok := row.(sdk.Accesslist); ok {
-			return fmt.Sprint(v.HttpResponseCode)
+			if v.HttpResponseCode != nil {
+				return fmt.Sprint(*v.HttpResponseCode)
+			}
+			return ""
 		}
 		return ""
 	}},
@@ -1317,7 +1323,10 @@ var caddyReverseProxyColumns = []cli.Column{
 	}},
 	{Header: "DNSCHALLENGE", Extract: func(row any) string {
 		if v, ok := row.(sdk.Reverse); ok {
-			return fmt.Sprint(v.DnsChallenge)
+			if v.DnsChallenge != nil {
+				return fmt.Sprint(*v.DnsChallenge)
+			}
+			return ""
 		}
 		return ""
 	}},
@@ -1545,7 +1554,10 @@ var caddySubdomainColumns = []cli.Column{
 	}},
 	{Header: "DYNDNS", Extract: func(row any) string {
 		if v, ok := row.(sdk.Subdomain); ok {
-			return fmt.Sprint(v.DynDns)
+			if v.DynDns != nil {
+				return fmt.Sprint(*v.DynDns)
+			}
+			return ""
 		}
 		return ""
 	}},

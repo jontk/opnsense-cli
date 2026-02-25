@@ -557,7 +557,10 @@ var dnsmasqHostColumns = []cli.Column{
 	}},
 	{Header: "LOCAL", Extract: func(row any) string {
 		if v, ok := row.(sdk.Hosts); ok {
-			return fmt.Sprint(v.Local)
+			if v.Local != nil {
+				return fmt.Sprint(*v.Local)
+			}
+			return ""
 		}
 		return ""
 	}},
@@ -587,7 +590,10 @@ var dnsmasqHostColumns = []cli.Column{
 	}},
 	{Header: "LEASE TIME", Extract: func(row any) string {
 		if v, ok := row.(sdk.Hosts); ok {
-			return fmt.Sprint(v.LeaseTime)
+			if v.LeaseTime != nil {
+				return fmt.Sprint(*v.LeaseTime)
+			}
+			return ""
 		}
 		return ""
 	}},

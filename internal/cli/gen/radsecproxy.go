@@ -1153,7 +1153,10 @@ var radsecproxyTlsColumns = []cli.Column{
 	}},
 	{Header: "CACHEEXPIRY", Extract: func(row any) string {
 		if v, ok := row.(sdk.TlsConfig); ok {
-			return fmt.Sprint(v.CacheExpiry)
+			if v.CacheExpiry != nil {
+				return fmt.Sprint(*v.CacheExpiry)
+			}
+			return ""
 		}
 		return ""
 	}},

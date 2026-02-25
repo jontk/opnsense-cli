@@ -430,7 +430,10 @@ var haproxyServerColumns = []cli.Column{
 	}},
 	{Header: "PORT", Extract: func(row any) string {
 		if v, ok := row.(sdk.Server); ok {
-			return fmt.Sprint(v.Port)
+			if v.Port != nil {
+				return fmt.Sprint(*v.Port)
+			}
+			return ""
 		}
 		return ""
 	}},
@@ -442,7 +445,10 @@ var haproxyServerColumns = []cli.Column{
 	}},
 	{Header: "CHECKPORT", Extract: func(row any) string {
 		if v, ok := row.(sdk.Server); ok {
-			return fmt.Sprint(v.Checkport)
+			if v.Checkport != nil {
+				return fmt.Sprint(*v.Checkport)
+			}
+			return ""
 		}
 		return ""
 	}},
@@ -771,7 +777,10 @@ var haproxyAclColumns = []cli.Column{
 	}},
 	{Header: "CASESENSITIVE", Extract: func(row any) string {
 		if v, ok := row.(sdk.Acl); ok {
-			return fmt.Sprint(v.CaseSensitive)
+			if v.CaseSensitive != nil {
+				return fmt.Sprint(*v.CaseSensitive)
+			}
+			return ""
 		}
 		return ""
 	}},
@@ -1716,7 +1725,10 @@ var haproxyFcgiColumns = []cli.Column{
 	}},
 	{Header: "LOG STDERR", Extract: func(row any) string {
 		if v, ok := row.(sdk.Fcgi); ok {
-			return fmt.Sprint(v.LogStderr)
+			if v.LogStderr != nil {
+				return fmt.Sprint(*v.LogStderr)
+			}
+			return ""
 		}
 		return ""
 	}},
@@ -2096,7 +2108,10 @@ var haproxyGroupColumns = []cli.Column{
 	}},
 	{Header: "ADD USERLIST", Extract: func(row any) string {
 		if v, ok := row.(sdk.Group); ok {
-			return fmt.Sprint(v.AddUserlist)
+			if v.AddUserlist != nil {
+				return fmt.Sprint(*v.AddUserlist)
+			}
+			return ""
 		}
 		return ""
 	}},
@@ -2297,13 +2312,19 @@ var haproxyHealthcheckColumns = []cli.Column{
 	}},
 	{Header: "FORCE SSL", Extract: func(row any) string {
 		if v, ok := row.(sdk.Healthcheck); ok {
-			return fmt.Sprint(v.ForceSsl)
+			if v.ForceSsl != nil {
+				return fmt.Sprint(*v.ForceSsl)
+			}
+			return ""
 		}
 		return ""
 	}},
 	{Header: "CHECKPORT", Extract: func(row any) string {
 		if v, ok := row.(sdk.Healthcheck); ok {
-			return fmt.Sprint(v.Checkport)
+			if v.Checkport != nil {
+				return fmt.Sprint(*v.Checkport)
+			}
+			return ""
 		}
 		return ""
 	}},

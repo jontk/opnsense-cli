@@ -147,7 +147,10 @@ var trafficshaperPipeColumns = []cli.Column{
 	}},
 	{Header: "QUEUE", Extract: func(row any) string {
 		if v, ok := row.(sdk.Pipe); ok {
-			return fmt.Sprint(v.Queue)
+			if v.Queue != nil {
+				return fmt.Sprint(*v.Queue)
+			}
+			return ""
 		}
 		return ""
 	}},
@@ -159,7 +162,10 @@ var trafficshaperPipeColumns = []cli.Column{
 	}},
 	{Header: "BUCKETS", Extract: func(row any) string {
 		if v, ok := row.(sdk.Pipe); ok {
-			return fmt.Sprint(v.Buckets)
+			if v.Buckets != nil {
+				return fmt.Sprint(*v.Buckets)
+			}
+			return ""
 		}
 		return ""
 	}},
@@ -360,7 +366,10 @@ var trafficshaperQueueColumns = []cli.Column{
 	}},
 	{Header: "BUCKETS", Extract: func(row any) string {
 		if v, ok := row.(sdk.Queue); ok {
-			return fmt.Sprint(v.Buckets)
+			if v.Buckets != nil {
+				return fmt.Sprint(*v.Buckets)
+			}
+			return ""
 		}
 		return ""
 	}},
@@ -567,7 +576,10 @@ var trafficshaperRuleColumns = []cli.Column{
 	}},
 	{Header: "IPLEN", Extract: func(row any) string {
 		if v, ok := row.(sdk.Rule); ok {
-			return fmt.Sprint(v.Iplen)
+			if v.Iplen != nil {
+				return fmt.Sprint(*v.Iplen)
+			}
+			return ""
 		}
 		return ""
 	}},

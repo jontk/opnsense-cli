@@ -722,7 +722,10 @@ var quaggaPeergroupColumns = []cli.Column{
 	}},
 	{Header: "REMOTEAS", Extract: func(row any) string {
 		if v, ok := row.(sdk.Peergroup); ok {
-			return fmt.Sprint(v.Remoteas)
+			if v.Remoteas != nil {
+				return fmt.Sprint(*v.Remoteas)
+			}
+			return ""
 		}
 		return ""
 	}},
@@ -746,7 +749,10 @@ var quaggaPeergroupColumns = []cli.Column{
 	}},
 	{Header: "NEXTHOPSELF", Extract: func(row any) string {
 		if v, ok := row.(sdk.Peergroup); ok {
-			return fmt.Sprint(v.Nexthopself)
+			if v.Nexthopself != nil {
+				return fmt.Sprint(*v.Nexthopself)
+			}
+			return ""
 		}
 		return ""
 	}},
@@ -2097,13 +2103,19 @@ var quaggaInterfaceColumns = []cli.Column{
 	}},
 	{Header: "COST", Extract: func(row any) string {
 		if v, ok := row.(sdk.Interface); ok {
-			return fmt.Sprint(v.Cost)
+			if v.Cost != nil {
+				return fmt.Sprint(*v.Cost)
+			}
+			return ""
 		}
 		return ""
 	}},
 	{Header: "COST DEMOTED", Extract: func(row any) string {
 		if v, ok := row.(sdk.Interface); ok {
-			return fmt.Sprint(v.CostDemoted)
+			if v.CostDemoted != nil {
+				return fmt.Sprint(*v.CostDemoted)
+			}
+			return ""
 		}
 		return ""
 	}},
@@ -2115,7 +2127,10 @@ var quaggaInterfaceColumns = []cli.Column{
 	}},
 	{Header: "HELLOINTERVAL", Extract: func(row any) string {
 		if v, ok := row.(sdk.Interface); ok {
-			return fmt.Sprint(v.Hellointerval)
+			if v.Hellointerval != nil {
+				return fmt.Sprint(*v.Hellointerval)
+			}
+			return ""
 		}
 		return ""
 	}},

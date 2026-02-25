@@ -485,7 +485,10 @@ var proxyPacMatchColumns = []cli.Column{
 	}},
 	{Header: "DOMAIN LEVEL FROM", Extract: func(row any) string {
 		if v, ok := row.(sdk.Match); ok {
-			return fmt.Sprint(v.DomainLevelFrom)
+			if v.DomainLevelFrom != nil {
+				return fmt.Sprint(*v.DomainLevelFrom)
+			}
+			return ""
 		}
 		return ""
 	}},

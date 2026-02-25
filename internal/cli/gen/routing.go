@@ -79,13 +79,19 @@ var routingGatewayColumns = []cli.Column{
 	}},
 	{Header: "DEFAULTGW", Extract: func(row any) string {
 		if v, ok := row.(sdk.GatewayItem); ok {
-			return fmt.Sprint(v.Defaultgw)
+			if v.Defaultgw != nil {
+				return fmt.Sprint(*v.Defaultgw)
+			}
+			return ""
 		}
 		return ""
 	}},
 	{Header: "FARGW", Extract: func(row any) string {
 		if v, ok := row.(sdk.GatewayItem); ok {
-			return fmt.Sprint(v.Fargw)
+			if v.Fargw != nil {
+				return fmt.Sprint(*v.Fargw)
+			}
+			return ""
 		}
 		return ""
 	}},

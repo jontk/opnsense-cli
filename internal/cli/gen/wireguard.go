@@ -547,7 +547,10 @@ var wireguardServerColumns = []cli.Column{
 	}},
 	{Header: "MTU", Extract: func(row any) string {
 		if v, ok := row.(sdk.Server); ok {
-			return fmt.Sprint(v.Mtu)
+			if v.Mtu != nil {
+				return fmt.Sprint(*v.Mtu)
+			}
+			return ""
 		}
 		return ""
 	}},
