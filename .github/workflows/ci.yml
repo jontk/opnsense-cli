@@ -42,7 +42,7 @@ jobs:
           cache: pip
 
       - name: Install dependencies
-        run: pip install jinja2 requests beautifulsoup4 markdownify pytest
+        run: pip install -r requirements.txt
 
       - name: Test
         run: python -m pytest generate/tests/ -v
