@@ -6,157 +6,157 @@ import "github.com/jontk/opnsense-cli/opnsense"
 
 // Connection represents a Connection model item.
 type Connection struct {
-	Enabled     opnsense.OPNBool `json:"enabled"`    // Required. Default: 1.
-	Proposals   string           `json:"proposals"`  // Required. Default: default.
-	Unique      string           `json:"unique"`     // Required. Default: no. Valid: no, never, keep, replace.
-	Aggressive  opnsense.OPNBool `json:"aggressive"` // Required. Default: 0.
-	Version     string           `json:"version"`    // Required. Default: 0. Valid: ike, ikev1, ikev2.
-	Mobike      opnsense.OPNBool `json:"mobike"`     // Required. Default: 1.
-	LocalAddrs  string           `json:"local_addrs,omitempty"`
-	LocalPort   string           `json:"local_port,omitempty"` // Valid: port500, port4500.
-	RemoteAddrs string           `json:"remote_addrs,omitempty"`
-	RemotePort  string           `json:"remote_port,omitempty"` // Valid: port500, port4500.
-	Encap       opnsense.OPNBool `json:"encap"`                 // Required. Default: 0.
-	ReauthTime  *opnsense.OPNInt `json:"reauth_time,omitempty"`
-	RekeyTime   *opnsense.OPNInt `json:"rekey_time,omitempty"`
-	OverTime    *opnsense.OPNInt `json:"over_time,omitempty"`
-	DpdDelay    *opnsense.OPNInt `json:"dpd_delay,omitempty"`
-	DpdTimeout  *opnsense.OPNInt `json:"dpd_timeout,omitempty"`
-	Pools       string           `json:"pools,omitempty"`
-	SendCertreq opnsense.OPNBool `json:"send_certreq"`        // Required. Default: 1.
-	SendCert    string           `json:"send_cert,omitempty"` // Valid: ifasked, never, always.
+	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
+	Proposals string `json:"proposals"` // Required. Default: default.
+	Unique string `json:"unique"` // Required. Default: no. Valid: no, never, keep, replace.
+	Aggressive opnsense.OPNBool `json:"aggressive"` // Required. Default: 0.
+	Version string `json:"version"` // Required. Default: 0. Valid: ike, ikev1, ikev2.
+	Mobike opnsense.OPNBool `json:"mobike"` // Required. Default: 1.
+	LocalAddrs string `json:"local_addrs,omitempty"`
+	LocalPort string `json:"local_port,omitempty"` // Valid: port500, port4500.
+	RemoteAddrs string `json:"remote_addrs,omitempty"`
+	RemotePort string `json:"remote_port,omitempty"` // Valid: port500, port4500.
+	Encap opnsense.OPNBool `json:"encap"` // Required. Default: 0.
+	ReauthTime *opnsense.OPNInt `json:"reauth_time,omitempty"`
+	RekeyTime *opnsense.OPNInt `json:"rekey_time,omitempty"`
+	OverTime *opnsense.OPNInt `json:"over_time,omitempty"`
+	DpdDelay *opnsense.OPNInt `json:"dpd_delay,omitempty"`
+	DpdTimeout *opnsense.OPNInt `json:"dpd_timeout,omitempty"`
+	Pools string `json:"pools,omitempty"`
+	SendCertreq opnsense.OPNBool `json:"send_certreq"` // Required. Default: 1.
+	SendCert string `json:"send_cert,omitempty"` // Valid: ifasked, never, always.
 	Keyingtries *opnsense.OPNInt `json:"keyingtries,omitempty"`
-	Description string           `json:"description"` // Required.
-	LocalTs     string           `json:"local_ts,omitempty"`
-	RemoteTs    string           `json:"remote_ts,omitempty"`
+	Description string `json:"description"` // Required.
+	LocalTs string `json:"local_ts,omitempty"`
+	RemoteTs string `json:"remote_ts,omitempty"`
 }
 
 // Local represents a local model item.
 type Local struct {
-	Enabled     opnsense.OPNBool `json:"enabled"`    // Required. Default: 1.
-	Connection  string           `json:"connection"` // Required.
-	Round       opnsense.OPNInt  `json:"round"`      // Required. Default: 0.
-	Auth        string           `json:"auth"`       // Required. Default: psk. Valid: psk, pubkey, eap_tls, eap_mschapv2, xauth_pam, eap_radius.
-	Id          string           `json:"id,omitempty"`
-	EapId       string           `json:"eap_id,omitempty"`
-	Certs       string           `json:"certs,omitempty"`
-	Pubkeys     string           `json:"pubkeys,omitempty"`
-	Description string           `json:"description,omitempty"`
+	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
+	Connection string `json:"connection"` // Required.
+	Round opnsense.OPNInt `json:"round"` // Required. Default: 0.
+	Auth string `json:"auth"` // Required. Default: psk. Valid: psk, pubkey, eap_tls, eap_mschapv2, xauth_pam, eap_radius.
+	Id string `json:"id,omitempty"`
+	EapId string `json:"eap_id,omitempty"`
+	Certs string `json:"certs,omitempty"`
+	Pubkeys string `json:"pubkeys,omitempty"`
+	Description string `json:"description,omitempty"`
 }
 
 // Remote represents a remote model item.
 type Remote struct {
-	Enabled     opnsense.OPNBool `json:"enabled"`    // Required. Default: 1.
-	Connection  string           `json:"connection"` // Required.
-	Round       opnsense.OPNInt  `json:"round"`      // Required. Default: 0.
-	Auth        string           `json:"auth"`       // Required. Default: psk. Valid: psk, pubkey, eap_tls, eap_mschapv2, xauth_pam, eap_radius.
-	Id          string           `json:"id,omitempty"`
-	EapId       string           `json:"eap_id,omitempty"`
-	Groups      string           `json:"groups,omitempty"`
-	Certs       string           `json:"certs,omitempty"`
-	Cacerts     string           `json:"cacerts,omitempty"`
-	Pubkeys     string           `json:"pubkeys,omitempty"`
-	Description string           `json:"description,omitempty"`
+	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
+	Connection string `json:"connection"` // Required.
+	Round opnsense.OPNInt `json:"round"` // Required. Default: 0.
+	Auth string `json:"auth"` // Required. Default: psk. Valid: psk, pubkey, eap_tls, eap_mschapv2, xauth_pam, eap_radius.
+	Id string `json:"id,omitempty"`
+	EapId string `json:"eap_id,omitempty"`
+	Groups string `json:"groups,omitempty"`
+	Certs string `json:"certs,omitempty"`
+	Cacerts string `json:"cacerts,omitempty"`
+	Pubkeys string `json:"pubkeys,omitempty"`
+	Description string `json:"description,omitempty"`
 }
 
 // Child represents a child model item.
 type Child struct {
-	Enabled      opnsense.OPNBool `json:"enabled"`    // Required. Default: 1.
-	Connection   string           `json:"connection"` // Required.
-	Reqid        *opnsense.OPNInt `json:"reqid,omitempty"`
-	EspProposals string           `json:"esp_proposals"` // Required. Default: default.
-	Sha25696     opnsense.OPNBool `json:"sha256_96"`     // Required. Default: 0.
-	StartAction  string           `json:"start_action"`  // Required. Default: start. Valid: none, trap_start, route, start, trap.
-	CloseAction  string           `json:"close_action"`  // Required. Default: none. Valid: none, trap, start.
-	DpdAction    string           `json:"dpd_action"`    // Required. Default: clear. Valid: clear, trap, start.
-	Mode         string           `json:"mode"`          // Required. Default: tunnel. Valid: tunnel, transport, pass, drop.
-	Policies     opnsense.OPNBool `json:"policies"`      // Required. Default: 1.
-	LocalTs      string           `json:"local_ts,omitempty"`
-	RemoteTs     string           `json:"remote_ts,omitempty"`
-	RekeyTime    opnsense.OPNInt  `json:"rekey_time"` // Required. Default: 3600.
-	Description  string           `json:"description,omitempty"`
+	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
+	Connection string `json:"connection"` // Required.
+	Reqid *opnsense.OPNInt `json:"reqid,omitempty"`
+	EspProposals string `json:"esp_proposals"` // Required. Default: default.
+	Sha25696 opnsense.OPNBool `json:"sha256_96"` // Required. Default: 0.
+	StartAction string `json:"start_action"` // Required. Default: start. Valid: none, trap_start, route, start, trap.
+	CloseAction string `json:"close_action"` // Required. Default: none. Valid: none, trap, start.
+	DpdAction string `json:"dpd_action"` // Required. Default: clear. Valid: clear, trap, start.
+	Mode string `json:"mode"` // Required. Default: tunnel. Valid: tunnel, transport, pass, drop.
+	Policies opnsense.OPNBool `json:"policies"` // Required. Default: 1.
+	LocalTs string `json:"local_ts,omitempty"`
+	RemoteTs string `json:"remote_ts,omitempty"`
+	RekeyTime opnsense.OPNInt `json:"rekey_time"` // Required. Default: 3600.
+	Description string `json:"description,omitempty"`
 }
 
 // Pool represents a Pool model item.
 type Pool struct {
 	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
-	Name    string           `json:"name"`    // Required.
-	Addrs   string           `json:"addrs"`   // Required.
-	Dns     string           `json:"dns,omitempty"`
+	Name string `json:"name"` // Required.
+	Addrs string `json:"addrs"` // Required.
+	Dns string `json:"dns,omitempty"`
 }
 
 // VTI represents a VTI model item.
 type VTI struct {
-	Enabled       opnsense.OPNBool  `json:"enabled"` // Required. Default: 1.
-	Reqid         opnsense.OPNInt   `json:"reqid"`   // Required.
-	Local         string            `json:"local,omitempty"`
-	Remote        string            `json:"remote,omitempty"`
-	TunnelLocal   string            `json:"tunnel_local"`  // Required.
-	TunnelRemote  string            `json:"tunnel_remote"` // Required.
-	TunnelLocal2  string            `json:"tunnel_local2,omitempty"`
-	TunnelRemote2 string            `json:"tunnel_remote2,omitempty"`
-	SkipFw        *opnsense.OPNBool `json:"skip_fw,omitempty"`
-	Origin        string            `json:"origin,omitempty"`
-	Description   string            `json:"description,omitempty"`
+	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
+	Reqid opnsense.OPNInt `json:"reqid"` // Required.
+	Local string `json:"local,omitempty"`
+	Remote string `json:"remote,omitempty"`
+	TunnelLocal string `json:"tunnel_local"` // Required.
+	TunnelRemote string `json:"tunnel_remote"` // Required.
+	TunnelLocal2 string `json:"tunnel_local2,omitempty"`
+	TunnelRemote2 string `json:"tunnel_remote2,omitempty"`
+	SkipFw *opnsense.OPNBool `json:"skip_fw,omitempty"`
+	Origin string `json:"origin,omitempty"`
+	Description string `json:"description,omitempty"`
 }
 
 // SPD represents a SPD model item.
 type SPD struct {
-	Enabled         opnsense.OPNBool `json:"enabled"`  // Required. Default: 1.
-	Protocol        string           `json:"protocol"` // Required. Default: esp. Valid: esp, ah.
-	Reqid           *opnsense.OPNInt `json:"reqid,omitempty"`
-	ConnectionChild string           `json:"connection_child,omitempty"`
-	Source          string           `json:"source"` // Required.
-	Destination     string           `json:"destination,omitempty"`
-	Description     string           `json:"description,omitempty"`
-	Origin          string           `json:"origin,omitempty"`
+	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
+	Protocol string `json:"protocol"` // Required. Default: esp. Valid: esp, ah.
+	Reqid *opnsense.OPNInt `json:"reqid,omitempty"`
+	ConnectionChild string `json:"connection_child,omitempty"`
+	Source string `json:"source"` // Required.
+	Destination string `json:"destination,omitempty"`
+	Description string `json:"description,omitempty"`
+	Origin string `json:"origin,omitempty"`
 }
 
 // General represents a general model item.
 type General struct {
-	Enabled             string           `json:"enabled,omitempty"`
-	PreferredOldsa      opnsense.OPNBool `json:"preferred_oldsa"` // Required. Default: 0.
-	Disablevpnrules     opnsense.OPNBool `json:"disablevpnrules"` // Required. Default: 0.
-	PassthroughNetworks string           `json:"passthrough_networks,omitempty"`
-	UserSource          string           `json:"user_source,omitempty"`
-	LocalGroup          string           `json:"local_group,omitempty"`
+	Enabled string `json:"enabled,omitempty"`
+	PreferredOldsa opnsense.OPNBool `json:"preferred_oldsa"` // Required. Default: 0.
+	Disablevpnrules opnsense.OPNBool `json:"disablevpnrules"` // Required. Default: 0.
+	PassthroughNetworks string `json:"passthrough_networks,omitempty"`
+	UserSource string `json:"user_source,omitempty"`
+	LocalGroup string `json:"local_group,omitempty"`
 }
 
 // Charon represents a charon model item.
 type Charon struct {
-	MaxIkev1Exchanges  *opnsense.OPNInt  `json:"max_ikev1_exchanges,omitempty"`
-	Threads            opnsense.OPNInt   `json:"threads"`              // Required. Default: 16.
-	IkesaTableSize     opnsense.OPNInt   `json:"ikesa_table_size"`     // Required. Default: 32.
-	IkesaTableSegments opnsense.OPNInt   `json:"ikesa_table_segments"` // Required. Default: 4.
-	InitLimitHalfOpen  opnsense.OPNInt   `json:"init_limit_half_open"` // Required. Default: 1000.
-	IgnoreAcquireTs    opnsense.OPNBool  `json:"ignore_acquire_ts"`    // Required. Default: 1.
-	InstallRoutes      *opnsense.OPNBool `json:"install_routes,omitempty"`
-	CiscoUnity         *opnsense.OPNBool `json:"cisco_unity,omitempty"`
-	MakeBeforeBreak    opnsense.OPNBool  `json:"make_before_break"` // Required. Default: 0.
-	RetransmitTries    *opnsense.OPNInt  `json:"retransmit_tries,omitempty"`
-	RetransmitTimeout  string            `json:"retransmit_timeout,omitempty"`
-	RetransmitBase     string            `json:"retransmit_base,omitempty"`
-	RetransmitJitter   *opnsense.OPNInt  `json:"retransmit_jitter,omitempty"`
-	RetransmitLimit    *opnsense.OPNInt  `json:"retransmit_limit,omitempty"`
-	ReqidBase          *opnsense.OPNInt  `json:"reqid_base,omitempty"`
+	MaxIkev1Exchanges *opnsense.OPNInt `json:"max_ikev1_exchanges,omitempty"`
+	Threads opnsense.OPNInt `json:"threads"` // Required. Default: 16.
+	IkesaTableSize opnsense.OPNInt `json:"ikesa_table_size"` // Required. Default: 32.
+	IkesaTableSegments opnsense.OPNInt `json:"ikesa_table_segments"` // Required. Default: 4.
+	InitLimitHalfOpen opnsense.OPNInt `json:"init_limit_half_open"` // Required. Default: 1000.
+	IgnoreAcquireTs opnsense.OPNBool `json:"ignore_acquire_ts"` // Required. Default: 1.
+	InstallRoutes *opnsense.OPNBool `json:"install_routes,omitempty"`
+	CiscoUnity *opnsense.OPNBool `json:"cisco_unity,omitempty"`
+	MakeBeforeBreak opnsense.OPNBool `json:"make_before_break"` // Required. Default: 0.
+	RetransmitTries *opnsense.OPNInt `json:"retransmit_tries,omitempty"`
+	RetransmitTimeout string `json:"retransmit_timeout,omitempty"`
+	RetransmitBase string `json:"retransmit_base,omitempty"`
+	RetransmitJitter *opnsense.OPNInt `json:"retransmit_jitter,omitempty"`
+	RetransmitLimit *opnsense.OPNInt `json:"retransmit_limit,omitempty"`
+	ReqidBase *opnsense.OPNInt `json:"reqid_base,omitempty"`
 }
 
 // KeyPair represents a keyPair model item.
 type KeyPair struct {
-	Name           string           `json:"name"`      // Required.
-	KeyType        string           `json:"keyType"`   // Required. Default: rsa. Valid: rsa, ecdsa.
-	PublicKey      string           `json:"publicKey"` // Required.
-	PrivateKey     string           `json:"privateKey,omitempty"`
-	KeySize        *opnsense.OPNInt `json:"keySize,omitempty"`
-	KeyFingerprint string           `json:"keyFingerprint,omitempty"`
+	Name string `json:"name"` // Required.
+	KeyType string `json:"keyType"` // Required. Default: rsa. Valid: rsa, ecdsa.
+	PublicKey string `json:"publicKey"` // Required.
+	PrivateKey string `json:"privateKey,omitempty"`
+	KeySize *opnsense.OPNInt `json:"keySize,omitempty"`
+	KeyFingerprint string `json:"keyFingerprint,omitempty"`
 }
 
 // PreSharedKey represents a preSharedKey model item.
 type PreSharedKey struct {
-	Ident       string `json:"ident"` // Required.
+	Ident string `json:"ident"` // Required.
 	RemoteIdent string `json:"remote_ident,omitempty"`
-	KeyType     string `json:"keyType"` // Required. Default: PSK. Valid: PSK, EAP.
-	Key         string `json:"Key,omitempty"`
+	KeyType string `json:"keyType"` // Required. Default: PSK. Valid: PSK, EAP.
+	Key string `json:"Key,omitempty"`
 	Description string `json:"description,omitempty"`
 }
 

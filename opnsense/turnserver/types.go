@@ -6,21 +6,21 @@ import "github.com/jontk/opnsense-cli/opnsense"
 
 // Settings represents a settings model item.
 type Settings struct {
-	Enabled             opnsense.OPNBool `json:"Enabled"`    // Required. Default: 0.
-	ListenIP            string           `json:"ListenIP"`   // Required. Default: 127.0.0.1.
-	ListenPort          string           `json:"ListenPort"` // Required. Default: 3478.
-	MinPort             string           `json:"MinPort"`    // Required. Default: 49152.
-	MaxPort             string           `json:"MaxPort"`    // Required. Default: 65535.
-	TlsEnabled          opnsense.OPNBool `json:"TlsEnabled"` // Required. Default: 0.
-	TlsCertificate      string           `json:"TlsCertificate,omitempty"`
-	TlsPort             string           `json:"TlsPort"`       // Required. Default: 5349.
-	UseAuthSecret       opnsense.OPNBool `json:"UseAuthSecret"` // Required. Default: 1.
-	StaticAuthSecret    string           `json:"StaticAuthSecret,omitempty"`
-	Realm               string           `json:"Realm,omitempty"`
+	Enabled opnsense.OPNBool `json:"Enabled"` // Required. Default: 0.
+	ListenIP string `json:"ListenIP"` // Required. Default: 127.0.0.1.
+	ListenPort string `json:"ListenPort"` // Required. Default: 3478.
+	MinPort string `json:"MinPort"` // Required. Default: 49152.
+	MaxPort string `json:"MaxPort"` // Required. Default: 65535.
+	TlsEnabled opnsense.OPNBool `json:"TlsEnabled"` // Required. Default: 0.
+	TlsCertificate string `json:"TlsCertificate,omitempty"`
+	TlsPort string `json:"TlsPort"` // Required. Default: 5349.
+	UseAuthSecret opnsense.OPNBool `json:"UseAuthSecret"` // Required. Default: 1.
+	StaticAuthSecret string `json:"StaticAuthSecret,omitempty"`
+	Realm string `json:"Realm,omitempty"`
 	FingerprintsEnabled opnsense.OPNBool `json:"FingerprintsEnabled"` // Required. Default: 1.
-	UserQuota           opnsense.OPNInt  `json:"UserQuota"`           // Required. Default: 0.
-	TotalQuota          opnsense.OPNInt  `json:"TotalQuota"`          // Required. Default: 0.
-	StaleNonce          opnsense.OPNInt  `json:"StaleNonce"`          // Required. Default: 600.
-	ChannelLifetime     opnsense.OPNInt  `json:"ChannelLifetime"`     // Required. Default: 600.
-	PermissionLifetime  opnsense.OPNInt  `json:"PermissionLifetime"`  // Required. Default: 300.
+	UserQuota opnsense.OPNInt `json:"UserQuota"` // Required. Default: 0.
+	TotalQuota opnsense.OPNInt `json:"TotalQuota"` // Required. Default: 0.
+	StaleNonce opnsense.OPNInt `json:"StaleNonce"` // Required. Default: 600.
+	ChannelLifetime opnsense.OPNInt `json:"ChannelLifetime"` // Required. Default: 600.
+	PermissionLifetime opnsense.OPNInt `json:"PermissionLifetime"` // Required. Default: 300.
 }

@@ -6,16 +6,16 @@ import "github.com/jontk/opnsense-cli/opnsense"
 
 // ClientConfig represents a client model item.
 type ClientConfig struct {
-	Enabled       opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
-	Name          string           `json:"name"`    // Required.
-	Pubkey        string           `json:"pubkey"`  // Required.
-	Psk           string           `json:"psk,omitempty"`
-	Tunneladdress string           `json:"tunneladdress"` // Required.
-	Serveraddress string           `json:"serveraddress,omitempty"`
-	Serverport    string           `json:"serverport,omitempty"`
-	Endpoint      string           `json:"endpoint,omitempty"`
-	Keepalive     *opnsense.OPNInt `json:"keepalive,omitempty"`
-	Servers       string           `json:"servers,omitempty"`
+	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
+	Name string `json:"name"` // Required.
+	Pubkey string `json:"pubkey"` // Required.
+	Psk string `json:"psk,omitempty"`
+	Tunneladdress string `json:"tunneladdress"` // Required.
+	Serveraddress string `json:"serveraddress,omitempty"`
+	Serverport string `json:"serverport,omitempty"`
+	Endpoint string `json:"endpoint,omitempty"`
+	Keepalive *opnsense.OPNInt `json:"keepalive,omitempty"`
+	Servers string `json:"servers,omitempty"`
 }
 
 // Settings represents a settings model item.
@@ -25,25 +25,25 @@ type Settings struct {
 
 // Server represents a server model item.
 type Server struct {
-	Enabled       opnsense.OPNBool `json:"enabled"`  // Required. Default: 1.
-	Name          string           `json:"name"`     // Required.
-	Instance      string           `json:"instance"` // Required.
-	Pubkey        string           `json:"pubkey,omitempty"`
-	Privkey       string           `json:"privkey"` // Required.
-	Port          string           `json:"port,omitempty"`
-	Mtu           *opnsense.OPNInt `json:"mtu,omitempty"`
-	Dns           string           `json:"dns,omitempty"`
-	Tunneladdress string           `json:"tunneladdress,omitempty"`
+	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
+	Name string `json:"name"` // Required.
+	Instance string `json:"instance"` // Required.
+	Pubkey string `json:"pubkey,omitempty"`
+	Privkey string `json:"privkey"` // Required.
+	Port string `json:"port,omitempty"`
+	Mtu *opnsense.OPNInt `json:"mtu,omitempty"`
+	Dns string `json:"dns,omitempty"`
+	Tunneladdress string `json:"tunneladdress,omitempty"`
 	Disableroutes opnsense.OPNBool `json:"disableroutes"` // Required. Default: 0.
-	Gateway       string           `json:"gateway,omitempty"`
-	CarpDependOn  string           `json:"carp_depend_on,omitempty"`
-	Peers         string           `json:"peers,omitempty"`
-	Debug         opnsense.OPNBool `json:"debug"` // Required. Default: 0.
-	CnfFilename   string           `json:"cnfFilename,omitempty"`
-	StatFilename  string           `json:"statFilename,omitempty"`
-	Interface     string           `json:"interface,omitempty"`
-	Endpoint      string           `json:"endpoint,omitempty"`
-	PeerDns       string           `json:"peer_dns,omitempty"`
+	Gateway string `json:"gateway,omitempty"`
+	CarpDependOn string `json:"carp_depend_on,omitempty"`
+	Peers string `json:"peers,omitempty"`
+	Debug opnsense.OPNBool `json:"debug"` // Required. Default: 0.
+	CnfFilename string `json:"cnfFilename,omitempty"`
+	StatFilename string `json:"statFilename,omitempty"`
+	Interface string `json:"interface,omitempty"`
+	Endpoint string `json:"endpoint,omitempty"`
+	PeerDns string `json:"peer_dns,omitempty"`
 }
 
 type clientGetItemResponse struct {

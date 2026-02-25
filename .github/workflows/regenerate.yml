@@ -36,7 +36,7 @@ jobs:
       - name: Check for changes
         id: diff
         run: |
-          git diff --quiet opnsense/ || echo "changed=true" >> "$GITHUB_OUTPUT"
+          git diff --quiet opnsense/ internal/cli/gen/ || echo "changed=true" >> "$GITHUB_OUTPUT"
 
       - name: Create pull request
         if: steps.diff.outputs.changed == 'true'
@@ -47,7 +47,7 @@ jobs:
           delete-branch: true
           title: "chore: regenerate SDK from latest OPNsense docs"
           body: |
-            Automated weekly regeneration of the Go SDK from the latest OPNsense API documentation.
+            Automated monthly regeneration of the Go SDK and CLI commands from the latest OPNsense API documentation.
 
             Review the diff to check for new endpoints, changed types, or removed endpoints before merging.
           labels: automated

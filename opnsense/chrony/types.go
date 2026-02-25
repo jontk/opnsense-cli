@@ -6,11 +6,11 @@ import "github.com/jontk/opnsense-cli/opnsense"
 
 // Settings represents a settings model item.
 type Settings struct {
-	Enabled         opnsense.OPNBool `json:"enabled"`   // Required. Default: 0.
-	Port            string           `json:"port"`      // Required. Default: 323.
-	Ntsclient       opnsense.OPNBool `json:"ntsclient"` // Required. Default: 0.
-	Ntsnocert       opnsense.OPNBool `json:"ntsnocert"` // Required. Default: 0.
-	Peers           string           `json:"peers"`     // Required. Default: 0.opnsense.pool.ntp.org.
-	Fallbackpeers   string           `json:"fallbackpeers,omitempty"`
-	Allowednetworks string           `json:"allowednetworks,omitempty"`
+	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 0.
+	Port string `json:"port"` // Required. Default: 323.
+	Ntsclient opnsense.OPNBool `json:"ntsclient"` // Required. Default: 0.
+	Ntsnocert opnsense.OPNBool `json:"ntsnocert"` // Required. Default: 0.
+	Peers string `json:"peers"` // Required. Default: 0.opnsense.pool.ntp.org.
+	Fallbackpeers string `json:"fallbackpeers,omitempty"`
+	Allowednetworks string `json:"allowednetworks,omitempty"`
 }

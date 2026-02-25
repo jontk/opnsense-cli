@@ -6,91 +6,91 @@ import "github.com/jontk/opnsense-cli/opnsense"
 
 // General represents a general model item.
 type General struct {
-	Enabled           opnsense.OPNBool  `json:"enabled"` // Required. Default: 0.
-	Port              string            `json:"port"`    // Required. Default: 53.
-	Stats             *opnsense.OPNBool `json:"stats,omitempty"`
-	ActiveInterface   string            `json:"active_interface,omitempty"`
-	Dnssec            *opnsense.OPNBool `json:"dnssec,omitempty"`
-	Dns64             *opnsense.OPNBool `json:"dns64,omitempty"`
-	Dns64prefix       string            `json:"dns64prefix,omitempty"`
-	Noarecords        *opnsense.OPNBool `json:"noarecords,omitempty"`
-	Regdhcp           *opnsense.OPNBool `json:"regdhcp,omitempty"`
-	Regdhcpdomain     string            `json:"regdhcpdomain,omitempty"`
-	Regdhcpstatic     *opnsense.OPNBool `json:"regdhcpstatic,omitempty"`
-	Noreglladdr6      *opnsense.OPNBool `json:"noreglladdr6,omitempty"`
-	Noregrecords      *opnsense.OPNBool `json:"noregrecords,omitempty"`
-	Txtsupport        *opnsense.OPNBool `json:"txtsupport,omitempty"`
-	Cacheflush        *opnsense.OPNBool `json:"cacheflush,omitempty"`
-	Safesearch        *opnsense.OPNBool `json:"safesearch,omitempty"`
-	LocalZoneType     string            `json:"local_zone_type"` // Required. Default: transparent. Valid: opt1, opt2, opt3, opt4, opt5, opt6, opt7, opt8, opt9, opt10, opt11.
-	OutgoingInterface string            `json:"outgoing_interface,omitempty"`
-	EnableWpad        *opnsense.OPNBool `json:"enable_wpad,omitempty"`
+	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 0.
+	Port string `json:"port"` // Required. Default: 53.
+	Stats *opnsense.OPNBool `json:"stats,omitempty"`
+	ActiveInterface string `json:"active_interface,omitempty"`
+	Dnssec *opnsense.OPNBool `json:"dnssec,omitempty"`
+	Dns64 *opnsense.OPNBool `json:"dns64,omitempty"`
+	Dns64prefix string `json:"dns64prefix,omitempty"`
+	Noarecords *opnsense.OPNBool `json:"noarecords,omitempty"`
+	Regdhcp *opnsense.OPNBool `json:"regdhcp,omitempty"`
+	Regdhcpdomain string `json:"regdhcpdomain,omitempty"`
+	Regdhcpstatic *opnsense.OPNBool `json:"regdhcpstatic,omitempty"`
+	Noreglladdr6 *opnsense.OPNBool `json:"noreglladdr6,omitempty"`
+	Noregrecords *opnsense.OPNBool `json:"noregrecords,omitempty"`
+	Txtsupport *opnsense.OPNBool `json:"txtsupport,omitempty"`
+	Cacheflush *opnsense.OPNBool `json:"cacheflush,omitempty"`
+	Safesearch *opnsense.OPNBool `json:"safesearch,omitempty"`
+	LocalZoneType string `json:"local_zone_type"` // Required. Default: transparent. Valid: opt1, opt2, opt3, opt4, opt5, opt6, opt7, opt8, opt9, opt10, opt11.
+	OutgoingInterface string `json:"outgoing_interface,omitempty"`
+	EnableWpad *opnsense.OPNBool `json:"enable_wpad,omitempty"`
 }
 
 // Advanced represents a advanced model item.
 type Advanced struct {
-	Hideidentity              *opnsense.OPNBool `json:"hideidentity,omitempty"`
-	Hideversion               *opnsense.OPNBool `json:"hideversion,omitempty"`
-	Prefetch                  *opnsense.OPNBool `json:"prefetch,omitempty"`
-	Prefetchkey               *opnsense.OPNBool `json:"prefetchkey,omitempty"`
-	Dnssecstripped            *opnsense.OPNBool `json:"dnssecstripped,omitempty"`
-	Aggressivensec            opnsense.OPNBool  `json:"aggressivensec"` // Required. Default: 1.
-	Serveexpired              *opnsense.OPNBool `json:"serveexpired,omitempty"`
-	Serveexpiredreplyttl      string            `json:"serveexpiredreplyttl,omitempty"`
-	Serveexpiredttl           string            `json:"serveexpiredttl,omitempty"`
-	Serveexpiredttlreset      *opnsense.OPNBool `json:"serveexpiredttlreset,omitempty"`
-	Serveexpiredclienttimeout string            `json:"serveexpiredclienttimeout,omitempty"`
-	Qnameminstrict            *opnsense.OPNBool `json:"qnameminstrict,omitempty"`
-	Extendedstatistics        *opnsense.OPNBool `json:"extendedstatistics,omitempty"`
-	Logqueries                *opnsense.OPNBool `json:"logqueries,omitempty"`
-	Logreplies                *opnsense.OPNBool `json:"logreplies,omitempty"`
-	Logtagqueryreply          *opnsense.OPNBool `json:"logtagqueryreply,omitempty"`
-	Logservfail               *opnsense.OPNBool `json:"logservfail,omitempty"`
-	Loglocalactions           *opnsense.OPNBool `json:"loglocalactions,omitempty"`
-	Logverbosity              string            `json:"logverbosity"` // Required. Default: 1. Valid: opt1, opt2, opt3, opt4, opt5, opt6.
-	Valloglevel               string            `json:"valloglevel"`  // Required. Default: 0. Valid: opt1, opt2, opt3.
-	Privatedomain             string            `json:"privatedomain,omitempty"`
-	Privateaddress            string            `json:"privateaddress"` // Required. Default: 0.0.0.0/8,10.0.0.0/8,100.64.0.0/10,169.254.0.0/16,172.16.0.0/12,192.0.2.0/24,192.168.0.0/16,198.18.0.0/15,198.51.100.0/24,203.0.113.0/24,233.252.0.0/24,::1/128,2001:db8::/32,fc00::/8,fd00::/8,fe80::/10.
-	Insecuredomain            string            `json:"insecuredomain,omitempty"`
-	Msgcachesize              string            `json:"msgcachesize,omitempty"`
-	Rrsetcachesize            string            `json:"rrsetcachesize,omitempty"`
-	Outgoingnumtcp            string            `json:"outgoingnumtcp,omitempty"`
-	Incomingnumtcp            string            `json:"incomingnumtcp,omitempty"`
-	Numqueriesperthread       string            `json:"numqueriesperthread,omitempty"`
-	Outgoingrange             string            `json:"outgoingrange,omitempty"`
-	Jostletimeout             string            `json:"jostletimeout,omitempty"`
-	Discardtimeout            string            `json:"discardtimeout,omitempty"`
-	Cachemaxttl               string            `json:"cachemaxttl,omitempty"`
-	Cachemaxnegativettl       string            `json:"cachemaxnegativettl,omitempty"`
-	Cacheminttl               string            `json:"cacheminttl,omitempty"`
-	Infrahostttl              string            `json:"infrahostttl,omitempty"`
-	Infrakeepprobing          *opnsense.OPNBool `json:"infrakeepprobing,omitempty"`
-	Infracachenumhosts        string            `json:"infracachenumhosts,omitempty"`
-	Unwantedreplythreshold    string            `json:"unwantedreplythreshold,omitempty"`
+	Hideidentity *opnsense.OPNBool `json:"hideidentity,omitempty"`
+	Hideversion *opnsense.OPNBool `json:"hideversion,omitempty"`
+	Prefetch *opnsense.OPNBool `json:"prefetch,omitempty"`
+	Prefetchkey *opnsense.OPNBool `json:"prefetchkey,omitempty"`
+	Dnssecstripped *opnsense.OPNBool `json:"dnssecstripped,omitempty"`
+	Aggressivensec opnsense.OPNBool `json:"aggressivensec"` // Required. Default: 1.
+	Serveexpired *opnsense.OPNBool `json:"serveexpired,omitempty"`
+	Serveexpiredreplyttl string `json:"serveexpiredreplyttl,omitempty"`
+	Serveexpiredttl string `json:"serveexpiredttl,omitempty"`
+	Serveexpiredttlreset *opnsense.OPNBool `json:"serveexpiredttlreset,omitempty"`
+	Serveexpiredclienttimeout string `json:"serveexpiredclienttimeout,omitempty"`
+	Qnameminstrict *opnsense.OPNBool `json:"qnameminstrict,omitempty"`
+	Extendedstatistics *opnsense.OPNBool `json:"extendedstatistics,omitempty"`
+	Logqueries *opnsense.OPNBool `json:"logqueries,omitempty"`
+	Logreplies *opnsense.OPNBool `json:"logreplies,omitempty"`
+	Logtagqueryreply *opnsense.OPNBool `json:"logtagqueryreply,omitempty"`
+	Logservfail *opnsense.OPNBool `json:"logservfail,omitempty"`
+	Loglocalactions *opnsense.OPNBool `json:"loglocalactions,omitempty"`
+	Logverbosity string `json:"logverbosity"` // Required. Default: 1. Valid: opt1, opt2, opt3, opt4, opt5, opt6.
+	Valloglevel string `json:"valloglevel"` // Required. Default: 0. Valid: opt1, opt2, opt3.
+	Privatedomain string `json:"privatedomain,omitempty"`
+	Privateaddress string `json:"privateaddress"` // Required. Default: 0.0.0.0/8,10.0.0.0/8,100.64.0.0/10,169.254.0.0/16,172.16.0.0/12,192.0.2.0/24,192.168.0.0/16,198.18.0.0/15,198.51.100.0/24,203.0.113.0/24,233.252.0.0/24,::1/128,2001:db8::/32,fc00::/8,fd00::/8,fe80::/10.
+	Insecuredomain string `json:"insecuredomain,omitempty"`
+	Msgcachesize string `json:"msgcachesize,omitempty"`
+	Rrsetcachesize string `json:"rrsetcachesize,omitempty"`
+	Outgoingnumtcp string `json:"outgoingnumtcp,omitempty"`
+	Incomingnumtcp string `json:"incomingnumtcp,omitempty"`
+	Numqueriesperthread string `json:"numqueriesperthread,omitempty"`
+	Outgoingrange string `json:"outgoingrange,omitempty"`
+	Jostletimeout string `json:"jostletimeout,omitempty"`
+	Discardtimeout string `json:"discardtimeout,omitempty"`
+	Cachemaxttl string `json:"cachemaxttl,omitempty"`
+	Cachemaxnegativettl string `json:"cachemaxnegativettl,omitempty"`
+	Cacheminttl string `json:"cacheminttl,omitempty"`
+	Infrahostttl string `json:"infrahostttl,omitempty"`
+	Infrakeepprobing *opnsense.OPNBool `json:"infrakeepprobing,omitempty"`
+	Infracachenumhosts string `json:"infracachenumhosts,omitempty"`
+	Unwantedreplythreshold string `json:"unwantedreplythreshold,omitempty"`
 }
 
 // Acl represents a acl model item.
 type Acl struct {
-	Enabled     opnsense.OPNBool `json:"enabled"`  // Required. Default: 1.
-	Name        string           `json:"name"`     // Required.
-	Action      string           `json:"action"`   // Required. Default: allow. Valid: opt1, opt2, opt3, opt4, opt5, opt6.
-	Networks    string           `json:"networks"` // Required.
-	Description string           `json:"description,omitempty"`
+	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
+	Name string `json:"name"` // Required.
+	Action string `json:"action"` // Required. Default: allow. Valid: opt1, opt2, opt3, opt4, opt5, opt6.
+	Networks string `json:"networks"` // Required.
+	Description string `json:"description,omitempty"`
 }
 
 // Blocklist represents a blocklist model item.
 type Blocklist struct {
-	Enabled     opnsense.OPNBool  `json:"enabled"`        // Required. Default: 1.
-	Type        string            `json:"type,omitempty"` // Valid: atf, ag, el, ep, hgz001, hgz002, hgz003, hgz004, hgz005, hgz006, hgz007, hgz008, hgz009, hgz010, hgz011, hgz012, hgz013, hgz014, hgz015, hgz016, hgz017, hgz018, hgz019, hgz020, hgz021, oisd0, oisd1, oisd2, sb, yy.
-	Lists       string            `json:"lists,omitempty"`
-	Allowlists  string            `json:"allowlists,omitempty"`
-	Blocklists  string            `json:"blocklists,omitempty"`
-	Wildcards   string            `json:"wildcards,omitempty"`
-	SourceNets  string            `json:"source_nets,omitempty"`
-	Address     string            `json:"address,omitempty"`
-	Nxdomain    *opnsense.OPNBool `json:"nxdomain,omitempty"`
-	CacheTtl    opnsense.OPNInt   `json:"cache_ttl"`   // Required. Default: 72000.
-	Description string            `json:"description"` // Required.
+	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
+	Type string `json:"type,omitempty"` // Valid: atf, ag, el, ep, hgz001, hgz002, hgz003, hgz004, hgz005, hgz006, hgz007, hgz008, hgz009, hgz010, hgz011, hgz012, hgz013, hgz014, hgz015, hgz016, hgz017, hgz018, hgz019, hgz020, hgz021, oisd0, oisd1, oisd2, sb, yy.
+	Lists string `json:"lists,omitempty"`
+	Allowlists string `json:"allowlists,omitempty"`
+	Blocklists string `json:"blocklists,omitempty"`
+	Wildcards string `json:"wildcards,omitempty"`
+	SourceNets string `json:"source_nets,omitempty"`
+	Address string `json:"address,omitempty"`
+	Nxdomain *opnsense.OPNBool `json:"nxdomain,omitempty"`
+	CacheTtl opnsense.OPNInt `json:"cache_ttl"` // Required. Default: 72000.
+	Description string `json:"description"` // Required.
 }
 
 // Forwarding represents a forwarding model item.
@@ -100,39 +100,39 @@ type Forwarding struct {
 
 // Dot represents a dot model item.
 type Dot struct {
-	Enabled            opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
-	Type               string           `json:"type"`    // Required. Default: dot. Valid: dot, forward.
-	Domain             string           `json:"domain,omitempty"`
-	Server             string           `json:"server"` // Required.
-	Port               string           `json:"port,omitempty"`
-	Verify             string           `json:"verify,omitempty"`
+	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
+	Type string `json:"type"` // Required. Default: dot. Valid: dot, forward.
+	Domain string `json:"domain,omitempty"`
+	Server string `json:"server"` // Required.
+	Port string `json:"port,omitempty"`
+	Verify string `json:"verify,omitempty"`
 	ForwardTcpUpstream opnsense.OPNBool `json:"forward_tcp_upstream"` // Required. Default: 0.
-	ForwardFirst       opnsense.OPNBool `json:"forward_first"`        // Required. Default: 0.
-	Description        string           `json:"description,omitempty"`
+	ForwardFirst opnsense.OPNBool `json:"forward_first"` // Required. Default: 0.
+	Description string `json:"description,omitempty"`
 }
 
 // Host represents a host model item.
 type Host struct {
-	Enabled     opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
-	Hostname    string           `json:"hostname,omitempty"`
-	Domain      string           `json:"domain"` // Required.
-	Rr          string           `json:"rr"`     // Required. Default: A. Valid: A, AAAA, MX, TXT.
-	Mxprio      *opnsense.OPNInt `json:"mxprio,omitempty"`
-	Mx          string           `json:"mx,omitempty"`
-	Ttl         *opnsense.OPNInt `json:"ttl,omitempty"`
-	Server      string           `json:"server,omitempty"`
-	Txtdata     string           `json:"txtdata,omitempty"`
-	Addptr      opnsense.OPNBool `json:"addptr"` // Required. Default: 1.
-	Description string           `json:"description,omitempty"`
+	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
+	Hostname string `json:"hostname,omitempty"`
+	Domain string `json:"domain"` // Required.
+	Rr string `json:"rr"` // Required. Default: A. Valid: A, AAAA, MX, TXT.
+	Mxprio *opnsense.OPNInt `json:"mxprio,omitempty"`
+	Mx string `json:"mx,omitempty"`
+	Ttl *opnsense.OPNInt `json:"ttl,omitempty"`
+	Server string `json:"server,omitempty"`
+	Txtdata string `json:"txtdata,omitempty"`
+	Addptr opnsense.OPNBool `json:"addptr"` // Required. Default: 1.
+	Description string `json:"description,omitempty"`
 }
 
 // Alias represents a alias model item.
 type Alias struct {
-	Enabled     opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
-	Host        string           `json:"host"`    // Required.
-	Hostname    string           `json:"hostname,omitempty"`
-	Domain      string           `json:"domain,omitempty"`
-	Description string           `json:"description,omitempty"`
+	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
+	Host string `json:"host"` // Required.
+	Hostname string `json:"hostname,omitempty"`
+	Domain string `json:"domain,omitempty"`
+	Description string `json:"description,omitempty"`
 }
 
 type aclGetItemResponse struct {

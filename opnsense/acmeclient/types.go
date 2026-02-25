@@ -6,407 +6,407 @@ import "github.com/jontk/opnsense-cli/opnsense"
 
 // Settings represents a settings model item.
 type Settings struct {
-	Enabled            opnsense.OPNBool  `json:"enabled"`     // Required. Default: 0.
-	AutoRenewal        opnsense.OPNBool  `json:"autoRenewal"` // Required. Default: 1.
-	UpdateCron         string            `json:"UpdateCron,omitempty"`
-	Environment        string            `json:"environment,omitempty"`        // Default: prod. Valid: prod, stg.
-	ChallengePort      string            `json:"challengePort"`                // Required. Default: 43580.
-	TLSchallengePort   string            `json:"TLSchallengePort"`             // Required. Default: 43581.
-	RestartTimeout     opnsense.OPNInt   `json:"restartTimeout"`               // Required. Default: 600.
+	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 0.
+	AutoRenewal opnsense.OPNBool `json:"autoRenewal"` // Required. Default: 1.
+	UpdateCron string `json:"UpdateCron,omitempty"`
+	Environment string `json:"environment,omitempty"` // Default: prod. Valid: prod, stg.
+	ChallengePort string `json:"challengePort"` // Required. Default: 43580.
+	TLSchallengePort string `json:"TLSchallengePort"` // Required. Default: 43581.
+	RestartTimeout opnsense.OPNInt `json:"restartTimeout"` // Required. Default: 600.
 	HaproxyIntegration *opnsense.OPNBool `json:"haproxyIntegration,omitempty"` // Default: 0.
-	HaproxyAclRef      string            `json:"haproxyAclRef,omitempty"`
-	HaproxyActionRef   string            `json:"haproxyActionRef,omitempty"`
-	HaproxyServerRef   string            `json:"haproxyServerRef,omitempty"`
-	HaproxyBackendRef  string            `json:"haproxyBackendRef,omitempty"`
-	LogLevel           string            `json:"logLevel"`  // Required. Default: normal. Valid: normal, extended, debug, debug2, debug3.
-	ShowIntro          opnsense.OPNBool  `json:"showIntro"` // Required. Default: 1.
+	HaproxyAclRef string `json:"haproxyAclRef,omitempty"`
+	HaproxyActionRef string `json:"haproxyActionRef,omitempty"`
+	HaproxyServerRef string `json:"haproxyServerRef,omitempty"`
+	HaproxyBackendRef string `json:"haproxyBackendRef,omitempty"`
+	LogLevel string `json:"logLevel"` // Required. Default: normal. Valid: normal, extended, debug, debug2, debug3.
+	ShowIntro opnsense.OPNBool `json:"showIntro"` // Required. Default: 1.
 }
 
 // Account represents a account model item.
 type Account struct {
-	Id               string           `json:"id,omitempty"`
-	Enabled          opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
-	Name             string           `json:"name"`    // Required.
-	Description      string           `json:"description,omitempty"`
-	Email            string           `json:"email,omitempty"`
-	Ca               string           `json:"ca"` // Required. Default: letsencrypt. Valid: buypass, buypass_test, google, google_test, letsencrypt, letsencrypt_test, sslcom, zerossl, custom.
-	CustomCa         string           `json:"custom_ca,omitempty"`
-	EabKid           string           `json:"eab_kid,omitempty"`
-	EabHmac          string           `json:"eab_hmac,omitempty"`
-	Key              string           `json:"key,omitempty"`
-	StatusCode       *opnsense.OPNInt `json:"statusCode,omitempty"` // Default: 100.
+	Id string `json:"id,omitempty"`
+	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
+	Name string `json:"name"` // Required.
+	Description string `json:"description,omitempty"`
+	Email string `json:"email,omitempty"`
+	Ca string `json:"ca"` // Required. Default: letsencrypt. Valid: buypass, buypass_test, google, google_test, letsencrypt, letsencrypt_test, sslcom, zerossl, custom.
+	CustomCa string `json:"custom_ca,omitempty"`
+	EabKid string `json:"eab_kid,omitempty"`
+	EabHmac string `json:"eab_hmac,omitempty"`
+	Key string `json:"key,omitempty"`
+	StatusCode *opnsense.OPNInt `json:"statusCode,omitempty"` // Default: 100.
 	StatusLastUpdate *opnsense.OPNInt `json:"statusLastUpdate,omitempty"`
 }
 
 // Certificate represents a certificate model item.
 type Certificate struct {
-	Id               string            `json:"id,omitempty"`
-	Enabled          opnsense.OPNBool  `json:"enabled"` // Required. Default: 1.
-	Name             string            `json:"name"`    // Required.
-	Description      string            `json:"description,omitempty"`
-	AltNames         string            `json:"altNames,omitempty"`
-	Account          string            `json:"account"`          // Required.
-	ValidationMethod string            `json:"validationMethod"` // Required.
-	KeyLength        string            `json:"keyLength"`        // Required. Default: key_4096. Valid: key_2048, key_3072, key_4096, key_ec256, key_ec384.
-	Ocsp             *opnsense.OPNBool `json:"ocsp,omitempty"`   // Default: 0.
-	Profile          string            `json:"profile,omitempty"`
-	RestartActions   string            `json:"restartActions,omitempty"`
-	AutoRenewal      opnsense.OPNBool  `json:"autoRenewal"`   // Required. Default: 1.
-	RenewInterval    opnsense.OPNInt   `json:"renewInterval"` // Required. Default: 60.
-	Aliasmode        string            `json:"aliasmode"`     // Required. Default: none. Valid: none, automatic, domain, challenge.
-	Domainalias      string            `json:"domainalias,omitempty"`
-	Challengealias   string            `json:"challengealias,omitempty"`
-	CertRefId        string            `json:"certRefId,omitempty"`
-	LastUpdate       *opnsense.OPNInt  `json:"lastUpdate,omitempty"`
-	StatusCode       *opnsense.OPNInt  `json:"statusCode,omitempty"` // Default: 100.
-	StatusLastUpdate *opnsense.OPNInt  `json:"statusLastUpdate,omitempty"`
+	Id string `json:"id,omitempty"`
+	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
+	Name string `json:"name"` // Required.
+	Description string `json:"description,omitempty"`
+	AltNames string `json:"altNames,omitempty"`
+	Account string `json:"account"` // Required.
+	ValidationMethod string `json:"validationMethod"` // Required.
+	KeyLength string `json:"keyLength"` // Required. Default: key_4096. Valid: key_2048, key_3072, key_4096, key_ec256, key_ec384.
+	Ocsp *opnsense.OPNBool `json:"ocsp,omitempty"` // Default: 0.
+	Profile string `json:"profile,omitempty"`
+	RestartActions string `json:"restartActions,omitempty"`
+	AutoRenewal opnsense.OPNBool `json:"autoRenewal"` // Required. Default: 1.
+	RenewInterval opnsense.OPNInt `json:"renewInterval"` // Required. Default: 60.
+	Aliasmode string `json:"aliasmode"` // Required. Default: none. Valid: none, automatic, domain, challenge.
+	Domainalias string `json:"domainalias,omitempty"`
+	Challengealias string `json:"challengealias,omitempty"`
+	CertRefId string `json:"certRefId,omitempty"`
+	LastUpdate *opnsense.OPNInt `json:"lastUpdate,omitempty"`
+	StatusCode *opnsense.OPNInt `json:"statusCode,omitempty"` // Default: 100.
+	StatusLastUpdate *opnsense.OPNInt `json:"statusLastUpdate,omitempty"`
 }
 
 // Validation represents a validation model item.
 type Validation struct {
-	Id                          string            `json:"id,omitempty"`
-	Enabled                     opnsense.OPNBool  `json:"enabled"` // Required. Default: 1.
-	Name                        string            `json:"name"`    // Required.
-	Description                 string            `json:"description,omitempty"`
-	Method                      string            `json:"method"`                           // Required. Default: dns01. Valid: http01, dns01, tlsalpn01.
-	HttpService                 string            `json:"http_service"`                     // Required. Default: opnsense. Valid: opnsense, haproxy.
-	HttpOpnAutodiscovery        *opnsense.OPNBool `json:"http_opn_autodiscovery,omitempty"` // Default: 1.
-	HttpOpnInterface            string            `json:"http_opn_interface,omitempty"`
-	HttpOpnIpaddresses          string            `json:"http_opn_ipaddresses,omitempty"`
-	HttpHaproxyInject           *opnsense.OPNBool `json:"http_haproxyInject,omitempty"` // Default: 1.
-	HttpHaproxyFrontends        string            `json:"http_haproxyFrontends,omitempty"`
-	TlsalpnService              string            `json:"tlsalpn_service"`                      // Required. Default: acme. Valid: acme.
-	TlsalpnAcmeAutodiscovery    *opnsense.OPNBool `json:"tlsalpn_acme_autodiscovery,omitempty"` // Default: 1.
-	TlsalpnAcmeInterface        string            `json:"tlsalpn_acme_interface,omitempty"`
-	TlsalpnAcmeIpaddresses      string            `json:"tlsalpn_acme_ipaddresses,omitempty"`
-	DnsService                  string            `json:"dns_service"` // Required. Default: dns_freedns. Valid: dns_1984hosting, dns_acmedns, dns_acmeproxy, dns_active24, dns_ad, dns_ali, dns_kas, dns_arvan, dns_artfiles, dns_aurora, dns_autodns, dns_aws, dns_azure, dns_bunny, dns_cloudns, dns_cf, dns_cx, dns_cn, dns_conoha, dns_constellix, dns_cpanel, dns_cyon, dns_ddnss, dns_desec, dns_dgon, dns_da, dns_dnsexit, dns_dnshome, dns_dnsimple, dns_dnsservices, dns_domeneshop, dns_me, dns_dp, dns_doapi, dns_do, dns_dreamhost, dns_duckdns, dns_dyn, dns_dynu, dns_dynv6, dns_easydns, dns_euserv, dns_exoscale, dns_fornex, dns_freedns, dns_gandi_livedns, dns_gd, dns_gcloud, dns_googledomains, dns_gdnsdk, dns_hetzner, dns_hetznercloud, dns_hexonet, dns_hostingde, dns_he, dns_he_ddns, dns_infoblox, dns_infomaniak, dns_internetbs, dns_inwx, dns_ionos, dns_ipv64, dns_ispconfig, dns_jd, dns_joker, dns_kinghost, dns_knot, dns_leaseweb, dns_lexicon, dns_limacity, dns_linode, dns_linode_v4, dns_loopia, dns_lua, dns_miab, dns_mijnhost, dns_mydnsjp, dns_mythic_beasts, dns_namecom, dns_namecheap, dns_namesilo, dns_nederhost, dns_netcup, dns_nic, dns_njalla, dns_nsone, dns_nsupdate, dns_online, dns_opnsense, dns_oci, dns_ovh, dns_pdns, dns_pleskxml, dns_pointhq, dns_porkbun, dns_rackspace, dns_rage4, dns_regru, dns_scaleway, dns_schlundtech, dns_selectel, dns_selfhost, dns_servercow, dns_simply, dns_spaceship, dns_technitium, dns_timeweb, dns_transip, dns_udr, dns_unoeuro, dns_variomedia, dns_vscale, dns_vultr, dns_websupport, dns_world4you, dns_yandex, dns_zilore, dns_zone, dns_zoneedit, dns_zonomi.
-	DnsSleep                    opnsense.OPNInt   `json:"dns_sleep"`   // Required. Default: 0.
-	DnsActive24Token            string            `json:"dns_active24_token,omitempty"`
-	DnsAdKey                    string            `json:"dns_ad_key,omitempty"`
-	DnsAliKey                   string            `json:"dns_ali_key,omitempty"`
-	DnsAliSecret                string            `json:"dns_ali_secret,omitempty"`
-	DnsAutodnsUser              string            `json:"dns_autodns_user,omitempty"`
-	DnsAutodnsPassword          string            `json:"dns_autodns_password,omitempty"`
-	DnsAutodnsContext           string            `json:"dns_autodns_context,omitempty"`
-	DnsAwsId                    string            `json:"dns_aws_id,omitempty"`
-	DnsAwsSecret                string            `json:"dns_aws_secret,omitempty"`
-	DnsAzurednsSubscriptionid   string            `json:"dns_azuredns_subscriptionid,omitempty"`
-	DnsAzurednsTenantid         string            `json:"dns_azuredns_tenantid,omitempty"`
-	DnsAzurednsAppid            string            `json:"dns_azuredns_appid,omitempty"`
-	DnsAzurednsClientsecret     string            `json:"dns_azuredns_clientsecret,omitempty"`
-	DnsAzurednsManagedidentity  *opnsense.OPNBool `json:"dns_azuredns_managedidentity,omitempty"` // Default: 0.
-	DnsBunnyApiKey              string            `json:"dns_bunny_api_key,omitempty"`
-	DnsCfEmail                  string            `json:"dns_cf_email,omitempty"`
-	DnsCfKey                    string            `json:"dns_cf_key,omitempty"`
-	DnsCfToken                  string            `json:"dns_cf_token,omitempty"`
-	DnsCfAccountId              string            `json:"dns_cf_account_id,omitempty"`
-	DnsCfZoneId                 string            `json:"dns_cf_zone_id,omitempty"`
-	DnsCloudnsAuthId            string            `json:"dns_cloudns_auth_id,omitempty"`
-	DnsCloudnsSubAuthId         string            `json:"dns_cloudns_sub_auth_id,omitempty"`
-	DnsCloudnsAuthPassword      string            `json:"dns_cloudns_auth_password,omitempty"`
-	DnsCxKey                    string            `json:"dns_cx_key,omitempty"`
-	DnsCxSecret                 string            `json:"dns_cx_secret,omitempty"`
-	DnsCyonUser                 string            `json:"dns_cyon_user,omitempty"`
-	DnsCyonPassword             string            `json:"dns_cyon_password,omitempty"`
-	DnsDaKey                    string            `json:"dns_da_key,omitempty"`
-	DnsDaInsecure               *opnsense.OPNBool `json:"dns_da_insecure,omitempty"` // Default: 1.
-	DnsDdnssToken               string            `json:"dns_ddnss_token,omitempty"`
-	DnsDgonKey                  string            `json:"dns_dgon_key,omitempty"`
-	DnsDnsexitAuthUser          string            `json:"dns_dnsexit_auth_user,omitempty"`
-	DnsDnsexitAuthPass          string            `json:"dns_dnsexit_auth_pass,omitempty"`
-	DnsDnsexitApi               string            `json:"dns_dnsexit_api,omitempty"`
-	DnsDnshomePassword          string            `json:"dns_dnshome_password,omitempty"`
-	DnsDnshomeSubdomain         string            `json:"dns_dnshome_subdomain,omitempty"`
-	DnsDnsimpleToken            string            `json:"dns_dnsimple_token,omitempty"`
-	DnsDnsservicesUser          string            `json:"dns_dnsservices_user,omitempty"`
-	DnsDnsservicesPassword      string            `json:"dns_dnsservices_password,omitempty"`
-	DnsDoapiToken               string            `json:"dns_doapi_token,omitempty"`
-	DnsDoPid                    string            `json:"dns_do_pid,omitempty"`
-	DnsDoPassword               string            `json:"dns_do_password,omitempty"`
-	DnsDomeneshopToken          string            `json:"dns_domeneshop_token,omitempty"`
-	DnsDomeneshopSecret         string            `json:"dns_domeneshop_secret,omitempty"`
-	DnsDpId                     string            `json:"dns_dp_id,omitempty"`
-	DnsDpKey                    string            `json:"dns_dp_key,omitempty"`
-	DnsDhKey                    string            `json:"dns_dh_key,omitempty"`
-	DnsDuckdnsToken             string            `json:"dns_duckdns_token,omitempty"`
-	DnsDynCustomer              string            `json:"dns_dyn_customer,omitempty"`
-	DnsDynUser                  string            `json:"dns_dyn_user,omitempty"`
-	DnsDynPassword              string            `json:"dns_dyn_password,omitempty"`
-	DnsDynuClientid             string            `json:"dns_dynu_clientid,omitempty"`
-	DnsDynuSecret               string            `json:"dns_dynu_secret,omitempty"`
-	DnsFreednsUser              string            `json:"dns_freedns_user,omitempty"`
-	DnsFreednsPassword          string            `json:"dns_freedns_password,omitempty"`
-	DnsFornexApiKey             string            `json:"dns_fornex_api_key,omitempty"`
-	DnsGandiLivednsKey          string            `json:"dns_gandi_livedns_key,omitempty"`
-	DnsGandiLivednsToken        string            `json:"dns_gandi_livedns_token,omitempty"`
-	DnsGcloudKey                string            `json:"dns_gcloud_key,omitempty"`
-	DnsGoogledomainsAccessToken string            `json:"dns_googledomains_access_token,omitempty"`
-	DnsGoogledomainsZone        string            `json:"dns_googledomains_zone,omitempty"`
-	DnsGdKey                    string            `json:"dns_gd_key,omitempty"`
-	DnsGdSecret                 string            `json:"dns_gd_secret,omitempty"`
-	DnsHostingdeServer          string            `json:"dns_hostingde_server,omitempty"`
-	DnsHostingdeApiKey          string            `json:"dns_hostingde_apiKey,omitempty"`
-	DnsHeUser                   string            `json:"dns_he_user,omitempty"`
-	DnsHePassword               string            `json:"dns_he_password,omitempty"`
-	DnsHeDdnsKey                string            `json:"dns_he_ddns_key,omitempty"`
-	DnsInfobloxCredentials      string            `json:"dns_infoblox_credentials,omitempty"`
-	DnsInfobloxServer           string            `json:"dns_infoblox_server,omitempty"`
-	DnsInwxUser                 string            `json:"dns_inwx_user,omitempty"`
-	DnsInwsPassword             string            `json:"dns_inws_password,omitempty"`
-	DnsInwxPassword             string            `json:"dns_inwx_password,omitempty"`
-	DnsInwxSharedSecret         string            `json:"dns_inwx_shared_secret,omitempty"`
-	DnsIonosPrefix              string            `json:"dns_ionos_prefix,omitempty"`
-	DnsIonosSecret              string            `json:"dns_ionos_secret,omitempty"`
-	DnsIpv64Token               string            `json:"dns_ipv64_token,omitempty"`
-	DnsIspconfigUser            string            `json:"dns_ispconfig_user,omitempty"`
-	DnsIspconfigPassword        string            `json:"dns_ispconfig_password,omitempty"`
-	DnsIspconfigApi             string            `json:"dns_ispconfig_api,omitempty"`
-	DnsIspconfigInsecure        *opnsense.OPNBool `json:"dns_ispconfig_insecure,omitempty"` // Default: 1.
-	DnsJdId                     string            `json:"dns_jd_id,omitempty"`
-	DnsJdRegion                 string            `json:"dns_jd_region,omitempty"`
-	DnsJdSecret                 string            `json:"dns_jd_secret,omitempty"`
-	DnsJokerUsername            string            `json:"dns_joker_username,omitempty"`
-	DnsJokerPassword            string            `json:"dns_joker_password,omitempty"`
-	DnsKinghostUsername         string            `json:"dns_kinghost_username,omitempty"`
-	DnsKinghostPassword         string            `json:"dns_kinghost_password,omitempty"`
-	DnsKnotServer               string            `json:"dns_knot_server,omitempty"`
-	DnsKnotKey                  string            `json:"dns_knot_key,omitempty"`
-	DnsLexiconProvider          string            `json:"dns_lexicon_provider,omitempty"` // Default: cloudflare. Valid: aliyun, aurora, auto, azure, cloudflare, cloudns, cloudxns, conoha, constellix, digitalocean, dinahosting, directadmin, dnsimple, dnsmadeeasy, dnspark, dnspod, dreamhost, easydns, easyname, exoscale, gandi, gehirn, glesys, godaddy, googleclouddns, gratisdns, henet, hetzner, hover, infoblox, internetbs, inwx, linode, linode4, localzone, luadns, memset, namecheap, namesilo, netcup, nfsn, nsone, onapp, online, ovh, plesk, pointhq, powerdns, rackspace, rage4, route53, safedns, sakuracloud, softlayer, subreg, transip, vultr, yandex, zeit, zilore, zonomi.
-	DnsLexiconUser              string            `json:"dns_lexicon_user,omitempty"`
-	DnsLexiconToken             string            `json:"dns_lexicon_token,omitempty"`
-	DnsLimacityApikey           string            `json:"dns_limacity_apikey,omitempty"`
-	DnsLinodeKey                string            `json:"dns_linode_key,omitempty"`
-	DnsLinodeV4Key              string            `json:"dns_linode_v4_key,omitempty"`
-	DnsLoopiaApi                string            `json:"dns_loopia_api,omitempty"` // Default: https://api.loopia.se/RPCSERV.
-	DnsLoopiaUser               string            `json:"dns_loopia_user,omitempty"`
-	DnsLoopiaPassword           string            `json:"dns_loopia_password,omitempty"`
-	DnsLuaEmail                 string            `json:"dns_lua_email,omitempty"`
-	DnsLuaKey                   string            `json:"dns_lua_key,omitempty"`
-	DnsMiabUser                 string            `json:"dns_miab_user,omitempty"`
-	DnsMiabPassword             string            `json:"dns_miab_password,omitempty"`
-	DnsMiabServer               string            `json:"dns_miab_server,omitempty"`
-	DnsMeKey                    string            `json:"dns_me_key,omitempty"`
-	DnsMeSecret                 string            `json:"dns_me_secret,omitempty"`
-	DnsMydnsjpMasterid          string            `json:"dns_mydnsjp_masterid,omitempty"`
-	DnsMydnsjpPassword          string            `json:"dns_mydnsjp_password,omitempty"`
-	DnsMythicBeastsKey          string            `json:"dns_mythic_beasts_key,omitempty"`
-	DnsMythicBeastsSecret       string            `json:"dns_mythic_beasts_secret,omitempty"`
-	DnsNamecheapUser            string            `json:"dns_namecheap_user,omitempty"`
-	DnsNamecheapApi             string            `json:"dns_namecheap_api,omitempty"`
-	DnsNamecheapSourceip        string            `json:"dns_namecheap_sourceip,omitempty"`
-	DnsNamecomUser              string            `json:"dns_namecom_user,omitempty"`
-	DnsNamecomToken             string            `json:"dns_namecom_token,omitempty"`
-	DnsNamesiloKey              string            `json:"dns_namesilo_key,omitempty"`
-	DnsNederhostKey             string            `json:"dns_nederhost_key,omitempty"`
-	DnsNetcupCid                string            `json:"dns_netcup_cid,omitempty"`
-	DnsNetcupKey                string            `json:"dns_netcup_key,omitempty"`
-	DnsNetcupPw                 string            `json:"dns_netcup_pw,omitempty"`
-	DnsNjallaToken              string            `json:"dns_njalla_token,omitempty"`
-	DnsNsoneKey                 string            `json:"dns_nsone_key,omitempty"`
-	DnsNsupdateServer           string            `json:"dns_nsupdate_server,omitempty"`
-	DnsNsupdateZone             string            `json:"dns_nsupdate_zone,omitempty"`
-	DnsNsupdateKey              string            `json:"dns_nsupdate_key,omitempty"`
-	DnsOciCliUser               string            `json:"dns_oci_cli_user,omitempty"`
-	DnsOciCliTenancy            string            `json:"dns_oci_cli_tenancy,omitempty"`
-	DnsOciCliRegion             string            `json:"dns_oci_cli_region,omitempty"`
-	DnsOciCliKey                string            `json:"dns_oci_cli_key,omitempty"`
-	DnsOnlineKey                string            `json:"dns_online_key,omitempty"`
-	DnsOpnsenseHost             string            `json:"dns_opnsense_host,omitempty"` // Default: localhost.
-	DnsOpnsensePort             string            `json:"dns_opnsense_port,omitempty"` // Default: 443.
-	DnsOpnsenseKey              string            `json:"dns_opnsense_key,omitempty"`
-	DnsOpnsenseToken            string            `json:"dns_opnsense_token,omitempty"`
-	DnsOpnsenseInsecure         *opnsense.OPNBool `json:"dns_opnsense_insecure,omitempty"` // Default: 0.
-	DnsOvhAppKey                string            `json:"dns_ovh_app_key,omitempty"`
-	DnsOvhAppSecret             string            `json:"dns_ovh_app_secret,omitempty"`
-	DnsOvhConsumerKey           string            `json:"dns_ovh_consumer_key,omitempty"`
-	DnsOvhEndpoint              string            `json:"dns_ovh_endpoint,omitempty"`
-	DnsPleskxmlUser             string            `json:"dns_pleskxml_user,omitempty"`
-	DnsPleskxmlPass             string            `json:"dns_pleskxml_pass,omitempty"`
-	DnsPleskxmlUri              string            `json:"dns_pleskxml_uri,omitempty"`
-	DnsPdnsUrl                  string            `json:"dns_pdns_url,omitempty"`
-	DnsPdnsServerid             string            `json:"dns_pdns_serverid,omitempty"`
-	DnsPdnsToken                string            `json:"dns_pdns_token,omitempty"`
-	DnsPorkbunKey               string            `json:"dns_porkbun_key,omitempty"`
-	DnsPorkbunSecret            string            `json:"dns_porkbun_secret,omitempty"`
-	DnsSlKey                    string            `json:"dns_sl_key,omitempty"`
-	DnsSlApiver                 string            `json:"dns_sl_apiver,omitempty"` // Valid: v1, v2.
-	DnsSlTokenLifetime          string            `json:"dns_sl_token_lifetime,omitempty"`
-	DnsSlAccountId              string            `json:"dns_sl_account_id,omitempty"`
-	DnsSlProjectName            string            `json:"dns_sl_project_name,omitempty"`
-	DnsSlLoginName              string            `json:"dns_sl_login_name,omitempty"`
-	DnsSlPassword               string            `json:"dns_sl_password,omitempty"`
-	DnsSelfhostUser             string            `json:"dns_selfhost_user,omitempty"`
-	DnsSelfhostPassword         string            `json:"dns_selfhost_password,omitempty"`
-	DnsSelfhostMap              string            `json:"dns_selfhost_map,omitempty"`
-	DnsServercowUsername        string            `json:"dns_servercow_username,omitempty"`
-	DnsServercowPassword        string            `json:"dns_servercow_password,omitempty"`
-	DnsSimplyApiKey             string            `json:"dns_simply_api_key,omitempty"`
-	DnsSimplyAccountName        string            `json:"dns_simply_account_name,omitempty"`
-	DnsSpaceshipApiKey          string            `json:"dns_spaceship_api_key,omitempty"`
-	DnsSpaceshipApiSecret       string            `json:"dns_spaceship_api_secret,omitempty"`
-	DnsSpaceshipRootDomain      string            `json:"dns_spaceship_root_domain,omitempty"`
-	DnsTechnitiumToken          string            `json:"dns_technitium_token,omitempty"`
-	DnsTechnitiumHostname       string            `json:"dns_technitium_hostname,omitempty"`
-	DnsTransipUsername          string            `json:"dns_transip_username,omitempty"`
-	DnsTransipKey               string            `json:"dns_transip_key,omitempty"`
-	DnsTransipTokenGlobalKey    *opnsense.OPNBool `json:"dns_transip_token_global_key,omitempty"` // Default: 0.
-	DnsTimewebToken             string            `json:"dns_timeweb_token,omitempty"`
-	DnsUdrUser                  string            `json:"dns_udr_user,omitempty"`
-	DnsUdrPassword              string            `json:"dns_udr_password,omitempty"`
-	DnsUnoKey                   string            `json:"dns_uno_key,omitempty"`
-	DnsUnoUser                  string            `json:"dns_uno_user,omitempty"`
-	DnsVscaleKey                string            `json:"dns_vscale_key,omitempty"`
-	DnsVultrKey                 string            `json:"dns_vultr_key,omitempty"`
-	DnsYandexToken              string            `json:"dns_yandex_token,omitempty"`
-	DnsZiloreKey                string            `json:"dns_zilore_key,omitempty"`
-	DnsZmKey                    string            `json:"dns_zm_key,omitempty"`
-	DnsGdnsdkUser               string            `json:"dns_gdnsdk_user,omitempty"`
-	DnsGdnsdkPassword           string            `json:"dns_gdnsdk_password,omitempty"`
-	DnsAcmednsUser              string            `json:"dns_acmedns_user,omitempty"`
-	DnsAcmednsPassword          string            `json:"dns_acmedns_password,omitempty"`
-	DnsAcmednsSubdomain         string            `json:"dns_acmedns_subdomain,omitempty"`
-	DnsAcmednsUpdateurl         string            `json:"dns_acmedns_updateurl,omitempty"`
-	DnsAcmednsBaseurl           string            `json:"dns_acmedns_baseurl,omitempty"`
-	DnsAcmeproxyEndpoint        string            `json:"dns_acmeproxy_endpoint,omitempty"`
-	DnsAcmeproxyUsername        string            `json:"dns_acmeproxy_username,omitempty"`
-	DnsAcmeproxyPassword        string            `json:"dns_acmeproxy_password,omitempty"`
-	DnsVariomediaKey            string            `json:"dns_variomedia_key,omitempty"`
-	DnsSchlundtechUser          string            `json:"dns_schlundtech_user,omitempty"`
-	DnsSchlundtechPassword      string            `json:"dns_schlundtech_password,omitempty"`
-	DnsEasydnsApitoken          string            `json:"dns_easydns_apitoken,omitempty"`
-	DnsEasydnsApikey            string            `json:"dns_easydns_apikey,omitempty"`
-	DnsEuservUser               string            `json:"dns_euserv_user,omitempty"`
-	DnsEuservPassword           string            `json:"dns_euserv_password,omitempty"`
-	DnsLeasewebKey              string            `json:"dns_leaseweb_key,omitempty"`
-	DnsCnUser                   string            `json:"dns_cn_user,omitempty"`
-	DnsCnPassword               string            `json:"dns_cn_password,omitempty"`
-	DnsArvanToken               string            `json:"dns_arvan_token,omitempty"`
-	DnsArtfilesUsername         string            `json:"dns_artfiles_username,omitempty"`
-	DnsArtfilesPassword         string            `json:"dns_artfiles_password,omitempty"`
-	DnsHetznerToken             string            `json:"dns_hetzner_token,omitempty"`
-	DnsHetznercloudToken        string            `json:"dns_hetznercloud_token,omitempty"`
-	DnsHexonetLogin             string            `json:"dns_hexonet_login,omitempty"`
-	DnsHexonetPassword          string            `json:"dns_hexonet_password,omitempty"`
-	Dns1984hostingUser          string            `json:"dns_1984hosting_user,omitempty"`
-	Dns1984hostingPassword      string            `json:"dns_1984hosting_password,omitempty"`
-	DnsKasLogin                 string            `json:"dns_kas_login,omitempty"`
-	DnsKasAuthdata              string            `json:"dns_kas_authdata,omitempty"`
-	DnsKasAuthtype              string            `json:"dns_kas_authtype,omitempty"` // Default: plain. Valid: plain, sha1.
-	DnsDesecToken               string            `json:"dns_desec_token,omitempty"`
-	DnsDesecName                string            `json:"dns_desec_name,omitempty"`
-	DnsInfomaniakToken          string            `json:"dns_infomaniak_token,omitempty"`
-	DnsZoneUsername             string            `json:"dns_zone_username,omitempty"`
-	DnsZoneKey                  string            `json:"dns_zone_key,omitempty"`
-	DnsDynv6Token               string            `json:"dns_dynv6_token,omitempty"`
-	DnsCpanelUser               string            `json:"dns_cpanel_user,omitempty"`
-	DnsCpanelToken              string            `json:"dns_cpanel_token,omitempty"`
-	DnsCpanelHostname           string            `json:"dns_cpanel_hostname,omitempty"`
-	DnsRegruUsername            string            `json:"dns_regru_username,omitempty"`
-	DnsRegruPassword            string            `json:"dns_regru_password,omitempty"`
-	DnsNicUsername              string            `json:"dns_nic_username,omitempty"`
-	DnsNicPassword              string            `json:"dns_nic_password,omitempty"`
-	DnsNicClient                string            `json:"dns_nic_client,omitempty"`
-	DnsNicSecret                string            `json:"dns_nic_secret,omitempty"`
-	DnsWebsupportApiKey         string            `json:"dns_websupport_api_key,omitempty"`
-	DnsWebsupportApiSecret      string            `json:"dns_websupport_api_secret,omitempty"`
-	DnsWorld4youUsername        string            `json:"dns_world4you_username,omitempty"`
-	DnsWorld4youPassword        string            `json:"dns_world4you_password,omitempty"`
-	DnsAuroraKey                string            `json:"dns_aurora_key,omitempty"`
-	DnsAuroraSecret             string            `json:"dns_aurora_secret,omitempty"`
-	DnsConohaUser               string            `json:"dns_conoha_user,omitempty"`
-	DnsConohaPassword           string            `json:"dns_conoha_password,omitempty"`
-	DnsConohaTenantid           string            `json:"dns_conoha_tenantid,omitempty"`
-	DnsConohaIdapi              string            `json:"dns_conoha_idapi,omitempty"` // Default: https://identity.xxxx.conoha.io/v2.0.
-	DnsConstellixKey            string            `json:"dns_constellix_key,omitempty"`
-	DnsConstellixSecret         string            `json:"dns_constellix_secret,omitempty"`
-	DnsExoscaleKey              string            `json:"dns_exoscale_key,omitempty"`
-	DnsExoscaleSecret           string            `json:"dns_exoscale_secret,omitempty"`
-	DnsInternetbsKey            string            `json:"dns_internetbs_key,omitempty"`
-	DnsInternetbsPassword       string            `json:"dns_internetbs_password,omitempty"`
-	DnsPointhqKey               string            `json:"dns_pointhq_key,omitempty"`
-	DnsPointhqEmail             string            `json:"dns_pointhq_email,omitempty"`
-	DnsRackspaceUser            string            `json:"dns_rackspace_user,omitempty"`
-	DnsRackspaceKey             string            `json:"dns_rackspace_key,omitempty"`
-	DnsRage4Token               string            `json:"dns_rage4_token,omitempty"`
-	DnsRage4User                string            `json:"dns_rage4_user,omitempty"`
-	DnsMijnhostApiKey           string            `json:"dns_mijnhost_api_key,omitempty"`
-	DnsScalewayToken            string            `json:"dns_scaleway_token,omitempty"`
-	DnsZoneeditId               string            `json:"dns_zoneedit_id,omitempty"`
-	DnsZoneeditToken            string            `json:"dns_zoneedit_token,omitempty"`
+	Id string `json:"id,omitempty"`
+	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
+	Name string `json:"name"` // Required.
+	Description string `json:"description,omitempty"`
+	Method string `json:"method"` // Required. Default: dns01. Valid: http01, dns01, tlsalpn01.
+	HttpService string `json:"http_service"` // Required. Default: opnsense. Valid: opnsense, haproxy.
+	HttpOpnAutodiscovery *opnsense.OPNBool `json:"http_opn_autodiscovery,omitempty"` // Default: 1.
+	HttpOpnInterface string `json:"http_opn_interface,omitempty"`
+	HttpOpnIpaddresses string `json:"http_opn_ipaddresses,omitempty"`
+	HttpHaproxyInject *opnsense.OPNBool `json:"http_haproxyInject,omitempty"` // Default: 1.
+	HttpHaproxyFrontends string `json:"http_haproxyFrontends,omitempty"`
+	TlsalpnService string `json:"tlsalpn_service"` // Required. Default: acme. Valid: acme.
+	TlsalpnAcmeAutodiscovery *opnsense.OPNBool `json:"tlsalpn_acme_autodiscovery,omitempty"` // Default: 1.
+	TlsalpnAcmeInterface string `json:"tlsalpn_acme_interface,omitempty"`
+	TlsalpnAcmeIpaddresses string `json:"tlsalpn_acme_ipaddresses,omitempty"`
+	DnsService string `json:"dns_service"` // Required. Default: dns_freedns. Valid: dns_1984hosting, dns_acmedns, dns_acmeproxy, dns_active24, dns_ad, dns_ali, dns_kas, dns_arvan, dns_artfiles, dns_aurora, dns_autodns, dns_aws, dns_azure, dns_bunny, dns_cloudns, dns_cf, dns_cx, dns_cn, dns_conoha, dns_constellix, dns_cpanel, dns_cyon, dns_ddnss, dns_desec, dns_dgon, dns_da, dns_dnsexit, dns_dnshome, dns_dnsimple, dns_dnsservices, dns_domeneshop, dns_me, dns_dp, dns_doapi, dns_do, dns_dreamhost, dns_duckdns, dns_dyn, dns_dynu, dns_dynv6, dns_easydns, dns_euserv, dns_exoscale, dns_fornex, dns_freedns, dns_gandi_livedns, dns_gd, dns_gcloud, dns_googledomains, dns_gdnsdk, dns_hetzner, dns_hetznercloud, dns_hexonet, dns_hostingde, dns_he, dns_he_ddns, dns_infoblox, dns_infomaniak, dns_internetbs, dns_inwx, dns_ionos, dns_ipv64, dns_ispconfig, dns_jd, dns_joker, dns_kinghost, dns_knot, dns_leaseweb, dns_lexicon, dns_limacity, dns_linode, dns_linode_v4, dns_loopia, dns_lua, dns_miab, dns_mijnhost, dns_mydnsjp, dns_mythic_beasts, dns_namecom, dns_namecheap, dns_namesilo, dns_nederhost, dns_netcup, dns_nic, dns_njalla, dns_nsone, dns_nsupdate, dns_online, dns_opnsense, dns_oci, dns_ovh, dns_pdns, dns_pleskxml, dns_pointhq, dns_porkbun, dns_rackspace, dns_rage4, dns_regru, dns_scaleway, dns_schlundtech, dns_selectel, dns_selfhost, dns_servercow, dns_simply, dns_spaceship, dns_technitium, dns_timeweb, dns_transip, dns_udr, dns_unoeuro, dns_variomedia, dns_vscale, dns_vultr, dns_websupport, dns_world4you, dns_yandex, dns_zilore, dns_zone, dns_zoneedit, dns_zonomi.
+	DnsSleep opnsense.OPNInt `json:"dns_sleep"` // Required. Default: 0.
+	DnsActive24Token string `json:"dns_active24_token,omitempty"`
+	DnsAdKey string `json:"dns_ad_key,omitempty"`
+	DnsAliKey string `json:"dns_ali_key,omitempty"`
+	DnsAliSecret string `json:"dns_ali_secret,omitempty"`
+	DnsAutodnsUser string `json:"dns_autodns_user,omitempty"`
+	DnsAutodnsPassword string `json:"dns_autodns_password,omitempty"`
+	DnsAutodnsContext string `json:"dns_autodns_context,omitempty"`
+	DnsAwsId string `json:"dns_aws_id,omitempty"`
+	DnsAwsSecret string `json:"dns_aws_secret,omitempty"`
+	DnsAzurednsSubscriptionid string `json:"dns_azuredns_subscriptionid,omitempty"`
+	DnsAzurednsTenantid string `json:"dns_azuredns_tenantid,omitempty"`
+	DnsAzurednsAppid string `json:"dns_azuredns_appid,omitempty"`
+	DnsAzurednsClientsecret string `json:"dns_azuredns_clientsecret,omitempty"`
+	DnsAzurednsManagedidentity *opnsense.OPNBool `json:"dns_azuredns_managedidentity,omitempty"` // Default: 0.
+	DnsBunnyApiKey string `json:"dns_bunny_api_key,omitempty"`
+	DnsCfEmail string `json:"dns_cf_email,omitempty"`
+	DnsCfKey string `json:"dns_cf_key,omitempty"`
+	DnsCfToken string `json:"dns_cf_token,omitempty"`
+	DnsCfAccountId string `json:"dns_cf_account_id,omitempty"`
+	DnsCfZoneId string `json:"dns_cf_zone_id,omitempty"`
+	DnsCloudnsAuthId string `json:"dns_cloudns_auth_id,omitempty"`
+	DnsCloudnsSubAuthId string `json:"dns_cloudns_sub_auth_id,omitempty"`
+	DnsCloudnsAuthPassword string `json:"dns_cloudns_auth_password,omitempty"`
+	DnsCxKey string `json:"dns_cx_key,omitempty"`
+	DnsCxSecret string `json:"dns_cx_secret,omitempty"`
+	DnsCyonUser string `json:"dns_cyon_user,omitempty"`
+	DnsCyonPassword string `json:"dns_cyon_password,omitempty"`
+	DnsDaKey string `json:"dns_da_key,omitempty"`
+	DnsDaInsecure *opnsense.OPNBool `json:"dns_da_insecure,omitempty"` // Default: 1.
+	DnsDdnssToken string `json:"dns_ddnss_token,omitempty"`
+	DnsDgonKey string `json:"dns_dgon_key,omitempty"`
+	DnsDnsexitAuthUser string `json:"dns_dnsexit_auth_user,omitempty"`
+	DnsDnsexitAuthPass string `json:"dns_dnsexit_auth_pass,omitempty"`
+	DnsDnsexitApi string `json:"dns_dnsexit_api,omitempty"`
+	DnsDnshomePassword string `json:"dns_dnshome_password,omitempty"`
+	DnsDnshomeSubdomain string `json:"dns_dnshome_subdomain,omitempty"`
+	DnsDnsimpleToken string `json:"dns_dnsimple_token,omitempty"`
+	DnsDnsservicesUser string `json:"dns_dnsservices_user,omitempty"`
+	DnsDnsservicesPassword string `json:"dns_dnsservices_password,omitempty"`
+	DnsDoapiToken string `json:"dns_doapi_token,omitempty"`
+	DnsDoPid string `json:"dns_do_pid,omitempty"`
+	DnsDoPassword string `json:"dns_do_password,omitempty"`
+	DnsDomeneshopToken string `json:"dns_domeneshop_token,omitempty"`
+	DnsDomeneshopSecret string `json:"dns_domeneshop_secret,omitempty"`
+	DnsDpId string `json:"dns_dp_id,omitempty"`
+	DnsDpKey string `json:"dns_dp_key,omitempty"`
+	DnsDhKey string `json:"dns_dh_key,omitempty"`
+	DnsDuckdnsToken string `json:"dns_duckdns_token,omitempty"`
+	DnsDynCustomer string `json:"dns_dyn_customer,omitempty"`
+	DnsDynUser string `json:"dns_dyn_user,omitempty"`
+	DnsDynPassword string `json:"dns_dyn_password,omitempty"`
+	DnsDynuClientid string `json:"dns_dynu_clientid,omitempty"`
+	DnsDynuSecret string `json:"dns_dynu_secret,omitempty"`
+	DnsFreednsUser string `json:"dns_freedns_user,omitempty"`
+	DnsFreednsPassword string `json:"dns_freedns_password,omitempty"`
+	DnsFornexApiKey string `json:"dns_fornex_api_key,omitempty"`
+	DnsGandiLivednsKey string `json:"dns_gandi_livedns_key,omitempty"`
+	DnsGandiLivednsToken string `json:"dns_gandi_livedns_token,omitempty"`
+	DnsGcloudKey string `json:"dns_gcloud_key,omitempty"`
+	DnsGoogledomainsAccessToken string `json:"dns_googledomains_access_token,omitempty"`
+	DnsGoogledomainsZone string `json:"dns_googledomains_zone,omitempty"`
+	DnsGdKey string `json:"dns_gd_key,omitempty"`
+	DnsGdSecret string `json:"dns_gd_secret,omitempty"`
+	DnsHostingdeServer string `json:"dns_hostingde_server,omitempty"`
+	DnsHostingdeApiKey string `json:"dns_hostingde_apiKey,omitempty"`
+	DnsHeUser string `json:"dns_he_user,omitempty"`
+	DnsHePassword string `json:"dns_he_password,omitempty"`
+	DnsHeDdnsKey string `json:"dns_he_ddns_key,omitempty"`
+	DnsInfobloxCredentials string `json:"dns_infoblox_credentials,omitempty"`
+	DnsInfobloxServer string `json:"dns_infoblox_server,omitempty"`
+	DnsInwxUser string `json:"dns_inwx_user,omitempty"`
+	DnsInwsPassword string `json:"dns_inws_password,omitempty"`
+	DnsInwxPassword string `json:"dns_inwx_password,omitempty"`
+	DnsInwxSharedSecret string `json:"dns_inwx_shared_secret,omitempty"`
+	DnsIonosPrefix string `json:"dns_ionos_prefix,omitempty"`
+	DnsIonosSecret string `json:"dns_ionos_secret,omitempty"`
+	DnsIpv64Token string `json:"dns_ipv64_token,omitempty"`
+	DnsIspconfigUser string `json:"dns_ispconfig_user,omitempty"`
+	DnsIspconfigPassword string `json:"dns_ispconfig_password,omitempty"`
+	DnsIspconfigApi string `json:"dns_ispconfig_api,omitempty"`
+	DnsIspconfigInsecure *opnsense.OPNBool `json:"dns_ispconfig_insecure,omitempty"` // Default: 1.
+	DnsJdId string `json:"dns_jd_id,omitempty"`
+	DnsJdRegion string `json:"dns_jd_region,omitempty"`
+	DnsJdSecret string `json:"dns_jd_secret,omitempty"`
+	DnsJokerUsername string `json:"dns_joker_username,omitempty"`
+	DnsJokerPassword string `json:"dns_joker_password,omitempty"`
+	DnsKinghostUsername string `json:"dns_kinghost_username,omitempty"`
+	DnsKinghostPassword string `json:"dns_kinghost_password,omitempty"`
+	DnsKnotServer string `json:"dns_knot_server,omitempty"`
+	DnsKnotKey string `json:"dns_knot_key,omitempty"`
+	DnsLexiconProvider string `json:"dns_lexicon_provider,omitempty"` // Default: cloudflare. Valid: aliyun, aurora, auto, azure, cloudflare, cloudns, cloudxns, conoha, constellix, digitalocean, dinahosting, directadmin, dnsimple, dnsmadeeasy, dnspark, dnspod, dreamhost, easydns, easyname, exoscale, gandi, gehirn, glesys, godaddy, googleclouddns, gratisdns, henet, hetzner, hover, infoblox, internetbs, inwx, linode, linode4, localzone, luadns, memset, namecheap, namesilo, netcup, nfsn, nsone, onapp, online, ovh, plesk, pointhq, powerdns, rackspace, rage4, route53, safedns, sakuracloud, softlayer, subreg, transip, vultr, yandex, zeit, zilore, zonomi.
+	DnsLexiconUser string `json:"dns_lexicon_user,omitempty"`
+	DnsLexiconToken string `json:"dns_lexicon_token,omitempty"`
+	DnsLimacityApikey string `json:"dns_limacity_apikey,omitempty"`
+	DnsLinodeKey string `json:"dns_linode_key,omitempty"`
+	DnsLinodeV4Key string `json:"dns_linode_v4_key,omitempty"`
+	DnsLoopiaApi string `json:"dns_loopia_api,omitempty"` // Default: https://api.loopia.se/RPCSERV.
+	DnsLoopiaUser string `json:"dns_loopia_user,omitempty"`
+	DnsLoopiaPassword string `json:"dns_loopia_password,omitempty"`
+	DnsLuaEmail string `json:"dns_lua_email,omitempty"`
+	DnsLuaKey string `json:"dns_lua_key,omitempty"`
+	DnsMiabUser string `json:"dns_miab_user,omitempty"`
+	DnsMiabPassword string `json:"dns_miab_password,omitempty"`
+	DnsMiabServer string `json:"dns_miab_server,omitempty"`
+	DnsMeKey string `json:"dns_me_key,omitempty"`
+	DnsMeSecret string `json:"dns_me_secret,omitempty"`
+	DnsMydnsjpMasterid string `json:"dns_mydnsjp_masterid,omitempty"`
+	DnsMydnsjpPassword string `json:"dns_mydnsjp_password,omitempty"`
+	DnsMythicBeastsKey string `json:"dns_mythic_beasts_key,omitempty"`
+	DnsMythicBeastsSecret string `json:"dns_mythic_beasts_secret,omitempty"`
+	DnsNamecheapUser string `json:"dns_namecheap_user,omitempty"`
+	DnsNamecheapApi string `json:"dns_namecheap_api,omitempty"`
+	DnsNamecheapSourceip string `json:"dns_namecheap_sourceip,omitempty"`
+	DnsNamecomUser string `json:"dns_namecom_user,omitempty"`
+	DnsNamecomToken string `json:"dns_namecom_token,omitempty"`
+	DnsNamesiloKey string `json:"dns_namesilo_key,omitempty"`
+	DnsNederhostKey string `json:"dns_nederhost_key,omitempty"`
+	DnsNetcupCid string `json:"dns_netcup_cid,omitempty"`
+	DnsNetcupKey string `json:"dns_netcup_key,omitempty"`
+	DnsNetcupPw string `json:"dns_netcup_pw,omitempty"`
+	DnsNjallaToken string `json:"dns_njalla_token,omitempty"`
+	DnsNsoneKey string `json:"dns_nsone_key,omitempty"`
+	DnsNsupdateServer string `json:"dns_nsupdate_server,omitempty"`
+	DnsNsupdateZone string `json:"dns_nsupdate_zone,omitempty"`
+	DnsNsupdateKey string `json:"dns_nsupdate_key,omitempty"`
+	DnsOciCliUser string `json:"dns_oci_cli_user,omitempty"`
+	DnsOciCliTenancy string `json:"dns_oci_cli_tenancy,omitempty"`
+	DnsOciCliRegion string `json:"dns_oci_cli_region,omitempty"`
+	DnsOciCliKey string `json:"dns_oci_cli_key,omitempty"`
+	DnsOnlineKey string `json:"dns_online_key,omitempty"`
+	DnsOpnsenseHost string `json:"dns_opnsense_host,omitempty"` // Default: localhost.
+	DnsOpnsensePort string `json:"dns_opnsense_port,omitempty"` // Default: 443.
+	DnsOpnsenseKey string `json:"dns_opnsense_key,omitempty"`
+	DnsOpnsenseToken string `json:"dns_opnsense_token,omitempty"`
+	DnsOpnsenseInsecure *opnsense.OPNBool `json:"dns_opnsense_insecure,omitempty"` // Default: 0.
+	DnsOvhAppKey string `json:"dns_ovh_app_key,omitempty"`
+	DnsOvhAppSecret string `json:"dns_ovh_app_secret,omitempty"`
+	DnsOvhConsumerKey string `json:"dns_ovh_consumer_key,omitempty"`
+	DnsOvhEndpoint string `json:"dns_ovh_endpoint,omitempty"`
+	DnsPleskxmlUser string `json:"dns_pleskxml_user,omitempty"`
+	DnsPleskxmlPass string `json:"dns_pleskxml_pass,omitempty"`
+	DnsPleskxmlUri string `json:"dns_pleskxml_uri,omitempty"`
+	DnsPdnsUrl string `json:"dns_pdns_url,omitempty"`
+	DnsPdnsServerid string `json:"dns_pdns_serverid,omitempty"`
+	DnsPdnsToken string `json:"dns_pdns_token,omitempty"`
+	DnsPorkbunKey string `json:"dns_porkbun_key,omitempty"`
+	DnsPorkbunSecret string `json:"dns_porkbun_secret,omitempty"`
+	DnsSlKey string `json:"dns_sl_key,omitempty"`
+	DnsSlApiver string `json:"dns_sl_apiver,omitempty"` // Valid: v1, v2.
+	DnsSlTokenLifetime string `json:"dns_sl_token_lifetime,omitempty"`
+	DnsSlAccountId string `json:"dns_sl_account_id,omitempty"`
+	DnsSlProjectName string `json:"dns_sl_project_name,omitempty"`
+	DnsSlLoginName string `json:"dns_sl_login_name,omitempty"`
+	DnsSlPassword string `json:"dns_sl_password,omitempty"`
+	DnsSelfhostUser string `json:"dns_selfhost_user,omitempty"`
+	DnsSelfhostPassword string `json:"dns_selfhost_password,omitempty"`
+	DnsSelfhostMap string `json:"dns_selfhost_map,omitempty"`
+	DnsServercowUsername string `json:"dns_servercow_username,omitempty"`
+	DnsServercowPassword string `json:"dns_servercow_password,omitempty"`
+	DnsSimplyApiKey string `json:"dns_simply_api_key,omitempty"`
+	DnsSimplyAccountName string `json:"dns_simply_account_name,omitempty"`
+	DnsSpaceshipApiKey string `json:"dns_spaceship_api_key,omitempty"`
+	DnsSpaceshipApiSecret string `json:"dns_spaceship_api_secret,omitempty"`
+	DnsSpaceshipRootDomain string `json:"dns_spaceship_root_domain,omitempty"`
+	DnsTechnitiumToken string `json:"dns_technitium_token,omitempty"`
+	DnsTechnitiumHostname string `json:"dns_technitium_hostname,omitempty"`
+	DnsTransipUsername string `json:"dns_transip_username,omitempty"`
+	DnsTransipKey string `json:"dns_transip_key,omitempty"`
+	DnsTransipTokenGlobalKey *opnsense.OPNBool `json:"dns_transip_token_global_key,omitempty"` // Default: 0.
+	DnsTimewebToken string `json:"dns_timeweb_token,omitempty"`
+	DnsUdrUser string `json:"dns_udr_user,omitempty"`
+	DnsUdrPassword string `json:"dns_udr_password,omitempty"`
+	DnsUnoKey string `json:"dns_uno_key,omitempty"`
+	DnsUnoUser string `json:"dns_uno_user,omitempty"`
+	DnsVscaleKey string `json:"dns_vscale_key,omitempty"`
+	DnsVultrKey string `json:"dns_vultr_key,omitempty"`
+	DnsYandexToken string `json:"dns_yandex_token,omitempty"`
+	DnsZiloreKey string `json:"dns_zilore_key,omitempty"`
+	DnsZmKey string `json:"dns_zm_key,omitempty"`
+	DnsGdnsdkUser string `json:"dns_gdnsdk_user,omitempty"`
+	DnsGdnsdkPassword string `json:"dns_gdnsdk_password,omitempty"`
+	DnsAcmednsUser string `json:"dns_acmedns_user,omitempty"`
+	DnsAcmednsPassword string `json:"dns_acmedns_password,omitempty"`
+	DnsAcmednsSubdomain string `json:"dns_acmedns_subdomain,omitempty"`
+	DnsAcmednsUpdateurl string `json:"dns_acmedns_updateurl,omitempty"`
+	DnsAcmednsBaseurl string `json:"dns_acmedns_baseurl,omitempty"`
+	DnsAcmeproxyEndpoint string `json:"dns_acmeproxy_endpoint,omitempty"`
+	DnsAcmeproxyUsername string `json:"dns_acmeproxy_username,omitempty"`
+	DnsAcmeproxyPassword string `json:"dns_acmeproxy_password,omitempty"`
+	DnsVariomediaKey string `json:"dns_variomedia_key,omitempty"`
+	DnsSchlundtechUser string `json:"dns_schlundtech_user,omitempty"`
+	DnsSchlundtechPassword string `json:"dns_schlundtech_password,omitempty"`
+	DnsEasydnsApitoken string `json:"dns_easydns_apitoken,omitempty"`
+	DnsEasydnsApikey string `json:"dns_easydns_apikey,omitempty"`
+	DnsEuservUser string `json:"dns_euserv_user,omitempty"`
+	DnsEuservPassword string `json:"dns_euserv_password,omitempty"`
+	DnsLeasewebKey string `json:"dns_leaseweb_key,omitempty"`
+	DnsCnUser string `json:"dns_cn_user,omitempty"`
+	DnsCnPassword string `json:"dns_cn_password,omitempty"`
+	DnsArvanToken string `json:"dns_arvan_token,omitempty"`
+	DnsArtfilesUsername string `json:"dns_artfiles_username,omitempty"`
+	DnsArtfilesPassword string `json:"dns_artfiles_password,omitempty"`
+	DnsHetznerToken string `json:"dns_hetzner_token,omitempty"`
+	DnsHetznercloudToken string `json:"dns_hetznercloud_token,omitempty"`
+	DnsHexonetLogin string `json:"dns_hexonet_login,omitempty"`
+	DnsHexonetPassword string `json:"dns_hexonet_password,omitempty"`
+	Dns1984hostingUser string `json:"dns_1984hosting_user,omitempty"`
+	Dns1984hostingPassword string `json:"dns_1984hosting_password,omitempty"`
+	DnsKasLogin string `json:"dns_kas_login,omitempty"`
+	DnsKasAuthdata string `json:"dns_kas_authdata,omitempty"`
+	DnsKasAuthtype string `json:"dns_kas_authtype,omitempty"` // Default: plain. Valid: plain, sha1.
+	DnsDesecToken string `json:"dns_desec_token,omitempty"`
+	DnsDesecName string `json:"dns_desec_name,omitempty"`
+	DnsInfomaniakToken string `json:"dns_infomaniak_token,omitempty"`
+	DnsZoneUsername string `json:"dns_zone_username,omitempty"`
+	DnsZoneKey string `json:"dns_zone_key,omitempty"`
+	DnsDynv6Token string `json:"dns_dynv6_token,omitempty"`
+	DnsCpanelUser string `json:"dns_cpanel_user,omitempty"`
+	DnsCpanelToken string `json:"dns_cpanel_token,omitempty"`
+	DnsCpanelHostname string `json:"dns_cpanel_hostname,omitempty"`
+	DnsRegruUsername string `json:"dns_regru_username,omitempty"`
+	DnsRegruPassword string `json:"dns_regru_password,omitempty"`
+	DnsNicUsername string `json:"dns_nic_username,omitempty"`
+	DnsNicPassword string `json:"dns_nic_password,omitempty"`
+	DnsNicClient string `json:"dns_nic_client,omitempty"`
+	DnsNicSecret string `json:"dns_nic_secret,omitempty"`
+	DnsWebsupportApiKey string `json:"dns_websupport_api_key,omitempty"`
+	DnsWebsupportApiSecret string `json:"dns_websupport_api_secret,omitempty"`
+	DnsWorld4youUsername string `json:"dns_world4you_username,omitempty"`
+	DnsWorld4youPassword string `json:"dns_world4you_password,omitempty"`
+	DnsAuroraKey string `json:"dns_aurora_key,omitempty"`
+	DnsAuroraSecret string `json:"dns_aurora_secret,omitempty"`
+	DnsConohaUser string `json:"dns_conoha_user,omitempty"`
+	DnsConohaPassword string `json:"dns_conoha_password,omitempty"`
+	DnsConohaTenantid string `json:"dns_conoha_tenantid,omitempty"`
+	DnsConohaIdapi string `json:"dns_conoha_idapi,omitempty"` // Default: https://identity.xxxx.conoha.io/v2.0.
+	DnsConstellixKey string `json:"dns_constellix_key,omitempty"`
+	DnsConstellixSecret string `json:"dns_constellix_secret,omitempty"`
+	DnsExoscaleKey string `json:"dns_exoscale_key,omitempty"`
+	DnsExoscaleSecret string `json:"dns_exoscale_secret,omitempty"`
+	DnsInternetbsKey string `json:"dns_internetbs_key,omitempty"`
+	DnsInternetbsPassword string `json:"dns_internetbs_password,omitempty"`
+	DnsPointhqKey string `json:"dns_pointhq_key,omitempty"`
+	DnsPointhqEmail string `json:"dns_pointhq_email,omitempty"`
+	DnsRackspaceUser string `json:"dns_rackspace_user,omitempty"`
+	DnsRackspaceKey string `json:"dns_rackspace_key,omitempty"`
+	DnsRage4Token string `json:"dns_rage4_token,omitempty"`
+	DnsRage4User string `json:"dns_rage4_user,omitempty"`
+	DnsMijnhostApiKey string `json:"dns_mijnhost_api_key,omitempty"`
+	DnsScalewayToken string `json:"dns_scaleway_token,omitempty"`
+	DnsZoneeditId string `json:"dns_zoneedit_id,omitempty"`
+	DnsZoneeditToken string `json:"dns_zoneedit_token,omitempty"`
 }
 
 // Action represents a action model item.
 type Action struct {
-	Id                        string            `json:"id,omitempty"`
-	Enabled                   opnsense.OPNBool  `json:"enabled"` // Required. Default: 1.
-	Name                      string            `json:"name"`    // Required.
-	Description               string            `json:"description,omitempty"`
-	Type                      string            `json:"type"` // Required. Valid: configd_restart_gui, configd_restart_haproxy, configd_restart_nginx, configd_reload_caddy, configd_upload_sftp, configd_remote_ssh, acme_fritzbox, acme_panos, acme_proxmoxbs, acme_proxmoxve, acme_ruckus, acme_vault, acme_synology_dsm, acme_truenas, acme_zyxel_gs1900, acme_unifi, configd_generic.
-	SftpHost                  string            `json:"sftp_host,omitempty"`
-	SftpHostKey               string            `json:"sftp_host_key,omitempty"`
-	SftpPort                  *opnsense.OPNInt  `json:"sftp_port,omitempty"` // Default: 22.
-	SftpUser                  string            `json:"sftp_user,omitempty"`
-	SftpIdentityType          string            `json:"sftp_identity_type,omitempty"` // Valid: ecdsa, rsa, ed25519.
-	SftpRemotePath            string            `json:"sftp_remote_path,omitempty"`
-	SftpChgrp                 string            `json:"sftp_chgrp,omitempty"`
-	SftpChmod                 string            `json:"sftp_chmod,omitempty"`
-	SftpChmodKey              string            `json:"sftp_chmod_key,omitempty"`
-	SftpModtime               *opnsense.OPNBool `json:"sftp_modtime,omitempty"` // Default: 0.
-	SftpFilenameCert          string            `json:"sftp_filename_cert,omitempty"`
-	SftpFilenameKey           string            `json:"sftp_filename_key,omitempty"`
-	SftpFilenameCa            string            `json:"sftp_filename_ca,omitempty"`
-	SftpFilenameFullchain     string            `json:"sftp_filename_fullchain,omitempty"`
-	RemoteSshHost             string            `json:"remote_ssh_host,omitempty"`
-	RemoteSshHostKey          string            `json:"remote_ssh_host_key,omitempty"`
-	RemoteSshPort             *opnsense.OPNInt  `json:"remote_ssh_port,omitempty"` // Default: 22.
-	RemoteSshUser             string            `json:"remote_ssh_user,omitempty"`
-	RemoteSshIdentityType     string            `json:"remote_ssh_identity_type,omitempty"` // Valid: ecdsa, rsa, ed25519.
-	RemoteSshCommand          string            `json:"remote_ssh_command,omitempty"`
-	Configd                   string            `json:"configd,omitempty"`
-	ConfigdGenericCommand     string            `json:"configd_generic_command,omitempty"`
-	AcmeSynologyDsmHostname   string            `json:"acme_synology_dsm_hostname,omitempty"`
-	AcmeSynologyDsmPort       string            `json:"acme_synology_dsm_port,omitempty"`   // Default: 5000.
-	AcmeSynologyDsmScheme     string            `json:"acme_synology_dsm_scheme,omitempty"` // Default: http. Valid: http, https.
-	AcmeSynologyDsmUsername   string            `json:"acme_synology_dsm_username,omitempty"`
-	AcmeSynologyDsmPassword   string            `json:"acme_synology_dsm_password,omitempty"`
-	AcmeSynologyDsmCreate     *opnsense.OPNBool `json:"acme_synology_dsm_create,omitempty"` // Default: 1.
-	AcmeSynologyDsmDeviceid   string            `json:"acme_synology_dsm_deviceid,omitempty"`
-	AcmeSynologyDsmDevicename string            `json:"acme_synology_dsm_devicename,omitempty"`
-	AcmeSynologyDsmOtpcode    string            `json:"acme_synology_dsm_otpcode,omitempty"`
-	AcmeFritzboxUrl           string            `json:"acme_fritzbox_url,omitempty"`
-	AcmeFritzboxUsername      string            `json:"acme_fritzbox_username,omitempty"`
-	AcmeFritzboxPassword      string            `json:"acme_fritzbox_password,omitempty"`
-	AcmePanosUsername         string            `json:"acme_panos_username,omitempty"`
-	AcmePanosPassword         string            `json:"acme_panos_password,omitempty"`
-	AcmePanosHost             string            `json:"acme_panos_host,omitempty"`
-	AcmeProxmoxveUser         string            `json:"acme_proxmoxve_user,omitempty"` // Default: root.
-	AcmeProxmoxveServer       string            `json:"acme_proxmoxve_server,omitempty"`
-	AcmeProxmoxvePort         string            `json:"acme_proxmoxve_port,omitempty"` // Default: 8006.
-	AcmeProxmoxveNodename     string            `json:"acme_proxmoxve_nodename,omitempty"`
-	AcmeProxmoxveRealm        string            `json:"acme_proxmoxve_realm,omitempty"`   // Default: pam.
-	AcmeProxmoxveTokenid      string            `json:"acme_proxmoxve_tokenid,omitempty"` // Default: acme.
-	AcmeProxmoxveTokenkey     string            `json:"acme_proxmoxve_tokenkey,omitempty"`
-	AcmeProxmoxbsUser         string            `json:"acme_proxmoxbs_user,omitempty"` // Default: root.
-	AcmeProxmoxbsServer       string            `json:"acme_proxmoxbs_server,omitempty"`
-	AcmeProxmoxbsPort         string            `json:"acme_proxmoxbs_port,omitempty"`     // Default: 8007.
-	AcmeProxmoxbsNodename     string            `json:"acme_proxmoxbs_nodename,omitempty"` // Default: localhost.
-	AcmeProxmoxbsRealm        string            `json:"acme_proxmoxbs_realm,omitempty"`    // Default: pam.
-	AcmeProxmoxbsTokenid      string            `json:"acme_proxmoxbs_tokenid,omitempty"`  // Default: acme.
-	AcmeProxmoxbsTokenkey     string            `json:"acme_proxmoxbs_tokenkey,omitempty"`
-	AcmeRuckusHost            string            `json:"acme_ruckus_host,omitempty"`
-	AcmeRuckusUser            string            `json:"acme_ruckus_user,omitempty"`
-	AcmeRuckusPass            string            `json:"acme_ruckus_pass,omitempty"`
-	AcmeTruenasApikey         string            `json:"acme_truenas_apikey,omitempty"`
-	AcmeTruenasHostname       string            `json:"acme_truenas_hostname,omitempty"` // Default: localhost.
-	AcmeTruenasScheme         string            `json:"acme_truenas_scheme,omitempty"`   // Default: http. Valid: http, https.
-	AcmeUnifiKeystore         string            `json:"acme_unifi_keystore,omitempty"`   // Default: /usr/local/share/java/unifi/data/keystore.
-	AcmeVaultUrl              string            `json:"acme_vault_url,omitempty"`
-	AcmeVaultPrefix           string            `json:"acme_vault_prefix,omitempty"` // Default: acme.
-	AcmeVaultToken            string            `json:"acme_vault_token,omitempty"`
-	AcmeVaultKvv2             *opnsense.OPNBool `json:"acme_vault_kvv2,omitempty"` // Default: 1.
-	AcmeZyxelGs1900Host       string            `json:"acme_zyxel_gs1900_host,omitempty"`
-	AcmeZyxelGs1900User       string            `json:"acme_zyxel_gs1900_user,omitempty"` // Default: admin.
-	AcmeZyxelGs1900Password   string            `json:"acme_zyxel_gs1900_password,omitempty"`
-	AcmeZyxelGs1900Insecure   *opnsense.OPNBool `json:"acme_zyxel_gs1900_insecure,omitempty"` // Default: 0.
-	AcmeZyxelGs1900Reboot     *opnsense.OPNBool `json:"acme_zyxel_gs1900_reboot,omitempty"`   // Default: 0.
+	Id string `json:"id,omitempty"`
+	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
+	Name string `json:"name"` // Required.
+	Description string `json:"description,omitempty"`
+	Type string `json:"type"` // Required. Valid: configd_restart_gui, configd_restart_haproxy, configd_restart_nginx, configd_reload_caddy, configd_upload_sftp, configd_remote_ssh, acme_fritzbox, acme_panos, acme_proxmoxbs, acme_proxmoxve, acme_ruckus, acme_vault, acme_synology_dsm, acme_truenas, acme_zyxel_gs1900, acme_unifi, configd_generic.
+	SftpHost string `json:"sftp_host,omitempty"`
+	SftpHostKey string `json:"sftp_host_key,omitempty"`
+	SftpPort *opnsense.OPNInt `json:"sftp_port,omitempty"` // Default: 22.
+	SftpUser string `json:"sftp_user,omitempty"`
+	SftpIdentityType string `json:"sftp_identity_type,omitempty"` // Valid: ecdsa, rsa, ed25519.
+	SftpRemotePath string `json:"sftp_remote_path,omitempty"`
+	SftpChgrp string `json:"sftp_chgrp,omitempty"`
+	SftpChmod string `json:"sftp_chmod,omitempty"`
+	SftpChmodKey string `json:"sftp_chmod_key,omitempty"`
+	SftpModtime *opnsense.OPNBool `json:"sftp_modtime,omitempty"` // Default: 0.
+	SftpFilenameCert string `json:"sftp_filename_cert,omitempty"`
+	SftpFilenameKey string `json:"sftp_filename_key,omitempty"`
+	SftpFilenameCa string `json:"sftp_filename_ca,omitempty"`
+	SftpFilenameFullchain string `json:"sftp_filename_fullchain,omitempty"`
+	RemoteSshHost string `json:"remote_ssh_host,omitempty"`
+	RemoteSshHostKey string `json:"remote_ssh_host_key,omitempty"`
+	RemoteSshPort *opnsense.OPNInt `json:"remote_ssh_port,omitempty"` // Default: 22.
+	RemoteSshUser string `json:"remote_ssh_user,omitempty"`
+	RemoteSshIdentityType string `json:"remote_ssh_identity_type,omitempty"` // Valid: ecdsa, rsa, ed25519.
+	RemoteSshCommand string `json:"remote_ssh_command,omitempty"`
+	Configd string `json:"configd,omitempty"`
+	ConfigdGenericCommand string `json:"configd_generic_command,omitempty"`
+	AcmeSynologyDsmHostname string `json:"acme_synology_dsm_hostname,omitempty"`
+	AcmeSynologyDsmPort string `json:"acme_synology_dsm_port,omitempty"` // Default: 5000.
+	AcmeSynologyDsmScheme string `json:"acme_synology_dsm_scheme,omitempty"` // Default: http. Valid: http, https.
+	AcmeSynologyDsmUsername string `json:"acme_synology_dsm_username,omitempty"`
+	AcmeSynologyDsmPassword string `json:"acme_synology_dsm_password,omitempty"`
+	AcmeSynologyDsmCreate *opnsense.OPNBool `json:"acme_synology_dsm_create,omitempty"` // Default: 1.
+	AcmeSynologyDsmDeviceid string `json:"acme_synology_dsm_deviceid,omitempty"`
+	AcmeSynologyDsmDevicename string `json:"acme_synology_dsm_devicename,omitempty"`
+	AcmeSynologyDsmOtpcode string `json:"acme_synology_dsm_otpcode,omitempty"`
+	AcmeFritzboxUrl string `json:"acme_fritzbox_url,omitempty"`
+	AcmeFritzboxUsername string `json:"acme_fritzbox_username,omitempty"`
+	AcmeFritzboxPassword string `json:"acme_fritzbox_password,omitempty"`
+	AcmePanosUsername string `json:"acme_panos_username,omitempty"`
+	AcmePanosPassword string `json:"acme_panos_password,omitempty"`
+	AcmePanosHost string `json:"acme_panos_host,omitempty"`
+	AcmeProxmoxveUser string `json:"acme_proxmoxve_user,omitempty"` // Default: root.
+	AcmeProxmoxveServer string `json:"acme_proxmoxve_server,omitempty"`
+	AcmeProxmoxvePort string `json:"acme_proxmoxve_port,omitempty"` // Default: 8006.
+	AcmeProxmoxveNodename string `json:"acme_proxmoxve_nodename,omitempty"`
+	AcmeProxmoxveRealm string `json:"acme_proxmoxve_realm,omitempty"` // Default: pam.
+	AcmeProxmoxveTokenid string `json:"acme_proxmoxve_tokenid,omitempty"` // Default: acme.
+	AcmeProxmoxveTokenkey string `json:"acme_proxmoxve_tokenkey,omitempty"`
+	AcmeProxmoxbsUser string `json:"acme_proxmoxbs_user,omitempty"` // Default: root.
+	AcmeProxmoxbsServer string `json:"acme_proxmoxbs_server,omitempty"`
+	AcmeProxmoxbsPort string `json:"acme_proxmoxbs_port,omitempty"` // Default: 8007.
+	AcmeProxmoxbsNodename string `json:"acme_proxmoxbs_nodename,omitempty"` // Default: localhost.
+	AcmeProxmoxbsRealm string `json:"acme_proxmoxbs_realm,omitempty"` // Default: pam.
+	AcmeProxmoxbsTokenid string `json:"acme_proxmoxbs_tokenid,omitempty"` // Default: acme.
+	AcmeProxmoxbsTokenkey string `json:"acme_proxmoxbs_tokenkey,omitempty"`
+	AcmeRuckusHost string `json:"acme_ruckus_host,omitempty"`
+	AcmeRuckusUser string `json:"acme_ruckus_user,omitempty"`
+	AcmeRuckusPass string `json:"acme_ruckus_pass,omitempty"`
+	AcmeTruenasApikey string `json:"acme_truenas_apikey,omitempty"`
+	AcmeTruenasHostname string `json:"acme_truenas_hostname,omitempty"` // Default: localhost.
+	AcmeTruenasScheme string `json:"acme_truenas_scheme,omitempty"` // Default: http. Valid: http, https.
+	AcmeUnifiKeystore string `json:"acme_unifi_keystore,omitempty"` // Default: /usr/local/share/java/unifi/data/keystore.
+	AcmeVaultUrl string `json:"acme_vault_url,omitempty"`
+	AcmeVaultPrefix string `json:"acme_vault_prefix,omitempty"` // Default: acme.
+	AcmeVaultToken string `json:"acme_vault_token,omitempty"`
+	AcmeVaultKvv2 *opnsense.OPNBool `json:"acme_vault_kvv2,omitempty"` // Default: 1.
+	AcmeZyxelGs1900Host string `json:"acme_zyxel_gs1900_host,omitempty"`
+	AcmeZyxelGs1900User string `json:"acme_zyxel_gs1900_user,omitempty"` // Default: admin.
+	AcmeZyxelGs1900Password string `json:"acme_zyxel_gs1900_password,omitempty"`
+	AcmeZyxelGs1900Insecure *opnsense.OPNBool `json:"acme_zyxel_gs1900_insecure,omitempty"` // Default: 0.
+	AcmeZyxelGs1900Reboot *opnsense.OPNBool `json:"acme_zyxel_gs1900_reboot,omitempty"` // Default: 0.
 }

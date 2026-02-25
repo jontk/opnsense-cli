@@ -6,24 +6,24 @@ import "github.com/jontk/opnsense-cli/opnsense"
 
 // General represents a general model item.
 type General struct {
-	Enabled       opnsense.OPNBool `json:"enabled"`        // Required. Default: 1.
-	ServerAddress string           `json:"server_address"` // Required.
-	AgentName     string           `json:"agent_name,omitempty"`
-	Protocol      string           `json:"protocol"`    // Required. Default: tcp. Valid: tcp, udp.
-	Port          opnsense.OPNInt  `json:"port"`        // Required. Default: 1514.
-	DebugLevel    string           `json:"debug_level"` // Required. Default: 0. Valid: val0, val1, val2.
+	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
+	ServerAddress string `json:"server_address"` // Required.
+	AgentName string `json:"agent_name,omitempty"`
+	Protocol string `json:"protocol"` // Required. Default: tcp. Valid: tcp, udp.
+	Port opnsense.OPNInt `json:"port"` // Required. Default: 1514.
+	DebugLevel string `json:"debug_level"` // Required. Default: 0. Valid: val0, val1, val2.
 }
 
 // Auth represents a auth model item.
 type Auth struct {
-	Password string          `json:"password,omitempty"`
-	Port     opnsense.OPNInt `json:"port"` // Required. Default: 1515.
+	Password string `json:"password,omitempty"`
+	Port opnsense.OPNInt `json:"port"` // Required. Default: 1515.
 }
 
 // Logcollector represents a logcollector model item.
 type Logcollector struct {
 	RemoteCommands opnsense.OPNBool `json:"remote_commands"` // Required. Default: 1.
-	SyslogPrograms string           `json:"syslog_programs,omitempty"`
+	SyslogPrograms string `json:"syslog_programs,omitempty"`
 	SuricataEveLog opnsense.OPNBool `json:"suricata_eve_log"` // Required. Default: 1.
 }
 
@@ -44,8 +44,8 @@ type Syscheck struct {
 
 // ActiveResponse represents a active_response model item.
 type ActiveResponse struct {
-	Enabled           opnsense.OPNBool `json:"enabled"`         // Required. Default: 1.
-	RemoteCommands    opnsense.OPNBool `json:"remote_commands"` // Required. Default: 1.
-	FwAliasIgnore     string           `json:"fw_alias_ignore,omitempty"`
-	RepeatedOffenders string           `json:"repeated_offenders,omitempty"`
+	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
+	RemoteCommands opnsense.OPNBool `json:"remote_commands"` // Required. Default: 1.
+	FwAliasIgnore string `json:"fw_alias_ignore,omitempty"`
+	RepeatedOffenders string `json:"repeated_offenders,omitempty"`
 }

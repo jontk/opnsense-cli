@@ -6,10 +6,10 @@ import "github.com/jontk/opnsense-cli/opnsense"
 
 // Settings represents a settings model item.
 type Settings struct {
-	Enabled   opnsense.OPNBool `json:"enabled"` // Required. Default: 0.
-	Interface string           `json:"interface,omitempty"`
-	Httpport  string           `json:"httpport"` // Required. Default: 3000.
-	Httpsport string           `json:"httpsport,omitempty"`
-	Cert      string           `json:"cert,omitempty"`
-	Dnsmode   string           `json:"dnsmode,omitempty"` // Valid: Option0, Option1, Option2, Option3.
+	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 0.
+	Interface string `json:"interface,omitempty"`
+	Httpport string `json:"httpport"` // Required. Default: 3000.
+	Httpsport string `json:"httpsport,omitempty"`
+	Cert string `json:"cert,omitempty"`
+	Dnsmode string `json:"dnsmode,omitempty"` // Valid: Option0, Option1, Option2, Option3.
 }

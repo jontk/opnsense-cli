@@ -6,29 +6,29 @@ import "github.com/jontk/opnsense-cli/opnsense"
 
 // Zone represents a zone model item.
 type Zone struct {
-	Enabled                  opnsense.OPNBool `json:"enabled"`      // Required. Default: 1.
-	Zoneid                   string           `json:"zoneid"`       // Required.
-	Interfaces               string           `json:"interfaces"`   // Required. Default: lan.
-	DisableRules             opnsense.OPNBool `json:"disableRules"` // Required. Default: 0.
-	Authservers              string           `json:"authservers,omitempty"`
+	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
+	Zoneid string `json:"zoneid"` // Required.
+	Interfaces string `json:"interfaces"` // Required. Default: lan.
+	DisableRules opnsense.OPNBool `json:"disableRules"` // Required. Default: 0.
+	Authservers string `json:"authservers,omitempty"`
 	AlwaysSendAccountingReqs opnsense.OPNBool `json:"alwaysSendAccountingReqs"` // Required. Default: 0.
-	AuthEnforceGroup         string           `json:"authEnforceGroup,omitempty"`
-	Idletimeout              opnsense.OPNInt  `json:"idletimeout"`      // Required. Default: 0.
-	Hardtimeout              opnsense.OPNInt  `json:"hardtimeout"`      // Required. Default: 0.
-	Concurrentlogins         opnsense.OPNBool `json:"concurrentlogins"` // Required. Default: 1.
-	Certificate              string           `json:"certificate,omitempty"`
-	Servername               string           `json:"servername,omitempty"`
-	AllowedAddresses         string           `json:"allowedAddresses,omitempty"`
-	AllowedMACAddresses      string           `json:"allowedMACAddresses,omitempty"`
-	ExtendedPreAuthData      opnsense.OPNBool `json:"extendedPreAuthData"` // Required. Default: 0.
-	Template                 string           `json:"template,omitempty"`
-	Description              string           `json:"description"` // Required.
+	AuthEnforceGroup string `json:"authEnforceGroup,omitempty"`
+	Idletimeout opnsense.OPNInt `json:"idletimeout"` // Required. Default: 0.
+	Hardtimeout opnsense.OPNInt `json:"hardtimeout"` // Required. Default: 0.
+	Concurrentlogins opnsense.OPNBool `json:"concurrentlogins"` // Required. Default: 1.
+	Certificate string `json:"certificate,omitempty"`
+	Servername string `json:"servername,omitempty"`
+	AllowedAddresses string `json:"allowedAddresses,omitempty"`
+	AllowedMACAddresses string `json:"allowedMACAddresses,omitempty"`
+	ExtendedPreAuthData opnsense.OPNBool `json:"extendedPreAuthData"` // Required. Default: 0.
+	Template string `json:"template,omitempty"`
+	Description string `json:"description"` // Required.
 }
 
 // Template represents a template model item.
 type Template struct {
-	Fileid  string `json:"fileid"`  // Required.
-	Name    string `json:"name"`    // Required.
+	Fileid string `json:"fileid"` // Required.
+	Name string `json:"name"` // Required.
 	Content string `json:"content"` // Required.
 }
 

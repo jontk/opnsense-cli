@@ -6,68 +6,68 @@ import "github.com/jontk/opnsense-cli/opnsense"
 
 // General represents a general model item.
 type General struct {
-	Enabled                   opnsense.OPNBool `json:"enabled"`    // Required. Default: 0.
-	Interval                  opnsense.OPNInt  `json:"interval"`   // Required. Default: 120.
-	Startdelay                opnsense.OPNInt  `json:"startdelay"` // Required. Default: 120.
-	Mailserver                string           `json:"mailserver"` // Required. Default: 127.0.0.1.
-	Port                      opnsense.OPNInt  `json:"port"`       // Required. Default: 25.
-	Username                  string           `json:"username,omitempty"`
-	Password                  string           `json:"password,omitempty"`
-	Ssl                       opnsense.OPNBool `json:"ssl"`        // Required. Default: 0.
-	Sslversion                string           `json:"sslversion"` // Required. Default: auto. Valid: auto, tlsv1, tlsv11, tlsv12, tlsv13.
-	Sslverify                 opnsense.OPNBool `json:"sslverify"`  // Required. Default: 1.
-	Logfile                   string           `json:"logfile,omitempty"`
-	Statefile                 string           `json:"statefile,omitempty"`
-	EventqueuePath            string           `json:"eventqueuePath,omitempty"`
-	EventqueueSlots           *opnsense.OPNInt `json:"eventqueueSlots,omitempty"`
-	HttpdEnabled              opnsense.OPNBool `json:"httpdEnabled"`  // Required. Default: 0.
-	HttpdUsername             string           `json:"httpdUsername"` // Required. Default: root.
-	HttpdPassword             string           `json:"httpdPassword,omitempty"`
-	HttpdPort                 opnsense.OPNInt  `json:"httpdPort"` // Required. Default: 2812.
-	HttpdAllow                string           `json:"httpdAllow,omitempty"`
-	MmonitUrl                 string           `json:"mmonitUrl,omitempty"`
-	MmonitTimeout             opnsense.OPNInt  `json:"mmonitTimeout"`             // Required. Default: 5.
+	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 0.
+	Interval opnsense.OPNInt `json:"interval"` // Required. Default: 120.
+	Startdelay opnsense.OPNInt `json:"startdelay"` // Required. Default: 120.
+	Mailserver string `json:"mailserver"` // Required. Default: 127.0.0.1.
+	Port opnsense.OPNInt `json:"port"` // Required. Default: 25.
+	Username string `json:"username,omitempty"`
+	Password string `json:"password,omitempty"`
+	Ssl opnsense.OPNBool `json:"ssl"` // Required. Default: 0.
+	Sslversion string `json:"sslversion"` // Required. Default: auto. Valid: auto, tlsv1, tlsv11, tlsv12, tlsv13.
+	Sslverify opnsense.OPNBool `json:"sslverify"` // Required. Default: 1.
+	Logfile string `json:"logfile,omitempty"`
+	Statefile string `json:"statefile,omitempty"`
+	EventqueuePath string `json:"eventqueuePath,omitempty"`
+	EventqueueSlots *opnsense.OPNInt `json:"eventqueueSlots,omitempty"`
+	HttpdEnabled opnsense.OPNBool `json:"httpdEnabled"` // Required. Default: 0.
+	HttpdUsername string `json:"httpdUsername"` // Required. Default: root.
+	HttpdPassword string `json:"httpdPassword,omitempty"`
+	HttpdPort opnsense.OPNInt `json:"httpdPort"` // Required. Default: 2812.
+	HttpdAllow string `json:"httpdAllow,omitempty"`
+	MmonitUrl string `json:"mmonitUrl,omitempty"`
+	MmonitTimeout opnsense.OPNInt `json:"mmonitTimeout"` // Required. Default: 5.
 	MmonitRegisterCredentials opnsense.OPNBool `json:"mmonitRegisterCredentials"` // Required. Default: 1.
 }
 
 // Alert represents a alert model item.
 type Alert struct {
-	Enabled     opnsense.OPNBool `json:"enabled"`          // Required. Default: 0.
-	Recipient   string           `json:"recipient"`        // Required. Default: root@localhost.local.
-	Noton       opnsense.OPNBool `json:"noton"`            // Required. Default: 0.
-	Events      string           `json:"events,omitempty"` // Valid: action, checksum, bytein, byteout, connection, content, data, exec, fsflags, gid, icmp, instance, invalid, link, nonexist, packetin, packetout, permission, pid, ppid, resource, saturation, size, speed, status, timeout, timestamp, uid, uptime.
-	Format      string           `json:"format,omitempty"`
-	Reminder    *opnsense.OPNInt `json:"reminder,omitempty"`
-	Description string           `json:"description,omitempty"`
+	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 0.
+	Recipient string `json:"recipient"` // Required. Default: root@localhost.local.
+	Noton opnsense.OPNBool `json:"noton"` // Required. Default: 0.
+	Events string `json:"events,omitempty"` // Valid: action, checksum, bytein, byteout, connection, content, data, exec, fsflags, gid, icmp, instance, invalid, link, nonexist, packetin, packetout, permission, pid, ppid, resource, saturation, size, speed, status, timeout, timestamp, uid, uptime.
+	Format string `json:"format,omitempty"`
+	Reminder *opnsense.OPNInt `json:"reminder,omitempty"`
+	Description string `json:"description,omitempty"`
 }
 
 // Service represents a service model item.
 type Service struct {
-	Enabled      opnsense.OPNBool `json:"enabled"` // Required. Default: 0.
-	Name         string           `json:"name"`    // Required.
-	Description  string           `json:"description,omitempty"`
-	Type         string           `json:"type"` // Required. Valid: process, file, fifo, filesystem, directory, host, system, custom, network.
-	Pidfile      string           `json:"pidfile,omitempty"`
-	Match        string           `json:"match,omitempty"`
-	Path         string           `json:"path,omitempty"`
-	Timeout      opnsense.OPNInt  `json:"timeout"`      // Required. Default: 300.
-	Starttimeout opnsense.OPNInt  `json:"starttimeout"` // Required. Default: 30.
-	Address      string           `json:"address,omitempty"`
-	Interface    string           `json:"interface,omitempty"`
-	Start        string           `json:"start,omitempty"`
-	Stop         string           `json:"stop,omitempty"`
-	Tests        string           `json:"tests,omitempty"`
-	Depends      string           `json:"depends,omitempty"`
-	Polltime     string           `json:"polltime,omitempty"`
+	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 0.
+	Name string `json:"name"` // Required.
+	Description string `json:"description,omitempty"`
+	Type string `json:"type"` // Required. Valid: process, file, fifo, filesystem, directory, host, system, custom, network.
+	Pidfile string `json:"pidfile,omitempty"`
+	Match string `json:"match,omitempty"`
+	Path string `json:"path,omitempty"`
+	Timeout opnsense.OPNInt `json:"timeout"` // Required. Default: 300.
+	Starttimeout opnsense.OPNInt `json:"starttimeout"` // Required. Default: 30.
+	Address string `json:"address,omitempty"`
+	Interface string `json:"interface,omitempty"`
+	Start string `json:"start,omitempty"`
+	Stop string `json:"stop,omitempty"`
+	Tests string `json:"tests,omitempty"`
+	Depends string `json:"depends,omitempty"`
+	Polltime string `json:"polltime,omitempty"`
 }
 
 // Test represents a test model item.
 type Test struct {
-	Name      string `json:"name"`      // Required.
-	Type      string `json:"type"`      // Required. Default: Custom. Valid: Existence, SystemResource, ProcessResource, ProcessDiskIO, FileChecksum, Timestamp, FileSize, FileContent, FilesystemMountFlags, SpaceUsage, InodeUsage, DiskIO, Permisssion, UID, GID, PID, PPID, Uptime, ProgramStatus, NetworkInterface, NetworkPing, Connection, Custom.
+	Name string `json:"name"` // Required.
+	Type string `json:"type"` // Required. Default: Custom. Valid: Existence, SystemResource, ProcessResource, ProcessDiskIO, FileChecksum, Timestamp, FileSize, FileContent, FilesystemMountFlags, SpaceUsage, InodeUsage, DiskIO, Permisssion, UID, GID, PID, PPID, Uptime, ProgramStatus, NetworkInterface, NetworkPing, Connection, Custom.
 	Condition string `json:"condition"` // Required.
-	Action    string `json:"action"`    // Required. Valid: alert, restart, start, stop, exec, unmonitor.
-	Path      string `json:"path,omitempty"`
+	Action string `json:"action"` // Required. Valid: alert, restart, start, stop, exec, unmonitor.
+	Path string `json:"path,omitempty"`
 }
 
 type alertGetItemResponse struct {

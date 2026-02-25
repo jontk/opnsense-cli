@@ -6,58 +6,58 @@ import "github.com/jontk/opnsense-cli/opnsense"
 
 // Policy represents a policy model item.
 type Policy struct {
-	Enabled   opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
-	Type      string           `json:"type"`    // Required. Default: both. Valid: both, v4, v6.
-	Network   string           `json:"network"` // Required.
+	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
+	Type string `json:"type"` // Required. Default: both. Valid: both, v4, v6.
+	Network string `json:"network"` // Required.
 	Startport *opnsense.OPNInt `json:"startport,omitempty"`
-	Endport   *opnsense.OPNInt `json:"endport,omitempty"`
-	Action    string           `json:"action"` // Required. Default: accept. Valid: accept, reject.
+	Endport *opnsense.OPNInt `json:"endport,omitempty"`
+	Action string `json:"action"` // Required. Default: accept. Valid: accept, reject.
 }
 
 // Settings represents a settings model item.
 type Settings struct {
-	Enabled                   opnsense.OPNBool `json:"enabled"` // Required. Default: 0.
-	SocksListenIp             string           `json:"socks_listen_ip,omitempty"`
-	SocksListenPort           opnsense.OPNInt  `json:"socks_listen_port"`      // Required. Default: 9050.
-	ControlPort               *opnsense.OPNInt `json:"control_port,omitempty"` // Default: 9051.
-	ControlPortPassword       string           `json:"control_port_password,omitempty"`
-	ControlPortPasswordHashed string           `json:"control_port_password_hashed,omitempty"`
-	Enablelogfile             opnsense.OPNBool `json:"enablelogfile"`               // Required. Default: 0.
-	DormantCanceledByStartup  opnsense.OPNBool `json:"dormant_canceled_by_startup"` // Required. Default: 0.
-	Logfilelevel              string           `json:"logfilelevel"`                // Required. Default: notifications. Valid: err, warn, notice, info, debug.
-	Enablesyslog              opnsense.OPNBool `json:"enablesyslog"`                // Required. Default: 0.
-	Sysloglevel               string           `json:"sysloglevel"`                 // Required. Default: notifications. Valid: err, warn, notice, info, debug.
-	Scheduler                 string           `json:"scheduler"`                   // Required. Default: KISTLiteVanilla. Valid: KISTLiteVanilla, VanillaKISTLite, KISTLite, Vanilla.
-	FascistFirewall           opnsense.OPNBool `json:"fascist_firewall"`            // Required. Default: 0.
-	FascistFirewallPorts      string           `json:"fascist_firewall_ports"`      // Required. Default: 80,443.
-	EnableTransparent         opnsense.OPNBool `json:"enable_transparent"`          // Required. Default: 0.
-	TransparentPort           opnsense.OPNInt  `json:"transparent_port"`            // Required. Default: 9040.
-	TransparentDns            opnsense.OPNInt  `json:"transparent_dns"`             // Required. Default: 9053.
-	TransparentIpPool         string           `json:"transparent_ip_pool"`         // Required. Default: 172.29.0.0/16.
-	DnsMapHosts               opnsense.OPNBool `json:"dns_map_hosts"`               // Required. Default: 0.
-	MaxMemoryInQueues         *opnsense.OPNInt `json:"max_memory_in_queues,omitempty"`
+	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 0.
+	SocksListenIp string `json:"socks_listen_ip,omitempty"`
+	SocksListenPort opnsense.OPNInt `json:"socks_listen_port"` // Required. Default: 9050.
+	ControlPort *opnsense.OPNInt `json:"control_port,omitempty"` // Default: 9051.
+	ControlPortPassword string `json:"control_port_password,omitempty"`
+	ControlPortPasswordHashed string `json:"control_port_password_hashed,omitempty"`
+	Enablelogfile opnsense.OPNBool `json:"enablelogfile"` // Required. Default: 0.
+	DormantCanceledByStartup opnsense.OPNBool `json:"dormant_canceled_by_startup"` // Required. Default: 0.
+	Logfilelevel string `json:"logfilelevel"` // Required. Default: notifications. Valid: err, warn, notice, info, debug.
+	Enablesyslog opnsense.OPNBool `json:"enablesyslog"` // Required. Default: 0.
+	Sysloglevel string `json:"sysloglevel"` // Required. Default: notifications. Valid: err, warn, notice, info, debug.
+	Scheduler string `json:"scheduler"` // Required. Default: KISTLiteVanilla. Valid: KISTLiteVanilla, VanillaKISTLite, KISTLite, Vanilla.
+	FascistFirewall opnsense.OPNBool `json:"fascist_firewall"` // Required. Default: 0.
+	FascistFirewallPorts string `json:"fascist_firewall_ports"` // Required. Default: 80,443.
+	EnableTransparent opnsense.OPNBool `json:"enable_transparent"` // Required. Default: 0.
+	TransparentPort opnsense.OPNInt `json:"transparent_port"` // Required. Default: 9040.
+	TransparentDns opnsense.OPNInt `json:"transparent_dns"` // Required. Default: 9053.
+	TransparentIpPool string `json:"transparent_ip_pool"` // Required. Default: 172.29.0.0/16.
+	DnsMapHosts opnsense.OPNBool `json:"dns_map_hosts"` // Required. Default: 0.
+	MaxMemoryInQueues *opnsense.OPNInt `json:"max_memory_in_queues,omitempty"`
 }
 
 // ClientAuth represents a client_auth model item.
 type ClientAuth struct {
-	Enabled      opnsense.OPNBool `json:"enabled"`       // Required. Default: 1.
-	OnionService string           `json:"onion_service"` // Required. Default: exampleexample23.onion.
-	AuthCookie   string           `json:"auth_cookie"`   // Required. Default: 0000000000000000000000.
+	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
+	OnionService string `json:"onion_service"` // Required. Default: exampleexample23.onion.
+	AuthCookie string `json:"auth_cookie"` // Required. Default: 0000000000000000000000.
 }
 
 // Service represents a service model item.
 type Service struct {
 	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
-	Name    string           `json:"name"`    // Required.
-	Type    string           `json:"type"`    // Required. Default: basic. Valid: basic, stealth.
-	Clients string           `json:"clients,omitempty"`
+	Name string `json:"name"` // Required.
+	Type string `json:"type"` // Required. Default: basic. Valid: basic, stealth.
+	Clients string `json:"clients,omitempty"`
 }
 
 // Hiddenserviceacl represents a hiddenserviceacl model item.
 type Hiddenserviceacl struct {
-	Enabled       opnsense.OPNBool `json:"enabled"`       // Required. Default: 1.
-	Hiddenservice string           `json:"hiddenservice"` // Required.
-	Port          opnsense.OPNInt  `json:"port"`          // Required. Default: 80.
-	TargetHost    string           `json:"target_host"`   // Required. Default: 127.0.0.1.
-	TargetPort    opnsense.OPNInt  `json:"target_port"`   // Required. Default: 80.
+	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
+	Hiddenservice string `json:"hiddenservice"` // Required.
+	Port opnsense.OPNInt `json:"port"` // Required. Default: 80.
+	TargetHost string `json:"target_host"` // Required. Default: 127.0.0.1.
+	TargetPort opnsense.OPNInt `json:"target_port"` // Required. Default: 80.
 }

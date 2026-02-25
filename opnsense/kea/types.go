@@ -6,44 +6,44 @@ import "github.com/jontk/opnsense-cli/opnsense"
 
 // General represents a general model item.
 type General struct {
-	Enabled  opnsense.OPNBool `json:"enabled"`   // Required. Default: 0.
-	HttpHost string           `json:"http_host"` // Required. Default: 127.0.0.1.
-	HttpPort string           `json:"http_port"` // Required. Default: 8000.
+	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 0.
+	HttpHost string `json:"http_host"` // Required. Default: 127.0.0.1.
+	HttpPort string `json:"http_port"` // Required. Default: 8000.
 }
 
 // Lexpire represents a lexpire model item.
 type Lexpire struct {
-	HoldReclaimedTime           *opnsense.OPNInt `json:"hold_reclaimed_time,omitempty"`
-	ReclaimTimerWaitTime        *opnsense.OPNInt `json:"reclaim_timer_wait_time,omitempty"`
+	HoldReclaimedTime *opnsense.OPNInt `json:"hold_reclaimed_time,omitempty"`
+	ReclaimTimerWaitTime *opnsense.OPNInt `json:"reclaim_timer_wait_time,omitempty"`
 	FlushReclaimedTimerWaitTime *opnsense.OPNInt `json:"flush_reclaimed_timer_wait_time,omitempty"`
-	MaxReclaimTime              *opnsense.OPNInt `json:"max_reclaim_time,omitempty"`
-	MaxReclaimLeases            *opnsense.OPNInt `json:"max_reclaim_leases,omitempty"`
-	UnwarnedReclaimCycles       *opnsense.OPNInt `json:"unwarned_reclaim_cycles,omitempty"`
+	MaxReclaimTime *opnsense.OPNInt `json:"max_reclaim_time,omitempty"`
+	MaxReclaimLeases *opnsense.OPNInt `json:"max_reclaim_leases,omitempty"`
+	UnwarnedReclaimCycles *opnsense.OPNInt `json:"unwarned_reclaim_cycles,omitempty"`
 }
 
 // Ha represents a ha model item.
 type Ha struct {
-	Enabled           opnsense.OPNBool `json:"enabled"` // Required. Default: 0.
-	ThisServerName    string           `json:"this_server_name,omitempty"`
-	MaxUnackedClients opnsense.OPNInt  `json:"max_unacked_clients"` // Required. Default: 2.
+	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 0.
+	ThisServerName string `json:"this_server_name,omitempty"`
+	MaxUnackedClients opnsense.OPNInt `json:"max_unacked_clients"` // Required. Default: 2.
 }
 
 // Subnet4 represents a subnet4 model item.
 type Subnet4 struct {
-	Subnet                string           `json:"subnet"` // Required.
-	NextServer            string           `json:"next_server,omitempty"`
+	Subnet string `json:"subnet"` // Required.
+	NextServer string `json:"next_server,omitempty"`
 	OptionDataAutocollect opnsense.OPNBool `json:"option_data_autocollect"` // Required. Default: 1.
-	MatchClientId         opnsense.OPNBool `json:"match-client-id"`         // Required. Default: 1.
-	Pools                 string           `json:"pools,omitempty"`
-	Description           string           `json:"description,omitempty"`
+	MatchClientId opnsense.OPNBool `json:"match-client-id"` // Required. Default: 1.
+	Pools string `json:"pools,omitempty"`
+	Description string `json:"description,omitempty"`
 }
 
 // Reservation represents a reservation model item.
 type Reservation struct {
-	Subnet      string `json:"subnet"` // Required.
-	IpAddress   string `json:"ip_address,omitempty"`
-	HwAddress   string `json:"hw_address"` // Required.
-	Hostname    string `json:"hostname,omitempty"`
+	Subnet string `json:"subnet"` // Required.
+	IpAddress string `json:"ip_address,omitempty"`
+	HwAddress string `json:"hw_address"` // Required.
+	Hostname string `json:"hostname,omitempty"`
 	Description string `json:"description,omitempty"`
 }
 
@@ -51,26 +51,26 @@ type Reservation struct {
 type Peer struct {
 	Name string `json:"name"` // Required.
 	Role string `json:"role"` // Required. Default: primary. Valid: primary, standby.
-	Url  string `json:"url"`  // Required.
+	Url string `json:"url"` // Required.
 }
 
 // Subnet6 represents a subnet6 model item.
 type Subnet6 struct {
-	Subnet      string `json:"subnet"`                 // Required.
-	Allocator   string `json:"allocator,omitempty"`    // Valid: iterative, random.
+	Subnet string `json:"subnet"` // Required.
+	Allocator string `json:"allocator,omitempty"` // Valid: iterative, random.
 	PdAllocator string `json:"pd-allocator,omitempty"` // Valid: iterative, random, flq.
-	Pools       string `json:"pools,omitempty"`
-	Interface   string `json:"interface"` // Required.
+	Pools string `json:"pools,omitempty"`
+	Interface string `json:"interface"` // Required.
 	Description string `json:"description,omitempty"`
 }
 
 // PdPool represents a pd_pool model item.
 type PdPool struct {
-	Subnet       string          `json:"subnet"` // Required.
-	Prefix       string          `json:"prefix,omitempty"`
-	PrefixLen    opnsense.OPNInt `json:"prefix_len"`    // Required. Default: 56.
+	Subnet string `json:"subnet"` // Required.
+	Prefix string `json:"prefix,omitempty"`
+	PrefixLen opnsense.OPNInt `json:"prefix_len"` // Required. Default: 56.
 	DelegatedLen opnsense.OPNInt `json:"delegated_len"` // Required. Default: 64.
-	Description  string          `json:"description,omitempty"`
+	Description string `json:"description,omitempty"`
 }
 
 type peerGetItemResponse struct {

@@ -21,6 +21,6 @@ type Inputs struct {
 
 // Elasticsearch represents a elasticsearch model item.
 type Elasticsearch struct {
-	Hosts  string `json:"hosts"`   // Required.
+	Hosts string `json:"hosts"` // Required.
 	ApiKey string `json:"api_key"` // Required.
 }

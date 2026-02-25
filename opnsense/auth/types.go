@@ -6,43 +6,43 @@ import "github.com/jontk/opnsense-cli/opnsense"
 
 // Group represents a group model item.
 type Group struct {
-	Gid            string `json:"gid,omitempty"`
-	Name           string `json:"name"`  // Required.
-	Scope          string `json:"scope"` // Required. Default: user.
-	Description    string `json:"description,omitempty"`
-	Priv           string `json:"priv,omitempty"`
-	Member         string `json:"member,omitempty"`
+	Gid string `json:"gid,omitempty"`
+	Name string `json:"name"` // Required.
+	Scope string `json:"scope"` // Required. Default: user.
+	Description string `json:"description,omitempty"`
+	Priv string `json:"priv,omitempty"`
+	Member string `json:"member,omitempty"`
 	SourceNetworks string `json:"source_networks,omitempty"`
 }
 
 // Settings represents a settings model item.
 type Settings struct {
-	Users  string `json:"users,omitempty"`
+	Users string `json:"users,omitempty"`
 	Groups string `json:"groups,omitempty"`
 }
 
 // User represents a user model item.
 type User struct {
-	Uid               string            `json:"uid,omitempty"`
-	Name              string            `json:"name"`     // Required.
-	Disabled          opnsense.OPNBool  `json:"disabled"` // Required. Default: 0.
-	Scope             string            `json:"scope"`    // Required. Default: user.
-	Expires           string            `json:"expires,omitempty"`
-	Authorizedkeys    string            `json:"authorizedkeys,omitempty"`
-	OtpSeed           string            `json:"otp_seed,omitempty"`
-	Shell             string            `json:"shell,omitempty"`
-	Password          string            `json:"password,omitempty"`
+	Uid string `json:"uid,omitempty"`
+	Name string `json:"name"` // Required.
+	Disabled opnsense.OPNBool `json:"disabled"` // Required. Default: 0.
+	Scope string `json:"scope"` // Required. Default: user.
+	Expires string `json:"expires,omitempty"`
+	Authorizedkeys string `json:"authorizedkeys,omitempty"`
+	OtpSeed string `json:"otp_seed,omitempty"`
+	Shell string `json:"shell,omitempty"`
+	Password string `json:"password,omitempty"`
 	ScrambledPassword *opnsense.OPNBool `json:"scrambled_password,omitempty"`
-	PwdChangedAt      string            `json:"pwd_changed_at,omitempty"`
-	LandingPage       string            `json:"landing_page,omitempty"`
-	Comment           string            `json:"comment,omitempty"`
-	Email             string            `json:"email,omitempty"`
-	Apikeys           string            `json:"apikeys,omitempty"`
-	Priv              string            `json:"priv,omitempty"`
-	Language          string            `json:"language,omitempty"`
-	GroupMemberships  string            `json:"group_memberships,omitempty"`
-	Descr             string            `json:"descr,omitempty"`
-	Dashboard         string            `json:"dashboard,omitempty"`
+	PwdChangedAt string `json:"pwd_changed_at,omitempty"`
+	LandingPage string `json:"landing_page,omitempty"`
+	Comment string `json:"comment,omitempty"`
+	Email string `json:"email,omitempty"`
+	Apikeys string `json:"apikeys,omitempty"`
+	Priv string `json:"priv,omitempty"`
+	Language string `json:"language,omitempty"`
+	GroupMemberships string `json:"group_memberships,omitempty"`
+	Descr string `json:"descr,omitempty"`
+	Dashboard string `json:"dashboard,omitempty"`
 }
 
 type settingsGetItemResponse struct {

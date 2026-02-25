@@ -6,36 +6,36 @@ import "github.com/jontk/opnsense-cli/opnsense"
 
 // Cloak represents a cloak model item.
 type Cloak struct {
-	Enabled     opnsense.OPNBool `json:"enabled"`     // Required. Default: 1.
-	Name        string           `json:"name"`        // Required.
-	Destination string           `json:"destination"` // Required.
+	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
+	Name string `json:"name"` // Required.
+	Destination string `json:"destination"` // Required.
 }
 
 // Settings represents a settings model item.
 type Settings struct {
-	Enabled opnsense.OPNBool `json:"enabled"`        // Required. Default: 0.
-	Type    string           `json:"type,omitempty"` // Valid: aa, ag, bla, blf, blp, el, ep, nc, pt, qf, sa, st, sb, ws, wsu, wse, yy.
+	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 0.
+	Type string `json:"type,omitempty"` // Valid: aa, ag, bla, blf, blp, el, ep, nc, pt, qf, sa, st, sb, ws, wsu, wse, yy.
 }
 
 // Forward represents a forward model item.
 type Forward struct {
-	Enabled   opnsense.OPNBool `json:"enabled"`   // Required. Default: 1.
-	Domain    string           `json:"domain"`    // Required.
-	Dnsserver string           `json:"dnsserver"` // Required.
+	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
+	Domain string `json:"domain"` // Required.
+	Dnsserver string `json:"dnsserver"` // Required.
 }
 
 // Server represents a server model item.
 type Server struct {
 	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
-	Name    string           `json:"name"`    // Required.
-	Stamp   string           `json:"stamp"`   // Required.
+	Name string `json:"name"` // Required.
+	Stamp string `json:"stamp"` // Required.
 }
 
 // Whitelist represents a whitelist model item.
 type Whitelist struct {
-	Enabled     opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
-	Name        string           `json:"name"`    // Required.
-	Description string           `json:"description,omitempty"`
+	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
+	Name string `json:"name"` // Required.
+	Description string `json:"description,omitempty"`
 }
 
 type cloakGetItemResponse struct {

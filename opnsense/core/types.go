@@ -6,64 +6,64 @@ import "github.com/jontk/opnsense-cli/opnsense"
 
 // Settings represents a settings model item.
 type Settings struct {
-	Disablepreempt  opnsense.OPNBool  `json:"disablepreempt"` // Required. Default: 0.
-	Disconnectppps  opnsense.OPNBool  `json:"disconnectppps"` // Required. Default: 0.
-	Pfsyncinterface string            `json:"pfsyncinterface,omitempty"`
-	Pfsyncpeerip    string            `json:"pfsyncpeerip,omitempty"`
-	Pfsyncversion   string            `json:"pfsyncversion"` // Required. Default: 1400. Valid: v1301, v1400.
-	Pfsyncdefer     *opnsense.OPNBool `json:"pfsyncdefer,omitempty"`
-	Synchronizetoip string            `json:"synchronizetoip,omitempty"`
-	Verifypeer      opnsense.OPNBool  `json:"verifypeer"` // Required. Default: 0.
-	Username        string            `json:"username,omitempty"`
-	Password        string            `json:"password,omitempty"`
-	Syncitems       string            `json:"syncitems,omitempty"`
+	Disablepreempt opnsense.OPNBool `json:"disablepreempt"` // Required. Default: 0.
+	Disconnectppps opnsense.OPNBool `json:"disconnectppps"` // Required. Default: 0.
+	Pfsyncinterface string `json:"pfsyncinterface,omitempty"`
+	Pfsyncpeerip string `json:"pfsyncpeerip,omitempty"`
+	Pfsyncversion string `json:"pfsyncversion"` // Required. Default: 1400. Valid: v1301, v1400.
+	Pfsyncdefer *opnsense.OPNBool `json:"pfsyncdefer,omitempty"`
+	Synchronizetoip string `json:"synchronizetoip,omitempty"`
+	Verifypeer opnsense.OPNBool `json:"verifypeer"` // Required. Default: 0.
+	Username string `json:"username,omitempty"`
+	Password string `json:"password,omitempty"`
+	Syncitems string `json:"syncitems,omitempty"`
 }
 
 // Unbound represents a unbound model item.
 type Unbound struct {
-	Enabled        opnsense.OPNBool `json:"enabled"`        // Required.
-	Dnssec         opnsense.OPNBool `json:"dnssec"`         // Required.
+	Enabled opnsense.OPNBool `json:"enabled"` // Required.
+	Dnssec opnsense.OPNBool `json:"dnssec"` // Required.
 	Dnssecstripped opnsense.OPNBool `json:"dnssecstripped"` // Required.
 }
 
 // Wan represents a wan model item.
 type Wan struct {
-	Disable       *opnsense.OPNBool `json:"disable,omitempty"`
-	Ipv4Type      string            `json:"ipv4_type"` // Required. Default: dhcp. Valid: dhcp, static, pppoe.
-	Spoofmac      string            `json:"spoofmac,omitempty"`
-	Mtu           *opnsense.OPNInt  `json:"mtu,omitempty"`
-	Mss           *opnsense.OPNInt  `json:"mss,omitempty"`
-	Ipaddr        string            `json:"ipaddr,omitempty"`
-	Gateway       string            `json:"gateway,omitempty"`
-	Dhcphostname  string            `json:"dhcphostname,omitempty"`
-	PppoeUsername string            `json:"pppoe_username,omitempty"`
-	PppoePassword string            `json:"pppoe_password,omitempty"`
-	PppoeProvider string            `json:"pppoe_provider,omitempty"`
-	Blockpriv     *opnsense.OPNBool `json:"blockpriv,omitempty"`
-	Blockbogons   *opnsense.OPNBool `json:"blockbogons,omitempty"`
+	Disable *opnsense.OPNBool `json:"disable,omitempty"`
+	Ipv4Type string `json:"ipv4_type"` // Required. Default: dhcp. Valid: dhcp, static, pppoe.
+	Spoofmac string `json:"spoofmac,omitempty"`
+	Mtu *opnsense.OPNInt `json:"mtu,omitempty"`
+	Mss *opnsense.OPNInt `json:"mss,omitempty"`
+	Ipaddr string `json:"ipaddr,omitempty"`
+	Gateway string `json:"gateway,omitempty"`
+	Dhcphostname string `json:"dhcphostname,omitempty"`
+	PppoeUsername string `json:"pppoe_username,omitempty"`
+	PppoePassword string `json:"pppoe_password,omitempty"`
+	PppoeProvider string `json:"pppoe_provider,omitempty"`
+	Blockpriv *opnsense.OPNBool `json:"blockpriv,omitempty"`
+	Blockbogons *opnsense.OPNBool `json:"blockbogons,omitempty"`
 }
 
 // Lan represents a lan model item.
 type Lan struct {
-	Ipaddr        string            `json:"ipaddr,omitempty"`
-	Disable       *opnsense.OPNBool `json:"disable,omitempty"`
-	ConfigureDhcp opnsense.OPNBool  `json:"configure_dhcp"` // Required. Default: 1.
+	Ipaddr string `json:"ipaddr,omitempty"`
+	Disable *opnsense.OPNBool `json:"disable,omitempty"`
+	ConfigureDhcp opnsense.OPNBool `json:"configure_dhcp"` // Required. Default: 1.
 }
 
 // DeploymentType represents a deployment_type model item.
 type DeploymentType struct {
-	Multiwan            *opnsense.OPNBool `json:"multiwan,omitempty"`
+	Multiwan *opnsense.OPNBool `json:"multiwan,omitempty"`
 	DhcpDnsRegistration *opnsense.OPNBool `json:"dhcp_dns_registration,omitempty"`
-	Maxthreads          *opnsense.OPNBool `json:"maxthreads,omitempty"`
+	Maxthreads *opnsense.OPNBool `json:"maxthreads,omitempty"`
 }
 
 // Item represents a item model item.
 type Item struct {
-	Tunable      string `json:"tunable,omitempty"`
-	Value        string `json:"value,omitempty"`
-	Descr        string `json:"descr,omitempty"`
+	Tunable string `json:"tunable,omitempty"`
+	Value string `json:"value,omitempty"`
+	Descr string `json:"descr,omitempty"`
 	DefaultValue string `json:"default_value,omitempty"`
-	Type         string `json:"type,omitempty"`
+	Type string `json:"type,omitempty"`
 }
 
 type itemGetItemResponse struct {

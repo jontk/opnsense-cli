@@ -6,29 +6,29 @@ import "github.com/jontk/opnsense-cli/opnsense"
 
 // Entries represents a entries model item.
 type Entries struct {
-	Enabled              opnsense.OPNBool `json:"enabled"`   // Required. Default: 1.
-	Interface            string           `json:"interface"` // Required.
-	Base6Interface       string           `json:"Base6Interface,omitempty"`
-	Mode                 string           `json:"mode"`                      // Required. Default: stateless. Valid: router, unmanaged, managed, assist, stateless.
-	DeprecatePrefix      string           `json:"DeprecatePrefix,omitempty"` // Valid: on, off.
-	RemoveAdvOnExit      string           `json:"RemoveAdvOnExit,omitempty"` // Valid: on, off.
-	RemoveRoute          string           `json:"RemoveRoute,omitempty"`     // Valid: on, off.
-	Routes               string           `json:"routes,omitempty"`
-	RDNSS                string           `json:"RDNSS,omitempty"`
-	DNSSL                string           `json:"DNSSL,omitempty"`
-	Dns                  opnsense.OPNBool `json:"dns"`               // Required. Default: 1.
-	MinRtrAdvInterval    opnsense.OPNInt  `json:"MinRtrAdvInterval"` // Required. Default: 200.
-	MaxRtrAdvInterval    opnsense.OPNInt  `json:"MaxRtrAdvInterval"` // Required. Default: 600.
-	AdvDNSSLLifetime     *opnsense.OPNInt `json:"AdvDNSSLLifetime,omitempty"`
-	AdvDefaultLifetime   *opnsense.OPNInt `json:"AdvDefaultLifetime,omitempty"`
-	AdvLinkMTU           *opnsense.OPNInt `json:"AdvLinkMTU,omitempty"`
+	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
+	Interface string `json:"interface"` // Required.
+	Base6Interface string `json:"Base6Interface,omitempty"`
+	Mode string `json:"mode"` // Required. Default: stateless. Valid: router, unmanaged, managed, assist, stateless.
+	DeprecatePrefix string `json:"DeprecatePrefix,omitempty"` // Valid: on, off.
+	RemoveAdvOnExit string `json:"RemoveAdvOnExit,omitempty"` // Valid: on, off.
+	RemoveRoute string `json:"RemoveRoute,omitempty"` // Valid: on, off.
+	Routes string `json:"routes,omitempty"`
+	RDNSS string `json:"RDNSS,omitempty"`
+	DNSSL string `json:"DNSSL,omitempty"`
+	Dns opnsense.OPNBool `json:"dns"` // Required. Default: 1.
+	MinRtrAdvInterval opnsense.OPNInt `json:"MinRtrAdvInterval"` // Required. Default: 200.
+	MaxRtrAdvInterval opnsense.OPNInt `json:"MaxRtrAdvInterval"` // Required. Default: 600.
+	AdvDNSSLLifetime *opnsense.OPNInt `json:"AdvDNSSLLifetime,omitempty"`
+	AdvDefaultLifetime *opnsense.OPNInt `json:"AdvDefaultLifetime,omitempty"`
+	AdvLinkMTU *opnsense.OPNInt `json:"AdvLinkMTU,omitempty"`
 	AdvPreferredLifetime *opnsense.OPNInt `json:"AdvPreferredLifetime,omitempty"`
-	AdvRASrcAddress      string           `json:"AdvRASrcAddress,omitempty"`
-	AdvRDNSSLifetime     *opnsense.OPNInt `json:"AdvRDNSSLifetime,omitempty"`
-	AdvRouteLifetime     *opnsense.OPNInt `json:"AdvRouteLifetime,omitempty"`
-	AdvValidLifetime     *opnsense.OPNInt `json:"AdvValidLifetime,omitempty"`
-	AdvDefaultPreference string           `json:"AdvDefaultPreference"` // Required. Default: medium. Valid: low, medium, high.
-	Nat64prefix          string           `json:"nat64prefix,omitempty"`
+	AdvRASrcAddress string `json:"AdvRASrcAddress,omitempty"`
+	AdvRDNSSLifetime *opnsense.OPNInt `json:"AdvRDNSSLifetime,omitempty"`
+	AdvRouteLifetime *opnsense.OPNInt `json:"AdvRouteLifetime,omitempty"`
+	AdvValidLifetime *opnsense.OPNInt `json:"AdvValidLifetime,omitempty"`
+	AdvDefaultPreference string `json:"AdvDefaultPreference"` // Required. Default: medium. Valid: low, medium, high.
+	Nat64prefix string `json:"nat64prefix,omitempty"`
 }
 
 type entriesGetItemResponse struct {

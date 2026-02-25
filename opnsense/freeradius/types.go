@@ -6,133 +6,133 @@ import "github.com/jontk/opnsense-cli/opnsense"
 
 // Avpair represents a avpair model item.
 type Avpair struct {
-	Enabled  opnsense.OPNBool `json:"enabled"`  // Required. Default: 1.
-	Name     string           `json:"name"`     // Required.
-	Operator string           `json:"operator"` // Required.
-	Value    string           `json:"value"`    // Required.
+	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
+	Name string `json:"name"` // Required.
+	Operator string `json:"operator"` // Required.
+	Value string `json:"value"` // Required.
 }
 
 // ClientConfig represents a client model item.
 type ClientConfig struct {
-	Enabled   opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
-	Name      string           `json:"name"`    // Required.
-	Secret    string           `json:"secret"`  // Required.
-	Ip        string           `json:"ip,omitempty"`
+	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
+	Name string `json:"name"` // Required.
+	Secret string `json:"secret"` // Required.
+	Ip string `json:"ip,omitempty"`
 	RequireMa opnsense.OPNBool `json:"require_ma"` // Required. Default: 0.
 }
 
 // Dhcp represents a dhcp model item.
 type Dhcp struct {
-	Enabled   opnsense.OPNBool `json:"enabled"`   // Required. Default: 1.
-	Dns       string           `json:"dns"`       // Required.
-	Netmask   string           `json:"netmask"`   // Required.
-	Gatewayip string           `json:"gatewayip"` // Required.
+	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
+	Dns string `json:"dns"` // Required.
+	Netmask string `json:"netmask"` // Required.
+	Gatewayip string `json:"gatewayip"` // Required.
 }
 
 // Settings represents a settings model item.
 type Settings struct {
-	Innertunnel  opnsense.OPNBool `json:"innertunnel"` // Required. Default: 0.
-	Protocol     string           `json:"protocol"`    // Required. Default: LDAPS. Valid: LDAP, LDAPS.
-	Server       string           `json:"server,omitempty"`
-	Serverport   string           `json:"serverport,omitempty"`
-	Ldapcert     string           `json:"ldapcert,omitempty"`
+	Innertunnel opnsense.OPNBool `json:"innertunnel"` // Required. Default: 0.
+	Protocol string `json:"protocol"` // Required. Default: LDAPS. Valid: LDAP, LDAPS.
+	Server string `json:"server,omitempty"`
+	Serverport string `json:"serverport,omitempty"`
+	Ldapcert string `json:"ldapcert,omitempty"`
 	Ldapstarttls opnsense.OPNBool `json:"ldapstarttls"` // Required. Default: 0.
-	Identity     string           `json:"identity,omitempty"`
-	Password     string           `json:"password,omitempty"`
-	BaseDn       string           `json:"base_dn,omitempty"`      // Default: dc=example,dc=domain,dc=com.
-	UserFilter   string           `json:"user_filter,omitempty"`  // Default: (uid=%{%{Stripped-User-Name}:-%{User-Name}}).
-	GroupFilter  string           `json:"group_filter,omitempty"` // Default: (objectClass=posixGroup).
+	Identity string `json:"identity,omitempty"`
+	Password string `json:"password,omitempty"`
+	BaseDn string `json:"base_dn,omitempty"` // Default: dc=example,dc=domain,dc=com.
+	UserFilter string `json:"user_filter,omitempty"` // Default: (uid=%{%{Stripped-User-Name}:-%{User-Name}}).
+	GroupFilter string `json:"group_filter,omitempty"` // Default: (objectClass=posixGroup).
 }
 
 // Ldapgroup represents a ldapgroup model item.
 type Ldapgroup struct {
-	Enabled       opnsense.OPNBool `json:"enabled"`       // Required. Default: 1.
-	Ldapgroupname string           `json:"ldapgroupname"` // Required.
-	Vlan          *opnsense.OPNInt `json:"vlan,omitempty"`
+	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
+	Ldapgroupname string `json:"ldapgroupname"` // Required.
+	Vlan *opnsense.OPNInt `json:"vlan,omitempty"`
 }
 
 // Lease represents a lease model item.
 type Lease struct {
 	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
-	Mac     string           `json:"mac"`     // Required.
-	Ip      string           `json:"ip"`      // Required.
+	Mac string `json:"mac"` // Required.
+	Ip string `json:"ip"` // Required.
 }
 
 // Homeserver represents a homeserver model item.
 type Homeserver struct {
-	Enabled             opnsense.OPNBool  `json:"enabled"`                 // Required. Default: 1.
-	Name                string            `json:"name"`                    // Required.
-	Type                string            `json:"type"`                    // Required. Default: 1. Valid: auth, acct, authacct, coa.
-	Addresstype         string            `json:"addresstype"`             // Required. Default: ipv4. Valid: ipv4, ipv6, virtual_server.
-	Ipaddr              string            `json:"ipaddr,omitempty"`        // Default: 172.0.0.1.
-	Ipaddr6             string            `json:"ipaddr6,omitempty"`       // Default: ::1.
-	Virtualserver       string            `json:"virtualserver,omitempty"` // Default: foo.
-	Port                opnsense.OPNInt   `json:"port"`                    // Required. Default: 1812.
-	Proto               string            `json:"proto"`                   // Required. Default: udp. Valid: udp, tcp.
-	Secret              string            `json:"secret,omitempty"`        // Default: testing123.
-	Sourceip            string            `json:"sourceip,omitempty"`
-	ResponseWindow      opnsense.OPNInt   `json:"response_window"` // Required. Default: 20.
-	NoResponseFail      *opnsense.OPNBool `json:"no_response_fail,omitempty"`
-	Zombieperiod        opnsense.OPNInt   `json:"zombieperiod"`         // Required. Default: 40.
-	Reviveinterval      opnsense.OPNInt   `json:"reviveinterval"`       // Required. Default: 120.
-	Statuscheck         string            `json:"statuscheck"`          // Required. Default: status-server. Valid: none, status-server, request.
-	Checkinterval       opnsense.OPNInt   `json:"checkinterval"`        // Required. Default: 30.
-	Numanswersalive     opnsense.OPNInt   `json:"numanswersalive"`      // Required. Default: 3.
-	MaxOutstanding      opnsense.OPNInt   `json:"max_outstanding"`      // Required. Default: 65536.
-	LimitMaxconnections opnsense.OPNInt   `json:"limit_maxconnections"` // Required. Default: 16.
-	LimitMaxrequests    opnsense.OPNInt   `json:"limit_maxrequests"`    // Required. Default: 0.
-	LimitLifetime       opnsense.OPNInt   `json:"limit_lifetime"`       // Required. Default: 0.
-	LimitIdletimeout    opnsense.OPNInt   `json:"limit_idletimeout"`    // Required. Default: 0.
+	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
+	Name string `json:"name"` // Required.
+	Type string `json:"type"` // Required. Default: 1. Valid: auth, acct, authacct, coa.
+	Addresstype string `json:"addresstype"` // Required. Default: ipv4. Valid: ipv4, ipv6, virtual_server.
+	Ipaddr string `json:"ipaddr,omitempty"` // Default: 172.0.0.1.
+	Ipaddr6 string `json:"ipaddr6,omitempty"` // Default: ::1.
+	Virtualserver string `json:"virtualserver,omitempty"` // Default: foo.
+	Port opnsense.OPNInt `json:"port"` // Required. Default: 1812.
+	Proto string `json:"proto"` // Required. Default: udp. Valid: udp, tcp.
+	Secret string `json:"secret,omitempty"` // Default: testing123.
+	Sourceip string `json:"sourceip,omitempty"`
+	ResponseWindow opnsense.OPNInt `json:"response_window"` // Required. Default: 20.
+	NoResponseFail *opnsense.OPNBool `json:"no_response_fail,omitempty"`
+	Zombieperiod opnsense.OPNInt `json:"zombieperiod"` // Required. Default: 40.
+	Reviveinterval opnsense.OPNInt `json:"reviveinterval"` // Required. Default: 120.
+	Statuscheck string `json:"statuscheck"` // Required. Default: status-server. Valid: none, status-server, request.
+	Checkinterval opnsense.OPNInt `json:"checkinterval"` // Required. Default: 30.
+	Numanswersalive opnsense.OPNInt `json:"numanswersalive"` // Required. Default: 3.
+	MaxOutstanding opnsense.OPNInt `json:"max_outstanding"` // Required. Default: 65536.
+	LimitMaxconnections opnsense.OPNInt `json:"limit_maxconnections"` // Required. Default: 16.
+	LimitMaxrequests opnsense.OPNInt `json:"limit_maxrequests"` // Required. Default: 0.
+	LimitLifetime opnsense.OPNInt `json:"limit_lifetime"` // Required. Default: 0.
+	LimitIdletimeout opnsense.OPNInt `json:"limit_idletimeout"` // Required. Default: 0.
 }
 
 // Homeserverpool represents a homeserverpool model item.
 type Homeserverpool struct {
-	Enabled       opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
-	Name          string           `json:"name"`    // Required.
-	Type          string           `json:"type"`    // Required. Default: fail-over. Valid: fail-over, load-balance, client-balance, client-port-balance, keyed-balance.
-	Virtualserver string           `json:"virtualserver,omitempty"`
-	Homeservers   string           `json:"homeservers"` // Required. Default: localhost.
-	Fallback      string           `json:"fallback,omitempty"`
+	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
+	Name string `json:"name"` // Required.
+	Type string `json:"type"` // Required. Default: fail-over. Valid: fail-over, load-balance, client-balance, client-port-balance, keyed-balance.
+	Virtualserver string `json:"virtualserver,omitempty"`
+	Homeservers string `json:"homeservers"` // Required. Default: localhost.
+	Fallback string `json:"fallback,omitempty"`
 }
 
 // Realm represents a realm model item.
 type Realm struct {
-	Enabled  opnsense.OPNBool  `json:"enabled"` // Required. Default: 1.
-	Name     string            `json:"name"`    // Required.
-	AuthPool string            `json:"auth_pool,omitempty"`
-	AcctPool string            `json:"acct_pool,omitempty"`
-	Nostrip  *opnsense.OPNBool `json:"nostrip,omitempty"`
+	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
+	Name string `json:"name"` // Required.
+	AuthPool string `json:"auth_pool,omitempty"`
+	AcctPool string `json:"acct_pool,omitempty"`
+	Nostrip *opnsense.OPNBool `json:"nostrip,omitempty"`
 }
 
 // User represents a user model item.
 type User struct {
-	Enabled                     opnsense.OPNBool `json:"enabled"`            // Required. Default: 1.
-	Username                    string           `json:"username"`           // Required.
-	Password                    string           `json:"password"`           // Required.
-	Passwordencryption          string           `json:"passwordencryption"` // Required. Default: Cleartext-Password. Valid: cleartext, ntprehashed.
-	Description                 string           `json:"description,omitempty"`
-	Ip                          string           `json:"ip,omitempty"`
-	Subnet                      string           `json:"subnet,omitempty"`
-	Route                       string           `json:"route,omitempty"`
-	Ip6                         string           `json:"ip6,omitempty"`
-	Vlan                        *opnsense.OPNInt `json:"vlan,omitempty"`
-	Logintime                   string           `json:"logintime,omitempty"`
-	Simuse                      *opnsense.OPNInt `json:"simuse,omitempty"`
-	ExosVlanUntagged            *opnsense.OPNInt `json:"exos_vlan_untagged,omitempty"`
-	ExosVlanTagged              string           `json:"exos_vlan_tagged,omitempty"`
-	ExosPolicy                  string           `json:"exos_policy,omitempty"`
-	WisprBwMinUp                *opnsense.OPNInt `json:"wispr_bw_min_up,omitempty"`
-	WisprBwMaxUp                *opnsense.OPNInt `json:"wispr_bw_max_up,omitempty"`
-	WisprBwMinDown              *opnsense.OPNInt `json:"wispr_bw_min_down,omitempty"`
-	WisprBwMaxDown              *opnsense.OPNInt `json:"wispr_bw_max_down,omitempty"`
-	ChillispotBwMaxUp           *opnsense.OPNInt `json:"chillispot_bw_max_up,omitempty"`
-	ChillispotBwMaxDown         *opnsense.OPNInt `json:"chillispot_bw_max_down,omitempty"`
-	MikrotikVlanIdNumber        *opnsense.OPNInt `json:"mikrotik_vlan_id_number,omitempty"`
-	MikrotikVlanIdType          *opnsense.OPNInt `json:"mikrotik_vlan_id_type,omitempty"`
+	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
+	Username string `json:"username"` // Required.
+	Password string `json:"password"` // Required.
+	Passwordencryption string `json:"passwordencryption"` // Required. Default: Cleartext-Password. Valid: cleartext, ntprehashed.
+	Description string `json:"description,omitempty"`
+	Ip string `json:"ip,omitempty"`
+	Subnet string `json:"subnet,omitempty"`
+	Route string `json:"route,omitempty"`
+	Ip6 string `json:"ip6,omitempty"`
+	Vlan *opnsense.OPNInt `json:"vlan,omitempty"`
+	Logintime string `json:"logintime,omitempty"`
+	Simuse *opnsense.OPNInt `json:"simuse,omitempty"`
+	ExosVlanUntagged *opnsense.OPNInt `json:"exos_vlan_untagged,omitempty"`
+	ExosVlanTagged string `json:"exos_vlan_tagged,omitempty"`
+	ExosPolicy string `json:"exos_policy,omitempty"`
+	WisprBwMinUp *opnsense.OPNInt `json:"wispr_bw_min_up,omitempty"`
+	WisprBwMaxUp *opnsense.OPNInt `json:"wispr_bw_max_up,omitempty"`
+	WisprBwMinDown *opnsense.OPNInt `json:"wispr_bw_min_down,omitempty"`
+	WisprBwMaxDown *opnsense.OPNInt `json:"wispr_bw_max_down,omitempty"`
+	ChillispotBwMaxUp *opnsense.OPNInt `json:"chillispot_bw_max_up,omitempty"`
+	ChillispotBwMaxDown *opnsense.OPNInt `json:"chillispot_bw_max_down,omitempty"`
+	MikrotikVlanIdNumber *opnsense.OPNInt `json:"mikrotik_vlan_id_number,omitempty"`
+	MikrotikVlanIdType *opnsense.OPNInt `json:"mikrotik_vlan_id_type,omitempty"`
 	SessionlimitMaxSessionLimit *opnsense.OPNInt `json:"sessionlimit_max_session_limit,omitempty"`
-	Servicetype                 string           `json:"servicetype,omitempty"` // Valid: Option1, Option2, Option3, Option4, Option5, Option6, Option7, Option8, Option9, Option10, Option11, Option12, Option13, Option14, Option15, Option16, Option17, Option18, Option19.
-	LinkedAVPair                string           `json:"linkedAVPair,omitempty"`
-	TunnelPassword              string           `json:"tunnel_password,omitempty"`
+	Servicetype string `json:"servicetype,omitempty"` // Valid: Option1, Option2, Option3, Option4, Option5, Option6, Option7, Option8, Option9, Option10, Option11, Option12, Option13, Option14, Option15, Option16, Option17, Option18, Option19.
+	LinkedAVPair string `json:"linkedAVPair,omitempty"`
+	TunnelPassword string `json:"tunnel_password,omitempty"`
 }
 
 type avpairGetItemResponse struct {

@@ -21,11 +21,14 @@ jobs:
           go-version: ${{ matrix.go }}
           cache: true
 
-      - name: Build
+      - name: Build SDK
         run: go build ./opnsense/...
 
+      - name: Build CLI
+        run: go build ./cmd/opn/
+
       - name: Test
-        run: go test ./opnsense/... -race -count=1
+        run: go test ./opnsense/... ./internal/... -race -count=1
 
   python:
     name: Python generator tests

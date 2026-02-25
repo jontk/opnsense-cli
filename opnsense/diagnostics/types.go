@@ -7,14 +7,14 @@ import "github.com/jontk/opnsense-cli/opnsense"
 // Settings represents a settings model item.
 type Settings struct {
 	Hostname string `json:"hostname"` // Required.
-	Server   string `json:"server,omitempty"`
+	Server string `json:"server,omitempty"`
 }
 
 // Template represents a template model item.
 type Template struct {
-	Name    string           `json:"name"`    // Required.
-	Or      opnsense.OPNBool `json:"or"`      // Required. Default: 0.
-	Filters string           `json:"filters"` // Required.
+	Name string `json:"name"` // Required.
+	Or opnsense.OPNBool `json:"or"` // Required. Default: 0.
+	Filters string `json:"filters"` // Required.
 }
 
 type templateGetItemResponse struct {

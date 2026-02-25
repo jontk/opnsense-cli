@@ -6,14 +6,14 @@ import "github.com/jontk/opnsense-cli/opnsense"
 
 // Settings represents a settings model item.
 type Settings struct {
-	Enabled        opnsense.OPNBool `json:"enabled"` // Required. Default: 0.
-	ApiAccessToken string           `json:"apiAccessToken,omitempty"`
-	Localconf      string           `json:"localconf,omitempty"`
+	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 0.
+	ApiAccessToken string `json:"apiAccessToken,omitempty"`
+	Localconf string `json:"localconf,omitempty"`
 }
 
 // Network represents a network model item.
 type Network struct {
-	Enabled     opnsense.OPNBool `json:"enabled"`   // Required. Default: 0.
-	NetworkId   string           `json:"networkId"` // Required.
-	Description string           `json:"description,omitempty"`
+	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 0.
+	NetworkId string `json:"networkId"` // Required.
+	Description string `json:"description,omitempty"`
 }

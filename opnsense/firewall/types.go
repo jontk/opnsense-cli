@@ -11,139 +11,139 @@ type Geoip struct {
 
 // Alias represents a alias model item.
 type Alias struct {
-	Enabled        opnsense.OPNBool  `json:"enabled"` // Required. Default: 1.
-	Name           string            `json:"name"`    // Required.
-	Type           string            `json:"type"`    // Required. Default: alert. Valid: host, network, port, url, urltable, urljson, geoip, networkgroup, mac, asn, dynipv6host, authgroup, internal, external.
-	PathExpression string            `json:"path_expression,omitempty"`
-	Proto          string            `json:"proto,omitempty"` // Valid: IPv4, IPv6.
-	Interface      string            `json:"interface,omitempty"`
-	Counters       *opnsense.OPNBool `json:"counters,omitempty"`
-	Updatefreq     string            `json:"updatefreq,omitempty"`
-	Content        string            `json:"content,omitempty"`
-	Password       string            `json:"password,omitempty"`
-	Username       string            `json:"username,omitempty"`
-	Authtype       string            `json:"authtype,omitempty"` // Valid: Basic, Bearer, Header.
-	Expire         *opnsense.OPNInt  `json:"expire,omitempty"`
-	Categories     string            `json:"categories,omitempty"`
-	CurrentItems   *opnsense.OPNInt  `json:"current_items,omitempty"`
-	LastUpdated    string            `json:"last_updated,omitempty"`
-	EvalNomatch    *opnsense.OPNInt  `json:"eval_nomatch,omitempty"`
-	EvalMatch      *opnsense.OPNInt  `json:"eval_match,omitempty"`
-	InBlockP       *opnsense.OPNInt  `json:"in_block_p,omitempty"`
-	InBlockB       *opnsense.OPNInt  `json:"in_block_b,omitempty"`
-	InPassP        *opnsense.OPNInt  `json:"in_pass_p,omitempty"`
-	InPassB        *opnsense.OPNInt  `json:"in_pass_b,omitempty"`
-	OutBlockP      *opnsense.OPNInt  `json:"out_block_p,omitempty"`
-	OutBlockB      *opnsense.OPNInt  `json:"out_block_b,omitempty"`
-	OutPassP       *opnsense.OPNInt  `json:"out_pass_p,omitempty"`
-	OutPassB       *opnsense.OPNInt  `json:"out_pass_b,omitempty"`
-	Description    string            `json:"description,omitempty"`
+	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
+	Name string `json:"name"` // Required.
+	Type string `json:"type"` // Required. Default: alert. Valid: host, network, port, url, urltable, urljson, geoip, networkgroup, mac, asn, dynipv6host, authgroup, internal, external.
+	PathExpression string `json:"path_expression,omitempty"`
+	Proto string `json:"proto,omitempty"` // Valid: IPv4, IPv6.
+	Interface string `json:"interface,omitempty"`
+	Counters *opnsense.OPNBool `json:"counters,omitempty"`
+	Updatefreq string `json:"updatefreq,omitempty"`
+	Content string `json:"content,omitempty"`
+	Password string `json:"password,omitempty"`
+	Username string `json:"username,omitempty"`
+	Authtype string `json:"authtype,omitempty"` // Valid: Basic, Bearer, Header.
+	Expire *opnsense.OPNInt `json:"expire,omitempty"`
+	Categories string `json:"categories,omitempty"`
+	CurrentItems *opnsense.OPNInt `json:"current_items,omitempty"`
+	LastUpdated string `json:"last_updated,omitempty"`
+	EvalNomatch *opnsense.OPNInt `json:"eval_nomatch,omitempty"`
+	EvalMatch *opnsense.OPNInt `json:"eval_match,omitempty"`
+	InBlockP *opnsense.OPNInt `json:"in_block_p,omitempty"`
+	InBlockB *opnsense.OPNInt `json:"in_block_b,omitempty"`
+	InPassP *opnsense.OPNInt `json:"in_pass_p,omitempty"`
+	InPassB *opnsense.OPNInt `json:"in_pass_b,omitempty"`
+	OutBlockP *opnsense.OPNInt `json:"out_block_p,omitempty"`
+	OutBlockB *opnsense.OPNInt `json:"out_block_b,omitempty"`
+	OutPassP *opnsense.OPNInt `json:"out_pass_p,omitempty"`
+	OutPassB *opnsense.OPNInt `json:"out_pass_b,omitempty"`
+	Description string `json:"description,omitempty"`
 }
 
 // Category represents a category model item.
 type Category struct {
-	Name  string            `json:"name"` // Required.
-	Auto  *opnsense.OPNBool `json:"auto,omitempty"`
-	Color string            `json:"color,omitempty"`
+	Name string `json:"name"` // Required.
+	Auto *opnsense.OPNBool `json:"auto,omitempty"`
+	Color string `json:"color,omitempty"`
 }
 
 // Source represents a source model item.
 type Source struct {
-	Network string            `json:"network,omitempty"`
-	Address string            `json:"address,omitempty"`
-	Port    string            `json:"port,omitempty"`
-	Not     *opnsense.OPNBool `json:"not,omitempty"`
+	Network string `json:"network,omitempty"`
+	Address string `json:"address,omitempty"`
+	Port string `json:"port,omitempty"`
+	Not *opnsense.OPNBool `json:"not,omitempty"`
 }
 
 // Destination represents a destination model item.
 type Destination struct {
-	Network string            `json:"network,omitempty"`
-	Address string            `json:"address,omitempty"`
-	Port    string            `json:"port,omitempty"`
-	Not     *opnsense.OPNBool `json:"not,omitempty"`
+	Network string `json:"network,omitempty"`
+	Address string `json:"address,omitempty"`
+	Port string `json:"port,omitempty"`
+	Not *opnsense.OPNBool `json:"not,omitempty"`
 }
 
 // Created represents a created model item.
 type Created struct {
-	Username    string `json:"username,omitempty"`
-	Time        string `json:"time,omitempty"`
+	Username string `json:"username,omitempty"`
+	Time string `json:"time,omitempty"`
 	Description string `json:"description,omitempty"`
 }
 
 // Updated represents a updated model item.
 type Updated struct {
-	Username    string `json:"username,omitempty"`
-	Time        string `json:"time,omitempty"`
+	Username string `json:"username,omitempty"`
+	Time string `json:"time,omitempty"`
 	Description string `json:"description,omitempty"`
 }
 
 // Rule represents a rule model item.
 type Rule struct {
-	Enabled         opnsense.OPNBool  `json:"enabled"`                // Required. Default: 1.
-	Statetype       string            `json:"statetype"`              // Required. Default: keep. Valid: keep, sloppy, modulate, synproxy, none.
-	StatePolicy     string            `json:"state-policy,omitempty"` // Valid: if-bound, floating.
-	Sequence        string            `json:"sequence"`               // Required. Default: 1.
-	SortOrder       string            `json:"sort_order,omitempty"`
-	PrioGroup       string            `json:"prio_group,omitempty"`
-	Action          string            `json:"action"`       // Required. Default: pass. Valid: pass, block, reject.
-	Quick           opnsense.OPNBool  `json:"quick"`        // Required. Default: 1.
-	Interfacenot    opnsense.OPNBool  `json:"interfacenot"` // Required. Default: 0.
-	Interface       string            `json:"interface,omitempty"`
-	Direction       string            `json:"direction"`           // Required. Default: in. Valid: in, out, any.
-	Ipprotocol      string            `json:"ipprotocol"`          // Required. Default: inet. Valid: inet, inet6, inet46.
-	Protocol        string            `json:"protocol"`            // Required. Default: any.
-	Icmptype        string            `json:"icmptype,omitempty"`  // Valid: Common, Deprecated.
-	Icmp6type       string            `json:"icmp6type,omitempty"` // Valid: unreach, toobig, timex, paramprob, echoreq, echorep, listqry, listenrep, listendone, routersol, routeradv, neighbrsol, neighbradv, redir, routrrenum, niqry, nirep, mtraceresp, mtrace.
-	SourceNet       string            `json:"source_net"`          // Required. Default: any.
-	SourceNot       opnsense.OPNBool  `json:"source_not"`          // Required. Default: 0.
-	SourcePort      string            `json:"source_port,omitempty"`
-	DestinationNet  string            `json:"destination_net"` // Required. Default: any.
-	DestinationNot  opnsense.OPNBool  `json:"destination_not"` // Required. Default: 0.
-	DestinationPort string            `json:"destination_port,omitempty"`
-	DivertTo        string            `json:"divert-to,omitempty"`
-	Gateway         string            `json:"gateway,omitempty"`
-	Replyto         string            `json:"replyto,omitempty"`
-	Disablereplyto  opnsense.OPNBool  `json:"disablereplyto"` // Required. Default: 0.
-	Log             opnsense.OPNBool  `json:"log"`            // Required. Default: 0.
-	Allowopts       opnsense.OPNBool  `json:"allowopts"`      // Required. Default: 0.
-	Nosync          opnsense.OPNBool  `json:"nosync"`         // Required. Default: 0.
-	Nopfsync        opnsense.OPNBool  `json:"nopfsync"`       // Required. Default: 0.
-	Statetimeout    *opnsense.OPNInt  `json:"statetimeout,omitempty"`
-	UdpFirst        *opnsense.OPNInt  `json:"udp-first,omitempty"`
-	UdpMultiple     *opnsense.OPNInt  `json:"udp-multiple,omitempty"`
-	UdpSingle       *opnsense.OPNInt  `json:"udp-single,omitempty"`
-	MaxSrcNodes     *opnsense.OPNInt  `json:"max-src-nodes,omitempty"`
-	MaxSrcStates    *opnsense.OPNInt  `json:"max-src-states,omitempty"`
-	MaxSrcConn      *opnsense.OPNInt  `json:"max-src-conn,omitempty"`
-	Max             *opnsense.OPNInt  `json:"max,omitempty"`
-	MaxSrcConnRate  *opnsense.OPNInt  `json:"max-src-conn-rate,omitempty"`
-	MaxSrcConnRates *opnsense.OPNInt  `json:"max-src-conn-rates,omitempty"`
-	Overload        string            `json:"overload,omitempty"`
-	Adaptivestart   *opnsense.OPNInt  `json:"adaptivestart,omitempty"`
-	Adaptiveend     *opnsense.OPNInt  `json:"adaptiveend,omitempty"`
-	Prio            string            `json:"prio,omitempty"`         // Valid: opt1, opt0, opt2, opt3, opt4, opt5, opt6, opt7.
-	SetPrio         string            `json:"set-prio,omitempty"`     // Valid: opt1, opt0, opt2, opt3, opt4, opt5, opt6, opt7.
-	SetPrioLow      string            `json:"set-prio-low,omitempty"` // Valid: opt1, opt0, opt2, opt3, opt4, opt5, opt6, opt7.
-	Tag             string            `json:"tag,omitempty"`
-	Tagged          string            `json:"tagged,omitempty"`
-	Tcpflags1       string            `json:"tcpflags1,omitempty"` // Valid: syn, ack, fin, rst, psh, urg, ece, cwr.
-	Tcpflags2       string            `json:"tcpflags2,omitempty"` // Valid: syn, ack, fin, rst, psh, urg, ece, cwr.
-	TcpflagsAny     *opnsense.OPNBool `json:"tcpflags_any,omitempty"`
-	Categories      string            `json:"categories,omitempty"`
-	Sched           string            `json:"sched,omitempty"`
-	Tos             string            `json:"tos,omitempty"`
-	Shaper1         string            `json:"shaper1,omitempty"`
-	Shaper2         string            `json:"shaper2,omitempty"`
-	Description     string            `json:"description,omitempty"`
+	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
+	Statetype string `json:"statetype"` // Required. Default: keep. Valid: keep, sloppy, modulate, synproxy, none.
+	StatePolicy string `json:"state-policy,omitempty"` // Valid: if-bound, floating.
+	Sequence string `json:"sequence"` // Required. Default: 1.
+	SortOrder string `json:"sort_order,omitempty"`
+	PrioGroup string `json:"prio_group,omitempty"`
+	Action string `json:"action"` // Required. Default: pass. Valid: pass, block, reject.
+	Quick opnsense.OPNBool `json:"quick"` // Required. Default: 1.
+	Interfacenot opnsense.OPNBool `json:"interfacenot"` // Required. Default: 0.
+	Interface string `json:"interface,omitempty"`
+	Direction string `json:"direction"` // Required. Default: in. Valid: in, out, any.
+	Ipprotocol string `json:"ipprotocol"` // Required. Default: inet. Valid: inet, inet6, inet46.
+	Protocol string `json:"protocol"` // Required. Default: any.
+	Icmptype string `json:"icmptype,omitempty"` // Valid: Common, Deprecated.
+	Icmp6type string `json:"icmp6type,omitempty"` // Valid: unreach, toobig, timex, paramprob, echoreq, echorep, listqry, listenrep, listendone, routersol, routeradv, neighbrsol, neighbradv, redir, routrrenum, niqry, nirep, mtraceresp, mtrace.
+	SourceNet string `json:"source_net"` // Required. Default: any.
+	SourceNot opnsense.OPNBool `json:"source_not"` // Required. Default: 0.
+	SourcePort string `json:"source_port,omitempty"`
+	DestinationNet string `json:"destination_net"` // Required. Default: any.
+	DestinationNot opnsense.OPNBool `json:"destination_not"` // Required. Default: 0.
+	DestinationPort string `json:"destination_port,omitempty"`
+	DivertTo string `json:"divert-to,omitempty"`
+	Gateway string `json:"gateway,omitempty"`
+	Replyto string `json:"replyto,omitempty"`
+	Disablereplyto opnsense.OPNBool `json:"disablereplyto"` // Required. Default: 0.
+	Log opnsense.OPNBool `json:"log"` // Required. Default: 0.
+	Allowopts opnsense.OPNBool `json:"allowopts"` // Required. Default: 0.
+	Nosync opnsense.OPNBool `json:"nosync"` // Required. Default: 0.
+	Nopfsync opnsense.OPNBool `json:"nopfsync"` // Required. Default: 0.
+	Statetimeout *opnsense.OPNInt `json:"statetimeout,omitempty"`
+	UdpFirst *opnsense.OPNInt `json:"udp-first,omitempty"`
+	UdpMultiple *opnsense.OPNInt `json:"udp-multiple,omitempty"`
+	UdpSingle *opnsense.OPNInt `json:"udp-single,omitempty"`
+	MaxSrcNodes *opnsense.OPNInt `json:"max-src-nodes,omitempty"`
+	MaxSrcStates *opnsense.OPNInt `json:"max-src-states,omitempty"`
+	MaxSrcConn *opnsense.OPNInt `json:"max-src-conn,omitempty"`
+	Max *opnsense.OPNInt `json:"max,omitempty"`
+	MaxSrcConnRate *opnsense.OPNInt `json:"max-src-conn-rate,omitempty"`
+	MaxSrcConnRates *opnsense.OPNInt `json:"max-src-conn-rates,omitempty"`
+	Overload string `json:"overload,omitempty"`
+	Adaptivestart *opnsense.OPNInt `json:"adaptivestart,omitempty"`
+	Adaptiveend *opnsense.OPNInt `json:"adaptiveend,omitempty"`
+	Prio string `json:"prio,omitempty"` // Valid: opt1, opt0, opt2, opt3, opt4, opt5, opt6, opt7.
+	SetPrio string `json:"set-prio,omitempty"` // Valid: opt1, opt0, opt2, opt3, opt4, opt5, opt6, opt7.
+	SetPrioLow string `json:"set-prio-low,omitempty"` // Valid: opt1, opt0, opt2, opt3, opt4, opt5, opt6, opt7.
+	Tag string `json:"tag,omitempty"`
+	Tagged string `json:"tagged,omitempty"`
+	Tcpflags1 string `json:"tcpflags1,omitempty"` // Valid: syn, ack, fin, rst, psh, urg, ece, cwr.
+	Tcpflags2 string `json:"tcpflags2,omitempty"` // Valid: syn, ack, fin, rst, psh, urg, ece, cwr.
+	TcpflagsAny *opnsense.OPNBool `json:"tcpflags_any,omitempty"`
+	Categories string `json:"categories,omitempty"`
+	Sched string `json:"sched,omitempty"`
+	Tos string `json:"tos,omitempty"`
+	Shaper1 string `json:"shaper1,omitempty"`
+	Shaper2 string `json:"shaper2,omitempty"`
+	Description string `json:"description,omitempty"`
 }
 
 // Ifgroupentry represents a ifgroupentry model item.
 type Ifgroupentry struct {
-	Ifname   string            `json:"ifname"`  // Required.
-	Members  string            `json:"members"` // Required.
-	Nogroup  *opnsense.OPNBool `json:"nogroup,omitempty"`
-	Sequence opnsense.OPNInt   `json:"sequence"` // Required. Default: 0.
-	Descr    string            `json:"descr,omitempty"`
+	Ifname string `json:"ifname"` // Required.
+	Members string `json:"members"` // Required.
+	Nogroup *opnsense.OPNBool `json:"nogroup,omitempty"`
+	Sequence opnsense.OPNInt `json:"sequence"` // Required. Default: 0.
+	Descr string `json:"descr,omitempty"`
 }
 
 type aliasGetItemResponse struct {
