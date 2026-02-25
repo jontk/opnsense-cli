@@ -20,9 +20,9 @@ func NewClient(c *opnsense.Client) *Client {
 }
 
 // InfoPowerStatus calls GET /api/dechw/info/powerStatus
-func (c *Client) InfoPowerStatus(ctx context.Context) (map[string]any, error) {
+func (c *Client) InfoPowerStatus(ctx context.Context) (any, error) {
 	path := "/api/dechw/info/powerStatus"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }

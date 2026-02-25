@@ -21,49 +21,49 @@ func NewClient(c *opnsense.Client) *Client {
 }
 
 // ServiceConfigtest calls POST /api/relayd/service/configtest
-func (c *Client) ServiceConfigtest(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceConfigtest(ctx context.Context, body any) (any, error) {
 	path := "/api/relayd/service/configtest"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceReconfigure calls POST /api/relayd/service/reconfigure
-func (c *Client) ServiceReconfigure(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceReconfigure(ctx context.Context, body any) (any, error) {
 	path := "/api/relayd/service/reconfigure"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceRestart calls POST /api/relayd/service/restart
-func (c *Client) ServiceRestart(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceRestart(ctx context.Context, body any) (any, error) {
 	path := "/api/relayd/service/restart"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceStart calls POST /api/relayd/service/start
-func (c *Client) ServiceStart(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceStart(ctx context.Context, body any) (any, error) {
 	path := "/api/relayd/service/start"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceStatus calls GET /api/relayd/service/status
-func (c *Client) ServiceStatus(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceStatus(ctx context.Context) (any, error) {
 	path := "/api/relayd/service/status"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ServiceStop calls POST /api/relayd/service/stop
-func (c *Client) ServiceStop(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceStop(ctx context.Context, body any) (any, error) {
 	path := "/api/relayd/service/stop"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -72,20 +72,20 @@ func (c *Client) ServiceStop(ctx context.Context, body any) (map[string]any, err
 // Parameters:
 //   - nodeType (optional, default: null)
 //   - uuid (optional, default: null)
-func (c *Client) SettingsDel(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) SettingsDel(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/relayd/settings/del"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // SettingsDirty calls GET /api/relayd/settings/dirty
-func (c *Client) SettingsDirty(ctx context.Context) (map[string]any, error) {
+func (c *Client) SettingsDirty(ctx context.Context) (any, error) {
 	path := "/api/relayd/settings/dirty"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -94,12 +94,12 @@ func (c *Client) SettingsDirty(ctx context.Context) (map[string]any, error) {
 // Parameters:
 //   - nodeType (optional, default: null)
 //   - uuid (optional, default: null)
-func (c *Client) SettingsGet(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) SettingsGet(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/relayd/settings/get"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -107,12 +107,12 @@ func (c *Client) SettingsGet(ctx context.Context, opts ...string) (map[string]an
 // SettingsSearch calls POST /api/relayd/settings/search
 // Parameters:
 //   - nodeType (optional, default: null)
-func (c *Client) SettingsSearch(ctx context.Context, body any, opts ...string) (map[string]any, error) {
+func (c *Client) SettingsSearch(ctx context.Context, body any, opts ...string) (any, error) {
 	path := "/api/relayd/settings/search"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -121,12 +121,12 @@ func (c *Client) SettingsSearch(ctx context.Context, body any, opts ...string) (
 // Parameters:
 //   - nodeType (optional, default: null)
 //   - uuid (optional, default: null)
-func (c *Client) SettingsSet(ctx context.Context, body any, opts ...string) (map[string]any, error) {
+func (c *Client) SettingsSet(ctx context.Context, body any, opts ...string) (any, error) {
 	path := "/api/relayd/settings/set"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -136,12 +136,12 @@ func (c *Client) SettingsSet(ctx context.Context, body any, opts ...string) (map
 //   - nodeType
 //   - uuid
 //   - enabled (optional, default: null)
-func (c *Client) SettingsToggle(ctx context.Context, nodeType string, uuid string, body any, opts ...string) (map[string]any, error) {
+func (c *Client) SettingsToggle(ctx context.Context, nodeType string, uuid string, body any, opts ...string) (any, error) {
 	path := fmt.Sprintf("/api/relayd/settings/toggle/%s/%s", nodeType, uuid)
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -149,12 +149,12 @@ func (c *Client) SettingsToggle(ctx context.Context, nodeType string, uuid strin
 // StatusSum calls GET /api/relayd/status/sum
 // Parameters:
 //   - wait (optional, default: 0)
-func (c *Client) StatusSum(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) StatusSum(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/relayd/status/sum"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -164,12 +164,12 @@ func (c *Client) StatusSum(ctx context.Context, opts ...string) (map[string]any,
 //   - nodeType (optional, default: null)
 //   - id (optional, default: null)
 //   - action (optional, default: null)
-func (c *Client) StatusToggle(ctx context.Context, body any, opts ...string) (map[string]any, error) {
+func (c *Client) StatusToggle(ctx context.Context, body any, opts ...string) (any, error) {
 	path := "/api/relayd/status/toggle"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }

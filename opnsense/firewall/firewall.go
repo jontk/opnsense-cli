@@ -39,17 +39,17 @@ func (c *Client) AliasDelItem(ctx context.Context, uuid string) (*opnsense.Gener
 }
 
 // AliasExport calls GET,POST /api/firewall/alias/export
-func (c *Client) AliasExport(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) AliasExport(ctx context.Context, body any) (any, error) {
 	path := "/api/firewall/alias/export"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // AliasGet calls GET /api/firewall/alias/get
-func (c *Client) AliasGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) AliasGet(ctx context.Context) (any, error) {
 	path := "/api/firewall/alias/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -86,57 +86,57 @@ func (c *Client) AliasGetItem(ctx context.Context, opts ...string) (*Alias, erro
 }
 
 // AliasGetTableSize calls GET /api/firewall/alias/getTableSize
-func (c *Client) AliasGetTableSize(ctx context.Context) (map[string]any, error) {
+func (c *Client) AliasGetTableSize(ctx context.Context) (any, error) {
 	path := "/api/firewall/alias/getTableSize"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // AliasImport calls POST /api/firewall/alias/import
-func (c *Client) AliasImport(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) AliasImport(ctx context.Context, body any) (any, error) {
 	path := "/api/firewall/alias/import"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // AliasListCategories calls GET /api/firewall/alias/listCategories
-func (c *Client) AliasListCategories(ctx context.Context) (map[string]any, error) {
+func (c *Client) AliasListCategories(ctx context.Context) (any, error) {
 	path := "/api/firewall/alias/listCategories"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // AliasListCountries calls GET /api/firewall/alias/listCountries
-func (c *Client) AliasListCountries(ctx context.Context) (map[string]any, error) {
+func (c *Client) AliasListCountries(ctx context.Context) (any, error) {
 	path := "/api/firewall/alias/listCountries"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // AliasListNetworkAliases calls GET /api/firewall/alias/listNetworkAliases
-func (c *Client) AliasListNetworkAliases(ctx context.Context) (map[string]any, error) {
+func (c *Client) AliasListNetworkAliases(ctx context.Context) (any, error) {
 	path := "/api/firewall/alias/listNetworkAliases"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // AliasListUserGroups calls GET /api/firewall/alias/listUserGroups
-func (c *Client) AliasListUserGroups(ctx context.Context) (map[string]any, error) {
+func (c *Client) AliasListUserGroups(ctx context.Context) (any, error) {
 	path := "/api/firewall/alias/listUserGroups"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // AliasReconfigure calls POST /api/firewall/alias/reconfigure
-func (c *Client) AliasReconfigure(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) AliasReconfigure(ctx context.Context, body any) (any, error) {
 	path := "/api/firewall/alias/reconfigure"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -150,9 +150,9 @@ func (c *Client) AliasSearchItem(ctx context.Context, body any) (*opnsense.Searc
 }
 
 // AliasSet calls POST /api/firewall/alias/set
-func (c *Client) AliasSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) AliasSet(ctx context.Context, body any) (any, error) {
 	path := "/api/firewall/alias/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -184,17 +184,17 @@ func (c *Client) AliasToggleItem(ctx context.Context, uuid string, opts ...strin
 // AliasUtilAdd calls POST /api/firewall/alias_util/add
 // Parameters:
 //   - alias
-func (c *Client) AliasUtilAdd(ctx context.Context, alias string, body any) (map[string]any, error) {
+func (c *Client) AliasUtilAdd(ctx context.Context, alias string, body any) (any, error) {
 	path := fmt.Sprintf("/api/firewall/alias_util/add/%s", alias)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // AliasUtilAliases calls GET /api/firewall/alias_util/aliases
-func (c *Client) AliasUtilAliases(ctx context.Context) (map[string]any, error) {
+func (c *Client) AliasUtilAliases(ctx context.Context) (any, error) {
 	path := "/api/firewall/alias_util/aliases"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -202,17 +202,17 @@ func (c *Client) AliasUtilAliases(ctx context.Context) (map[string]any, error) {
 // AliasUtilDelete calls POST /api/firewall/alias_util/delete
 // Parameters:
 //   - alias
-func (c *Client) AliasUtilDelete(ctx context.Context, alias string, body any) (map[string]any, error) {
+func (c *Client) AliasUtilDelete(ctx context.Context, alias string, body any) (any, error) {
 	path := fmt.Sprintf("/api/firewall/alias_util/delete/%s", alias)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // AliasUtilFindReferences calls POST /api/firewall/alias_util/findReferences
-func (c *Client) AliasUtilFindReferences(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) AliasUtilFindReferences(ctx context.Context, body any) (any, error) {
 	path := "/api/firewall/alias_util/findReferences"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -220,9 +220,9 @@ func (c *Client) AliasUtilFindReferences(ctx context.Context, body any) (map[str
 // AliasUtilFlush calls POST /api/firewall/alias_util/flush
 // Parameters:
 //   - alias
-func (c *Client) AliasUtilFlush(ctx context.Context, alias string, body any) (map[string]any, error) {
+func (c *Client) AliasUtilFlush(ctx context.Context, alias string, body any) (any, error) {
 	path := fmt.Sprintf("/api/firewall/alias_util/flush/%s", alias)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -230,17 +230,17 @@ func (c *Client) AliasUtilFlush(ctx context.Context, alias string, body any) (ma
 // AliasUtilList calls GET /api/firewall/alias_util/list
 // Parameters:
 //   - alias
-func (c *Client) AliasUtilList(ctx context.Context, alias string) (map[string]any, error) {
+func (c *Client) AliasUtilList(ctx context.Context, alias string) (any, error) {
 	path := fmt.Sprintf("/api/firewall/alias_util/list/%s", alias)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // AliasUtilUpdateBogons calls GET /api/firewall/alias_util/updateBogons
-func (c *Client) AliasUtilUpdateBogons(ctx context.Context) (map[string]any, error) {
+func (c *Client) AliasUtilUpdateBogons(ctx context.Context) (any, error) {
 	path := "/api/firewall/alias_util/updateBogons"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -264,9 +264,9 @@ func (c *Client) CategoryDelItem(ctx context.Context, uuid string) (*opnsense.Ge
 }
 
 // CategoryGet calls GET /api/firewall/category/get
-func (c *Client) CategoryGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) CategoryGet(ctx context.Context) (any, error) {
 	path := "/api/firewall/category/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -298,9 +298,9 @@ func (c *Client) CategorySearchItem(ctx context.Context, body any, opts ...strin
 }
 
 // CategorySet calls POST /api/firewall/category/set
-func (c *Client) CategorySet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) CategorySet(ctx context.Context, body any) (any, error) {
 	path := "/api/firewall/category/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -350,9 +350,9 @@ func (c *Client) DNatGetRule(ctx context.Context, opts ...string) (*Source, erro
 // Parameters:
 //   - selected_uuid
 //   - target_uuid
-func (c *Client) DNatMoveRuleBefore(ctx context.Context, selected_uuid string, target_uuid string) (map[string]any, error) {
+func (c *Client) DNatMoveRuleBefore(ctx context.Context, selected_uuid string, target_uuid string) (any, error) {
 	path := fmt.Sprintf("/api/firewall/d_nat/moveRuleBefore/%s/%s", selected_uuid, target_uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -393,9 +393,9 @@ func (c *Client) DNatToggleRule(ctx context.Context, uuid string, opts ...string
 // Parameters:
 //   - uuid
 //   - log
-func (c *Client) DNatToggleRuleLog(ctx context.Context, uuid string, log string) (map[string]any, error) {
+func (c *Client) DNatToggleRuleLog(ctx context.Context, uuid string, log string) (any, error) {
 	path := fmt.Sprintf("/api/firewall/d_nat/toggleRuleLog/%s/%s", uuid, log)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -403,12 +403,12 @@ func (c *Client) DNatToggleRuleLog(ctx context.Context, uuid string, log string)
 // DNatApply calls POST /api/firewall/d_nat/apply
 // Parameters:
 //   - rollback_revision (optional, default: null)
-func (c *Client) DNatApply(ctx context.Context, body any, opts ...string) (map[string]any, error) {
+func (c *Client) DNatApply(ctx context.Context, body any, opts ...string) (any, error) {
 	path := "/api/firewall/d_nat/apply"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -416,41 +416,41 @@ func (c *Client) DNatApply(ctx context.Context, body any, opts ...string) (map[s
 // DNatCancelRollback calls POST /api/firewall/d_nat/cancelRollback
 // Parameters:
 //   - rollback_revision
-func (c *Client) DNatCancelRollback(ctx context.Context, rollback_revision string, body any) (map[string]any, error) {
+func (c *Client) DNatCancelRollback(ctx context.Context, rollback_revision string, body any) (any, error) {
 	path := fmt.Sprintf("/api/firewall/d_nat/cancelRollback/%s", rollback_revision)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // DNatGet calls GET /api/firewall/d_nat/get
-func (c *Client) DNatGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) DNatGet(ctx context.Context) (any, error) {
 	path := "/api/firewall/d_nat/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // DNatListCategories calls GET /api/firewall/d_nat/listCategories
-func (c *Client) DNatListCategories(ctx context.Context) (map[string]any, error) {
+func (c *Client) DNatListCategories(ctx context.Context) (any, error) {
 	path := "/api/firewall/d_nat/listCategories"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // DNatListNetworkSelectOptions calls GET /api/firewall/d_nat/listNetworkSelectOptions
-func (c *Client) DNatListNetworkSelectOptions(ctx context.Context) (map[string]any, error) {
+func (c *Client) DNatListNetworkSelectOptions(ctx context.Context) (any, error) {
 	path := "/api/firewall/d_nat/listNetworkSelectOptions"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // DNatListPortSelectOptions calls GET /api/firewall/d_nat/listPortSelectOptions
-func (c *Client) DNatListPortSelectOptions(ctx context.Context) (map[string]any, error) {
+func (c *Client) DNatListPortSelectOptions(ctx context.Context) (any, error) {
 	path := "/api/firewall/d_nat/listPortSelectOptions"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -458,25 +458,25 @@ func (c *Client) DNatListPortSelectOptions(ctx context.Context) (map[string]any,
 // DNatRevert calls POST /api/firewall/d_nat/revert
 // Parameters:
 //   - revision
-func (c *Client) DNatRevert(ctx context.Context, revision string, body any) (map[string]any, error) {
+func (c *Client) DNatRevert(ctx context.Context, revision string, body any) (any, error) {
 	path := fmt.Sprintf("/api/firewall/d_nat/revert/%s", revision)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // DNatSavepoint calls POST /api/firewall/d_nat/savepoint
-func (c *Client) DNatSavepoint(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) DNatSavepoint(ctx context.Context, body any) (any, error) {
 	path := "/api/firewall/d_nat/savepoint"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // DNatSet calls POST /api/firewall/d_nat/set
-func (c *Client) DNatSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) DNatSet(ctx context.Context, body any) (any, error) {
 	path := "/api/firewall/d_nat/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -500,25 +500,25 @@ func (c *Client) FilterDelRule(ctx context.Context, uuid string) (*opnsense.Gene
 }
 
 // FilterDownloadRules calls GET /api/firewall/filter/downloadRules
-func (c *Client) FilterDownloadRules(ctx context.Context) (map[string]any, error) {
+func (c *Client) FilterDownloadRules(ctx context.Context) (any, error) {
 	path := "/api/firewall/filter/downloadRules"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // FilterFlushInspectCache calls POST /api/firewall/filter/flushInspectCache
-func (c *Client) FilterFlushInspectCache(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) FilterFlushInspectCache(ctx context.Context, body any) (any, error) {
 	path := "/api/firewall/filter/flushInspectCache"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // FilterGetInterfaceList calls GET /api/firewall/filter/getInterfaceList
-func (c *Client) FilterGetInterfaceList(ctx context.Context) (map[string]any, error) {
+func (c *Client) FilterGetInterfaceList(ctx context.Context) (any, error) {
 	path := "/api/firewall/filter/getInterfaceList"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -540,9 +540,9 @@ func (c *Client) FilterGetRule(ctx context.Context, opts ...string) (*Rule, erro
 // Parameters:
 //   - selected_uuid
 //   - target_uuid
-func (c *Client) FilterMoveRuleBefore(ctx context.Context, selected_uuid string, target_uuid string, body any) (map[string]any, error) {
+func (c *Client) FilterMoveRuleBefore(ctx context.Context, selected_uuid string, target_uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/firewall/filter/moveRuleBefore/%s/%s", selected_uuid, target_uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -591,9 +591,9 @@ func (c *Client) FilterToggleRuleLog(ctx context.Context, uuid string, log strin
 }
 
 // FilterUploadRules calls POST /api/firewall/filter/uploadRules
-func (c *Client) FilterUploadRules(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) FilterUploadRules(ctx context.Context, body any) (any, error) {
 	path := "/api/firewall/filter/uploadRules"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -601,12 +601,12 @@ func (c *Client) FilterUploadRules(ctx context.Context, body any) (map[string]an
 // FilterApply calls POST /api/firewall/filter/apply
 // Parameters:
 //   - rollback_revision (optional, default: null)
-func (c *Client) FilterApply(ctx context.Context, body any, opts ...string) (map[string]any, error) {
+func (c *Client) FilterApply(ctx context.Context, body any, opts ...string) (any, error) {
 	path := "/api/firewall/filter/apply"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -614,41 +614,41 @@ func (c *Client) FilterApply(ctx context.Context, body any, opts ...string) (map
 // FilterCancelRollback calls POST /api/firewall/filter/cancelRollback
 // Parameters:
 //   - rollback_revision
-func (c *Client) FilterCancelRollback(ctx context.Context, rollback_revision string, body any) (map[string]any, error) {
+func (c *Client) FilterCancelRollback(ctx context.Context, rollback_revision string, body any) (any, error) {
 	path := fmt.Sprintf("/api/firewall/filter/cancelRollback/%s", rollback_revision)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // FilterGet calls GET /api/firewall/filter/get
-func (c *Client) FilterGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) FilterGet(ctx context.Context) (any, error) {
 	path := "/api/firewall/filter/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // FilterListCategories calls GET /api/firewall/filter/listCategories
-func (c *Client) FilterListCategories(ctx context.Context) (map[string]any, error) {
+func (c *Client) FilterListCategories(ctx context.Context) (any, error) {
 	path := "/api/firewall/filter/listCategories"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // FilterListNetworkSelectOptions calls GET /api/firewall/filter/listNetworkSelectOptions
-func (c *Client) FilterListNetworkSelectOptions(ctx context.Context) (map[string]any, error) {
+func (c *Client) FilterListNetworkSelectOptions(ctx context.Context) (any, error) {
 	path := "/api/firewall/filter/listNetworkSelectOptions"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // FilterListPortSelectOptions calls GET /api/firewall/filter/listPortSelectOptions
-func (c *Client) FilterListPortSelectOptions(ctx context.Context) (map[string]any, error) {
+func (c *Client) FilterListPortSelectOptions(ctx context.Context) (any, error) {
 	path := "/api/firewall/filter/listPortSelectOptions"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -656,33 +656,33 @@ func (c *Client) FilterListPortSelectOptions(ctx context.Context) (map[string]an
 // FilterRevert calls POST /api/firewall/filter/revert
 // Parameters:
 //   - revision
-func (c *Client) FilterRevert(ctx context.Context, revision string, body any) (map[string]any, error) {
+func (c *Client) FilterRevert(ctx context.Context, revision string, body any) (any, error) {
 	path := fmt.Sprintf("/api/firewall/filter/revert/%s", revision)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // FilterSavepoint calls POST /api/firewall/filter/savepoint
-func (c *Client) FilterSavepoint(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) FilterSavepoint(ctx context.Context, body any) (any, error) {
 	path := "/api/firewall/filter/savepoint"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // FilterSet calls POST /api/firewall/filter/set
-func (c *Client) FilterSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) FilterSet(ctx context.Context, body any) (any, error) {
 	path := "/api/firewall/filter/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // FilterUtilRuleStats calls GET /api/firewall/filter_util/ruleStats
-func (c *Client) FilterUtilRuleStats(ctx context.Context) (map[string]any, error) {
+func (c *Client) FilterUtilRuleStats(ctx context.Context) (any, error) {
 	path := "/api/firewall/filter_util/ruleStats"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -706,9 +706,9 @@ func (c *Client) GroupDelItem(ctx context.Context, uuid string) (*opnsense.Gener
 }
 
 // GroupGet calls GET /api/firewall/group/get
-func (c *Client) GroupGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) GroupGet(ctx context.Context) (any, error) {
 	path := "/api/firewall/group/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -727,9 +727,9 @@ func (c *Client) GroupGetItem(ctx context.Context, opts ...string) (*Ifgroupentr
 }
 
 // GroupReconfigure calls POST /api/firewall/group/reconfigure
-func (c *Client) GroupReconfigure(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) GroupReconfigure(ctx context.Context, body any) (any, error) {
 	path := "/api/firewall/group/reconfigure"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -743,9 +743,9 @@ func (c *Client) GroupSearchItem(ctx context.Context, body any) (*opnsense.Searc
 }
 
 // GroupSet calls POST /api/firewall/group/set
-func (c *Client) GroupSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) GroupSet(ctx context.Context, body any) (any, error) {
 	path := "/api/firewall/group/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -761,17 +761,17 @@ func (c *Client) GroupSetItem(ctx context.Context, uuid string, body *Ifgroupent
 }
 
 // MigrationDownloadRules calls GET /api/firewall/migration/downloadRules
-func (c *Client) MigrationDownloadRules(ctx context.Context) (map[string]any, error) {
+func (c *Client) MigrationDownloadRules(ctx context.Context) (any, error) {
 	path := "/api/firewall/migration/downloadRules"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // MigrationFlush calls POST /api/firewall/migration/flush
-func (c *Client) MigrationFlush(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) MigrationFlush(ctx context.Context, body any) (any, error) {
 	path := "/api/firewall/migration/flush"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -811,9 +811,9 @@ func (c *Client) NptGetRule(ctx context.Context, opts ...string) (*Rule, error) 
 // Parameters:
 //   - selected_uuid
 //   - target_uuid
-func (c *Client) NptMoveRuleBefore(ctx context.Context, selected_uuid string, target_uuid string) (map[string]any, error) {
+func (c *Client) NptMoveRuleBefore(ctx context.Context, selected_uuid string, target_uuid string) (any, error) {
 	path := fmt.Sprintf("/api/firewall/npt/moveRuleBefore/%s/%s", selected_uuid, target_uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -864,12 +864,12 @@ func (c *Client) NptToggleRuleLog(ctx context.Context, uuid string, log string) 
 // NptApply calls POST /api/firewall/npt/apply
 // Parameters:
 //   - rollback_revision (optional, default: null)
-func (c *Client) NptApply(ctx context.Context, body any, opts ...string) (map[string]any, error) {
+func (c *Client) NptApply(ctx context.Context, body any, opts ...string) (any, error) {
 	path := "/api/firewall/npt/apply"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -877,41 +877,41 @@ func (c *Client) NptApply(ctx context.Context, body any, opts ...string) (map[st
 // NptCancelRollback calls POST /api/firewall/npt/cancelRollback
 // Parameters:
 //   - rollback_revision
-func (c *Client) NptCancelRollback(ctx context.Context, rollback_revision string, body any) (map[string]any, error) {
+func (c *Client) NptCancelRollback(ctx context.Context, rollback_revision string, body any) (any, error) {
 	path := fmt.Sprintf("/api/firewall/npt/cancelRollback/%s", rollback_revision)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // NptGet calls GET /api/firewall/npt/get
-func (c *Client) NptGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) NptGet(ctx context.Context) (any, error) {
 	path := "/api/firewall/npt/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // NptListCategories calls GET /api/firewall/npt/listCategories
-func (c *Client) NptListCategories(ctx context.Context) (map[string]any, error) {
+func (c *Client) NptListCategories(ctx context.Context) (any, error) {
 	path := "/api/firewall/npt/listCategories"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // NptListNetworkSelectOptions calls GET /api/firewall/npt/listNetworkSelectOptions
-func (c *Client) NptListNetworkSelectOptions(ctx context.Context) (map[string]any, error) {
+func (c *Client) NptListNetworkSelectOptions(ctx context.Context) (any, error) {
 	path := "/api/firewall/npt/listNetworkSelectOptions"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // NptListPortSelectOptions calls GET /api/firewall/npt/listPortSelectOptions
-func (c *Client) NptListPortSelectOptions(ctx context.Context) (map[string]any, error) {
+func (c *Client) NptListPortSelectOptions(ctx context.Context) (any, error) {
 	path := "/api/firewall/npt/listPortSelectOptions"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -919,25 +919,25 @@ func (c *Client) NptListPortSelectOptions(ctx context.Context) (map[string]any, 
 // NptRevert calls POST /api/firewall/npt/revert
 // Parameters:
 //   - revision
-func (c *Client) NptRevert(ctx context.Context, revision string, body any) (map[string]any, error) {
+func (c *Client) NptRevert(ctx context.Context, revision string, body any) (any, error) {
 	path := fmt.Sprintf("/api/firewall/npt/revert/%s", revision)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // NptSavepoint calls POST /api/firewall/npt/savepoint
-func (c *Client) NptSavepoint(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) NptSavepoint(ctx context.Context, body any) (any, error) {
 	path := "/api/firewall/npt/savepoint"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // NptSet calls POST /api/firewall/npt/set
-func (c *Client) NptSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) NptSet(ctx context.Context, body any) (any, error) {
 	path := "/api/firewall/npt/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -977,9 +977,9 @@ func (c *Client) OneToOneGetRule(ctx context.Context, opts ...string) (*Rule, er
 // Parameters:
 //   - selected_uuid
 //   - target_uuid
-func (c *Client) OneToOneMoveRuleBefore(ctx context.Context, selected_uuid string, target_uuid string) (map[string]any, error) {
+func (c *Client) OneToOneMoveRuleBefore(ctx context.Context, selected_uuid string, target_uuid string) (any, error) {
 	path := fmt.Sprintf("/api/firewall/one_to_one/moveRuleBefore/%s/%s", selected_uuid, target_uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -1030,12 +1030,12 @@ func (c *Client) OneToOneToggleRuleLog(ctx context.Context, uuid string, log str
 // OneToOneApply calls POST /api/firewall/one_to_one/apply
 // Parameters:
 //   - rollback_revision (optional, default: null)
-func (c *Client) OneToOneApply(ctx context.Context, body any, opts ...string) (map[string]any, error) {
+func (c *Client) OneToOneApply(ctx context.Context, body any, opts ...string) (any, error) {
 	path := "/api/firewall/one_to_one/apply"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -1043,41 +1043,41 @@ func (c *Client) OneToOneApply(ctx context.Context, body any, opts ...string) (m
 // OneToOneCancelRollback calls POST /api/firewall/one_to_one/cancelRollback
 // Parameters:
 //   - rollback_revision
-func (c *Client) OneToOneCancelRollback(ctx context.Context, rollback_revision string, body any) (map[string]any, error) {
+func (c *Client) OneToOneCancelRollback(ctx context.Context, rollback_revision string, body any) (any, error) {
 	path := fmt.Sprintf("/api/firewall/one_to_one/cancelRollback/%s", rollback_revision)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // OneToOneGet calls GET /api/firewall/one_to_one/get
-func (c *Client) OneToOneGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) OneToOneGet(ctx context.Context) (any, error) {
 	path := "/api/firewall/one_to_one/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // OneToOneListCategories calls GET /api/firewall/one_to_one/listCategories
-func (c *Client) OneToOneListCategories(ctx context.Context) (map[string]any, error) {
+func (c *Client) OneToOneListCategories(ctx context.Context) (any, error) {
 	path := "/api/firewall/one_to_one/listCategories"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // OneToOneListNetworkSelectOptions calls GET /api/firewall/one_to_one/listNetworkSelectOptions
-func (c *Client) OneToOneListNetworkSelectOptions(ctx context.Context) (map[string]any, error) {
+func (c *Client) OneToOneListNetworkSelectOptions(ctx context.Context) (any, error) {
 	path := "/api/firewall/one_to_one/listNetworkSelectOptions"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // OneToOneListPortSelectOptions calls GET /api/firewall/one_to_one/listPortSelectOptions
-func (c *Client) OneToOneListPortSelectOptions(ctx context.Context) (map[string]any, error) {
+func (c *Client) OneToOneListPortSelectOptions(ctx context.Context) (any, error) {
 	path := "/api/firewall/one_to_one/listPortSelectOptions"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -1085,25 +1085,25 @@ func (c *Client) OneToOneListPortSelectOptions(ctx context.Context) (map[string]
 // OneToOneRevert calls POST /api/firewall/one_to_one/revert
 // Parameters:
 //   - revision
-func (c *Client) OneToOneRevert(ctx context.Context, revision string, body any) (map[string]any, error) {
+func (c *Client) OneToOneRevert(ctx context.Context, revision string, body any) (any, error) {
 	path := fmt.Sprintf("/api/firewall/one_to_one/revert/%s", revision)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // OneToOneSavepoint calls POST /api/firewall/one_to_one/savepoint
-func (c *Client) OneToOneSavepoint(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) OneToOneSavepoint(ctx context.Context, body any) (any, error) {
 	path := "/api/firewall/one_to_one/savepoint"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // OneToOneSet calls POST /api/firewall/one_to_one/set
-func (c *Client) OneToOneSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) OneToOneSet(ctx context.Context, body any) (any, error) {
 	path := "/api/firewall/one_to_one/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -1143,9 +1143,9 @@ func (c *Client) SourceNatGetRule(ctx context.Context, opts ...string) (*Rule, e
 // Parameters:
 //   - selected_uuid
 //   - target_uuid
-func (c *Client) SourceNatMoveRuleBefore(ctx context.Context, selected_uuid string, target_uuid string) (map[string]any, error) {
+func (c *Client) SourceNatMoveRuleBefore(ctx context.Context, selected_uuid string, target_uuid string) (any, error) {
 	path := fmt.Sprintf("/api/firewall/source_nat/moveRuleBefore/%s/%s", selected_uuid, target_uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -1196,12 +1196,12 @@ func (c *Client) SourceNatToggleRuleLog(ctx context.Context, uuid string, log st
 // SourceNatApply calls POST /api/firewall/source_nat/apply
 // Parameters:
 //   - rollback_revision (optional, default: null)
-func (c *Client) SourceNatApply(ctx context.Context, body any, opts ...string) (map[string]any, error) {
+func (c *Client) SourceNatApply(ctx context.Context, body any, opts ...string) (any, error) {
 	path := "/api/firewall/source_nat/apply"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -1209,41 +1209,41 @@ func (c *Client) SourceNatApply(ctx context.Context, body any, opts ...string) (
 // SourceNatCancelRollback calls POST /api/firewall/source_nat/cancelRollback
 // Parameters:
 //   - rollback_revision
-func (c *Client) SourceNatCancelRollback(ctx context.Context, rollback_revision string, body any) (map[string]any, error) {
+func (c *Client) SourceNatCancelRollback(ctx context.Context, rollback_revision string, body any) (any, error) {
 	path := fmt.Sprintf("/api/firewall/source_nat/cancelRollback/%s", rollback_revision)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SourceNatGet calls GET /api/firewall/source_nat/get
-func (c *Client) SourceNatGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) SourceNatGet(ctx context.Context) (any, error) {
 	path := "/api/firewall/source_nat/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // SourceNatListCategories calls GET /api/firewall/source_nat/listCategories
-func (c *Client) SourceNatListCategories(ctx context.Context) (map[string]any, error) {
+func (c *Client) SourceNatListCategories(ctx context.Context) (any, error) {
 	path := "/api/firewall/source_nat/listCategories"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // SourceNatListNetworkSelectOptions calls GET /api/firewall/source_nat/listNetworkSelectOptions
-func (c *Client) SourceNatListNetworkSelectOptions(ctx context.Context) (map[string]any, error) {
+func (c *Client) SourceNatListNetworkSelectOptions(ctx context.Context) (any, error) {
 	path := "/api/firewall/source_nat/listNetworkSelectOptions"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // SourceNatListPortSelectOptions calls GET /api/firewall/source_nat/listPortSelectOptions
-func (c *Client) SourceNatListPortSelectOptions(ctx context.Context) (map[string]any, error) {
+func (c *Client) SourceNatListPortSelectOptions(ctx context.Context) (any, error) {
 	path := "/api/firewall/source_nat/listPortSelectOptions"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -1251,25 +1251,25 @@ func (c *Client) SourceNatListPortSelectOptions(ctx context.Context) (map[string
 // SourceNatRevert calls POST /api/firewall/source_nat/revert
 // Parameters:
 //   - revision
-func (c *Client) SourceNatRevert(ctx context.Context, revision string, body any) (map[string]any, error) {
+func (c *Client) SourceNatRevert(ctx context.Context, revision string, body any) (any, error) {
 	path := fmt.Sprintf("/api/firewall/source_nat/revert/%s", revision)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SourceNatSavepoint calls POST /api/firewall/source_nat/savepoint
-func (c *Client) SourceNatSavepoint(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SourceNatSavepoint(ctx context.Context, body any) (any, error) {
 	path := "/api/firewall/source_nat/savepoint"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SourceNatSet calls POST /api/firewall/source_nat/set
-func (c *Client) SourceNatSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SourceNatSet(ctx context.Context, body any) (any, error) {
 	path := "/api/firewall/source_nat/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }

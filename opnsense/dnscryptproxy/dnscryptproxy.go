@@ -39,9 +39,9 @@ func (c *Client) CloakDelCloak(ctx context.Context, uuid string) (*opnsense.Gene
 }
 
 // CloakGet calls GET /api/dnscryptproxy/cloak/get
-func (c *Client) CloakGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) CloakGet(ctx context.Context) (any, error) {
 	path := "/api/dnscryptproxy/cloak/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -68,9 +68,9 @@ func (c *Client) CloakSearchCloak(ctx context.Context, body any) (*opnsense.Sear
 }
 
 // CloakSet calls POST /api/dnscryptproxy/cloak/set
-func (c *Client) CloakSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) CloakSet(ctx context.Context, body any) (any, error) {
 	path := "/api/dnscryptproxy/cloak/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -96,17 +96,17 @@ func (c *Client) CloakToggleCloak(ctx context.Context, uuid string) (*opnsense.G
 }
 
 // DnsblGet calls GET /api/dnscryptproxy/dnsbl/get
-func (c *Client) DnsblGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) DnsblGet(ctx context.Context) (any, error) {
 	path := "/api/dnscryptproxy/dnsbl/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // DnsblSet calls POST /api/dnscryptproxy/dnsbl/set
-func (c *Client) DnsblSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) DnsblSet(ctx context.Context, body any) (any, error) {
 	path := "/api/dnscryptproxy/dnsbl/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -130,9 +130,9 @@ func (c *Client) ForwardDelForward(ctx context.Context, uuid string) (*opnsense.
 }
 
 // ForwardGet calls GET /api/dnscryptproxy/forward/get
-func (c *Client) ForwardGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) ForwardGet(ctx context.Context) (any, error) {
 	path := "/api/dnscryptproxy/forward/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -159,9 +159,9 @@ func (c *Client) ForwardSearchForward(ctx context.Context, body any) (*opnsense.
 }
 
 // ForwardSet calls POST /api/dnscryptproxy/forward/set
-func (c *Client) ForwardSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ForwardSet(ctx context.Context, body any) (any, error) {
 	path := "/api/dnscryptproxy/forward/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -187,17 +187,17 @@ func (c *Client) ForwardToggleForward(ctx context.Context, uuid string) (*opnsen
 }
 
 // GeneralGet calls GET /api/dnscryptproxy/general/get
-func (c *Client) GeneralGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) GeneralGet(ctx context.Context) (any, error) {
 	path := "/api/dnscryptproxy/general/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // GeneralSet calls POST /api/dnscryptproxy/general/set
-func (c *Client) GeneralSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) GeneralSet(ctx context.Context, body any) (any, error) {
 	path := "/api/dnscryptproxy/general/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -221,9 +221,9 @@ func (c *Client) ServerDelServer(ctx context.Context, uuid string) (*opnsense.Ge
 }
 
 // ServerGet calls GET /api/dnscryptproxy/server/get
-func (c *Client) ServerGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServerGet(ctx context.Context) (any, error) {
 	path := "/api/dnscryptproxy/server/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -250,9 +250,9 @@ func (c *Client) ServerSearchServer(ctx context.Context, body any) (*opnsense.Se
 }
 
 // ServerSet calls POST /api/dnscryptproxy/server/set
-func (c *Client) ServerSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServerSet(ctx context.Context, body any) (any, error) {
 	path := "/api/dnscryptproxy/server/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -278,49 +278,49 @@ func (c *Client) ServerToggleServer(ctx context.Context, uuid string) (*opnsense
 }
 
 // ServiceDnsbl calls GET /api/dnscryptproxy/service/dnsbl
-func (c *Client) ServiceDnsbl(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceDnsbl(ctx context.Context) (any, error) {
 	path := "/api/dnscryptproxy/service/dnsbl"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ServiceReconfigure calls POST /api/dnscryptproxy/service/reconfigure
-func (c *Client) ServiceReconfigure(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceReconfigure(ctx context.Context, body any) (any, error) {
 	path := "/api/dnscryptproxy/service/reconfigure"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceRestart calls POST /api/dnscryptproxy/service/restart
-func (c *Client) ServiceRestart(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceRestart(ctx context.Context, body any) (any, error) {
 	path := "/api/dnscryptproxy/service/restart"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceStart calls POST /api/dnscryptproxy/service/start
-func (c *Client) ServiceStart(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceStart(ctx context.Context, body any) (any, error) {
 	path := "/api/dnscryptproxy/service/start"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceStatus calls GET /api/dnscryptproxy/service/status
-func (c *Client) ServiceStatus(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceStatus(ctx context.Context) (any, error) {
 	path := "/api/dnscryptproxy/service/status"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ServiceStop calls POST /api/dnscryptproxy/service/stop
-func (c *Client) ServiceStop(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceStop(ctx context.Context, body any) (any, error) {
 	path := "/api/dnscryptproxy/service/stop"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -344,9 +344,9 @@ func (c *Client) WhitelistDelWhitelist(ctx context.Context, uuid string) (*opnse
 }
 
 // WhitelistGet calls GET /api/dnscryptproxy/whitelist/get
-func (c *Client) WhitelistGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) WhitelistGet(ctx context.Context) (any, error) {
 	path := "/api/dnscryptproxy/whitelist/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -373,9 +373,9 @@ func (c *Client) WhitelistSearchWhitelist(ctx context.Context, body any) (*opnse
 }
 
 // WhitelistSet calls POST /api/dnscryptproxy/whitelist/set
-func (c *Client) WhitelistSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) WhitelistSet(ctx context.Context, body any) (any, error) {
 	path := "/api/dnscryptproxy/whitelist/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }

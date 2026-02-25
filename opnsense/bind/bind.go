@@ -39,9 +39,9 @@ func (c *Client) AclDelAcl(ctx context.Context, uuid string) (*opnsense.GenericR
 }
 
 // AclGet calls GET /api/bind/acl/get
-func (c *Client) AclGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) AclGet(ctx context.Context) (any, error) {
 	path := "/api/bind/acl/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -68,9 +68,9 @@ func (c *Client) AclSearchAcl(ctx context.Context, body any) (*opnsense.SearchRe
 }
 
 // AclSet calls POST /api/bind/acl/set
-func (c *Client) AclSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) AclSet(ctx context.Context, body any) (any, error) {
 	path := "/api/bind/acl/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -96,17 +96,17 @@ func (c *Client) AclToggleAcl(ctx context.Context, uuid string) (*opnsense.Gener
 }
 
 // DnsblGet calls GET /api/bind/dnsbl/get
-func (c *Client) DnsblGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) DnsblGet(ctx context.Context) (any, error) {
 	path := "/api/bind/dnsbl/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // DnsblSet calls POST /api/bind/dnsbl/set
-func (c *Client) DnsblSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) DnsblSet(ctx context.Context, body any) (any, error) {
 	path := "/api/bind/dnsbl/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -161,9 +161,9 @@ func (c *Client) DomainDelDomain(ctx context.Context, uuid string) (*opnsense.Ge
 }
 
 // DomainGet calls GET /api/bind/domain/get
-func (c *Client) DomainGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) DomainGet(ctx context.Context) (any, error) {
 	path := "/api/bind/domain/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -222,9 +222,9 @@ func (c *Client) DomainSearchSlaveDomain(ctx context.Context) (*opnsense.SearchR
 }
 
 // DomainSet calls POST /api/bind/domain/set
-func (c *Client) DomainSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) DomainSet(ctx context.Context, body any) (any, error) {
 	path := "/api/bind/domain/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -253,17 +253,17 @@ func (c *Client) DomainToggleDomain(ctx context.Context, uuid string) (*opnsense
 }
 
 // GeneralGet calls GET /api/bind/general/get
-func (c *Client) GeneralGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) GeneralGet(ctx context.Context) (any, error) {
 	path := "/api/bind/general/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // GeneralSet calls POST /api/bind/general/set
-func (c *Client) GeneralSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) GeneralSet(ctx context.Context, body any) (any, error) {
 	path := "/api/bind/general/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -271,12 +271,12 @@ func (c *Client) GeneralSet(ctx context.Context, body any) (map[string]any, erro
 // GeneralZoneshow calls GET /api/bind/general/zoneshow
 // Parameters:
 //   - zonename (optional, default: null)
-func (c *Client) GeneralZoneshow(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) GeneralZoneshow(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/bind/general/zoneshow"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -284,12 +284,12 @@ func (c *Client) GeneralZoneshow(ctx context.Context, opts ...string) (map[strin
 // GeneralZonetest calls GET /api/bind/general/zonetest
 // Parameters:
 //   - zonename (optional, default: null)
-func (c *Client) GeneralZonetest(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) GeneralZonetest(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/bind/general/zonetest"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -313,9 +313,9 @@ func (c *Client) RecordDelRecord(ctx context.Context, uuid string) (*opnsense.Ge
 }
 
 // RecordGet calls GET /api/bind/record/get
-func (c *Client) RecordGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) RecordGet(ctx context.Context) (any, error) {
 	path := "/api/bind/record/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -342,9 +342,9 @@ func (c *Client) RecordSearchRecord(ctx context.Context, body any) (*opnsense.Se
 }
 
 // RecordSet calls POST /api/bind/record/set
-func (c *Client) RecordSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) RecordSet(ctx context.Context, body any) (any, error) {
 	path := "/api/bind/record/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -373,49 +373,49 @@ func (c *Client) RecordToggleRecord(ctx context.Context, uuid string) (*opnsense
 }
 
 // ServiceDnsbl calls GET /api/bind/service/dnsbl
-func (c *Client) ServiceDnsbl(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceDnsbl(ctx context.Context) (any, error) {
 	path := "/api/bind/service/dnsbl"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ServiceReconfigure calls POST /api/bind/service/reconfigure
-func (c *Client) ServiceReconfigure(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceReconfigure(ctx context.Context, body any) (any, error) {
 	path := "/api/bind/service/reconfigure"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceRestart calls POST /api/bind/service/restart
-func (c *Client) ServiceRestart(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceRestart(ctx context.Context, body any) (any, error) {
 	path := "/api/bind/service/restart"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceStart calls POST /api/bind/service/start
-func (c *Client) ServiceStart(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceStart(ctx context.Context, body any) (any, error) {
 	path := "/api/bind/service/start"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceStatus calls GET /api/bind/service/status
-func (c *Client) ServiceStatus(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceStatus(ctx context.Context) (any, error) {
 	path := "/api/bind/service/status"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ServiceStop calls POST /api/bind/service/stop
-func (c *Client) ServiceStop(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceStop(ctx context.Context, body any) (any, error) {
 	path := "/api/bind/service/stop"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }

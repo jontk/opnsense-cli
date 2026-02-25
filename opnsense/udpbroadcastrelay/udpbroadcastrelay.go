@@ -21,25 +21,25 @@ func NewClient(c *opnsense.Client) *Client {
 }
 
 // ServiceConfig calls GET /api/udpbroadcastrelay/service/config
-func (c *Client) ServiceConfig(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceConfig(ctx context.Context) (any, error) {
 	path := "/api/udpbroadcastrelay/service/config"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ServiceGet calls GET /api/udpbroadcastrelay/service/get
-func (c *Client) ServiceGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceGet(ctx context.Context) (any, error) {
 	path := "/api/udpbroadcastrelay/service/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ServiceReload calls GET /api/udpbroadcastrelay/service/reload
-func (c *Client) ServiceReload(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceReload(ctx context.Context) (any, error) {
 	path := "/api/udpbroadcastrelay/service/reload"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -47,17 +47,17 @@ func (c *Client) ServiceReload(ctx context.Context) (map[string]any, error) {
 // ServiceRestart calls GET /api/udpbroadcastrelay/service/restart
 // Parameters:
 //   - uuid
-func (c *Client) ServiceRestart(ctx context.Context, uuid string) (map[string]any, error) {
+func (c *Client) ServiceRestart(ctx context.Context, uuid string) (any, error) {
 	path := fmt.Sprintf("/api/udpbroadcastrelay/service/restart/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ServiceSet calls POST /api/udpbroadcastrelay/service/set
-func (c *Client) ServiceSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceSet(ctx context.Context, body any) (any, error) {
 	path := "/api/udpbroadcastrelay/service/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -65,9 +65,9 @@ func (c *Client) ServiceSet(ctx context.Context, body any) (map[string]any, erro
 // ServiceStart calls GET /api/udpbroadcastrelay/service/start
 // Parameters:
 //   - uuid
-func (c *Client) ServiceStart(ctx context.Context, uuid string) (map[string]any, error) {
+func (c *Client) ServiceStart(ctx context.Context, uuid string) (any, error) {
 	path := fmt.Sprintf("/api/udpbroadcastrelay/service/start/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -75,9 +75,9 @@ func (c *Client) ServiceStart(ctx context.Context, uuid string) (map[string]any,
 // ServiceStatus calls GET /api/udpbroadcastrelay/service/status
 // Parameters:
 //   - uuid
-func (c *Client) ServiceStatus(ctx context.Context, uuid string) (map[string]any, error) {
+func (c *Client) ServiceStatus(ctx context.Context, uuid string) (any, error) {
 	path := fmt.Sprintf("/api/udpbroadcastrelay/service/status/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -85,17 +85,17 @@ func (c *Client) ServiceStatus(ctx context.Context, uuid string) (map[string]any
 // ServiceStop calls GET /api/udpbroadcastrelay/service/stop
 // Parameters:
 //   - uuid
-func (c *Client) ServiceStop(ctx context.Context, uuid string) (map[string]any, error) {
+func (c *Client) ServiceStop(ctx context.Context, uuid string) (any, error) {
 	path := fmt.Sprintf("/api/udpbroadcastrelay/service/stop/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // SettingsAddRelay calls POST /api/udpbroadcastrelay/settings/addRelay
-func (c *Client) SettingsAddRelay(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsAddRelay(ctx context.Context, body any) (any, error) {
 	path := "/api/udpbroadcastrelay/settings/addRelay"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -103,17 +103,17 @@ func (c *Client) SettingsAddRelay(ctx context.Context, body any) (map[string]any
 // SettingsDelRelay calls POST /api/udpbroadcastrelay/settings/delRelay
 // Parameters:
 //   - uuid
-func (c *Client) SettingsDelRelay(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) SettingsDelRelay(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/udpbroadcastrelay/settings/delRelay/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SettingsGet calls GET /api/udpbroadcastrelay/settings/get
-func (c *Client) SettingsGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) SettingsGet(ctx context.Context) (any, error) {
 	path := "/api/udpbroadcastrelay/settings/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -121,28 +121,28 @@ func (c *Client) SettingsGet(ctx context.Context) (map[string]any, error) {
 // SettingsGetRelay calls GET /api/udpbroadcastrelay/settings/getRelay
 // Parameters:
 //   - uuid (optional, default: null)
-func (c *Client) SettingsGetRelay(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) SettingsGetRelay(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/udpbroadcastrelay/settings/getRelay"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // SettingsSearchRelay calls GET /api/udpbroadcastrelay/settings/searchRelay
-func (c *Client) SettingsSearchRelay(ctx context.Context) (map[string]any, error) {
+func (c *Client) SettingsSearchRelay(ctx context.Context) (any, error) {
 	path := "/api/udpbroadcastrelay/settings/searchRelay"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // SettingsSet calls POST /api/udpbroadcastrelay/settings/set
-func (c *Client) SettingsSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSet(ctx context.Context, body any) (any, error) {
 	path := "/api/udpbroadcastrelay/settings/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -150,9 +150,9 @@ func (c *Client) SettingsSet(ctx context.Context, body any) (map[string]any, err
 // SettingsSetRelay calls POST /api/udpbroadcastrelay/settings/setRelay
 // Parameters:
 //   - uuid
-func (c *Client) SettingsSetRelay(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) SettingsSetRelay(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/udpbroadcastrelay/settings/setRelay/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -160,9 +160,9 @@ func (c *Client) SettingsSetRelay(ctx context.Context, uuid string, body any) (m
 // SettingsToggleRelay calls POST /api/udpbroadcastrelay/settings/toggleRelay
 // Parameters:
 //   - uuid
-func (c *Client) SettingsToggleRelay(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) SettingsToggleRelay(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/udpbroadcastrelay/settings/toggleRelay/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }

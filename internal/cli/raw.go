@@ -53,7 +53,7 @@ func runRaw(cmd *cobra.Command, args []string) error {
 		}
 	}
 
-	var resp map[string]any
+	var resp any
 	if err := c.Do(cmd.Context(), method, path, body, &resp); err != nil {
 		return err
 	}

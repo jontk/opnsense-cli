@@ -21,25 +21,25 @@ func NewClient(c *opnsense.Client) *Client {
 }
 
 // SyncListServices calls GET /api/opncentral/sync/listServices
-func (c *Client) SyncListServices(ctx context.Context) (map[string]any, error) {
+func (c *Client) SyncListServices(ctx context.Context) (any, error) {
 	path := "/api/opncentral/sync/listServices"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // SyncListClasses calls GET /api/opncentral/sync/listClasses
-func (c *Client) SyncListClasses(ctx context.Context) (map[string]any, error) {
+func (c *Client) SyncListClasses(ctx context.Context) (any, error) {
 	path := "/api/opncentral/sync/listClasses"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // SyncMetrics calls GET /api/opncentral/sync/metrics
-func (c *Client) SyncMetrics(ctx context.Context) (map[string]any, error) {
+func (c *Client) SyncMetrics(ctx context.Context) (any, error) {
 	path := "/api/opncentral/sync/metrics"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -47,25 +47,25 @@ func (c *Client) SyncMetrics(ctx context.Context) (map[string]any, error) {
 // SyncReadConfig calls GET /api/opncentral/sync/readConfig
 // Parameters:
 //   - paths
-func (c *Client) SyncReadConfig(ctx context.Context, paths string) (map[string]any, error) {
+func (c *Client) SyncReadConfig(ctx context.Context, paths string) (any, error) {
 	path := fmt.Sprintf("/api/opncentral/sync/readConfig/%s", paths)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // SyncReconfigure calls POST /api/opncentral/sync/reconfigure
-func (c *Client) SyncReconfigure(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SyncReconfigure(ctx context.Context, body any) (any, error) {
 	path := "/api/opncentral/sync/reconfigure"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SyncRestartService calls POST /api/opncentral/sync/restartService
-func (c *Client) SyncRestartService(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SyncRestartService(ctx context.Context, body any) (any, error) {
 	path := "/api/opncentral/sync/restartService"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }

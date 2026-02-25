@@ -21,9 +21,9 @@ func NewClient(c *opnsense.Client) *Client {
 }
 
 // CaAdd calls POST /api/trust/ca/add
-func (c *Client) CaAdd(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) CaAdd(ctx context.Context, body any) (any, error) {
 	path := "/api/trust/ca/add"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -31,17 +31,17 @@ func (c *Client) CaAdd(ctx context.Context, body any) (map[string]any, error) {
 // CaCaInfo calls GET /api/trust/ca/caInfo
 // Parameters:
 //   - caref
-func (c *Client) CaCaInfo(ctx context.Context, caref string) (map[string]any, error) {
+func (c *Client) CaCaInfo(ctx context.Context, caref string) (any, error) {
 	path := fmt.Sprintf("/api/trust/ca/caInfo/%s", caref)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // CaCaList calls GET /api/trust/ca/caList
-func (c *Client) CaCaList(ctx context.Context) (map[string]any, error) {
+func (c *Client) CaCaList(ctx context.Context) (any, error) {
 	path := "/api/trust/ca/caList"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -49,9 +49,9 @@ func (c *Client) CaCaList(ctx context.Context) (map[string]any, error) {
 // CaDel calls POST /api/trust/ca/del
 // Parameters:
 //   - uuid
-func (c *Client) CaDel(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) CaDel(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/trust/ca/del/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -60,12 +60,12 @@ func (c *Client) CaDel(ctx context.Context, uuid string, body any) (map[string]a
 // Parameters:
 //   - uuid (optional, default: null)
 //   - type (optional, default: crt)
-func (c *Client) CaGenerateFile(ctx context.Context, body any, opts ...string) (map[string]any, error) {
+func (c *Client) CaGenerateFile(ctx context.Context, body any, opts ...string) (any, error) {
 	path := "/api/trust/ca/generateFile"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -73,12 +73,12 @@ func (c *Client) CaGenerateFile(ctx context.Context, body any, opts ...string) (
 // CaGet calls GET /api/trust/ca/get
 // Parameters:
 //   - uuid (optional, default: null)
-func (c *Client) CaGet(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) CaGet(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/trust/ca/get"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -86,17 +86,17 @@ func (c *Client) CaGet(ctx context.Context, opts ...string) (map[string]any, err
 // CaRawDump calls GET /api/trust/ca/rawDump
 // Parameters:
 //   - uuid
-func (c *Client) CaRawDump(ctx context.Context, uuid string) (map[string]any, error) {
+func (c *Client) CaRawDump(ctx context.Context, uuid string) (any, error) {
 	path := fmt.Sprintf("/api/trust/ca/rawDump/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // CaSearch calls GET,POST /api/trust/ca/search
-func (c *Client) CaSearch(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) CaSearch(ctx context.Context, body any) (any, error) {
 	path := "/api/trust/ca/search"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -104,20 +104,20 @@ func (c *Client) CaSearch(ctx context.Context, body any) (map[string]any, error)
 // CaSet calls POST /api/trust/ca/set
 // Parameters:
 //   - uuid (optional, default: null)
-func (c *Client) CaSet(ctx context.Context, body any, opts ...string) (map[string]any, error) {
+func (c *Client) CaSet(ctx context.Context, body any, opts ...string) (any, error) {
 	path := "/api/trust/ca/set"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // CertAdd calls POST /api/trust/cert/add
-func (c *Client) CertAdd(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) CertAdd(ctx context.Context, body any) (any, error) {
 	path := "/api/trust/cert/add"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -125,20 +125,20 @@ func (c *Client) CertAdd(ctx context.Context, body any) (map[string]any, error) 
 // CertCaInfo calls GET /api/trust/cert/caInfo
 // Parameters:
 //   - caref (optional, default: null)
-func (c *Client) CertCaInfo(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) CertCaInfo(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/trust/cert/caInfo"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // CertCaList calls GET /api/trust/cert/caList
-func (c *Client) CertCaList(ctx context.Context) (map[string]any, error) {
+func (c *Client) CertCaList(ctx context.Context) (any, error) {
 	path := "/api/trust/cert/caList"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -146,9 +146,9 @@ func (c *Client) CertCaList(ctx context.Context) (map[string]any, error) {
 // CertDel calls POST /api/trust/cert/del
 // Parameters:
 //   - uuid
-func (c *Client) CertDel(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) CertDel(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/trust/cert/del/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -157,12 +157,12 @@ func (c *Client) CertDel(ctx context.Context, uuid string, body any) (map[string
 // Parameters:
 //   - uuid (optional, default: null)
 //   - type (optional, default: crt)
-func (c *Client) CertGenerateFile(ctx context.Context, body any, opts ...string) (map[string]any, error) {
+func (c *Client) CertGenerateFile(ctx context.Context, body any, opts ...string) (any, error) {
 	path := "/api/trust/cert/generateFile"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -170,12 +170,12 @@ func (c *Client) CertGenerateFile(ctx context.Context, body any, opts ...string)
 // CertGet calls GET /api/trust/cert/get
 // Parameters:
 //   - uuid (optional, default: null)
-func (c *Client) CertGet(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) CertGet(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/trust/cert/get"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -183,17 +183,17 @@ func (c *Client) CertGet(ctx context.Context, opts ...string) (map[string]any, e
 // CertRawDump calls GET /api/trust/cert/rawDump
 // Parameters:
 //   - uuid
-func (c *Client) CertRawDump(ctx context.Context, uuid string) (map[string]any, error) {
+func (c *Client) CertRawDump(ctx context.Context, uuid string) (any, error) {
 	path := fmt.Sprintf("/api/trust/cert/rawDump/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // CertSearch calls GET,POST /api/trust/cert/search
-func (c *Client) CertSearch(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) CertSearch(ctx context.Context, body any) (any, error) {
 	path := "/api/trust/cert/search"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -201,20 +201,20 @@ func (c *Client) CertSearch(ctx context.Context, body any) (map[string]any, erro
 // CertSet calls POST /api/trust/cert/set
 // Parameters:
 //   - uuid (optional, default: null)
-func (c *Client) CertSet(ctx context.Context, body any, opts ...string) (map[string]any, error) {
+func (c *Client) CertSet(ctx context.Context, body any, opts ...string) (any, error) {
 	path := "/api/trust/cert/set"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // CertUserList calls GET /api/trust/cert/userList
-func (c *Client) CertUserList(ctx context.Context) (map[string]any, error) {
+func (c *Client) CertUserList(ctx context.Context) (any, error) {
 	path := "/api/trust/cert/userList"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -222,9 +222,9 @@ func (c *Client) CertUserList(ctx context.Context) (map[string]any, error) {
 // CrlDel calls POST /api/trust/crl/del
 // Parameters:
 //   - caref
-func (c *Client) CrlDel(ctx context.Context, caref string, body any) (map[string]any, error) {
+func (c *Client) CrlDel(ctx context.Context, caref string, body any) (any, error) {
 	path := fmt.Sprintf("/api/trust/crl/del/%s", caref)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -232,9 +232,9 @@ func (c *Client) CrlDel(ctx context.Context, caref string, body any) (map[string
 // CrlGet calls GET /api/trust/crl/get
 // Parameters:
 //   - caref
-func (c *Client) CrlGet(ctx context.Context, caref string) (map[string]any, error) {
+func (c *Client) CrlGet(ctx context.Context, caref string) (any, error) {
 	path := fmt.Sprintf("/api/trust/crl/get/%s", caref)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -242,9 +242,9 @@ func (c *Client) CrlGet(ctx context.Context, caref string) (map[string]any, erro
 // CrlGetOcspInfoData calls GET /api/trust/crl/getOcspInfoData
 // Parameters:
 //   - caref
-func (c *Client) CrlGetOcspInfoData(ctx context.Context, caref string) (map[string]any, error) {
+func (c *Client) CrlGetOcspInfoData(ctx context.Context, caref string) (any, error) {
 	path := fmt.Sprintf("/api/trust/crl/getOcspInfoData/%s", caref)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -252,17 +252,17 @@ func (c *Client) CrlGetOcspInfoData(ctx context.Context, caref string) (map[stri
 // CrlRawDump calls GET /api/trust/crl/rawDump
 // Parameters:
 //   - caref
-func (c *Client) CrlRawDump(ctx context.Context, caref string) (map[string]any, error) {
+func (c *Client) CrlRawDump(ctx context.Context, caref string) (any, error) {
 	path := fmt.Sprintf("/api/trust/crl/rawDump/%s", caref)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // CrlSearch calls GET /api/trust/crl/search
-func (c *Client) CrlSearch(ctx context.Context) (map[string]any, error) {
+func (c *Client) CrlSearch(ctx context.Context) (any, error) {
 	path := "/api/trust/crl/search"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -270,33 +270,33 @@ func (c *Client) CrlSearch(ctx context.Context) (map[string]any, error) {
 // CrlSet calls POST /api/trust/crl/set
 // Parameters:
 //   - caref
-func (c *Client) CrlSet(ctx context.Context, caref string, body any) (map[string]any, error) {
+func (c *Client) CrlSet(ctx context.Context, caref string, body any) (any, error) {
 	path := fmt.Sprintf("/api/trust/crl/set/%s", caref)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SettingsGet calls GET /api/trust/settings/get
-func (c *Client) SettingsGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) SettingsGet(ctx context.Context) (any, error) {
 	path := "/api/trust/settings/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // SettingsReconfigure calls POST /api/trust/settings/reconfigure
-func (c *Client) SettingsReconfigure(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsReconfigure(ctx context.Context, body any) (any, error) {
 	path := "/api/trust/settings/reconfigure"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SettingsSet calls POST /api/trust/settings/set
-func (c *Client) SettingsSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSet(ctx context.Context, body any) (any, error) {
 	path := "/api/trust/settings/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }

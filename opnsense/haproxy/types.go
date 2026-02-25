@@ -7,738 +7,738 @@ import "github.com/jontk/opnsense-cli/opnsense"
 // Peers represents a peers model item.
 type Peers struct {
 	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 0.
-	Name1 string `json:"name1,omitempty"`
-	Listen1 string `json:"listen1,omitempty"`
-	Port1 *opnsense.OPNInt `json:"port1,omitempty"` // Default: 1024.
-	Name2 string `json:"name2,omitempty"`
-	Listen2 string `json:"listen2,omitempty"`
-	Port2 *opnsense.OPNInt `json:"port2,omitempty"` // Default: 1024.
+	Name1   string           `json:"name1,omitempty"`
+	Listen1 string           `json:"listen1,omitempty"`
+	Port1   *opnsense.OPNInt `json:"port1,omitempty"` // Default: 1024.
+	Name2   string           `json:"name2,omitempty"`
+	Listen2 string           `json:"listen2,omitempty"`
+	Port2   *opnsense.OPNInt `json:"port2,omitempty"` // Default: 1024.
 }
 
 // Tuning represents a tuning model item.
 type Tuning struct {
-	Root opnsense.OPNBool `json:"root"` // Required. Default: 0.
-	MaxConnections *opnsense.OPNInt `json:"maxConnections,omitempty"`
-	Nbthread *opnsense.OPNInt `json:"nbthread,omitempty"` // Default: 1.
-	ResolversPrefer string `json:"resolversPrefer,omitempty"` // Default: ipv4. Valid: ipv4, ipv6.
-	SslServerVerify string `json:"sslServerVerify"` // Required. Default: ignore. Valid: ignore, required, none.
-	MaxDHSize opnsense.OPNInt `json:"maxDHSize"` // Required. Default: 2048.
-	BufferSize *opnsense.OPNInt `json:"bufferSize,omitempty"` // Default: 16384.
-	SpreadChecks opnsense.OPNInt `json:"spreadChecks"` // Required. Default: 2.
-	BogusProxyEnabled opnsense.OPNBool `json:"bogusProxyEnabled"` // Required. Default: 0.
-	LuaMaxMem *opnsense.OPNInt `json:"luaMaxMem,omitempty"` // Default: 0.
-	CustomOptions string `json:"customOptions,omitempty"`
-	OcspUpdateEnabled opnsense.OPNBool `json:"ocspUpdateEnabled"` // Required. Default: 0.
-	OcspUpdateMinDelay *opnsense.OPNInt `json:"ocspUpdateMinDelay,omitempty"` // Default: 300.
-	OcspUpdateMaxDelay *opnsense.OPNInt `json:"ocspUpdateMaxDelay,omitempty"` // Default: 3600.
-	SslDefaultsEnabled opnsense.OPNBool `json:"ssl_defaultsEnabled"` // Required. Default: 0.
-	SslBindOptions string `json:"ssl_bindOptions,omitempty"` // Default: prefer-client-ciphers. Valid: no-sslv3, no-tlsv10, no-tlsv11, no-tlsv12, no-tlsv13, no-tls-tickets, force-sslv3, force-tlsv10, force-tlsv11, force-tlsv12, force-tlsv13, prefer-client-ciphers, strict-sni.
-	SslMinVersion string `json:"ssl_minVersion,omitempty"` // Default: TLSv1.2. Valid: SSLv3, TLSv1.0, TLSv1.1, TLSv1.2, TLSv1.3.
-	SslMaxVersion string `json:"ssl_maxVersion,omitempty"` // Valid: SSLv3, TLSv1.0, TLSv1.1, TLSv1.2, TLSv1.3.
-	SslCipherList string `json:"ssl_cipherList,omitempty"` // Default: ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-SHA384:ECDHE-ECDSA-AES128-SHA256.
-	SslCipherSuites string `json:"ssl_cipherSuites,omitempty"` // Default: TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256.
-	H2InitialWindowSize *opnsense.OPNInt `json:"h2_initialWindowSize,omitempty"`
-	H2InitialWindowSizeOutgoing *opnsense.OPNInt `json:"h2_initialWindowSizeOutgoing,omitempty"`
-	H2InitialWindowSizeIncoming *opnsense.OPNInt `json:"h2_initialWindowSizeIncoming,omitempty"`
-	H2MaxConcurrentStreams *opnsense.OPNInt `json:"h2_maxConcurrentStreams,omitempty"`
+	Root                           opnsense.OPNBool `json:"root"` // Required. Default: 0.
+	MaxConnections                 *opnsense.OPNInt `json:"maxConnections,omitempty"`
+	Nbthread                       *opnsense.OPNInt `json:"nbthread,omitempty"`        // Default: 1.
+	ResolversPrefer                string           `json:"resolversPrefer,omitempty"` // Default: ipv4. Valid: ipv4, ipv6.
+	SslServerVerify                string           `json:"sslServerVerify"`           // Required. Default: ignore. Valid: ignore, required, none.
+	MaxDHSize                      opnsense.OPNInt  `json:"maxDHSize"`                 // Required. Default: 2048.
+	BufferSize                     *opnsense.OPNInt `json:"bufferSize,omitempty"`      // Default: 16384.
+	SpreadChecks                   opnsense.OPNInt  `json:"spreadChecks"`              // Required. Default: 2.
+	BogusProxyEnabled              opnsense.OPNBool `json:"bogusProxyEnabled"`         // Required. Default: 0.
+	LuaMaxMem                      *opnsense.OPNInt `json:"luaMaxMem,omitempty"`       // Default: 0.
+	CustomOptions                  string           `json:"customOptions,omitempty"`
+	OcspUpdateEnabled              opnsense.OPNBool `json:"ocspUpdateEnabled"`            // Required. Default: 0.
+	OcspUpdateMinDelay             *opnsense.OPNInt `json:"ocspUpdateMinDelay,omitempty"` // Default: 300.
+	OcspUpdateMaxDelay             *opnsense.OPNInt `json:"ocspUpdateMaxDelay,omitempty"` // Default: 3600.
+	SslDefaultsEnabled             opnsense.OPNBool `json:"ssl_defaultsEnabled"`          // Required. Default: 0.
+	SslBindOptions                 string           `json:"ssl_bindOptions,omitempty"`    // Default: prefer-client-ciphers. Valid: no-sslv3, no-tlsv10, no-tlsv11, no-tlsv12, no-tlsv13, no-tls-tickets, force-sslv3, force-tlsv10, force-tlsv11, force-tlsv12, force-tlsv13, prefer-client-ciphers, strict-sni.
+	SslMinVersion                  string           `json:"ssl_minVersion,omitempty"`     // Default: TLSv1.2. Valid: SSLv3, TLSv1.0, TLSv1.1, TLSv1.2, TLSv1.3.
+	SslMaxVersion                  string           `json:"ssl_maxVersion,omitempty"`     // Valid: SSLv3, TLSv1.0, TLSv1.1, TLSv1.2, TLSv1.3.
+	SslCipherList                  string           `json:"ssl_cipherList,omitempty"`     // Default: ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-SHA384:ECDHE-ECDSA-AES128-SHA256.
+	SslCipherSuites                string           `json:"ssl_cipherSuites,omitempty"`   // Default: TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256.
+	H2InitialWindowSize            *opnsense.OPNInt `json:"h2_initialWindowSize,omitempty"`
+	H2InitialWindowSizeOutgoing    *opnsense.OPNInt `json:"h2_initialWindowSizeOutgoing,omitempty"`
+	H2InitialWindowSizeIncoming    *opnsense.OPNInt `json:"h2_initialWindowSizeIncoming,omitempty"`
+	H2MaxConcurrentStreams         *opnsense.OPNInt `json:"h2_maxConcurrentStreams,omitempty"`
 	H2MaxConcurrentStreamsOutgoing *opnsense.OPNInt `json:"h2_maxConcurrentStreamsOutgoing,omitempty"`
 	H2MaxConcurrentStreamsIncoming *opnsense.OPNInt `json:"h2_maxConcurrentStreamsIncoming,omitempty"`
 }
 
 // Defaults represents a defaults model item.
 type Defaults struct {
-	MaxConnections *opnsense.OPNInt `json:"maxConnections,omitempty"`
+	MaxConnections        *opnsense.OPNInt `json:"maxConnections,omitempty"`
 	MaxConnectionsServers *opnsense.OPNInt `json:"maxConnectionsServers,omitempty"`
-	TimeoutClient string `json:"timeoutClient,omitempty"` // Default: 30s.
-	TimeoutConnect string `json:"timeoutConnect,omitempty"` // Default: 30s.
-	TimeoutCheck string `json:"timeoutCheck,omitempty"`
-	TimeoutServer string `json:"timeoutServer,omitempty"` // Default: 30s.
-	Retries opnsense.OPNInt `json:"retries"` // Required. Default: 3.
-	Redispatch string `json:"redispatch,omitempty"` // Default: x-1. Valid: x3, x2, x1, x0, x-1, x-2, x-3.
-	InitAddr string `json:"init_addr,omitempty"` // Default: last,libc. Valid: last, libc, none.
-	CustomOptions string `json:"customOptions,omitempty"`
+	TimeoutClient         string           `json:"timeoutClient,omitempty"`  // Default: 30s.
+	TimeoutConnect        string           `json:"timeoutConnect,omitempty"` // Default: 30s.
+	TimeoutCheck          string           `json:"timeoutCheck,omitempty"`
+	TimeoutServer         string           `json:"timeoutServer,omitempty"` // Default: 30s.
+	Retries               opnsense.OPNInt  `json:"retries"`                 // Required. Default: 3.
+	Redispatch            string           `json:"redispatch,omitempty"`    // Default: x-1. Valid: x3, x2, x1, x0, x-1, x-2, x-3.
+	InitAddr              string           `json:"init_addr,omitempty"`     // Default: last,libc. Valid: last, libc, none.
+	CustomOptions         string           `json:"customOptions,omitempty"`
 }
 
 // Logging represents a logging model item.
 type Logging struct {
-	Host string `json:"host"` // Required. Default: 127.0.0.1.
-	Facility string `json:"facility"` // Required. Default: local0. Valid: alert, audit, auth2, auth, cron2, cron, daemon, ftp, kern, local0, local1, local2, local3, local4, local5, local6, local7, lpr, mail, news, ntp, syslog, user, uucp.
-	Level string `json:"level,omitempty"` // Default: info. Valid: alert, crit, debug, emerg, err, info, notice, warning.
-	Length *opnsense.OPNInt `json:"length,omitempty"`
+	Host     string           `json:"host"`            // Required. Default: 127.0.0.1.
+	Facility string           `json:"facility"`        // Required. Default: local0. Valid: alert, audit, auth2, auth, cron2, cron, daemon, ftp, kern, local0, local1, local2, local3, local4, local5, local6, local7, lpr, mail, news, ntp, syslog, user, uucp.
+	Level    string           `json:"level,omitempty"` // Default: info. Valid: alert, crit, debug, emerg, err, info, notice, warning.
+	Length   *opnsense.OPNInt `json:"length,omitempty"`
 }
 
 // Stats represents a stats model item.
 type Stats struct {
-	Enabled *opnsense.OPNBool `json:"enabled,omitempty"` // Default: 0.
-	Port opnsense.OPNInt `json:"port"` // Required. Default: 8822.
-	RemoteEnabled *opnsense.OPNBool `json:"remoteEnabled,omitempty"` // Default: 0.
-	RemoteBind string `json:"remoteBind,omitempty"`
-	AuthEnabled *opnsense.OPNBool `json:"authEnabled,omitempty"` // Default: 0.
-	Users string `json:"users,omitempty"`
-	AllowedUsers string `json:"allowedUsers,omitempty"`
-	AllowedGroups string `json:"allowedGroups,omitempty"`
-	CustomOptions string `json:"customOptions,omitempty"`
+	Enabled           *opnsense.OPNBool `json:"enabled,omitempty"`       // Default: 0.
+	Port              opnsense.OPNInt   `json:"port"`                    // Required. Default: 8822.
+	RemoteEnabled     *opnsense.OPNBool `json:"remoteEnabled,omitempty"` // Default: 0.
+	RemoteBind        string            `json:"remoteBind,omitempty"`
+	AuthEnabled       *opnsense.OPNBool `json:"authEnabled,omitempty"` // Default: 0.
+	Users             string            `json:"users,omitempty"`
+	AllowedUsers      string            `json:"allowedUsers,omitempty"`
+	AllowedGroups     string            `json:"allowedGroups,omitempty"`
+	CustomOptions     string            `json:"customOptions,omitempty"`
 	PrometheusEnabled *opnsense.OPNBool `json:"prometheus_enabled,omitempty"` // Default: 0.
-	PrometheusBind string `json:"prometheus_bind,omitempty"` // Default: *:8404.
-	PrometheusPath string `json:"prometheus_path,omitempty"` // Default: /metrics.
+	PrometheusBind    string            `json:"prometheus_bind,omitempty"`    // Default: *:8404.
+	PrometheusPath    string            `json:"prometheus_path,omitempty"`    // Default: /metrics.
 }
 
 // Cache represents a cache model item.
 type Cache struct {
-	Enabled *opnsense.OPNBool `json:"enabled,omitempty"` // Default: 0.
-	TotalMaxSize opnsense.OPNInt `json:"totalMaxSize"` // Required. Default: 4.
-	MaxAge *opnsense.OPNInt `json:"maxAge,omitempty"` // Default: 60.
-	MaxObjectSize *opnsense.OPNInt `json:"maxObjectSize,omitempty"`
-	ProcessVary *opnsense.OPNBool `json:"processVary,omitempty"` // Default: 0.
-	MaxSecondaryEntries *opnsense.OPNInt `json:"maxSecondaryEntries,omitempty"` // Default: 10.
+	Enabled             *opnsense.OPNBool `json:"enabled,omitempty"` // Default: 0.
+	TotalMaxSize        opnsense.OPNInt   `json:"totalMaxSize"`      // Required. Default: 4.
+	MaxAge              *opnsense.OPNInt  `json:"maxAge,omitempty"`  // Default: 60.
+	MaxObjectSize       *opnsense.OPNInt  `json:"maxObjectSize,omitempty"`
+	ProcessVary         *opnsense.OPNBool `json:"processVary,omitempty"`         // Default: 0.
+	MaxSecondaryEntries *opnsense.OPNInt  `json:"maxSecondaryEntries,omitempty"` // Default: 10.
 }
 
 // Frontend represents a frontend model item.
 type Frontend struct {
-	Id string `json:"id,omitempty"`
-	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
-	Name string `json:"name"` // Required.
-	Description string `json:"description,omitempty"`
-	Bind string `json:"bind"` // Required.
-	BindOptions string `json:"bindOptions,omitempty"`
-	Mode string `json:"mode"` // Required. Default: http. Valid: http, ssl, tcp.
-	DefaultBackend string `json:"defaultBackend,omitempty"`
-	SslEnabled opnsense.OPNBool `json:"ssl_enabled"` // Required. Default: 0.
-	SslCertificates string `json:"ssl_certificates,omitempty"`
-	SslDefaultCertificate string `json:"ssl_default_certificate,omitempty"`
-	SslCustomOptions string `json:"ssl_customOptions,omitempty"`
-	SslAdvancedEnabled opnsense.OPNBool `json:"ssl_advancedEnabled"` // Required. Default: 0.
-	SslBindOptions string `json:"ssl_bindOptions,omitempty"` // Default: prefer-client-ciphers. Valid: no-sslv3, no-tlsv10, no-tlsv11, no-tlsv12, no-tlsv13, no-tls-tickets, force-sslv3, force-tlsv10, force-tlsv11, force-tlsv12, force-tlsv13, prefer-client-ciphers, strict-sni.
-	SslMinVersion string `json:"ssl_minVersion,omitempty"` // Default: TLSv1.2. Valid: SSLv3, TLSv1.0, TLSv1.1, TLSv1.2, TLSv1.3.
-	SslMaxVersion string `json:"ssl_maxVersion,omitempty"` // Valid: SSLv3, TLSv1.0, TLSv1.1, TLSv1.2, TLSv1.3.
-	SslCipherList string `json:"ssl_cipherList,omitempty"` // Default: ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-SHA384:ECDHE-ECDSA-AES128-SHA256.
-	SslCipherSuites string `json:"ssl_cipherSuites,omitempty"` // Default: TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256.
-	SslHstsEnabled opnsense.OPNBool `json:"ssl_hstsEnabled"` // Required. Default: 1.
-	SslHstsIncludeSubDomains *opnsense.OPNBool `json:"ssl_hstsIncludeSubDomains,omitempty"` // Default: 0.
-	SslHstsPreload *opnsense.OPNBool `json:"ssl_hstsPreload,omitempty"` // Default: 0.
-	SslHstsMaxAge opnsense.OPNInt `json:"ssl_hstsMaxAge"` // Required. Default: 15768000.
-	SslClientAuthEnabled *opnsense.OPNBool `json:"ssl_clientAuthEnabled,omitempty"` // Default: 0.
-	SslClientAuthVerify string `json:"ssl_clientAuthVerify,omitempty"` // Default: required. Valid: none, optional, required.
-	SslClientAuthCAs string `json:"ssl_clientAuthCAs,omitempty"`
-	SslClientAuthCRLs string `json:"ssl_clientAuthCRLs,omitempty"`
-	BasicAuthEnabled *opnsense.OPNBool `json:"basicAuthEnabled,omitempty"` // Default: 0.
-	BasicAuthUsers string `json:"basicAuthUsers,omitempty"`
-	BasicAuthGroups string `json:"basicAuthGroups,omitempty"`
-	TuningMaxConnections *opnsense.OPNInt `json:"tuning_maxConnections,omitempty"`
-	TuningTimeoutClient string `json:"tuning_timeoutClient,omitempty"`
-	TuningTimeoutHttpReq string `json:"tuning_timeoutHttpReq,omitempty"`
-	TuningTimeoutHttpKeepAlive string `json:"tuning_timeoutHttpKeepAlive,omitempty"`
-	LinkedCpuAffinityRules string `json:"linkedCpuAffinityRules,omitempty"`
-	TuningShards *opnsense.OPNInt `json:"tuning_shards,omitempty"`
-	LoggingDontLogNull opnsense.OPNBool `json:"logging_dontLogNull"` // Required. Default: 0.
-	LoggingDontLogNormal opnsense.OPNBool `json:"logging_dontLogNormal"` // Required. Default: 0.
-	LoggingLogSeparateErrors opnsense.OPNBool `json:"logging_logSeparateErrors"` // Required. Default: 0.
-	LoggingDetailedLog opnsense.OPNBool `json:"logging_detailedLog"` // Required. Default: 0.
-	LoggingSocketStats opnsense.OPNBool `json:"logging_socketStats"` // Required. Default: 0.
-	StickinessPattern string `json:"stickiness_pattern,omitempty"` // Valid: binary, integer, ipv4, ipv6, string.
-	StickinessDataTypes string `json:"stickiness_dataTypes,omitempty"` // Valid: bytes_in_cnt, bytes_in_rate, bytes_out_cnt, bytes_out_rate, conn_cnt, conn_cur, conn_rate, glitch_cnt, glitch_rate, gpc, gpc_rate, gpc0, gpc0_rate, gpc1, gpc1_rate, gpt, gpt0, http_err_cnt, http_err_rate, http_fail_cnt, http_fail_rate, http_req_cnt, http_req_rate, server_id, sess_cnt, sess_rate.
-	StickinessExpire string `json:"stickiness_expire"` // Required. Default: 30m.
-	StickinessSize string `json:"stickiness_size"` // Required. Default: 50k.
-	StickinessCounter *opnsense.OPNBool `json:"stickiness_counter,omitempty"` // Default: 1.
-	StickinessCounterKey string `json:"stickiness_counter_key,omitempty"` // Default: src.
-	StickinessLength *opnsense.OPNInt `json:"stickiness_length,omitempty"`
-	StickinessConnRatePeriod string `json:"stickiness_connRatePeriod,omitempty"` // Default: 10s.
-	StickinessSessRatePeriod string `json:"stickiness_sessRatePeriod,omitempty"` // Default: 10s.
-	StickinessHttpReqRatePeriod string `json:"stickiness_httpReqRatePeriod,omitempty"` // Default: 10s.
-	StickinessHttpErrRatePeriod string `json:"stickiness_httpErrRatePeriod,omitempty"` // Default: 10s.
-	StickinessBytesInRatePeriod string `json:"stickiness_bytesInRatePeriod,omitempty"` // Default: 1m.
-	StickinessBytesOutRatePeriod string `json:"stickiness_bytesOutRatePeriod,omitempty"` // Default: 1m.
-	StickinessGpcElements *opnsense.OPNInt `json:"stickiness_gpcElements,omitempty"` // Default: 0.
-	StickinessGpcRatePeriod string `json:"stickiness_gpcRatePeriod,omitempty"` // Default: 1m.
-	StickinessGptElements *opnsense.OPNInt `json:"stickiness_gptElements,omitempty"` // Default: 0.
-	StickinessHttpFailRatePeriod string `json:"stickiness_httpFailRatePeriod,omitempty"` // Default: 1m.
-	StickinessGlitchRatePeriod string `json:"stickiness_glitchRatePeriod,omitempty"` // Default: 1m.
-	Http2Enabled *opnsense.OPNBool `json:"http2Enabled,omitempty"` // Default: 1.
-	Http2EnabledNontls *opnsense.OPNBool `json:"http2Enabled_nontls,omitempty"` // Default: 0.
-	AdvertisedProtocols string `json:"advertised_protocols,omitempty"` // Default: h2,http11. Valid: h3, h2, http11, http10.
-	ForwardFor opnsense.OPNBool `json:"forwardFor"` // Required. Default: 0.
-	PrometheusEnabled *opnsense.OPNBool `json:"prometheus_enabled,omitempty"` // Default: 0.
-	PrometheusPath string `json:"prometheus_path,omitempty"` // Default: /metrics.
-	ConnectionBehaviour string `json:"connectionBehaviour"` // Required. Default: http-keep-alive. Valid: http-keep-alive, httpclose, http-server-close.
-	CustomOptions string `json:"customOptions,omitempty"`
-	LinkedActions string `json:"linkedActions,omitempty"`
-	LinkedErrorfiles string `json:"linkedErrorfiles,omitempty"`
+	Id                           string            `json:"id,omitempty"`
+	Enabled                      opnsense.OPNBool  `json:"enabled"` // Required. Default: 1.
+	Name                         string            `json:"name"`    // Required.
+	Description                  string            `json:"description,omitempty"`
+	Bind                         string            `json:"bind"` // Required.
+	BindOptions                  string            `json:"bindOptions,omitempty"`
+	Mode                         string            `json:"mode"` // Required. Default: http. Valid: http, ssl, tcp.
+	DefaultBackend               string            `json:"defaultBackend,omitempty"`
+	SslEnabled                   opnsense.OPNBool  `json:"ssl_enabled"` // Required. Default: 0.
+	SslCertificates              string            `json:"ssl_certificates,omitempty"`
+	SslDefaultCertificate        string            `json:"ssl_default_certificate,omitempty"`
+	SslCustomOptions             string            `json:"ssl_customOptions,omitempty"`
+	SslAdvancedEnabled           opnsense.OPNBool  `json:"ssl_advancedEnabled"`                 // Required. Default: 0.
+	SslBindOptions               string            `json:"ssl_bindOptions,omitempty"`           // Default: prefer-client-ciphers. Valid: no-sslv3, no-tlsv10, no-tlsv11, no-tlsv12, no-tlsv13, no-tls-tickets, force-sslv3, force-tlsv10, force-tlsv11, force-tlsv12, force-tlsv13, prefer-client-ciphers, strict-sni.
+	SslMinVersion                string            `json:"ssl_minVersion,omitempty"`            // Default: TLSv1.2. Valid: SSLv3, TLSv1.0, TLSv1.1, TLSv1.2, TLSv1.3.
+	SslMaxVersion                string            `json:"ssl_maxVersion,omitempty"`            // Valid: SSLv3, TLSv1.0, TLSv1.1, TLSv1.2, TLSv1.3.
+	SslCipherList                string            `json:"ssl_cipherList,omitempty"`            // Default: ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-SHA384:ECDHE-ECDSA-AES128-SHA256.
+	SslCipherSuites              string            `json:"ssl_cipherSuites,omitempty"`          // Default: TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256.
+	SslHstsEnabled               opnsense.OPNBool  `json:"ssl_hstsEnabled"`                     // Required. Default: 1.
+	SslHstsIncludeSubDomains     *opnsense.OPNBool `json:"ssl_hstsIncludeSubDomains,omitempty"` // Default: 0.
+	SslHstsPreload               *opnsense.OPNBool `json:"ssl_hstsPreload,omitempty"`           // Default: 0.
+	SslHstsMaxAge                opnsense.OPNInt   `json:"ssl_hstsMaxAge"`                      // Required. Default: 15768000.
+	SslClientAuthEnabled         *opnsense.OPNBool `json:"ssl_clientAuthEnabled,omitempty"`     // Default: 0.
+	SslClientAuthVerify          string            `json:"ssl_clientAuthVerify,omitempty"`      // Default: required. Valid: none, optional, required.
+	SslClientAuthCAs             string            `json:"ssl_clientAuthCAs,omitempty"`
+	SslClientAuthCRLs            string            `json:"ssl_clientAuthCRLs,omitempty"`
+	BasicAuthEnabled             *opnsense.OPNBool `json:"basicAuthEnabled,omitempty"` // Default: 0.
+	BasicAuthUsers               string            `json:"basicAuthUsers,omitempty"`
+	BasicAuthGroups              string            `json:"basicAuthGroups,omitempty"`
+	TuningMaxConnections         *opnsense.OPNInt  `json:"tuning_maxConnections,omitempty"`
+	TuningTimeoutClient          string            `json:"tuning_timeoutClient,omitempty"`
+	TuningTimeoutHttpReq         string            `json:"tuning_timeoutHttpReq,omitempty"`
+	TuningTimeoutHttpKeepAlive   string            `json:"tuning_timeoutHttpKeepAlive,omitempty"`
+	LinkedCpuAffinityRules       string            `json:"linkedCpuAffinityRules,omitempty"`
+	TuningShards                 *opnsense.OPNInt  `json:"tuning_shards,omitempty"`
+	LoggingDontLogNull           opnsense.OPNBool  `json:"logging_dontLogNull"`              // Required. Default: 0.
+	LoggingDontLogNormal         opnsense.OPNBool  `json:"logging_dontLogNormal"`            // Required. Default: 0.
+	LoggingLogSeparateErrors     opnsense.OPNBool  `json:"logging_logSeparateErrors"`        // Required. Default: 0.
+	LoggingDetailedLog           opnsense.OPNBool  `json:"logging_detailedLog"`              // Required. Default: 0.
+	LoggingSocketStats           opnsense.OPNBool  `json:"logging_socketStats"`              // Required. Default: 0.
+	StickinessPattern            string            `json:"stickiness_pattern,omitempty"`     // Valid: binary, integer, ipv4, ipv6, string.
+	StickinessDataTypes          string            `json:"stickiness_dataTypes,omitempty"`   // Valid: bytes_in_cnt, bytes_in_rate, bytes_out_cnt, bytes_out_rate, conn_cnt, conn_cur, conn_rate, glitch_cnt, glitch_rate, gpc, gpc_rate, gpc0, gpc0_rate, gpc1, gpc1_rate, gpt, gpt0, http_err_cnt, http_err_rate, http_fail_cnt, http_fail_rate, http_req_cnt, http_req_rate, server_id, sess_cnt, sess_rate.
+	StickinessExpire             string            `json:"stickiness_expire"`                // Required. Default: 30m.
+	StickinessSize               string            `json:"stickiness_size"`                  // Required. Default: 50k.
+	StickinessCounter            *opnsense.OPNBool `json:"stickiness_counter,omitempty"`     // Default: 1.
+	StickinessCounterKey         string            `json:"stickiness_counter_key,omitempty"` // Default: src.
+	StickinessLength             *opnsense.OPNInt  `json:"stickiness_length,omitempty"`
+	StickinessConnRatePeriod     string            `json:"stickiness_connRatePeriod,omitempty"`     // Default: 10s.
+	StickinessSessRatePeriod     string            `json:"stickiness_sessRatePeriod,omitempty"`     // Default: 10s.
+	StickinessHttpReqRatePeriod  string            `json:"stickiness_httpReqRatePeriod,omitempty"`  // Default: 10s.
+	StickinessHttpErrRatePeriod  string            `json:"stickiness_httpErrRatePeriod,omitempty"`  // Default: 10s.
+	StickinessBytesInRatePeriod  string            `json:"stickiness_bytesInRatePeriod,omitempty"`  // Default: 1m.
+	StickinessBytesOutRatePeriod string            `json:"stickiness_bytesOutRatePeriod,omitempty"` // Default: 1m.
+	StickinessGpcElements        *opnsense.OPNInt  `json:"stickiness_gpcElements,omitempty"`        // Default: 0.
+	StickinessGpcRatePeriod      string            `json:"stickiness_gpcRatePeriod,omitempty"`      // Default: 1m.
+	StickinessGptElements        *opnsense.OPNInt  `json:"stickiness_gptElements,omitempty"`        // Default: 0.
+	StickinessHttpFailRatePeriod string            `json:"stickiness_httpFailRatePeriod,omitempty"` // Default: 1m.
+	StickinessGlitchRatePeriod   string            `json:"stickiness_glitchRatePeriod,omitempty"`   // Default: 1m.
+	Http2Enabled                 *opnsense.OPNBool `json:"http2Enabled,omitempty"`                  // Default: 1.
+	Http2EnabledNontls           *opnsense.OPNBool `json:"http2Enabled_nontls,omitempty"`           // Default: 0.
+	AdvertisedProtocols          string            `json:"advertised_protocols,omitempty"`          // Default: h2,http11. Valid: h3, h2, http11, http10.
+	ForwardFor                   opnsense.OPNBool  `json:"forwardFor"`                              // Required. Default: 0.
+	PrometheusEnabled            *opnsense.OPNBool `json:"prometheus_enabled,omitempty"`            // Default: 0.
+	PrometheusPath               string            `json:"prometheus_path,omitempty"`               // Default: /metrics.
+	ConnectionBehaviour          string            `json:"connectionBehaviour"`                     // Required. Default: http-keep-alive. Valid: http-keep-alive, httpclose, http-server-close.
+	CustomOptions                string            `json:"customOptions,omitempty"`
+	LinkedActions                string            `json:"linkedActions,omitempty"`
+	LinkedErrorfiles             string            `json:"linkedErrorfiles,omitempty"`
 }
 
 // Backend represents a backend model item.
 type Backend struct {
-	Id string `json:"id,omitempty"`
-	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
-	Name string `json:"name"` // Required.
-	Description string `json:"description,omitempty"`
-	Mode string `json:"mode"` // Required. Default: http. Valid: http, tcp.
-	Algorithm string `json:"algorithm"` // Required. Default: source. Valid: source, roundrobin, static-rr, leastconn, uri, random.
-	RandomDraws opnsense.OPNInt `json:"random_draws"` // Required. Default: 2.
-	ProxyProtocol string `json:"proxyProtocol,omitempty"` // Valid: v1, v2.
-	LinkedServers string `json:"linkedServers,omitempty"`
-	LinkedFcgi string `json:"linkedFcgi,omitempty"`
-	LinkedResolver string `json:"linkedResolver,omitempty"`
-	ResolverOpts string `json:"resolverOpts,omitempty"` // Valid: allow-dup-ip, ignore-weight, prevent-dup-ip.
-	ResolvePrefer string `json:"resolvePrefer,omitempty"` // Valid: ipv4, ipv6.
-	Source string `json:"source,omitempty"`
-	HealthCheckEnabled opnsense.OPNBool `json:"healthCheckEnabled"` // Required. Default: 1.
-	HealthCheck string `json:"healthCheck,omitempty"`
-	HealthCheckLogStatus *opnsense.OPNBool `json:"healthCheckLogStatus,omitempty"` // Default: 0.
-	CheckInterval string `json:"checkInterval,omitempty"`
-	CheckDownInterval string `json:"checkDownInterval,omitempty"`
-	HealthCheckFall *opnsense.OPNInt `json:"healthCheckFall,omitempty"`
-	HealthCheckRise *opnsense.OPNInt `json:"healthCheckRise,omitempty"`
-	LinkedMailer string `json:"linkedMailer,omitempty"`
-	HealthCheckProxyProto string `json:"healthCheckProxyProto,omitempty"` // Default: backend. Valid: backend, enable, disable.
-	Http2Enabled *opnsense.OPNBool `json:"http2Enabled,omitempty"` // Default: 1.
-	Http2EnabledNontls *opnsense.OPNBool `json:"http2Enabled_nontls,omitempty"` // Default: 0.
-	BaAdvertisedProtocols string `json:"ba_advertised_protocols,omitempty"` // Default: h2,http11. Valid: h2, http11, http10.
-	ForwardFor *opnsense.OPNBool `json:"forwardFor,omitempty"` // Default: 0.
-	ForwardedHeader *opnsense.OPNBool `json:"forwardedHeader,omitempty"` // Default: 0.
-	ForwardedHeaderParameters string `json:"forwardedHeaderParameters,omitempty"` // Valid: proto, host, by, by_port, for, for_port.
-	Persistence string `json:"persistence,omitempty"` // Default: sticktable. Valid: sticktable, cookie.
-	PersistenceCookiemode string `json:"persistence_cookiemode"` // Required. Default: piggyback. Valid: piggyback, new.
-	PersistenceCookiename string `json:"persistence_cookiename,omitempty"` // Default: SRVCOOKIE.
-	PersistenceStripquotes opnsense.OPNBool `json:"persistence_stripquotes"` // Required. Default: 1.
-	StickinessPattern string `json:"stickiness_pattern,omitempty"` // Default: sourceipv4. Valid: binary, cookievalue, integer, rdpcookie, sourceipv4, sourceipv6, string.
-	StickinessDataTypes string `json:"stickiness_dataTypes,omitempty"` // Valid: bytes_in_cnt, bytes_in_rate, bytes_out_cnt, bytes_out_rate, conn_cnt, conn_cur, conn_rate, glitch_cnt, glitch_rate, gpc, gpc_rate, gpc0, gpc0_rate, gpc1, gpc1_rate, gpt, gpt0, http_err_cnt, http_err_rate, http_fail_cnt, http_fail_rate, http_req_cnt, http_req_rate, server_id, sess_cnt, sess_rate.
-	StickinessExpire string `json:"stickiness_expire"` // Required. Default: 30m.
-	StickinessSize string `json:"stickiness_size"` // Required. Default: 50k.
-	StickinessCookiename string `json:"stickiness_cookiename,omitempty"`
-	StickinessCookielength *opnsense.OPNInt `json:"stickiness_cookielength,omitempty"`
-	StickinessLength *opnsense.OPNInt `json:"stickiness_length,omitempty"`
-	StickinessConnRatePeriod string `json:"stickiness_connRatePeriod,omitempty"` // Default: 10s.
-	StickinessSessRatePeriod string `json:"stickiness_sessRatePeriod,omitempty"` // Default: 10s.
-	StickinessHttpReqRatePeriod string `json:"stickiness_httpReqRatePeriod,omitempty"` // Default: 10s.
-	StickinessHttpErrRatePeriod string `json:"stickiness_httpErrRatePeriod,omitempty"` // Default: 10s.
-	StickinessBytesInRatePeriod string `json:"stickiness_bytesInRatePeriod,omitempty"` // Default: 1m.
-	StickinessBytesOutRatePeriod string `json:"stickiness_bytesOutRatePeriod,omitempty"` // Default: 1m.
-	StickinessGpcElements *opnsense.OPNInt `json:"stickiness_gpcElements,omitempty"` // Default: 0.
-	StickinessGptElements *opnsense.OPNInt `json:"stickiness_gptElements,omitempty"` // Default: 0.
-	StickinessGpcRatePeriod string `json:"stickiness_gpcRatePeriod,omitempty"` // Default: 1m.
-	StickinessHttpFailRatePeriod string `json:"stickiness_httpFailRatePeriod,omitempty"` // Default: 1m.
-	StickinessGlitchRatePeriod string `json:"stickiness_glitchRatePeriod,omitempty"` // Default: 1m.
-	BasicAuthEnabled *opnsense.OPNBool `json:"basicAuthEnabled,omitempty"` // Default: 0.
-	BasicAuthUsers string `json:"basicAuthUsers,omitempty"`
-	BasicAuthGroups string `json:"basicAuthGroups,omitempty"`
-	TuningTimeoutConnect string `json:"tuning_timeoutConnect,omitempty"`
-	TuningTimeoutCheck string `json:"tuning_timeoutCheck,omitempty"`
-	TuningTimeoutServer string `json:"tuning_timeoutServer,omitempty"`
-	TuningRetries *opnsense.OPNInt `json:"tuning_retries,omitempty"`
-	CustomOptions string `json:"customOptions,omitempty"`
-	TuningDefaultserver string `json:"tuning_defaultserver,omitempty"`
-	TuningNoport opnsense.OPNBool `json:"tuning_noport"` // Required. Default: 0.
-	TuningHttpreuse string `json:"tuning_httpreuse,omitempty"` // Default: safe. Valid: never, safe, aggressive, always.
-	TuningCaching *opnsense.OPNBool `json:"tuning_caching,omitempty"` // Default: 0.
-	LinkedActions string `json:"linkedActions,omitempty"`
-	LinkedErrorfiles string `json:"linkedErrorfiles,omitempty"`
+	Id                           string            `json:"id,omitempty"`
+	Enabled                      opnsense.OPNBool  `json:"enabled"` // Required. Default: 1.
+	Name                         string            `json:"name"`    // Required.
+	Description                  string            `json:"description,omitempty"`
+	Mode                         string            `json:"mode"`                    // Required. Default: http. Valid: http, tcp.
+	Algorithm                    string            `json:"algorithm"`               // Required. Default: source. Valid: source, roundrobin, static-rr, leastconn, uri, random.
+	RandomDraws                  opnsense.OPNInt   `json:"random_draws"`            // Required. Default: 2.
+	ProxyProtocol                string            `json:"proxyProtocol,omitempty"` // Valid: v1, v2.
+	LinkedServers                string            `json:"linkedServers,omitempty"`
+	LinkedFcgi                   string            `json:"linkedFcgi,omitempty"`
+	LinkedResolver               string            `json:"linkedResolver,omitempty"`
+	ResolverOpts                 string            `json:"resolverOpts,omitempty"`  // Valid: allow-dup-ip, ignore-weight, prevent-dup-ip.
+	ResolvePrefer                string            `json:"resolvePrefer,omitempty"` // Valid: ipv4, ipv6.
+	Source                       string            `json:"source,omitempty"`
+	HealthCheckEnabled           opnsense.OPNBool  `json:"healthCheckEnabled"` // Required. Default: 1.
+	HealthCheck                  string            `json:"healthCheck,omitempty"`
+	HealthCheckLogStatus         *opnsense.OPNBool `json:"healthCheckLogStatus,omitempty"` // Default: 0.
+	CheckInterval                string            `json:"checkInterval,omitempty"`
+	CheckDownInterval            string            `json:"checkDownInterval,omitempty"`
+	HealthCheckFall              *opnsense.OPNInt  `json:"healthCheckFall,omitempty"`
+	HealthCheckRise              *opnsense.OPNInt  `json:"healthCheckRise,omitempty"`
+	LinkedMailer                 string            `json:"linkedMailer,omitempty"`
+	HealthCheckProxyProto        string            `json:"healthCheckProxyProto,omitempty"`     // Default: backend. Valid: backend, enable, disable.
+	Http2Enabled                 *opnsense.OPNBool `json:"http2Enabled,omitempty"`              // Default: 1.
+	Http2EnabledNontls           *opnsense.OPNBool `json:"http2Enabled_nontls,omitempty"`       // Default: 0.
+	BaAdvertisedProtocols        string            `json:"ba_advertised_protocols,omitempty"`   // Default: h2,http11. Valid: h2, http11, http10.
+	ForwardFor                   *opnsense.OPNBool `json:"forwardFor,omitempty"`                // Default: 0.
+	ForwardedHeader              *opnsense.OPNBool `json:"forwardedHeader,omitempty"`           // Default: 0.
+	ForwardedHeaderParameters    string            `json:"forwardedHeaderParameters,omitempty"` // Valid: proto, host, by, by_port, for, for_port.
+	Persistence                  string            `json:"persistence,omitempty"`               // Default: sticktable. Valid: sticktable, cookie.
+	PersistenceCookiemode        string            `json:"persistence_cookiemode"`              // Required. Default: piggyback. Valid: piggyback, new.
+	PersistenceCookiename        string            `json:"persistence_cookiename,omitempty"`    // Default: SRVCOOKIE.
+	PersistenceStripquotes       opnsense.OPNBool  `json:"persistence_stripquotes"`             // Required. Default: 1.
+	StickinessPattern            string            `json:"stickiness_pattern,omitempty"`        // Default: sourceipv4. Valid: binary, cookievalue, integer, rdpcookie, sourceipv4, sourceipv6, string.
+	StickinessDataTypes          string            `json:"stickiness_dataTypes,omitempty"`      // Valid: bytes_in_cnt, bytes_in_rate, bytes_out_cnt, bytes_out_rate, conn_cnt, conn_cur, conn_rate, glitch_cnt, glitch_rate, gpc, gpc_rate, gpc0, gpc0_rate, gpc1, gpc1_rate, gpt, gpt0, http_err_cnt, http_err_rate, http_fail_cnt, http_fail_rate, http_req_cnt, http_req_rate, server_id, sess_cnt, sess_rate.
+	StickinessExpire             string            `json:"stickiness_expire"`                   // Required. Default: 30m.
+	StickinessSize               string            `json:"stickiness_size"`                     // Required. Default: 50k.
+	StickinessCookiename         string            `json:"stickiness_cookiename,omitempty"`
+	StickinessCookielength       *opnsense.OPNInt  `json:"stickiness_cookielength,omitempty"`
+	StickinessLength             *opnsense.OPNInt  `json:"stickiness_length,omitempty"`
+	StickinessConnRatePeriod     string            `json:"stickiness_connRatePeriod,omitempty"`     // Default: 10s.
+	StickinessSessRatePeriod     string            `json:"stickiness_sessRatePeriod,omitempty"`     // Default: 10s.
+	StickinessHttpReqRatePeriod  string            `json:"stickiness_httpReqRatePeriod,omitempty"`  // Default: 10s.
+	StickinessHttpErrRatePeriod  string            `json:"stickiness_httpErrRatePeriod,omitempty"`  // Default: 10s.
+	StickinessBytesInRatePeriod  string            `json:"stickiness_bytesInRatePeriod,omitempty"`  // Default: 1m.
+	StickinessBytesOutRatePeriod string            `json:"stickiness_bytesOutRatePeriod,omitempty"` // Default: 1m.
+	StickinessGpcElements        *opnsense.OPNInt  `json:"stickiness_gpcElements,omitempty"`        // Default: 0.
+	StickinessGptElements        *opnsense.OPNInt  `json:"stickiness_gptElements,omitempty"`        // Default: 0.
+	StickinessGpcRatePeriod      string            `json:"stickiness_gpcRatePeriod,omitempty"`      // Default: 1m.
+	StickinessHttpFailRatePeriod string            `json:"stickiness_httpFailRatePeriod,omitempty"` // Default: 1m.
+	StickinessGlitchRatePeriod   string            `json:"stickiness_glitchRatePeriod,omitempty"`   // Default: 1m.
+	BasicAuthEnabled             *opnsense.OPNBool `json:"basicAuthEnabled,omitempty"`              // Default: 0.
+	BasicAuthUsers               string            `json:"basicAuthUsers,omitempty"`
+	BasicAuthGroups              string            `json:"basicAuthGroups,omitempty"`
+	TuningTimeoutConnect         string            `json:"tuning_timeoutConnect,omitempty"`
+	TuningTimeoutCheck           string            `json:"tuning_timeoutCheck,omitempty"`
+	TuningTimeoutServer          string            `json:"tuning_timeoutServer,omitempty"`
+	TuningRetries                *opnsense.OPNInt  `json:"tuning_retries,omitempty"`
+	CustomOptions                string            `json:"customOptions,omitempty"`
+	TuningDefaultserver          string            `json:"tuning_defaultserver,omitempty"`
+	TuningNoport                 opnsense.OPNBool  `json:"tuning_noport"`              // Required. Default: 0.
+	TuningHttpreuse              string            `json:"tuning_httpreuse,omitempty"` // Default: safe. Valid: never, safe, aggressive, always.
+	TuningCaching                *opnsense.OPNBool `json:"tuning_caching,omitempty"`   // Default: 0.
+	LinkedActions                string            `json:"linkedActions,omitempty"`
+	LinkedErrorfiles             string            `json:"linkedErrorfiles,omitempty"`
 }
 
 // Server represents a server model item.
 type Server struct {
-	Id string `json:"id"` // Required.
-	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
-	Name string `json:"name"` // Required.
-	Description string `json:"description,omitempty"`
-	Address string `json:"address,omitempty"`
-	Port *opnsense.OPNInt `json:"port,omitempty"`
-	Checkport *opnsense.OPNInt `json:"checkport,omitempty"`
-	Mode string `json:"mode,omitempty"` // Default: active. Valid: active, backup, disabled.
-	MultiplexerProtocol string `json:"multiplexer_protocol,omitempty"` // Default: unspecified. Valid: unspecified, fcgi, h2, h1.
-	Type string `json:"type"` // Required. Default: static. Valid: static, template, unix.
-	ServiceName string `json:"serviceName,omitempty"`
-	Number string `json:"number,omitempty"`
-	LinkedResolver string `json:"linkedResolver,omitempty"`
-	ResolverOpts string `json:"resolverOpts,omitempty"` // Valid: allow-dup-ip, ignore-weight, prevent-dup-ip.
-	ResolvePrefer string `json:"resolvePrefer,omitempty"` // Valid: ipv4, ipv6.
-	Ssl opnsense.OPNBool `json:"ssl"` // Required. Default: 0.
-	SslSNI string `json:"sslSNI,omitempty"`
-	SslSNIExpr string `json:"sslSNIExpr,omitempty"`
-	SslVerify opnsense.OPNBool `json:"sslVerify"` // Required. Default: 1.
-	SslCA string `json:"sslCA,omitempty"`
-	SslCRL string `json:"sslCRL,omitempty"`
-	SslClientCertificate string `json:"sslClientCertificate,omitempty"`
-	MaxConnections *opnsense.OPNInt `json:"maxConnections,omitempty"`
-	Weight *opnsense.OPNInt `json:"weight,omitempty"`
-	CheckInterval string `json:"checkInterval,omitempty"`
-	CheckDownInterval string `json:"checkDownInterval,omitempty"`
-	Source string `json:"source,omitempty"`
-	Advanced string `json:"advanced,omitempty"`
-	UnixSocket string `json:"unix_socket,omitempty"`
+	Id                   string           `json:"id"`      // Required.
+	Enabled              opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
+	Name                 string           `json:"name"`    // Required.
+	Description          string           `json:"description,omitempty"`
+	Address              string           `json:"address,omitempty"`
+	Port                 *opnsense.OPNInt `json:"port,omitempty"`
+	Checkport            *opnsense.OPNInt `json:"checkport,omitempty"`
+	Mode                 string           `json:"mode,omitempty"`                 // Default: active. Valid: active, backup, disabled.
+	MultiplexerProtocol  string           `json:"multiplexer_protocol,omitempty"` // Default: unspecified. Valid: unspecified, fcgi, h2, h1.
+	Type                 string           `json:"type"`                           // Required. Default: static. Valid: static, template, unix.
+	ServiceName          string           `json:"serviceName,omitempty"`
+	Number               string           `json:"number,omitempty"`
+	LinkedResolver       string           `json:"linkedResolver,omitempty"`
+	ResolverOpts         string           `json:"resolverOpts,omitempty"`  // Valid: allow-dup-ip, ignore-weight, prevent-dup-ip.
+	ResolvePrefer        string           `json:"resolvePrefer,omitempty"` // Valid: ipv4, ipv6.
+	Ssl                  opnsense.OPNBool `json:"ssl"`                     // Required. Default: 0.
+	SslSNI               string           `json:"sslSNI,omitempty"`
+	SslSNIExpr           string           `json:"sslSNIExpr,omitempty"`
+	SslVerify            opnsense.OPNBool `json:"sslVerify"` // Required. Default: 1.
+	SslCA                string           `json:"sslCA,omitempty"`
+	SslCRL               string           `json:"sslCRL,omitempty"`
+	SslClientCertificate string           `json:"sslClientCertificate,omitempty"`
+	MaxConnections       *opnsense.OPNInt `json:"maxConnections,omitempty"`
+	Weight               *opnsense.OPNInt `json:"weight,omitempty"`
+	CheckInterval        string           `json:"checkInterval,omitempty"`
+	CheckDownInterval    string           `json:"checkDownInterval,omitempty"`
+	Source               string           `json:"source,omitempty"`
+	Advanced             string           `json:"advanced,omitempty"`
+	UnixSocket           string           `json:"unix_socket,omitempty"`
 }
 
 // Healthcheck represents a healthcheck model item.
 type Healthcheck struct {
-	Name string `json:"name"` // Required.
-	Description string `json:"description,omitempty"`
-	Type string `json:"type"` // Required. Default: http. Valid: tcp, http, agent, ldap, mysql, pgsql, redis, smtp, esmtp, ssl.
-	Interval string `json:"interval"` // Required. Default: 2s.
-	Ssl string `json:"ssl,omitempty"` // Default: nopref. Valid: nopref, ssl, sslsni, nossl.
-	SslSNI string `json:"sslSNI,omitempty"`
-	ForceSsl *opnsense.OPNBool `json:"force_ssl,omitempty"` // Default: 0.
-	Checkport *opnsense.OPNInt `json:"checkport,omitempty"`
-	HttpMethod string `json:"http_method,omitempty"` // Default: options. Valid: options, head, get, put, post, delete, trace.
-	HttpUri string `json:"http_uri,omitempty"` // Default: /.
-	HttpVersion string `json:"http_version,omitempty"` // Default: http10. Valid: http10, http11, http2.
-	HttpHost string `json:"http_host,omitempty"` // Default: localhost.
+	Name                  string            `json:"name"` // Required.
+	Description           string            `json:"description,omitempty"`
+	Type                  string            `json:"type"`          // Required. Default: http. Valid: tcp, http, agent, ldap, mysql, pgsql, redis, smtp, esmtp, ssl.
+	Interval              string            `json:"interval"`      // Required. Default: 2s.
+	Ssl                   string            `json:"ssl,omitempty"` // Default: nopref. Valid: nopref, ssl, sslsni, nossl.
+	SslSNI                string            `json:"sslSNI,omitempty"`
+	ForceSsl              *opnsense.OPNBool `json:"force_ssl,omitempty"` // Default: 0.
+	Checkport             *opnsense.OPNInt  `json:"checkport,omitempty"`
+	HttpMethod            string            `json:"http_method,omitempty"`            // Default: options. Valid: options, head, get, put, post, delete, trace.
+	HttpUri               string            `json:"http_uri,omitempty"`               // Default: /.
+	HttpVersion           string            `json:"http_version,omitempty"`           // Default: http10. Valid: http10, http11, http2.
+	HttpHost              string            `json:"http_host,omitempty"`              // Default: localhost.
 	HttpExpressionEnabled *opnsense.OPNBool `json:"http_expressionEnabled,omitempty"` // Default: 0.
-	HttpExpression string `json:"http_expression,omitempty"` // Valid: status, rstatus, string, rstring.
-	HttpNegate *opnsense.OPNBool `json:"http_negate,omitempty"` // Default: 0.
-	HttpValue string `json:"http_value,omitempty"`
-	TcpEnabled *opnsense.OPNBool `json:"tcp_enabled,omitempty"` // Default: 0.
-	TcpSendValue string `json:"tcp_sendValue,omitempty"`
-	TcpMatchType string `json:"tcp_matchType,omitempty"` // Default: string. Valid: string, rstring, binary.
-	TcpNegate *opnsense.OPNBool `json:"tcp_negate,omitempty"` // Default: 0.
-	TcpMatchValue string `json:"tcp_matchValue,omitempty"`
-	AgentPort *opnsense.OPNInt `json:"agent_port,omitempty"`
-	MysqlUser string `json:"mysql_user,omitempty"`
-	MysqlPost41 *opnsense.OPNBool `json:"mysql_post41,omitempty"` // Default: 0.
-	PgsqlUser string `json:"pgsql_user,omitempty"`
-	SmtpDomain string `json:"smtp_domain,omitempty"`
-	EsmtpDomain string `json:"esmtp_domain,omitempty"`
-	DbUser string `json:"dbUser,omitempty"`
+	HttpExpression        string            `json:"http_expression,omitempty"`        // Valid: status, rstatus, string, rstring.
+	HttpNegate            *opnsense.OPNBool `json:"http_negate,omitempty"`            // Default: 0.
+	HttpValue             string            `json:"http_value,omitempty"`
+	TcpEnabled            *opnsense.OPNBool `json:"tcp_enabled,omitempty"` // Default: 0.
+	TcpSendValue          string            `json:"tcp_sendValue,omitempty"`
+	TcpMatchType          string            `json:"tcp_matchType,omitempty"` // Default: string. Valid: string, rstring, binary.
+	TcpNegate             *opnsense.OPNBool `json:"tcp_negate,omitempty"`    // Default: 0.
+	TcpMatchValue         string            `json:"tcp_matchValue,omitempty"`
+	AgentPort             *opnsense.OPNInt  `json:"agent_port,omitempty"`
+	MysqlUser             string            `json:"mysql_user,omitempty"`
+	MysqlPost41           *opnsense.OPNBool `json:"mysql_post41,omitempty"` // Default: 0.
+	PgsqlUser             string            `json:"pgsql_user,omitempty"`
+	SmtpDomain            string            `json:"smtp_domain,omitempty"`
+	EsmtpDomain           string            `json:"esmtp_domain,omitempty"`
+	DbUser                string            `json:"dbUser,omitempty"`
 }
 
 // Acl represents a acl model item.
 type Acl struct {
-	Id string `json:"id,omitempty"`
-	Name string `json:"name"` // Required.
-	Description string `json:"description,omitempty"`
-	Expression string `json:"expression"` // Required. Valid: cust_hdr_beg, cust_hdr_end, cust_hdr, cust_hdr_reg, cust_hdr_sub, hdr_beg, hdr_end, hdr, hdr_reg, hdr_sub, http_auth, http_method, nbsrv, path_beg, path_dir, path_end, path, path_reg, path_sub, quic_enabled, traffic_is_http, traffic_is_ssl, sc_bytes_in_rate, sc_bytes_out_rate, sc_clr_gpc, sc_clr_gpc0, sc_clr_gpc1, sc0_clr_gpc0, sc0_clr_gpc1, sc1_clr_gpc, sc1_clr_gpc0, sc1_clr_gpc1, sc2_clr_gpc, sc2_clr_gpc0, sc2_clr_gpc1, sc_conn_cnt, sc_conn_cur, sc_conn_rate, sc_get_gpc, sc_get_gpc0, sc_get_gpc1, sc0_get_gpc0, sc0_get_gpc1, sc1_get_gpc0, sc1_get_gpc1, sc2_get_gpc0, sc2_get_gpc1, sc_get_gpt, sc_get_gpt0, sc0_get_gpt0, sc1_get_gpt0, sc2_get_gpt0, sc_glitch_cnt, sc_glitch_rate, sc_gpc_rate, sc_gpc0_rate, sc_gpc1_rate, sc0_gpc0_rate, sc0_gpc1_rate, sc1_gpc0_rate, sc1_gpc1_rate, sc2_gpc0_rate, sc2_gpc1_rate, sc_http_err_cnt, sc_http_err_rate, sc_http_fail_cnt, sc_http_fail_rate, sc_http_req_cnt, sc_http_req_rate, sc_inc_gpc, sc_inc_gpc0, sc_inc_gpc1, sc0_inc_gpc0, sc0_inc_gpc1, sc1_inc_gpc0, sc1_inc_gpc1, sc2_inc_gpc0, sc2_inc_gpc1, sc_sess_cnt, sc_sess_rate, src, src_bytes_in_rate, src_bytes_out_rate, src_clr_gpc, src_clr_gpc0, src_clr_gpc1, src_conn_cnt, src_conn_cur, src_conn_rate, src_get_gpc, src_get_gpc0, src_get_gpc1, src_get_gpt, src_glitch_cnt, src_glitch_rate, src_gpc_rate, src_gpc0_rate, src_gpc1_rate, src_http_err_cnt, src_http_err_rate, src_http_fail_cnt, src_http_fail_rate, src_http_req_cnt, src_http_req_rate, src_inc_gpc, src_inc_gpc0, src_inc_gpc1, src_is_local, src_kbytes_in, src_kbytes_out, src_port, src_sess_cnt, src_sess_rate, ssl_c_ca_commonname, ssl_c_verify_code, ssl_c_verify, ssl_fc_sni, ssl_fc, ssl_hello_type, ssl_sni_beg, ssl_sni_end, ssl_sni_reg, ssl_sni, ssl_sni_sub, stopping, url_param, var, wait_end, custom_acl.
-	Negate opnsense.OPNBool `json:"negate"` // Required. Default: 0.
-	CaseSensitive *opnsense.OPNBool `json:"caseSensitive,omitempty"` // Default: 0.
-	HdrBeg string `json:"hdr_beg,omitempty"`
-	HdrEnd string `json:"hdr_end,omitempty"`
-	Hdr string `json:"hdr,omitempty"`
-	HdrReg string `json:"hdr_reg,omitempty"`
-	HdrSub string `json:"hdr_sub,omitempty"`
-	PathBeg string `json:"path_beg,omitempty"`
-	PathEnd string `json:"path_end,omitempty"`
-	Path string `json:"path,omitempty"`
-	PathReg string `json:"path_reg,omitempty"`
-	PathDir string `json:"path_dir,omitempty"`
-	PathSub string `json:"path_sub,omitempty"`
-	CustHdrBegName string `json:"cust_hdr_beg_name,omitempty"`
-	CustHdrBeg string `json:"cust_hdr_beg,omitempty"`
-	CustHdrEndName string `json:"cust_hdr_end_name,omitempty"`
-	CustHdrEnd string `json:"cust_hdr_end,omitempty"`
-	CustHdrName string `json:"cust_hdr_name,omitempty"`
-	CustHdr string `json:"cust_hdr,omitempty"`
-	CustHdrRegName string `json:"cust_hdr_reg_name,omitempty"`
-	CustHdrReg string `json:"cust_hdr_reg,omitempty"`
-	CustHdrSubName string `json:"cust_hdr_sub_name,omitempty"`
-	CustHdrSub string `json:"cust_hdr_sub,omitempty"`
-	UrlParam string `json:"url_param,omitempty"`
-	UrlParamValue string `json:"url_param_value,omitempty"`
-	Var string `json:"var,omitempty"`
-	VarValue string `json:"var_value,omitempty"`
-	VarComparison string `json:"var_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	SslCVerifyCode *opnsense.OPNInt `json:"ssl_c_verify_code,omitempty"`
-	SslCCaCommonname string `json:"ssl_c_ca_commonname,omitempty"`
-	SslHelloType string `json:"ssl_hello_type,omitempty"` // Default: x1. Valid: x0, x1, x2.
-	Src string `json:"src,omitempty"`
-	SrcBytesInRateComparison string `json:"src_bytes_in_rate_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	SrcBytesInRate *opnsense.OPNInt `json:"src_bytes_in_rate,omitempty"`
-	SrcBytesOutRateComparison string `json:"src_bytes_out_rate_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	SrcBytesOutRate *opnsense.OPNInt `json:"src_bytes_out_rate,omitempty"`
-	SrcConnCntComparison string `json:"src_conn_cnt_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	SrcConnCnt *opnsense.OPNInt `json:"src_conn_cnt,omitempty"`
-	SrcConnCurComparison string `json:"src_conn_cur_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	SrcConnCur *opnsense.OPNInt `json:"src_conn_cur,omitempty"`
-	SrcConnRateComparison string `json:"src_conn_rate_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	SrcConnRate *opnsense.OPNInt `json:"src_conn_rate,omitempty"`
-	SrcHttpErrCntComparison string `json:"src_http_err_cnt_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	SrcHttpErrCnt *opnsense.OPNInt `json:"src_http_err_cnt,omitempty"`
-	SrcHttpErrRateComparison string `json:"src_http_err_rate_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	SrcHttpErrRate *opnsense.OPNInt `json:"src_http_err_rate,omitempty"`
-	SrcHttpReqCntComparison string `json:"src_http_req_cnt_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	SrcHttpReqCnt *opnsense.OPNInt `json:"src_http_req_cnt,omitempty"`
-	SrcHttpReqRateComparison string `json:"src_http_req_rate_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	SrcHttpReqRate *opnsense.OPNInt `json:"src_http_req_rate,omitempty"`
-	SrcKbytesInComparison string `json:"src_kbytes_in_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	SrcKbytesIn *opnsense.OPNInt `json:"src_kbytes_in,omitempty"`
-	SrcKbytesOutComparison string `json:"src_kbytes_out_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	SrcKbytesOut *opnsense.OPNInt `json:"src_kbytes_out,omitempty"`
-	SrcPortComparison string `json:"src_port_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	SrcPort *opnsense.OPNInt `json:"src_port,omitempty"`
-	SrcSessCntComparison string `json:"src_sess_cnt_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	SrcSessCnt *opnsense.OPNInt `json:"src_sess_cnt,omitempty"`
-	SrcSessRateComparison string `json:"src_sess_rate_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	SrcSessRate *opnsense.OPNInt `json:"src_sess_rate,omitempty"`
-	Nbsrv *opnsense.OPNInt `json:"nbsrv,omitempty"`
-	NbsrvBackend string `json:"nbsrv_backend,omitempty"`
-	SslFcSni string `json:"ssl_fc_sni,omitempty"`
-	SslSni string `json:"ssl_sni,omitempty"`
-	SslSniSub string `json:"ssl_sni_sub,omitempty"`
-	SslSniBeg string `json:"ssl_sni_beg,omitempty"`
-	SslSniEnd string `json:"ssl_sni_end,omitempty"`
-	SslSniReg string `json:"ssl_sni_reg,omitempty"`
-	CustomAcl string `json:"custom_acl,omitempty"`
-	Value string `json:"value,omitempty"`
-	Urlparam string `json:"urlparam,omitempty"`
-	QueryBackend string `json:"queryBackend,omitempty"`
-	AllowedUsers string `json:"allowedUsers,omitempty"`
-	AllowedGroups string `json:"allowedGroups,omitempty"`
-	HttpMethod string `json:"http_method,omitempty"` // Valid: CONNECT, DELETE, GET, HEAD, OPTIONS, PATCH, POST, PUT, TRACE.
-	ScBytesInRateComparison string `json:"sc_bytes_in_rate_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	ScBytesInRate *opnsense.OPNInt `json:"sc_bytes_in_rate,omitempty"`
-	ScBytesOutRateComparison string `json:"sc_bytes_out_rate_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	ScBytesOutRate *opnsense.OPNInt `json:"sc_bytes_out_rate,omitempty"`
-	ScClrGpcComparison string `json:"sc_clr_gpc_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	ScClrGpc *opnsense.OPNInt `json:"sc_clr_gpc,omitempty"`
-	ScConnCntComparison string `json:"sc_conn_cnt_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	ScConnCnt *opnsense.OPNInt `json:"sc_conn_cnt,omitempty"`
-	ScConnCurComparison string `json:"sc_conn_cur_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	ScConnCur *opnsense.OPNInt `json:"sc_conn_cur,omitempty"`
-	ScConnRateComparison string `json:"sc_conn_rate_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	ScConnRate *opnsense.OPNInt `json:"sc_conn_rate,omitempty"`
-	ScGetGpcComparison string `json:"sc_get_gpc_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	ScGetGpc *opnsense.OPNInt `json:"sc_get_gpc,omitempty"`
-	ScGlitchCntComparison string `json:"sc_glitch_cnt_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	ScGlitchCnt *opnsense.OPNInt `json:"sc_glitch_cnt,omitempty"`
-	ScGlitchRateComparison string `json:"sc_glitch_rate_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	ScGlitchRate *opnsense.OPNInt `json:"sc_glitch_rate,omitempty"`
-	ScGpcRateComparison string `json:"sc_gpc_rate_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	ScGpcRate *opnsense.OPNInt `json:"sc_gpc_rate,omitempty"`
-	ScHttpErrCntComparison string `json:"sc_http_err_cnt_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	ScHttpErrCnt *opnsense.OPNInt `json:"sc_http_err_cnt,omitempty"`
-	ScHttpErrRateComparison string `json:"sc_http_err_rate_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	ScHttpErrRate *opnsense.OPNInt `json:"sc_http_err_rate,omitempty"`
-	ScHttpFailCntComparison string `json:"sc_http_fail_cnt_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	ScHttpFailCnt *opnsense.OPNInt `json:"sc_http_fail_cnt,omitempty"`
-	ScHttpFailRateComparison string `json:"sc_http_fail_rate_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	ScHttpFailRate *opnsense.OPNInt `json:"sc_http_fail_rate,omitempty"`
-	ScHttpReqCntComparison string `json:"sc_http_req_cnt_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	ScHttpReqCnt *opnsense.OPNInt `json:"sc_http_req_cnt,omitempty"`
-	ScHttpReqRateComparison string `json:"sc_http_req_rate_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	ScHttpReqRate *opnsense.OPNInt `json:"sc_http_req_rate,omitempty"`
-	ScIncGpcComparison string `json:"sc_inc_gpc_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	ScIncGpc *opnsense.OPNInt `json:"sc_inc_gpc,omitempty"`
-	ScSessCntComparison string `json:"sc_sess_cnt_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	ScSessCnt *opnsense.OPNInt `json:"sc_sess_cnt,omitempty"`
-	ScSessRateComparison string `json:"sc_sess_rate_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	ScSessRate *opnsense.OPNInt `json:"sc_sess_rate,omitempty"`
-	SrcGetGpcComparison string `json:"src_get_gpc_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	SrcGetGpc *opnsense.OPNInt `json:"src_get_gpc,omitempty"`
-	SrcGetGptComparison string `json:"src_get_gpt_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	SrcGetGpt *opnsense.OPNInt `json:"src_get_gpt,omitempty"`
-	SrcGlitchCntComparison string `json:"src_glitch_cnt_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	SrcGlitchCnt *opnsense.OPNInt `json:"src_glitch_cnt,omitempty"`
-	SrcGlitchRateComparison string `json:"src_glitch_rate_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	SrcGlitchRate *opnsense.OPNInt `json:"src_glitch_rate,omitempty"`
-	SrcGpcRateComparison string `json:"src_gpc_rate_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	SrcGpcRate *opnsense.OPNInt `json:"src_gpc_rate,omitempty"`
-	SrcHttpFailCntComparison string `json:"src_http_fail_cnt_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	SrcHttpFailCnt *opnsense.OPNInt `json:"src_http_fail_cnt,omitempty"`
-	SrcHttpFailRateComparison string `json:"src_http_fail_rate_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	SrcHttpFailRate *opnsense.OPNInt `json:"src_http_fail_rate,omitempty"`
-	SrcIncGpcComparison string `json:"src_inc_gpc_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	SrcIncGpc *opnsense.OPNInt `json:"src_inc_gpc,omitempty"`
-	ScClrGpc0Comparison string `json:"sc_clr_gpc0_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	ScClrGpc0 *opnsense.OPNInt `json:"sc_clr_gpc0,omitempty"`
-	ScClrGpc1Comparison string `json:"sc_clr_gpc1_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	ScClrGpc1 *opnsense.OPNInt `json:"sc_clr_gpc1,omitempty"`
-	Sc0ClrGpc0Comparison string `json:"sc0_clr_gpc0_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	Sc0ClrGpc0 *opnsense.OPNInt `json:"sc0_clr_gpc0,omitempty"`
-	Sc0ClrGpc1Comparison string `json:"sc0_clr_gpc1_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	Sc0ClrGpc1 *opnsense.OPNInt `json:"sc0_clr_gpc1,omitempty"`
-	Sc1ClrGpcComparison string `json:"sc1_clr_gpc_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	Sc1ClrGpc *opnsense.OPNInt `json:"sc1_clr_gpc,omitempty"`
-	Sc1ClrGpc0Comparison string `json:"sc1_clr_gpc0_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	Sc1ClrGpc0 *opnsense.OPNInt `json:"sc1_clr_gpc0,omitempty"`
-	Sc1ClrGpc1Comparison string `json:"sc1_clr_gpc1_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	Sc1ClrGpc1 *opnsense.OPNInt `json:"sc1_clr_gpc1,omitempty"`
-	Sc2ClrGpcComparison string `json:"sc2_clr_gpc_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	Sc2ClrGpc *opnsense.OPNInt `json:"sc2_clr_gpc,omitempty"`
-	Sc2ClrGpc0Comparison string `json:"sc2_clr_gpc0_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	Sc2ClrGpc0 *opnsense.OPNInt `json:"sc2_clr_gpc0,omitempty"`
-	Sc2ClrGpc1Comparison string `json:"sc2_clr_gpc1_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	Sc2ClrGpc1 *opnsense.OPNInt `json:"sc2_clr_gpc1,omitempty"`
-	ScGetGpc0Comparison string `json:"sc_get_gpc0_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	ScGetGpc0 *opnsense.OPNInt `json:"sc_get_gpc0,omitempty"`
-	ScGetGpc1Comparison string `json:"sc_get_gpc1_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	ScGetGpc1 *opnsense.OPNInt `json:"sc_get_gpc1,omitempty"`
-	Sc0GetGpc0Comparison string `json:"sc0_get_gpc0_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	Sc0GetGpc0 *opnsense.OPNInt `json:"sc0_get_gpc0,omitempty"`
-	Sc0GetGpc1Comparison string `json:"sc0_get_gpc1_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	Sc0GetGpc1 *opnsense.OPNInt `json:"sc0_get_gpc1,omitempty"`
-	Sc1GetGpc0Comparison string `json:"sc1_get_gpc0_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	Sc1GetGpc0 *opnsense.OPNInt `json:"sc1_get_gpc0,omitempty"`
-	Sc1GetGpc1Comparison string `json:"sc1_get_gpc1_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	Sc1GetGpc1 *opnsense.OPNInt `json:"sc1_get_gpc1,omitempty"`
-	Sc2GetGpc0Comparison string `json:"sc2_get_gpc0_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	Sc2GetGpc0 *opnsense.OPNInt `json:"sc2_get_gpc0,omitempty"`
-	Sc2GetGpc1Comparison string `json:"sc2_get_gpc1_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	Sc2GetGpc1 *opnsense.OPNInt `json:"sc2_get_gpc1,omitempty"`
-	ScGetGptComparison string `json:"sc_get_gpt_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	ScGetGpt *opnsense.OPNInt `json:"sc_get_gpt,omitempty"`
-	ScGetGpt0Comparison string `json:"sc_get_gpt0_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	ScGetGpt0 *opnsense.OPNInt `json:"sc_get_gpt0,omitempty"`
-	Sc0GetGpt0Comparison string `json:"sc0_get_gpt0_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	Sc0GetGpt0 *opnsense.OPNInt `json:"sc0_get_gpt0,omitempty"`
-	Sc1GetGpt0Comparison string `json:"sc1_get_gpt0_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	Sc1GetGpt0 *opnsense.OPNInt `json:"sc1_get_gpt0,omitempty"`
-	Sc2GetGpt0Comparison string `json:"sc2_get_gpt0_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	Sc2GetGpt0 *opnsense.OPNInt `json:"sc2_get_gpt0,omitempty"`
-	ScGpc0RateComparison string `json:"sc_gpc0_rate_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	ScGpc0Rate *opnsense.OPNInt `json:"sc_gpc0_rate,omitempty"`
-	ScGpc1RateComparison string `json:"sc_gpc1_rate_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	ScGpc1Rate *opnsense.OPNInt `json:"sc_gpc1_rate,omitempty"`
-	Sc0Gpc0RateComparison string `json:"sc0_gpc0_rate_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	Sc0Gpc0Rate *opnsense.OPNInt `json:"sc0_gpc0_rate,omitempty"`
-	Sc0Gpc1RateComparison string `json:"sc0_gpc1_rate_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	Sc0Gpc1Rate *opnsense.OPNInt `json:"sc0_gpc1_rate,omitempty"`
-	Sc1Gpc0RateComparison string `json:"sc1_gpc0_rate_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	Sc1Gpc0Rate *opnsense.OPNInt `json:"sc1_gpc0_rate,omitempty"`
-	Sc1Gpc1RateComparison string `json:"sc1_gpc1_rate_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	Sc1Gpc1Rate *opnsense.OPNInt `json:"sc1_gpc1_rate,omitempty"`
-	Sc2Gpc0RateComparison string `json:"sc2_gpc0_rate_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	Sc2Gpc0Rate *opnsense.OPNInt `json:"sc2_gpc0_rate,omitempty"`
-	Sc2Gpc1RateComparison string `json:"sc2_gpc1_rate_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	Sc2Gpc1Rate *opnsense.OPNInt `json:"sc2_gpc1_rate,omitempty"`
-	ScIncGpc0Comparison string `json:"sc_inc_gpc0_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	ScIncGpc0 *opnsense.OPNInt `json:"sc_inc_gpc0,omitempty"`
-	ScIncGpc1Comparison string `json:"sc_inc_gpc1_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	ScIncGpc1 *opnsense.OPNInt `json:"sc_inc_gpc1,omitempty"`
-	Sc0IncGpc0Comparison string `json:"sc0_inc_gpc0_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	Sc0IncGpc0 *opnsense.OPNInt `json:"sc0_inc_gpc0,omitempty"`
-	Sc0IncGpc1Comparison string `json:"sc0_inc_gpc1_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	Sc0IncGpc1 *opnsense.OPNInt `json:"sc0_inc_gpc1,omitempty"`
-	Sc1IncGpc0Comparison string `json:"sc1_inc_gpc0_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	Sc1IncGpc0 *opnsense.OPNInt `json:"sc1_inc_gpc0,omitempty"`
-	Sc1IncGpc1Comparison string `json:"sc1_inc_gpc1_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	Sc1IncGpc1 *opnsense.OPNInt `json:"sc1_inc_gpc1,omitempty"`
-	Sc2IncGpc0Comparison string `json:"sc2_inc_gpc0_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	Sc2IncGpc0 *opnsense.OPNInt `json:"sc2_inc_gpc0,omitempty"`
-	Sc2IncGpc1Comparison string `json:"sc2_inc_gpc1_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	Sc2IncGpc1 *opnsense.OPNInt `json:"sc2_inc_gpc1,omitempty"`
-	SrcClrGpc0Comparison string `json:"src_clr_gpc0_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	SrcClrGpc0 *opnsense.OPNInt `json:"src_clr_gpc0,omitempty"`
-	SrcClrGpc1Comparison string `json:"src_clr_gpc1_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	SrcClrGpc1 *opnsense.OPNInt `json:"src_clr_gpc1,omitempty"`
-	SrcGetGpc0Comparison string `json:"src_get_gpc0_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	SrcGetGpc0 *opnsense.OPNInt `json:"src_get_gpc0,omitempty"`
-	SrcGetGpc1Comparison string `json:"src_get_gpc1_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	SrcGetGpc1 *opnsense.OPNInt `json:"src_get_gpc1,omitempty"`
-	SrcGpc0RateComparison string `json:"src_gpc0_rate_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	SrcGpc0Rate *opnsense.OPNInt `json:"src_gpc0_rate,omitempty"`
-	SrcGpc1RateComparison string `json:"src_gpc1_rate_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	SrcGpc1Rate *opnsense.OPNInt `json:"src_gpc1_rate,omitempty"`
-	SrcIncGpc0Comparison string `json:"src_inc_gpc0_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	SrcIncGpc0 *opnsense.OPNInt `json:"src_inc_gpc0,omitempty"`
-	SrcIncGpc1Comparison string `json:"src_inc_gpc1_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
-	SrcIncGpc1 *opnsense.OPNInt `json:"src_inc_gpc1,omitempty"`
-	GpcNumber *opnsense.OPNInt `json:"gpc_number,omitempty"`
-	GptNumber *opnsense.OPNInt `json:"gpt_number,omitempty"`
-	ScNumber *opnsense.OPNInt `json:"sc_number,omitempty"`
-	TableName string `json:"table_name,omitempty"`
-	Mapfile string `json:"mapfile,omitempty"`
-	Converter string `json:"converter,omitempty"`
+	Id                        string            `json:"id,omitempty"`
+	Name                      string            `json:"name"` // Required.
+	Description               string            `json:"description,omitempty"`
+	Expression                string            `json:"expression"`              // Required. Valid: cust_hdr_beg, cust_hdr_end, cust_hdr, cust_hdr_reg, cust_hdr_sub, hdr_beg, hdr_end, hdr, hdr_reg, hdr_sub, http_auth, http_method, nbsrv, path_beg, path_dir, path_end, path, path_reg, path_sub, quic_enabled, traffic_is_http, traffic_is_ssl, sc_bytes_in_rate, sc_bytes_out_rate, sc_clr_gpc, sc_clr_gpc0, sc_clr_gpc1, sc0_clr_gpc0, sc0_clr_gpc1, sc1_clr_gpc, sc1_clr_gpc0, sc1_clr_gpc1, sc2_clr_gpc, sc2_clr_gpc0, sc2_clr_gpc1, sc_conn_cnt, sc_conn_cur, sc_conn_rate, sc_get_gpc, sc_get_gpc0, sc_get_gpc1, sc0_get_gpc0, sc0_get_gpc1, sc1_get_gpc0, sc1_get_gpc1, sc2_get_gpc0, sc2_get_gpc1, sc_get_gpt, sc_get_gpt0, sc0_get_gpt0, sc1_get_gpt0, sc2_get_gpt0, sc_glitch_cnt, sc_glitch_rate, sc_gpc_rate, sc_gpc0_rate, sc_gpc1_rate, sc0_gpc0_rate, sc0_gpc1_rate, sc1_gpc0_rate, sc1_gpc1_rate, sc2_gpc0_rate, sc2_gpc1_rate, sc_http_err_cnt, sc_http_err_rate, sc_http_fail_cnt, sc_http_fail_rate, sc_http_req_cnt, sc_http_req_rate, sc_inc_gpc, sc_inc_gpc0, sc_inc_gpc1, sc0_inc_gpc0, sc0_inc_gpc1, sc1_inc_gpc0, sc1_inc_gpc1, sc2_inc_gpc0, sc2_inc_gpc1, sc_sess_cnt, sc_sess_rate, src, src_bytes_in_rate, src_bytes_out_rate, src_clr_gpc, src_clr_gpc0, src_clr_gpc1, src_conn_cnt, src_conn_cur, src_conn_rate, src_get_gpc, src_get_gpc0, src_get_gpc1, src_get_gpt, src_glitch_cnt, src_glitch_rate, src_gpc_rate, src_gpc0_rate, src_gpc1_rate, src_http_err_cnt, src_http_err_rate, src_http_fail_cnt, src_http_fail_rate, src_http_req_cnt, src_http_req_rate, src_inc_gpc, src_inc_gpc0, src_inc_gpc1, src_is_local, src_kbytes_in, src_kbytes_out, src_port, src_sess_cnt, src_sess_rate, ssl_c_ca_commonname, ssl_c_verify_code, ssl_c_verify, ssl_fc_sni, ssl_fc, ssl_hello_type, ssl_sni_beg, ssl_sni_end, ssl_sni_reg, ssl_sni, ssl_sni_sub, stopping, url_param, var, wait_end, custom_acl.
+	Negate                    opnsense.OPNBool  `json:"negate"`                  // Required. Default: 0.
+	CaseSensitive             *opnsense.OPNBool `json:"caseSensitive,omitempty"` // Default: 0.
+	HdrBeg                    string            `json:"hdr_beg,omitempty"`
+	HdrEnd                    string            `json:"hdr_end,omitempty"`
+	Hdr                       string            `json:"hdr,omitempty"`
+	HdrReg                    string            `json:"hdr_reg,omitempty"`
+	HdrSub                    string            `json:"hdr_sub,omitempty"`
+	PathBeg                   string            `json:"path_beg,omitempty"`
+	PathEnd                   string            `json:"path_end,omitempty"`
+	Path                      string            `json:"path,omitempty"`
+	PathReg                   string            `json:"path_reg,omitempty"`
+	PathDir                   string            `json:"path_dir,omitempty"`
+	PathSub                   string            `json:"path_sub,omitempty"`
+	CustHdrBegName            string            `json:"cust_hdr_beg_name,omitempty"`
+	CustHdrBeg                string            `json:"cust_hdr_beg,omitempty"`
+	CustHdrEndName            string            `json:"cust_hdr_end_name,omitempty"`
+	CustHdrEnd                string            `json:"cust_hdr_end,omitempty"`
+	CustHdrName               string            `json:"cust_hdr_name,omitempty"`
+	CustHdr                   string            `json:"cust_hdr,omitempty"`
+	CustHdrRegName            string            `json:"cust_hdr_reg_name,omitempty"`
+	CustHdrReg                string            `json:"cust_hdr_reg,omitempty"`
+	CustHdrSubName            string            `json:"cust_hdr_sub_name,omitempty"`
+	CustHdrSub                string            `json:"cust_hdr_sub,omitempty"`
+	UrlParam                  string            `json:"url_param,omitempty"`
+	UrlParamValue             string            `json:"url_param_value,omitempty"`
+	Var                       string            `json:"var,omitempty"`
+	VarValue                  string            `json:"var_value,omitempty"`
+	VarComparison             string            `json:"var_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	SslCVerifyCode            *opnsense.OPNInt  `json:"ssl_c_verify_code,omitempty"`
+	SslCCaCommonname          string            `json:"ssl_c_ca_commonname,omitempty"`
+	SslHelloType              string            `json:"ssl_hello_type,omitempty"` // Default: x1. Valid: x0, x1, x2.
+	Src                       string            `json:"src,omitempty"`
+	SrcBytesInRateComparison  string            `json:"src_bytes_in_rate_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	SrcBytesInRate            *opnsense.OPNInt  `json:"src_bytes_in_rate,omitempty"`
+	SrcBytesOutRateComparison string            `json:"src_bytes_out_rate_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	SrcBytesOutRate           *opnsense.OPNInt  `json:"src_bytes_out_rate,omitempty"`
+	SrcConnCntComparison      string            `json:"src_conn_cnt_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	SrcConnCnt                *opnsense.OPNInt  `json:"src_conn_cnt,omitempty"`
+	SrcConnCurComparison      string            `json:"src_conn_cur_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	SrcConnCur                *opnsense.OPNInt  `json:"src_conn_cur,omitempty"`
+	SrcConnRateComparison     string            `json:"src_conn_rate_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	SrcConnRate               *opnsense.OPNInt  `json:"src_conn_rate,omitempty"`
+	SrcHttpErrCntComparison   string            `json:"src_http_err_cnt_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	SrcHttpErrCnt             *opnsense.OPNInt  `json:"src_http_err_cnt,omitempty"`
+	SrcHttpErrRateComparison  string            `json:"src_http_err_rate_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	SrcHttpErrRate            *opnsense.OPNInt  `json:"src_http_err_rate,omitempty"`
+	SrcHttpReqCntComparison   string            `json:"src_http_req_cnt_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	SrcHttpReqCnt             *opnsense.OPNInt  `json:"src_http_req_cnt,omitempty"`
+	SrcHttpReqRateComparison  string            `json:"src_http_req_rate_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	SrcHttpReqRate            *opnsense.OPNInt  `json:"src_http_req_rate,omitempty"`
+	SrcKbytesInComparison     string            `json:"src_kbytes_in_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	SrcKbytesIn               *opnsense.OPNInt  `json:"src_kbytes_in,omitempty"`
+	SrcKbytesOutComparison    string            `json:"src_kbytes_out_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	SrcKbytesOut              *opnsense.OPNInt  `json:"src_kbytes_out,omitempty"`
+	SrcPortComparison         string            `json:"src_port_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	SrcPort                   *opnsense.OPNInt  `json:"src_port,omitempty"`
+	SrcSessCntComparison      string            `json:"src_sess_cnt_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	SrcSessCnt                *opnsense.OPNInt  `json:"src_sess_cnt,omitempty"`
+	SrcSessRateComparison     string            `json:"src_sess_rate_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	SrcSessRate               *opnsense.OPNInt  `json:"src_sess_rate,omitempty"`
+	Nbsrv                     *opnsense.OPNInt  `json:"nbsrv,omitempty"`
+	NbsrvBackend              string            `json:"nbsrv_backend,omitempty"`
+	SslFcSni                  string            `json:"ssl_fc_sni,omitempty"`
+	SslSni                    string            `json:"ssl_sni,omitempty"`
+	SslSniSub                 string            `json:"ssl_sni_sub,omitempty"`
+	SslSniBeg                 string            `json:"ssl_sni_beg,omitempty"`
+	SslSniEnd                 string            `json:"ssl_sni_end,omitempty"`
+	SslSniReg                 string            `json:"ssl_sni_reg,omitempty"`
+	CustomAcl                 string            `json:"custom_acl,omitempty"`
+	Value                     string            `json:"value,omitempty"`
+	Urlparam                  string            `json:"urlparam,omitempty"`
+	QueryBackend              string            `json:"queryBackend,omitempty"`
+	AllowedUsers              string            `json:"allowedUsers,omitempty"`
+	AllowedGroups             string            `json:"allowedGroups,omitempty"`
+	HttpMethod                string            `json:"http_method,omitempty"`                 // Valid: CONNECT, DELETE, GET, HEAD, OPTIONS, PATCH, POST, PUT, TRACE.
+	ScBytesInRateComparison   string            `json:"sc_bytes_in_rate_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	ScBytesInRate             *opnsense.OPNInt  `json:"sc_bytes_in_rate,omitempty"`
+	ScBytesOutRateComparison  string            `json:"sc_bytes_out_rate_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	ScBytesOutRate            *opnsense.OPNInt  `json:"sc_bytes_out_rate,omitempty"`
+	ScClrGpcComparison        string            `json:"sc_clr_gpc_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	ScClrGpc                  *opnsense.OPNInt  `json:"sc_clr_gpc,omitempty"`
+	ScConnCntComparison       string            `json:"sc_conn_cnt_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	ScConnCnt                 *opnsense.OPNInt  `json:"sc_conn_cnt,omitempty"`
+	ScConnCurComparison       string            `json:"sc_conn_cur_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	ScConnCur                 *opnsense.OPNInt  `json:"sc_conn_cur,omitempty"`
+	ScConnRateComparison      string            `json:"sc_conn_rate_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	ScConnRate                *opnsense.OPNInt  `json:"sc_conn_rate,omitempty"`
+	ScGetGpcComparison        string            `json:"sc_get_gpc_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	ScGetGpc                  *opnsense.OPNInt  `json:"sc_get_gpc,omitempty"`
+	ScGlitchCntComparison     string            `json:"sc_glitch_cnt_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	ScGlitchCnt               *opnsense.OPNInt  `json:"sc_glitch_cnt,omitempty"`
+	ScGlitchRateComparison    string            `json:"sc_glitch_rate_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	ScGlitchRate              *opnsense.OPNInt  `json:"sc_glitch_rate,omitempty"`
+	ScGpcRateComparison       string            `json:"sc_gpc_rate_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	ScGpcRate                 *opnsense.OPNInt  `json:"sc_gpc_rate,omitempty"`
+	ScHttpErrCntComparison    string            `json:"sc_http_err_cnt_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	ScHttpErrCnt              *opnsense.OPNInt  `json:"sc_http_err_cnt,omitempty"`
+	ScHttpErrRateComparison   string            `json:"sc_http_err_rate_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	ScHttpErrRate             *opnsense.OPNInt  `json:"sc_http_err_rate,omitempty"`
+	ScHttpFailCntComparison   string            `json:"sc_http_fail_cnt_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	ScHttpFailCnt             *opnsense.OPNInt  `json:"sc_http_fail_cnt,omitempty"`
+	ScHttpFailRateComparison  string            `json:"sc_http_fail_rate_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	ScHttpFailRate            *opnsense.OPNInt  `json:"sc_http_fail_rate,omitempty"`
+	ScHttpReqCntComparison    string            `json:"sc_http_req_cnt_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	ScHttpReqCnt              *opnsense.OPNInt  `json:"sc_http_req_cnt,omitempty"`
+	ScHttpReqRateComparison   string            `json:"sc_http_req_rate_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	ScHttpReqRate             *opnsense.OPNInt  `json:"sc_http_req_rate,omitempty"`
+	ScIncGpcComparison        string            `json:"sc_inc_gpc_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	ScIncGpc                  *opnsense.OPNInt  `json:"sc_inc_gpc,omitempty"`
+	ScSessCntComparison       string            `json:"sc_sess_cnt_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	ScSessCnt                 *opnsense.OPNInt  `json:"sc_sess_cnt,omitempty"`
+	ScSessRateComparison      string            `json:"sc_sess_rate_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	ScSessRate                *opnsense.OPNInt  `json:"sc_sess_rate,omitempty"`
+	SrcGetGpcComparison       string            `json:"src_get_gpc_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	SrcGetGpc                 *opnsense.OPNInt  `json:"src_get_gpc,omitempty"`
+	SrcGetGptComparison       string            `json:"src_get_gpt_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	SrcGetGpt                 *opnsense.OPNInt  `json:"src_get_gpt,omitempty"`
+	SrcGlitchCntComparison    string            `json:"src_glitch_cnt_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	SrcGlitchCnt              *opnsense.OPNInt  `json:"src_glitch_cnt,omitempty"`
+	SrcGlitchRateComparison   string            `json:"src_glitch_rate_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	SrcGlitchRate             *opnsense.OPNInt  `json:"src_glitch_rate,omitempty"`
+	SrcGpcRateComparison      string            `json:"src_gpc_rate_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	SrcGpcRate                *opnsense.OPNInt  `json:"src_gpc_rate,omitempty"`
+	SrcHttpFailCntComparison  string            `json:"src_http_fail_cnt_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	SrcHttpFailCnt            *opnsense.OPNInt  `json:"src_http_fail_cnt,omitempty"`
+	SrcHttpFailRateComparison string            `json:"src_http_fail_rate_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	SrcHttpFailRate           *opnsense.OPNInt  `json:"src_http_fail_rate,omitempty"`
+	SrcIncGpcComparison       string            `json:"src_inc_gpc_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	SrcIncGpc                 *opnsense.OPNInt  `json:"src_inc_gpc,omitempty"`
+	ScClrGpc0Comparison       string            `json:"sc_clr_gpc0_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	ScClrGpc0                 *opnsense.OPNInt  `json:"sc_clr_gpc0,omitempty"`
+	ScClrGpc1Comparison       string            `json:"sc_clr_gpc1_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	ScClrGpc1                 *opnsense.OPNInt  `json:"sc_clr_gpc1,omitempty"`
+	Sc0ClrGpc0Comparison      string            `json:"sc0_clr_gpc0_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	Sc0ClrGpc0                *opnsense.OPNInt  `json:"sc0_clr_gpc0,omitempty"`
+	Sc0ClrGpc1Comparison      string            `json:"sc0_clr_gpc1_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	Sc0ClrGpc1                *opnsense.OPNInt  `json:"sc0_clr_gpc1,omitempty"`
+	Sc1ClrGpcComparison       string            `json:"sc1_clr_gpc_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	Sc1ClrGpc                 *opnsense.OPNInt  `json:"sc1_clr_gpc,omitempty"`
+	Sc1ClrGpc0Comparison      string            `json:"sc1_clr_gpc0_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	Sc1ClrGpc0                *opnsense.OPNInt  `json:"sc1_clr_gpc0,omitempty"`
+	Sc1ClrGpc1Comparison      string            `json:"sc1_clr_gpc1_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	Sc1ClrGpc1                *opnsense.OPNInt  `json:"sc1_clr_gpc1,omitempty"`
+	Sc2ClrGpcComparison       string            `json:"sc2_clr_gpc_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	Sc2ClrGpc                 *opnsense.OPNInt  `json:"sc2_clr_gpc,omitempty"`
+	Sc2ClrGpc0Comparison      string            `json:"sc2_clr_gpc0_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	Sc2ClrGpc0                *opnsense.OPNInt  `json:"sc2_clr_gpc0,omitempty"`
+	Sc2ClrGpc1Comparison      string            `json:"sc2_clr_gpc1_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	Sc2ClrGpc1                *opnsense.OPNInt  `json:"sc2_clr_gpc1,omitempty"`
+	ScGetGpc0Comparison       string            `json:"sc_get_gpc0_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	ScGetGpc0                 *opnsense.OPNInt  `json:"sc_get_gpc0,omitempty"`
+	ScGetGpc1Comparison       string            `json:"sc_get_gpc1_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	ScGetGpc1                 *opnsense.OPNInt  `json:"sc_get_gpc1,omitempty"`
+	Sc0GetGpc0Comparison      string            `json:"sc0_get_gpc0_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	Sc0GetGpc0                *opnsense.OPNInt  `json:"sc0_get_gpc0,omitempty"`
+	Sc0GetGpc1Comparison      string            `json:"sc0_get_gpc1_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	Sc0GetGpc1                *opnsense.OPNInt  `json:"sc0_get_gpc1,omitempty"`
+	Sc1GetGpc0Comparison      string            `json:"sc1_get_gpc0_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	Sc1GetGpc0                *opnsense.OPNInt  `json:"sc1_get_gpc0,omitempty"`
+	Sc1GetGpc1Comparison      string            `json:"sc1_get_gpc1_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	Sc1GetGpc1                *opnsense.OPNInt  `json:"sc1_get_gpc1,omitempty"`
+	Sc2GetGpc0Comparison      string            `json:"sc2_get_gpc0_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	Sc2GetGpc0                *opnsense.OPNInt  `json:"sc2_get_gpc0,omitempty"`
+	Sc2GetGpc1Comparison      string            `json:"sc2_get_gpc1_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	Sc2GetGpc1                *opnsense.OPNInt  `json:"sc2_get_gpc1,omitempty"`
+	ScGetGptComparison        string            `json:"sc_get_gpt_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	ScGetGpt                  *opnsense.OPNInt  `json:"sc_get_gpt,omitempty"`
+	ScGetGpt0Comparison       string            `json:"sc_get_gpt0_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	ScGetGpt0                 *opnsense.OPNInt  `json:"sc_get_gpt0,omitempty"`
+	Sc0GetGpt0Comparison      string            `json:"sc0_get_gpt0_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	Sc0GetGpt0                *opnsense.OPNInt  `json:"sc0_get_gpt0,omitempty"`
+	Sc1GetGpt0Comparison      string            `json:"sc1_get_gpt0_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	Sc1GetGpt0                *opnsense.OPNInt  `json:"sc1_get_gpt0,omitempty"`
+	Sc2GetGpt0Comparison      string            `json:"sc2_get_gpt0_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	Sc2GetGpt0                *opnsense.OPNInt  `json:"sc2_get_gpt0,omitempty"`
+	ScGpc0RateComparison      string            `json:"sc_gpc0_rate_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	ScGpc0Rate                *opnsense.OPNInt  `json:"sc_gpc0_rate,omitempty"`
+	ScGpc1RateComparison      string            `json:"sc_gpc1_rate_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	ScGpc1Rate                *opnsense.OPNInt  `json:"sc_gpc1_rate,omitempty"`
+	Sc0Gpc0RateComparison     string            `json:"sc0_gpc0_rate_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	Sc0Gpc0Rate               *opnsense.OPNInt  `json:"sc0_gpc0_rate,omitempty"`
+	Sc0Gpc1RateComparison     string            `json:"sc0_gpc1_rate_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	Sc0Gpc1Rate               *opnsense.OPNInt  `json:"sc0_gpc1_rate,omitempty"`
+	Sc1Gpc0RateComparison     string            `json:"sc1_gpc0_rate_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	Sc1Gpc0Rate               *opnsense.OPNInt  `json:"sc1_gpc0_rate,omitempty"`
+	Sc1Gpc1RateComparison     string            `json:"sc1_gpc1_rate_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	Sc1Gpc1Rate               *opnsense.OPNInt  `json:"sc1_gpc1_rate,omitempty"`
+	Sc2Gpc0RateComparison     string            `json:"sc2_gpc0_rate_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	Sc2Gpc0Rate               *opnsense.OPNInt  `json:"sc2_gpc0_rate,omitempty"`
+	Sc2Gpc1RateComparison     string            `json:"sc2_gpc1_rate_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	Sc2Gpc1Rate               *opnsense.OPNInt  `json:"sc2_gpc1_rate,omitempty"`
+	ScIncGpc0Comparison       string            `json:"sc_inc_gpc0_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	ScIncGpc0                 *opnsense.OPNInt  `json:"sc_inc_gpc0,omitempty"`
+	ScIncGpc1Comparison       string            `json:"sc_inc_gpc1_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	ScIncGpc1                 *opnsense.OPNInt  `json:"sc_inc_gpc1,omitempty"`
+	Sc0IncGpc0Comparison      string            `json:"sc0_inc_gpc0_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	Sc0IncGpc0                *opnsense.OPNInt  `json:"sc0_inc_gpc0,omitempty"`
+	Sc0IncGpc1Comparison      string            `json:"sc0_inc_gpc1_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	Sc0IncGpc1                *opnsense.OPNInt  `json:"sc0_inc_gpc1,omitempty"`
+	Sc1IncGpc0Comparison      string            `json:"sc1_inc_gpc0_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	Sc1IncGpc0                *opnsense.OPNInt  `json:"sc1_inc_gpc0,omitempty"`
+	Sc1IncGpc1Comparison      string            `json:"sc1_inc_gpc1_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	Sc1IncGpc1                *opnsense.OPNInt  `json:"sc1_inc_gpc1,omitempty"`
+	Sc2IncGpc0Comparison      string            `json:"sc2_inc_gpc0_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	Sc2IncGpc0                *opnsense.OPNInt  `json:"sc2_inc_gpc0,omitempty"`
+	Sc2IncGpc1Comparison      string            `json:"sc2_inc_gpc1_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	Sc2IncGpc1                *opnsense.OPNInt  `json:"sc2_inc_gpc1,omitempty"`
+	SrcClrGpc0Comparison      string            `json:"src_clr_gpc0_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	SrcClrGpc0                *opnsense.OPNInt  `json:"src_clr_gpc0,omitempty"`
+	SrcClrGpc1Comparison      string            `json:"src_clr_gpc1_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	SrcClrGpc1                *opnsense.OPNInt  `json:"src_clr_gpc1,omitempty"`
+	SrcGetGpc0Comparison      string            `json:"src_get_gpc0_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	SrcGetGpc0                *opnsense.OPNInt  `json:"src_get_gpc0,omitempty"`
+	SrcGetGpc1Comparison      string            `json:"src_get_gpc1_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	SrcGetGpc1                *opnsense.OPNInt  `json:"src_get_gpc1,omitempty"`
+	SrcGpc0RateComparison     string            `json:"src_gpc0_rate_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	SrcGpc0Rate               *opnsense.OPNInt  `json:"src_gpc0_rate,omitempty"`
+	SrcGpc1RateComparison     string            `json:"src_gpc1_rate_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	SrcGpc1Rate               *opnsense.OPNInt  `json:"src_gpc1_rate,omitempty"`
+	SrcIncGpc0Comparison      string            `json:"src_inc_gpc0_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	SrcIncGpc0                *opnsense.OPNInt  `json:"src_inc_gpc0,omitempty"`
+	SrcIncGpc1Comparison      string            `json:"src_inc_gpc1_comparison,omitempty"` // Default: gt. Valid: gt, ge, eq, lt, le.
+	SrcIncGpc1                *opnsense.OPNInt  `json:"src_inc_gpc1,omitempty"`
+	GpcNumber                 *opnsense.OPNInt  `json:"gpc_number,omitempty"`
+	GptNumber                 *opnsense.OPNInt  `json:"gpt_number,omitempty"`
+	ScNumber                  *opnsense.OPNInt  `json:"sc_number,omitempty"`
+	TableName                 string            `json:"table_name,omitempty"`
+	Mapfile                   string            `json:"mapfile,omitempty"`
+	Converter                 string            `json:"converter,omitempty"`
 }
 
 // Action represents a action model item.
 type Action struct {
-	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
-	Name string `json:"name"` // Required.
-	Description string `json:"description,omitempty"`
-	TestType string `json:"testType"` // Required. Default: if. Valid: if, unless.
-	LinkedAcls string `json:"linkedAcls,omitempty"`
-	Operator string `json:"operator,omitempty"` // Default: and. Valid: and, or.
-	Type string `json:"type"` // Required. Valid: compression, fcgi_pass_header, fcgi_set_param, http-after-response, http-request, http-response, map_data_use_backend, map_use_backend, monitor_fail, tcp-request, tcp-response, use_backend, use_server, custom.
-	UseBackend string `json:"use_backend,omitempty"`
-	UseServer string `json:"use_server,omitempty"`
-	FcgiPassHeader string `json:"fcgi_pass_header,omitempty"`
-	FcgiSetParam string `json:"fcgi_set_param,omitempty"`
-	MonitorFailUri string `json:"monitor_fail_uri,omitempty"`
-	Custom string `json:"custom,omitempty"`
-	HttpAfterResponseAction string `json:"http_after_response_action,omitempty"` // Valid: add-header, allow, capture, del-header, del-map, do-log, replace-header, replace-value, sc-add-gpc, sc-inc-gpc, sc-inc-gpc0, sc-inc-gpc1, sc-set-gpt, sc-set-gpt0, set-header, set-log-level, set-map, set-status, set-var, set-var-fmt, strict-mode, unset-var.
-	HttpAfterResponseOption string `json:"http_after_response_option,omitempty"`
-	HttpRequestAction string `json:"http_request_action,omitempty"` // Valid: add-acl, add-header, allow, auth, cache-use, capture, del-acl, del-header, del-map, deny, disable-l7-retry, do-log, do-resolve, early-hint, lua, normalize-uri, redirect, reject, replace-header, replace-path, replace-pathq, replace-uri, replace-value, return, sc-add-gpc, sc-inc-gpc, sc-inc-gpc0, sc-inc-gpc1, sc-set-gpt, sc-set-gpt0, send-spoe-group, set-dst, set-dst-port, set-fc-mark, set-fc-tos, set-header, set-log-level, set-map, set-method, set-nice, set-path, set-pathq, set-priority-class, set-priority-offset, set-query, set-src, set-src-port, set-timeout, set-uri, set-var, set-var-fmt, silent-drop, strict-mode, tarpit, track-sc0, track-sc1, track-sc2, unset-var, use-service, wait-for-body, wait-for-handshake.
-	HttpRequestOption string `json:"http_request_option,omitempty"`
-	HttpResponseAction string `json:"http_response_action,omitempty"` // Valid: add-acl, add-header, allow, cache-store, capture, del-acl, del-header, del-map, deny, do-log, lua, redirect, replace-header, replace-value, return, sc-add-gpc, sc-inc-gpc, sc-inc-gpc0, sc-inc-gpc1, sc-set-gpt, sc-set-gpt0, send-spoe-group, set-fc-mark, set-fc-tos, set-header, set-log-level, set-map, set-nice, set-status, set-timeout, set-var, set-var-fmt, silent-drop, strict-mode, track-sc0, track-sc1, track-sc2, unset-var, wait-for-body.
-	HttpResponseOption string `json:"http_response_option,omitempty"`
-	TcpRequestAction string `json:"tcp_request_action,omitempty"` // Valid: connection_accept, connection_expect-netscaler-cip, connection_expect-proxy, connection_fc-silent-drop, connection_reject, connection_sc-add-gpc, connection_sc-inc-gpc, connection_sc-inc-gpc0, connection_sc-inc-gpc1, connection_sc-set-gpt, connection_sc-set-gpt0, connection_send-spoe-group, connection_set-dst, connection_set-dst-port, connection_set-fc-mark, connection_set-fc-tos, connection_set-log-level, connection_set-src, connection_set-src-port, connection_set-var, connection_set-var-fmt, connection_silent-drop, connection_track-sc0, connection_track-sc1, connection_track-sc2, connection_unset-var, content_accept, content_capture, content_do-resolve, content_lua, content_reject, content_sc-add-gpc, content_sc-inc-gpc, content_sc-inc-gpc0, content_sc-inc-gpc1, content_sc-set-gpt, content_sc-set-gpt0, content_send-spoe-group, content_set-dst, content_set-dst-port, content_set-fc-mark, content_set-fc-tos, content_set-log-level, content_set-nice, content_set-priority-class, content_set-priority-offset, content_set-src, content_set-src-port, content_set-var, content_set-var-fmt, content_silent-drop, content_switch-mode, content_track-sc0, content_track-sc1, content_track-sc2, content_unset-var, content_use-service, inspect-delay, session_accept, session_attach-srv, session_reject, session_sc-add-gpc, session_sc-inc-gpc, session_sc-inc-gpc0, session_sc-inc-gpc1, session_sc-set-gpt, session_sc-set-gpt0, session_send-spoe-group, session_set-dst, session_set-dst-port, session_set-fc-mark, session_set-fc-tos, session_set-log-level, session_set-src, session_set-src-port, session_set-var, session_set-var-fmt, session_silent-drop, session_track-sc0, session_track-sc1, session_track-sc2, session_unset-var.
-	TcpRequestOption string `json:"tcp_request_option,omitempty"`
-	TcpResponseAction string `json:"tcp_response_action,omitempty"` // Valid: content_accept, content_close, content_lua, content_reject, content_sc-add-gpc, content_sc-inc-gpc, content_sc-inc-gpc0, content_sc-inc-gpc1, content_sc-set-gpt, content_sc-set-gpt0, content_send-spoe-group, content_set-fc-mark, content_set-fc-tos, content_set-log-level, content_set-nice, content_set-var, content_set-var-fmt, content_silent-drop, content_unset-var, inspect-delay.
-	TcpResponseOption string `json:"tcp_response_option,omitempty"`
-	HttpRequestAuth string `json:"http_request_auth,omitempty"`
-	HttpRequestDenyStatus *opnsense.OPNInt `json:"http_request_deny_status,omitempty"`
-	HttpRequestRedirect string `json:"http_request_redirect,omitempty"`
-	HttpRequestLua string `json:"http_request_lua,omitempty"`
-	HttpRequestUseService string `json:"http_request_use_service,omitempty"`
-	HttpRequestAddHeaderName string `json:"http_request_add_header_name,omitempty"`
-	HttpRequestAddHeaderContent string `json:"http_request_add_header_content,omitempty"`
-	HttpRequestSetHeaderName string `json:"http_request_set_header_name,omitempty"`
-	HttpRequestSetHeaderContent string `json:"http_request_set_header_content,omitempty"`
-	HttpRequestDelHeaderName string `json:"http_request_del_header_name,omitempty"`
-	HttpRequestReplaceHeaderName string `json:"http_request_replace_header_name,omitempty"`
-	HttpRequestReplaceHeaderRegex string `json:"http_request_replace_header_regex,omitempty"`
-	HttpRequestReplaceValueName string `json:"http_request_replace_value_name,omitempty"`
-	HttpRequestReplaceValueRegex string `json:"http_request_replace_value_regex,omitempty"`
-	HttpRequestSetPath string `json:"http_request_set_path,omitempty"`
-	HttpRequestSetVarScope string `json:"http_request_set_var_scope,omitempty"` // Default: txn. Valid: proc, sess, txn, req, res.
-	HttpRequestSetVarName string `json:"http_request_set_var_name,omitempty"`
-	HttpRequestSetVarExpr string `json:"http_request_set_var_expr,omitempty"`
-	HttpResponseLua string `json:"http_response_lua,omitempty"`
-	HttpResponseAddHeaderName string `json:"http_response_add_header_name,omitempty"`
-	HttpResponseAddHeaderContent string `json:"http_response_add_header_content,omitempty"`
-	HttpResponseSetHeaderName string `json:"http_response_set_header_name,omitempty"`
-	HttpResponseSetHeaderContent string `json:"http_response_set_header_content,omitempty"`
-	HttpResponseDelHeaderName string `json:"http_response_del_header_name,omitempty"`
-	HttpResponseReplaceHeaderName string `json:"http_response_replace_header_name,omitempty"`
-	HttpResponseReplaceHeaderRegex string `json:"http_response_replace_header_regex,omitempty"`
-	HttpResponseReplaceValueName string `json:"http_response_replace_value_name,omitempty"`
-	HttpResponseReplaceValueRegex string `json:"http_response_replace_value_regex,omitempty"`
-	HttpResponseSetStatusCode *opnsense.OPNInt `json:"http_response_set_status_code,omitempty"`
-	HttpResponseSetStatusReason string `json:"http_response_set_status_reason,omitempty"`
-	HttpResponseSetVarScope string `json:"http_response_set_var_scope,omitempty"` // Default: txn. Valid: proc, sess, txn, req, res.
-	HttpResponseSetVarName string `json:"http_response_set_var_name,omitempty"`
-	HttpResponseSetVarExpr string `json:"http_response_set_var_expr,omitempty"`
-	TcpRequestContentLua string `json:"tcp_request_content_lua,omitempty"`
-	TcpRequestContentUseService string `json:"tcp_request_content_use_service,omitempty"`
-	TcpRequestInspectDelay string `json:"tcp_request_inspect_delay,omitempty"`
-	TcpResponseContentLua string `json:"tcp_response_content_lua,omitempty"`
-	TcpResponseInspectDelay string `json:"tcp_response_inspect_delay,omitempty"`
-	MapDataUseBackendFile string `json:"map_data_use_backend_file,omitempty"`
-	MapDataUseBackendDefault string `json:"map_data_use_backend_default,omitempty"`
-	MapDataUseBackendInput string `json:"map_data_use_backend_input,omitempty"`
-	MapUseBackendFile string `json:"map_use_backend_file,omitempty"`
-	MapUseBackendDefault string `json:"map_use_backend_default,omitempty"`
-	CompressionAlgoRes string `json:"compression_algo_res,omitempty"` // Default: gzip. Valid: gzip, deflate, raw-deflate.
-	CompressionAlgoReq string `json:"compression_algo_req,omitempty"` // Default: gzip. Valid: gzip, deflate, raw-deflate.
-	CompressionMimeRes string `json:"compression_mime_res,omitempty"`
-	CompressionMimeReq string `json:"compression_mime_req,omitempty"`
-	CompressionOffloading *opnsense.OPNBool `json:"compression_offloading,omitempty"` // Default: 0.
-	CompressionMinsizeRes *opnsense.OPNInt `json:"compression_minsize_res,omitempty"` // Default: 1500.
-	CompressionMinsizeReq *opnsense.OPNInt `json:"compression_minsize_req,omitempty"` // Default: 1500.
-	CompressionDirection string `json:"compression_direction,omitempty"` // Default: response. Valid: response, request, both.
-	GpcNumber *opnsense.OPNInt `json:"gpc_number,omitempty"`
-	GptNumber *opnsense.OPNInt `json:"gpt_number,omitempty"`
-	ScNumber *opnsense.OPNInt `json:"sc_number,omitempty"`
-	Mapfile string `json:"mapfile,omitempty"`
-	MapDefault string `json:"map_default,omitempty"`
-	SampleFetch string `json:"sample_fetch,omitempty"`
+	Enabled                        opnsense.OPNBool  `json:"enabled"` // Required. Default: 1.
+	Name                           string            `json:"name"`    // Required.
+	Description                    string            `json:"description,omitempty"`
+	TestType                       string            `json:"testType"` // Required. Default: if. Valid: if, unless.
+	LinkedAcls                     string            `json:"linkedAcls,omitempty"`
+	Operator                       string            `json:"operator,omitempty"` // Default: and. Valid: and, or.
+	Type                           string            `json:"type"`               // Required. Valid: compression, fcgi_pass_header, fcgi_set_param, http-after-response, http-request, http-response, map_data_use_backend, map_use_backend, monitor_fail, tcp-request, tcp-response, use_backend, use_server, custom.
+	UseBackend                     string            `json:"use_backend,omitempty"`
+	UseServer                      string            `json:"use_server,omitempty"`
+	FcgiPassHeader                 string            `json:"fcgi_pass_header,omitempty"`
+	FcgiSetParam                   string            `json:"fcgi_set_param,omitempty"`
+	MonitorFailUri                 string            `json:"monitor_fail_uri,omitempty"`
+	Custom                         string            `json:"custom,omitempty"`
+	HttpAfterResponseAction        string            `json:"http_after_response_action,omitempty"` // Valid: add-header, allow, capture, del-header, del-map, do-log, replace-header, replace-value, sc-add-gpc, sc-inc-gpc, sc-inc-gpc0, sc-inc-gpc1, sc-set-gpt, sc-set-gpt0, set-header, set-log-level, set-map, set-status, set-var, set-var-fmt, strict-mode, unset-var.
+	HttpAfterResponseOption        string            `json:"http_after_response_option,omitempty"`
+	HttpRequestAction              string            `json:"http_request_action,omitempty"` // Valid: add-acl, add-header, allow, auth, cache-use, capture, del-acl, del-header, del-map, deny, disable-l7-retry, do-log, do-resolve, early-hint, lua, normalize-uri, redirect, reject, replace-header, replace-path, replace-pathq, replace-uri, replace-value, return, sc-add-gpc, sc-inc-gpc, sc-inc-gpc0, sc-inc-gpc1, sc-set-gpt, sc-set-gpt0, send-spoe-group, set-dst, set-dst-port, set-fc-mark, set-fc-tos, set-header, set-log-level, set-map, set-method, set-nice, set-path, set-pathq, set-priority-class, set-priority-offset, set-query, set-src, set-src-port, set-timeout, set-uri, set-var, set-var-fmt, silent-drop, strict-mode, tarpit, track-sc0, track-sc1, track-sc2, unset-var, use-service, wait-for-body, wait-for-handshake.
+	HttpRequestOption              string            `json:"http_request_option,omitempty"`
+	HttpResponseAction             string            `json:"http_response_action,omitempty"` // Valid: add-acl, add-header, allow, cache-store, capture, del-acl, del-header, del-map, deny, do-log, lua, redirect, replace-header, replace-value, return, sc-add-gpc, sc-inc-gpc, sc-inc-gpc0, sc-inc-gpc1, sc-set-gpt, sc-set-gpt0, send-spoe-group, set-fc-mark, set-fc-tos, set-header, set-log-level, set-map, set-nice, set-status, set-timeout, set-var, set-var-fmt, silent-drop, strict-mode, track-sc0, track-sc1, track-sc2, unset-var, wait-for-body.
+	HttpResponseOption             string            `json:"http_response_option,omitempty"`
+	TcpRequestAction               string            `json:"tcp_request_action,omitempty"` // Valid: connection_accept, connection_expect-netscaler-cip, connection_expect-proxy, connection_fc-silent-drop, connection_reject, connection_sc-add-gpc, connection_sc-inc-gpc, connection_sc-inc-gpc0, connection_sc-inc-gpc1, connection_sc-set-gpt, connection_sc-set-gpt0, connection_send-spoe-group, connection_set-dst, connection_set-dst-port, connection_set-fc-mark, connection_set-fc-tos, connection_set-log-level, connection_set-src, connection_set-src-port, connection_set-var, connection_set-var-fmt, connection_silent-drop, connection_track-sc0, connection_track-sc1, connection_track-sc2, connection_unset-var, content_accept, content_capture, content_do-resolve, content_lua, content_reject, content_sc-add-gpc, content_sc-inc-gpc, content_sc-inc-gpc0, content_sc-inc-gpc1, content_sc-set-gpt, content_sc-set-gpt0, content_send-spoe-group, content_set-dst, content_set-dst-port, content_set-fc-mark, content_set-fc-tos, content_set-log-level, content_set-nice, content_set-priority-class, content_set-priority-offset, content_set-src, content_set-src-port, content_set-var, content_set-var-fmt, content_silent-drop, content_switch-mode, content_track-sc0, content_track-sc1, content_track-sc2, content_unset-var, content_use-service, inspect-delay, session_accept, session_attach-srv, session_reject, session_sc-add-gpc, session_sc-inc-gpc, session_sc-inc-gpc0, session_sc-inc-gpc1, session_sc-set-gpt, session_sc-set-gpt0, session_send-spoe-group, session_set-dst, session_set-dst-port, session_set-fc-mark, session_set-fc-tos, session_set-log-level, session_set-src, session_set-src-port, session_set-var, session_set-var-fmt, session_silent-drop, session_track-sc0, session_track-sc1, session_track-sc2, session_unset-var.
+	TcpRequestOption               string            `json:"tcp_request_option,omitempty"`
+	TcpResponseAction              string            `json:"tcp_response_action,omitempty"` // Valid: content_accept, content_close, content_lua, content_reject, content_sc-add-gpc, content_sc-inc-gpc, content_sc-inc-gpc0, content_sc-inc-gpc1, content_sc-set-gpt, content_sc-set-gpt0, content_send-spoe-group, content_set-fc-mark, content_set-fc-tos, content_set-log-level, content_set-nice, content_set-var, content_set-var-fmt, content_silent-drop, content_unset-var, inspect-delay.
+	TcpResponseOption              string            `json:"tcp_response_option,omitempty"`
+	HttpRequestAuth                string            `json:"http_request_auth,omitempty"`
+	HttpRequestDenyStatus          *opnsense.OPNInt  `json:"http_request_deny_status,omitempty"`
+	HttpRequestRedirect            string            `json:"http_request_redirect,omitempty"`
+	HttpRequestLua                 string            `json:"http_request_lua,omitempty"`
+	HttpRequestUseService          string            `json:"http_request_use_service,omitempty"`
+	HttpRequestAddHeaderName       string            `json:"http_request_add_header_name,omitempty"`
+	HttpRequestAddHeaderContent    string            `json:"http_request_add_header_content,omitempty"`
+	HttpRequestSetHeaderName       string            `json:"http_request_set_header_name,omitempty"`
+	HttpRequestSetHeaderContent    string            `json:"http_request_set_header_content,omitempty"`
+	HttpRequestDelHeaderName       string            `json:"http_request_del_header_name,omitempty"`
+	HttpRequestReplaceHeaderName   string            `json:"http_request_replace_header_name,omitempty"`
+	HttpRequestReplaceHeaderRegex  string            `json:"http_request_replace_header_regex,omitempty"`
+	HttpRequestReplaceValueName    string            `json:"http_request_replace_value_name,omitempty"`
+	HttpRequestReplaceValueRegex   string            `json:"http_request_replace_value_regex,omitempty"`
+	HttpRequestSetPath             string            `json:"http_request_set_path,omitempty"`
+	HttpRequestSetVarScope         string            `json:"http_request_set_var_scope,omitempty"` // Default: txn. Valid: proc, sess, txn, req, res.
+	HttpRequestSetVarName          string            `json:"http_request_set_var_name,omitempty"`
+	HttpRequestSetVarExpr          string            `json:"http_request_set_var_expr,omitempty"`
+	HttpResponseLua                string            `json:"http_response_lua,omitempty"`
+	HttpResponseAddHeaderName      string            `json:"http_response_add_header_name,omitempty"`
+	HttpResponseAddHeaderContent   string            `json:"http_response_add_header_content,omitempty"`
+	HttpResponseSetHeaderName      string            `json:"http_response_set_header_name,omitempty"`
+	HttpResponseSetHeaderContent   string            `json:"http_response_set_header_content,omitempty"`
+	HttpResponseDelHeaderName      string            `json:"http_response_del_header_name,omitempty"`
+	HttpResponseReplaceHeaderName  string            `json:"http_response_replace_header_name,omitempty"`
+	HttpResponseReplaceHeaderRegex string            `json:"http_response_replace_header_regex,omitempty"`
+	HttpResponseReplaceValueName   string            `json:"http_response_replace_value_name,omitempty"`
+	HttpResponseReplaceValueRegex  string            `json:"http_response_replace_value_regex,omitempty"`
+	HttpResponseSetStatusCode      *opnsense.OPNInt  `json:"http_response_set_status_code,omitempty"`
+	HttpResponseSetStatusReason    string            `json:"http_response_set_status_reason,omitempty"`
+	HttpResponseSetVarScope        string            `json:"http_response_set_var_scope,omitempty"` // Default: txn. Valid: proc, sess, txn, req, res.
+	HttpResponseSetVarName         string            `json:"http_response_set_var_name,omitempty"`
+	HttpResponseSetVarExpr         string            `json:"http_response_set_var_expr,omitempty"`
+	TcpRequestContentLua           string            `json:"tcp_request_content_lua,omitempty"`
+	TcpRequestContentUseService    string            `json:"tcp_request_content_use_service,omitempty"`
+	TcpRequestInspectDelay         string            `json:"tcp_request_inspect_delay,omitempty"`
+	TcpResponseContentLua          string            `json:"tcp_response_content_lua,omitempty"`
+	TcpResponseInspectDelay        string            `json:"tcp_response_inspect_delay,omitempty"`
+	MapDataUseBackendFile          string            `json:"map_data_use_backend_file,omitempty"`
+	MapDataUseBackendDefault       string            `json:"map_data_use_backend_default,omitempty"`
+	MapDataUseBackendInput         string            `json:"map_data_use_backend_input,omitempty"`
+	MapUseBackendFile              string            `json:"map_use_backend_file,omitempty"`
+	MapUseBackendDefault           string            `json:"map_use_backend_default,omitempty"`
+	CompressionAlgoRes             string            `json:"compression_algo_res,omitempty"` // Default: gzip. Valid: gzip, deflate, raw-deflate.
+	CompressionAlgoReq             string            `json:"compression_algo_req,omitempty"` // Default: gzip. Valid: gzip, deflate, raw-deflate.
+	CompressionMimeRes             string            `json:"compression_mime_res,omitempty"`
+	CompressionMimeReq             string            `json:"compression_mime_req,omitempty"`
+	CompressionOffloading          *opnsense.OPNBool `json:"compression_offloading,omitempty"`  // Default: 0.
+	CompressionMinsizeRes          *opnsense.OPNInt  `json:"compression_minsize_res,omitempty"` // Default: 1500.
+	CompressionMinsizeReq          *opnsense.OPNInt  `json:"compression_minsize_req,omitempty"` // Default: 1500.
+	CompressionDirection           string            `json:"compression_direction,omitempty"`   // Default: response. Valid: response, request, both.
+	GpcNumber                      *opnsense.OPNInt  `json:"gpc_number,omitempty"`
+	GptNumber                      *opnsense.OPNInt  `json:"gpt_number,omitempty"`
+	ScNumber                       *opnsense.OPNInt  `json:"sc_number,omitempty"`
+	Mapfile                        string            `json:"mapfile,omitempty"`
+	MapDefault                     string            `json:"map_default,omitempty"`
+	SampleFetch                    string            `json:"sample_fetch,omitempty"`
 }
 
 // Lua represents a lua model item.
 type Lua struct {
-	Id string `json:"id"` // Required.
-	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
-	Name string `json:"name"` // Required.
-	Description string `json:"description,omitempty"`
-	Preload opnsense.OPNBool `json:"preload"` // Required. Default: 1.
-	FilenameScheme string `json:"filename_scheme"` // Required. Default: id. Valid: id, name.
-	Content string `json:"content"` // Required.
+	Id             string           `json:"id"`      // Required.
+	Enabled        opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
+	Name           string           `json:"name"`    // Required.
+	Description    string           `json:"description,omitempty"`
+	Preload        opnsense.OPNBool `json:"preload"`         // Required. Default: 1.
+	FilenameScheme string           `json:"filename_scheme"` // Required. Default: id. Valid: id, name.
+	Content        string           `json:"content"`         // Required.
 }
 
 // Fcgi represents a fcgi model item.
 type Fcgi struct {
-	Id string `json:"id"` // Required.
-	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
-	Name string `json:"name"` // Required.
-	Description string `json:"description,omitempty"`
-	Docroot string `json:"docroot"` // Required.
-	Index string `json:"index,omitempty"`
-	PathInfo string `json:"path_info,omitempty"`
-	LogStderr *opnsense.OPNBool `json:"log_stderr,omitempty"` // Default: 0.
-	KeepConn *opnsense.OPNBool `json:"keep_conn,omitempty"` // Default: 1.
-	GetValues *opnsense.OPNBool `json:"get_values,omitempty"` // Default: 0.
-	MpxsConns *opnsense.OPNBool `json:"mpxs_conns,omitempty"` // Default: 0.
-	MaxReqs *opnsense.OPNInt `json:"max_reqs,omitempty"`
-	LinkedActions string `json:"linkedActions,omitempty"`
+	Id            string            `json:"id"`      // Required.
+	Enabled       opnsense.OPNBool  `json:"enabled"` // Required. Default: 1.
+	Name          string            `json:"name"`    // Required.
+	Description   string            `json:"description,omitempty"`
+	Docroot       string            `json:"docroot"` // Required.
+	Index         string            `json:"index,omitempty"`
+	PathInfo      string            `json:"path_info,omitempty"`
+	LogStderr     *opnsense.OPNBool `json:"log_stderr,omitempty"` // Default: 0.
+	KeepConn      *opnsense.OPNBool `json:"keep_conn,omitempty"`  // Default: 1.
+	GetValues     *opnsense.OPNBool `json:"get_values,omitempty"` // Default: 0.
+	MpxsConns     *opnsense.OPNBool `json:"mpxs_conns,omitempty"` // Default: 0.
+	MaxReqs       *opnsense.OPNInt  `json:"max_reqs,omitempty"`
+	LinkedActions string            `json:"linkedActions,omitempty"`
 }
 
 // Errorfile represents a errorfile model item.
 type Errorfile struct {
-	Id string `json:"id"` // Required.
-	Name string `json:"name"` // Required.
+	Id          string `json:"id"`   // Required.
+	Name        string `json:"name"` // Required.
 	Description string `json:"description,omitempty"`
-	Code string `json:"code"` // Required. Default: 503. Valid: x200, x400, x403, x405, x408, x429, x500, x502, x503, x504.
-	Content string `json:"content"` // Required.
+	Code        string `json:"code"`    // Required. Default: 503. Valid: x200, x400, x403, x405, x408, x429, x500, x502, x503, x504.
+	Content     string `json:"content"` // Required.
 }
 
 // Mapfile represents a mapfile model item.
 type Mapfile struct {
-	Id string `json:"id"` // Required.
-	Name string `json:"name"` // Required.
+	Id          string `json:"id"`   // Required.
+	Name        string `json:"name"` // Required.
 	Description string `json:"description,omitempty"`
-	Type string `json:"type"` // Required. Default: dom. Valid: beg, dom, end, int, ip, reg, str, sub.
-	Content string `json:"content,omitempty"`
-	Url string `json:"url,omitempty"`
+	Type        string `json:"type"` // Required. Default: dom. Valid: beg, dom, end, int, ip, reg, str, sub.
+	Content     string `json:"content,omitempty"`
+	Url         string `json:"url,omitempty"`
 }
 
 // Group represents a group model item.
 type Group struct {
-	Id string `json:"id"` // Required.
-	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
-	Name string `json:"name"` // Required.
-	Description string `json:"description,omitempty"`
-	Members string `json:"members,omitempty"`
+	Id          string            `json:"id"`      // Required.
+	Enabled     opnsense.OPNBool  `json:"enabled"` // Required. Default: 1.
+	Name        string            `json:"name"`    // Required.
+	Description string            `json:"description,omitempty"`
+	Members     string            `json:"members,omitempty"`
 	AddUserlist *opnsense.OPNBool `json:"add_userlist,omitempty"` // Default: 0.
 }
 
 // User represents a user model item.
 type User struct {
-	Id string `json:"id"` // Required.
-	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
-	Name string `json:"name"` // Required.
-	Description string `json:"description,omitempty"`
-	Password string `json:"password"` // Required.
+	Id          string           `json:"id"`      // Required.
+	Enabled     opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
+	Name        string           `json:"name"`    // Required.
+	Description string           `json:"description,omitempty"`
+	Password    string           `json:"password"` // Required.
 }
 
 // Cpu represents a cpu model item.
 type Cpu struct {
-	Id string `json:"id"` // Required.
-	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
-	Name string `json:"name"` // Required.
-	ThreadId string `json:"thread_id"` // Required. Valid: all, odd, even, x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x11, x12, x13, x14, x15, x16, x17, x18, x19, x20, x21, x22, x23, x24, x25, x26, x27, x28, x29, x30, x31, x32, x33, x34, x35, x36, x37, x38, x39, x40, x41, x42, x43, x44, x45, x46, x47, x48, x49, x50, x51, x52, x53, x54, x55, x56, x57, x58, x59, x60, x61, x62, x63.
-	CpuId string `json:"cpu_id"` // Required. Valid: all, odd, even, x0, x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x11, x12, x13, x14, x15, x16, x17, x18, x19, x20, x21, x22, x23, x24, x25, x26, x27, x28, x29, x30, x31, x32, x33, x34, x35, x36, x37, x38, x39, x40, x41, x42, x43, x44, x45, x46, x47, x48, x49, x50, x51, x52, x53, x54, x55, x56, x57, x58, x59, x60, x61, x62, x63.
+	Id       string           `json:"id"`        // Required.
+	Enabled  opnsense.OPNBool `json:"enabled"`   // Required. Default: 1.
+	Name     string           `json:"name"`      // Required.
+	ThreadId string           `json:"thread_id"` // Required. Valid: all, odd, even, x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x11, x12, x13, x14, x15, x16, x17, x18, x19, x20, x21, x22, x23, x24, x25, x26, x27, x28, x29, x30, x31, x32, x33, x34, x35, x36, x37, x38, x39, x40, x41, x42, x43, x44, x45, x46, x47, x48, x49, x50, x51, x52, x53, x54, x55, x56, x57, x58, x59, x60, x61, x62, x63.
+	CpuId    string           `json:"cpu_id"`    // Required. Valid: all, odd, even, x0, x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x11, x12, x13, x14, x15, x16, x17, x18, x19, x20, x21, x22, x23, x24, x25, x26, x27, x28, x29, x30, x31, x32, x33, x34, x35, x36, x37, x38, x39, x40, x41, x42, x43, x44, x45, x46, x47, x48, x49, x50, x51, x52, x53, x54, x55, x56, x57, x58, x59, x60, x61, x62, x63.
 }
 
 // Resolver represents a resolver model item.
 type Resolver struct {
-	Id string `json:"id"` // Required.
-	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
-	Name string `json:"name"` // Required.
-	Description string `json:"description,omitempty"`
-	Nameservers string `json:"nameservers,omitempty"`
-	ParseResolvConf opnsense.OPNBool `json:"parse_resolv_conf"` // Required. Default: 0.
-	ResolveRetries *opnsense.OPNInt `json:"resolve_retries,omitempty"` // Default: 3.
-	TimeoutResolve string `json:"timeout_resolve,omitempty"` // Default: 1s.
-	TimeoutRetry string `json:"timeout_retry,omitempty"` // Default: 1s.
+	Id                  string           `json:"id"`      // Required.
+	Enabled             opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
+	Name                string           `json:"name"`    // Required.
+	Description         string           `json:"description,omitempty"`
+	Nameservers         string           `json:"nameservers,omitempty"`
+	ParseResolvConf     opnsense.OPNBool `json:"parse_resolv_conf"`         // Required. Default: 0.
+	ResolveRetries      *opnsense.OPNInt `json:"resolve_retries,omitempty"` // Default: 3.
+	TimeoutResolve      string           `json:"timeout_resolve,omitempty"` // Default: 1s.
+	TimeoutRetry        string           `json:"timeout_retry,omitempty"`   // Default: 1s.
 	AcceptedPayloadSize *opnsense.OPNInt `json:"accepted_payload_size,omitempty"`
-	HoldValid string `json:"hold_valid,omitempty"`
-	HoldObsolete string `json:"hold_obsolete,omitempty"`
-	HoldRefused string `json:"hold_refused,omitempty"`
-	HoldNx string `json:"hold_nx,omitempty"`
-	HoldTimeout string `json:"hold_timeout,omitempty"`
-	HoldOther string `json:"hold_other,omitempty"`
+	HoldValid           string           `json:"hold_valid,omitempty"`
+	HoldObsolete        string           `json:"hold_obsolete,omitempty"`
+	HoldRefused         string           `json:"hold_refused,omitempty"`
+	HoldNx              string           `json:"hold_nx,omitempty"`
+	HoldTimeout         string           `json:"hold_timeout,omitempty"`
+	HoldOther           string           `json:"hold_other,omitempty"`
 }
 
 // Mailer represents a mailer model item.
 type Mailer struct {
-	Id string `json:"id"` // Required.
-	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
-	Name string `json:"name"` // Required.
-	Description string `json:"description,omitempty"`
-	Mailservers string `json:"mailservers"` // Required.
-	Sender string `json:"sender"` // Required.
-	Recipient string `json:"recipient"` // Required.
-	Loglevel string `json:"loglevel"` // Required. Default: alert. Valid: emerg, alert, crit, err, warning, notice, info, debug.
-	Timeout string `json:"timeout"` // Required. Default: 30.
-	Hostname string `json:"hostname,omitempty"`
+	Id          string           `json:"id"`      // Required.
+	Enabled     opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
+	Name        string           `json:"name"`    // Required.
+	Description string           `json:"description,omitempty"`
+	Mailservers string           `json:"mailservers"` // Required.
+	Sender      string           `json:"sender"`      // Required.
+	Recipient   string           `json:"recipient"`   // Required.
+	Loglevel    string           `json:"loglevel"`    // Required. Default: alert. Valid: emerg, alert, crit, err, warning, notice, info, debug.
+	Timeout     string           `json:"timeout"`     // Required. Default: 30.
+	Hostname    string           `json:"hostname,omitempty"`
 }
 
 // Cronjobs represents a cronjobs model item.
 type Cronjobs struct {
-	SyncCerts *opnsense.OPNBool `json:"syncCerts,omitempty"` // Default: 0.
-	SyncCertsCron string `json:"syncCertsCron,omitempty"`
-	UpdateOcsp *opnsense.OPNBool `json:"updateOcsp,omitempty"` // Default: 0.
-	UpdateOcspCron string `json:"updateOcspCron,omitempty"`
-	ReloadService *opnsense.OPNBool `json:"reloadService,omitempty"` // Default: 0.
-	ReloadServiceCron string `json:"reloadServiceCron,omitempty"`
-	RestartService *opnsense.OPNBool `json:"restartService,omitempty"` // Default: 0.
-	RestartServiceCron string `json:"restartServiceCron,omitempty"`
+	SyncCerts          *opnsense.OPNBool `json:"syncCerts,omitempty"` // Default: 0.
+	SyncCertsCron      string            `json:"syncCertsCron,omitempty"`
+	UpdateOcsp         *opnsense.OPNBool `json:"updateOcsp,omitempty"` // Default: 0.
+	UpdateOcspCron     string            `json:"updateOcspCron,omitempty"`
+	ReloadService      *opnsense.OPNBool `json:"reloadService,omitempty"` // Default: 0.
+	ReloadServiceCron  string            `json:"reloadServiceCron,omitempty"`
+	RestartService     *opnsense.OPNBool `json:"restartService,omitempty"` // Default: 0.
+	RestartServiceCron string            `json:"restartServiceCron,omitempty"`
 }
 
 type aclGetItemResponse struct {

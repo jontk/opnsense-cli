@@ -20,57 +20,57 @@ func NewClient(c *opnsense.Client) *Client {
 }
 
 // InstanceGet calls GET /api/iperf/instance/get
-func (c *Client) InstanceGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) InstanceGet(ctx context.Context) (any, error) {
 	path := "/api/iperf/instance/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // InstanceQuery calls GET /api/iperf/instance/query
-func (c *Client) InstanceQuery(ctx context.Context) (map[string]any, error) {
+func (c *Client) InstanceQuery(ctx context.Context) (any, error) {
 	path := "/api/iperf/instance/query"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // InstanceSet calls POST /api/iperf/instance/set
-func (c *Client) InstanceSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) InstanceSet(ctx context.Context, body any) (any, error) {
 	path := "/api/iperf/instance/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceRestart calls GET /api/iperf/service/restart
-func (c *Client) ServiceRestart(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceRestart(ctx context.Context) (any, error) {
 	path := "/api/iperf/service/restart"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ServiceStart calls GET /api/iperf/service/start
-func (c *Client) ServiceStart(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceStart(ctx context.Context) (any, error) {
 	path := "/api/iperf/service/start"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ServiceStatus calls GET /api/iperf/service/status
-func (c *Client) ServiceStatus(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceStatus(ctx context.Context) (any, error) {
 	path := "/api/iperf/service/status"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ServiceStop calls GET /api/iperf/service/stop
-func (c *Client) ServiceStop(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceStop(ctx context.Context) (any, error) {
 	path := "/api/iperf/service/stop"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }

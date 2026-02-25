@@ -7,7 +7,7 @@ import "github.com/jontk/opnsense-cli/opnsense"
 // General represents a general model item.
 type General struct {
 	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 0.
-	BanTtl opnsense.OPNInt `json:"ban_ttl"` // Required. Default: 4320.
+	BanTtl  opnsense.OPNInt  `json:"ban_ttl"` // Required. Default: 4320.
 }
 
 // Webgui represents a webgui model item.
@@ -17,25 +17,25 @@ type Webgui struct {
 
 // Http represents a http model item.
 type Http struct {
-	Workerprocesses opnsense.OPNInt `json:"workerprocesses"` // Required. Default: 1.
-	Workerconnections opnsense.OPNInt `json:"workerconnections"` // Required. Default: 1024.
-	Sendfile *opnsense.OPNBool `json:"sendfile,omitempty"`
-	KeepaliveTimeout *opnsense.OPNInt `json:"keepalive_timeout,omitempty"`
-	ResetTimedout opnsense.OPNBool `json:"reset_timedout"` // Required. Default: 0.
-	DefaultType string `json:"default_type,omitempty"`
-	ServerNamesHashBucketSize *opnsense.OPNInt `json:"server_names_hash_bucket_size,omitempty"`
-	ServerNamesHashMaxSize *opnsense.OPNInt `json:"server_names_hash_max_size,omitempty"`
-	VariablesHashMaxSize *opnsense.OPNInt `json:"variables_hash_max_size,omitempty"`
-	VariablesHashBucketSize *opnsense.OPNInt `json:"variables_hash_bucket_size,omitempty"`
-	BanResponse string `json:"ban_response"` // Required. Default: 403. Valid: http_403, http_444.
-	LogPermBan opnsense.OPNBool `json:"log_perm_ban"` // Required. Default: 0.
-	BotsUa string `json:"bots_ua"` // Required. Default: Python-urllib,Nmap,python-requests,libwww-perl,MJ12bot,Jorgee,fasthttp,libwww,Telesphoreo,A6-Indexer,ltx71,okhttp,ZmEu,sqlmap,LMAO/2.0,l9explore,l9tcpid,Masscan,zgrab,Ronin/2.0,Hakai/2.0,Indy\sLibrary,^Mozilla/[\d\.]+$,Morfeus\sFucking\sScanner,MSIE\s[0-6]\.\d+.
-	HeadersMoreEnable *opnsense.OPNBool `json:"headers_more_enable,omitempty"`
+	Workerprocesses           opnsense.OPNInt   `json:"workerprocesses"`   // Required. Default: 1.
+	Workerconnections         opnsense.OPNInt   `json:"workerconnections"` // Required. Default: 1024.
+	Sendfile                  *opnsense.OPNBool `json:"sendfile,omitempty"`
+	KeepaliveTimeout          *opnsense.OPNInt  `json:"keepalive_timeout,omitempty"`
+	ResetTimedout             opnsense.OPNBool  `json:"reset_timedout"` // Required. Default: 0.
+	DefaultType               string            `json:"default_type,omitempty"`
+	ServerNamesHashBucketSize *opnsense.OPNInt  `json:"server_names_hash_bucket_size,omitempty"`
+	ServerNamesHashMaxSize    *opnsense.OPNInt  `json:"server_names_hash_max_size,omitempty"`
+	VariablesHashMaxSize      *opnsense.OPNInt  `json:"variables_hash_max_size,omitempty"`
+	VariablesHashBucketSize   *opnsense.OPNInt  `json:"variables_hash_bucket_size,omitempty"`
+	BanResponse               string            `json:"ban_response"` // Required. Default: 403. Valid: http_403, http_444.
+	LogPermBan                opnsense.OPNBool  `json:"log_perm_ban"` // Required. Default: 0.
+	BotsUa                    string            `json:"bots_ua"`      // Required. Default: Python-urllib,Nmap,python-requests,libwww-perl,MJ12bot,Jorgee,fasthttp,libwww,Telesphoreo,A6-Indexer,ltx71,okhttp,ZmEu,sqlmap,LMAO/2.0,l9explore,l9tcpid,Masscan,zgrab,Ronin/2.0,Hakai/2.0,Indy\sLibrary,^Mozilla/[\d\.]+$,Morfeus\sFucking\sScanner,MSIE\s[0-6]\.\d+.
+	HeadersMoreEnable         *opnsense.OPNBool `json:"headers_more_enable,omitempty"`
 }
 
 // Userlist represents a userlist model item.
 type Userlist struct {
-	Name string `json:"name"` // Required.
+	Name  string `json:"name"`  // Required.
 	Users string `json:"users"` // Required.
 }
 
@@ -47,205 +47,205 @@ type Credential struct {
 
 // Upstream represents a upstream model item.
 type Upstream struct {
-	Description string `json:"description"` // Required.
-	Serverentries string `json:"serverentries"` // Required.
-	LoadBalancingAlgorithm string `json:"load_balancing_algorithm,omitempty"` // Valid: ip_hash.
-	Keepalive *opnsense.OPNInt `json:"keepalive,omitempty"`
-	KeepaliveRequests *opnsense.OPNInt `json:"keepalive_requests,omitempty"`
-	KeepaliveTimeout *opnsense.OPNInt `json:"keepalive_timeout,omitempty"`
-	HostPort *opnsense.OPNInt `json:"host_port,omitempty"`
+	Description            string           `json:"description"`                        // Required.
+	Serverentries          string           `json:"serverentries"`                      // Required.
+	LoadBalancingAlgorithm string           `json:"load_balancing_algorithm,omitempty"` // Valid: ip_hash.
+	Keepalive              *opnsense.OPNInt `json:"keepalive,omitempty"`
+	KeepaliveRequests      *opnsense.OPNInt `json:"keepalive_requests,omitempty"`
+	KeepaliveTimeout       *opnsense.OPNInt `json:"keepalive_timeout,omitempty"`
+	HostPort               *opnsense.OPNInt `json:"host_port,omitempty"`
 	XForwardedHostVerbatim opnsense.OPNBool `json:"x_forwarded_host_verbatim"` // Required. Default: 0.
-	ProxyProtocol opnsense.OPNBool `json:"proxy_protocol"` // Required. Default: 0.
-	Store opnsense.OPNBool `json:"store"` // Required. Default: 0.
-	TlsEnable opnsense.OPNBool `json:"tls_enable"` // Required. Default: 0.
-	TlsClientCertificate string `json:"tls_client_certificate,omitempty"`
-	TlsNameOverride string `json:"tls_name_override,omitempty"`
-	TlsProtocolVersions string `json:"tls_protocol_versions,omitempty"` // Valid: TLSv1, TLSv1_1, TLSv1_2, TLSv1_3.
-	TlsSessionReuse opnsense.OPNBool `json:"tls_session_reuse"` // Required. Default: 1.
-	TlsTrustedCertificate string `json:"tls_trusted_certificate,omitempty"`
-	TlsVerify opnsense.OPNBool `json:"tls_verify"` // Required. Default: 1.
-	TlsVerifyDepth *opnsense.OPNInt `json:"tls_verify_depth,omitempty"`
+	ProxyProtocol          opnsense.OPNBool `json:"proxy_protocol"`            // Required. Default: 0.
+	Store                  opnsense.OPNBool `json:"store"`                     // Required. Default: 0.
+	TlsEnable              opnsense.OPNBool `json:"tls_enable"`                // Required. Default: 0.
+	TlsClientCertificate   string           `json:"tls_client_certificate,omitempty"`
+	TlsNameOverride        string           `json:"tls_name_override,omitempty"`
+	TlsProtocolVersions    string           `json:"tls_protocol_versions,omitempty"` // Valid: TLSv1, TLSv1_1, TLSv1_2, TLSv1_3.
+	TlsSessionReuse        opnsense.OPNBool `json:"tls_session_reuse"`               // Required. Default: 1.
+	TlsTrustedCertificate  string           `json:"tls_trusted_certificate,omitempty"`
+	TlsVerify              opnsense.OPNBool `json:"tls_verify"` // Required. Default: 1.
+	TlsVerifyDepth         *opnsense.OPNInt `json:"tls_verify_depth,omitempty"`
 }
 
 // UpstreamServer represents a upstream_server model item.
 type UpstreamServer struct {
-	Description string `json:"description"` // Required.
-	Server string `json:"server"` // Required.
-	Port string `json:"port"` // Required.
-	Priority opnsense.OPNInt `json:"priority"` // Required.
-	MaxConns *opnsense.OPNInt `json:"max_conns,omitempty"`
-	MaxFails *opnsense.OPNInt `json:"max_fails,omitempty"`
+	Description string           `json:"description"` // Required.
+	Server      string           `json:"server"`      // Required.
+	Port        string           `json:"port"`        // Required.
+	Priority    opnsense.OPNInt  `json:"priority"`    // Required.
+	MaxConns    *opnsense.OPNInt `json:"max_conns,omitempty"`
+	MaxFails    *opnsense.OPNInt `json:"max_fails,omitempty"`
 	FailTimeout *opnsense.OPNInt `json:"fail_timeout,omitempty"`
-	NoUse string `json:"no_use,omitempty"` // Valid: down, backup.
+	NoUse       string           `json:"no_use,omitempty"` // Valid: down, backup.
 }
 
 // Location represents a location model item.
 type Location struct {
-	Description string `json:"description"` // Required.
-	Urlpattern string `json:"urlpattern"` // Required.
-	Matchtype string `json:"matchtype,omitempty"` // Valid: option1, option2, option3, option4.
-	EnableSecrules opnsense.OPNBool `json:"enable_secrules"` // Required. Default: 0.
-	EnableLearningMode opnsense.OPNBool `json:"enable_learning_mode"` // Required. Default: 0.
-	SecrulesErrorpage string `json:"secrules_errorpage,omitempty"`
-	XssBlockScore *opnsense.OPNInt `json:"xss_block_score,omitempty"`
-	SqliBlockScore *opnsense.OPNInt `json:"sqli_block_score,omitempty"`
-	CustomPolicy string `json:"custom_policy,omitempty"`
-	Upstream string `json:"upstream,omitempty"`
-	PathPrefix string `json:"path_prefix,omitempty"`
-	CachePath string `json:"cache_path,omitempty"`
-	CacheUseStale string `json:"cache_use_stale,omitempty"` // Valid: error, timeout, invalid_header, updating, http_403, http_404, http_429, http_500, http_502, http_503, http_504.
-	CacheMethods string `json:"cache_methods,omitempty"` // Valid: POST.
-	CacheMinUses opnsense.OPNInt `json:"cache_min_uses"` // Required. Default: 1.
-	CacheValid *opnsense.OPNInt `json:"cache_valid,omitempty"`
-	ProxyCacheValid string `json:"proxy_cache_valid,omitempty"`
-	CacheBackgroundUpdate opnsense.OPNBool `json:"cache_background_update"` // Required. Default: 0.
-	CacheLock opnsense.OPNBool `json:"cache_lock"` // Required. Default: 0.
-	CacheRevalidate opnsense.OPNBool `json:"cache_revalidate"` // Required. Default: 0.
-	Root string `json:"root,omitempty"`
-	Rewrites string `json:"rewrites,omitempty"`
-	Index string `json:"index,omitempty"`
-	Autoindex *opnsense.OPNBool `json:"autoindex,omitempty"`
-	Authbasic string `json:"authbasic,omitempty"`
-	Authbasicuserfile string `json:"authbasicuserfile,omitempty"`
-	AdvancedAcl opnsense.OPNBool `json:"advanced_acl"` // Required. Default: 0.
-	ForceHttps string `json:"force_https,omitempty"`
-	PhpEnable opnsense.OPNBool `json:"php_enable"` // Required. Default: 0.
-	PhpOverrideScriptname string `json:"php_override_scriptname,omitempty"`
-	LimitRequestConnections string `json:"limit_request_connections,omitempty"`
-	MaxBodySize string `json:"max_body_size,omitempty"`
-	BodyBufferSize string `json:"body_buffer_size,omitempty"`
-	Honeypot opnsense.OPNBool `json:"honeypot"` // Required. Default: 0.
-	Websocket opnsense.OPNBool `json:"websocket"` // Required. Default: 0.
-	UpstreamKeepalive opnsense.OPNBool `json:"upstream_keepalive"` // Required. Default: 0.
-	ProxyBufferSize *opnsense.OPNInt `json:"proxy_buffer_size,omitempty"`
-	ProxyBuffersCount *opnsense.OPNInt `json:"proxy_buffers_count,omitempty"`
-	ProxyBuffersSize *opnsense.OPNInt `json:"proxy_buffers_size,omitempty"`
-	ProxyBusyBuffersSize *opnsense.OPNInt `json:"proxy_busy_buffers_size,omitempty"`
-	ProxyIgnoreClientAbort opnsense.OPNBool `json:"proxy_ignore_client_abort"` // Required. Default: 0.
-	ProxyRequestBuffering opnsense.OPNBool `json:"proxy_request_buffering"` // Required. Default: 1.
-	ProxyBuffering opnsense.OPNBool `json:"proxy_buffering"` // Required. Default: 1.
-	ProxyReadTimeout *opnsense.OPNInt `json:"proxy_read_timeout,omitempty"`
-	ProxySendTimeout *opnsense.OPNInt `json:"proxy_send_timeout,omitempty"`
-	IpAcl string `json:"ip_acl,omitempty"`
-	Satisfy string `json:"satisfy,omitempty"` // Valid: any, all.
-	ProxyMaxTempFileSize *opnsense.OPNInt `json:"proxy_max_temp_file_size,omitempty"`
-	ProxySslServerName opnsense.OPNBool `json:"proxy_ssl_server_name"` // Required. Default: 0.
-	Errorpages string `json:"errorpages,omitempty"`
-	ProxyInterceptErrors string `json:"proxy_intercept_errors"` // Required. Default: Inherit. Valid: Inherit, on, off.
+	Description             string            `json:"description"`          // Required.
+	Urlpattern              string            `json:"urlpattern"`           // Required.
+	Matchtype               string            `json:"matchtype,omitempty"`  // Valid: option1, option2, option3, option4.
+	EnableSecrules          opnsense.OPNBool  `json:"enable_secrules"`      // Required. Default: 0.
+	EnableLearningMode      opnsense.OPNBool  `json:"enable_learning_mode"` // Required. Default: 0.
+	SecrulesErrorpage       string            `json:"secrules_errorpage,omitempty"`
+	XssBlockScore           *opnsense.OPNInt  `json:"xss_block_score,omitempty"`
+	SqliBlockScore          *opnsense.OPNInt  `json:"sqli_block_score,omitempty"`
+	CustomPolicy            string            `json:"custom_policy,omitempty"`
+	Upstream                string            `json:"upstream,omitempty"`
+	PathPrefix              string            `json:"path_prefix,omitempty"`
+	CachePath               string            `json:"cache_path,omitempty"`
+	CacheUseStale           string            `json:"cache_use_stale,omitempty"` // Valid: error, timeout, invalid_header, updating, http_403, http_404, http_429, http_500, http_502, http_503, http_504.
+	CacheMethods            string            `json:"cache_methods,omitempty"`   // Valid: POST.
+	CacheMinUses            opnsense.OPNInt   `json:"cache_min_uses"`            // Required. Default: 1.
+	CacheValid              *opnsense.OPNInt  `json:"cache_valid,omitempty"`
+	ProxyCacheValid         string            `json:"proxy_cache_valid,omitempty"`
+	CacheBackgroundUpdate   opnsense.OPNBool  `json:"cache_background_update"` // Required. Default: 0.
+	CacheLock               opnsense.OPNBool  `json:"cache_lock"`              // Required. Default: 0.
+	CacheRevalidate         opnsense.OPNBool  `json:"cache_revalidate"`        // Required. Default: 0.
+	Root                    string            `json:"root,omitempty"`
+	Rewrites                string            `json:"rewrites,omitempty"`
+	Index                   string            `json:"index,omitempty"`
+	Autoindex               *opnsense.OPNBool `json:"autoindex,omitempty"`
+	Authbasic               string            `json:"authbasic,omitempty"`
+	Authbasicuserfile       string            `json:"authbasicuserfile,omitempty"`
+	AdvancedAcl             opnsense.OPNBool  `json:"advanced_acl"` // Required. Default: 0.
+	ForceHttps              string            `json:"force_https,omitempty"`
+	PhpEnable               opnsense.OPNBool  `json:"php_enable"` // Required. Default: 0.
+	PhpOverrideScriptname   string            `json:"php_override_scriptname,omitempty"`
+	LimitRequestConnections string            `json:"limit_request_connections,omitempty"`
+	MaxBodySize             string            `json:"max_body_size,omitempty"`
+	BodyBufferSize          string            `json:"body_buffer_size,omitempty"`
+	Honeypot                opnsense.OPNBool  `json:"honeypot"`           // Required. Default: 0.
+	Websocket               opnsense.OPNBool  `json:"websocket"`          // Required. Default: 0.
+	UpstreamKeepalive       opnsense.OPNBool  `json:"upstream_keepalive"` // Required. Default: 0.
+	ProxyBufferSize         *opnsense.OPNInt  `json:"proxy_buffer_size,omitempty"`
+	ProxyBuffersCount       *opnsense.OPNInt  `json:"proxy_buffers_count,omitempty"`
+	ProxyBuffersSize        *opnsense.OPNInt  `json:"proxy_buffers_size,omitempty"`
+	ProxyBusyBuffersSize    *opnsense.OPNInt  `json:"proxy_busy_buffers_size,omitempty"`
+	ProxyIgnoreClientAbort  opnsense.OPNBool  `json:"proxy_ignore_client_abort"` // Required. Default: 0.
+	ProxyRequestBuffering   opnsense.OPNBool  `json:"proxy_request_buffering"`   // Required. Default: 1.
+	ProxyBuffering          opnsense.OPNBool  `json:"proxy_buffering"`           // Required. Default: 1.
+	ProxyReadTimeout        *opnsense.OPNInt  `json:"proxy_read_timeout,omitempty"`
+	ProxySendTimeout        *opnsense.OPNInt  `json:"proxy_send_timeout,omitempty"`
+	IpAcl                   string            `json:"ip_acl,omitempty"`
+	Satisfy                 string            `json:"satisfy,omitempty"` // Valid: any, all.
+	ProxyMaxTempFileSize    *opnsense.OPNInt  `json:"proxy_max_temp_file_size,omitempty"`
+	ProxySslServerName      opnsense.OPNBool  `json:"proxy_ssl_server_name"` // Required. Default: 0.
+	Errorpages              string            `json:"errorpages,omitempty"`
+	ProxyInterceptErrors    string            `json:"proxy_intercept_errors"` // Required. Default: Inherit. Valid: Inherit, on, off.
 }
 
 // CustomPolicy represents a custom_policy model item.
 type CustomPolicy struct {
-	Name string `json:"name"` // Required.
-	NaxsiRules string `json:"naxsi_rules"` // Required.
-	Value opnsense.OPNInt `json:"value"` // Required.
-	Operator string `json:"operator"` // Required. Default: >=. Valid: option1, option2, option3, option4.
-	Action string `json:"action"` // Required. Default: BLOCK. Valid: BLOCK, ALLOW, DROP, LOG.
+	Name       string          `json:"name"`        // Required.
+	NaxsiRules string          `json:"naxsi_rules"` // Required.
+	Value      opnsense.OPNInt `json:"value"`       // Required.
+	Operator   string          `json:"operator"`    // Required. Default: >=. Valid: option1, option2, option3, option4.
+	Action     string          `json:"action"`      // Required. Default: BLOCK. Valid: BLOCK, ALLOW, DROP, LOG.
 }
 
 // NaxsiRule represents a naxsi_rule model item.
 type NaxsiRule struct {
-	Description string `json:"description"` // Required.
-	Ruletype string `json:"ruletype"` // Required. Valid: main, basic.
-	Message string `json:"message,omitempty"`
-	Identifier string `json:"identifier"` // Required.
-	DollarUrl string `json:"dollar_url,omitempty"`
-	MatchValue string `json:"match_value,omitempty"`
-	MatchType string `json:"match_type"` // Required. Default: id. Valid: id, wl.
-	Negate opnsense.OPNBool `json:"negate"` // Required.
-	Score *opnsense.OPNInt `json:"score,omitempty"`
-	Regex opnsense.OPNBool `json:"regex"` // Required.
-	Args opnsense.OPNBool `json:"args"` // Required.
-	Url opnsense.OPNBool `json:"url"` // Required. Default: 0.
-	Headers opnsense.OPNBool `json:"headers"` // Required.
-	Body opnsense.OPNBool `json:"body"` // Required. Default: 0.
-	DollarArgsVar string `json:"dollar_args_var,omitempty"`
-	DollarBodyVar string `json:"dollar_body_var,omitempty"`
-	DollarHeadersVar string `json:"dollar_headers_var,omitempty"`
-	FileExtension opnsense.OPNBool `json:"file_extension"` // Required.
-	RawBody opnsense.OPNBool `json:"raw_body"` // Required.
-	Name opnsense.OPNBool `json:"name"` // Required.
+	Description      string           `json:"description"` // Required.
+	Ruletype         string           `json:"ruletype"`    // Required. Valid: main, basic.
+	Message          string           `json:"message,omitempty"`
+	Identifier       string           `json:"identifier"` // Required.
+	DollarUrl        string           `json:"dollar_url,omitempty"`
+	MatchValue       string           `json:"match_value,omitempty"`
+	MatchType        string           `json:"match_type"` // Required. Default: id. Valid: id, wl.
+	Negate           opnsense.OPNBool `json:"negate"`     // Required.
+	Score            *opnsense.OPNInt `json:"score,omitempty"`
+	Regex            opnsense.OPNBool `json:"regex"`   // Required.
+	Args             opnsense.OPNBool `json:"args"`    // Required.
+	Url              opnsense.OPNBool `json:"url"`     // Required. Default: 0.
+	Headers          opnsense.OPNBool `json:"headers"` // Required.
+	Body             opnsense.OPNBool `json:"body"`    // Required. Default: 0.
+	DollarArgsVar    string           `json:"dollar_args_var,omitempty"`
+	DollarBodyVar    string           `json:"dollar_body_var,omitempty"`
+	DollarHeadersVar string           `json:"dollar_headers_var,omitempty"`
+	FileExtension    opnsense.OPNBool `json:"file_extension"` // Required.
+	RawBody          opnsense.OPNBool `json:"raw_body"`       // Required.
+	Name             opnsense.OPNBool `json:"name"`           // Required.
 }
 
 // HttpServer represents a http_server model item.
 type HttpServer struct {
-	Servername string `json:"servername"` // Required.
-	SyslogTargets string `json:"syslog_targets,omitempty"`
-	ListenHttpAddress string `json:"listen_http_address,omitempty"`
-	ListenHttpsAddress string `json:"listen_https_address,omitempty"`
-	DefaultServer opnsense.OPNBool `json:"default_server"` // Required. Default: 0.
-	TlsRejectHandshake opnsense.OPNBool `json:"tls_reject_handshake"` // Required. Default: 0.
-	ProxyProtocol opnsense.OPNBool `json:"proxy_protocol"` // Required. Default: 0.
-	TrustedProxies string `json:"trusted_proxies,omitempty"`
-	TrustedProxiesAlias string `json:"trusted_proxies_alias,omitempty"`
-	RealIpSource string `json:"real_ip_source,omitempty"` // Valid: X-Real-IP, X-Forwarded-For, proxy_protocol, CF-Connecting-IP.
-	Locations string `json:"locations,omitempty"`
-	Rewrites string `json:"rewrites,omitempty"`
-	Root string `json:"root,omitempty"`
-	Certificate string `json:"certificate,omitempty"`
-	Ca string `json:"ca,omitempty"`
-	VerifyClient string `json:"verify_client"` // Required. Default: Off. Valid: off, on, optional, optional_no_ca.
-	AccessLogFormat string `json:"access_log_format"` // Required. Default: main. Valid: main, main_ext, anonymized, disabled.
-	ErrorLogLevel string `json:"error_log_level"` // Required. Default: error. Valid: emerg, alert, crit, error, warn, notice, info.
-	LogHandshakes opnsense.OPNBool `json:"log_handshakes"` // Required. Default: 1.
-	EnableAcmeSupport opnsense.OPNBool `json:"enable_acme_support"` // Required. Default: 1.
-	Charset string `json:"charset,omitempty"` // Valid: utf-8.
-	HttpsOnly opnsense.OPNBool `json:"https_only"` // Required. Default: 0.
-	Http2 opnsense.OPNBool `json:"http2"` // Required. Default: 1.
-	EnableHttp3 opnsense.OPNBool `json:"enable_http3"` // Required. Default: 0.
-	TlsProtocols string `json:"tls_protocols"` // Required. Default: TLSv1.2,TLSv1.3. Valid: TLSv1_2, TLSv1_3.
-	TlsCiphers string `json:"tls_ciphers,omitempty"`
-	TlsEcdhCurve string `json:"tls_ecdh_curve,omitempty"`
-	TlsPreferServerCiphers opnsense.OPNBool `json:"tls_prefer_server_ciphers"` // Required. Default: 1.
-	Resolver string `json:"resolver,omitempty"`
-	OcspStapling opnsense.OPNBool `json:"ocsp_stapling"` // Required. Default: 0.
-	OcspVerify opnsense.OPNBool `json:"ocsp_verify"` // Required. Default: 0.
-	BlockNonpublicData opnsense.OPNBool `json:"block_nonpublic_data"` // Required. Default: 0.
-	DisableBotProtection opnsense.OPNBool `json:"disable_bot_protection"` // Required. Default: 0.
-	DisableGzip opnsense.OPNBool `json:"disable_gzip"` // Required. Default: 0.
-	NaxsiWhitelistSrcip string `json:"naxsi_whitelist_srcip,omitempty"`
-	NaxsiExtensiveLog opnsense.OPNBool `json:"naxsi_extensive_log"` // Required. Default: 0.
-	Sendfile opnsense.OPNBool `json:"sendfile"` // Required. Default: 1.
-	ClientHeaderBufferSize opnsense.OPNInt `json:"client_header_buffer_size"` // Required. Default: 1.
-	LargeClientHeaderBuffersNumber opnsense.OPNInt `json:"large_client_header_buffers_number"` // Required. Default: 4.
-	LargeClientHeaderBuffersSize opnsense.OPNInt `json:"large_client_header_buffers_size"` // Required. Default: 8.
-	SecurityHeader string `json:"security_header,omitempty"`
-	LimitRequestConnections string `json:"limit_request_connections,omitempty"`
-	MaxBodySize string `json:"max_body_size,omitempty"`
-	BodyBufferSize string `json:"body_buffer_size,omitempty"`
-	IpAcl string `json:"ip_acl,omitempty"`
-	AdvancedAclServer string `json:"advanced_acl_server,omitempty"`
-	Satisfy string `json:"satisfy,omitempty"` // Valid: any, all.
-	ZeroRtt opnsense.OPNBool `json:"zero_rtt"` // Required. Default: 0.
-	Errorpages string `json:"errorpages,omitempty"`
-	ProxyInterceptErrors opnsense.OPNBool `json:"proxy_intercept_errors"` // Required. Default: 0.
+	Servername                     string           `json:"servername"` // Required.
+	SyslogTargets                  string           `json:"syslog_targets,omitempty"`
+	ListenHttpAddress              string           `json:"listen_http_address,omitempty"`
+	ListenHttpsAddress             string           `json:"listen_https_address,omitempty"`
+	DefaultServer                  opnsense.OPNBool `json:"default_server"`       // Required. Default: 0.
+	TlsRejectHandshake             opnsense.OPNBool `json:"tls_reject_handshake"` // Required. Default: 0.
+	ProxyProtocol                  opnsense.OPNBool `json:"proxy_protocol"`       // Required. Default: 0.
+	TrustedProxies                 string           `json:"trusted_proxies,omitempty"`
+	TrustedProxiesAlias            string           `json:"trusted_proxies_alias,omitempty"`
+	RealIpSource                   string           `json:"real_ip_source,omitempty"` // Valid: X-Real-IP, X-Forwarded-For, proxy_protocol, CF-Connecting-IP.
+	Locations                      string           `json:"locations,omitempty"`
+	Rewrites                       string           `json:"rewrites,omitempty"`
+	Root                           string           `json:"root,omitempty"`
+	Certificate                    string           `json:"certificate,omitempty"`
+	Ca                             string           `json:"ca,omitempty"`
+	VerifyClient                   string           `json:"verify_client"`       // Required. Default: Off. Valid: off, on, optional, optional_no_ca.
+	AccessLogFormat                string           `json:"access_log_format"`   // Required. Default: main. Valid: main, main_ext, anonymized, disabled.
+	ErrorLogLevel                  string           `json:"error_log_level"`     // Required. Default: error. Valid: emerg, alert, crit, error, warn, notice, info.
+	LogHandshakes                  opnsense.OPNBool `json:"log_handshakes"`      // Required. Default: 1.
+	EnableAcmeSupport              opnsense.OPNBool `json:"enable_acme_support"` // Required. Default: 1.
+	Charset                        string           `json:"charset,omitempty"`   // Valid: utf-8.
+	HttpsOnly                      opnsense.OPNBool `json:"https_only"`          // Required. Default: 0.
+	Http2                          opnsense.OPNBool `json:"http2"`               // Required. Default: 1.
+	EnableHttp3                    opnsense.OPNBool `json:"enable_http3"`        // Required. Default: 0.
+	TlsProtocols                   string           `json:"tls_protocols"`       // Required. Default: TLSv1.2,TLSv1.3. Valid: TLSv1_2, TLSv1_3.
+	TlsCiphers                     string           `json:"tls_ciphers,omitempty"`
+	TlsEcdhCurve                   string           `json:"tls_ecdh_curve,omitempty"`
+	TlsPreferServerCiphers         opnsense.OPNBool `json:"tls_prefer_server_ciphers"` // Required. Default: 1.
+	Resolver                       string           `json:"resolver,omitempty"`
+	OcspStapling                   opnsense.OPNBool `json:"ocsp_stapling"`          // Required. Default: 0.
+	OcspVerify                     opnsense.OPNBool `json:"ocsp_verify"`            // Required. Default: 0.
+	BlockNonpublicData             opnsense.OPNBool `json:"block_nonpublic_data"`   // Required. Default: 0.
+	DisableBotProtection           opnsense.OPNBool `json:"disable_bot_protection"` // Required. Default: 0.
+	DisableGzip                    opnsense.OPNBool `json:"disable_gzip"`           // Required. Default: 0.
+	NaxsiWhitelistSrcip            string           `json:"naxsi_whitelist_srcip,omitempty"`
+	NaxsiExtensiveLog              opnsense.OPNBool `json:"naxsi_extensive_log"`                // Required. Default: 0.
+	Sendfile                       opnsense.OPNBool `json:"sendfile"`                           // Required. Default: 1.
+	ClientHeaderBufferSize         opnsense.OPNInt  `json:"client_header_buffer_size"`          // Required. Default: 1.
+	LargeClientHeaderBuffersNumber opnsense.OPNInt  `json:"large_client_header_buffers_number"` // Required. Default: 4.
+	LargeClientHeaderBuffersSize   opnsense.OPNInt  `json:"large_client_header_buffers_size"`   // Required. Default: 8.
+	SecurityHeader                 string           `json:"security_header,omitempty"`
+	LimitRequestConnections        string           `json:"limit_request_connections,omitempty"`
+	MaxBodySize                    string           `json:"max_body_size,omitempty"`
+	BodyBufferSize                 string           `json:"body_buffer_size,omitempty"`
+	IpAcl                          string           `json:"ip_acl,omitempty"`
+	AdvancedAclServer              string           `json:"advanced_acl_server,omitempty"`
+	Satisfy                        string           `json:"satisfy,omitempty"` // Valid: any, all.
+	ZeroRtt                        opnsense.OPNBool `json:"zero_rtt"`          // Required. Default: 0.
+	Errorpages                     string           `json:"errorpages,omitempty"`
+	ProxyInterceptErrors           opnsense.OPNBool `json:"proxy_intercept_errors"` // Required. Default: 0.
 }
 
 // StreamServer represents a stream_server model item.
 type StreamServer struct {
-	ListenAddress string `json:"listen_address,omitempty"`
-	SyslogTargets string `json:"syslog_targets,omitempty"`
-	Udp opnsense.OPNBool `json:"udp"` // Required. Default: 0.
-	TrustedProxies string `json:"trusted_proxies,omitempty"`
-	ProxyProtocol opnsense.OPNBool `json:"proxy_protocol"` // Required. Default: 0.
-	Certificate string `json:"certificate,omitempty"`
-	Ca string `json:"ca,omitempty"`
-	VerifyClient string `json:"verify_client"` // Required. Default: Off. Valid: off, on, optional, optional_no_ca.
-	AccessLogFormat string `json:"access_log_format"` // Required. Default: main. Valid: main, main_ext, anonymized, disabled.
-	ErrorLogLevel string `json:"error_log_level"` // Required. Default: info. Valid: emerg, alert, crit, error, warn, notice, info.
-	RouteField string `json:"route_field"` // Required. Default: upstream. Valid: upstream, sni_upstream_map.
-	Upstream string `json:"upstream,omitempty"`
-	SniUpstreamMap string `json:"sni_upstream_map,omitempty"`
-	IpAcl string `json:"ip_acl,omitempty"`
-	ProxyResponses *opnsense.OPNInt `json:"proxy_responses,omitempty"`
+	ListenAddress       string           `json:"listen_address,omitempty"`
+	SyslogTargets       string           `json:"syslog_targets,omitempty"`
+	Udp                 opnsense.OPNBool `json:"udp"` // Required. Default: 0.
+	TrustedProxies      string           `json:"trusted_proxies,omitempty"`
+	ProxyProtocol       opnsense.OPNBool `json:"proxy_protocol"` // Required. Default: 0.
+	Certificate         string           `json:"certificate,omitempty"`
+	Ca                  string           `json:"ca,omitempty"`
+	VerifyClient        string           `json:"verify_client"`     // Required. Default: Off. Valid: off, on, optional, optional_no_ca.
+	AccessLogFormat     string           `json:"access_log_format"` // Required. Default: main. Valid: main, main_ext, anonymized, disabled.
+	ErrorLogLevel       string           `json:"error_log_level"`   // Required. Default: info. Valid: emerg, alert, crit, error, warn, notice, info.
+	RouteField          string           `json:"route_field"`       // Required. Default: upstream. Valid: upstream, sni_upstream_map.
+	Upstream            string           `json:"upstream,omitempty"`
+	SniUpstreamMap      string           `json:"sni_upstream_map,omitempty"`
+	IpAcl               string           `json:"ip_acl,omitempty"`
+	ProxyResponses      *opnsense.OPNInt `json:"proxy_responses,omitempty"`
 	ProxyConnectTimeout *opnsense.OPNInt `json:"proxy_connect_timeout,omitempty"`
-	ProxyTimeout *opnsense.OPNInt `json:"proxy_timeout,omitempty"`
+	ProxyTimeout        *opnsense.OPNInt `json:"proxy_timeout,omitempty"`
 }
 
 // SniHostnameUpstreamMap represents a sni_hostname_upstream_map model item.
 type SniHostnameUpstreamMap struct {
 	Description string `json:"description"` // Required.
-	Data string `json:"data"` // Required.
+	Data        string `json:"data"`        // Required.
 }
 
 // SniHostnameUpstreamMapItem represents a sni_hostname_upstream_map_item model item.
@@ -256,214 +256,214 @@ type SniHostnameUpstreamMapItem struct {
 
 // IpAcl represents a ip_acl model item.
 type IpAcl struct {
-	Description string `json:"description"` // Required.
-	Data string `json:"data"` // Required.
+	Description   string `json:"description"`              // Required.
+	Data          string `json:"data"`                     // Required.
 	DefaultAction string `json:"default_action,omitempty"` // Valid: deny, allow.
 }
 
 // IpAclItem represents a ip_acl_item model item.
 type IpAclItem struct {
 	Network string `json:"network"` // Required.
-	Action string `json:"action"` // Required. Default: deny. Valid: deny, allow.
+	Action  string `json:"action"`  // Required. Default: deny. Valid: deny, allow.
 }
 
 // Resolver represents a resolver model item.
 type Resolver struct {
-	Description string `json:"description"` // Required.
-	Address string `json:"address"` // Required.
-	Valid *opnsense.OPNInt `json:"valid,omitempty"`
-	Ipv4Off *opnsense.OPNBool `json:"ipv4_off,omitempty"`
-	Ipv6Off *opnsense.OPNBool `json:"ipv6_off,omitempty"`
-	Timeout *opnsense.OPNInt `json:"timeout,omitempty"`
+	Description string            `json:"description"` // Required.
+	Address     string            `json:"address"`     // Required.
+	Valid       *opnsense.OPNInt  `json:"valid,omitempty"`
+	Ipv4Off     *opnsense.OPNBool `json:"ipv4_off,omitempty"`
+	Ipv6Off     *opnsense.OPNBool `json:"ipv6_off,omitempty"`
+	Timeout     *opnsense.OPNInt  `json:"timeout,omitempty"`
 }
 
 // HttpRewrite represents a http_rewrite model item.
 type HttpRewrite struct {
-	Description string `json:"description"` // Required.
-	Source string `json:"source"` // Required.
-	Destination string `json:"destination"` // Required.
-	Flag string `json:"flag,omitempty"` // Valid: break, last, redirect, permanent.
+	Description string `json:"description"`    // Required.
+	Source      string `json:"source"`         // Required.
+	Destination string `json:"destination"`    // Required.
+	Flag        string `json:"flag,omitempty"` // Valid: break, last, redirect, permanent.
 }
 
 // SecurityHeader represents a security_header model item.
 type SecurityHeader struct {
-	Description string `json:"description"` // Required.
-	Referrer string `json:"referrer,omitempty"` // Valid: no-referrer, no-referrer-when-downgrade, same-origin, origin, strict-origin, strict-origin-when-cross-origin, origin-when-cross-origin, unsafe-url.
-	Xssprotection string `json:"xssprotection,omitempty"` // Valid: val1, val2, val3.
-	ContentTypeOptions opnsense.OPNBool `json:"content_type_options"` // Required.
-	StrictTransportSecurityTime *opnsense.OPNInt `json:"strict_transport_security_time,omitempty"`
+	Description                              string           `json:"description"`             // Required.
+	Referrer                                 string           `json:"referrer,omitempty"`      // Valid: no-referrer, no-referrer-when-downgrade, same-origin, origin, strict-origin, strict-origin-when-cross-origin, origin-when-cross-origin, unsafe-url.
+	Xssprotection                            string           `json:"xssprotection,omitempty"` // Valid: val1, val2, val3.
+	ContentTypeOptions                       opnsense.OPNBool `json:"content_type_options"`    // Required.
+	StrictTransportSecurityTime              *opnsense.OPNInt `json:"strict_transport_security_time,omitempty"`
 	StrictTransportSecurityIncludeSubdomains opnsense.OPNBool `json:"strict_transport_security_include_subdomains"` // Required. Default: 1.
-	StrictTransportSecurityPreload opnsense.OPNBool `json:"strict_transport_security_preload"` // Required. Default: 0.
-	EnableCsp opnsense.OPNBool `json:"enable_csp"` // Required.
-	CspLogViolations opnsense.OPNBool `json:"csp_log_violations"` // Required. Default: 0.
-	CspReportOnly opnsense.OPNBool `json:"csp_report_only"` // Required. Default: 0.
-	CspDefaultSrcEnabled opnsense.OPNBool `json:"csp_default_src_enabled"` // Required. Default: 0.
-	CspDefaultSrcDataUrls opnsense.OPNBool `json:"csp_default_src_data_urls"` // Required. Default: 0.
-	CspDefaultSrcHttpUrls string `json:"csp_default_src_http_urls,omitempty"`
-	CspDefaultSrcInline opnsense.OPNBool `json:"csp_default_src_inline"` // Required. Default: 0.
-	CspDefaultSrcEval opnsense.OPNBool `json:"csp_default_src_eval"` // Required. Default: 0.
-	CspDefaultSrcSelf opnsense.OPNBool `json:"csp_default_src_self"` // Required. Default: 0.
-	CspDefaultSrcBlob opnsense.OPNBool `json:"csp_default_src_blob"` // Required. Default: 0.
-	CspDefaultSrcMediastream opnsense.OPNBool `json:"csp_default_src_mediastream"` // Required. Default: 0.
-	CspDefaultSrcFilesystem opnsense.OPNBool `json:"csp_default_src_filesystem"` // Required. Default: 0.
-	CspDefaultSrcNone opnsense.OPNBool `json:"csp_default_src_none"` // Required. Default: 0.
-	CspScriptSrcEnabled opnsense.OPNBool `json:"csp_script_src_enabled"` // Required. Default: 0.
-	CspScriptSrcDataUrls opnsense.OPNBool `json:"csp_script_src_data_urls"` // Required. Default: 0.
-	CspScriptSrcHttpUrls string `json:"csp_script_src_http_urls,omitempty"`
-	CspScriptSrcInline opnsense.OPNBool `json:"csp_script_src_inline"` // Required. Default: 0.
-	CspScriptSrcEval opnsense.OPNBool `json:"csp_script_src_eval"` // Required. Default: 0.
-	CspScriptSrcSelf opnsense.OPNBool `json:"csp_script_src_self"` // Required. Default: 0.
-	CspScriptSrcBlob opnsense.OPNBool `json:"csp_script_src_blob"` // Required. Default: 0.
-	CspScriptSrcMediastream opnsense.OPNBool `json:"csp_script_src_mediastream"` // Required. Default: 0.
-	CspScriptSrcFilesystem opnsense.OPNBool `json:"csp_script_src_filesystem"` // Required. Default: 0.
-	CspScriptSrcNone opnsense.OPNBool `json:"csp_script_src_none"` // Required. Default: 0.
-	CspImgSrcEnabled opnsense.OPNBool `json:"csp_img_src_enabled"` // Required. Default: 0.
-	CspImgSrcDataUrls opnsense.OPNBool `json:"csp_img_src_data_urls"` // Required. Default: 0.
-	CspImgSrcHttpUrls string `json:"csp_img_src_http_urls,omitempty"`
-	CspImgSrcInline opnsense.OPNBool `json:"csp_img_src_inline"` // Required. Default: 0.
-	CspImgSrcEval opnsense.OPNBool `json:"csp_img_src_eval"` // Required. Default: 0.
-	CspImgSrcSelf opnsense.OPNBool `json:"csp_img_src_self"` // Required. Default: 0.
-	CspImgSrcBlob opnsense.OPNBool `json:"csp_img_src_blob"` // Required. Default: 0.
-	CspImgSrcMediastream opnsense.OPNBool `json:"csp_img_src_mediastream"` // Required. Default: 0.
-	CspImgSrcFilesystem opnsense.OPNBool `json:"csp_img_src_filesystem"` // Required. Default: 0.
-	CspImgSrcNone opnsense.OPNBool `json:"csp_img_src_none"` // Required. Default: 0.
-	CspStyleSrcEnabled opnsense.OPNBool `json:"csp_style_src_enabled"` // Required. Default: 0.
-	CspStyleSrcDataUrls opnsense.OPNBool `json:"csp_style_src_data_urls"` // Required. Default: 0.
-	CspStyleSrcHttpUrls string `json:"csp_style_src_http_urls,omitempty"`
-	CspStyleSrcInline opnsense.OPNBool `json:"csp_style_src_inline"` // Required. Default: 0.
-	CspStyleSrcEval opnsense.OPNBool `json:"csp_style_src_eval"` // Required. Default: 0.
-	CspStyleSrcSelf opnsense.OPNBool `json:"csp_style_src_self"` // Required. Default: 0.
-	CspStyleSrcBlob opnsense.OPNBool `json:"csp_style_src_blob"` // Required. Default: 0.
-	CspStyleSrcMediastream opnsense.OPNBool `json:"csp_style_src_mediastream"` // Required. Default: 0.
-	CspStyleSrcFilesystem opnsense.OPNBool `json:"csp_style_src_filesystem"` // Required. Default: 0.
-	CspStyleSrcNone opnsense.OPNBool `json:"csp_style_src_none"` // Required. Default: 0.
-	CspMediaSrcEnabled opnsense.OPNBool `json:"csp_media_src_enabled"` // Required. Default: 0.
-	CspMediaSrcDataUrls opnsense.OPNBool `json:"csp_media_src_data_urls"` // Required. Default: 0.
-	CspMediaSrcHttpUrls string `json:"csp_media_src_http_urls,omitempty"`
-	CspMediaSrcInline opnsense.OPNBool `json:"csp_media_src_inline"` // Required. Default: 0.
-	CspMediaSrcEval opnsense.OPNBool `json:"csp_media_src_eval"` // Required. Default: 0.
-	CspMediaSrcSelf opnsense.OPNBool `json:"csp_media_src_self"` // Required. Default: 0.
-	CspMediaSrcBlob opnsense.OPNBool `json:"csp_media_src_blob"` // Required. Default: 0.
-	CspMediaSrcMediastream opnsense.OPNBool `json:"csp_media_src_mediastream"` // Required. Default: 0.
-	CspMediaSrcFilesystem opnsense.OPNBool `json:"csp_media_src_filesystem"` // Required. Default: 0.
-	CspMediaSrcNone opnsense.OPNBool `json:"csp_media_src_none"` // Required. Default: 0.
-	CspFontSrcEnabled opnsense.OPNBool `json:"csp_font_src_enabled"` // Required. Default: 0.
-	CspFontSrcDataUrls opnsense.OPNBool `json:"csp_font_src_data_urls"` // Required. Default: 0.
-	CspFontSrcHttpUrls string `json:"csp_font_src_http_urls,omitempty"`
-	CspFontSrcInline opnsense.OPNBool `json:"csp_font_src_inline"` // Required. Default: 0.
-	CspFontSrcEval opnsense.OPNBool `json:"csp_font_src_eval"` // Required. Default: 0.
-	CspFontSrcSelf opnsense.OPNBool `json:"csp_font_src_self"` // Required. Default: 0.
-	CspFontSrcBlob opnsense.OPNBool `json:"csp_font_src_blob"` // Required. Default: 0.
-	CspFontSrcMediastream opnsense.OPNBool `json:"csp_font_src_mediastream"` // Required. Default: 0.
-	CspFontSrcFilesystem opnsense.OPNBool `json:"csp_font_src_filesystem"` // Required. Default: 0.
-	CspFontSrcNone opnsense.OPNBool `json:"csp_font_src_none"` // Required. Default: 0.
-	CspFrameSrcEnabled opnsense.OPNBool `json:"csp_frame_src_enabled"` // Required. Default: 0.
-	CspFrameSrcDataUrls opnsense.OPNBool `json:"csp_frame_src_data_urls"` // Required. Default: 0.
-	CspFrameSrcHttpUrls string `json:"csp_frame_src_http_urls,omitempty"`
-	CspFrameSrcInline opnsense.OPNBool `json:"csp_frame_src_inline"` // Required. Default: 0.
-	CspFrameSrcEval opnsense.OPNBool `json:"csp_frame_src_eval"` // Required. Default: 0.
-	CspFrameSrcSelf opnsense.OPNBool `json:"csp_frame_src_self"` // Required. Default: 0.
-	CspFrameSrcBlob opnsense.OPNBool `json:"csp_frame_src_blob"` // Required. Default: 0.
-	CspFrameSrcMediastream opnsense.OPNBool `json:"csp_frame_src_mediastream"` // Required. Default: 0.
-	CspFrameSrcFilesystem opnsense.OPNBool `json:"csp_frame_src_filesystem"` // Required. Default: 0.
-	CspFrameSrcNone opnsense.OPNBool `json:"csp_frame_src_none"` // Required. Default: 0.
-	CspFrameAncestorsEnabled opnsense.OPNBool `json:"csp_frame_ancestors_enabled"` // Required. Default: 0.
-	CspFrameAncestorsDataUrls opnsense.OPNBool `json:"csp_frame_ancestors_data_urls"` // Required. Default: 0.
-	CspFrameAncestorsHttpUrls string `json:"csp_frame_ancestors_http_urls,omitempty"`
-	CspFrameAncestorsSelf opnsense.OPNBool `json:"csp_frame_ancestors_self"` // Required. Default: 0.
-	CspFrameAncestorsBlob opnsense.OPNBool `json:"csp_frame_ancestors_blob"` // Required. Default: 0.
-	CspFrameAncestorsMediastream opnsense.OPNBool `json:"csp_frame_ancestors_mediastream"` // Required. Default: 0.
-	CspFrameAncestorsFilesystem opnsense.OPNBool `json:"csp_frame_ancestors_filesystem"` // Required. Default: 0.
-	CspFrameAncestorsNone opnsense.OPNBool `json:"csp_frame_ancestors_none"` // Required. Default: 0.
-	CspConnectSrcEnabled opnsense.OPNBool `json:"csp_connect_src_enabled"` // Required. Default: 0.
-	CspConnectSrcHttpUrls string `json:"csp_connect_src_http_urls,omitempty"`
-	CspConnectSrcNone opnsense.OPNBool `json:"csp_connect_src_none"` // Required. Default: 0.
-	CspWorkerSrcEnabled opnsense.OPNBool `json:"csp_worker_src_enabled"` // Required. Default: 0.
-	CspWorkerSrcDataUrls opnsense.OPNBool `json:"csp_worker_src_data_urls"` // Required. Default: 0.
-	CspWorkerSrcHttpUrls string `json:"csp_worker_src_http_urls,omitempty"`
-	CspWorkerSrcInline opnsense.OPNBool `json:"csp_worker_src_inline"` // Required. Default: 0.
-	CspWorkerSrcEval opnsense.OPNBool `json:"csp_worker_src_eval"` // Required. Default: 0.
-	CspWorkerSrcSelf opnsense.OPNBool `json:"csp_worker_src_self"` // Required. Default: 0.
-	CspWorkerSrcBlob opnsense.OPNBool `json:"csp_worker_src_blob"` // Required. Default: 0.
-	CspWorkerSrcFilesystem opnsense.OPNBool `json:"csp_worker_src_filesystem"` // Required. Default: 0.
-	CspWorkerSrcNone opnsense.OPNBool `json:"csp_worker_src_none"` // Required. Default: 0.
-	CspFormActionEnabled opnsense.OPNBool `json:"csp_form_action_enabled"` // Required. Default: 0.
-	CspFormActionDataUrls opnsense.OPNBool `json:"csp_form_action_data_urls"` // Required. Default: 0.
-	CspFormActionHttpUrls string `json:"csp_form_action_http_urls,omitempty"`
-	CspFormActionInline opnsense.OPNBool `json:"csp_form_action_inline"` // Required. Default: 0.
-	CspFormActionEval opnsense.OPNBool `json:"csp_form_action_eval"` // Required. Default: 0.
-	CspFormActionSelf opnsense.OPNBool `json:"csp_form_action_self"` // Required. Default: 0.
-	CspFormActionBlob opnsense.OPNBool `json:"csp_form_action_blob"` // Required. Default: 0.
-	CspFormActionMediastream opnsense.OPNBool `json:"csp_form_action_mediastream"` // Required. Default: 0.
-	CspFormActionFilesystem opnsense.OPNBool `json:"csp_form_action_filesystem"` // Required. Default: 0.
-	CspFormActionNone opnsense.OPNBool `json:"csp_form_action_none"` // Required. Default: 0.
+	StrictTransportSecurityPreload           opnsense.OPNBool `json:"strict_transport_security_preload"`            // Required. Default: 0.
+	EnableCsp                                opnsense.OPNBool `json:"enable_csp"`                                   // Required.
+	CspLogViolations                         opnsense.OPNBool `json:"csp_log_violations"`                           // Required. Default: 0.
+	CspReportOnly                            opnsense.OPNBool `json:"csp_report_only"`                              // Required. Default: 0.
+	CspDefaultSrcEnabled                     opnsense.OPNBool `json:"csp_default_src_enabled"`                      // Required. Default: 0.
+	CspDefaultSrcDataUrls                    opnsense.OPNBool `json:"csp_default_src_data_urls"`                    // Required. Default: 0.
+	CspDefaultSrcHttpUrls                    string           `json:"csp_default_src_http_urls,omitempty"`
+	CspDefaultSrcInline                      opnsense.OPNBool `json:"csp_default_src_inline"`      // Required. Default: 0.
+	CspDefaultSrcEval                        opnsense.OPNBool `json:"csp_default_src_eval"`        // Required. Default: 0.
+	CspDefaultSrcSelf                        opnsense.OPNBool `json:"csp_default_src_self"`        // Required. Default: 0.
+	CspDefaultSrcBlob                        opnsense.OPNBool `json:"csp_default_src_blob"`        // Required. Default: 0.
+	CspDefaultSrcMediastream                 opnsense.OPNBool `json:"csp_default_src_mediastream"` // Required. Default: 0.
+	CspDefaultSrcFilesystem                  opnsense.OPNBool `json:"csp_default_src_filesystem"`  // Required. Default: 0.
+	CspDefaultSrcNone                        opnsense.OPNBool `json:"csp_default_src_none"`        // Required. Default: 0.
+	CspScriptSrcEnabled                      opnsense.OPNBool `json:"csp_script_src_enabled"`      // Required. Default: 0.
+	CspScriptSrcDataUrls                     opnsense.OPNBool `json:"csp_script_src_data_urls"`    // Required. Default: 0.
+	CspScriptSrcHttpUrls                     string           `json:"csp_script_src_http_urls,omitempty"`
+	CspScriptSrcInline                       opnsense.OPNBool `json:"csp_script_src_inline"`      // Required. Default: 0.
+	CspScriptSrcEval                         opnsense.OPNBool `json:"csp_script_src_eval"`        // Required. Default: 0.
+	CspScriptSrcSelf                         opnsense.OPNBool `json:"csp_script_src_self"`        // Required. Default: 0.
+	CspScriptSrcBlob                         opnsense.OPNBool `json:"csp_script_src_blob"`        // Required. Default: 0.
+	CspScriptSrcMediastream                  opnsense.OPNBool `json:"csp_script_src_mediastream"` // Required. Default: 0.
+	CspScriptSrcFilesystem                   opnsense.OPNBool `json:"csp_script_src_filesystem"`  // Required. Default: 0.
+	CspScriptSrcNone                         opnsense.OPNBool `json:"csp_script_src_none"`        // Required. Default: 0.
+	CspImgSrcEnabled                         opnsense.OPNBool `json:"csp_img_src_enabled"`        // Required. Default: 0.
+	CspImgSrcDataUrls                        opnsense.OPNBool `json:"csp_img_src_data_urls"`      // Required. Default: 0.
+	CspImgSrcHttpUrls                        string           `json:"csp_img_src_http_urls,omitempty"`
+	CspImgSrcInline                          opnsense.OPNBool `json:"csp_img_src_inline"`      // Required. Default: 0.
+	CspImgSrcEval                            opnsense.OPNBool `json:"csp_img_src_eval"`        // Required. Default: 0.
+	CspImgSrcSelf                            opnsense.OPNBool `json:"csp_img_src_self"`        // Required. Default: 0.
+	CspImgSrcBlob                            opnsense.OPNBool `json:"csp_img_src_blob"`        // Required. Default: 0.
+	CspImgSrcMediastream                     opnsense.OPNBool `json:"csp_img_src_mediastream"` // Required. Default: 0.
+	CspImgSrcFilesystem                      opnsense.OPNBool `json:"csp_img_src_filesystem"`  // Required. Default: 0.
+	CspImgSrcNone                            opnsense.OPNBool `json:"csp_img_src_none"`        // Required. Default: 0.
+	CspStyleSrcEnabled                       opnsense.OPNBool `json:"csp_style_src_enabled"`   // Required. Default: 0.
+	CspStyleSrcDataUrls                      opnsense.OPNBool `json:"csp_style_src_data_urls"` // Required. Default: 0.
+	CspStyleSrcHttpUrls                      string           `json:"csp_style_src_http_urls,omitempty"`
+	CspStyleSrcInline                        opnsense.OPNBool `json:"csp_style_src_inline"`      // Required. Default: 0.
+	CspStyleSrcEval                          opnsense.OPNBool `json:"csp_style_src_eval"`        // Required. Default: 0.
+	CspStyleSrcSelf                          opnsense.OPNBool `json:"csp_style_src_self"`        // Required. Default: 0.
+	CspStyleSrcBlob                          opnsense.OPNBool `json:"csp_style_src_blob"`        // Required. Default: 0.
+	CspStyleSrcMediastream                   opnsense.OPNBool `json:"csp_style_src_mediastream"` // Required. Default: 0.
+	CspStyleSrcFilesystem                    opnsense.OPNBool `json:"csp_style_src_filesystem"`  // Required. Default: 0.
+	CspStyleSrcNone                          opnsense.OPNBool `json:"csp_style_src_none"`        // Required. Default: 0.
+	CspMediaSrcEnabled                       opnsense.OPNBool `json:"csp_media_src_enabled"`     // Required. Default: 0.
+	CspMediaSrcDataUrls                      opnsense.OPNBool `json:"csp_media_src_data_urls"`   // Required. Default: 0.
+	CspMediaSrcHttpUrls                      string           `json:"csp_media_src_http_urls,omitempty"`
+	CspMediaSrcInline                        opnsense.OPNBool `json:"csp_media_src_inline"`      // Required. Default: 0.
+	CspMediaSrcEval                          opnsense.OPNBool `json:"csp_media_src_eval"`        // Required. Default: 0.
+	CspMediaSrcSelf                          opnsense.OPNBool `json:"csp_media_src_self"`        // Required. Default: 0.
+	CspMediaSrcBlob                          opnsense.OPNBool `json:"csp_media_src_blob"`        // Required. Default: 0.
+	CspMediaSrcMediastream                   opnsense.OPNBool `json:"csp_media_src_mediastream"` // Required. Default: 0.
+	CspMediaSrcFilesystem                    opnsense.OPNBool `json:"csp_media_src_filesystem"`  // Required. Default: 0.
+	CspMediaSrcNone                          opnsense.OPNBool `json:"csp_media_src_none"`        // Required. Default: 0.
+	CspFontSrcEnabled                        opnsense.OPNBool `json:"csp_font_src_enabled"`      // Required. Default: 0.
+	CspFontSrcDataUrls                       opnsense.OPNBool `json:"csp_font_src_data_urls"`    // Required. Default: 0.
+	CspFontSrcHttpUrls                       string           `json:"csp_font_src_http_urls,omitempty"`
+	CspFontSrcInline                         opnsense.OPNBool `json:"csp_font_src_inline"`      // Required. Default: 0.
+	CspFontSrcEval                           opnsense.OPNBool `json:"csp_font_src_eval"`        // Required. Default: 0.
+	CspFontSrcSelf                           opnsense.OPNBool `json:"csp_font_src_self"`        // Required. Default: 0.
+	CspFontSrcBlob                           opnsense.OPNBool `json:"csp_font_src_blob"`        // Required. Default: 0.
+	CspFontSrcMediastream                    opnsense.OPNBool `json:"csp_font_src_mediastream"` // Required. Default: 0.
+	CspFontSrcFilesystem                     opnsense.OPNBool `json:"csp_font_src_filesystem"`  // Required. Default: 0.
+	CspFontSrcNone                           opnsense.OPNBool `json:"csp_font_src_none"`        // Required. Default: 0.
+	CspFrameSrcEnabled                       opnsense.OPNBool `json:"csp_frame_src_enabled"`    // Required. Default: 0.
+	CspFrameSrcDataUrls                      opnsense.OPNBool `json:"csp_frame_src_data_urls"`  // Required. Default: 0.
+	CspFrameSrcHttpUrls                      string           `json:"csp_frame_src_http_urls,omitempty"`
+	CspFrameSrcInline                        opnsense.OPNBool `json:"csp_frame_src_inline"`          // Required. Default: 0.
+	CspFrameSrcEval                          opnsense.OPNBool `json:"csp_frame_src_eval"`            // Required. Default: 0.
+	CspFrameSrcSelf                          opnsense.OPNBool `json:"csp_frame_src_self"`            // Required. Default: 0.
+	CspFrameSrcBlob                          opnsense.OPNBool `json:"csp_frame_src_blob"`            // Required. Default: 0.
+	CspFrameSrcMediastream                   opnsense.OPNBool `json:"csp_frame_src_mediastream"`     // Required. Default: 0.
+	CspFrameSrcFilesystem                    opnsense.OPNBool `json:"csp_frame_src_filesystem"`      // Required. Default: 0.
+	CspFrameSrcNone                          opnsense.OPNBool `json:"csp_frame_src_none"`            // Required. Default: 0.
+	CspFrameAncestorsEnabled                 opnsense.OPNBool `json:"csp_frame_ancestors_enabled"`   // Required. Default: 0.
+	CspFrameAncestorsDataUrls                opnsense.OPNBool `json:"csp_frame_ancestors_data_urls"` // Required. Default: 0.
+	CspFrameAncestorsHttpUrls                string           `json:"csp_frame_ancestors_http_urls,omitempty"`
+	CspFrameAncestorsSelf                    opnsense.OPNBool `json:"csp_frame_ancestors_self"`        // Required. Default: 0.
+	CspFrameAncestorsBlob                    opnsense.OPNBool `json:"csp_frame_ancestors_blob"`        // Required. Default: 0.
+	CspFrameAncestorsMediastream             opnsense.OPNBool `json:"csp_frame_ancestors_mediastream"` // Required. Default: 0.
+	CspFrameAncestorsFilesystem              opnsense.OPNBool `json:"csp_frame_ancestors_filesystem"`  // Required. Default: 0.
+	CspFrameAncestorsNone                    opnsense.OPNBool `json:"csp_frame_ancestors_none"`        // Required. Default: 0.
+	CspConnectSrcEnabled                     opnsense.OPNBool `json:"csp_connect_src_enabled"`         // Required. Default: 0.
+	CspConnectSrcHttpUrls                    string           `json:"csp_connect_src_http_urls,omitempty"`
+	CspConnectSrcNone                        opnsense.OPNBool `json:"csp_connect_src_none"`     // Required. Default: 0.
+	CspWorkerSrcEnabled                      opnsense.OPNBool `json:"csp_worker_src_enabled"`   // Required. Default: 0.
+	CspWorkerSrcDataUrls                     opnsense.OPNBool `json:"csp_worker_src_data_urls"` // Required. Default: 0.
+	CspWorkerSrcHttpUrls                     string           `json:"csp_worker_src_http_urls,omitempty"`
+	CspWorkerSrcInline                       opnsense.OPNBool `json:"csp_worker_src_inline"`     // Required. Default: 0.
+	CspWorkerSrcEval                         opnsense.OPNBool `json:"csp_worker_src_eval"`       // Required. Default: 0.
+	CspWorkerSrcSelf                         opnsense.OPNBool `json:"csp_worker_src_self"`       // Required. Default: 0.
+	CspWorkerSrcBlob                         opnsense.OPNBool `json:"csp_worker_src_blob"`       // Required. Default: 0.
+	CspWorkerSrcFilesystem                   opnsense.OPNBool `json:"csp_worker_src_filesystem"` // Required. Default: 0.
+	CspWorkerSrcNone                         opnsense.OPNBool `json:"csp_worker_src_none"`       // Required. Default: 0.
+	CspFormActionEnabled                     opnsense.OPNBool `json:"csp_form_action_enabled"`   // Required. Default: 0.
+	CspFormActionDataUrls                    opnsense.OPNBool `json:"csp_form_action_data_urls"` // Required. Default: 0.
+	CspFormActionHttpUrls                    string           `json:"csp_form_action_http_urls,omitempty"`
+	CspFormActionInline                      opnsense.OPNBool `json:"csp_form_action_inline"`      // Required. Default: 0.
+	CspFormActionEval                        opnsense.OPNBool `json:"csp_form_action_eval"`        // Required. Default: 0.
+	CspFormActionSelf                        opnsense.OPNBool `json:"csp_form_action_self"`        // Required. Default: 0.
+	CspFormActionBlob                        opnsense.OPNBool `json:"csp_form_action_blob"`        // Required. Default: 0.
+	CspFormActionMediastream                 opnsense.OPNBool `json:"csp_form_action_mediastream"` // Required. Default: 0.
+	CspFormActionFilesystem                  opnsense.OPNBool `json:"csp_form_action_filesystem"`  // Required. Default: 0.
+	CspFormActionNone                        opnsense.OPNBool `json:"csp_form_action_none"`        // Required. Default: 0.
 }
 
 // LimitZone represents a limit_zone model item.
 type LimitZone struct {
-	Description string `json:"description"` // Required.
-	Key string `json:"key"` // Required. Default: binary_remote_addr. Valid: binary_remote_addr.
-	RateUnit string `json:"rate_unit"` // Required. Default: r/s. Valid: val1, val2.
-	Size opnsense.OPNInt `json:"size"` // Required. Default: 10.
-	Rate opnsense.OPNInt `json:"rate"` // Required. Default: 20.
+	Description string          `json:"description"` // Required.
+	Key         string          `json:"key"`         // Required. Default: binary_remote_addr. Valid: binary_remote_addr.
+	RateUnit    string          `json:"rate_unit"`   // Required. Default: r/s. Valid: val1, val2.
+	Size        opnsense.OPNInt `json:"size"`        // Required. Default: 10.
+	Rate        opnsense.OPNInt `json:"rate"`        // Required. Default: 20.
 }
 
 // Errorpage represents a errorpage model item.
 type Errorpage struct {
-	Name string `json:"name"` // Required.
+	Name        string `json:"name"`        // Required.
 	Statuscodes string `json:"statuscodes"` // Required. Valid: status_400, status_401, status_403, status_404, status_405, status_407, status_408, status_410, status_415, status_429, status_431, status_500, status_501, status_502, status_503, status_504.
 	Pagecontent string `json:"pagecontent,omitempty"`
-	Redirect string `json:"redirect,omitempty"`
-	Response string `json:"response,omitempty"` // Valid: status_200, status_300, status_301, status_302, status_401, status_403, status_404, status_451, status_500, status_503.
+	Redirect    string `json:"redirect,omitempty"`
+	Response    string `json:"response,omitempty"` // Valid: status_200, status_300, status_301, status_302, status_401, status_403, status_404, status_451, status_500, status_503.
 }
 
 // TlsFingerprint represents a tls_fingerprint model item.
 type TlsFingerprint struct {
-	Description string `json:"description"` // Required.
-	UserAgent string `json:"user_agent"` // Required.
-	Trusted opnsense.OPNBool `json:"trusted"` // Required. Default: 0.
-	Curves string `json:"curves,omitempty"`
-	Ciphers string `json:"ciphers"` // Required.
+	Description string           `json:"description"` // Required.
+	UserAgent   string           `json:"user_agent"`  // Required.
+	Trusted     opnsense.OPNBool `json:"trusted"`     // Required. Default: 0.
+	Curves      string           `json:"curves,omitempty"`
+	Ciphers     string           `json:"ciphers"` // Required.
 }
 
 // LimitRequestConnection represents a limit_request_connection model item.
 type LimitRequestConnection struct {
-	LimitZone string `json:"limit_zone"` // Required.
-	ConnectionCount opnsense.OPNInt `json:"connection_count"` // Required. Default: 5.
-	Burst *opnsense.OPNInt `json:"burst,omitempty"`
-	Nodelay opnsense.OPNBool `json:"nodelay"` // Required. Default: 1.
-	Description string `json:"description"` // Required.
+	LimitZone       string           `json:"limit_zone"`       // Required.
+	ConnectionCount opnsense.OPNInt  `json:"connection_count"` // Required. Default: 5.
+	Burst           *opnsense.OPNInt `json:"burst,omitempty"`
+	Nodelay         opnsense.OPNBool `json:"nodelay"`     // Required. Default: 1.
+	Description     string           `json:"description"` // Required.
 }
 
 // Ban represents a ban model item.
 type Ban struct {
-	Ip string `json:"ip"` // Required.
+	Ip   string           `json:"ip"` // Required.
 	Time *opnsense.OPNInt `json:"time,omitempty"`
 }
 
 // CachePath represents a cache_path model item.
 type CachePath struct {
-	Path string `json:"path"` // Required.
-	Size *opnsense.OPNInt `json:"size,omitempty"`
-	Inactive *opnsense.OPNInt `json:"inactive,omitempty"`
+	Path        string           `json:"path"` // Required.
+	Size        *opnsense.OPNInt `json:"size,omitempty"`
+	Inactive    *opnsense.OPNInt `json:"inactive,omitempty"`
 	UseTempPath opnsense.OPNBool `json:"use_temp_path"` // Required. Default: 0.
-	MaxSize *opnsense.OPNInt `json:"max_size,omitempty"`
+	MaxSize     *opnsense.OPNInt `json:"max_size,omitempty"`
 }
 
 // ProxyCacheValid represents a proxy_cache_valid model item.
 type ProxyCacheValid struct {
-	Description string `json:"description"` // Required.
-	Code string `json:"code"` // Required. Default: any.
-	Valid opnsense.OPNInt `json:"valid"` // Required.
+	Description string          `json:"description"` // Required.
+	Code        string          `json:"code"`        // Required. Default: any.
+	Valid       opnsense.OPNInt `json:"valid"`       // Required.
 }
 
 // SyslogTarget represents a syslog_target model item.
 type SyslogTarget struct {
-	Description string `json:"description"` // Required.
-	Host string `json:"host"` // Required.
-	Port string `json:"port,omitempty"`
-	Facility string `json:"facility"` // Required. Default: local7. Valid: kern, user, mail, daemon, auth, intern, lpr, news, uucp, clock, authpriv, ftp, ntp, audit, alert, cron, local0, local1, local2, local3, local4, local5, local6, local7.
-	Severity string `json:"severity"` // Required. Default: error. Valid: debug, info, notice, warn, error, crit, alert, emerg.
-	Tag string `json:"tag,omitempty"`
-	Nohostname opnsense.OPNBool `json:"nohostname"` // Required. Default: N.
+	Description string           `json:"description"` // Required.
+	Host        string           `json:"host"`        // Required.
+	Port        string           `json:"port,omitempty"`
+	Facility    string           `json:"facility"` // Required. Default: local7. Valid: kern, user, mail, daemon, auth, intern, lpr, news, uucp, clock, authpriv, ftp, ntp, audit, alert, cron, local0, local1, local2, local3, local4, local5, local6, local7.
+	Severity    string           `json:"severity"` // Required. Default: error. Valid: debug, info, notice, warn, error, crit, alert, emerg.
+	Tag         string           `json:"tag,omitempty"`
+	Nohostname  opnsense.OPNBool `json:"nohostname"` // Required. Default: N.
 }

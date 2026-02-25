@@ -6,24 +6,24 @@ import "github.com/jontk/opnsense-cli/opnsense"
 
 // General represents a general model item.
 type General struct {
-	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
-	Loglocal opnsense.OPNBool `json:"loglocal"` // Required. Default: 1.
-	Maxpreserve opnsense.OPNInt `json:"maxpreserve"` // Required. Default: 31.
+	Enabled     opnsense.OPNBool `json:"enabled"`     // Required. Default: 1.
+	Loglocal    opnsense.OPNBool `json:"loglocal"`    // Required. Default: 1.
+	Maxpreserve opnsense.OPNInt  `json:"maxpreserve"` // Required. Default: 31.
 	Maxfilesize *opnsense.OPNInt `json:"maxfilesize,omitempty"`
 }
 
 // Destination represents a destination model item.
 type Destination struct {
-	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
-	Transport string `json:"transport"` // Required. Default: udp. Valid: udp4, tcp4, udp6, tcp6, tls4, tls6.
-	Program string `json:"program,omitempty"`
-	Level string `json:"level,omitempty"` // Valid: debug, info, notice, warn, err, crit, alert, emerg.
-	Facility string `json:"facility,omitempty"` // Valid: kern, user, mail, daemon, auth, syslog, lpr, news, uucp, cron, authpriv, ftp, ntp, security, console, local0, local1, local2, local3, local4, local5, local6, local7.
-	Hostname string `json:"hostname"` // Required.
-	Certificate string `json:"certificate,omitempty"`
-	Port string `json:"port"` // Required. Default: 514.
-	Rfc5424 opnsense.OPNBool `json:"rfc5424"` // Required. Default: 0.
-	Description string `json:"description,omitempty"`
+	Enabled     opnsense.OPNBool `json:"enabled"`   // Required. Default: 1.
+	Transport   string           `json:"transport"` // Required. Default: udp. Valid: udp4, tcp4, udp6, tcp6, tls4, tls6.
+	Program     string           `json:"program,omitempty"`
+	Level       string           `json:"level,omitempty"`    // Valid: debug, info, notice, warn, err, crit, alert, emerg.
+	Facility    string           `json:"facility,omitempty"` // Valid: kern, user, mail, daemon, auth, syslog, lpr, news, uucp, cron, authpriv, ftp, ntp, security, console, local0, local1, local2, local3, local4, local5, local6, local7.
+	Hostname    string           `json:"hostname"`           // Required.
+	Certificate string           `json:"certificate,omitempty"`
+	Port        string           `json:"port"`    // Required. Default: 514.
+	Rfc5424     opnsense.OPNBool `json:"rfc5424"` // Required. Default: 0.
+	Description string           `json:"description,omitempty"`
 }
 
 type destinationGetItemResponse struct {

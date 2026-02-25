@@ -6,36 +6,36 @@ import "github.com/jontk/opnsense-cli/opnsense"
 
 // Network represents a network model item.
 type Network struct {
-	Id string `json:"id"` // Required.
-	Name string `json:"name"` // Required.
-	Hostname string `json:"hostname"` // Required.
-	Extaddress string `json:"extaddress,omitempty"`
-	Extport opnsense.OPNInt `json:"extport"` // Required. Default: 655.
-	Intaddress string `json:"intaddress"` // Required.
-	Subnet string `json:"subnet,omitempty"`
-	Pingtimeout opnsense.OPNInt `json:"pingtimeout"` // Required. Default: 5.
-	StrictSubnets opnsense.OPNBool `json:"StrictSubnets"` // Required. Default: 0.
+	Id                  string           `json:"id"`       // Required.
+	Name                string           `json:"name"`     // Required.
+	Hostname            string           `json:"hostname"` // Required.
+	Extaddress          string           `json:"extaddress,omitempty"`
+	Extport             opnsense.OPNInt  `json:"extport"`    // Required. Default: 655.
+	Intaddress          string           `json:"intaddress"` // Required.
+	Subnet              string           `json:"subnet,omitempty"`
+	Pingtimeout         opnsense.OPNInt  `json:"pingtimeout"`         // Required. Default: 5.
+	StrictSubnets       opnsense.OPNBool `json:"StrictSubnets"`       // Required. Default: 0.
 	Disablesubnetroutes opnsense.OPNBool `json:"disablesubnetroutes"` // Required. Default: 0.
-	Privkey string `json:"privkey"` // Required.
-	Pubkey string `json:"pubkey"` // Required.
-	Cipher string `json:"cipher"` // Required. Default: aes-256-cbc.
-	Mode string `json:"mode"` // Required. Default: router. Valid: router, switch.
-	PMTUDiscovery opnsense.OPNBool `json:"PMTUDiscovery"` // Required. Default: 1.
-	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
-	Debuglevel string `json:"debuglevel"` // Required. Default: ip. Valid: d0, d1, d2, d3, d4, d5.
+	Privkey             string           `json:"privkey"`             // Required.
+	Pubkey              string           `json:"pubkey"`              // Required.
+	Cipher              string           `json:"cipher"`              // Required. Default: aes-256-cbc.
+	Mode                string           `json:"mode"`                // Required. Default: router. Valid: router, switch.
+	PMTUDiscovery       opnsense.OPNBool `json:"PMTUDiscovery"`       // Required. Default: 1.
+	Enabled             opnsense.OPNBool `json:"enabled"`             // Required. Default: 1.
+	Debuglevel          string           `json:"debuglevel"`          // Required. Default: ip. Valid: d0, d1, d2, d3, d4, d5.
 }
 
 // Host represents a host model item.
 type Host struct {
-	Network string `json:"network"` // Required.
-	Hostname string `json:"hostname"` // Required.
-	Extport opnsense.OPNInt `json:"extport"` // Required. Default: 655.
-	Extaddress string `json:"extaddress,omitempty"`
-	Subnet string `json:"subnet,omitempty"`
-	Pubkey string `json:"pubkey"` // Required.
-	Cipher string `json:"cipher"` // Required. Default: aes-256-cbc.
-	ConnectTo opnsense.OPNBool `json:"connectTo"` // Required. Default: 1.
-	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
+	Network    string           `json:"network"`  // Required.
+	Hostname   string           `json:"hostname"` // Required.
+	Extport    opnsense.OPNInt  `json:"extport"`  // Required. Default: 655.
+	Extaddress string           `json:"extaddress,omitempty"`
+	Subnet     string           `json:"subnet,omitempty"`
+	Pubkey     string           `json:"pubkey"`    // Required.
+	Cipher     string           `json:"cipher"`    // Required. Default: aes-256-cbc.
+	ConnectTo  opnsense.OPNBool `json:"connectTo"` // Required. Default: 1.
+	Enabled    opnsense.OPNBool `json:"enabled"`   // Required. Default: 1.
 }
 
 type hostGetItemResponse struct {

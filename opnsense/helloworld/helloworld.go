@@ -20,33 +20,33 @@ func NewClient(c *opnsense.Client) *Client {
 }
 
 // ServiceReload calls POST /api/helloworld/service/reload
-func (c *Client) ServiceReload(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceReload(ctx context.Context, body any) (any, error) {
 	path := "/api/helloworld/service/reload"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceTest calls POST /api/helloworld/service/test
-func (c *Client) ServiceTest(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceTest(ctx context.Context, body any) (any, error) {
 	path := "/api/helloworld/service/test"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SettingsGet calls GET /api/helloworld/settings/get
-func (c *Client) SettingsGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) SettingsGet(ctx context.Context) (any, error) {
 	path := "/api/helloworld/settings/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // SettingsSet calls POST /api/helloworld/settings/set
-func (c *Client) SettingsSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSet(ctx context.Context, body any) (any, error) {
 	path := "/api/helloworld/settings/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }

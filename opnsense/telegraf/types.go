@@ -7,8 +7,8 @@ import "github.com/jontk/opnsense-cli/opnsense"
 // Key represents a key model item.
 type Key struct {
 	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
-	Name string `json:"name,omitempty"`
-	Value string `json:"value,omitempty"`
+	Name    string           `json:"name,omitempty"`
+	Value   string           `json:"value,omitempty"`
 }
 
 type keyGetItemResponse struct {

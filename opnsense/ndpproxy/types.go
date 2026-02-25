@@ -6,25 +6,25 @@ import "github.com/jontk/opnsense-cli/opnsense"
 
 // General represents a general model item.
 type General struct {
-	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 0.
-	Upstream string `json:"upstream,omitempty"`
-	Downstream string `json:"downstream,omitempty"`
-	Ra opnsense.OPNBool `json:"ra"` // Required. Default: 1.
-	Routes opnsense.OPNBool `json:"routes"` // Required. Default: 1.
-	CacheTtl *opnsense.OPNInt `json:"cache_ttl,omitempty"`
-	CacheMax *opnsense.OPNInt `json:"cache_max,omitempty"`
-	CacheFile opnsense.OPNBool `json:"cache_file"` // Required. Default: 0.
-	RouteQps *opnsense.OPNInt `json:"route_qps,omitempty"`
-	PfQps *opnsense.OPNInt `json:"pf_qps,omitempty"`
-	PcapTimeout *opnsense.OPNInt `json:"pcap_timeout,omitempty"`
-	Debug opnsense.OPNBool `json:"debug"` // Required. Default: 0.
+	Enabled      opnsense.OPNBool `json:"enabled"` // Required. Default: 0.
+	Upstream     string           `json:"upstream,omitempty"`
+	Downstream   string           `json:"downstream,omitempty"`
+	Ra           opnsense.OPNBool `json:"ra"`     // Required. Default: 1.
+	Routes       opnsense.OPNBool `json:"routes"` // Required. Default: 1.
+	CacheTtl     *opnsense.OPNInt `json:"cache_ttl,omitempty"`
+	CacheMax     *opnsense.OPNInt `json:"cache_max,omitempty"`
+	CacheFile    opnsense.OPNBool `json:"cache_file"` // Required. Default: 0.
+	RouteQps     *opnsense.OPNInt `json:"route_qps,omitempty"`
+	PfQps        *opnsense.OPNInt `json:"pf_qps,omitempty"`
+	PcapTimeout  *opnsense.OPNInt `json:"pcap_timeout,omitempty"`
+	Debug        opnsense.OPNBool `json:"debug"`          // Required. Default: 0.
 	CarpDependOn opnsense.OPNBool `json:"carp_depend_on"` // Required. Default: 0.
 }
 
 // Alias represents a alias model item.
 type Alias struct {
-	Interface string `json:"interface,omitempty"`
-	Alias string `json:"alias"` // Required.
+	Interface   string `json:"interface,omitempty"`
+	Alias       string `json:"alias"` // Required.
 	Description string `json:"description,omitempty"`
 }
 

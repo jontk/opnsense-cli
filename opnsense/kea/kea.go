@@ -21,17 +21,17 @@ func NewClient(c *opnsense.Client) *Client {
 }
 
 // CtrlAgentGet calls GET /api/kea/ctrl_agent/get
-func (c *Client) CtrlAgentGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) CtrlAgentGet(ctx context.Context) (any, error) {
 	path := "/api/kea/ctrl_agent/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // CtrlAgentSet calls POST /api/kea/ctrl_agent/set
-func (c *Client) CtrlAgentSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) CtrlAgentSet(ctx context.Context, body any) (any, error) {
 	path := "/api/kea/ctrl_agent/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -91,17 +91,17 @@ func (c *Client) Dhcpv4DelSubnet(ctx context.Context, uuid string) (*opnsense.Ge
 }
 
 // Dhcpv4DownloadReservations calls GET /api/kea/dhcpv4/downloadReservations
-func (c *Client) Dhcpv4DownloadReservations(ctx context.Context) (map[string]any, error) {
+func (c *Client) Dhcpv4DownloadReservations(ctx context.Context) (any, error) {
 	path := "/api/kea/dhcpv4/downloadReservations"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // Dhcpv4Get calls GET /api/kea/dhcpv4/get
-func (c *Client) Dhcpv4Get(ctx context.Context) (map[string]any, error) {
+func (c *Client) Dhcpv4Get(ctx context.Context) (any, error) {
 	path := "/api/kea/dhcpv4/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -170,9 +170,9 @@ func (c *Client) Dhcpv4SearchSubnet(ctx context.Context, body any) (*opnsense.Se
 }
 
 // Dhcpv4Set calls POST /api/kea/dhcpv4/set
-func (c *Client) Dhcpv4Set(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) Dhcpv4Set(ctx context.Context, body any) (any, error) {
 	path := "/api/kea/dhcpv4/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -208,9 +208,9 @@ func (c *Client) Dhcpv4SetSubnet(ctx context.Context, uuid string, body *Subnet4
 }
 
 // Dhcpv4UploadReservations calls POST /api/kea/dhcpv4/uploadReservations
-func (c *Client) Dhcpv4UploadReservations(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) Dhcpv4UploadReservations(ctx context.Context, body any) (any, error) {
 	path := "/api/kea/dhcpv4/uploadReservations"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -288,17 +288,17 @@ func (c *Client) Dhcpv6DelSubnet(ctx context.Context, uuid string) (*opnsense.Ge
 }
 
 // Dhcpv6DownloadReservations calls GET /api/kea/dhcpv6/downloadReservations
-func (c *Client) Dhcpv6DownloadReservations(ctx context.Context) (map[string]any, error) {
+func (c *Client) Dhcpv6DownloadReservations(ctx context.Context) (any, error) {
 	path := "/api/kea/dhcpv6/downloadReservations"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // Dhcpv6Get calls GET /api/kea/dhcpv6/get
-func (c *Client) Dhcpv6Get(ctx context.Context) (map[string]any, error) {
+func (c *Client) Dhcpv6Get(ctx context.Context) (any, error) {
 	path := "/api/kea/dhcpv6/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -388,9 +388,9 @@ func (c *Client) Dhcpv6SearchSubnet(ctx context.Context, body any) (*opnsense.Se
 }
 
 // Dhcpv6Set calls POST /api/kea/dhcpv6/set
-func (c *Client) Dhcpv6Set(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) Dhcpv6Set(ctx context.Context, body any) (any, error) {
 	path := "/api/kea/dhcpv6/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -436,49 +436,49 @@ func (c *Client) Dhcpv6SetSubnet(ctx context.Context, uuid string, body *Subnet6
 }
 
 // Dhcpv6UploadReservations calls POST /api/kea/dhcpv6/uploadReservations
-func (c *Client) Dhcpv6UploadReservations(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) Dhcpv6UploadReservations(ctx context.Context, body any) (any, error) {
 	path := "/api/kea/dhcpv6/uploadReservations"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceReconfigure calls POST /api/kea/service/reconfigure
-func (c *Client) ServiceReconfigure(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceReconfigure(ctx context.Context, body any) (any, error) {
 	path := "/api/kea/service/reconfigure"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceRestart calls POST /api/kea/service/restart
-func (c *Client) ServiceRestart(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceRestart(ctx context.Context, body any) (any, error) {
 	path := "/api/kea/service/restart"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceStart calls POST /api/kea/service/start
-func (c *Client) ServiceStart(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceStart(ctx context.Context, body any) (any, error) {
 	path := "/api/kea/service/start"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceStatus calls GET /api/kea/service/status
-func (c *Client) ServiceStatus(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceStatus(ctx context.Context) (any, error) {
 	path := "/api/kea/service/status"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ServiceStop calls POST /api/kea/service/stop
-func (c *Client) ServiceStop(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceStop(ctx context.Context, body any) (any, error) {
 	path := "/api/kea/service/stop"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }

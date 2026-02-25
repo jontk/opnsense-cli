@@ -6,23 +6,23 @@ import "github.com/jontk/opnsense-cli/opnsense"
 
 // Settings represents a settings model item.
 type Settings struct {
-	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 0.
-	Community string `json:"community,omitempty"`
-	Syslocation string `json:"syslocation,omitempty"`
-	Syscontact string `json:"syscontact,omitempty"`
-	L3visibility opnsense.OPNBool `json:"l3visibility"` // Required. Default: 0.
-	Versionoid opnsense.OPNBool `json:"versionoid"` // Required. Default: 0.
-	Enableagentx opnsense.OPNBool `json:"enableagentx"` // Required. Default: 0.
+	Enabled         opnsense.OPNBool `json:"enabled"` // Required. Default: 0.
+	Community       string           `json:"community,omitempty"`
+	Syslocation     string           `json:"syslocation,omitempty"`
+	Syscontact      string           `json:"syscontact,omitempty"`
+	L3visibility    opnsense.OPNBool `json:"l3visibility"`    // Required. Default: 0.
+	Versionoid      opnsense.OPNBool `json:"versionoid"`      // Required. Default: 0.
+	Enableagentx    opnsense.OPNBool `json:"enableagentx"`    // Required. Default: 0.
 	Enableobservium opnsense.OPNBool `json:"enableobservium"` // Required. Default: 0.
-	Listen string `json:"listen,omitempty"`
+	Listen          string           `json:"listen,omitempty"`
 }
 
 // User represents a user model item.
 type User struct {
-	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
-	Username string `json:"username"` // Required.
-	Password string `json:"password"` // Required.
-	Enckey string `json:"enckey"` // Required.
+	Enabled   opnsense.OPNBool `json:"enabled"`   // Required. Default: 1.
+	Username  string           `json:"username"`  // Required.
+	Password  string           `json:"password"`  // Required.
+	Enckey    string           `json:"enckey"`    // Required.
 	Readwrite opnsense.OPNBool `json:"readwrite"` // Required. Default: 0.
 }
 

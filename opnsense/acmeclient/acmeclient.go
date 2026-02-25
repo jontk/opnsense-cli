@@ -21,9 +21,9 @@ func NewClient(c *opnsense.Client) *Client {
 }
 
 // AccountsAdd calls POST /api/acmeclient/accounts/add
-func (c *Client) AccountsAdd(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) AccountsAdd(ctx context.Context, body any) (any, error) {
 	path := "/api/acmeclient/accounts/add"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -31,9 +31,9 @@ func (c *Client) AccountsAdd(ctx context.Context, body any) (map[string]any, err
 // AccountsDel calls POST /api/acmeclient/accounts/del
 // Parameters:
 //   - uuid
-func (c *Client) AccountsDel(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) AccountsDel(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/acmeclient/accounts/del/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -41,12 +41,12 @@ func (c *Client) AccountsDel(ctx context.Context, uuid string, body any) (map[st
 // AccountsGet calls GET /api/acmeclient/accounts/get
 // Parameters:
 //   - uuid (optional, default: null)
-func (c *Client) AccountsGet(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) AccountsGet(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/acmeclient/accounts/get"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -54,25 +54,25 @@ func (c *Client) AccountsGet(ctx context.Context, opts ...string) (map[string]an
 // AccountsRegister calls POST /api/acmeclient/accounts/register
 // Parameters:
 //   - uuid
-func (c *Client) AccountsRegister(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) AccountsRegister(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/acmeclient/accounts/register/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // AccountsSearch calls GET,POST /api/acmeclient/accounts/search
-func (c *Client) AccountsSearch(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) AccountsSearch(ctx context.Context, body any) (any, error) {
 	path := "/api/acmeclient/accounts/search"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // AccountsSet calls POST /api/acmeclient/accounts/set
-func (c *Client) AccountsSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) AccountsSet(ctx context.Context, body any) (any, error) {
 	path := "/api/acmeclient/accounts/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -81,12 +81,12 @@ func (c *Client) AccountsSet(ctx context.Context, body any) (map[string]any, err
 // Parameters:
 //   - uuid
 //   - enabled (optional, default: null)
-func (c *Client) AccountsToggle(ctx context.Context, uuid string, body any, opts ...string) (map[string]any, error) {
+func (c *Client) AccountsToggle(ctx context.Context, uuid string, body any, opts ...string) (any, error) {
 	path := fmt.Sprintf("/api/acmeclient/accounts/toggle/%s", uuid)
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -94,17 +94,17 @@ func (c *Client) AccountsToggle(ctx context.Context, uuid string, body any, opts
 // AccountsUpdate calls POST /api/acmeclient/accounts/update
 // Parameters:
 //   - uuid
-func (c *Client) AccountsUpdate(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) AccountsUpdate(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/acmeclient/accounts/update/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ActionsAdd calls POST /api/acmeclient/actions/add
-func (c *Client) ActionsAdd(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ActionsAdd(ctx context.Context, body any) (any, error) {
 	path := "/api/acmeclient/actions/add"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -112,9 +112,9 @@ func (c *Client) ActionsAdd(ctx context.Context, body any) (map[string]any, erro
 // ActionsDel calls POST /api/acmeclient/actions/del
 // Parameters:
 //   - uuid
-func (c *Client) ActionsDel(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) ActionsDel(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/acmeclient/actions/del/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -122,60 +122,60 @@ func (c *Client) ActionsDel(ctx context.Context, uuid string, body any) (map[str
 // ActionsGet calls GET /api/acmeclient/actions/get
 // Parameters:
 //   - uuid (optional, default: null)
-func (c *Client) ActionsGet(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) ActionsGet(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/acmeclient/actions/get"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ActionsSearch calls GET,POST /api/acmeclient/actions/search
-func (c *Client) ActionsSearch(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ActionsSearch(ctx context.Context, body any) (any, error) {
 	path := "/api/acmeclient/actions/search"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ActionsSet calls POST /api/acmeclient/actions/set
-func (c *Client) ActionsSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ActionsSet(ctx context.Context, body any) (any, error) {
 	path := "/api/acmeclient/actions/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ActionsSftpGetIdentity calls GET /api/acmeclient/actions/sftpGetIdentity
-func (c *Client) ActionsSftpGetIdentity(ctx context.Context) (map[string]any, error) {
+func (c *Client) ActionsSftpGetIdentity(ctx context.Context) (any, error) {
 	path := "/api/acmeclient/actions/sftpGetIdentity"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ActionsSftpTestConnection calls GET /api/acmeclient/actions/sftpTestConnection
-func (c *Client) ActionsSftpTestConnection(ctx context.Context) (map[string]any, error) {
+func (c *Client) ActionsSftpTestConnection(ctx context.Context) (any, error) {
 	path := "/api/acmeclient/actions/sftpTestConnection"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ActionsSshGetIdentity calls GET /api/acmeclient/actions/sshGetIdentity
-func (c *Client) ActionsSshGetIdentity(ctx context.Context) (map[string]any, error) {
+func (c *Client) ActionsSshGetIdentity(ctx context.Context) (any, error) {
 	path := "/api/acmeclient/actions/sshGetIdentity"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ActionsSshTestConnection calls GET /api/acmeclient/actions/sshTestConnection
-func (c *Client) ActionsSshTestConnection(ctx context.Context) (map[string]any, error) {
+func (c *Client) ActionsSshTestConnection(ctx context.Context) (any, error) {
 	path := "/api/acmeclient/actions/sshTestConnection"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -184,12 +184,12 @@ func (c *Client) ActionsSshTestConnection(ctx context.Context) (map[string]any, 
 // Parameters:
 //   - uuid
 //   - enabled (optional, default: null)
-func (c *Client) ActionsToggle(ctx context.Context, uuid string, body any, opts ...string) (map[string]any, error) {
+func (c *Client) ActionsToggle(ctx context.Context, uuid string, body any, opts ...string) (any, error) {
 	path := fmt.Sprintf("/api/acmeclient/actions/toggle/%s", uuid)
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -197,17 +197,17 @@ func (c *Client) ActionsToggle(ctx context.Context, uuid string, body any, opts 
 // ActionsUpdate calls POST /api/acmeclient/actions/update
 // Parameters:
 //   - uuid
-func (c *Client) ActionsUpdate(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) ActionsUpdate(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/acmeclient/actions/update/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // CertificatesAdd calls POST /api/acmeclient/certificates/add
-func (c *Client) CertificatesAdd(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) CertificatesAdd(ctx context.Context, body any) (any, error) {
 	path := "/api/acmeclient/certificates/add"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -215,9 +215,9 @@ func (c *Client) CertificatesAdd(ctx context.Context, body any) (map[string]any,
 // CertificatesAutomation calls GET /api/acmeclient/certificates/automation
 // Parameters:
 //   - uuid
-func (c *Client) CertificatesAutomation(ctx context.Context, uuid string) (map[string]any, error) {
+func (c *Client) CertificatesAutomation(ctx context.Context, uuid string) (any, error) {
 	path := fmt.Sprintf("/api/acmeclient/certificates/automation/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -225,9 +225,9 @@ func (c *Client) CertificatesAutomation(ctx context.Context, uuid string) (map[s
 // CertificatesDel calls POST /api/acmeclient/certificates/del
 // Parameters:
 //   - uuid
-func (c *Client) CertificatesDel(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) CertificatesDel(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/acmeclient/certificates/del/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -235,12 +235,12 @@ func (c *Client) CertificatesDel(ctx context.Context, uuid string, body any) (ma
 // CertificatesGet calls GET /api/acmeclient/certificates/get
 // Parameters:
 //   - uuid (optional, default: null)
-func (c *Client) CertificatesGet(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) CertificatesGet(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/acmeclient/certificates/get"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -248,9 +248,9 @@ func (c *Client) CertificatesGet(ctx context.Context, opts ...string) (map[strin
 // CertificatesImport calls GET /api/acmeclient/certificates/import
 // Parameters:
 //   - uuid
-func (c *Client) CertificatesImport(ctx context.Context, uuid string) (map[string]any, error) {
+func (c *Client) CertificatesImport(ctx context.Context, uuid string) (any, error) {
 	path := fmt.Sprintf("/api/acmeclient/certificates/import/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -258,9 +258,9 @@ func (c *Client) CertificatesImport(ctx context.Context, uuid string) (map[strin
 // CertificatesRemovekey calls GET /api/acmeclient/certificates/removekey
 // Parameters:
 //   - uuid
-func (c *Client) CertificatesRemovekey(ctx context.Context, uuid string) (map[string]any, error) {
+func (c *Client) CertificatesRemovekey(ctx context.Context, uuid string) (any, error) {
 	path := fmt.Sprintf("/api/acmeclient/certificates/removekey/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -268,25 +268,25 @@ func (c *Client) CertificatesRemovekey(ctx context.Context, uuid string) (map[st
 // CertificatesRevoke calls POST /api/acmeclient/certificates/revoke
 // Parameters:
 //   - uuid
-func (c *Client) CertificatesRevoke(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) CertificatesRevoke(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/acmeclient/certificates/revoke/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // CertificatesSearch calls GET,POST /api/acmeclient/certificates/search
-func (c *Client) CertificatesSearch(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) CertificatesSearch(ctx context.Context, body any) (any, error) {
 	path := "/api/acmeclient/certificates/search"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // CertificatesSet calls POST /api/acmeclient/certificates/set
-func (c *Client) CertificatesSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) CertificatesSet(ctx context.Context, body any) (any, error) {
 	path := "/api/acmeclient/certificates/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -294,9 +294,9 @@ func (c *Client) CertificatesSet(ctx context.Context, body any) (map[string]any,
 // CertificatesSign calls POST /api/acmeclient/certificates/sign
 // Parameters:
 //   - uuid
-func (c *Client) CertificatesSign(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) CertificatesSign(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/acmeclient/certificates/sign/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -305,12 +305,12 @@ func (c *Client) CertificatesSign(ctx context.Context, uuid string, body any) (m
 // Parameters:
 //   - uuid
 //   - enabled (optional, default: null)
-func (c *Client) CertificatesToggle(ctx context.Context, uuid string, body any, opts ...string) (map[string]any, error) {
+func (c *Client) CertificatesToggle(ctx context.Context, uuid string, body any, opts ...string) (any, error) {
 	path := fmt.Sprintf("/api/acmeclient/certificates/toggle/%s", uuid)
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -318,129 +318,129 @@ func (c *Client) CertificatesToggle(ctx context.Context, uuid string, body any, 
 // CertificatesUpdate calls POST /api/acmeclient/certificates/update
 // Parameters:
 //   - uuid
-func (c *Client) CertificatesUpdate(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) CertificatesUpdate(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/acmeclient/certificates/update/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceConfigtest calls GET /api/acmeclient/service/configtest
-func (c *Client) ServiceConfigtest(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceConfigtest(ctx context.Context) (any, error) {
 	path := "/api/acmeclient/service/configtest"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ServiceReconfigure calls POST /api/acmeclient/service/reconfigure
-func (c *Client) ServiceReconfigure(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceReconfigure(ctx context.Context, body any) (any, error) {
 	path := "/api/acmeclient/service/reconfigure"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceReset calls GET /api/acmeclient/service/reset
-func (c *Client) ServiceReset(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceReset(ctx context.Context) (any, error) {
 	path := "/api/acmeclient/service/reset"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ServiceRestart calls POST /api/acmeclient/service/restart
-func (c *Client) ServiceRestart(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceRestart(ctx context.Context, body any) (any, error) {
 	path := "/api/acmeclient/service/restart"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceSignallcerts calls GET /api/acmeclient/service/signallcerts
-func (c *Client) ServiceSignallcerts(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceSignallcerts(ctx context.Context) (any, error) {
 	path := "/api/acmeclient/service/signallcerts"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ServiceStart calls POST /api/acmeclient/service/start
-func (c *Client) ServiceStart(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceStart(ctx context.Context, body any) (any, error) {
 	path := "/api/acmeclient/service/start"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceStatus calls GET /api/acmeclient/service/status
-func (c *Client) ServiceStatus(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceStatus(ctx context.Context) (any, error) {
 	path := "/api/acmeclient/service/status"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ServiceStop calls POST /api/acmeclient/service/stop
-func (c *Client) ServiceStop(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceStop(ctx context.Context, body any) (any, error) {
 	path := "/api/acmeclient/service/stop"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SettingsFetchCronIntegration calls POST /api/acmeclient/settings/fetchCronIntegration
-func (c *Client) SettingsFetchCronIntegration(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsFetchCronIntegration(ctx context.Context, body any) (any, error) {
 	path := "/api/acmeclient/settings/fetchCronIntegration"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SettingsFetchHAProxyIntegration calls POST /api/acmeclient/settings/fetchHAProxyIntegration
-func (c *Client) SettingsFetchHAProxyIntegration(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsFetchHAProxyIntegration(ctx context.Context, body any) (any, error) {
 	path := "/api/acmeclient/settings/fetchHAProxyIntegration"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SettingsGet calls GET /api/acmeclient/settings/get
-func (c *Client) SettingsGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) SettingsGet(ctx context.Context) (any, error) {
 	path := "/api/acmeclient/settings/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // SettingsGetBindPluginStatus calls GET /api/acmeclient/settings/getBindPluginStatus
-func (c *Client) SettingsGetBindPluginStatus(ctx context.Context) (map[string]any, error) {
+func (c *Client) SettingsGetBindPluginStatus(ctx context.Context) (any, error) {
 	path := "/api/acmeclient/settings/getBindPluginStatus"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // SettingsGetGcloudPluginStatus calls GET /api/acmeclient/settings/getGcloudPluginStatus
-func (c *Client) SettingsGetGcloudPluginStatus(ctx context.Context) (map[string]any, error) {
+func (c *Client) SettingsGetGcloudPluginStatus(ctx context.Context) (any, error) {
 	path := "/api/acmeclient/settings/getGcloudPluginStatus"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // SettingsSet calls POST /api/acmeclient/settings/set
-func (c *Client) SettingsSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSet(ctx context.Context, body any) (any, error) {
 	path := "/api/acmeclient/settings/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ValidationsAdd calls POST /api/acmeclient/validations/add
-func (c *Client) ValidationsAdd(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ValidationsAdd(ctx context.Context, body any) (any, error) {
 	path := "/api/acmeclient/validations/add"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -448,9 +448,9 @@ func (c *Client) ValidationsAdd(ctx context.Context, body any) (map[string]any, 
 // ValidationsDel calls POST /api/acmeclient/validations/del
 // Parameters:
 //   - uuid
-func (c *Client) ValidationsDel(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) ValidationsDel(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/acmeclient/validations/del/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -458,28 +458,28 @@ func (c *Client) ValidationsDel(ctx context.Context, uuid string, body any) (map
 // ValidationsGet calls GET /api/acmeclient/validations/get
 // Parameters:
 //   - uuid (optional, default: null)
-func (c *Client) ValidationsGet(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) ValidationsGet(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/acmeclient/validations/get"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ValidationsSearch calls GET,POST /api/acmeclient/validations/search
-func (c *Client) ValidationsSearch(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ValidationsSearch(ctx context.Context, body any) (any, error) {
 	path := "/api/acmeclient/validations/search"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ValidationsSet calls POST /api/acmeclient/validations/set
-func (c *Client) ValidationsSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ValidationsSet(ctx context.Context, body any) (any, error) {
 	path := "/api/acmeclient/validations/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -488,12 +488,12 @@ func (c *Client) ValidationsSet(ctx context.Context, body any) (map[string]any, 
 // Parameters:
 //   - uuid
 //   - enabled (optional, default: null)
-func (c *Client) ValidationsToggle(ctx context.Context, uuid string, body any, opts ...string) (map[string]any, error) {
+func (c *Client) ValidationsToggle(ctx context.Context, uuid string, body any, opts ...string) (any, error) {
 	path := fmt.Sprintf("/api/acmeclient/validations/toggle/%s", uuid)
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -501,9 +501,9 @@ func (c *Client) ValidationsToggle(ctx context.Context, uuid string, body any, o
 // ValidationsUpdate calls POST /api/acmeclient/validations/update
 // Parameters:
 //   - uuid
-func (c *Client) ValidationsUpdate(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) ValidationsUpdate(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/acmeclient/validations/update/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }

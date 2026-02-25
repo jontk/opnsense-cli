@@ -30,10 +30,11 @@ func main() {
 	ctx := context.Background()
 
 	// Get current firmware info
-	info, err := fw.FirmwareInfo(ctx)
+	infoRaw, err := fw.FirmwareInfo(ctx)
 	if err != nil {
 		log.Fatalf("firmware info: %v", err)
 	}
+	info, _ := infoRaw.(map[string]any)
 
 	if productVersion, ok := info["product_version"].(string); ok {
 		fmt.Printf("Current version : %s\n", productVersion)
@@ -47,10 +48,11 @@ func main() {
 
 	// Check for available updates
 	fmt.Println("\nChecking for updates...")
-	status, err := fw.FirmwareStatus(ctx, nil)
+	statusRaw, err := fw.FirmwareStatus(ctx, nil)
 	if err != nil {
 		log.Fatalf("firmware status: %v", err)
 	}
+	status, _ := statusRaw.(map[string]any)
 
 	if statusStr, ok := status["status"].(string); ok {
 		fmt.Printf("Update status   : %s\n", statusStr)

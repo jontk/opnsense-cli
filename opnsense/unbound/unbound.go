@@ -21,57 +21,57 @@ func NewClient(c *opnsense.Client) *Client {
 }
 
 // DiagnosticsDumpcache calls GET /api/unbound/diagnostics/dumpcache
-func (c *Client) DiagnosticsDumpcache(ctx context.Context) (map[string]any, error) {
+func (c *Client) DiagnosticsDumpcache(ctx context.Context) (any, error) {
 	path := "/api/unbound/diagnostics/dumpcache"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // DiagnosticsDumpinfra calls GET /api/unbound/diagnostics/dumpinfra
-func (c *Client) DiagnosticsDumpinfra(ctx context.Context) (map[string]any, error) {
+func (c *Client) DiagnosticsDumpinfra(ctx context.Context) (any, error) {
 	path := "/api/unbound/diagnostics/dumpinfra"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // DiagnosticsListinsecure calls GET /api/unbound/diagnostics/listinsecure
-func (c *Client) DiagnosticsListinsecure(ctx context.Context) (map[string]any, error) {
+func (c *Client) DiagnosticsListinsecure(ctx context.Context) (any, error) {
 	path := "/api/unbound/diagnostics/listinsecure"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // DiagnosticsListlocaldata calls GET /api/unbound/diagnostics/listlocaldata
-func (c *Client) DiagnosticsListlocaldata(ctx context.Context) (map[string]any, error) {
+func (c *Client) DiagnosticsListlocaldata(ctx context.Context) (any, error) {
 	path := "/api/unbound/diagnostics/listlocaldata"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // DiagnosticsListlocalzones calls GET /api/unbound/diagnostics/listlocalzones
-func (c *Client) DiagnosticsListlocalzones(ctx context.Context) (map[string]any, error) {
+func (c *Client) DiagnosticsListlocalzones(ctx context.Context) (any, error) {
 	path := "/api/unbound/diagnostics/listlocalzones"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // DiagnosticsStats calls GET /api/unbound/diagnostics/stats
-func (c *Client) DiagnosticsStats(ctx context.Context) (map[string]any, error) {
+func (c *Client) DiagnosticsStats(ctx context.Context) (any, error) {
 	path := "/api/unbound/diagnostics/stats"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // DiagnosticsTestBlocklist calls POST /api/unbound/diagnostics/testBlocklist
-func (c *Client) DiagnosticsTestBlocklist(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) DiagnosticsTestBlocklist(ctx context.Context, body any) (any, error) {
 	path := "/api/unbound/diagnostics/testBlocklist"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -80,12 +80,12 @@ func (c *Client) DiagnosticsTestBlocklist(ctx context.Context, body any) (map[st
 // Parameters:
 //   - timeperiod
 //   - clients (optional, default: 0)
-func (c *Client) OverviewRolling(ctx context.Context, timeperiod string, opts ...string) (map[string]any, error) {
+func (c *Client) OverviewRolling(ctx context.Context, timeperiod string, opts ...string) (any, error) {
 	path := fmt.Sprintf("/api/unbound/overview/rolling/%s", timeperiod)
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -93,36 +93,36 @@ func (c *Client) OverviewRolling(ctx context.Context, timeperiod string, opts ..
 // OverviewGetPolicies calls GET /api/unbound/overview/getPolicies
 // Parameters:
 //   - uuid (optional, default: null)
-func (c *Client) OverviewGetPolicies(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) OverviewGetPolicies(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/unbound/overview/getPolicies"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // OverviewIsBlockListEnabled calls GET /api/unbound/overview/isBlockListEnabled
-func (c *Client) OverviewIsBlockListEnabled(ctx context.Context) (map[string]any, error) {
+func (c *Client) OverviewIsBlockListEnabled(ctx context.Context) (any, error) {
 	path := "/api/unbound/overview/isBlockListEnabled"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // OverviewIsEnabled calls GET /api/unbound/overview/isEnabled
-func (c *Client) OverviewIsEnabled(ctx context.Context) (map[string]any, error) {
+func (c *Client) OverviewIsEnabled(ctx context.Context) (any, error) {
 	path := "/api/unbound/overview/isEnabled"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // OverviewSearchQueries calls GET /api/unbound/overview/searchQueries
-func (c *Client) OverviewSearchQueries(ctx context.Context) (map[string]any, error) {
+func (c *Client) OverviewSearchQueries(ctx context.Context) (any, error) {
 	path := "/api/unbound/overview/searchQueries"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -130,65 +130,65 @@ func (c *Client) OverviewSearchQueries(ctx context.Context) (map[string]any, err
 // OverviewTotals calls GET /api/unbound/overview/totals
 // Parameters:
 //   - maximum
-func (c *Client) OverviewTotals(ctx context.Context, maximum string) (map[string]any, error) {
+func (c *Client) OverviewTotals(ctx context.Context, maximum string) (any, error) {
 	path := fmt.Sprintf("/api/unbound/overview/totals/%s", maximum)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ServiceDnsbl calls GET /api/unbound/service/dnsbl
-func (c *Client) ServiceDnsbl(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceDnsbl(ctx context.Context) (any, error) {
 	path := "/api/unbound/service/dnsbl"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ServiceReconfigure calls POST /api/unbound/service/reconfigure
-func (c *Client) ServiceReconfigure(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceReconfigure(ctx context.Context, body any) (any, error) {
 	path := "/api/unbound/service/reconfigure"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceReconfigureGeneral calls GET /api/unbound/service/reconfigureGeneral
-func (c *Client) ServiceReconfigureGeneral(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceReconfigureGeneral(ctx context.Context) (any, error) {
 	path := "/api/unbound/service/reconfigureGeneral"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ServiceRestart calls POST /api/unbound/service/restart
-func (c *Client) ServiceRestart(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceRestart(ctx context.Context, body any) (any, error) {
 	path := "/api/unbound/service/restart"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceStart calls POST /api/unbound/service/start
-func (c *Client) ServiceStart(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceStart(ctx context.Context, body any) (any, error) {
 	path := "/api/unbound/service/start"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceStatus calls GET /api/unbound/service/status
-func (c *Client) ServiceStatus(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceStatus(ctx context.Context) (any, error) {
 	path := "/api/unbound/service/status"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ServiceStop calls POST /api/unbound/service/stop
-func (c *Client) ServiceStop(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceStop(ctx context.Context, body any) (any, error) {
 	path := "/api/unbound/service/stop"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -284,9 +284,9 @@ func (c *Client) SettingsDelHostOverride(ctx context.Context, uuid string) (*opn
 }
 
 // SettingsGet calls GET /api/unbound/settings/get
-func (c *Client) SettingsGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) SettingsGet(ctx context.Context) (any, error) {
 	path := "/api/unbound/settings/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -357,9 +357,9 @@ func (c *Client) SettingsGetHostOverride(ctx context.Context, opts ...string) (*
 }
 
 // SettingsGetNameservers calls GET /api/unbound/settings/getNameservers
-func (c *Client) SettingsGetNameservers(ctx context.Context) (map[string]any, error) {
+func (c *Client) SettingsGetNameservers(ctx context.Context) (any, error) {
 	path := "/api/unbound/settings/getNameservers"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -405,9 +405,9 @@ func (c *Client) SettingsSearchHostOverride(ctx context.Context, body any) (*opn
 }
 
 // SettingsSet calls POST /api/unbound/settings/set
-func (c *Client) SettingsSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSet(ctx context.Context, body any) (any, error) {
 	path := "/api/unbound/settings/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -533,9 +533,9 @@ func (c *Client) SettingsToggleHostOverride(ctx context.Context, uuid string, op
 }
 
 // SettingsUpdateBlocklist calls POST /api/unbound/settings/updateBlocklist
-func (c *Client) SettingsUpdateBlocklist(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsUpdateBlocklist(ctx context.Context, body any) (any, error) {
 	path := "/api/unbound/settings/updateBlocklist"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }

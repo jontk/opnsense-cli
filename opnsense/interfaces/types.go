@@ -6,72 +6,72 @@ import "github.com/jontk/opnsense-cli/opnsense"
 
 // Bridged represents a bridged model item.
 type Bridged struct {
-	Bridgeif string `json:"bridgeif"` // Required.
-	Members string `json:"members"` // Required.
+	Bridgeif  string            `json:"bridgeif"` // Required.
+	Members   string            `json:"members"`  // Required.
 	Linklocal *opnsense.OPNBool `json:"linklocal,omitempty"`
 	Enablestp *opnsense.OPNBool `json:"enablestp,omitempty"`
-	Proto string `json:"proto"` // Required. Default: rstp. Valid: rstp, stp.
-	Stp string `json:"stp,omitempty"`
-	Maxage *opnsense.OPNInt `json:"maxage,omitempty"`
-	Fwdelay *opnsense.OPNInt `json:"fwdelay,omitempty"`
-	Holdcnt *opnsense.OPNInt `json:"holdcnt,omitempty"`
-	Maxaddr *opnsense.OPNInt `json:"maxaddr,omitempty"`
-	Timeout *opnsense.OPNInt `json:"timeout,omitempty"`
-	Span string `json:"span,omitempty"`
-	Edge string `json:"edge,omitempty"`
-	Autoedge string `json:"autoedge,omitempty"`
-	Ptp string `json:"ptp,omitempty"`
-	Autoptp string `json:"autoptp,omitempty"`
-	Static string `json:"static,omitempty"`
-	Private string `json:"private,omitempty"`
-	Descr string `json:"descr,omitempty"`
+	Proto     string            `json:"proto"` // Required. Default: rstp. Valid: rstp, stp.
+	Stp       string            `json:"stp,omitempty"`
+	Maxage    *opnsense.OPNInt  `json:"maxage,omitempty"`
+	Fwdelay   *opnsense.OPNInt  `json:"fwdelay,omitempty"`
+	Holdcnt   *opnsense.OPNInt  `json:"holdcnt,omitempty"`
+	Maxaddr   *opnsense.OPNInt  `json:"maxaddr,omitempty"`
+	Timeout   *opnsense.OPNInt  `json:"timeout,omitempty"`
+	Span      string            `json:"span,omitempty"`
+	Edge      string            `json:"edge,omitempty"`
+	Autoedge  string            `json:"autoedge,omitempty"`
+	Ptp       string            `json:"ptp,omitempty"`
+	Autoptp   string            `json:"autoptp,omitempty"`
+	Static    string            `json:"static,omitempty"`
+	Private   string            `json:"private,omitempty"`
+	Descr     string            `json:"descr,omitempty"`
 }
 
 // Gif represents a gif model item.
 type Gif struct {
-	LocalAddr string `json:"local-addr,omitempty"` // Required. Default: wan.
-	If string `json:"if,omitempty"`
-	Ipaddr string `json:"ipaddr,omitempty"`
-	Gifif string `json:"gifif"` // Required.
-	RemoteAddr string `json:"remote-addr,omitempty"`
-	TunnelLocalAddr string `json:"tunnel-local-addr,omitempty"`
-	TunnelRemoteAddr string `json:"tunnel-remote-addr,omitempty"`
-	TunnelRemoteNet opnsense.OPNInt `json:"tunnel-remote-net"` // Required. Default: 32.
-	Descr string `json:"descr,omitempty"`
-	Link1 *opnsense.OPNBool `json:"link1,omitempty"`
-	Link2 *opnsense.OPNBool `json:"link2,omitempty"`
+	LocalAddr        string            `json:"local-addr,omitempty"` // Required. Default: wan.
+	If               string            `json:"if,omitempty"`
+	Ipaddr           string            `json:"ipaddr,omitempty"`
+	Gifif            string            `json:"gifif"` // Required.
+	RemoteAddr       string            `json:"remote-addr,omitempty"`
+	TunnelLocalAddr  string            `json:"tunnel-local-addr,omitempty"`
+	TunnelRemoteAddr string            `json:"tunnel-remote-addr,omitempty"`
+	TunnelRemoteNet  opnsense.OPNInt   `json:"tunnel-remote-net"` // Required. Default: 32.
+	Descr            string            `json:"descr,omitempty"`
+	Link1            *opnsense.OPNBool `json:"link1,omitempty"`
+	Link2            *opnsense.OPNBool `json:"link2,omitempty"`
 }
 
 // Gre represents a gre model item.
 type Gre struct {
-	LocalAddr string `json:"local-addr,omitempty"` // Required. Default: wan.
-	If string `json:"if,omitempty"`
-	Ipaddr string `json:"ipaddr,omitempty"`
-	Greif string `json:"greif"` // Required.
-	RemoteAddr string `json:"remote-addr,omitempty"`
-	TunnelLocalAddr string `json:"tunnel-local-addr,omitempty"`
-	TunnelRemoteAddr string `json:"tunnel-remote-addr,omitempty"`
-	TunnelRemoteNet opnsense.OPNInt `json:"tunnel-remote-net"` // Required. Default: 32.
-	Descr string `json:"descr,omitempty"`
+	LocalAddr        string          `json:"local-addr,omitempty"` // Required. Default: wan.
+	If               string          `json:"if,omitempty"`
+	Ipaddr           string          `json:"ipaddr,omitempty"`
+	Greif            string          `json:"greif"` // Required.
+	RemoteAddr       string          `json:"remote-addr,omitempty"`
+	TunnelLocalAddr  string          `json:"tunnel-local-addr,omitempty"`
+	TunnelRemoteAddr string          `json:"tunnel-remote-addr,omitempty"`
+	TunnelRemoteNet  opnsense.OPNInt `json:"tunnel-remote-net"` // Required. Default: 32.
+	Descr            string          `json:"descr,omitempty"`
 }
 
 // Lagg represents a lagg model item.
 type Lagg struct {
-	Laggif string `json:"laggif"` // Required.
-	Members string `json:"members"` // Required.
-	PrimaryMember string `json:"primary_member,omitempty"`
-	Proto string `json:"proto"` // Required. Default: lacp. Valid: none, lacp, failover, fec, loadbalance, roundrobin.
-	LacpFastTimeout opnsense.OPNBool `json:"lacp_fast_timeout"` // Required. Default: 0.
-	UseFlowid string `json:"use_flowid,omitempty"` // Valid: default, yes, no.
-	Lagghash string `json:"lagghash,omitempty"` // Valid: l2, l3, l4.
-	LacpStrict string `json:"lacp_strict,omitempty"` // Valid: default, yes, no.
-	Mtu *opnsense.OPNInt `json:"mtu,omitempty"`
-	Descr string `json:"descr,omitempty"`
+	Laggif          string           `json:"laggif"`  // Required.
+	Members         string           `json:"members"` // Required.
+	PrimaryMember   string           `json:"primary_member,omitempty"`
+	Proto           string           `json:"proto"`                 // Required. Default: lacp. Valid: none, lacp, failover, fec, loadbalance, roundrobin.
+	LacpFastTimeout opnsense.OPNBool `json:"lacp_fast_timeout"`     // Required. Default: 0.
+	UseFlowid       string           `json:"use_flowid,omitempty"`  // Valid: default, yes, no.
+	Lagghash        string           `json:"lagghash,omitempty"`    // Valid: l2, l3, l4.
+	LacpStrict      string           `json:"lacp_strict,omitempty"` // Valid: default, yes, no.
+	Mtu             *opnsense.OPNInt `json:"mtu,omitempty"`
+	Descr           string           `json:"descr,omitempty"`
 }
 
 // Loopback represents a loopback model item.
 type Loopback struct {
-	DeviceId string `json:"deviceId"` // Required.
+	DeviceId    string `json:"deviceId"`    // Required.
 	Description string `json:"description"` // Required.
 }
 
@@ -79,64 +79,64 @@ type Loopback struct {
 type Neighbor struct {
 	Etheraddr string `json:"etheraddr"` // Required.
 	Ipaddress string `json:"ipaddress"` // Required.
-	Descr string `json:"descr,omitempty"`
-	Origin string `json:"origin,omitempty"`
+	Descr     string `json:"descr,omitempty"`
+	Origin    string `json:"origin,omitempty"`
 }
 
 // Settings represents a settings model item.
 type Settings struct {
-	Disablechecksumoffloading opnsense.OPNBool `json:"disablechecksumoffloading"` // Required. Default: 1.
+	Disablechecksumoffloading     opnsense.OPNBool `json:"disablechecksumoffloading"`     // Required. Default: 1.
 	Disablesegmentationoffloading opnsense.OPNBool `json:"disablesegmentationoffloading"` // Required. Default: 1.
 	Disablelargereceiveoffloading opnsense.OPNBool `json:"disablelargereceiveoffloading"` // Required. Default: 1.
-	Disablevlanhwfilter string `json:"disablevlanhwfilter"` // Required. Default: 2. Valid: opt0, opt1, opt2.
-	Disableipv6 opnsense.OPNBool `json:"disableipv6"` // Required. Default: 0.
-	Dhcp6Norelease opnsense.OPNBool `json:"dhcp6_norelease"` // Required. Default: 0.
-	Dhcp6Debug opnsense.OPNBool `json:"dhcp6_debug"` // Required. Default: 0.
-	Dhcp6Duid string `json:"dhcp6_duid,omitempty"`
-	Dhcp6Ratimeout opnsense.OPNInt `json:"dhcp6_ratimeout"` // Required. Default: 10.
+	Disablevlanhwfilter           string           `json:"disablevlanhwfilter"`           // Required. Default: 2. Valid: opt0, opt1, opt2.
+	Disableipv6                   opnsense.OPNBool `json:"disableipv6"`                   // Required. Default: 0.
+	Dhcp6Norelease                opnsense.OPNBool `json:"dhcp6_norelease"`               // Required. Default: 0.
+	Dhcp6Debug                    opnsense.OPNBool `json:"dhcp6_debug"`                   // Required. Default: 0.
+	Dhcp6Duid                     string           `json:"dhcp6_duid,omitempty"`
+	Dhcp6Ratimeout                opnsense.OPNInt  `json:"dhcp6_ratimeout"` // Required. Default: 10.
 }
 
 // Vip represents a vip model item.
 type Vip struct {
-	Interface string `json:"interface"` // Required.
-	Mode string `json:"mode"` // Required. Default: ipalias. Valid: ipalias, carp, proxyarp.
-	Subnet string `json:"subnet,omitempty"`
-	SubnetBits string `json:"subnet_bits,omitempty"`
-	Gateway string `json:"gateway,omitempty"`
-	Noexpand opnsense.OPNBool `json:"noexpand"` // Required. Default: 0.
-	Nobind opnsense.OPNBool `json:"nobind"` // Required. Default: 0.
-	Password string `json:"password,omitempty"`
-	Vhid *opnsense.OPNInt `json:"vhid,omitempty"`
-	Advbase opnsense.OPNInt `json:"advbase"` // Required. Default: 1.
-	Advskew opnsense.OPNInt `json:"advskew"` // Required. Default: 0.
-	Peer string `json:"peer,omitempty"`
-	Peer6 string `json:"peer6,omitempty"`
-	Nosync opnsense.OPNBool `json:"nosync"` // Required. Default: 0.
-	Address string `json:"address,omitempty"`
-	VhidTxt string `json:"vhid_txt,omitempty"`
-	Descr string `json:"descr,omitempty"`
+	Interface  string           `json:"interface"` // Required.
+	Mode       string           `json:"mode"`      // Required. Default: ipalias. Valid: ipalias, carp, proxyarp.
+	Subnet     string           `json:"subnet,omitempty"`
+	SubnetBits string           `json:"subnet_bits,omitempty"`
+	Gateway    string           `json:"gateway,omitempty"`
+	Noexpand   opnsense.OPNBool `json:"noexpand"` // Required. Default: 0.
+	Nobind     opnsense.OPNBool `json:"nobind"`   // Required. Default: 0.
+	Password   string           `json:"password,omitempty"`
+	Vhid       *opnsense.OPNInt `json:"vhid,omitempty"`
+	Advbase    opnsense.OPNInt  `json:"advbase"` // Required. Default: 1.
+	Advskew    opnsense.OPNInt  `json:"advskew"` // Required. Default: 0.
+	Peer       string           `json:"peer,omitempty"`
+	Peer6      string           `json:"peer6,omitempty"`
+	Nosync     opnsense.OPNBool `json:"nosync"` // Required. Default: 0.
+	Address    string           `json:"address,omitempty"`
+	VhidTxt    string           `json:"vhid_txt,omitempty"`
+	Descr      string           `json:"descr,omitempty"`
 }
 
 // Vlan represents a vlan model item.
 type Vlan struct {
-	If string `json:"if"` // Required.
-	Tag opnsense.OPNInt `json:"tag"` // Required.
-	Pcp string `json:"pcp"` // Required. Default: 0. Valid: pcp1, pcp0, pcp2, pcp3, pcp4, pcp5, pcp6, pcp7.
-	Proto string `json:"proto,omitempty"` // Valid: opt1, opt2.
-	Descr string `json:"descr,omitempty"`
-	Vlanif string `json:"vlanif"` // Required.
+	If     string          `json:"if"`              // Required.
+	Tag    opnsense.OPNInt `json:"tag"`             // Required.
+	Pcp    string          `json:"pcp"`             // Required. Default: 0. Valid: pcp1, pcp0, pcp2, pcp3, pcp4, pcp5, pcp6, pcp7.
+	Proto  string          `json:"proto,omitempty"` // Valid: opt1, opt2.
+	Descr  string          `json:"descr,omitempty"`
+	Vlanif string          `json:"vlanif"` // Required.
 }
 
 // Vxlan represents a vxlan model item.
 type Vxlan struct {
-	DeviceId string `json:"deviceId"` // Required.
-	Vxlanid opnsense.OPNInt `json:"vxlanid"` // Required.
-	Vxlanlocal string `json:"vxlanlocal"` // Required.
-	Vxlanlocalport string `json:"vxlanlocalport,omitempty"`
-	Vxlanremote string `json:"vxlanremote,omitempty"`
-	Vxlanremoteport string `json:"vxlanremoteport,omitempty"`
-	Vxlangroup string `json:"vxlangroup,omitempty"`
-	Vxlandev string `json:"vxlandev,omitempty"`
+	DeviceId        string          `json:"deviceId"`   // Required.
+	Vxlanid         opnsense.OPNInt `json:"vxlanid"`    // Required.
+	Vxlanlocal      string          `json:"vxlanlocal"` // Required.
+	Vxlanlocalport  string          `json:"vxlanlocalport,omitempty"`
+	Vxlanremote     string          `json:"vxlanremote,omitempty"`
+	Vxlanremoteport string          `json:"vxlanremoteport,omitempty"`
+	Vxlangroup      string          `json:"vxlangroup,omitempty"`
+	Vxlandev        string          `json:"vxlandev,omitempty"`
 }
 
 type bridgedGetItemResponse struct {

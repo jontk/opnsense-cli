@@ -21,17 +21,17 @@ func NewClient(c *opnsense.Client) *Client {
 }
 
 // ExportConfig calls GET /api/haproxy/export/config
-func (c *Client) ExportConfig(ctx context.Context) (map[string]any, error) {
+func (c *Client) ExportConfig(ctx context.Context) (any, error) {
 	path := "/api/haproxy/export/config"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ExportDiff calls GET /api/haproxy/export/diff
-func (c *Client) ExportDiff(ctx context.Context) (map[string]any, error) {
+func (c *Client) ExportDiff(ctx context.Context) (any, error) {
 	path := "/api/haproxy/export/diff"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -39,65 +39,65 @@ func (c *Client) ExportDiff(ctx context.Context) (map[string]any, error) {
 // ExportDownload calls GET /api/haproxy/export/download
 // Parameters:
 //   - type
-func (c *Client) ExportDownload(ctx context.Context, typeVal string) (map[string]any, error) {
+func (c *Client) ExportDownload(ctx context.Context, typeVal string) (any, error) {
 	path := fmt.Sprintf("/api/haproxy/export/download/%s", typeVal)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // MaintenanceCertActions calls GET /api/haproxy/maintenance/certActions
-func (c *Client) MaintenanceCertActions(ctx context.Context) (map[string]any, error) {
+func (c *Client) MaintenanceCertActions(ctx context.Context) (any, error) {
 	path := "/api/haproxy/maintenance/certActions"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // MaintenanceCertDiff calls GET /api/haproxy/maintenance/certDiff
-func (c *Client) MaintenanceCertDiff(ctx context.Context) (map[string]any, error) {
+func (c *Client) MaintenanceCertDiff(ctx context.Context) (any, error) {
 	path := "/api/haproxy/maintenance/certDiff"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // MaintenanceCertSync calls GET /api/haproxy/maintenance/certSync
-func (c *Client) MaintenanceCertSync(ctx context.Context) (map[string]any, error) {
+func (c *Client) MaintenanceCertSync(ctx context.Context) (any, error) {
 	path := "/api/haproxy/maintenance/certSync"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // MaintenanceCertSyncBulk calls GET /api/haproxy/maintenance/certSyncBulk
-func (c *Client) MaintenanceCertSyncBulk(ctx context.Context) (map[string]any, error) {
+func (c *Client) MaintenanceCertSyncBulk(ctx context.Context) (any, error) {
 	path := "/api/haproxy/maintenance/certSyncBulk"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // MaintenanceFetchCronIntegration calls POST /api/haproxy/maintenance/fetchCronIntegration
-func (c *Client) MaintenanceFetchCronIntegration(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) MaintenanceFetchCronIntegration(ctx context.Context, body any) (any, error) {
 	path := "/api/haproxy/maintenance/fetchCronIntegration"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // MaintenanceGet calls GET /api/haproxy/maintenance/get
-func (c *Client) MaintenanceGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) MaintenanceGet(ctx context.Context) (any, error) {
 	path := "/api/haproxy/maintenance/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // MaintenanceSearchCertificateDiff calls GET /api/haproxy/maintenance/searchCertificateDiff
-func (c *Client) MaintenanceSearchCertificateDiff(ctx context.Context) (map[string]any, error) {
+func (c *Client) MaintenanceSearchCertificateDiff(ctx context.Context) (any, error) {
 	path := "/api/haproxy/maintenance/searchCertificateDiff"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -111,89 +111,89 @@ func (c *Client) MaintenanceSearchServer(ctx context.Context) (*opnsense.SearchR
 }
 
 // MaintenanceServerState calls GET /api/haproxy/maintenance/serverState
-func (c *Client) MaintenanceServerState(ctx context.Context) (map[string]any, error) {
+func (c *Client) MaintenanceServerState(ctx context.Context) (any, error) {
 	path := "/api/haproxy/maintenance/serverState"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // MaintenanceServerStateBulk calls GET /api/haproxy/maintenance/serverStateBulk
-func (c *Client) MaintenanceServerStateBulk(ctx context.Context) (map[string]any, error) {
+func (c *Client) MaintenanceServerStateBulk(ctx context.Context) (any, error) {
 	path := "/api/haproxy/maintenance/serverStateBulk"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // MaintenanceServerWeight calls GET /api/haproxy/maintenance/serverWeight
-func (c *Client) MaintenanceServerWeight(ctx context.Context) (map[string]any, error) {
+func (c *Client) MaintenanceServerWeight(ctx context.Context) (any, error) {
 	path := "/api/haproxy/maintenance/serverWeight"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // MaintenanceServerWeightBulk calls GET /api/haproxy/maintenance/serverWeightBulk
-func (c *Client) MaintenanceServerWeightBulk(ctx context.Context) (map[string]any, error) {
+func (c *Client) MaintenanceServerWeightBulk(ctx context.Context) (any, error) {
 	path := "/api/haproxy/maintenance/serverWeightBulk"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // MaintenanceSet calls POST /api/haproxy/maintenance/set
-func (c *Client) MaintenanceSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) MaintenanceSet(ctx context.Context, body any) (any, error) {
 	path := "/api/haproxy/maintenance/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceConfigtest calls GET /api/haproxy/service/configtest
-func (c *Client) ServiceConfigtest(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceConfigtest(ctx context.Context) (any, error) {
 	path := "/api/haproxy/service/configtest"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ServiceReconfigure calls POST /api/haproxy/service/reconfigure
-func (c *Client) ServiceReconfigure(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceReconfigure(ctx context.Context, body any) (any, error) {
 	path := "/api/haproxy/service/reconfigure"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceRestart calls POST /api/haproxy/service/restart
-func (c *Client) ServiceRestart(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceRestart(ctx context.Context, body any) (any, error) {
 	path := "/api/haproxy/service/restart"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceStart calls POST /api/haproxy/service/start
-func (c *Client) ServiceStart(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceStart(ctx context.Context, body any) (any, error) {
 	path := "/api/haproxy/service/start"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceStatus calls GET /api/haproxy/service/status
-func (c *Client) ServiceStatus(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceStatus(ctx context.Context) (any, error) {
 	path := "/api/haproxy/service/status"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ServiceStop calls POST /api/haproxy/service/stop
-func (c *Client) ServiceStop(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceStop(ctx context.Context, body any) (any, error) {
 	path := "/api/haproxy/service/stop"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -303,17 +303,17 @@ func (c *Client) SettingsAddUser(ctx context.Context, body *User) (*opnsense.Gen
 }
 
 // SettingsAddmailer calls POST /api/haproxy/settings/addmailer
-func (c *Client) SettingsAddmailer(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsAddmailer(ctx context.Context, body any) (any, error) {
 	path := "/api/haproxy/settings/addmailer"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SettingsAddresolver calls POST /api/haproxy/settings/addresolver
-func (c *Client) SettingsAddresolver(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsAddresolver(ctx context.Context, body any) (any, error) {
 	path := "/api/haproxy/settings/addresolver"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -451,9 +451,9 @@ func (c *Client) SettingsDelUser(ctx context.Context, uuid string) (*opnsense.Ge
 // SettingsDelmailer calls POST /api/haproxy/settings/delmailer
 // Parameters:
 //   - uuid
-func (c *Client) SettingsDelmailer(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) SettingsDelmailer(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/haproxy/settings/delmailer/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -461,17 +461,17 @@ func (c *Client) SettingsDelmailer(ctx context.Context, uuid string, body any) (
 // SettingsDelresolver calls POST /api/haproxy/settings/delresolver
 // Parameters:
 //   - uuid
-func (c *Client) SettingsDelresolver(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) SettingsDelresolver(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/haproxy/settings/delresolver/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SettingsGet calls GET /api/haproxy/settings/get
-func (c *Client) SettingsGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) SettingsGet(ctx context.Context) (any, error) {
 	path := "/api/haproxy/settings/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -648,12 +648,12 @@ func (c *Client) SettingsGetUser(ctx context.Context, opts ...string) (*User, er
 // SettingsGetmailer calls GET /api/haproxy/settings/getmailer
 // Parameters:
 //   - uuid (optional, default: null)
-func (c *Client) SettingsGetmailer(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) SettingsGetmailer(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/haproxy/settings/getmailer"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -661,12 +661,12 @@ func (c *Client) SettingsGetmailer(ctx context.Context, opts ...string) (map[str
 // SettingsGetresolver calls GET /api/haproxy/settings/getresolver
 // Parameters:
 //   - uuid (optional, default: null)
-func (c *Client) SettingsGetresolver(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) SettingsGetresolver(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/haproxy/settings/getresolver"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -776,25 +776,25 @@ func (c *Client) SettingsSearchUsers(ctx context.Context, body any) (*opnsense.S
 }
 
 // SettingsSearchmailers calls GET,POST /api/haproxy/settings/searchmailers
-func (c *Client) SettingsSearchmailers(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSearchmailers(ctx context.Context, body any) (any, error) {
 	path := "/api/haproxy/settings/searchmailers"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SettingsSearchresolvers calls GET,POST /api/haproxy/settings/searchresolvers
-func (c *Client) SettingsSearchresolvers(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSearchresolvers(ctx context.Context, body any) (any, error) {
 	path := "/api/haproxy/settings/searchresolvers"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SettingsSet calls POST /api/haproxy/settings/set
-func (c *Client) SettingsSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSet(ctx context.Context, body any) (any, error) {
 	path := "/api/haproxy/settings/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -932,9 +932,9 @@ func (c *Client) SettingsSetUser(ctx context.Context, uuid string, body *User) (
 // SettingsSetmailer calls POST /api/haproxy/settings/setmailer
 // Parameters:
 //   - uuid
-func (c *Client) SettingsSetmailer(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) SettingsSetmailer(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/haproxy/settings/setmailer/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -942,9 +942,9 @@ func (c *Client) SettingsSetmailer(ctx context.Context, uuid string, body any) (
 // SettingsSetresolver calls POST /api/haproxy/settings/setresolver
 // Parameters:
 //   - uuid
-func (c *Client) SettingsSetresolver(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) SettingsSetresolver(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/haproxy/settings/setresolver/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -1047,12 +1047,12 @@ func (c *Client) SettingsToggleUser(ctx context.Context, uuid string, opts ...st
 // Parameters:
 //   - uuid
 //   - enabled (optional, default: null)
-func (c *Client) SettingsTogglemailer(ctx context.Context, uuid string, body any, opts ...string) (map[string]any, error) {
+func (c *Client) SettingsTogglemailer(ctx context.Context, uuid string, body any, opts ...string) (any, error) {
 	path := fmt.Sprintf("/api/haproxy/settings/togglemailer/%s", uuid)
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -1061,36 +1061,36 @@ func (c *Client) SettingsTogglemailer(ctx context.Context, uuid string, body any
 // Parameters:
 //   - uuid
 //   - enabled (optional, default: null)
-func (c *Client) SettingsToggleresolver(ctx context.Context, uuid string, body any, opts ...string) (map[string]any, error) {
+func (c *Client) SettingsToggleresolver(ctx context.Context, uuid string, body any, opts ...string) (any, error) {
 	path := fmt.Sprintf("/api/haproxy/settings/toggleresolver/%s", uuid)
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // StatisticsCounters calls GET /api/haproxy/statistics/counters
-func (c *Client) StatisticsCounters(ctx context.Context) (map[string]any, error) {
+func (c *Client) StatisticsCounters(ctx context.Context) (any, error) {
 	path := "/api/haproxy/statistics/counters"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // StatisticsInfo calls GET /api/haproxy/statistics/info
-func (c *Client) StatisticsInfo(ctx context.Context) (map[string]any, error) {
+func (c *Client) StatisticsInfo(ctx context.Context) (any, error) {
 	path := "/api/haproxy/statistics/info"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // StatisticsTables calls GET /api/haproxy/statistics/tables
-func (c *Client) StatisticsTables(ctx context.Context) (map[string]any, error) {
+func (c *Client) StatisticsTables(ctx context.Context) (any, error) {
 	path := "/api/haproxy/statistics/tables"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }

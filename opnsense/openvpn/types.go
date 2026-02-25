@@ -6,97 +6,97 @@ import "github.com/jontk/opnsense-cli/opnsense"
 
 // Overwrite represents a Overwrite model item.
 type Overwrite struct {
-	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
-	Servers string `json:"servers,omitempty"`
-	CommonName string `json:"common_name"` // Required.
-	Block opnsense.OPNBool `json:"block"` // Required. Default: 0.
-	PushReset opnsense.OPNBool `json:"push_reset"` // Required. Default: 0.
-	TunnelNetwork string `json:"tunnel_network,omitempty"`
-	TunnelNetworkv6 string `json:"tunnel_networkv6,omitempty"`
-	LocalNetworks string `json:"local_networks,omitempty"`
-	RemoteNetworks string `json:"remote_networks,omitempty"`
-	RouteGateway string `json:"route_gateway,omitempty"`
-	RedirectGateway string `json:"redirect_gateway,omitempty"` // Valid: local, autolocal, def1, bypass_dhcp, bypass_dns, block_local, ipv6, notipv4.
-	RegisterDns opnsense.OPNBool `json:"register_dns"` // Required. Default: 0.
-	DnsDomain string `json:"dns_domain,omitempty"`
-	DnsDomainSearch string `json:"dns_domain_search,omitempty"`
-	DnsServers string `json:"dns_servers,omitempty"`
-	NtpServers string `json:"ntp_servers,omitempty"`
-	WinsServers string `json:"wins_servers,omitempty"`
-	Description string `json:"description,omitempty"`
+	Enabled         opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
+	Servers         string           `json:"servers,omitempty"`
+	CommonName      string           `json:"common_name"` // Required.
+	Block           opnsense.OPNBool `json:"block"`       // Required. Default: 0.
+	PushReset       opnsense.OPNBool `json:"push_reset"`  // Required. Default: 0.
+	TunnelNetwork   string           `json:"tunnel_network,omitempty"`
+	TunnelNetworkv6 string           `json:"tunnel_networkv6,omitempty"`
+	LocalNetworks   string           `json:"local_networks,omitempty"`
+	RemoteNetworks  string           `json:"remote_networks,omitempty"`
+	RouteGateway    string           `json:"route_gateway,omitempty"`
+	RedirectGateway string           `json:"redirect_gateway,omitempty"` // Valid: local, autolocal, def1, bypass_dhcp, bypass_dns, block_local, ipv6, notipv4.
+	RegisterDns     opnsense.OPNBool `json:"register_dns"`               // Required. Default: 0.
+	DnsDomain       string           `json:"dns_domain,omitempty"`
+	DnsDomainSearch string           `json:"dns_domain_search,omitempty"`
+	DnsServers      string           `json:"dns_servers,omitempty"`
+	NtpServers      string           `json:"ntp_servers,omitempty"`
+	WinsServers     string           `json:"wins_servers,omitempty"`
+	Description     string           `json:"description,omitempty"`
 }
 
 // Instance represents a Instance model item.
 type Instance struct {
-	Vpnid string `json:"vpnid"` // Required.
-	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
-	DevType string `json:"dev_type"` // Required. Default: tun. Valid: tun, tap, ovpn.
-	Verb string `json:"verb"` // Required. Default: 3. Valid: o0, o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11.
-	Proto string `json:"proto"` // Required. Default: udp. Valid: udp, udp4, udp6, tcp, tcp4, tcp6.
-	Port string `json:"port,omitempty"`
-	PortShare string `json:"port-share,omitempty"`
-	Local string `json:"local,omitempty"`
-	Topology string `json:"topology"` // Required. Default: subnet. Valid: net30, p2p, subnet.
-	Remote string `json:"remote,omitempty"`
-	Role string `json:"role"` // Required. Default: server. Valid: client, server.
-	Server string `json:"server,omitempty"`
-	ServerIpv6 string `json:"server_ipv6,omitempty"`
-	Nopool *opnsense.OPNBool `json:"nopool,omitempty"`
-	BridgeGateway string `json:"bridge_gateway,omitempty"`
-	BridgePool string `json:"bridge_pool,omitempty"`
-	Route string `json:"route,omitempty"`
-	PushRoute string `json:"push_route,omitempty"`
-	PushExcludedRoutes string `json:"push_excluded_routes,omitempty"`
-	Cert string `json:"cert,omitempty"`
-	Crl string `json:"crl,omitempty"`
-	Ca string `json:"ca,omitempty"`
-	CertDepth string `json:"cert_depth,omitempty"` // Valid: item1, item2, item3, item4, item5.
-	RemoteCertTls opnsense.OPNBool `json:"remote_cert_tls"` // Required. Default: 0.
-	VerifyClientCert string `json:"verify_client_cert"` // Required. Default: require. Valid: none, require.
-	UseOcsp opnsense.OPNBool `json:"use_ocsp"` // Required. Default: 0.
-	Auth string `json:"auth,omitempty"` // Valid: BLAKE2b512, BLAKE2s256, MD4, MD5, MD5-SHA1, RIPEMD160, SHA1, SHA224, SHA256, SHA3-224, SHA3-256, SHA3-384, SHA3-512, SHA384, SHA512, SHA512-224, SHA512-256, SHAKE128, SHAKE256, whirlpool, none.
-	DataCiphers string `json:"data-ciphers,omitempty"` // Valid: Recommended, Legacy.
-	DataCiphersFallback string `json:"data-ciphers-fallback,omitempty"` // Valid: Recommended, Legacy.
-	TlsKey string `json:"tls_key,omitempty"`
-	Authmode string `json:"authmode,omitempty"`
-	LocalGroup string `json:"local_group,omitempty"`
-	VariousFlags string `json:"various_flags,omitempty"` // Valid: block-ipv6, client-to-client, duplicate-cn, float, passtos, persist-remote-ip, remote-random, route-noexec, route-nopull, explicit-exit-notify, fast-io.
-	VariousPushFlags string `json:"various_push_flags,omitempty"` // Valid: block-ipv6, block-outside-dns, register-dns, explicit-exit-notify.
-	PushInactive *opnsense.OPNInt `json:"push_inactive,omitempty"`
-	UsernameAsCommonName opnsense.OPNBool `json:"username_as_common_name"` // Required. Default: 0.
-	Strictusercn string `json:"strictusercn"` // Required. Default: 0. Valid: o0, o1, o2.
-	Username string `json:"username,omitempty"`
-	Password string `json:"password,omitempty"`
-	Maxclients *opnsense.OPNInt `json:"maxclients,omitempty"`
-	KeepaliveInterval *opnsense.OPNInt `json:"keepalive_interval,omitempty"`
-	KeepaliveTimeout *opnsense.OPNInt `json:"keepalive_timeout,omitempty"`
-	RenegSec *opnsense.OPNInt `json:"reneg-sec,omitempty"`
-	AuthGenToken *opnsense.OPNInt `json:"auth-gen-token,omitempty"`
-	AuthGenTokenRenewal *opnsense.OPNInt `json:"auth-gen-token-renewal,omitempty"`
-	AuthGenTokenSecret string `json:"auth-gen-token-secret,omitempty"`
-	ProvisionExclusive opnsense.OPNBool `json:"provision_exclusive"` // Required. Default: 0.
-	RedirectGateway string `json:"redirect_gateway,omitempty"` // Valid: local, autolocal, def1, bypass_dhcp, bypass_dns, block_local, ipv6, notipv4.
-	RouteMetric *opnsense.OPNInt `json:"route_metric,omitempty"`
-	RegisterDns opnsense.OPNBool `json:"register_dns"` // Required. Default: 0.
-	DnsDomain string `json:"dns_domain,omitempty"`
-	DnsDomainSearch string `json:"dns_domain_search,omitempty"`
-	DnsServers string `json:"dns_servers,omitempty"`
-	NtpServers string `json:"ntp_servers,omitempty"`
-	TunMtu *opnsense.OPNInt `json:"tun_mtu,omitempty"`
-	Fragment *opnsense.OPNInt `json:"fragment,omitempty"`
-	Mssfix *opnsense.OPNBool `json:"mssfix,omitempty"`
-	CarpDependOn string `json:"carp_depend_on,omitempty"`
-	Description string `json:"description,omitempty"`
-	CompressMigrate *opnsense.OPNBool `json:"compress_migrate,omitempty"`
-	IfconfigPoolPersist *opnsense.OPNBool `json:"ifconfig-pool-persist,omitempty"`
-	HttpProxy string `json:"http-proxy,omitempty"`
-	VerifyX509Name string `json:"verify-x509-name,omitempty"`
+	Vpnid                string            `json:"vpnid"`    // Required.
+	Enabled              opnsense.OPNBool  `json:"enabled"`  // Required. Default: 1.
+	DevType              string            `json:"dev_type"` // Required. Default: tun. Valid: tun, tap, ovpn.
+	Verb                 string            `json:"verb"`     // Required. Default: 3. Valid: o0, o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11.
+	Proto                string            `json:"proto"`    // Required. Default: udp. Valid: udp, udp4, udp6, tcp, tcp4, tcp6.
+	Port                 string            `json:"port,omitempty"`
+	PortShare            string            `json:"port-share,omitempty"`
+	Local                string            `json:"local,omitempty"`
+	Topology             string            `json:"topology"` // Required. Default: subnet. Valid: net30, p2p, subnet.
+	Remote               string            `json:"remote,omitempty"`
+	Role                 string            `json:"role"` // Required. Default: server. Valid: client, server.
+	Server               string            `json:"server,omitempty"`
+	ServerIpv6           string            `json:"server_ipv6,omitempty"`
+	Nopool               *opnsense.OPNBool `json:"nopool,omitempty"`
+	BridgeGateway        string            `json:"bridge_gateway,omitempty"`
+	BridgePool           string            `json:"bridge_pool,omitempty"`
+	Route                string            `json:"route,omitempty"`
+	PushRoute            string            `json:"push_route,omitempty"`
+	PushExcludedRoutes   string            `json:"push_excluded_routes,omitempty"`
+	Cert                 string            `json:"cert,omitempty"`
+	Crl                  string            `json:"crl,omitempty"`
+	Ca                   string            `json:"ca,omitempty"`
+	CertDepth            string            `json:"cert_depth,omitempty"`            // Valid: item1, item2, item3, item4, item5.
+	RemoteCertTls        opnsense.OPNBool  `json:"remote_cert_tls"`                 // Required. Default: 0.
+	VerifyClientCert     string            `json:"verify_client_cert"`              // Required. Default: require. Valid: none, require.
+	UseOcsp              opnsense.OPNBool  `json:"use_ocsp"`                        // Required. Default: 0.
+	Auth                 string            `json:"auth,omitempty"`                  // Valid: BLAKE2b512, BLAKE2s256, MD4, MD5, MD5-SHA1, RIPEMD160, SHA1, SHA224, SHA256, SHA3-224, SHA3-256, SHA3-384, SHA3-512, SHA384, SHA512, SHA512-224, SHA512-256, SHAKE128, SHAKE256, whirlpool, none.
+	DataCiphers          string            `json:"data-ciphers,omitempty"`          // Valid: Recommended, Legacy.
+	DataCiphersFallback  string            `json:"data-ciphers-fallback,omitempty"` // Valid: Recommended, Legacy.
+	TlsKey               string            `json:"tls_key,omitempty"`
+	Authmode             string            `json:"authmode,omitempty"`
+	LocalGroup           string            `json:"local_group,omitempty"`
+	VariousFlags         string            `json:"various_flags,omitempty"`      // Valid: block-ipv6, client-to-client, duplicate-cn, float, passtos, persist-remote-ip, remote-random, route-noexec, route-nopull, explicit-exit-notify, fast-io.
+	VariousPushFlags     string            `json:"various_push_flags,omitempty"` // Valid: block-ipv6, block-outside-dns, register-dns, explicit-exit-notify.
+	PushInactive         *opnsense.OPNInt  `json:"push_inactive,omitempty"`
+	UsernameAsCommonName opnsense.OPNBool  `json:"username_as_common_name"` // Required. Default: 0.
+	Strictusercn         string            `json:"strictusercn"`            // Required. Default: 0. Valid: o0, o1, o2.
+	Username             string            `json:"username,omitempty"`
+	Password             string            `json:"password,omitempty"`
+	Maxclients           *opnsense.OPNInt  `json:"maxclients,omitempty"`
+	KeepaliveInterval    *opnsense.OPNInt  `json:"keepalive_interval,omitempty"`
+	KeepaliveTimeout     *opnsense.OPNInt  `json:"keepalive_timeout,omitempty"`
+	RenegSec             *opnsense.OPNInt  `json:"reneg-sec,omitempty"`
+	AuthGenToken         *opnsense.OPNInt  `json:"auth-gen-token,omitempty"`
+	AuthGenTokenRenewal  *opnsense.OPNInt  `json:"auth-gen-token-renewal,omitempty"`
+	AuthGenTokenSecret   string            `json:"auth-gen-token-secret,omitempty"`
+	ProvisionExclusive   opnsense.OPNBool  `json:"provision_exclusive"`        // Required. Default: 0.
+	RedirectGateway      string            `json:"redirect_gateway,omitempty"` // Valid: local, autolocal, def1, bypass_dhcp, bypass_dns, block_local, ipv6, notipv4.
+	RouteMetric          *opnsense.OPNInt  `json:"route_metric,omitempty"`
+	RegisterDns          opnsense.OPNBool  `json:"register_dns"` // Required. Default: 0.
+	DnsDomain            string            `json:"dns_domain,omitempty"`
+	DnsDomainSearch      string            `json:"dns_domain_search,omitempty"`
+	DnsServers           string            `json:"dns_servers,omitempty"`
+	NtpServers           string            `json:"ntp_servers,omitempty"`
+	TunMtu               *opnsense.OPNInt  `json:"tun_mtu,omitempty"`
+	Fragment             *opnsense.OPNInt  `json:"fragment,omitempty"`
+	Mssfix               *opnsense.OPNBool `json:"mssfix,omitempty"`
+	CarpDependOn         string            `json:"carp_depend_on,omitempty"`
+	Description          string            `json:"description,omitempty"`
+	CompressMigrate      *opnsense.OPNBool `json:"compress_migrate,omitempty"`
+	IfconfigPoolPersist  *opnsense.OPNBool `json:"ifconfig-pool-persist,omitempty"`
+	HttpProxy            string            `json:"http-proxy,omitempty"`
+	VerifyX509Name       string            `json:"verify-x509-name,omitempty"`
 }
 
 // StaticKey represents a StaticKey model item.
 type StaticKey struct {
-	Mode string `json:"mode"` // Required. Default: crypt. Valid: auth, crypt.
-	Key string `json:"key"` // Required.
+	Mode        string `json:"mode"`        // Required. Default: crypt. Valid: auth, crypt.
+	Key         string `json:"key"`         // Required.
 	Description string `json:"description"` // Required.
 }
 

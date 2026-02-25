@@ -55,9 +55,9 @@ func (c *Client) ConnectionsAddRemote(ctx context.Context, body *Remote) (*opnse
 // ConnectionsConnectionExists calls GET /api/ipsec/connections/connectionExists
 // Parameters:
 //   - uuid
-func (c *Client) ConnectionsConnectionExists(ctx context.Context, uuid string) (map[string]any, error) {
+func (c *Client) ConnectionsConnectionExists(ctx context.Context, uuid string) (any, error) {
 	path := fmt.Sprintf("/api/ipsec/connections/connectionExists/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -103,9 +103,9 @@ func (c *Client) ConnectionsDelRemote(ctx context.Context, uuid string) (*opnsen
 }
 
 // ConnectionsGet calls GET /api/ipsec/connections/get
-func (c *Client) ConnectionsGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) ConnectionsGet(ctx context.Context) (any, error) {
 	path := "/api/ipsec/connections/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -163,9 +163,9 @@ func (c *Client) ConnectionsGetRemote(ctx context.Context, opts ...string) (*Rem
 }
 
 // ConnectionsIsEnabled calls GET /api/ipsec/connections/isEnabled
-func (c *Client) ConnectionsIsEnabled(ctx context.Context) (map[string]any, error) {
+func (c *Client) ConnectionsIsEnabled(ctx context.Context) (any, error) {
 	path := "/api/ipsec/connections/isEnabled"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -203,9 +203,9 @@ func (c *Client) ConnectionsSearchRemote(ctx context.Context, body any) (*opnsen
 }
 
 // ConnectionsSet calls POST /api/ipsec/connections/set
-func (c *Client) ConnectionsSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ConnectionsSet(ctx context.Context, body any) (any, error) {
 	path := "/api/ipsec/connections/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -263,9 +263,9 @@ func (c *Client) ConnectionsSetRemote(ctx context.Context, body *Remote, opts ..
 }
 
 // ConnectionsSwanctl calls GET /api/ipsec/connections/swanctl
-func (c *Client) ConnectionsSwanctl(ctx context.Context) (map[string]any, error) {
+func (c *Client) ConnectionsSwanctl(ctx context.Context) (any, error) {
 	path := "/api/ipsec/connections/swanctl"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -273,12 +273,12 @@ func (c *Client) ConnectionsSwanctl(ctx context.Context) (map[string]any, error)
 // ConnectionsToggle calls POST /api/ipsec/connections/toggle
 // Parameters:
 //   - enabled (optional, default: null)
-func (c *Client) ConnectionsToggle(ctx context.Context, body any, opts ...string) (map[string]any, error) {
+func (c *Client) ConnectionsToggle(ctx context.Context, body any, opts ...string) (any, error) {
 	path := "/api/ipsec/connections/toggle"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -361,20 +361,20 @@ func (c *Client) KeyPairsDelItem(ctx context.Context, uuid string) (*opnsense.Ge
 // Parameters:
 //   - type
 //   - size (optional, default: null)
-func (c *Client) KeyPairsGenKeyPair(ctx context.Context, typeVal string, opts ...string) (map[string]any, error) {
+func (c *Client) KeyPairsGenKeyPair(ctx context.Context, typeVal string, opts ...string) (any, error) {
 	path := fmt.Sprintf("/api/ipsec/key_pairs/genKeyPair/%s", typeVal)
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // KeyPairsGet calls GET /api/ipsec/key_pairs/get
-func (c *Client) KeyPairsGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) KeyPairsGet(ctx context.Context) (any, error) {
 	path := "/api/ipsec/key_pairs/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -401,9 +401,9 @@ func (c *Client) KeyPairsSearchItem(ctx context.Context, body any) (*opnsense.Se
 }
 
 // KeyPairsSet calls POST /api/ipsec/key_pairs/set
-func (c *Client) KeyPairsSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) KeyPairsSet(ctx context.Context, body any) (any, error) {
 	path := "/api/ipsec/key_pairs/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -422,41 +422,41 @@ func (c *Client) KeyPairsSetItem(ctx context.Context, body *KeyPair, opts ...str
 }
 
 // LeasesPools calls GET /api/ipsec/leases/pools
-func (c *Client) LeasesPools(ctx context.Context) (map[string]any, error) {
+func (c *Client) LeasesPools(ctx context.Context) (any, error) {
 	path := "/api/ipsec/leases/pools"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // LeasesSearch calls GET /api/ipsec/leases/search
-func (c *Client) LeasesSearch(ctx context.Context) (map[string]any, error) {
+func (c *Client) LeasesSearch(ctx context.Context) (any, error) {
 	path := "/api/ipsec/leases/search"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // LegacySubsystemApplyConfig calls POST /api/ipsec/legacy_subsystem/applyConfig
-func (c *Client) LegacySubsystemApplyConfig(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) LegacySubsystemApplyConfig(ctx context.Context, body any) (any, error) {
 	path := "/api/ipsec/legacy_subsystem/applyConfig"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // LegacySubsystemStatus calls GET /api/ipsec/legacy_subsystem/status
-func (c *Client) LegacySubsystemStatus(ctx context.Context) (map[string]any, error) {
+func (c *Client) LegacySubsystemStatus(ctx context.Context) (any, error) {
 	path := "/api/ipsec/legacy_subsystem/status"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ManualSpdAdd calls POST /api/ipsec/manual_spd/add
-func (c *Client) ManualSpdAdd(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ManualSpdAdd(ctx context.Context, body any) (any, error) {
 	path := "/api/ipsec/manual_spd/add"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -464,9 +464,9 @@ func (c *Client) ManualSpdAdd(ctx context.Context, body any) (map[string]any, er
 // ManualSpdDel calls POST /api/ipsec/manual_spd/del
 // Parameters:
 //   - uuid
-func (c *Client) ManualSpdDel(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) ManualSpdDel(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/ipsec/manual_spd/del/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -474,20 +474,20 @@ func (c *Client) ManualSpdDel(ctx context.Context, uuid string, body any) (map[s
 // ManualSpdGet calls GET /api/ipsec/manual_spd/get
 // Parameters:
 //   - uuid (optional, default: null)
-func (c *Client) ManualSpdGet(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) ManualSpdGet(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/ipsec/manual_spd/get"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ManualSpdSearch calls GET,POST /api/ipsec/manual_spd/search
-func (c *Client) ManualSpdSearch(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ManualSpdSearch(ctx context.Context, body any) (any, error) {
 	path := "/api/ipsec/manual_spd/search"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -495,12 +495,12 @@ func (c *Client) ManualSpdSearch(ctx context.Context, body any) (map[string]any,
 // ManualSpdSet calls POST /api/ipsec/manual_spd/set
 // Parameters:
 //   - uuid (optional, default: null)
-func (c *Client) ManualSpdSet(ctx context.Context, body any, opts ...string) (map[string]any, error) {
+func (c *Client) ManualSpdSet(ctx context.Context, body any, opts ...string) (any, error) {
 	path := "/api/ipsec/manual_spd/set"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -509,20 +509,20 @@ func (c *Client) ManualSpdSet(ctx context.Context, body any, opts ...string) (ma
 // Parameters:
 //   - uuid
 //   - enabled (optional, default: null)
-func (c *Client) ManualSpdToggle(ctx context.Context, uuid string, body any, opts ...string) (map[string]any, error) {
+func (c *Client) ManualSpdToggle(ctx context.Context, uuid string, body any, opts ...string) (any, error) {
 	path := fmt.Sprintf("/api/ipsec/manual_spd/toggle/%s", uuid)
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // PoolsAdd calls POST /api/ipsec/pools/add
-func (c *Client) PoolsAdd(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) PoolsAdd(ctx context.Context, body any) (any, error) {
 	path := "/api/ipsec/pools/add"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -530,9 +530,9 @@ func (c *Client) PoolsAdd(ctx context.Context, body any) (map[string]any, error)
 // PoolsDel calls POST /api/ipsec/pools/del
 // Parameters:
 //   - uuid
-func (c *Client) PoolsDel(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) PoolsDel(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/ipsec/pools/del/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -540,20 +540,20 @@ func (c *Client) PoolsDel(ctx context.Context, uuid string, body any) (map[strin
 // PoolsGet calls GET /api/ipsec/pools/get
 // Parameters:
 //   - uuid (optional, default: null)
-func (c *Client) PoolsGet(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) PoolsGet(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/ipsec/pools/get"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // PoolsSearch calls GET,POST /api/ipsec/pools/search
-func (c *Client) PoolsSearch(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) PoolsSearch(ctx context.Context, body any) (any, error) {
 	path := "/api/ipsec/pools/search"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -561,12 +561,12 @@ func (c *Client) PoolsSearch(ctx context.Context, body any) (map[string]any, err
 // PoolsSet calls POST /api/ipsec/pools/set
 // Parameters:
 //   - uuid (optional, default: null)
-func (c *Client) PoolsSet(ctx context.Context, body any, opts ...string) (map[string]any, error) {
+func (c *Client) PoolsSet(ctx context.Context, body any, opts ...string) (any, error) {
 	path := "/api/ipsec/pools/set"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -575,12 +575,12 @@ func (c *Client) PoolsSet(ctx context.Context, body any, opts ...string) (map[st
 // Parameters:
 //   - uuid
 //   - enabled (optional, default: null)
-func (c *Client) PoolsToggle(ctx context.Context, uuid string, body any, opts ...string) (map[string]any, error) {
+func (c *Client) PoolsToggle(ctx context.Context, uuid string, body any, opts ...string) (any, error) {
 	path := fmt.Sprintf("/api/ipsec/pools/toggle/%s", uuid)
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -604,9 +604,9 @@ func (c *Client) PreSharedKeysDelItem(ctx context.Context, uuid string) (*opnsen
 }
 
 // PreSharedKeysGet calls GET /api/ipsec/pre_shared_keys/get
-func (c *Client) PreSharedKeysGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) PreSharedKeysGet(ctx context.Context) (any, error) {
 	path := "/api/ipsec/pre_shared_keys/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -633,9 +633,9 @@ func (c *Client) PreSharedKeysSearchItem(ctx context.Context, body any) (*opnsen
 }
 
 // PreSharedKeysSet calls POST /api/ipsec/pre_shared_keys/set
-func (c *Client) PreSharedKeysSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) PreSharedKeysSet(ctx context.Context, body any) (any, error) {
 	path := "/api/ipsec/pre_shared_keys/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -656,57 +656,57 @@ func (c *Client) PreSharedKeysSetItem(ctx context.Context, body *PreSharedKey, o
 // SadDelete calls POST /api/ipsec/sad/delete
 // Parameters:
 //   - id
-func (c *Client) SadDelete(ctx context.Context, id string, body any) (map[string]any, error) {
+func (c *Client) SadDelete(ctx context.Context, id string, body any) (any, error) {
 	path := fmt.Sprintf("/api/ipsec/sad/delete/%s", id)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SadSearch calls GET /api/ipsec/sad/search
-func (c *Client) SadSearch(ctx context.Context) (map[string]any, error) {
+func (c *Client) SadSearch(ctx context.Context) (any, error) {
 	path := "/api/ipsec/sad/search"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ServiceReconfigure calls POST /api/ipsec/service/reconfigure
-func (c *Client) ServiceReconfigure(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceReconfigure(ctx context.Context, body any) (any, error) {
 	path := "/api/ipsec/service/reconfigure"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceRestart calls POST /api/ipsec/service/restart
-func (c *Client) ServiceRestart(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceRestart(ctx context.Context, body any) (any, error) {
 	path := "/api/ipsec/service/restart"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceStart calls POST /api/ipsec/service/start
-func (c *Client) ServiceStart(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceStart(ctx context.Context, body any) (any, error) {
 	path := "/api/ipsec/service/start"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceStatus calls GET /api/ipsec/service/status
-func (c *Client) ServiceStatus(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceStatus(ctx context.Context) (any, error) {
 	path := "/api/ipsec/service/status"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ServiceStop calls POST /api/ipsec/service/stop
-func (c *Client) ServiceStop(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceStop(ctx context.Context, body any) (any, error) {
 	path := "/api/ipsec/service/stop"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -714,9 +714,9 @@ func (c *Client) ServiceStop(ctx context.Context, body any) (map[string]any, err
 // SessionsConnect calls POST /api/ipsec/sessions/connect
 // Parameters:
 //   - id
-func (c *Client) SessionsConnect(ctx context.Context, id string, body any) (map[string]any, error) {
+func (c *Client) SessionsConnect(ctx context.Context, id string, body any) (any, error) {
 	path := fmt.Sprintf("/api/ipsec/sessions/connect/%s", id)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -724,41 +724,41 @@ func (c *Client) SessionsConnect(ctx context.Context, id string, body any) (map[
 // SessionsDisconnect calls POST /api/ipsec/sessions/disconnect
 // Parameters:
 //   - id
-func (c *Client) SessionsDisconnect(ctx context.Context, id string, body any) (map[string]any, error) {
+func (c *Client) SessionsDisconnect(ctx context.Context, id string, body any) (any, error) {
 	path := fmt.Sprintf("/api/ipsec/sessions/disconnect/%s", id)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SessionsSearchPhase1 calls GET /api/ipsec/sessions/searchPhase1
-func (c *Client) SessionsSearchPhase1(ctx context.Context) (map[string]any, error) {
+func (c *Client) SessionsSearchPhase1(ctx context.Context) (any, error) {
 	path := "/api/ipsec/sessions/searchPhase1"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // SessionsSearchPhase2 calls GET /api/ipsec/sessions/searchPhase2
-func (c *Client) SessionsSearchPhase2(ctx context.Context) (map[string]any, error) {
+func (c *Client) SessionsSearchPhase2(ctx context.Context) (any, error) {
 	path := "/api/ipsec/sessions/searchPhase2"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // SettingsGet calls GET /api/ipsec/settings/get
-func (c *Client) SettingsGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) SettingsGet(ctx context.Context) (any, error) {
 	path := "/api/ipsec/settings/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // SettingsSet calls POST /api/ipsec/settings/set
-func (c *Client) SettingsSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSet(ctx context.Context, body any) (any, error) {
 	path := "/api/ipsec/settings/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -766,17 +766,17 @@ func (c *Client) SettingsSet(ctx context.Context, body any) (map[string]any, err
 // SpdDelete calls POST /api/ipsec/spd/delete
 // Parameters:
 //   - id
-func (c *Client) SpdDelete(ctx context.Context, id string, body any) (map[string]any, error) {
+func (c *Client) SpdDelete(ctx context.Context, id string, body any) (any, error) {
 	path := fmt.Sprintf("/api/ipsec/spd/delete/%s", id)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SpdSearch calls GET /api/ipsec/spd/search
-func (c *Client) SpdSearch(ctx context.Context) (map[string]any, error) {
+func (c *Client) SpdSearch(ctx context.Context) (any, error) {
 	path := "/api/ipsec/spd/search"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -784,9 +784,9 @@ func (c *Client) SpdSearch(ctx context.Context) (map[string]any, error) {
 // TunnelDelPhase1 calls POST /api/ipsec/tunnel/delPhase1
 // Parameters:
 //   - ikeid
-func (c *Client) TunnelDelPhase1(ctx context.Context, ikeid string, body any) (map[string]any, error) {
+func (c *Client) TunnelDelPhase1(ctx context.Context, ikeid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/ipsec/tunnel/delPhase1/%s", ikeid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -794,25 +794,25 @@ func (c *Client) TunnelDelPhase1(ctx context.Context, ikeid string, body any) (m
 // TunnelDelPhase2 calls POST /api/ipsec/tunnel/delPhase2
 // Parameters:
 //   - seqid
-func (c *Client) TunnelDelPhase2(ctx context.Context, seqid string, body any) (map[string]any, error) {
+func (c *Client) TunnelDelPhase2(ctx context.Context, seqid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/ipsec/tunnel/delPhase2/%s", seqid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // TunnelSearchPhase1 calls GET /api/ipsec/tunnel/searchPhase1
-func (c *Client) TunnelSearchPhase1(ctx context.Context) (map[string]any, error) {
+func (c *Client) TunnelSearchPhase1(ctx context.Context) (any, error) {
 	path := "/api/ipsec/tunnel/searchPhase1"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // TunnelSearchPhase2 calls GET /api/ipsec/tunnel/searchPhase2
-func (c *Client) TunnelSearchPhase2(ctx context.Context) (map[string]any, error) {
+func (c *Client) TunnelSearchPhase2(ctx context.Context) (any, error) {
 	path := "/api/ipsec/tunnel/searchPhase2"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -820,12 +820,12 @@ func (c *Client) TunnelSearchPhase2(ctx context.Context) (map[string]any, error)
 // TunnelToggle calls POST /api/ipsec/tunnel/toggle
 // Parameters:
 //   - enabled (optional, default: null)
-func (c *Client) TunnelToggle(ctx context.Context, body any, opts ...string) (map[string]any, error) {
+func (c *Client) TunnelToggle(ctx context.Context, body any, opts ...string) (any, error) {
 	path := "/api/ipsec/tunnel/toggle"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -834,12 +834,12 @@ func (c *Client) TunnelToggle(ctx context.Context, body any, opts ...string) (ma
 // Parameters:
 //   - ikeid
 //   - enabled (optional, default: null)
-func (c *Client) TunnelTogglePhase1(ctx context.Context, ikeid string, body any, opts ...string) (map[string]any, error) {
+func (c *Client) TunnelTogglePhase1(ctx context.Context, ikeid string, body any, opts ...string) (any, error) {
 	path := fmt.Sprintf("/api/ipsec/tunnel/togglePhase1/%s", ikeid)
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -848,20 +848,20 @@ func (c *Client) TunnelTogglePhase1(ctx context.Context, ikeid string, body any,
 // Parameters:
 //   - seqid
 //   - enabled (optional, default: null)
-func (c *Client) TunnelTogglePhase2(ctx context.Context, seqid string, body any, opts ...string) (map[string]any, error) {
+func (c *Client) TunnelTogglePhase2(ctx context.Context, seqid string, body any, opts ...string) (any, error) {
 	path := fmt.Sprintf("/api/ipsec/tunnel/togglePhase2/%s", seqid)
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // VtiAdd calls POST /api/ipsec/vti/add
-func (c *Client) VtiAdd(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) VtiAdd(ctx context.Context, body any) (any, error) {
 	path := "/api/ipsec/vti/add"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -869,9 +869,9 @@ func (c *Client) VtiAdd(ctx context.Context, body any) (map[string]any, error) {
 // VtiDel calls POST /api/ipsec/vti/del
 // Parameters:
 //   - uuid
-func (c *Client) VtiDel(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) VtiDel(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/ipsec/vti/del/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -879,20 +879,20 @@ func (c *Client) VtiDel(ctx context.Context, uuid string, body any) (map[string]
 // VtiGet calls GET /api/ipsec/vti/get
 // Parameters:
 //   - uuid (optional, default: null)
-func (c *Client) VtiGet(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) VtiGet(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/ipsec/vti/get"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // VtiSearch calls GET,POST /api/ipsec/vti/search
-func (c *Client) VtiSearch(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) VtiSearch(ctx context.Context, body any) (any, error) {
 	path := "/api/ipsec/vti/search"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -900,12 +900,12 @@ func (c *Client) VtiSearch(ctx context.Context, body any) (map[string]any, error
 // VtiSet calls POST /api/ipsec/vti/set
 // Parameters:
 //   - uuid (optional, default: null)
-func (c *Client) VtiSet(ctx context.Context, body any, opts ...string) (map[string]any, error) {
+func (c *Client) VtiSet(ctx context.Context, body any, opts ...string) (any, error) {
 	path := "/api/ipsec/vti/set"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -914,12 +914,12 @@ func (c *Client) VtiSet(ctx context.Context, body any, opts ...string) (map[stri
 // Parameters:
 //   - uuid
 //   - enabled (optional, default: null)
-func (c *Client) VtiToggle(ctx context.Context, uuid string, body any, opts ...string) (map[string]any, error) {
+func (c *Client) VtiToggle(ctx context.Context, uuid string, body any, opts ...string) (any, error) {
 	path := fmt.Sprintf("/api/ipsec/vti/toggle/%s", uuid)
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }

@@ -6,17 +6,17 @@ import "github.com/jontk/opnsense-cli/opnsense"
 
 // Job represents a job model item.
 type Job struct {
-	Origin string `json:"origin"` // Required. Default: cron.
-	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
-	Minutes string `json:"minutes"` // Required. Default: 0.
-	Hours string `json:"hours"` // Required. Default: 0.
-	Days string `json:"days"` // Required. Default: *.
-	Months string `json:"months"` // Required. Default: *.
-	Weekdays string `json:"weekdays"` // Required. Default: *.
-	Who string `json:"who"` // Required. Default: root.
-	Command string `json:"command"` // Required.
-	Parameters string `json:"parameters,omitempty"`
-	Description string `json:"description"` // Required.
+	Origin      string           `json:"origin"`   // Required. Default: cron.
+	Enabled     opnsense.OPNBool `json:"enabled"`  // Required. Default: 1.
+	Minutes     string           `json:"minutes"`  // Required. Default: 0.
+	Hours       string           `json:"hours"`    // Required. Default: 0.
+	Days        string           `json:"days"`     // Required. Default: *.
+	Months      string           `json:"months"`   // Required. Default: *.
+	Weekdays    string           `json:"weekdays"` // Required. Default: *.
+	Who         string           `json:"who"`      // Required. Default: root.
+	Command     string           `json:"command"`  // Required.
+	Parameters  string           `json:"parameters,omitempty"`
+	Description string           `json:"description"` // Required.
 }
 
 type jobGetItemResponse struct {

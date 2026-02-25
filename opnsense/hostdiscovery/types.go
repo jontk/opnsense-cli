@@ -6,9 +6,9 @@ import "github.com/jontk/opnsense-cli/opnsense"
 
 // General represents a general model item.
 type General struct {
-	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
-	Promisc opnsense.OPNBool `json:"promisc"` // Required. Default: 0.
-	Verbose opnsense.OPNBool `json:"verbose"` // Required. Default: 0.
-	SkipNets string `json:"skip_nets,omitempty"`
-	Interface string `json:"interface,omitempty"`
+	Enabled   opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
+	Promisc   opnsense.OPNBool `json:"promisc"` // Required. Default: 0.
+	Verbose   opnsense.OPNBool `json:"verbose"` // Required. Default: 0.
+	SkipNets  string           `json:"skip_nets,omitempty"`
+	Interface string           `json:"interface,omitempty"`
 }

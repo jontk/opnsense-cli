@@ -21,9 +21,9 @@ func NewClient(c *opnsense.Client) *Client {
 }
 
 // ExitaclAddacl calls POST /api/tor/exitacl/addacl
-func (c *Client) ExitaclAddacl(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ExitaclAddacl(ctx context.Context, body any) (any, error) {
 	path := "/api/tor/exitacl/addacl"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -31,17 +31,17 @@ func (c *Client) ExitaclAddacl(ctx context.Context, body any) (map[string]any, e
 // ExitaclDelacl calls POST /api/tor/exitacl/delacl
 // Parameters:
 //   - uuid
-func (c *Client) ExitaclDelacl(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) ExitaclDelacl(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/tor/exitacl/delacl/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ExitaclGet calls GET /api/tor/exitacl/get
-func (c *Client) ExitaclGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) ExitaclGet(ctx context.Context) (any, error) {
 	path := "/api/tor/exitacl/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -49,28 +49,28 @@ func (c *Client) ExitaclGet(ctx context.Context) (map[string]any, error) {
 // ExitaclGetacl calls GET /api/tor/exitacl/getacl
 // Parameters:
 //   - uuid (optional, default: null)
-func (c *Client) ExitaclGetacl(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) ExitaclGetacl(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/tor/exitacl/getacl"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ExitaclSearchacl calls GET,POST /api/tor/exitacl/searchacl
-func (c *Client) ExitaclSearchacl(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ExitaclSearchacl(ctx context.Context, body any) (any, error) {
 	path := "/api/tor/exitacl/searchacl"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ExitaclSet calls POST /api/tor/exitacl/set
-func (c *Client) ExitaclSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ExitaclSet(ctx context.Context, body any) (any, error) {
 	path := "/api/tor/exitacl/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -78,9 +78,9 @@ func (c *Client) ExitaclSet(ctx context.Context, body any) (map[string]any, erro
 // ExitaclSetacl calls POST /api/tor/exitacl/setacl
 // Parameters:
 //   - uuid
-func (c *Client) ExitaclSetacl(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) ExitaclSetacl(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/tor/exitacl/setacl/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -88,17 +88,17 @@ func (c *Client) ExitaclSetacl(ctx context.Context, uuid string, body any) (map[
 // ExitaclToggleacl calls POST /api/tor/exitacl/toggleacl
 // Parameters:
 //   - uuid
-func (c *Client) ExitaclToggleacl(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) ExitaclToggleacl(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/tor/exitacl/toggleacl/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // GeneralAddhidservauth calls POST /api/tor/general/addhidservauth
-func (c *Client) GeneralAddhidservauth(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) GeneralAddhidservauth(ctx context.Context, body any) (any, error) {
 	path := "/api/tor/general/addhidservauth"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -106,17 +106,17 @@ func (c *Client) GeneralAddhidservauth(ctx context.Context, body any) (map[strin
 // GeneralDelhidservauth calls POST /api/tor/general/delhidservauth
 // Parameters:
 //   - uuid
-func (c *Client) GeneralDelhidservauth(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) GeneralDelhidservauth(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/tor/general/delhidservauth/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // GeneralGet calls GET /api/tor/general/get
-func (c *Client) GeneralGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) GeneralGet(ctx context.Context) (any, error) {
 	path := "/api/tor/general/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -124,28 +124,28 @@ func (c *Client) GeneralGet(ctx context.Context) (map[string]any, error) {
 // GeneralGethidservauth calls GET /api/tor/general/gethidservauth
 // Parameters:
 //   - uuid (optional, default: null)
-func (c *Client) GeneralGethidservauth(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) GeneralGethidservauth(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/tor/general/gethidservauth"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // GeneralSearchhidservauth calls GET,POST /api/tor/general/searchhidservauth
-func (c *Client) GeneralSearchhidservauth(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) GeneralSearchhidservauth(ctx context.Context, body any) (any, error) {
 	path := "/api/tor/general/searchhidservauth"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // GeneralSet calls POST /api/tor/general/set
-func (c *Client) GeneralSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) GeneralSet(ctx context.Context, body any) (any, error) {
 	path := "/api/tor/general/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -153,9 +153,9 @@ func (c *Client) GeneralSet(ctx context.Context, body any) (map[string]any, erro
 // GeneralSethidservauth calls POST /api/tor/general/sethidservauth
 // Parameters:
 //   - uuid
-func (c *Client) GeneralSethidservauth(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) GeneralSethidservauth(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/tor/general/sethidservauth/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -163,17 +163,17 @@ func (c *Client) GeneralSethidservauth(ctx context.Context, uuid string, body an
 // GeneralTogglehidservauth calls POST /api/tor/general/togglehidservauth
 // Parameters:
 //   - uuid
-func (c *Client) GeneralTogglehidservauth(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) GeneralTogglehidservauth(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/tor/general/togglehidservauth/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // HiddenserviceAddservice calls POST /api/tor/hiddenservice/addservice
-func (c *Client) HiddenserviceAddservice(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) HiddenserviceAddservice(ctx context.Context, body any) (any, error) {
 	path := "/api/tor/hiddenservice/addservice"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -181,17 +181,17 @@ func (c *Client) HiddenserviceAddservice(ctx context.Context, body any) (map[str
 // HiddenserviceDelservice calls POST /api/tor/hiddenservice/delservice
 // Parameters:
 //   - uuid
-func (c *Client) HiddenserviceDelservice(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) HiddenserviceDelservice(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/tor/hiddenservice/delservice/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // HiddenserviceGet calls GET /api/tor/hiddenservice/get
-func (c *Client) HiddenserviceGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) HiddenserviceGet(ctx context.Context) (any, error) {
 	path := "/api/tor/hiddenservice/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -199,28 +199,28 @@ func (c *Client) HiddenserviceGet(ctx context.Context) (map[string]any, error) {
 // HiddenserviceGetservice calls GET /api/tor/hiddenservice/getservice
 // Parameters:
 //   - uuid (optional, default: null)
-func (c *Client) HiddenserviceGetservice(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) HiddenserviceGetservice(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/tor/hiddenservice/getservice"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // HiddenserviceSearchservice calls GET,POST /api/tor/hiddenservice/searchservice
-func (c *Client) HiddenserviceSearchservice(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) HiddenserviceSearchservice(ctx context.Context, body any) (any, error) {
 	path := "/api/tor/hiddenservice/searchservice"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // HiddenserviceSet calls POST /api/tor/hiddenservice/set
-func (c *Client) HiddenserviceSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) HiddenserviceSet(ctx context.Context, body any) (any, error) {
 	path := "/api/tor/hiddenservice/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -228,9 +228,9 @@ func (c *Client) HiddenserviceSet(ctx context.Context, body any) (map[string]any
 // HiddenserviceSetservice calls POST /api/tor/hiddenservice/setservice
 // Parameters:
 //   - uuid
-func (c *Client) HiddenserviceSetservice(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) HiddenserviceSetservice(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/tor/hiddenservice/setservice/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -238,17 +238,17 @@ func (c *Client) HiddenserviceSetservice(ctx context.Context, uuid string, body 
 // HiddenserviceToggleservice calls POST /api/tor/hiddenservice/toggleservice
 // Parameters:
 //   - uuid
-func (c *Client) HiddenserviceToggleservice(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) HiddenserviceToggleservice(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/tor/hiddenservice/toggleservice/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // HiddenserviceaclAddacl calls POST /api/tor/hiddenserviceacl/addacl
-func (c *Client) HiddenserviceaclAddacl(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) HiddenserviceaclAddacl(ctx context.Context, body any) (any, error) {
 	path := "/api/tor/hiddenserviceacl/addacl"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -256,17 +256,17 @@ func (c *Client) HiddenserviceaclAddacl(ctx context.Context, body any) (map[stri
 // HiddenserviceaclDelacl calls POST /api/tor/hiddenserviceacl/delacl
 // Parameters:
 //   - uuid
-func (c *Client) HiddenserviceaclDelacl(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) HiddenserviceaclDelacl(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/tor/hiddenserviceacl/delacl/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // HiddenserviceaclGet calls GET /api/tor/hiddenserviceacl/get
-func (c *Client) HiddenserviceaclGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) HiddenserviceaclGet(ctx context.Context) (any, error) {
 	path := "/api/tor/hiddenserviceacl/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -274,28 +274,28 @@ func (c *Client) HiddenserviceaclGet(ctx context.Context) (map[string]any, error
 // HiddenserviceaclGetacl calls GET /api/tor/hiddenserviceacl/getacl
 // Parameters:
 //   - uuid (optional, default: null)
-func (c *Client) HiddenserviceaclGetacl(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) HiddenserviceaclGetacl(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/tor/hiddenserviceacl/getacl"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // HiddenserviceaclSearchacl calls GET,POST /api/tor/hiddenserviceacl/searchacl
-func (c *Client) HiddenserviceaclSearchacl(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) HiddenserviceaclSearchacl(ctx context.Context, body any) (any, error) {
 	path := "/api/tor/hiddenserviceacl/searchacl"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // HiddenserviceaclSet calls POST /api/tor/hiddenserviceacl/set
-func (c *Client) HiddenserviceaclSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) HiddenserviceaclSet(ctx context.Context, body any) (any, error) {
 	path := "/api/tor/hiddenserviceacl/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -303,9 +303,9 @@ func (c *Client) HiddenserviceaclSet(ctx context.Context, body any) (map[string]
 // HiddenserviceaclSetacl calls POST /api/tor/hiddenserviceacl/setacl
 // Parameters:
 //   - uuid
-func (c *Client) HiddenserviceaclSetacl(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) HiddenserviceaclSetacl(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/tor/hiddenserviceacl/setacl/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -313,97 +313,97 @@ func (c *Client) HiddenserviceaclSetacl(ctx context.Context, uuid string, body a
 // HiddenserviceaclToggleacl calls POST /api/tor/hiddenserviceacl/toggleacl
 // Parameters:
 //   - uuid
-func (c *Client) HiddenserviceaclToggleacl(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) HiddenserviceaclToggleacl(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/tor/hiddenserviceacl/toggleacl/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // RelayGet calls GET /api/tor/relay/get
-func (c *Client) RelayGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) RelayGet(ctx context.Context) (any, error) {
 	path := "/api/tor/relay/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // RelaySet calls POST /api/tor/relay/set
-func (c *Client) RelaySet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) RelaySet(ctx context.Context, body any) (any, error) {
 	path := "/api/tor/relay/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceCircuits calls GET /api/tor/service/circuits
-func (c *Client) ServiceCircuits(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceCircuits(ctx context.Context) (any, error) {
 	path := "/api/tor/service/circuits"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ServiceGetHiddenServices calls GET /api/tor/service/getHiddenServices
-func (c *Client) ServiceGetHiddenServices(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceGetHiddenServices(ctx context.Context) (any, error) {
 	path := "/api/tor/service/getHiddenServices"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ServiceReconfigure calls POST /api/tor/service/reconfigure
-func (c *Client) ServiceReconfigure(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceReconfigure(ctx context.Context, body any) (any, error) {
 	path := "/api/tor/service/reconfigure"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceRestart calls POST /api/tor/service/restart
-func (c *Client) ServiceRestart(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceRestart(ctx context.Context, body any) (any, error) {
 	path := "/api/tor/service/restart"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceStart calls POST /api/tor/service/start
-func (c *Client) ServiceStart(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceStart(ctx context.Context, body any) (any, error) {
 	path := "/api/tor/service/start"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceStatus calls GET /api/tor/service/status
-func (c *Client) ServiceStatus(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceStatus(ctx context.Context) (any, error) {
 	path := "/api/tor/service/status"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ServiceStop calls POST /api/tor/service/stop
-func (c *Client) ServiceStop(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceStop(ctx context.Context, body any) (any, error) {
 	path := "/api/tor/service/stop"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceStreams calls GET /api/tor/service/streams
-func (c *Client) ServiceStreams(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceStreams(ctx context.Context) (any, error) {
 	path := "/api/tor/service/streams"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // SocksaclAddacl calls POST /api/tor/socksacl/addacl
-func (c *Client) SocksaclAddacl(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SocksaclAddacl(ctx context.Context, body any) (any, error) {
 	path := "/api/tor/socksacl/addacl"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -411,17 +411,17 @@ func (c *Client) SocksaclAddacl(ctx context.Context, body any) (map[string]any, 
 // SocksaclDelacl calls POST /api/tor/socksacl/delacl
 // Parameters:
 //   - uuid
-func (c *Client) SocksaclDelacl(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) SocksaclDelacl(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/tor/socksacl/delacl/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SocksaclGet calls GET /api/tor/socksacl/get
-func (c *Client) SocksaclGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) SocksaclGet(ctx context.Context) (any, error) {
 	path := "/api/tor/socksacl/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -429,28 +429,28 @@ func (c *Client) SocksaclGet(ctx context.Context) (map[string]any, error) {
 // SocksaclGetacl calls GET /api/tor/socksacl/getacl
 // Parameters:
 //   - uuid (optional, default: null)
-func (c *Client) SocksaclGetacl(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) SocksaclGetacl(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/tor/socksacl/getacl"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // SocksaclSearchacl calls GET,POST /api/tor/socksacl/searchacl
-func (c *Client) SocksaclSearchacl(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SocksaclSearchacl(ctx context.Context, body any) (any, error) {
 	path := "/api/tor/socksacl/searchacl"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SocksaclSet calls POST /api/tor/socksacl/set
-func (c *Client) SocksaclSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SocksaclSet(ctx context.Context, body any) (any, error) {
 	path := "/api/tor/socksacl/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -458,9 +458,9 @@ func (c *Client) SocksaclSet(ctx context.Context, body any) (map[string]any, err
 // SocksaclSetacl calls POST /api/tor/socksacl/setacl
 // Parameters:
 //   - uuid
-func (c *Client) SocksaclSetacl(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) SocksaclSetacl(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/tor/socksacl/setacl/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -468,9 +468,9 @@ func (c *Client) SocksaclSetacl(ctx context.Context, uuid string, body any) (map
 // SocksaclToggleacl calls POST /api/tor/socksacl/toggleacl
 // Parameters:
 //   - uuid
-func (c *Client) SocksaclToggleacl(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) SocksaclToggleacl(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/tor/socksacl/toggleacl/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }

@@ -6,10 +6,10 @@ import "github.com/jontk/opnsense-cli/opnsense"
 
 // General represents a general model item.
 type General struct {
-	Enabled opnsense.OPNBool `json:"Enabled"` // Required. Default: 0.
-	FQDN string `json:"FQDN"` // Required. Default: puppet.
-	Environment string `json:"Environment"` // Required. Default: production.
-	RunInterval string `json:"RunInterval"` // Required. Default: 30m.
-	RunTimeout string `json:"RunTimeout"` // Required. Default: 1h.
+	Enabled           opnsense.OPNBool `json:"Enabled"`           // Required. Default: 0.
+	FQDN              string           `json:"FQDN"`              // Required. Default: puppet.
+	Environment       string           `json:"Environment"`       // Required. Default: production.
+	RunInterval       string           `json:"RunInterval"`       // Required. Default: 30m.
+	RunTimeout        string           `json:"RunTimeout"`        // Required. Default: 1h.
 	UseCacheOnFailure opnsense.OPNBool `json:"UseCacheOnFailure"` // Required. Default: 1.
 }

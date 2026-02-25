@@ -21,9 +21,9 @@ func NewClient(c *opnsense.Client) *Client {
 }
 
 // GroupAdd calls POST /api/auth/group/add
-func (c *Client) GroupAdd(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) GroupAdd(ctx context.Context, body any) (any, error) {
 	path := "/api/auth/group/add"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -31,9 +31,9 @@ func (c *Client) GroupAdd(ctx context.Context, body any) (map[string]any, error)
 // GroupDel calls POST /api/auth/group/del
 // Parameters:
 //   - uuid
-func (c *Client) GroupDel(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) GroupDel(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/auth/group/del/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -41,20 +41,20 @@ func (c *Client) GroupDel(ctx context.Context, uuid string, body any) (map[strin
 // GroupGet calls GET /api/auth/group/get
 // Parameters:
 //   - uuid (optional, default: null)
-func (c *Client) GroupGet(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) GroupGet(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/auth/group/get"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // GroupSearch calls GET,POST /api/auth/group/search
-func (c *Client) GroupSearch(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) GroupSearch(ctx context.Context, body any) (any, error) {
 	path := "/api/auth/group/search"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -62,20 +62,20 @@ func (c *Client) GroupSearch(ctx context.Context, body any) (map[string]any, err
 // GroupSet calls POST /api/auth/group/set
 // Parameters:
 //   - uuid (optional, default: null)
-func (c *Client) GroupSet(ctx context.Context, body any, opts ...string) (map[string]any, error) {
+func (c *Client) GroupSet(ctx context.Context, body any, opts ...string) (any, error) {
 	path := "/api/auth/group/set"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // PrivGet calls GET /api/auth/priv/get
-func (c *Client) PrivGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) PrivGet(ctx context.Context) (any, error) {
 	path := "/api/auth/priv/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -91,17 +91,17 @@ func (c *Client) PrivGetItem(ctx context.Context, id string) (*Settings, error) 
 }
 
 // PrivSearch calls GET /api/auth/priv/search
-func (c *Client) PrivSearch(ctx context.Context) (map[string]any, error) {
+func (c *Client) PrivSearch(ctx context.Context) (any, error) {
 	path := "/api/auth/priv/search"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // PrivSet calls POST /api/auth/priv/set
-func (c *Client) PrivSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) PrivSet(ctx context.Context, body any) (any, error) {
 	path := "/api/auth/priv/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -117,9 +117,9 @@ func (c *Client) PrivSetItem(ctx context.Context, id string, body *Settings) (*o
 }
 
 // UserAdd calls POST /api/auth/user/add
-func (c *Client) UserAdd(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) UserAdd(ctx context.Context, body any) (any, error) {
 	path := "/api/auth/user/add"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -127,9 +127,9 @@ func (c *Client) UserAdd(ctx context.Context, body any) (map[string]any, error) 
 // UserAddApiKey calls POST /api/auth/user/addApiKey
 // Parameters:
 //   - username
-func (c *Client) UserAddApiKey(ctx context.Context, username string, body any) (map[string]any, error) {
+func (c *Client) UserAddApiKey(ctx context.Context, username string, body any) (any, error) {
 	path := fmt.Sprintf("/api/auth/user/addApiKey/%s", username)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -137,9 +137,9 @@ func (c *Client) UserAddApiKey(ctx context.Context, username string, body any) (
 // UserDel calls POST /api/auth/user/del
 // Parameters:
 //   - uuid
-func (c *Client) UserDel(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) UserDel(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/auth/user/del/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -147,17 +147,17 @@ func (c *Client) UserDel(ctx context.Context, uuid string, body any) (map[string
 // UserDelApiKey calls POST /api/auth/user/delApiKey
 // Parameters:
 //   - id
-func (c *Client) UserDelApiKey(ctx context.Context, id string, body any) (map[string]any, error) {
+func (c *Client) UserDelApiKey(ctx context.Context, id string, body any) (any, error) {
 	path := fmt.Sprintf("/api/auth/user/delApiKey/%s", id)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // UserDownload calls GET /api/auth/user/download
-func (c *Client) UserDownload(ctx context.Context) (map[string]any, error) {
+func (c *Client) UserDownload(ctx context.Context) (any, error) {
 	path := "/api/auth/user/download"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -165,36 +165,36 @@ func (c *Client) UserDownload(ctx context.Context) (map[string]any, error) {
 // UserGet calls GET /api/auth/user/get
 // Parameters:
 //   - uuid (optional, default: null)
-func (c *Client) UserGet(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) UserGet(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/auth/user/get"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // UserNewOtpSeed calls GET /api/auth/user/newOtpSeed
-func (c *Client) UserNewOtpSeed(ctx context.Context) (map[string]any, error) {
+func (c *Client) UserNewOtpSeed(ctx context.Context) (any, error) {
 	path := "/api/auth/user/newOtpSeed"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // UserSearch calls GET,POST /api/auth/user/search
-func (c *Client) UserSearch(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) UserSearch(ctx context.Context, body any) (any, error) {
 	path := "/api/auth/user/search"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // UserSearchApiKey calls GET /api/auth/user/searchApiKey
-func (c *Client) UserSearchApiKey(ctx context.Context) (map[string]any, error) {
+func (c *Client) UserSearchApiKey(ctx context.Context) (any, error) {
 	path := "/api/auth/user/searchApiKey"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -202,20 +202,20 @@ func (c *Client) UserSearchApiKey(ctx context.Context) (map[string]any, error) {
 // UserSet calls POST /api/auth/user/set
 // Parameters:
 //   - uuid (optional, default: null)
-func (c *Client) UserSet(ctx context.Context, body any, opts ...string) (map[string]any, error) {
+func (c *Client) UserSet(ctx context.Context, body any, opts ...string) (any, error) {
 	path := "/api/auth/user/set"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // UserUpload calls POST /api/auth/user/upload
-func (c *Client) UserUpload(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) UserUpload(ctx context.Context, body any) (any, error) {
 	path := "/api/auth/user/upload"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }

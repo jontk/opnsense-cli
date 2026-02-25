@@ -6,22 +6,22 @@ import "github.com/jontk/opnsense-cli/opnsense"
 
 // Command represents a command model item.
 type Command struct {
-	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
-	Name string `json:"name"` // Required.
-	Nrpecommand string `json:"nrpecommand"` // Required.
-	Arguments string `json:"arguments"` // Required.
+	Enabled     opnsense.OPNBool `json:"enabled"`     // Required. Default: 1.
+	Name        string           `json:"name"`        // Required.
+	Nrpecommand string           `json:"nrpecommand"` // Required.
+	Arguments   string           `json:"arguments"`   // Required.
 }
 
 // Settings represents a settings model item.
 type Settings struct {
-	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 0.
-	ServerPort string `json:"server_port"` // Required. Default: 5666.
-	ServerAddress string `json:"server_address"` // Required. Default: 127.0.0.1.
-	AllowedHosts string `json:"allowed_hosts"` // Required. Default: 127.0.0.1,::1.
-	DontBlameNrpe opnsense.OPNBool `json:"dont_blame_nrpe"` // Required. Default: 0.
+	Enabled                      opnsense.OPNBool `json:"enabled"`                         // Required. Default: 0.
+	ServerPort                   string           `json:"server_port"`                     // Required. Default: 5666.
+	ServerAddress                string           `json:"server_address"`                  // Required. Default: 127.0.0.1.
+	AllowedHosts                 string           `json:"allowed_hosts"`                   // Required. Default: 127.0.0.1,::1.
+	DontBlameNrpe                opnsense.OPNBool `json:"dont_blame_nrpe"`                 // Required. Default: 0.
 	AllowBashCommandSubstitution opnsense.OPNBool `json:"allow_bash_command_substitution"` // Required. Default: 0.
-	CommandTimeout opnsense.OPNInt `json:"command_timeout"` // Required. Default: 60.
-	ConnectionTimeout opnsense.OPNInt `json:"connection_timeout"` // Required. Default: 300.
+	CommandTimeout               opnsense.OPNInt  `json:"command_timeout"`                 // Required. Default: 60.
+	ConnectionTimeout            opnsense.OPNInt  `json:"connection_timeout"`              // Required. Default: 300.
 }
 
 type commandGetItemResponse struct {

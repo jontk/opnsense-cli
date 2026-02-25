@@ -39,9 +39,9 @@ func (c *Client) ClientsDelItem(ctx context.Context, uuid string) (*opnsense.Gen
 }
 
 // ClientsGet calls GET /api/radsecproxy/clients/get
-func (c *Client) ClientsGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) ClientsGet(ctx context.Context) (any, error) {
 	path := "/api/radsecproxy/clients/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -68,9 +68,9 @@ func (c *Client) ClientsSearchItem(ctx context.Context, body any) (*opnsense.Sea
 }
 
 // ClientsSet calls POST /api/radsecproxy/clients/set
-func (c *Client) ClientsSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ClientsSet(ctx context.Context, body any) (any, error) {
 	path := "/api/radsecproxy/clients/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -100,17 +100,17 @@ func (c *Client) ClientsToggleItem(ctx context.Context, uuid string, opts ...str
 }
 
 // GeneralGet calls GET /api/radsecproxy/general/get
-func (c *Client) GeneralGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) GeneralGet(ctx context.Context) (any, error) {
 	path := "/api/radsecproxy/general/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // GeneralSet calls POST /api/radsecproxy/general/set
-func (c *Client) GeneralSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) GeneralSet(ctx context.Context, body any) (any, error) {
 	path := "/api/radsecproxy/general/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -134,9 +134,9 @@ func (c *Client) RealmsDelItem(ctx context.Context, uuid string) (*opnsense.Gene
 }
 
 // RealmsGet calls GET /api/radsecproxy/realms/get
-func (c *Client) RealmsGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) RealmsGet(ctx context.Context) (any, error) {
 	path := "/api/radsecproxy/realms/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -163,9 +163,9 @@ func (c *Client) RealmsSearchItem(ctx context.Context, body any) (*opnsense.Sear
 }
 
 // RealmsSet calls POST /api/radsecproxy/realms/set
-func (c *Client) RealmsSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) RealmsSet(ctx context.Context, body any) (any, error) {
 	path := "/api/radsecproxy/realms/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -213,9 +213,9 @@ func (c *Client) RewritesDelItem(ctx context.Context, uuid string) (*opnsense.Ge
 }
 
 // RewritesGet calls GET /api/radsecproxy/rewrites/get
-func (c *Client) RewritesGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) RewritesGet(ctx context.Context) (any, error) {
 	path := "/api/radsecproxy/rewrites/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -242,9 +242,9 @@ func (c *Client) RewritesSearchItem(ctx context.Context, body any) (*opnsense.Se
 }
 
 // RewritesSet calls POST /api/radsecproxy/rewrites/set
-func (c *Client) RewritesSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) RewritesSet(ctx context.Context, body any) (any, error) {
 	path := "/api/radsecproxy/rewrites/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -292,9 +292,9 @@ func (c *Client) ServersDelItem(ctx context.Context, uuid string) (*opnsense.Gen
 }
 
 // ServersGet calls GET /api/radsecproxy/servers/get
-func (c *Client) ServersGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServersGet(ctx context.Context) (any, error) {
 	path := "/api/radsecproxy/servers/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -321,9 +321,9 @@ func (c *Client) ServersSearchItem(ctx context.Context, body any) (*opnsense.Sea
 }
 
 // ServersSet calls POST /api/radsecproxy/servers/set
-func (c *Client) ServersSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServersSet(ctx context.Context, body any) (any, error) {
 	path := "/api/radsecproxy/servers/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -353,41 +353,41 @@ func (c *Client) ServersToggleItem(ctx context.Context, uuid string, opts ...str
 }
 
 // ServiceReconfigure calls POST /api/radsecproxy/service/reconfigure
-func (c *Client) ServiceReconfigure(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceReconfigure(ctx context.Context, body any) (any, error) {
 	path := "/api/radsecproxy/service/reconfigure"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceRestart calls POST /api/radsecproxy/service/restart
-func (c *Client) ServiceRestart(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceRestart(ctx context.Context, body any) (any, error) {
 	path := "/api/radsecproxy/service/restart"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceStart calls POST /api/radsecproxy/service/start
-func (c *Client) ServiceStart(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceStart(ctx context.Context, body any) (any, error) {
 	path := "/api/radsecproxy/service/start"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceStatus calls GET /api/radsecproxy/service/status
-func (c *Client) ServiceStatus(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceStatus(ctx context.Context) (any, error) {
 	path := "/api/radsecproxy/service/status"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ServiceStop calls POST /api/radsecproxy/service/stop
-func (c *Client) ServiceStop(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceStop(ctx context.Context, body any) (any, error) {
 	path := "/api/radsecproxy/service/stop"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -411,9 +411,9 @@ func (c *Client) TlsDelItem(ctx context.Context, uuid string) (*opnsense.Generic
 }
 
 // TlsGet calls GET /api/radsecproxy/tls/get
-func (c *Client) TlsGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) TlsGet(ctx context.Context) (any, error) {
 	path := "/api/radsecproxy/tls/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -440,9 +440,9 @@ func (c *Client) TlsSearchItem(ctx context.Context, body any) (*opnsense.SearchR
 }
 
 // TlsSet calls POST /api/radsecproxy/tls/set
-func (c *Client) TlsSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) TlsSet(ctx context.Context, body any) (any, error) {
 	path := "/api/radsecproxy/tls/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }

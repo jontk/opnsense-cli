@@ -23,33 +23,33 @@ func NewClient(c *opnsense.Client) *Client {
 // BansDelban calls POST /api/nginx/bans/delban
 // Parameters:
 //   - uuid
-func (c *Client) BansDelban(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) BansDelban(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/nginx/bans/delban/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // BansGet calls GET /api/nginx/bans/get
-func (c *Client) BansGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) BansGet(ctx context.Context) (any, error) {
 	path := "/api/nginx/bans/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // BansSearchban calls GET,POST /api/nginx/bans/searchban
-func (c *Client) BansSearchban(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) BansSearchban(ctx context.Context, body any) (any, error) {
 	path := "/api/nginx/bans/searchban"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // BansSet calls POST /api/nginx/bans/set
-func (c *Client) BansSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) BansSet(ctx context.Context, body any) (any, error) {
 	path := "/api/nginx/bans/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -61,12 +61,12 @@ func (c *Client) BansSet(ctx context.Context, body any) (map[string]any, error) 
 //   - page (optional, default: 0)
 //   - perPage (optional, default: 0)
 //   - query (optional, default: ââ)
-func (c *Client) LogsAccesses(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) LogsAccesses(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/nginx/logs/accesses"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -78,12 +78,12 @@ func (c *Client) LogsAccesses(ctx context.Context, opts ...string) (map[string]a
 //   - page (optional, default: 0)
 //   - perPage (optional, default: 0)
 //   - query (optional, default: ââ)
-func (c *Client) LogsErrors(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) LogsErrors(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/nginx/logs/errors"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -95,12 +95,12 @@ func (c *Client) LogsErrors(ctx context.Context, opts ...string) (map[string]any
 //   - page (optional, default: 0)
 //   - perPage (optional, default: 0)
 //   - query (optional, default: ââ)
-func (c *Client) LogsStreamaccesses(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) LogsStreamaccesses(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/nginx/logs/streamaccesses"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -112,236 +112,236 @@ func (c *Client) LogsStreamaccesses(ctx context.Context, opts ...string) (map[st
 //   - page (optional, default: 0)
 //   - perPage (optional, default: 0)
 //   - query (optional, default: ââ)
-func (c *Client) LogsStreamerrors(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) LogsStreamerrors(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/nginx/logs/streamerrors"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // LogsTlsHandshakes calls GET /api/nginx/logs/tlsHandshakes
-func (c *Client) LogsTlsHandshakes(ctx context.Context) (map[string]any, error) {
+func (c *Client) LogsTlsHandshakes(ctx context.Context) (any, error) {
 	path := "/api/nginx/logs/tlsHandshakes"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ServiceReconfigure calls POST /api/nginx/service/reconfigure
-func (c *Client) ServiceReconfigure(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceReconfigure(ctx context.Context, body any) (any, error) {
 	path := "/api/nginx/service/reconfigure"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceRestart calls POST /api/nginx/service/restart
-func (c *Client) ServiceRestart(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceRestart(ctx context.Context, body any) (any, error) {
 	path := "/api/nginx/service/restart"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceStart calls POST /api/nginx/service/start
-func (c *Client) ServiceStart(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceStart(ctx context.Context, body any) (any, error) {
 	path := "/api/nginx/service/start"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceStatus calls GET /api/nginx/service/status
-func (c *Client) ServiceStatus(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceStatus(ctx context.Context) (any, error) {
 	path := "/api/nginx/service/status"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ServiceStop calls GET /api/nginx/service/stop
-func (c *Client) ServiceStop(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceStop(ctx context.Context) (any, error) {
 	path := "/api/nginx/service/stop"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ServiceVts calls GET /api/nginx/service/vts
-func (c *Client) ServiceVts(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceVts(ctx context.Context) (any, error) {
 	path := "/api/nginx/service/vts"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // SettingsAddcachePath calls POST /api/nginx/settings/addcachePath
-func (c *Client) SettingsAddcachePath(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsAddcachePath(ctx context.Context, body any) (any, error) {
 	path := "/api/nginx/settings/addcachePath"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SettingsAddcredential calls POST /api/nginx/settings/addcredential
-func (c *Client) SettingsAddcredential(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsAddcredential(ctx context.Context, body any) (any, error) {
 	path := "/api/nginx/settings/addcredential"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SettingsAddcustompolicy calls POST /api/nginx/settings/addcustompolicy
-func (c *Client) SettingsAddcustompolicy(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsAddcustompolicy(ctx context.Context, body any) (any, error) {
 	path := "/api/nginx/settings/addcustompolicy"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SettingsAdderrorpage calls POST /api/nginx/settings/adderrorpage
-func (c *Client) SettingsAdderrorpage(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsAdderrorpage(ctx context.Context, body any) (any, error) {
 	path := "/api/nginx/settings/adderrorpage"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SettingsAddhttprewrite calls POST /api/nginx/settings/addhttprewrite
-func (c *Client) SettingsAddhttprewrite(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsAddhttprewrite(ctx context.Context, body any) (any, error) {
 	path := "/api/nginx/settings/addhttprewrite"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SettingsAddhttpserver calls POST /api/nginx/settings/addhttpserver
-func (c *Client) SettingsAddhttpserver(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsAddhttpserver(ctx context.Context, body any) (any, error) {
 	path := "/api/nginx/settings/addhttpserver"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SettingsAddipacl calls POST /api/nginx/settings/addipacl
-func (c *Client) SettingsAddipacl(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsAddipacl(ctx context.Context, body any) (any, error) {
 	path := "/api/nginx/settings/addipacl"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SettingsAddlimitRequestConnection calls POST /api/nginx/settings/addlimitRequestConnection
-func (c *Client) SettingsAddlimitRequestConnection(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsAddlimitRequestConnection(ctx context.Context, body any) (any, error) {
 	path := "/api/nginx/settings/addlimitRequestConnection"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SettingsAddlimitZone calls POST /api/nginx/settings/addlimitZone
-func (c *Client) SettingsAddlimitZone(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsAddlimitZone(ctx context.Context, body any) (any, error) {
 	path := "/api/nginx/settings/addlimitZone"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SettingsAddlocation calls POST /api/nginx/settings/addlocation
-func (c *Client) SettingsAddlocation(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsAddlocation(ctx context.Context, body any) (any, error) {
 	path := "/api/nginx/settings/addlocation"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SettingsAddnaxsirule calls POST /api/nginx/settings/addnaxsirule
-func (c *Client) SettingsAddnaxsirule(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsAddnaxsirule(ctx context.Context, body any) (any, error) {
 	path := "/api/nginx/settings/addnaxsirule"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SettingsAddproxyCacheValid calls POST /api/nginx/settings/addproxyCacheValid
-func (c *Client) SettingsAddproxyCacheValid(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsAddproxyCacheValid(ctx context.Context, body any) (any, error) {
 	path := "/api/nginx/settings/addproxyCacheValid"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SettingsAddresolver calls POST /api/nginx/settings/addresolver
-func (c *Client) SettingsAddresolver(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsAddresolver(ctx context.Context, body any) (any, error) {
 	path := "/api/nginx/settings/addresolver"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SettingsAddsecurityHeader calls POST /api/nginx/settings/addsecurityHeader
-func (c *Client) SettingsAddsecurityHeader(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsAddsecurityHeader(ctx context.Context, body any) (any, error) {
 	path := "/api/nginx/settings/addsecurityHeader"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SettingsAddsnifwd calls POST /api/nginx/settings/addsnifwd
-func (c *Client) SettingsAddsnifwd(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsAddsnifwd(ctx context.Context, body any) (any, error) {
 	path := "/api/nginx/settings/addsnifwd"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SettingsAddstreamserver calls POST /api/nginx/settings/addstreamserver
-func (c *Client) SettingsAddstreamserver(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsAddstreamserver(ctx context.Context, body any) (any, error) {
 	path := "/api/nginx/settings/addstreamserver"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SettingsAddsyslogTarget calls POST /api/nginx/settings/addsyslogTarget
-func (c *Client) SettingsAddsyslogTarget(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsAddsyslogTarget(ctx context.Context, body any) (any, error) {
 	path := "/api/nginx/settings/addsyslogTarget"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SettingsAddtlsFingerprint calls POST /api/nginx/settings/addtlsFingerprint
-func (c *Client) SettingsAddtlsFingerprint(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsAddtlsFingerprint(ctx context.Context, body any) (any, error) {
 	path := "/api/nginx/settings/addtlsFingerprint"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SettingsAddupstream calls POST /api/nginx/settings/addupstream
-func (c *Client) SettingsAddupstream(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsAddupstream(ctx context.Context, body any) (any, error) {
 	path := "/api/nginx/settings/addupstream"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SettingsAddupstreamserver calls POST /api/nginx/settings/addupstreamserver
-func (c *Client) SettingsAddupstreamserver(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsAddupstreamserver(ctx context.Context, body any) (any, error) {
 	path := "/api/nginx/settings/addupstreamserver"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SettingsAdduserlist calls POST /api/nginx/settings/adduserlist
-func (c *Client) SettingsAdduserlist(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsAdduserlist(ctx context.Context, body any) (any, error) {
 	path := "/api/nginx/settings/adduserlist"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -349,9 +349,9 @@ func (c *Client) SettingsAdduserlist(ctx context.Context, body any) (map[string]
 // SettingsDelcachePath calls POST /api/nginx/settings/delcachePath
 // Parameters:
 //   - uuid
-func (c *Client) SettingsDelcachePath(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) SettingsDelcachePath(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/nginx/settings/delcachePath/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -359,9 +359,9 @@ func (c *Client) SettingsDelcachePath(ctx context.Context, uuid string, body any
 // SettingsDelcredential calls POST /api/nginx/settings/delcredential
 // Parameters:
 //   - uuid
-func (c *Client) SettingsDelcredential(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) SettingsDelcredential(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/nginx/settings/delcredential/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -369,9 +369,9 @@ func (c *Client) SettingsDelcredential(ctx context.Context, uuid string, body an
 // SettingsDelcustompolicy calls POST /api/nginx/settings/delcustompolicy
 // Parameters:
 //   - uuid
-func (c *Client) SettingsDelcustompolicy(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) SettingsDelcustompolicy(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/nginx/settings/delcustompolicy/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -379,9 +379,9 @@ func (c *Client) SettingsDelcustompolicy(ctx context.Context, uuid string, body 
 // SettingsDelerrorpage calls POST /api/nginx/settings/delerrorpage
 // Parameters:
 //   - uuid
-func (c *Client) SettingsDelerrorpage(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) SettingsDelerrorpage(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/nginx/settings/delerrorpage/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -389,9 +389,9 @@ func (c *Client) SettingsDelerrorpage(ctx context.Context, uuid string, body any
 // SettingsDelhttprewrite calls POST /api/nginx/settings/delhttprewrite
 // Parameters:
 //   - uuid
-func (c *Client) SettingsDelhttprewrite(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) SettingsDelhttprewrite(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/nginx/settings/delhttprewrite/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -399,9 +399,9 @@ func (c *Client) SettingsDelhttprewrite(ctx context.Context, uuid string, body a
 // SettingsDelhttpserver calls POST /api/nginx/settings/delhttpserver
 // Parameters:
 //   - uuid
-func (c *Client) SettingsDelhttpserver(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) SettingsDelhttpserver(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/nginx/settings/delhttpserver/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -409,9 +409,9 @@ func (c *Client) SettingsDelhttpserver(ctx context.Context, uuid string, body an
 // SettingsDelipacl calls POST /api/nginx/settings/delipacl
 // Parameters:
 //   - uuid
-func (c *Client) SettingsDelipacl(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) SettingsDelipacl(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/nginx/settings/delipacl/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -419,9 +419,9 @@ func (c *Client) SettingsDelipacl(ctx context.Context, uuid string, body any) (m
 // SettingsDellimitRequestConnection calls POST /api/nginx/settings/dellimitRequestConnection
 // Parameters:
 //   - uuid
-func (c *Client) SettingsDellimitRequestConnection(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) SettingsDellimitRequestConnection(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/nginx/settings/dellimitRequestConnection/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -429,9 +429,9 @@ func (c *Client) SettingsDellimitRequestConnection(ctx context.Context, uuid str
 // SettingsDellimitZone calls POST /api/nginx/settings/dellimitZone
 // Parameters:
 //   - uuid
-func (c *Client) SettingsDellimitZone(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) SettingsDellimitZone(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/nginx/settings/dellimitZone/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -439,9 +439,9 @@ func (c *Client) SettingsDellimitZone(ctx context.Context, uuid string, body any
 // SettingsDellocation calls POST /api/nginx/settings/dellocation
 // Parameters:
 //   - uuid
-func (c *Client) SettingsDellocation(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) SettingsDellocation(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/nginx/settings/dellocation/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -449,9 +449,9 @@ func (c *Client) SettingsDellocation(ctx context.Context, uuid string, body any)
 // SettingsDelnaxsirule calls POST /api/nginx/settings/delnaxsirule
 // Parameters:
 //   - uuid
-func (c *Client) SettingsDelnaxsirule(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) SettingsDelnaxsirule(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/nginx/settings/delnaxsirule/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -459,9 +459,9 @@ func (c *Client) SettingsDelnaxsirule(ctx context.Context, uuid string, body any
 // SettingsDelproxyCacheValid calls POST /api/nginx/settings/delproxyCacheValid
 // Parameters:
 //   - uuid
-func (c *Client) SettingsDelproxyCacheValid(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) SettingsDelproxyCacheValid(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/nginx/settings/delproxyCacheValid/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -469,9 +469,9 @@ func (c *Client) SettingsDelproxyCacheValid(ctx context.Context, uuid string, bo
 // SettingsDelresolver calls POST /api/nginx/settings/delresolver
 // Parameters:
 //   - uuid
-func (c *Client) SettingsDelresolver(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) SettingsDelresolver(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/nginx/settings/delresolver/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -479,9 +479,9 @@ func (c *Client) SettingsDelresolver(ctx context.Context, uuid string, body any)
 // SettingsDelsecurityHeader calls POST /api/nginx/settings/delsecurityHeader
 // Parameters:
 //   - uuid
-func (c *Client) SettingsDelsecurityHeader(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) SettingsDelsecurityHeader(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/nginx/settings/delsecurityHeader/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -489,9 +489,9 @@ func (c *Client) SettingsDelsecurityHeader(ctx context.Context, uuid string, bod
 // SettingsDelsnifwd calls POST /api/nginx/settings/delsnifwd
 // Parameters:
 //   - uuid
-func (c *Client) SettingsDelsnifwd(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) SettingsDelsnifwd(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/nginx/settings/delsnifwd/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -499,9 +499,9 @@ func (c *Client) SettingsDelsnifwd(ctx context.Context, uuid string, body any) (
 // SettingsDelstreamserver calls POST /api/nginx/settings/delstreamserver
 // Parameters:
 //   - uuid
-func (c *Client) SettingsDelstreamserver(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) SettingsDelstreamserver(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/nginx/settings/delstreamserver/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -509,9 +509,9 @@ func (c *Client) SettingsDelstreamserver(ctx context.Context, uuid string, body 
 // SettingsDelsyslogTarget calls POST /api/nginx/settings/delsyslogTarget
 // Parameters:
 //   - uuid
-func (c *Client) SettingsDelsyslogTarget(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) SettingsDelsyslogTarget(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/nginx/settings/delsyslogTarget/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -519,9 +519,9 @@ func (c *Client) SettingsDelsyslogTarget(ctx context.Context, uuid string, body 
 // SettingsDeltlsFingerprint calls POST /api/nginx/settings/deltlsFingerprint
 // Parameters:
 //   - uuid
-func (c *Client) SettingsDeltlsFingerprint(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) SettingsDeltlsFingerprint(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/nginx/settings/deltlsFingerprint/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -529,9 +529,9 @@ func (c *Client) SettingsDeltlsFingerprint(ctx context.Context, uuid string, bod
 // SettingsDelupstream calls POST /api/nginx/settings/delupstream
 // Parameters:
 //   - uuid
-func (c *Client) SettingsDelupstream(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) SettingsDelupstream(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/nginx/settings/delupstream/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -539,9 +539,9 @@ func (c *Client) SettingsDelupstream(ctx context.Context, uuid string, body any)
 // SettingsDelupstreamserver calls POST /api/nginx/settings/delupstreamserver
 // Parameters:
 //   - uuid
-func (c *Client) SettingsDelupstreamserver(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) SettingsDelupstreamserver(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/nginx/settings/delupstreamserver/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -549,25 +549,25 @@ func (c *Client) SettingsDelupstreamserver(ctx context.Context, uuid string, bod
 // SettingsDeluserlist calls POST /api/nginx/settings/deluserlist
 // Parameters:
 //   - uuid
-func (c *Client) SettingsDeluserlist(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) SettingsDeluserlist(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/nginx/settings/deluserlist/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SettingsDownloadrules calls POST /api/nginx/settings/downloadrules
-func (c *Client) SettingsDownloadrules(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsDownloadrules(ctx context.Context, body any) (any, error) {
 	path := "/api/nginx/settings/downloadrules"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SettingsGet calls GET /api/nginx/settings/get
-func (c *Client) SettingsGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) SettingsGet(ctx context.Context) (any, error) {
 	path := "/api/nginx/settings/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -575,12 +575,12 @@ func (c *Client) SettingsGet(ctx context.Context) (map[string]any, error) {
 // SettingsGetcachePath calls GET /api/nginx/settings/getcachePath
 // Parameters:
 //   - uuid (optional, default: null)
-func (c *Client) SettingsGetcachePath(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) SettingsGetcachePath(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/nginx/settings/getcachePath"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -588,12 +588,12 @@ func (c *Client) SettingsGetcachePath(ctx context.Context, opts ...string) (map[
 // SettingsGetcredential calls GET /api/nginx/settings/getcredential
 // Parameters:
 //   - uuid (optional, default: null)
-func (c *Client) SettingsGetcredential(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) SettingsGetcredential(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/nginx/settings/getcredential"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -601,12 +601,12 @@ func (c *Client) SettingsGetcredential(ctx context.Context, opts ...string) (map
 // SettingsGetcustompolicy calls GET /api/nginx/settings/getcustompolicy
 // Parameters:
 //   - uuid (optional, default: null)
-func (c *Client) SettingsGetcustompolicy(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) SettingsGetcustompolicy(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/nginx/settings/getcustompolicy"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -614,12 +614,12 @@ func (c *Client) SettingsGetcustompolicy(ctx context.Context, opts ...string) (m
 // SettingsGeterrorpage calls GET /api/nginx/settings/geterrorpage
 // Parameters:
 //   - uuid (optional, default: null)
-func (c *Client) SettingsGeterrorpage(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) SettingsGeterrorpage(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/nginx/settings/geterrorpage"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -627,12 +627,12 @@ func (c *Client) SettingsGeterrorpage(ctx context.Context, opts ...string) (map[
 // SettingsGethttprewrite calls GET /api/nginx/settings/gethttprewrite
 // Parameters:
 //   - uuid (optional, default: null)
-func (c *Client) SettingsGethttprewrite(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) SettingsGethttprewrite(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/nginx/settings/gethttprewrite"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -640,12 +640,12 @@ func (c *Client) SettingsGethttprewrite(ctx context.Context, opts ...string) (ma
 // SettingsGethttpserver calls GET /api/nginx/settings/gethttpserver
 // Parameters:
 //   - uuid (optional, default: null)
-func (c *Client) SettingsGethttpserver(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) SettingsGethttpserver(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/nginx/settings/gethttpserver"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -653,12 +653,12 @@ func (c *Client) SettingsGethttpserver(ctx context.Context, opts ...string) (map
 // SettingsGetipacl calls GET /api/nginx/settings/getipacl
 // Parameters:
 //   - uuid (optional, default: null)
-func (c *Client) SettingsGetipacl(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) SettingsGetipacl(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/nginx/settings/getipacl"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -666,12 +666,12 @@ func (c *Client) SettingsGetipacl(ctx context.Context, opts ...string) (map[stri
 // SettingsGetlimitRequestConnection calls GET /api/nginx/settings/getlimitRequestConnection
 // Parameters:
 //   - uuid (optional, default: null)
-func (c *Client) SettingsGetlimitRequestConnection(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) SettingsGetlimitRequestConnection(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/nginx/settings/getlimitRequestConnection"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -679,12 +679,12 @@ func (c *Client) SettingsGetlimitRequestConnection(ctx context.Context, opts ...
 // SettingsGetlimitZone calls GET /api/nginx/settings/getlimitZone
 // Parameters:
 //   - uuid (optional, default: null)
-func (c *Client) SettingsGetlimitZone(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) SettingsGetlimitZone(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/nginx/settings/getlimitZone"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -692,12 +692,12 @@ func (c *Client) SettingsGetlimitZone(ctx context.Context, opts ...string) (map[
 // SettingsGetlocation calls GET /api/nginx/settings/getlocation
 // Parameters:
 //   - uuid (optional, default: null)
-func (c *Client) SettingsGetlocation(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) SettingsGetlocation(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/nginx/settings/getlocation"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -705,12 +705,12 @@ func (c *Client) SettingsGetlocation(ctx context.Context, opts ...string) (map[s
 // SettingsGetnaxsirule calls GET /api/nginx/settings/getnaxsirule
 // Parameters:
 //   - uuid (optional, default: null)
-func (c *Client) SettingsGetnaxsirule(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) SettingsGetnaxsirule(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/nginx/settings/getnaxsirule"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -718,12 +718,12 @@ func (c *Client) SettingsGetnaxsirule(ctx context.Context, opts ...string) (map[
 // SettingsGetproxyCacheValid calls GET /api/nginx/settings/getproxyCacheValid
 // Parameters:
 //   - uuid (optional, default: null)
-func (c *Client) SettingsGetproxyCacheValid(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) SettingsGetproxyCacheValid(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/nginx/settings/getproxyCacheValid"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -731,12 +731,12 @@ func (c *Client) SettingsGetproxyCacheValid(ctx context.Context, opts ...string)
 // SettingsGetresolver calls GET /api/nginx/settings/getresolver
 // Parameters:
 //   - uuid (optional, default: null)
-func (c *Client) SettingsGetresolver(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) SettingsGetresolver(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/nginx/settings/getresolver"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -744,12 +744,12 @@ func (c *Client) SettingsGetresolver(ctx context.Context, opts ...string) (map[s
 // SettingsGetsecurityHeader calls GET /api/nginx/settings/getsecurityHeader
 // Parameters:
 //   - uuid (optional, default: null)
-func (c *Client) SettingsGetsecurityHeader(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) SettingsGetsecurityHeader(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/nginx/settings/getsecurityHeader"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -757,12 +757,12 @@ func (c *Client) SettingsGetsecurityHeader(ctx context.Context, opts ...string) 
 // SettingsGetsnifwd calls GET /api/nginx/settings/getsnifwd
 // Parameters:
 //   - uuid (optional, default: null)
-func (c *Client) SettingsGetsnifwd(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) SettingsGetsnifwd(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/nginx/settings/getsnifwd"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -770,12 +770,12 @@ func (c *Client) SettingsGetsnifwd(ctx context.Context, opts ...string) (map[str
 // SettingsGetstreamserver calls GET /api/nginx/settings/getstreamserver
 // Parameters:
 //   - uuid (optional, default: null)
-func (c *Client) SettingsGetstreamserver(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) SettingsGetstreamserver(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/nginx/settings/getstreamserver"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -783,12 +783,12 @@ func (c *Client) SettingsGetstreamserver(ctx context.Context, opts ...string) (m
 // SettingsGetsyslogTarget calls GET /api/nginx/settings/getsyslogTarget
 // Parameters:
 //   - uuid (optional, default: null)
-func (c *Client) SettingsGetsyslogTarget(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) SettingsGetsyslogTarget(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/nginx/settings/getsyslogTarget"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -796,12 +796,12 @@ func (c *Client) SettingsGetsyslogTarget(ctx context.Context, opts ...string) (m
 // SettingsGettlsFingerprint calls GET /api/nginx/settings/gettlsFingerprint
 // Parameters:
 //   - uuid (optional, default: null)
-func (c *Client) SettingsGettlsFingerprint(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) SettingsGettlsFingerprint(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/nginx/settings/gettlsFingerprint"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -809,12 +809,12 @@ func (c *Client) SettingsGettlsFingerprint(ctx context.Context, opts ...string) 
 // SettingsGetupstream calls GET /api/nginx/settings/getupstream
 // Parameters:
 //   - uuid (optional, default: null)
-func (c *Client) SettingsGetupstream(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) SettingsGetupstream(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/nginx/settings/getupstream"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -822,12 +822,12 @@ func (c *Client) SettingsGetupstream(ctx context.Context, opts ...string) (map[s
 // SettingsGetupstreamserver calls GET /api/nginx/settings/getupstreamserver
 // Parameters:
 //   - uuid (optional, default: null)
-func (c *Client) SettingsGetupstreamserver(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) SettingsGetupstreamserver(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/nginx/settings/getupstreamserver"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -835,188 +835,188 @@ func (c *Client) SettingsGetupstreamserver(ctx context.Context, opts ...string) 
 // SettingsGetuserlist calls GET /api/nginx/settings/getuserlist
 // Parameters:
 //   - uuid (optional, default: null)
-func (c *Client) SettingsGetuserlist(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) SettingsGetuserlist(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/nginx/settings/getuserlist"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // SettingsSearchcachePath calls GET,POST /api/nginx/settings/searchcachePath
-func (c *Client) SettingsSearchcachePath(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSearchcachePath(ctx context.Context, body any) (any, error) {
 	path := "/api/nginx/settings/searchcachePath"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SettingsSearchcredential calls GET,POST /api/nginx/settings/searchcredential
-func (c *Client) SettingsSearchcredential(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSearchcredential(ctx context.Context, body any) (any, error) {
 	path := "/api/nginx/settings/searchcredential"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SettingsSearchcustompolicy calls GET,POST /api/nginx/settings/searchcustompolicy
-func (c *Client) SettingsSearchcustompolicy(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSearchcustompolicy(ctx context.Context, body any) (any, error) {
 	path := "/api/nginx/settings/searchcustompolicy"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SettingsSearcherrorpage calls GET,POST /api/nginx/settings/searcherrorpage
-func (c *Client) SettingsSearcherrorpage(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSearcherrorpage(ctx context.Context, body any) (any, error) {
 	path := "/api/nginx/settings/searcherrorpage"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SettingsSearchhttprewrite calls GET,POST /api/nginx/settings/searchhttprewrite
-func (c *Client) SettingsSearchhttprewrite(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSearchhttprewrite(ctx context.Context, body any) (any, error) {
 	path := "/api/nginx/settings/searchhttprewrite"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SettingsSearchhttpserver calls GET,POST /api/nginx/settings/searchhttpserver
-func (c *Client) SettingsSearchhttpserver(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSearchhttpserver(ctx context.Context, body any) (any, error) {
 	path := "/api/nginx/settings/searchhttpserver"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SettingsSearchipacl calls GET,POST /api/nginx/settings/searchipacl
-func (c *Client) SettingsSearchipacl(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSearchipacl(ctx context.Context, body any) (any, error) {
 	path := "/api/nginx/settings/searchipacl"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SettingsSearchlimitRequestConnection calls GET,POST /api/nginx/settings/searchlimitRequestConnection
-func (c *Client) SettingsSearchlimitRequestConnection(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSearchlimitRequestConnection(ctx context.Context, body any) (any, error) {
 	path := "/api/nginx/settings/searchlimitRequestConnection"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SettingsSearchlimitZone calls GET,POST /api/nginx/settings/searchlimitZone
-func (c *Client) SettingsSearchlimitZone(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSearchlimitZone(ctx context.Context, body any) (any, error) {
 	path := "/api/nginx/settings/searchlimitZone"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SettingsSearchlocation calls GET,POST /api/nginx/settings/searchlocation
-func (c *Client) SettingsSearchlocation(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSearchlocation(ctx context.Context, body any) (any, error) {
 	path := "/api/nginx/settings/searchlocation"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SettingsSearchnaxsirule calls GET,POST /api/nginx/settings/searchnaxsirule
-func (c *Client) SettingsSearchnaxsirule(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSearchnaxsirule(ctx context.Context, body any) (any, error) {
 	path := "/api/nginx/settings/searchnaxsirule"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SettingsSearchproxyCacheValid calls GET,POST /api/nginx/settings/searchproxyCacheValid
-func (c *Client) SettingsSearchproxyCacheValid(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSearchproxyCacheValid(ctx context.Context, body any) (any, error) {
 	path := "/api/nginx/settings/searchproxyCacheValid"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SettingsSearchresolver calls GET,POST /api/nginx/settings/searchresolver
-func (c *Client) SettingsSearchresolver(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSearchresolver(ctx context.Context, body any) (any, error) {
 	path := "/api/nginx/settings/searchresolver"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SettingsSearchsecurityHeader calls GET,POST /api/nginx/settings/searchsecurityHeader
-func (c *Client) SettingsSearchsecurityHeader(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSearchsecurityHeader(ctx context.Context, body any) (any, error) {
 	path := "/api/nginx/settings/searchsecurityHeader"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SettingsSearchsnifwd calls GET,POST /api/nginx/settings/searchsnifwd
-func (c *Client) SettingsSearchsnifwd(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSearchsnifwd(ctx context.Context, body any) (any, error) {
 	path := "/api/nginx/settings/searchsnifwd"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SettingsSearchstreamserver calls GET,POST /api/nginx/settings/searchstreamserver
-func (c *Client) SettingsSearchstreamserver(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSearchstreamserver(ctx context.Context, body any) (any, error) {
 	path := "/api/nginx/settings/searchstreamserver"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SettingsSearchsyslogTarget calls GET,POST /api/nginx/settings/searchsyslogTarget
-func (c *Client) SettingsSearchsyslogTarget(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSearchsyslogTarget(ctx context.Context, body any) (any, error) {
 	path := "/api/nginx/settings/searchsyslogTarget"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SettingsSearchtlsFingerprint calls GET,POST /api/nginx/settings/searchtlsFingerprint
-func (c *Client) SettingsSearchtlsFingerprint(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSearchtlsFingerprint(ctx context.Context, body any) (any, error) {
 	path := "/api/nginx/settings/searchtlsFingerprint"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SettingsSearchupstream calls GET,POST /api/nginx/settings/searchupstream
-func (c *Client) SettingsSearchupstream(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSearchupstream(ctx context.Context, body any) (any, error) {
 	path := "/api/nginx/settings/searchupstream"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SettingsSearchupstreamserver calls GET,POST /api/nginx/settings/searchupstreamserver
-func (c *Client) SettingsSearchupstreamserver(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSearchupstreamserver(ctx context.Context, body any) (any, error) {
 	path := "/api/nginx/settings/searchupstreamserver"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SettingsSearchuserlist calls GET,POST /api/nginx/settings/searchuserlist
-func (c *Client) SettingsSearchuserlist(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSearchuserlist(ctx context.Context, body any) (any, error) {
 	path := "/api/nginx/settings/searchuserlist"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SettingsSet calls POST /api/nginx/settings/set
-func (c *Client) SettingsSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSet(ctx context.Context, body any) (any, error) {
 	path := "/api/nginx/settings/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -1024,9 +1024,9 @@ func (c *Client) SettingsSet(ctx context.Context, body any) (map[string]any, err
 // SettingsSetcachePath calls POST /api/nginx/settings/setcachePath
 // Parameters:
 //   - uuid
-func (c *Client) SettingsSetcachePath(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) SettingsSetcachePath(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/nginx/settings/setcachePath/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -1034,9 +1034,9 @@ func (c *Client) SettingsSetcachePath(ctx context.Context, uuid string, body any
 // SettingsSetcredential calls POST /api/nginx/settings/setcredential
 // Parameters:
 //   - uuid
-func (c *Client) SettingsSetcredential(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) SettingsSetcredential(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/nginx/settings/setcredential/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -1044,9 +1044,9 @@ func (c *Client) SettingsSetcredential(ctx context.Context, uuid string, body an
 // SettingsSetcustompolicy calls POST /api/nginx/settings/setcustompolicy
 // Parameters:
 //   - uuid
-func (c *Client) SettingsSetcustompolicy(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) SettingsSetcustompolicy(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/nginx/settings/setcustompolicy/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -1054,9 +1054,9 @@ func (c *Client) SettingsSetcustompolicy(ctx context.Context, uuid string, body 
 // SettingsSeterrorpage calls POST /api/nginx/settings/seterrorpage
 // Parameters:
 //   - uuid
-func (c *Client) SettingsSeterrorpage(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) SettingsSeterrorpage(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/nginx/settings/seterrorpage/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -1064,9 +1064,9 @@ func (c *Client) SettingsSeterrorpage(ctx context.Context, uuid string, body any
 // SettingsSethttprewrite calls POST /api/nginx/settings/sethttprewrite
 // Parameters:
 //   - uuid
-func (c *Client) SettingsSethttprewrite(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) SettingsSethttprewrite(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/nginx/settings/sethttprewrite/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -1074,9 +1074,9 @@ func (c *Client) SettingsSethttprewrite(ctx context.Context, uuid string, body a
 // SettingsSethttpserver calls POST /api/nginx/settings/sethttpserver
 // Parameters:
 //   - uuid
-func (c *Client) SettingsSethttpserver(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) SettingsSethttpserver(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/nginx/settings/sethttpserver/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -1084,9 +1084,9 @@ func (c *Client) SettingsSethttpserver(ctx context.Context, uuid string, body an
 // SettingsSetipacl calls POST /api/nginx/settings/setipacl
 // Parameters:
 //   - uuid
-func (c *Client) SettingsSetipacl(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) SettingsSetipacl(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/nginx/settings/setipacl/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -1094,9 +1094,9 @@ func (c *Client) SettingsSetipacl(ctx context.Context, uuid string, body any) (m
 // SettingsSetlimitRequestConnection calls POST /api/nginx/settings/setlimitRequestConnection
 // Parameters:
 //   - uuid
-func (c *Client) SettingsSetlimitRequestConnection(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) SettingsSetlimitRequestConnection(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/nginx/settings/setlimitRequestConnection/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -1104,9 +1104,9 @@ func (c *Client) SettingsSetlimitRequestConnection(ctx context.Context, uuid str
 // SettingsSetlimitZone calls POST /api/nginx/settings/setlimitZone
 // Parameters:
 //   - uuid
-func (c *Client) SettingsSetlimitZone(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) SettingsSetlimitZone(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/nginx/settings/setlimitZone/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -1114,9 +1114,9 @@ func (c *Client) SettingsSetlimitZone(ctx context.Context, uuid string, body any
 // SettingsSetlocation calls POST /api/nginx/settings/setlocation
 // Parameters:
 //   - uuid
-func (c *Client) SettingsSetlocation(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) SettingsSetlocation(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/nginx/settings/setlocation/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -1124,9 +1124,9 @@ func (c *Client) SettingsSetlocation(ctx context.Context, uuid string, body any)
 // SettingsSetnaxsirule calls POST /api/nginx/settings/setnaxsirule
 // Parameters:
 //   - uuid
-func (c *Client) SettingsSetnaxsirule(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) SettingsSetnaxsirule(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/nginx/settings/setnaxsirule/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -1134,9 +1134,9 @@ func (c *Client) SettingsSetnaxsirule(ctx context.Context, uuid string, body any
 // SettingsSetproxyCacheValid calls POST /api/nginx/settings/setproxyCacheValid
 // Parameters:
 //   - uuid
-func (c *Client) SettingsSetproxyCacheValid(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) SettingsSetproxyCacheValid(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/nginx/settings/setproxyCacheValid/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -1144,9 +1144,9 @@ func (c *Client) SettingsSetproxyCacheValid(ctx context.Context, uuid string, bo
 // SettingsSetresolver calls POST /api/nginx/settings/setresolver
 // Parameters:
 //   - uuid
-func (c *Client) SettingsSetresolver(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) SettingsSetresolver(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/nginx/settings/setresolver/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -1154,9 +1154,9 @@ func (c *Client) SettingsSetresolver(ctx context.Context, uuid string, body any)
 // SettingsSetsecurityHeader calls POST /api/nginx/settings/setsecurityHeader
 // Parameters:
 //   - uuid
-func (c *Client) SettingsSetsecurityHeader(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) SettingsSetsecurityHeader(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/nginx/settings/setsecurityHeader/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -1164,9 +1164,9 @@ func (c *Client) SettingsSetsecurityHeader(ctx context.Context, uuid string, bod
 // SettingsSetsnifwd calls POST /api/nginx/settings/setsnifwd
 // Parameters:
 //   - uuid
-func (c *Client) SettingsSetsnifwd(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) SettingsSetsnifwd(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/nginx/settings/setsnifwd/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -1174,9 +1174,9 @@ func (c *Client) SettingsSetsnifwd(ctx context.Context, uuid string, body any) (
 // SettingsSetstreamserver calls POST /api/nginx/settings/setstreamserver
 // Parameters:
 //   - uuid
-func (c *Client) SettingsSetstreamserver(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) SettingsSetstreamserver(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/nginx/settings/setstreamserver/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -1184,9 +1184,9 @@ func (c *Client) SettingsSetstreamserver(ctx context.Context, uuid string, body 
 // SettingsSetsyslogTarget calls POST /api/nginx/settings/setsyslogTarget
 // Parameters:
 //   - uuid
-func (c *Client) SettingsSetsyslogTarget(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) SettingsSetsyslogTarget(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/nginx/settings/setsyslogTarget/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -1194,9 +1194,9 @@ func (c *Client) SettingsSetsyslogTarget(ctx context.Context, uuid string, body 
 // SettingsSettlsFingerprint calls POST /api/nginx/settings/settlsFingerprint
 // Parameters:
 //   - uuid
-func (c *Client) SettingsSettlsFingerprint(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) SettingsSettlsFingerprint(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/nginx/settings/settlsFingerprint/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -1204,9 +1204,9 @@ func (c *Client) SettingsSettlsFingerprint(ctx context.Context, uuid string, bod
 // SettingsSetupstream calls POST /api/nginx/settings/setupstream
 // Parameters:
 //   - uuid
-func (c *Client) SettingsSetupstream(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) SettingsSetupstream(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/nginx/settings/setupstream/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -1214,9 +1214,9 @@ func (c *Client) SettingsSetupstream(ctx context.Context, uuid string, body any)
 // SettingsSetupstreamserver calls POST /api/nginx/settings/setupstreamserver
 // Parameters:
 //   - uuid
-func (c *Client) SettingsSetupstreamserver(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) SettingsSetupstreamserver(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/nginx/settings/setupstreamserver/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -1224,25 +1224,25 @@ func (c *Client) SettingsSetupstreamserver(ctx context.Context, uuid string, bod
 // SettingsSetuserlist calls POST /api/nginx/settings/setuserlist
 // Parameters:
 //   - uuid
-func (c *Client) SettingsSetuserlist(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) SettingsSetuserlist(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/nginx/settings/setuserlist/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SettingsShowconfig calls GET /api/nginx/settings/showconfig
-func (c *Client) SettingsShowconfig(ctx context.Context) (map[string]any, error) {
+func (c *Client) SettingsShowconfig(ctx context.Context) (any, error) {
 	path := "/api/nginx/settings/showconfig"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // SettingsTestconfig calls GET /api/nginx/settings/testconfig
-func (c *Client) SettingsTestconfig(ctx context.Context) (map[string]any, error) {
+func (c *Client) SettingsTestconfig(ctx context.Context) (any, error) {
 	path := "/api/nginx/settings/testconfig"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }

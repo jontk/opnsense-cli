@@ -20,9 +20,9 @@ func NewClient(c *opnsense.Client) *Client {
 }
 
 // NetworkAdd calls POST /api/zerotier/network/add
-func (c *Client) NetworkAdd(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) NetworkAdd(ctx context.Context, body any) (any, error) {
 	path := "/api/zerotier/network/add"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -30,12 +30,12 @@ func (c *Client) NetworkAdd(ctx context.Context, body any) (map[string]any, erro
 // NetworkDel calls POST /api/zerotier/network/del
 // Parameters:
 //   - uuid (optional, default: null)
-func (c *Client) NetworkDel(ctx context.Context, body any, opts ...string) (map[string]any, error) {
+func (c *Client) NetworkDel(ctx context.Context, body any, opts ...string) (any, error) {
 	path := "/api/zerotier/network/del"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -43,12 +43,12 @@ func (c *Client) NetworkDel(ctx context.Context, body any, opts ...string) (map[
 // NetworkGet calls GET /api/zerotier/network/get
 // Parameters:
 //   - uuid (optional, default: null)
-func (c *Client) NetworkGet(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) NetworkGet(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/zerotier/network/get"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -56,20 +56,20 @@ func (c *Client) NetworkGet(ctx context.Context, opts ...string) (map[string]any
 // NetworkInfo calls GET /api/zerotier/network/info
 // Parameters:
 //   - uuid (optional, default: null)
-func (c *Client) NetworkInfo(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) NetworkInfo(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/zerotier/network/info"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // NetworkSearch calls GET /api/zerotier/network/search
-func (c *Client) NetworkSearch(ctx context.Context) (map[string]any, error) {
+func (c *Client) NetworkSearch(ctx context.Context) (any, error) {
 	path := "/api/zerotier/network/search"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -77,12 +77,12 @@ func (c *Client) NetworkSearch(ctx context.Context) (map[string]any, error) {
 // NetworkSet calls POST /api/zerotier/network/set
 // Parameters:
 //   - uuid (optional, default: null)
-func (c *Client) NetworkSet(ctx context.Context, body any, opts ...string) (map[string]any, error) {
+func (c *Client) NetworkSet(ctx context.Context, body any, opts ...string) (any, error) {
 	path := "/api/zerotier/network/set"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -90,36 +90,36 @@ func (c *Client) NetworkSet(ctx context.Context, body any, opts ...string) (map[
 // NetworkToggle calls POST /api/zerotier/network/toggle
 // Parameters:
 //   - uuid (optional, default: null)
-func (c *Client) NetworkToggle(ctx context.Context, body any, opts ...string) (map[string]any, error) {
+func (c *Client) NetworkToggle(ctx context.Context, body any, opts ...string) (any, error) {
 	path := "/api/zerotier/network/toggle"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SettingsGet calls GET /api/zerotier/settings/get
-func (c *Client) SettingsGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) SettingsGet(ctx context.Context) (any, error) {
 	path := "/api/zerotier/settings/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // SettingsSet calls POST /api/zerotier/settings/set
-func (c *Client) SettingsSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSet(ctx context.Context, body any) (any, error) {
 	path := "/api/zerotier/settings/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SettingsStatus calls GET /api/zerotier/settings/status
-func (c *Client) SettingsStatus(ctx context.Context) (map[string]any, error) {
+func (c *Client) SettingsStatus(ctx context.Context) (any, error) {
 	path := "/api/zerotier/settings/status"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }

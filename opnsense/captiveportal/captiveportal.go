@@ -21,9 +21,9 @@ func NewClient(c *opnsense.Client) *Client {
 }
 
 // AccessApi calls GET /api/captiveportal/access/api
-func (c *Client) AccessApi(ctx context.Context) (map[string]any, error) {
+func (c *Client) AccessApi(ctx context.Context) (any, error) {
 	path := "/api/captiveportal/access/api"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -31,12 +31,12 @@ func (c *Client) AccessApi(ctx context.Context) (map[string]any, error) {
 // AccessLogoff calls GET /api/captiveportal/access/logoff
 // Parameters:
 //   - zoneid (optional, default: 0)
-func (c *Client) AccessLogoff(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) AccessLogoff(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/captiveportal/access/logoff"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -44,12 +44,12 @@ func (c *Client) AccessLogoff(ctx context.Context, opts ...string) (map[string]a
 // AccessLogon calls POST /api/captiveportal/access/logon
 // Parameters:
 //   - zoneid (optional, default: 0)
-func (c *Client) AccessLogon(ctx context.Context, body any, opts ...string) (map[string]any, error) {
+func (c *Client) AccessLogon(ctx context.Context, body any, opts ...string) (any, error) {
 	path := "/api/captiveportal/access/logon"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -57,12 +57,12 @@ func (c *Client) AccessLogon(ctx context.Context, body any, opts ...string) (map
 // AccessStatus calls GET,POST /api/captiveportal/access/status
 // Parameters:
 //   - zoneid (optional, default: 0)
-func (c *Client) AccessStatus(ctx context.Context, body any, opts ...string) (map[string]any, error) {
+func (c *Client) AccessStatus(ctx context.Context, body any, opts ...string) (any, error) {
 	path := "/api/captiveportal/access/status"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -70,9 +70,9 @@ func (c *Client) AccessStatus(ctx context.Context, body any, opts ...string) (ma
 // ServiceDelTemplate calls POST /api/captiveportal/service/delTemplate
 // Parameters:
 //   - uuid
-func (c *Client) ServiceDelTemplate(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) ServiceDelTemplate(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/captiveportal/service/delTemplate/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -80,68 +80,68 @@ func (c *Client) ServiceDelTemplate(ctx context.Context, uuid string, body any) 
 // ServiceGetTemplate calls GET /api/captiveportal/service/getTemplate
 // Parameters:
 //   - fileid (optional, default: null)
-func (c *Client) ServiceGetTemplate(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) ServiceGetTemplate(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/captiveportal/service/getTemplate"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ServiceReconfigure calls POST /api/captiveportal/service/reconfigure
-func (c *Client) ServiceReconfigure(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceReconfigure(ctx context.Context, body any) (any, error) {
 	path := "/api/captiveportal/service/reconfigure"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceRestart calls POST /api/captiveportal/service/restart
-func (c *Client) ServiceRestart(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceRestart(ctx context.Context, body any) (any, error) {
 	path := "/api/captiveportal/service/restart"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceSaveTemplate calls POST /api/captiveportal/service/saveTemplate
-func (c *Client) ServiceSaveTemplate(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceSaveTemplate(ctx context.Context, body any) (any, error) {
 	path := "/api/captiveportal/service/saveTemplate"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceSearchTemplates calls GET /api/captiveportal/service/searchTemplates
-func (c *Client) ServiceSearchTemplates(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceSearchTemplates(ctx context.Context) (any, error) {
 	path := "/api/captiveportal/service/searchTemplates"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ServiceStart calls POST /api/captiveportal/service/start
-func (c *Client) ServiceStart(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceStart(ctx context.Context, body any) (any, error) {
 	path := "/api/captiveportal/service/start"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceStatus calls GET /api/captiveportal/service/status
-func (c *Client) ServiceStatus(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceStatus(ctx context.Context) (any, error) {
 	path := "/api/captiveportal/service/status"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ServiceStop calls POST /api/captiveportal/service/stop
-func (c *Client) ServiceStop(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceStop(ctx context.Context, body any) (any, error) {
 	path := "/api/captiveportal/service/stop"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -149,12 +149,12 @@ func (c *Client) ServiceStop(ctx context.Context, body any) (map[string]any, err
 // SessionConnect calls POST /api/captiveportal/session/connect
 // Parameters:
 //   - zoneid (optional, default: 0)
-func (c *Client) SessionConnect(ctx context.Context, body any, opts ...string) (map[string]any, error) {
+func (c *Client) SessionConnect(ctx context.Context, body any, opts ...string) (any, error) {
 	path := "/api/captiveportal/session/connect"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -162,12 +162,12 @@ func (c *Client) SessionConnect(ctx context.Context, body any, opts ...string) (
 // SessionDisconnect calls POST /api/captiveportal/session/disconnect
 // Parameters:
 //   - zoneid (optional, default: ââ)
-func (c *Client) SessionDisconnect(ctx context.Context, body any, opts ...string) (map[string]any, error) {
+func (c *Client) SessionDisconnect(ctx context.Context, body any, opts ...string) (any, error) {
 	path := "/api/captiveportal/session/disconnect"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -175,28 +175,28 @@ func (c *Client) SessionDisconnect(ctx context.Context, body any, opts ...string
 // SessionList calls GET /api/captiveportal/session/list
 // Parameters:
 //   - zoneid (optional, default: 0)
-func (c *Client) SessionList(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) SessionList(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/captiveportal/session/list"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // SessionSearch calls GET /api/captiveportal/session/search
-func (c *Client) SessionSearch(ctx context.Context) (map[string]any, error) {
+func (c *Client) SessionSearch(ctx context.Context) (any, error) {
 	path := "/api/captiveportal/session/search"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // SessionZones calls GET /api/captiveportal/session/zones
-func (c *Client) SessionZones(ctx context.Context) (map[string]any, error) {
+func (c *Client) SessionZones(ctx context.Context) (any, error) {
 	path := "/api/captiveportal/session/zones"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -220,9 +220,9 @@ func (c *Client) SettingsDelZone(ctx context.Context, uuid string) (*opnsense.Ge
 }
 
 // SettingsGet calls GET /api/captiveportal/settings/get
-func (c *Client) SettingsGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) SettingsGet(ctx context.Context) (any, error) {
 	path := "/api/captiveportal/settings/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -249,9 +249,9 @@ func (c *Client) SettingsSearchZones(ctx context.Context, body any) (*opnsense.S
 }
 
 // SettingsSet calls POST /api/captiveportal/settings/set
-func (c *Client) SettingsSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSet(ctx context.Context, body any) (any, error) {
 	path := "/api/captiveportal/settings/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -284,9 +284,9 @@ func (c *Client) SettingsToggleZone(ctx context.Context, uuid string, opts ...st
 // Parameters:
 //   - provider
 //   - group
-func (c *Client) VoucherDropExpiredVouchers(ctx context.Context, provider string, group string, body any) (map[string]any, error) {
+func (c *Client) VoucherDropExpiredVouchers(ctx context.Context, provider string, group string, body any) (any, error) {
 	path := fmt.Sprintf("/api/captiveportal/voucher/dropExpiredVouchers/%s/%s", provider, group)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -295,9 +295,9 @@ func (c *Client) VoucherDropExpiredVouchers(ctx context.Context, provider string
 // Parameters:
 //   - provider
 //   - group
-func (c *Client) VoucherDropVoucherGroup(ctx context.Context, provider string, group string, body any) (map[string]any, error) {
+func (c *Client) VoucherDropVoucherGroup(ctx context.Context, provider string, group string, body any) (any, error) {
 	path := fmt.Sprintf("/api/captiveportal/voucher/dropVoucherGroup/%s/%s", provider, group)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -305,9 +305,9 @@ func (c *Client) VoucherDropVoucherGroup(ctx context.Context, provider string, g
 // VoucherExpireVoucher calls POST /api/captiveportal/voucher/expireVoucher
 // Parameters:
 //   - provider
-func (c *Client) VoucherExpireVoucher(ctx context.Context, provider string, body any) (map[string]any, error) {
+func (c *Client) VoucherExpireVoucher(ctx context.Context, provider string, body any) (any, error) {
 	path := fmt.Sprintf("/api/captiveportal/voucher/expireVoucher/%s", provider)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -315,17 +315,17 @@ func (c *Client) VoucherExpireVoucher(ctx context.Context, provider string, body
 // VoucherGenerateVouchers calls POST /api/captiveportal/voucher/generateVouchers
 // Parameters:
 //   - provider
-func (c *Client) VoucherGenerateVouchers(ctx context.Context, provider string, body any) (map[string]any, error) {
+func (c *Client) VoucherGenerateVouchers(ctx context.Context, provider string, body any) (any, error) {
 	path := fmt.Sprintf("/api/captiveportal/voucher/generateVouchers/%s", provider)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // VoucherListProviders calls GET /api/captiveportal/voucher/listProviders
-func (c *Client) VoucherListProviders(ctx context.Context) (map[string]any, error) {
+func (c *Client) VoucherListProviders(ctx context.Context) (any, error) {
 	path := "/api/captiveportal/voucher/listProviders"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -333,9 +333,9 @@ func (c *Client) VoucherListProviders(ctx context.Context) (map[string]any, erro
 // VoucherListVoucherGroups calls GET /api/captiveportal/voucher/listVoucherGroups
 // Parameters:
 //   - provider
-func (c *Client) VoucherListVoucherGroups(ctx context.Context, provider string) (map[string]any, error) {
+func (c *Client) VoucherListVoucherGroups(ctx context.Context, provider string) (any, error) {
 	path := fmt.Sprintf("/api/captiveportal/voucher/listVoucherGroups/%s", provider)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -344,9 +344,9 @@ func (c *Client) VoucherListVoucherGroups(ctx context.Context, provider string) 
 // Parameters:
 //   - provider
 //   - group
-func (c *Client) VoucherListVouchers(ctx context.Context, provider string, group string) (map[string]any, error) {
+func (c *Client) VoucherListVouchers(ctx context.Context, provider string, group string) (any, error) {
 	path := fmt.Sprintf("/api/captiveportal/voucher/listVouchers/%s/%s", provider, group)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }

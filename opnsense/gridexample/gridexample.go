@@ -21,9 +21,9 @@ func NewClient(c *opnsense.Client) *Client {
 }
 
 // ServiceReconfigure calls GET /api/gridexample/service/reconfigure
-func (c *Client) ServiceReconfigure(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceReconfigure(ctx context.Context) (any, error) {
 	path := "/api/gridexample/service/reconfigure"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -47,9 +47,9 @@ func (c *Client) SettingsDelItem(ctx context.Context, uuid string) (*opnsense.Ge
 }
 
 // SettingsGet calls GET /api/gridexample/settings/get
-func (c *Client) SettingsGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) SettingsGet(ctx context.Context) (any, error) {
 	path := "/api/gridexample/settings/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -76,9 +76,9 @@ func (c *Client) SettingsSearchItem(ctx context.Context, body any) (*opnsense.Se
 }
 
 // SettingsSet calls POST /api/gridexample/settings/set
-func (c *Client) SettingsSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSet(ctx context.Context, body any) (any, error) {
 	path := "/api/gridexample/settings/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }

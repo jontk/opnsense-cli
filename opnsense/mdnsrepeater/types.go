@@ -6,8 +6,8 @@ import "github.com/jontk/opnsense-cli/opnsense"
 
 // Settings represents a settings model item.
 type Settings struct {
-	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 0.
+	Enabled    opnsense.OPNBool `json:"enabled"`    // Required. Default: 0.
 	Enablecarp opnsense.OPNBool `json:"enablecarp"` // Required. Default: 0.
-	Interfaces string `json:"interfaces"` // Required. Default: lan.
-	Blocklist string `json:"blocklist,omitempty"`
+	Interfaces string           `json:"interfaces"` // Required. Default: lan.
+	Blocklist  string           `json:"blocklist,omitempty"`
 }

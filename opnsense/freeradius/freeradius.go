@@ -39,9 +39,9 @@ func (c *Client) AvpairDelAvpair(ctx context.Context, uuid string) (*opnsense.Ge
 }
 
 // AvpairGet calls GET /api/freeradius/avpair/get
-func (c *Client) AvpairGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) AvpairGet(ctx context.Context) (any, error) {
 	path := "/api/freeradius/avpair/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -68,9 +68,9 @@ func (c *Client) AvpairSearchAvpair(ctx context.Context, body any) (*opnsense.Se
 }
 
 // AvpairSet calls POST /api/freeradius/avpair/set
-func (c *Client) AvpairSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) AvpairSet(ctx context.Context, body any) (any, error) {
 	path := "/api/freeradius/avpair/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -114,9 +114,9 @@ func (c *Client) ClientDelClient(ctx context.Context, uuid string) (*opnsense.Ge
 }
 
 // ClientGet calls GET /api/freeradius/client/get
-func (c *Client) ClientGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) ClientGet(ctx context.Context) (any, error) {
 	path := "/api/freeradius/client/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -143,9 +143,9 @@ func (c *Client) ClientSearchClient(ctx context.Context) (*opnsense.SearchResult
 }
 
 // ClientSet calls POST /api/freeradius/client/set
-func (c *Client) ClientSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ClientSet(ctx context.Context, body any) (any, error) {
 	path := "/api/freeradius/client/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -189,9 +189,9 @@ func (c *Client) DhcpDelDhcp(ctx context.Context, uuid string) (*opnsense.Generi
 }
 
 // DhcpGet calls GET /api/freeradius/dhcp/get
-func (c *Client) DhcpGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) DhcpGet(ctx context.Context) (any, error) {
 	path := "/api/freeradius/dhcp/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -218,9 +218,9 @@ func (c *Client) DhcpSearchDhcp(ctx context.Context, body any) (*opnsense.Search
 }
 
 // DhcpSet calls POST /api/freeradius/dhcp/set
-func (c *Client) DhcpSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) DhcpSet(ctx context.Context, body any) (any, error) {
 	path := "/api/freeradius/dhcp/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -246,49 +246,49 @@ func (c *Client) DhcpToggleDhcp(ctx context.Context, uuid string) (*opnsense.Gen
 }
 
 // EapGet calls GET /api/freeradius/eap/get
-func (c *Client) EapGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) EapGet(ctx context.Context) (any, error) {
 	path := "/api/freeradius/eap/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // EapSet calls POST /api/freeradius/eap/set
-func (c *Client) EapSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) EapSet(ctx context.Context, body any) (any, error) {
 	path := "/api/freeradius/eap/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // GeneralGet calls GET /api/freeradius/general/get
-func (c *Client) GeneralGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) GeneralGet(ctx context.Context) (any, error) {
 	path := "/api/freeradius/general/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // GeneralSet calls POST /api/freeradius/general/set
-func (c *Client) GeneralSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) GeneralSet(ctx context.Context, body any) (any, error) {
 	path := "/api/freeradius/general/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // LdapGet calls GET /api/freeradius/ldap/get
-func (c *Client) LdapGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) LdapGet(ctx context.Context) (any, error) {
 	path := "/api/freeradius/ldap/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // LdapSet calls POST /api/freeradius/ldap/set
-func (c *Client) LdapSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) LdapSet(ctx context.Context, body any) (any, error) {
 	path := "/api/freeradius/ldap/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -312,9 +312,9 @@ func (c *Client) LdapgroupDelLdapgroup(ctx context.Context, uuid string) (*opnse
 }
 
 // LdapgroupGet calls GET /api/freeradius/ldapgroup/get
-func (c *Client) LdapgroupGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) LdapgroupGet(ctx context.Context) (any, error) {
 	path := "/api/freeradius/ldapgroup/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -341,9 +341,9 @@ func (c *Client) LdapgroupSearchLdapgroup(ctx context.Context) (*opnsense.Search
 }
 
 // LdapgroupSet calls POST /api/freeradius/ldapgroup/set
-func (c *Client) LdapgroupSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) LdapgroupSet(ctx context.Context, body any) (any, error) {
 	path := "/api/freeradius/ldapgroup/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -387,9 +387,9 @@ func (c *Client) LeaseDelLease(ctx context.Context, uuid string) (*opnsense.Gene
 }
 
 // LeaseGet calls GET /api/freeradius/lease/get
-func (c *Client) LeaseGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) LeaseGet(ctx context.Context) (any, error) {
 	path := "/api/freeradius/lease/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -416,9 +416,9 @@ func (c *Client) LeaseSearchLease(ctx context.Context, body any) (*opnsense.Sear
 }
 
 // LeaseSet calls POST /api/freeradius/lease/set
-func (c *Client) LeaseSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) LeaseSet(ctx context.Context, body any) (any, error) {
 	path := "/api/freeradius/lease/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -498,9 +498,9 @@ func (c *Client) ProxyDelRealm(ctx context.Context, uuid string) (*opnsense.Gene
 }
 
 // ProxyGet calls GET /api/freeradius/proxy/get
-func (c *Client) ProxyGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) ProxyGet(ctx context.Context) (any, error) {
 	path := "/api/freeradius/proxy/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -569,9 +569,9 @@ func (c *Client) ProxySearchRealm(ctx context.Context) (*opnsense.SearchResult[R
 }
 
 // ProxySet calls POST /api/freeradius/proxy/set
-func (c *Client) ProxySet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ProxySet(ctx context.Context, body any) (any, error) {
 	path := "/api/freeradius/proxy/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -637,41 +637,41 @@ func (c *Client) ProxyToggleRealm(ctx context.Context, uuid string) (*opnsense.G
 }
 
 // ServiceReconfigure calls POST /api/freeradius/service/reconfigure
-func (c *Client) ServiceReconfigure(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceReconfigure(ctx context.Context, body any) (any, error) {
 	path := "/api/freeradius/service/reconfigure"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceRestart calls POST /api/freeradius/service/restart
-func (c *Client) ServiceRestart(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceRestart(ctx context.Context, body any) (any, error) {
 	path := "/api/freeradius/service/restart"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceStart calls POST /api/freeradius/service/start
-func (c *Client) ServiceStart(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceStart(ctx context.Context, body any) (any, error) {
 	path := "/api/freeradius/service/start"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceStatus calls GET /api/freeradius/service/status
-func (c *Client) ServiceStatus(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceStatus(ctx context.Context) (any, error) {
 	path := "/api/freeradius/service/status"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ServiceStop calls POST /api/freeradius/service/stop
-func (c *Client) ServiceStop(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceStop(ctx context.Context, body any) (any, error) {
 	path := "/api/freeradius/service/stop"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -695,9 +695,9 @@ func (c *Client) UserDelUser(ctx context.Context, uuid string) (*opnsense.Generi
 }
 
 // UserGet calls GET /api/freeradius/user/get
-func (c *Client) UserGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) UserGet(ctx context.Context) (any, error) {
 	path := "/api/freeradius/user/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -724,9 +724,9 @@ func (c *Client) UserSearchUser(ctx context.Context) (*opnsense.SearchResult[Use
 }
 
 // UserSet calls POST /api/freeradius/user/set
-func (c *Client) UserSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) UserSet(ctx context.Context, body any) (any, error) {
 	path := "/api/freeradius/user/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }

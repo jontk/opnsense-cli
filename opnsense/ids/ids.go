@@ -21,9 +21,9 @@ func NewClient(c *opnsense.Client) *Client {
 }
 
 // ServiceDropAlertLog calls POST /api/ids/service/dropAlertLog
-func (c *Client) ServiceDropAlertLog(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceDropAlertLog(ctx context.Context, body any) (any, error) {
 	path := "/api/ids/service/dropAlertLog"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -32,76 +32,76 @@ func (c *Client) ServiceDropAlertLog(ctx context.Context, body any) (map[string]
 // Parameters:
 //   - alertId
 //   - fileid (optional, default: ââ)
-func (c *Client) ServiceGetAlertInfo(ctx context.Context, alertId string, opts ...string) (map[string]any, error) {
+func (c *Client) ServiceGetAlertInfo(ctx context.Context, alertId string, opts ...string) (any, error) {
 	path := fmt.Sprintf("/api/ids/service/getAlertInfo/%s", alertId)
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ServiceGetAlertLogs calls GET /api/ids/service/getAlertLogs
-func (c *Client) ServiceGetAlertLogs(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceGetAlertLogs(ctx context.Context) (any, error) {
 	path := "/api/ids/service/getAlertLogs"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ServiceQueryAlerts calls POST /api/ids/service/queryAlerts
-func (c *Client) ServiceQueryAlerts(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceQueryAlerts(ctx context.Context, body any) (any, error) {
 	path := "/api/ids/service/queryAlerts"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceReconfigure calls POST /api/ids/service/reconfigure
-func (c *Client) ServiceReconfigure(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceReconfigure(ctx context.Context, body any) (any, error) {
 	path := "/api/ids/service/reconfigure"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceReloadRules calls POST /api/ids/service/reloadRules
-func (c *Client) ServiceReloadRules(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceReloadRules(ctx context.Context, body any) (any, error) {
 	path := "/api/ids/service/reloadRules"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceRestart calls POST /api/ids/service/restart
-func (c *Client) ServiceRestart(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceRestart(ctx context.Context, body any) (any, error) {
 	path := "/api/ids/service/restart"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceStart calls POST /api/ids/service/start
-func (c *Client) ServiceStart(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceStart(ctx context.Context, body any) (any, error) {
 	path := "/api/ids/service/start"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceStatus calls GET /api/ids/service/status
-func (c *Client) ServiceStatus(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceStatus(ctx context.Context) (any, error) {
 	path := "/api/ids/service/status"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ServiceStop calls POST /api/ids/service/stop
-func (c *Client) ServiceStop(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceStop(ctx context.Context, body any) (any, error) {
 	path := "/api/ids/service/stop"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -109,12 +109,12 @@ func (c *Client) ServiceStop(ctx context.Context, body any) (map[string]any, err
 // ServiceUpdateRules calls POST /api/ids/service/updateRules
 // Parameters:
 //   - wait (optional, default: null)
-func (c *Client) ServiceUpdateRules(ctx context.Context, body any, opts ...string) (map[string]any, error) {
+func (c *Client) ServiceUpdateRules(ctx context.Context, body any, opts ...string) (any, error) {
 	path := "/api/ids/service/updateRules"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -144,9 +144,9 @@ func (c *Client) SettingsAddUserRule(ctx context.Context, body *Rule) (*opnsense
 }
 
 // SettingsCheckPolicyRule calls GET /api/ids/settings/checkPolicyRule
-func (c *Client) SettingsCheckPolicyRule(ctx context.Context) (map[string]any, error) {
+func (c *Client) SettingsCheckPolicyRule(ctx context.Context) (any, error) {
 	path := "/api/ids/settings/checkPolicyRule"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -182,9 +182,9 @@ func (c *Client) SettingsDelUserRule(ctx context.Context, uuid string) (*opnsens
 }
 
 // SettingsGet calls GET /api/ids/settings/get
-func (c *Client) SettingsGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) SettingsGet(ctx context.Context) (any, error) {
 	path := "/api/ids/settings/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -231,17 +231,17 @@ func (c *Client) SettingsGetRuleInfo(ctx context.Context, opts ...string) (*Rule
 // SettingsGetRuleset calls GET /api/ids/settings/getRuleset
 // Parameters:
 //   - id
-func (c *Client) SettingsGetRuleset(ctx context.Context, id string) (map[string]any, error) {
+func (c *Client) SettingsGetRuleset(ctx context.Context, id string) (any, error) {
 	path := fmt.Sprintf("/api/ids/settings/getRuleset/%s", id)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // SettingsGetRulesetproperties calls GET /api/ids/settings/getRulesetproperties
-func (c *Client) SettingsGetRulesetproperties(ctx context.Context) (map[string]any, error) {
+func (c *Client) SettingsGetRulesetproperties(ctx context.Context) (any, error) {
 	path := "/api/ids/settings/getRulesetproperties"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -260,25 +260,25 @@ func (c *Client) SettingsGetUserRule(ctx context.Context, opts ...string) (*Rule
 }
 
 // SettingsListRuleMetadata calls GET /api/ids/settings/listRuleMetadata
-func (c *Client) SettingsListRuleMetadata(ctx context.Context) (map[string]any, error) {
+func (c *Client) SettingsListRuleMetadata(ctx context.Context) (any, error) {
 	path := "/api/ids/settings/listRuleMetadata"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // SettingsListRulesets calls GET /api/ids/settings/listRulesets
-func (c *Client) SettingsListRulesets(ctx context.Context) (map[string]any, error) {
+func (c *Client) SettingsListRulesets(ctx context.Context) (any, error) {
 	path := "/api/ids/settings/listRulesets"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // SettingsSearchInstalledRules calls POST /api/ids/settings/searchInstalledRules
-func (c *Client) SettingsSearchInstalledRules(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSearchInstalledRules(ctx context.Context, body any) (any, error) {
 	path := "/api/ids/settings/searchInstalledRules"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -308,9 +308,9 @@ func (c *Client) SettingsSearchUserRule(ctx context.Context, body any) (*opnsens
 }
 
 // SettingsSet calls POST /api/ids/settings/set
-func (c *Client) SettingsSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSet(ctx context.Context, body any) (any, error) {
 	path := "/api/ids/settings/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -348,17 +348,17 @@ func (c *Client) SettingsSetRule(ctx context.Context, sid string, body *Rule) (*
 // SettingsSetRuleset calls POST /api/ids/settings/setRuleset
 // Parameters:
 //   - filename
-func (c *Client) SettingsSetRuleset(ctx context.Context, filename string, body any) (map[string]any, error) {
+func (c *Client) SettingsSetRuleset(ctx context.Context, filename string, body any) (any, error) {
 	path := fmt.Sprintf("/api/ids/settings/setRuleset/%s", filename)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SettingsSetRulesetproperties calls POST /api/ids/settings/setRulesetproperties
-func (c *Client) SettingsSetRulesetproperties(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSetRulesetproperties(ctx context.Context, body any) (any, error) {
 	path := "/api/ids/settings/setRulesetproperties"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -419,12 +419,12 @@ func (c *Client) SettingsToggleRule(ctx context.Context, sids string, opts ...st
 // Parameters:
 //   - filenames
 //   - enabled (optional, default: null)
-func (c *Client) SettingsToggleRuleset(ctx context.Context, filenames string, body any, opts ...string) (map[string]any, error) {
+func (c *Client) SettingsToggleRuleset(ctx context.Context, filenames string, body any, opts ...string) (any, error) {
 	path := fmt.Sprintf("/api/ids/settings/toggleRuleset/%s", filenames)
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }

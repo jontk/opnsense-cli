@@ -21,33 +21,33 @@ func NewClient(c *opnsense.Client) *Client {
 }
 
 // GeneralGet calls GET /api/telegraf/general/get
-func (c *Client) GeneralGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) GeneralGet(ctx context.Context) (any, error) {
 	path := "/api/telegraf/general/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // GeneralSet calls POST /api/telegraf/general/set
-func (c *Client) GeneralSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) GeneralSet(ctx context.Context, body any) (any, error) {
 	path := "/api/telegraf/general/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // InputGet calls GET /api/telegraf/input/get
-func (c *Client) InputGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) InputGet(ctx context.Context) (any, error) {
 	path := "/api/telegraf/input/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // InputSet calls POST /api/telegraf/input/set
-func (c *Client) InputSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) InputSet(ctx context.Context, body any) (any, error) {
 	path := "/api/telegraf/input/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -71,9 +71,9 @@ func (c *Client) KeyDelKey(ctx context.Context, uuid string) (*opnsense.GenericR
 }
 
 // KeyGet calls GET /api/telegraf/key/get
-func (c *Client) KeyGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) KeyGet(ctx context.Context) (any, error) {
 	path := "/api/telegraf/key/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -100,9 +100,9 @@ func (c *Client) KeySearchKey(ctx context.Context, body any) (*opnsense.SearchRe
 }
 
 // KeySet calls POST /api/telegraf/key/set
-func (c *Client) KeySet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) KeySet(ctx context.Context, body any) (any, error) {
 	path := "/api/telegraf/key/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -128,57 +128,57 @@ func (c *Client) KeyToggleKey(ctx context.Context, uuid string) (*opnsense.Gener
 }
 
 // OutputGet calls GET /api/telegraf/output/get
-func (c *Client) OutputGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) OutputGet(ctx context.Context) (any, error) {
 	path := "/api/telegraf/output/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // OutputSet calls POST /api/telegraf/output/set
-func (c *Client) OutputSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) OutputSet(ctx context.Context, body any) (any, error) {
 	path := "/api/telegraf/output/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceReconfigure calls POST /api/telegraf/service/reconfigure
-func (c *Client) ServiceReconfigure(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceReconfigure(ctx context.Context, body any) (any, error) {
 	path := "/api/telegraf/service/reconfigure"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceRestart calls POST /api/telegraf/service/restart
-func (c *Client) ServiceRestart(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceRestart(ctx context.Context, body any) (any, error) {
 	path := "/api/telegraf/service/restart"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceStart calls POST /api/telegraf/service/start
-func (c *Client) ServiceStart(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceStart(ctx context.Context, body any) (any, error) {
 	path := "/api/telegraf/service/start"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceStatus calls GET /api/telegraf/service/status
-func (c *Client) ServiceStatus(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceStatus(ctx context.Context) (any, error) {
 	path := "/api/telegraf/service/status"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ServiceStop calls POST /api/telegraf/service/stop
-func (c *Client) ServiceStop(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceStop(ctx context.Context, body any) (any, error) {
 	path := "/api/telegraf/service/stop"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }

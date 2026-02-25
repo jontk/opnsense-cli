@@ -6,11 +6,11 @@ import "github.com/jontk/opnsense-cli/opnsense"
 
 // Settings represents a settings model item.
 type Settings struct {
-	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 0.
-	Cdp opnsense.OPNBool `json:"cdp"` // Required. Default: 0.
-	Fdp opnsense.OPNBool `json:"fdp"` // Required. Default: 0.
-	Edp opnsense.OPNBool `json:"edp"` // Required. Default: 0.
-	Sonmp opnsense.OPNBool `json:"sonmp"` // Required. Default: 0.
-	Agentx opnsense.OPNBool `json:"agentx"` // Required. Default: 0.
-	Interface string `json:"interface,omitempty"`
+	Enabled   opnsense.OPNBool `json:"enabled"` // Required. Default: 0.
+	Cdp       opnsense.OPNBool `json:"cdp"`     // Required. Default: 0.
+	Fdp       opnsense.OPNBool `json:"fdp"`     // Required. Default: 0.
+	Edp       opnsense.OPNBool `json:"edp"`     // Required. Default: 0.
+	Sonmp     opnsense.OPNBool `json:"sonmp"`   // Required. Default: 0.
+	Agentx    opnsense.OPNBool `json:"agentx"`  // Required. Default: 0.
+	Interface string           `json:"interface,omitempty"`
 }

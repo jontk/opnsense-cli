@@ -6,18 +6,18 @@ import "github.com/jontk/opnsense-cli/opnsense"
 
 // Settings represents a settings model item.
 type Settings struct {
-	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 0.
-	Listenaddress string `json:"listenaddress"` // Required. Default: 0.0.0.0.
-	Listenport string `json:"listenport"` // Required. Default: 9100.
-	Cpu *opnsense.OPNBool `json:"cpu,omitempty"`
-	Exec *opnsense.OPNBool `json:"exec,omitempty"`
-	Filesystem *opnsense.OPNBool `json:"filesystem,omitempty"`
-	Loadavg *opnsense.OPNBool `json:"loadavg,omitempty"`
-	Meminfo *opnsense.OPNBool `json:"meminfo,omitempty"`
-	Netdev *opnsense.OPNBool `json:"netdev,omitempty"`
-	Time *opnsense.OPNBool `json:"time,omitempty"`
-	Devstat *opnsense.OPNBool `json:"devstat,omitempty"`
-	Interrupts *opnsense.OPNBool `json:"interrupts,omitempty"`
-	Ntp *opnsense.OPNBool `json:"ntp,omitempty"`
-	Zfs *opnsense.OPNBool `json:"zfs,omitempty"`
+	Enabled       opnsense.OPNBool  `json:"enabled"`       // Required. Default: 0.
+	Listenaddress string            `json:"listenaddress"` // Required. Default: 0.0.0.0.
+	Listenport    string            `json:"listenport"`    // Required. Default: 9100.
+	Cpu           *opnsense.OPNBool `json:"cpu,omitempty"`
+	Exec          *opnsense.OPNBool `json:"exec,omitempty"`
+	Filesystem    *opnsense.OPNBool `json:"filesystem,omitempty"`
+	Loadavg       *opnsense.OPNBool `json:"loadavg,omitempty"`
+	Meminfo       *opnsense.OPNBool `json:"meminfo,omitempty"`
+	Netdev        *opnsense.OPNBool `json:"netdev,omitempty"`
+	Time          *opnsense.OPNBool `json:"time,omitempty"`
+	Devstat       *opnsense.OPNBool `json:"devstat,omitempty"`
+	Interrupts    *opnsense.OPNBool `json:"interrupts,omitempty"`
+	Ntp           *opnsense.OPNBool `json:"ntp,omitempty"`
+	Zfs           *opnsense.OPNBool `json:"zfs,omitempty"`
 }

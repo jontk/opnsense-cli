@@ -39,9 +39,9 @@ func (c *Client) WolDelHost(ctx context.Context, uuid string) (*opnsense.Generic
 }
 
 // WolGet calls GET /api/wol/wol/get
-func (c *Client) WolGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) WolGet(ctx context.Context) (any, error) {
 	path := "/api/wol/wol/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -60,9 +60,9 @@ func (c *Client) WolGetHost(ctx context.Context, opts ...string) (*Wolentry, err
 }
 
 // WolGetwake calls GET /api/wol/wol/getwake
-func (c *Client) WolGetwake(ctx context.Context) (map[string]any, error) {
+func (c *Client) WolGetwake(ctx context.Context) (any, error) {
 	path := "/api/wol/wol/getwake"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -76,9 +76,9 @@ func (c *Client) WolSearchHost(ctx context.Context, body any) (*opnsense.SearchR
 }
 
 // WolSet calls POST /api/wol/wol/set
-func (c *Client) WolSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) WolSet(ctx context.Context, body any) (any, error) {
 	path := "/api/wol/wol/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -94,9 +94,9 @@ func (c *Client) WolSetHost(ctx context.Context, uuid string, body *Wolentry) (*
 }
 
 // WolWakeall calls POST /api/wol/wol/wakeall
-func (c *Client) WolWakeall(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) WolWakeall(ctx context.Context, body any) (any, error) {
 	path := "/api/wol/wol/wakeall"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }

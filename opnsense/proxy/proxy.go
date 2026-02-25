@@ -21,73 +21,73 @@ func NewClient(c *opnsense.Client) *Client {
 }
 
 // ServiceDownloadacls calls POST /api/proxy/service/downloadacls
-func (c *Client) ServiceDownloadacls(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceDownloadacls(ctx context.Context, body any) (any, error) {
 	path := "/api/proxy/service/downloadacls"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceFetchacls calls POST /api/proxy/service/fetchacls
-func (c *Client) ServiceFetchacls(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceFetchacls(ctx context.Context, body any) (any, error) {
 	path := "/api/proxy/service/fetchacls"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceReconfigure calls POST /api/proxy/service/reconfigure
-func (c *Client) ServiceReconfigure(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceReconfigure(ctx context.Context, body any) (any, error) {
 	path := "/api/proxy/service/reconfigure"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceRefreshTemplate calls POST /api/proxy/service/refreshTemplate
-func (c *Client) ServiceRefreshTemplate(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceRefreshTemplate(ctx context.Context, body any) (any, error) {
 	path := "/api/proxy/service/refreshTemplate"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceReset calls POST /api/proxy/service/reset
-func (c *Client) ServiceReset(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceReset(ctx context.Context, body any) (any, error) {
 	path := "/api/proxy/service/reset"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceRestart calls GET /api/proxy/service/restart
-func (c *Client) ServiceRestart(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceRestart(ctx context.Context) (any, error) {
 	path := "/api/proxy/service/restart"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ServiceStart calls GET /api/proxy/service/start
-func (c *Client) ServiceStart(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceStart(ctx context.Context) (any, error) {
 	path := "/api/proxy/service/start"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ServiceStatus calls GET /api/proxy/service/status
-func (c *Client) ServiceStatus(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceStatus(ctx context.Context) (any, error) {
 	path := "/api/proxy/service/status"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ServiceStop calls POST /api/proxy/service/stop
-func (c *Client) ServiceStop(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceStop(ctx context.Context, body any) (any, error) {
 	path := "/api/proxy/service/stop"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -117,9 +117,9 @@ func (c *Client) SettingsAddPacProxy(ctx context.Context, body *Proxy) (*opnsens
 }
 
 // SettingsAddRemoteBlacklist calls POST /api/proxy/settings/addRemoteBlacklist
-func (c *Client) SettingsAddRemoteBlacklist(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsAddRemoteBlacklist(ctx context.Context, body any) (any, error) {
 	path := "/api/proxy/settings/addRemoteBlacklist"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -157,25 +157,25 @@ func (c *Client) SettingsDelPacRule(ctx context.Context, uuid string) (*opnsense
 // SettingsDelRemoteBlacklist calls POST /api/proxy/settings/delRemoteBlacklist
 // Parameters:
 //   - uuid
-func (c *Client) SettingsDelRemoteBlacklist(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) SettingsDelRemoteBlacklist(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/proxy/settings/delRemoteBlacklist/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SettingsFetchRbCron calls POST /api/proxy/settings/fetchRbCron
-func (c *Client) SettingsFetchRbCron(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsFetchRbCron(ctx context.Context, body any) (any, error) {
 	path := "/api/proxy/settings/fetchRbCron"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SettingsGet calls GET /api/proxy/settings/get
-func (c *Client) SettingsGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) SettingsGet(ctx context.Context) (any, error) {
 	path := "/api/proxy/settings/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -222,12 +222,12 @@ func (c *Client) SettingsGetPacRule(ctx context.Context, opts ...string) (*Rule,
 // SettingsGetRemoteBlacklist calls GET /api/proxy/settings/getRemoteBlacklist
 // Parameters:
 //   - uuid (optional, default: null)
-func (c *Client) SettingsGetRemoteBlacklist(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) SettingsGetRemoteBlacklist(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/proxy/settings/getRemoteBlacklist"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -257,17 +257,17 @@ func (c *Client) SettingsSearchPacRule(ctx context.Context, body any) (*opnsense
 }
 
 // SettingsSearchRemoteBlacklists calls GET /api/proxy/settings/searchRemoteBlacklists
-func (c *Client) SettingsSearchRemoteBlacklists(ctx context.Context) (map[string]any, error) {
+func (c *Client) SettingsSearchRemoteBlacklists(ctx context.Context) (any, error) {
 	path := "/api/proxy/settings/searchRemoteBlacklists"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // SettingsSet calls POST /api/proxy/settings/set
-func (c *Client) SettingsSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSet(ctx context.Context, body any) (any, error) {
 	path := "/api/proxy/settings/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -305,9 +305,9 @@ func (c *Client) SettingsSetPacRule(ctx context.Context, uuid string, body *Rule
 // SettingsSetRemoteBlacklist calls POST /api/proxy/settings/setRemoteBlacklist
 // Parameters:
 //   - uuid
-func (c *Client) SettingsSetRemoteBlacklist(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) SettingsSetRemoteBlacklist(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/proxy/settings/setRemoteBlacklist/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -325,57 +325,57 @@ func (c *Client) SettingsTogglePacRule(ctx context.Context, uuid string) (*opnse
 // SettingsToggleRemoteBlacklist calls POST /api/proxy/settings/toggleRemoteBlacklist
 // Parameters:
 //   - uuid
-func (c *Client) SettingsToggleRemoteBlacklist(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) SettingsToggleRemoteBlacklist(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/proxy/settings/toggleRemoteBlacklist/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // TemplateGet calls GET /api/proxy/template/get
-func (c *Client) TemplateGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) TemplateGet(ctx context.Context) (any, error) {
 	path := "/api/proxy/template/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // TemplateReset calls POST /api/proxy/template/reset
-func (c *Client) TemplateReset(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) TemplateReset(ctx context.Context, body any) (any, error) {
 	path := "/api/proxy/template/reset"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // TemplateSet calls POST /api/proxy/template/set
-func (c *Client) TemplateSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) TemplateSet(ctx context.Context, body any) (any, error) {
 	path := "/api/proxy/template/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // AclAddCustomPolicy calls POST /api/proxy/acl/addCustomPolicy
-func (c *Client) AclAddCustomPolicy(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) AclAddCustomPolicy(ctx context.Context, body any) (any, error) {
 	path := "/api/proxy/acl/addCustomPolicy"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // AclAddPolicy calls POST /api/proxy/acl/addPolicy
-func (c *Client) AclAddPolicy(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) AclAddPolicy(ctx context.Context, body any) (any, error) {
 	path := "/api/proxy/acl/addPolicy"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // AclApply calls POST /api/proxy/acl/apply
-func (c *Client) AclApply(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) AclApply(ctx context.Context, body any) (any, error) {
 	path := "/api/proxy/acl/apply"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -383,9 +383,9 @@ func (c *Client) AclApply(ctx context.Context, body any) (map[string]any, error)
 // AclDelCustomPolicy calls POST /api/proxy/acl/delCustomPolicy
 // Parameters:
 //   - uuid
-func (c *Client) AclDelCustomPolicy(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) AclDelCustomPolicy(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/proxy/acl/delCustomPolicy/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -393,17 +393,17 @@ func (c *Client) AclDelCustomPolicy(ctx context.Context, uuid string, body any) 
 // AclDelPolicy calls POST /api/proxy/acl/delPolicy
 // Parameters:
 //   - uuid
-func (c *Client) AclDelPolicy(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) AclDelPolicy(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/proxy/acl/delPolicy/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // AclGet calls GET /api/proxy/acl/get
-func (c *Client) AclGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) AclGet(ctx context.Context) (any, error) {
 	path := "/api/proxy/acl/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -411,12 +411,12 @@ func (c *Client) AclGet(ctx context.Context) (map[string]any, error) {
 // AclGetCustomPolicy calls GET /api/proxy/acl/getCustomPolicy
 // Parameters:
 //   - uuid (optional, default: null)
-func (c *Client) AclGetCustomPolicy(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) AclGetCustomPolicy(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/proxy/acl/getCustomPolicy"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -424,36 +424,36 @@ func (c *Client) AclGetCustomPolicy(ctx context.Context, opts ...string) (map[st
 // AclGetPolicy calls GET /api/proxy/acl/getPolicy
 // Parameters:
 //   - uuid (optional, default: null)
-func (c *Client) AclGetPolicy(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) AclGetPolicy(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/proxy/acl/getPolicy"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // AclSearchCustomPolicy calls GET,POST /api/proxy/acl/searchCustomPolicy
-func (c *Client) AclSearchCustomPolicy(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) AclSearchCustomPolicy(ctx context.Context, body any) (any, error) {
 	path := "/api/proxy/acl/searchCustomPolicy"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // AclSearchPolicy calls GET,POST /api/proxy/acl/searchPolicy
-func (c *Client) AclSearchPolicy(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) AclSearchPolicy(ctx context.Context, body any) (any, error) {
 	path := "/api/proxy/acl/searchPolicy"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // AclSet calls POST /api/proxy/acl/set
-func (c *Client) AclSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) AclSet(ctx context.Context, body any) (any, error) {
 	path := "/api/proxy/acl/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -461,9 +461,9 @@ func (c *Client) AclSet(ctx context.Context, body any) (map[string]any, error) {
 // AclSetCustomPolicy calls POST /api/proxy/acl/setCustomPolicy
 // Parameters:
 //   - uuid
-func (c *Client) AclSetCustomPolicy(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) AclSetCustomPolicy(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/proxy/acl/setCustomPolicy/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -471,17 +471,17 @@ func (c *Client) AclSetCustomPolicy(ctx context.Context, uuid string, body any) 
 // AclSetPolicy calls POST /api/proxy/acl/setPolicy
 // Parameters:
 //   - uuid
-func (c *Client) AclSetPolicy(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) AclSetPolicy(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/proxy/acl/setPolicy/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // AclTest calls POST /api/proxy/acl/test
-func (c *Client) AclTest(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) AclTest(ctx context.Context, body any) (any, error) {
 	path := "/api/proxy/acl/test"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -490,12 +490,12 @@ func (c *Client) AclTest(ctx context.Context, body any) (map[string]any, error) 
 // Parameters:
 //   - uuid
 //   - enabled (optional, default: null)
-func (c *Client) AclToggleCustomPolicy(ctx context.Context, uuid string, body any, opts ...string) (map[string]any, error) {
+func (c *Client) AclToggleCustomPolicy(ctx context.Context, uuid string, body any, opts ...string) (any, error) {
 	path := fmt.Sprintf("/api/proxy/acl/toggleCustomPolicy/%s", uuid)
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -504,12 +504,12 @@ func (c *Client) AclToggleCustomPolicy(ctx context.Context, uuid string, body an
 // Parameters:
 //   - uuid
 //   - enabled (optional, default: null)
-func (c *Client) AclTogglePolicy(ctx context.Context, uuid string, body any, opts ...string) (map[string]any, error) {
+func (c *Client) AclTogglePolicy(ctx context.Context, uuid string, body any, opts ...string) (any, error) {
 	path := fmt.Sprintf("/api/proxy/acl/togglePolicy/%s", uuid)
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }

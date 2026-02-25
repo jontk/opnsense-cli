@@ -6,9 +6,9 @@ import "github.com/jontk/opnsense-cli/opnsense"
 
 // Address represents a address model item.
 type Address struct {
-	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
-	Email string `json:"email"` // Required.
-	Description string `json:"description,omitempty"`
+	Enabled     opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
+	Email       string           `json:"email"`   // Required.
+	Description string           `json:"description,omitempty"`
 }
 
 type addressGetItemResponse struct {
