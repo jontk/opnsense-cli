@@ -25,7 +25,6 @@ func registerIpsec() {
 	moduleCmd.AddCommand(newIpsecConnectionCmd())
 	moduleCmd.AddCommand(newIpsecLocalCmd())
 	moduleCmd.AddCommand(newIpsecRemoteCmd())
-	moduleCmd.AddCommand(newIpsecConnectionsCmd())
 	moduleCmd.AddCommand(newIpsecKeyPairsCmd())
 	moduleCmd.AddCommand(newIpsecLeasesCmd())
 	moduleCmd.AddCommand(newIpsecLegacySubsystemCmd())
@@ -313,6 +312,10 @@ func newIpsecConnectionCmd() *cobra.Command {
 	cmd.AddCommand(newIpsecConnectionListCmd())
 	cmd.AddCommand(newIpsecConnectionUpdateCmd())
 	cmd.AddCommand(newIpsecConnectionToggleCmd())
+	cmd.AddCommand(newIpsecConnectionConnectionExistsCmd())
+	cmd.AddCommand(newIpsecConnectionIsEnabledCmd())
+	cmd.AddCommand(newIpsecConnectionSetCmd())
+	cmd.AddCommand(newIpsecConnectionSwanctlCmd())
 	return cmd
 }
 
@@ -452,6 +455,87 @@ func newIpsecConnectionToggleCmd() *cobra.Command {
 			}
 			printer := cli.NewPrinter(cfg)
 			return printer.PrintGenericResponse(resp)
+		},
+	}
+}
+
+func newIpsecConnectionConnectionExistsCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "connection-exists <uuid>",
+		Short: "ConnectionExists ipsec connection",
+		Args:  cobra.ExactArgs(1),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.ConnectionsConnectionExists(context.Background(), args[0])
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newIpsecConnectionIsEnabledCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "is-enabled",
+		Short: "IsEnabled ipsec connection",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.ConnectionsIsEnabled(context.Background())
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newIpsecConnectionSetCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "set",
+		Short: "Set ipsec connection",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.ConnectionsSet(context.Background(), nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newIpsecConnectionSwanctlCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "swanctl",
+		Short: "Swanctl ipsec connection",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.ConnectionsSwanctl(context.Background())
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
 		},
 	}
 }
@@ -864,141 +948,6 @@ func newIpsecRemoteToggleCmd() *cobra.Command {
 			}
 			printer := cli.NewPrinter(cfg)
 			return printer.PrintGenericResponse(resp)
-		},
-	}
-}
-
-func newIpsecConnectionsCmd() *cobra.Command {
-	cmd := &cobra.Command{
-		Use:   "connections",
-		Short: "Manage ipsec connections resources",
-	}
-	cmd.AddCommand(newIpsecConnectionsConnectionExistsCmd())
-	cmd.AddCommand(newIpsecConnectionsGetCmd())
-	cmd.AddCommand(newIpsecConnectionsIsEnabledCmd())
-	cmd.AddCommand(newIpsecConnectionsSetCmd())
-	cmd.AddCommand(newIpsecConnectionsSwanctlCmd())
-	cmd.AddCommand(newIpsecConnectionsToggleCmd())
-	return cmd
-}
-
-func newIpsecConnectionsConnectionExistsCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "connection-exists <uuid>",
-		Short: "ConnectionExists ipsec connections",
-		Args:  cobra.ExactArgs(1),
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.ConnectionsConnectionExists(context.Background(), args[0])
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newIpsecConnectionsGetCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "get",
-		Short: "Get ipsec connections",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.ConnectionsGet(context.Background())
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newIpsecConnectionsIsEnabledCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "is-enabled",
-		Short: "IsEnabled ipsec connections",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.ConnectionsIsEnabled(context.Background())
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newIpsecConnectionsSetCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "set",
-		Short: "Set ipsec connections",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.ConnectionsSet(context.Background(), nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newIpsecConnectionsSwanctlCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "swanctl",
-		Short: "Swanctl ipsec connections",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.ConnectionsSwanctl(context.Background())
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newIpsecConnectionsToggleCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "toggle",
-		Short: "Toggle ipsec connections",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.ConnectionsToggle(context.Background(), nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
 		},
 	}
 }

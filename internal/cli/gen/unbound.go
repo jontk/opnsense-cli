@@ -205,7 +205,7 @@ func newUnboundOverviewCmd() *cobra.Command {
 
 func newUnboundOverviewRollingCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "-rolling <timeperiod>",
+		Use:   "rolling <timeperiod>",
 		Short: "Rolling unbound overview",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {

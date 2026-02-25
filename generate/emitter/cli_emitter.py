@@ -9,7 +9,7 @@ from pathlib import Path
 from jinja2 import Environment, FileSystemLoader
 
 from generate.model.ir import APISpec, Endpoint, ModelItem, Module
-from generate.parser.name_transform import module_to_package
+from generate.parser.name_transform import _group_single_chars, module_to_package
 
 # Go type names that conflict with generated code — must be renamed
 _RESERVED_TYPE_NAMES = {"Client", "NewClient"}
@@ -78,22 +78,36 @@ class CLIModuleView:
     resources: list[CLIResourceView]
 
 
+def _normalize_kebab(raw: str) -> str:
+    """Apply acronym grouping to a snake_case string and return kebab-case.
+
+    Consecutive single-char segments are collapsed into acronyms:
+      c_p_u_type  -> cpu-type
+      p_a_c_rule  -> pac-rule
+      tag_list    -> tag-list
+      acl         -> acl
+    """
+    parts = raw.split("_")
+    grouped = _group_single_chars(parts)
+    return "-".join(p.lower() for p in grouped if p)
+
+
 def _resource_name_from_endpoint(ep: Endpoint) -> str:
     """Derive the CLI resource name from an endpoint.
 
     Rules:
     - CRUD suffix: add_item, get_item, set_item, del_item, search_item -> resource = controller name
-    - CRUD suffix variant: search_acl, add_acl, etc. -> resource = suffix (acl, backend, etc.)
+    - CRUD suffix variant: search_acl, add_backend, etc. -> resource = normalized suffix
     - Non-CRUD: resource = controller name, verb = command as-is
     """
     cmd = ep.command
     # CRUD pattern with _item suffix
     if re.match(r'^(add|get|set|del|search|toggle)_item$', cmd):
         return ep.controller.lower().replace("_", "-")
-    # CRUD pattern with named suffix (e.g., search_acl, add_backend)
+    # CRUD pattern with named suffix (e.g., search_acl, add_p_a_c_rule)
     m = re.match(r'^(add|get|set|del|search|toggle)_(.+)$', cmd)
     if m:
-        return m.group(2).replace("_", "-")
+        return _normalize_kebab(m.group(2))
     # Non-CRUD: use controller name
     return ep.controller.lower().replace("_", "-")
 
@@ -102,8 +116,8 @@ def _cli_verb_from_endpoint(ep: Endpoint) -> str:
     """Derive the CLI verb (leaf command name) from an endpoint."""
     cmd = ep.command
     if ep.crud_verb:
-        return _CRUD_TO_CLI_VERB.get(ep.crud_verb, ep.crud_verb)
-    return cmd.replace("_", "-")
+        return _CRUD_TO_CLI_VERB.get(ep.crud_verb) or ep.crud_verb
+    return _normalize_kebab(cmd)
 
 
 def _columns_for_item(item: ModelItem) -> list[dict[str, str]]:
@@ -189,6 +203,14 @@ def _collect_resources(module: Module) -> list[CLIResourceView]:
             res = _resource_name_from_endpoint(ep)
             cli_verb = _cli_verb_from_endpoint(ep)
             resource_eps.setdefault(res, []).append((ep, cli_verb))
+
+    # Merge plural resource names into their singular form.
+    # OPNsense often uses searchAcls (plural) alongside addAcl/delAcl (singular).
+    # After acronym normalization the plural is e.g. "acls" vs singular "acl".
+    for res in list(resource_eps.keys()):
+        singular = res[:-1] if res.endswith("s") and len(res) > 2 else None
+        if singular and singular in resource_eps:
+            resource_eps[singular].extend(resource_eps.pop(res))
 
     pkg = module_to_package(module.name)
     raw_resources = []

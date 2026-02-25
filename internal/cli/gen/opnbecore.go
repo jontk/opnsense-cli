@@ -39,7 +39,7 @@ func newOpnbecoreSyncCmd() *cobra.Command {
 
 func newOpnbecoreSyncListservicesCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "listServices",
+		Use:   "listservices",
 		Short: "Listservices opnbecore sync",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
@@ -59,7 +59,7 @@ func newOpnbecoreSyncListservicesCmd() *cobra.Command {
 
 func newOpnbecoreSyncListclassesCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "listClasses",
+		Use:   "listclasses",
 		Short: "Listclasses opnbecore sync",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
@@ -99,7 +99,7 @@ func newOpnbecoreSyncMetricsCmd() *cobra.Command {
 
 func newOpnbecoreSyncReadconfigCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "readConfig <paths>",
+		Use:   "readconfig <paths>",
 		Short: "Readconfig opnbecore sync",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -140,7 +140,7 @@ func newOpnbecoreSyncReconfigureCmd() *cobra.Command {
 
 func newOpnbecoreSyncRestartserviceCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "restartService",
+		Use:   "restartservice",
 		Short: "Restartservice opnbecore sync",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)

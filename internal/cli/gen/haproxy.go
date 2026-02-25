@@ -39,19 +39,6 @@ func registerHaproxy() {
 	moduleCmd.AddCommand(newHaproxyMapfileCmd())
 	moduleCmd.AddCommand(newHaproxyUserCmd())
 	moduleCmd.AddCommand(newHaproxySettingsCmd())
-	moduleCmd.AddCommand(newHaproxyAclsCmd())
-	moduleCmd.AddCommand(newHaproxyActionsCmd())
-	moduleCmd.AddCommand(newHaproxyBackendsCmd())
-	moduleCmd.AddCommand(newHaproxyCpusCmd())
-	moduleCmd.AddCommand(newHaproxyErrorfilesCmd())
-	moduleCmd.AddCommand(newHaproxyFcgisCmd())
-	moduleCmd.AddCommand(newHaproxyFrontendsCmd())
-	moduleCmd.AddCommand(newHaproxyGroupsCmd())
-	moduleCmd.AddCommand(newHaproxyHealthchecksCmd())
-	moduleCmd.AddCommand(newHaproxyLuasCmd())
-	moduleCmd.AddCommand(newHaproxyMapfilesCmd())
-	moduleCmd.AddCommand(newHaproxyServersCmd())
-	moduleCmd.AddCommand(newHaproxyUsersCmd())
 	moduleCmd.AddCommand(newHaproxyStatisticsCmd())
 	cli.Root.AddCommand(moduleCmd)
 }
@@ -798,6 +785,7 @@ func newHaproxyAclCmd() *cobra.Command {
 	cmd.AddCommand(newHaproxyAclDeleteCmd())
 	cmd.AddCommand(newHaproxyAclGetCmd())
 	cmd.AddCommand(newHaproxyAclUpdateCmd())
+	cmd.AddCommand(newHaproxyAclListCmd())
 	return cmd
 }
 
@@ -897,6 +885,30 @@ func newHaproxyAclUpdateCmd() *cobra.Command {
 	return cmd
 }
 
+func newHaproxyAclListCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "list",
+		Short: "List haproxy acl resources",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			result, err := s.SettingsSearchAcls(context.Background(), map[string]any{"rowCount": -1, "current": 1})
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			rows := make([]any, len(result.Rows))
+			for i, r := range result.Rows {
+				rows[i] = r
+			}
+			return printer.PrintTable(rows, haproxyAclColumns)
+		},
+	}
+}
+
 // haproxyActionColumns defines table columns for the Action resource.
 var haproxyActionColumns = []cli.Column{
 	{Header: "NAME", Extract: func(row any) string {
@@ -958,6 +970,7 @@ func newHaproxyActionCmd() *cobra.Command {
 	cmd.AddCommand(newHaproxyActionDeleteCmd())
 	cmd.AddCommand(newHaproxyActionGetCmd())
 	cmd.AddCommand(newHaproxyActionUpdateCmd())
+	cmd.AddCommand(newHaproxyActionListCmd())
 	return cmd
 }
 
@@ -1057,6 +1070,30 @@ func newHaproxyActionUpdateCmd() *cobra.Command {
 	return cmd
 }
 
+func newHaproxyActionListCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "list",
+		Short: "List haproxy action resources",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			result, err := s.SettingsSearchActions(context.Background(), map[string]any{"rowCount": -1, "current": 1})
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			rows := make([]any, len(result.Rows))
+			for i, r := range result.Rows {
+				rows[i] = r
+			}
+			return printer.PrintTable(rows, haproxyActionColumns)
+		},
+	}
+}
+
 // haproxyBackendColumns defines table columns for the Backend resource.
 var haproxyBackendColumns = []cli.Column{
 	{Header: "NAME", Extract: func(row any) string {
@@ -1119,6 +1156,7 @@ func newHaproxyBackendCmd() *cobra.Command {
 	cmd.AddCommand(newHaproxyBackendGetCmd())
 	cmd.AddCommand(newHaproxyBackendUpdateCmd())
 	cmd.AddCommand(newHaproxyBackendToggleCmd())
+	cmd.AddCommand(newHaproxyBackendListCmd())
 	return cmd
 }
 
@@ -1239,6 +1277,30 @@ func newHaproxyBackendToggleCmd() *cobra.Command {
 	}
 }
 
+func newHaproxyBackendListCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "list",
+		Short: "List haproxy backend resources",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			result, err := s.SettingsSearchBackends(context.Background(), map[string]any{"rowCount": -1, "current": 1})
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			rows := make([]any, len(result.Rows))
+			for i, r := range result.Rows {
+				rows[i] = r
+			}
+			return printer.PrintTable(rows, haproxyBackendColumns)
+		},
+	}
+}
+
 // haproxyCpuColumns defines table columns for the Cpu resource.
 var haproxyCpuColumns = []cli.Column{
 	{Header: "NAME", Extract: func(row any) string {
@@ -1283,6 +1345,7 @@ func newHaproxyCpuCmd() *cobra.Command {
 	cmd.AddCommand(newHaproxyCpuGetCmd())
 	cmd.AddCommand(newHaproxyCpuUpdateCmd())
 	cmd.AddCommand(newHaproxyCpuToggleCmd())
+	cmd.AddCommand(newHaproxyCpuListCmd())
 	return cmd
 }
 
@@ -1403,6 +1466,30 @@ func newHaproxyCpuToggleCmd() *cobra.Command {
 	}
 }
 
+func newHaproxyCpuListCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "list",
+		Short: "List haproxy cpu resources",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			result, err := s.SettingsSearchCpus(context.Background(), map[string]any{"rowCount": -1, "current": 1})
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			rows := make([]any, len(result.Rows))
+			for i, r := range result.Rows {
+				rows[i] = r
+			}
+			return printer.PrintTable(rows, haproxyCpuColumns)
+		},
+	}
+}
+
 // haproxyErrorfileColumns defines table columns for the Errorfile resource.
 var haproxyErrorfileColumns = []cli.Column{
 	{Header: "NAME", Extract: func(row any) string {
@@ -1446,6 +1533,7 @@ func newHaproxyErrorfileCmd() *cobra.Command {
 	cmd.AddCommand(newHaproxyErrorfileDeleteCmd())
 	cmd.AddCommand(newHaproxyErrorfileGetCmd())
 	cmd.AddCommand(newHaproxyErrorfileUpdateCmd())
+	cmd.AddCommand(newHaproxyErrorfileListCmd())
 	return cmd
 }
 
@@ -1545,6 +1633,30 @@ func newHaproxyErrorfileUpdateCmd() *cobra.Command {
 	return cmd
 }
 
+func newHaproxyErrorfileListCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "list",
+		Short: "List haproxy errorfile resources",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			result, err := s.SettingsSearchErrorfiles(context.Background(), map[string]any{"rowCount": -1, "current": 1})
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			rows := make([]any, len(result.Rows))
+			for i, r := range result.Rows {
+				rows[i] = r
+			}
+			return printer.PrintTable(rows, haproxyErrorfileColumns)
+		},
+	}
+}
+
 // haproxyFcgiColumns defines table columns for the Fcgi resource.
 var haproxyFcgiColumns = []cli.Column{
 	{Header: "NAME", Extract: func(row any) string {
@@ -1606,6 +1718,7 @@ func newHaproxyFcgiCmd() *cobra.Command {
 	cmd.AddCommand(newHaproxyFcgiDeleteCmd())
 	cmd.AddCommand(newHaproxyFcgiGetCmd())
 	cmd.AddCommand(newHaproxyFcgiUpdateCmd())
+	cmd.AddCommand(newHaproxyFcgiListCmd())
 	return cmd
 }
 
@@ -1705,6 +1818,30 @@ func newHaproxyFcgiUpdateCmd() *cobra.Command {
 	return cmd
 }
 
+func newHaproxyFcgiListCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "list",
+		Short: "List haproxy fcgi resources",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			result, err := s.SettingsSearchFcgis(context.Background(), map[string]any{"rowCount": -1, "current": 1})
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			rows := make([]any, len(result.Rows))
+			for i, r := range result.Rows {
+				rows[i] = r
+			}
+			return printer.PrintTable(rows, haproxyFcgiColumns)
+		},
+	}
+}
+
 // haproxyFrontendColumns defines table columns for the Frontend resource.
 var haproxyFrontendColumns = []cli.Column{
 	{Header: "NAME", Extract: func(row any) string {
@@ -1767,6 +1904,7 @@ func newHaproxyFrontendCmd() *cobra.Command {
 	cmd.AddCommand(newHaproxyFrontendGetCmd())
 	cmd.AddCommand(newHaproxyFrontendUpdateCmd())
 	cmd.AddCommand(newHaproxyFrontendToggleCmd())
+	cmd.AddCommand(newHaproxyFrontendListCmd())
 	return cmd
 }
 
@@ -1887,6 +2025,30 @@ func newHaproxyFrontendToggleCmd() *cobra.Command {
 	}
 }
 
+func newHaproxyFrontendListCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "list",
+		Short: "List haproxy frontend resources",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			result, err := s.SettingsSearchFrontends(context.Background(), map[string]any{"rowCount": -1, "current": 1})
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			rows := make([]any, len(result.Rows))
+			for i, r := range result.Rows {
+				rows[i] = r
+			}
+			return printer.PrintTable(rows, haproxyFrontendColumns)
+		},
+	}
+}
+
 // haproxyGroupColumns defines table columns for the Group resource.
 var haproxyGroupColumns = []cli.Column{
 	{Header: "NAME", Extract: func(row any) string {
@@ -1937,6 +2099,7 @@ func newHaproxyGroupCmd() *cobra.Command {
 	cmd.AddCommand(newHaproxyGroupGetCmd())
 	cmd.AddCommand(newHaproxyGroupUpdateCmd())
 	cmd.AddCommand(newHaproxyGroupToggleCmd())
+	cmd.AddCommand(newHaproxyGroupListCmd())
 	return cmd
 }
 
@@ -2057,6 +2220,30 @@ func newHaproxyGroupToggleCmd() *cobra.Command {
 	}
 }
 
+func newHaproxyGroupListCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "list",
+		Short: "List haproxy group resources",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			result, err := s.SettingsSearchGroups(context.Background(), map[string]any{"rowCount": -1, "current": 1})
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			rows := make([]any, len(result.Rows))
+			for i, r := range result.Rows {
+				rows[i] = r
+			}
+			return printer.PrintTable(rows, haproxyGroupColumns)
+		},
+	}
+}
+
 // haproxyHealthcheckColumns defines table columns for the Healthcheck resource.
 var haproxyHealthcheckColumns = []cli.Column{
 	{Header: "NAME", Extract: func(row any) string {
@@ -2118,6 +2305,7 @@ func newHaproxyHealthcheckCmd() *cobra.Command {
 	cmd.AddCommand(newHaproxyHealthcheckDeleteCmd())
 	cmd.AddCommand(newHaproxyHealthcheckGetCmd())
 	cmd.AddCommand(newHaproxyHealthcheckUpdateCmd())
+	cmd.AddCommand(newHaproxyHealthcheckListCmd())
 	return cmd
 }
 
@@ -2217,6 +2405,30 @@ func newHaproxyHealthcheckUpdateCmd() *cobra.Command {
 	return cmd
 }
 
+func newHaproxyHealthcheckListCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "list",
+		Short: "List haproxy healthcheck resources",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			result, err := s.SettingsSearchHealthchecks(context.Background(), map[string]any{"rowCount": -1, "current": 1})
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			rows := make([]any, len(result.Rows))
+			for i, r := range result.Rows {
+				rows[i] = r
+			}
+			return printer.PrintTable(rows, haproxyHealthcheckColumns)
+		},
+	}
+}
+
 // haproxyLuaColumns defines table columns for the Lua resource.
 var haproxyLuaColumns = []cli.Column{
 	{Header: "NAME", Extract: func(row any) string {
@@ -2273,6 +2485,7 @@ func newHaproxyLuaCmd() *cobra.Command {
 	cmd.AddCommand(newHaproxyLuaGetCmd())
 	cmd.AddCommand(newHaproxyLuaUpdateCmd())
 	cmd.AddCommand(newHaproxyLuaToggleCmd())
+	cmd.AddCommand(newHaproxyLuaListCmd())
 	return cmd
 }
 
@@ -2393,6 +2606,30 @@ func newHaproxyLuaToggleCmd() *cobra.Command {
 	}
 }
 
+func newHaproxyLuaListCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "list",
+		Short: "List haproxy lua resources",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			result, err := s.SettingsSearchLuas(context.Background(), map[string]any{"rowCount": -1, "current": 1})
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			rows := make([]any, len(result.Rows))
+			for i, r := range result.Rows {
+				rows[i] = r
+			}
+			return printer.PrintTable(rows, haproxyLuaColumns)
+		},
+	}
+}
+
 // haproxyMapfileColumns defines table columns for the Mapfile resource.
 var haproxyMapfileColumns = []cli.Column{
 	{Header: "NAME", Extract: func(row any) string {
@@ -2442,6 +2679,7 @@ func newHaproxyMapfileCmd() *cobra.Command {
 	cmd.AddCommand(newHaproxyMapfileDeleteCmd())
 	cmd.AddCommand(newHaproxyMapfileGetCmd())
 	cmd.AddCommand(newHaproxyMapfileUpdateCmd())
+	cmd.AddCommand(newHaproxyMapfileListCmd())
 	return cmd
 }
 
@@ -2541,6 +2779,30 @@ func newHaproxyMapfileUpdateCmd() *cobra.Command {
 	return cmd
 }
 
+func newHaproxyMapfileListCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "list",
+		Short: "List haproxy mapfile resources",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			result, err := s.SettingsSearchMapfiles(context.Background(), map[string]any{"rowCount": -1, "current": 1})
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			rows := make([]any, len(result.Rows))
+			for i, r := range result.Rows {
+				rows[i] = r
+			}
+			return printer.PrintTable(rows, haproxyMapfileColumns)
+		},
+	}
+}
+
 // haproxyUserColumns defines table columns for the User resource.
 var haproxyUserColumns = []cli.Column{
 	{Header: "NAME", Extract: func(row any) string {
@@ -2585,6 +2847,7 @@ func newHaproxyUserCmd() *cobra.Command {
 	cmd.AddCommand(newHaproxyUserGetCmd())
 	cmd.AddCommand(newHaproxyUserUpdateCmd())
 	cmd.AddCommand(newHaproxyUserToggleCmd())
+	cmd.AddCommand(newHaproxyUserListCmd())
 	return cmd
 }
 
@@ -2701,6 +2964,30 @@ func newHaproxyUserToggleCmd() *cobra.Command {
 			}
 			printer := cli.NewPrinter(cfg)
 			return printer.PrintGenericResponse(resp)
+		},
+	}
+}
+
+func newHaproxyUserListCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "list",
+		Short: "List haproxy user resources",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			result, err := s.SettingsSearchUsers(context.Background(), map[string]any{"rowCount": -1, "current": 1})
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			rows := make([]any, len(result.Rows))
+			for i, r := range result.Rows {
+				rows[i] = r
+			}
+			return printer.PrintTable(rows, haproxyUserColumns)
 		},
 	}
 }
@@ -3009,1027 +3296,6 @@ func newHaproxySettingsToggleresolverCmd() *cobra.Command {
 			}
 			printer := cli.NewPrinter(cfg)
 			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-// haproxyAclsColumns defines table columns for the Acls resource.
-var haproxyAclsColumns = []cli.Column{
-	{Header: "NAME", Extract: func(row any) string {
-		if v, ok := row.(sdk.Acl); ok {
-			return fmt.Sprint(v.Name)
-		}
-		return ""
-	}},
-	{Header: "DESCRIPTION", Extract: func(row any) string {
-		if v, ok := row.(sdk.Acl); ok {
-			return fmt.Sprint(v.Description)
-		}
-		return ""
-	}},
-	{Header: "ID", Extract: func(row any) string {
-		if v, ok := row.(sdk.Acl); ok {
-			return fmt.Sprint(v.Id)
-		}
-		return ""
-	}},
-	{Header: "EXPRESSION", Extract: func(row any) string {
-		if v, ok := row.(sdk.Acl); ok {
-			return fmt.Sprint(v.Expression)
-		}
-		return ""
-	}},
-	{Header: "NEGATE", Extract: func(row any) string {
-		if v, ok := row.(sdk.Acl); ok {
-			return fmt.Sprint(v.Negate)
-		}
-		return ""
-	}},
-	{Header: "CASESENSITIVE", Extract: func(row any) string {
-		if v, ok := row.(sdk.Acl); ok {
-			return fmt.Sprint(v.CaseSensitive)
-		}
-		return ""
-	}},
-	{Header: "HDR BEG", Extract: func(row any) string {
-		if v, ok := row.(sdk.Acl); ok {
-			return fmt.Sprint(v.HdrBeg)
-		}
-		return ""
-	}},
-	{Header: "HDR END", Extract: func(row any) string {
-		if v, ok := row.(sdk.Acl); ok {
-			return fmt.Sprint(v.HdrEnd)
-		}
-		return ""
-	}},
-}
-
-func newHaproxyAclsCmd() *cobra.Command {
-	cmd := &cobra.Command{
-		Use:   "acls",
-		Short: "Manage haproxy acls resources",
-	}
-	cmd.AddCommand(newHaproxyAclsListCmd())
-	return cmd
-}
-
-func newHaproxyAclsListCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "list",
-		Short: "List haproxy acls resources",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			result, err := s.SettingsSearchAcls(context.Background(), map[string]any{"rowCount": -1, "current": 1})
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			rows := make([]any, len(result.Rows))
-			for i, r := range result.Rows {
-				rows[i] = r
-			}
-			return printer.PrintTable(rows, haproxyAclsColumns)
-		},
-	}
-}
-
-// haproxyActionsColumns defines table columns for the Actions resource.
-var haproxyActionsColumns = []cli.Column{
-	{Header: "NAME", Extract: func(row any) string {
-		if v, ok := row.(sdk.Action); ok {
-			return fmt.Sprint(v.Name)
-		}
-		return ""
-	}},
-	{Header: "ENABLED", Extract: func(row any) string {
-		if v, ok := row.(sdk.Action); ok {
-			return fmt.Sprint(v.Enabled)
-		}
-		return ""
-	}},
-	{Header: "DESCRIPTION", Extract: func(row any) string {
-		if v, ok := row.(sdk.Action); ok {
-			return fmt.Sprint(v.Description)
-		}
-		return ""
-	}},
-	{Header: "TYPE", Extract: func(row any) string {
-		if v, ok := row.(sdk.Action); ok {
-			return fmt.Sprint(v.Type)
-		}
-		return ""
-	}},
-	{Header: "TESTTYPE", Extract: func(row any) string {
-		if v, ok := row.(sdk.Action); ok {
-			return fmt.Sprint(v.TestType)
-		}
-		return ""
-	}},
-	{Header: "LINKEDACLS", Extract: func(row any) string {
-		if v, ok := row.(sdk.Action); ok {
-			return fmt.Sprint(v.LinkedAcls)
-		}
-		return ""
-	}},
-	{Header: "OPERATOR", Extract: func(row any) string {
-		if v, ok := row.(sdk.Action); ok {
-			return fmt.Sprint(v.Operator)
-		}
-		return ""
-	}},
-	{Header: "USE BACKEND", Extract: func(row any) string {
-		if v, ok := row.(sdk.Action); ok {
-			return fmt.Sprint(v.UseBackend)
-		}
-		return ""
-	}},
-}
-
-func newHaproxyActionsCmd() *cobra.Command {
-	cmd := &cobra.Command{
-		Use:   "actions",
-		Short: "Manage haproxy actions resources",
-	}
-	cmd.AddCommand(newHaproxyActionsListCmd())
-	return cmd
-}
-
-func newHaproxyActionsListCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "list",
-		Short: "List haproxy actions resources",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			result, err := s.SettingsSearchActions(context.Background(), map[string]any{"rowCount": -1, "current": 1})
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			rows := make([]any, len(result.Rows))
-			for i, r := range result.Rows {
-				rows[i] = r
-			}
-			return printer.PrintTable(rows, haproxyActionsColumns)
-		},
-	}
-}
-
-// haproxyBackendsColumns defines table columns for the Backends resource.
-var haproxyBackendsColumns = []cli.Column{
-	{Header: "NAME", Extract: func(row any) string {
-		if v, ok := row.(sdk.Backend); ok {
-			return fmt.Sprint(v.Name)
-		}
-		return ""
-	}},
-	{Header: "ENABLED", Extract: func(row any) string {
-		if v, ok := row.(sdk.Backend); ok {
-			return fmt.Sprint(v.Enabled)
-		}
-		return ""
-	}},
-	{Header: "DESCRIPTION", Extract: func(row any) string {
-		if v, ok := row.(sdk.Backend); ok {
-			return fmt.Sprint(v.Description)
-		}
-		return ""
-	}},
-	{Header: "ID", Extract: func(row any) string {
-		if v, ok := row.(sdk.Backend); ok {
-			return fmt.Sprint(v.Id)
-		}
-		return ""
-	}},
-	{Header: "MODE", Extract: func(row any) string {
-		if v, ok := row.(sdk.Backend); ok {
-			return fmt.Sprint(v.Mode)
-		}
-		return ""
-	}},
-	{Header: "ALGORITHM", Extract: func(row any) string {
-		if v, ok := row.(sdk.Backend); ok {
-			return fmt.Sprint(v.Algorithm)
-		}
-		return ""
-	}},
-	{Header: "RANDOM DRAWS", Extract: func(row any) string {
-		if v, ok := row.(sdk.Backend); ok {
-			return fmt.Sprint(v.RandomDraws)
-		}
-		return ""
-	}},
-	{Header: "PROXYPROTOCOL", Extract: func(row any) string {
-		if v, ok := row.(sdk.Backend); ok {
-			return fmt.Sprint(v.ProxyProtocol)
-		}
-		return ""
-	}},
-}
-
-func newHaproxyBackendsCmd() *cobra.Command {
-	cmd := &cobra.Command{
-		Use:   "backends",
-		Short: "Manage haproxy backends resources",
-	}
-	cmd.AddCommand(newHaproxyBackendsListCmd())
-	return cmd
-}
-
-func newHaproxyBackendsListCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "list",
-		Short: "List haproxy backends resources",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			result, err := s.SettingsSearchBackends(context.Background(), map[string]any{"rowCount": -1, "current": 1})
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			rows := make([]any, len(result.Rows))
-			for i, r := range result.Rows {
-				rows[i] = r
-			}
-			return printer.PrintTable(rows, haproxyBackendsColumns)
-		},
-	}
-}
-
-// haproxyCpusColumns defines table columns for the Cpus resource.
-var haproxyCpusColumns = []cli.Column{
-	{Header: "NAME", Extract: func(row any) string {
-		if v, ok := row.(sdk.Cpu); ok {
-			return fmt.Sprint(v.Name)
-		}
-		return ""
-	}},
-	{Header: "ENABLED", Extract: func(row any) string {
-		if v, ok := row.(sdk.Cpu); ok {
-			return fmt.Sprint(v.Enabled)
-		}
-		return ""
-	}},
-	{Header: "ID", Extract: func(row any) string {
-		if v, ok := row.(sdk.Cpu); ok {
-			return fmt.Sprint(v.Id)
-		}
-		return ""
-	}},
-	{Header: "THREAD ID", Extract: func(row any) string {
-		if v, ok := row.(sdk.Cpu); ok {
-			return fmt.Sprint(v.ThreadId)
-		}
-		return ""
-	}},
-	{Header: "CPU ID", Extract: func(row any) string {
-		if v, ok := row.(sdk.Cpu); ok {
-			return fmt.Sprint(v.CpuId)
-		}
-		return ""
-	}},
-}
-
-func newHaproxyCpusCmd() *cobra.Command {
-	cmd := &cobra.Command{
-		Use:   "cpus",
-		Short: "Manage haproxy cpus resources",
-	}
-	cmd.AddCommand(newHaproxyCpusListCmd())
-	return cmd
-}
-
-func newHaproxyCpusListCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "list",
-		Short: "List haproxy cpus resources",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			result, err := s.SettingsSearchCpus(context.Background(), map[string]any{"rowCount": -1, "current": 1})
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			rows := make([]any, len(result.Rows))
-			for i, r := range result.Rows {
-				rows[i] = r
-			}
-			return printer.PrintTable(rows, haproxyCpusColumns)
-		},
-	}
-}
-
-// haproxyErrorfilesColumns defines table columns for the Errorfiles resource.
-var haproxyErrorfilesColumns = []cli.Column{
-	{Header: "NAME", Extract: func(row any) string {
-		if v, ok := row.(sdk.Errorfile); ok {
-			return fmt.Sprint(v.Name)
-		}
-		return ""
-	}},
-	{Header: "DESCRIPTION", Extract: func(row any) string {
-		if v, ok := row.(sdk.Errorfile); ok {
-			return fmt.Sprint(v.Description)
-		}
-		return ""
-	}},
-	{Header: "CONTENT", Extract: func(row any) string {
-		if v, ok := row.(sdk.Errorfile); ok {
-			return fmt.Sprint(v.Content)
-		}
-		return ""
-	}},
-	{Header: "ID", Extract: func(row any) string {
-		if v, ok := row.(sdk.Errorfile); ok {
-			return fmt.Sprint(v.Id)
-		}
-		return ""
-	}},
-	{Header: "CODE", Extract: func(row any) string {
-		if v, ok := row.(sdk.Errorfile); ok {
-			return fmt.Sprint(v.Code)
-		}
-		return ""
-	}},
-}
-
-func newHaproxyErrorfilesCmd() *cobra.Command {
-	cmd := &cobra.Command{
-		Use:   "errorfiles",
-		Short: "Manage haproxy errorfiles resources",
-	}
-	cmd.AddCommand(newHaproxyErrorfilesListCmd())
-	return cmd
-}
-
-func newHaproxyErrorfilesListCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "list",
-		Short: "List haproxy errorfiles resources",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			result, err := s.SettingsSearchErrorfiles(context.Background(), map[string]any{"rowCount": -1, "current": 1})
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			rows := make([]any, len(result.Rows))
-			for i, r := range result.Rows {
-				rows[i] = r
-			}
-			return printer.PrintTable(rows, haproxyErrorfilesColumns)
-		},
-	}
-}
-
-// haproxyFcgisColumns defines table columns for the Fcgis resource.
-var haproxyFcgisColumns = []cli.Column{
-	{Header: "NAME", Extract: func(row any) string {
-		if v, ok := row.(sdk.Fcgi); ok {
-			return fmt.Sprint(v.Name)
-		}
-		return ""
-	}},
-	{Header: "ENABLED", Extract: func(row any) string {
-		if v, ok := row.(sdk.Fcgi); ok {
-			return fmt.Sprint(v.Enabled)
-		}
-		return ""
-	}},
-	{Header: "DESCRIPTION", Extract: func(row any) string {
-		if v, ok := row.(sdk.Fcgi); ok {
-			return fmt.Sprint(v.Description)
-		}
-		return ""
-	}},
-	{Header: "ID", Extract: func(row any) string {
-		if v, ok := row.(sdk.Fcgi); ok {
-			return fmt.Sprint(v.Id)
-		}
-		return ""
-	}},
-	{Header: "DOCROOT", Extract: func(row any) string {
-		if v, ok := row.(sdk.Fcgi); ok {
-			return fmt.Sprint(v.Docroot)
-		}
-		return ""
-	}},
-	{Header: "INDEX", Extract: func(row any) string {
-		if v, ok := row.(sdk.Fcgi); ok {
-			return fmt.Sprint(v.Index)
-		}
-		return ""
-	}},
-	{Header: "PATH INFO", Extract: func(row any) string {
-		if v, ok := row.(sdk.Fcgi); ok {
-			return fmt.Sprint(v.PathInfo)
-		}
-		return ""
-	}},
-	{Header: "LOG STDERR", Extract: func(row any) string {
-		if v, ok := row.(sdk.Fcgi); ok {
-			return fmt.Sprint(v.LogStderr)
-		}
-		return ""
-	}},
-}
-
-func newHaproxyFcgisCmd() *cobra.Command {
-	cmd := &cobra.Command{
-		Use:   "fcgis",
-		Short: "Manage haproxy fcgis resources",
-	}
-	cmd.AddCommand(newHaproxyFcgisListCmd())
-	return cmd
-}
-
-func newHaproxyFcgisListCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "list",
-		Short: "List haproxy fcgis resources",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			result, err := s.SettingsSearchFcgis(context.Background(), map[string]any{"rowCount": -1, "current": 1})
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			rows := make([]any, len(result.Rows))
-			for i, r := range result.Rows {
-				rows[i] = r
-			}
-			return printer.PrintTable(rows, haproxyFcgisColumns)
-		},
-	}
-}
-
-// haproxyFrontendsColumns defines table columns for the Frontends resource.
-var haproxyFrontendsColumns = []cli.Column{
-	{Header: "NAME", Extract: func(row any) string {
-		if v, ok := row.(sdk.Frontend); ok {
-			return fmt.Sprint(v.Name)
-		}
-		return ""
-	}},
-	{Header: "ENABLED", Extract: func(row any) string {
-		if v, ok := row.(sdk.Frontend); ok {
-			return fmt.Sprint(v.Enabled)
-		}
-		return ""
-	}},
-	{Header: "DESCRIPTION", Extract: func(row any) string {
-		if v, ok := row.(sdk.Frontend); ok {
-			return fmt.Sprint(v.Description)
-		}
-		return ""
-	}},
-	{Header: "ID", Extract: func(row any) string {
-		if v, ok := row.(sdk.Frontend); ok {
-			return fmt.Sprint(v.Id)
-		}
-		return ""
-	}},
-	{Header: "BIND", Extract: func(row any) string {
-		if v, ok := row.(sdk.Frontend); ok {
-			return fmt.Sprint(v.Bind)
-		}
-		return ""
-	}},
-	{Header: "BINDOPTIONS", Extract: func(row any) string {
-		if v, ok := row.(sdk.Frontend); ok {
-			return fmt.Sprint(v.BindOptions)
-		}
-		return ""
-	}},
-	{Header: "MODE", Extract: func(row any) string {
-		if v, ok := row.(sdk.Frontend); ok {
-			return fmt.Sprint(v.Mode)
-		}
-		return ""
-	}},
-	{Header: "DEFAULTBACKEND", Extract: func(row any) string {
-		if v, ok := row.(sdk.Frontend); ok {
-			return fmt.Sprint(v.DefaultBackend)
-		}
-		return ""
-	}},
-}
-
-func newHaproxyFrontendsCmd() *cobra.Command {
-	cmd := &cobra.Command{
-		Use:   "frontends",
-		Short: "Manage haproxy frontends resources",
-	}
-	cmd.AddCommand(newHaproxyFrontendsListCmd())
-	return cmd
-}
-
-func newHaproxyFrontendsListCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "list",
-		Short: "List haproxy frontends resources",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			result, err := s.SettingsSearchFrontends(context.Background(), map[string]any{"rowCount": -1, "current": 1})
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			rows := make([]any, len(result.Rows))
-			for i, r := range result.Rows {
-				rows[i] = r
-			}
-			return printer.PrintTable(rows, haproxyFrontendsColumns)
-		},
-	}
-}
-
-// haproxyGroupsColumns defines table columns for the Groups resource.
-var haproxyGroupsColumns = []cli.Column{
-	{Header: "NAME", Extract: func(row any) string {
-		if v, ok := row.(sdk.Group); ok {
-			return fmt.Sprint(v.Name)
-		}
-		return ""
-	}},
-	{Header: "ENABLED", Extract: func(row any) string {
-		if v, ok := row.(sdk.Group); ok {
-			return fmt.Sprint(v.Enabled)
-		}
-		return ""
-	}},
-	{Header: "DESCRIPTION", Extract: func(row any) string {
-		if v, ok := row.(sdk.Group); ok {
-			return fmt.Sprint(v.Description)
-		}
-		return ""
-	}},
-	{Header: "ID", Extract: func(row any) string {
-		if v, ok := row.(sdk.Group); ok {
-			return fmt.Sprint(v.Id)
-		}
-		return ""
-	}},
-	{Header: "MEMBERS", Extract: func(row any) string {
-		if v, ok := row.(sdk.Group); ok {
-			return fmt.Sprint(v.Members)
-		}
-		return ""
-	}},
-	{Header: "ADD USERLIST", Extract: func(row any) string {
-		if v, ok := row.(sdk.Group); ok {
-			return fmt.Sprint(v.AddUserlist)
-		}
-		return ""
-	}},
-}
-
-func newHaproxyGroupsCmd() *cobra.Command {
-	cmd := &cobra.Command{
-		Use:   "groups",
-		Short: "Manage haproxy groups resources",
-	}
-	cmd.AddCommand(newHaproxyGroupsListCmd())
-	return cmd
-}
-
-func newHaproxyGroupsListCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "list",
-		Short: "List haproxy groups resources",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			result, err := s.SettingsSearchGroups(context.Background(), map[string]any{"rowCount": -1, "current": 1})
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			rows := make([]any, len(result.Rows))
-			for i, r := range result.Rows {
-				rows[i] = r
-			}
-			return printer.PrintTable(rows, haproxyGroupsColumns)
-		},
-	}
-}
-
-// haproxyHealthchecksColumns defines table columns for the Healthchecks resource.
-var haproxyHealthchecksColumns = []cli.Column{
-	{Header: "NAME", Extract: func(row any) string {
-		if v, ok := row.(sdk.Healthcheck); ok {
-			return fmt.Sprint(v.Name)
-		}
-		return ""
-	}},
-	{Header: "DESCRIPTION", Extract: func(row any) string {
-		if v, ok := row.(sdk.Healthcheck); ok {
-			return fmt.Sprint(v.Description)
-		}
-		return ""
-	}},
-	{Header: "TYPE", Extract: func(row any) string {
-		if v, ok := row.(sdk.Healthcheck); ok {
-			return fmt.Sprint(v.Type)
-		}
-		return ""
-	}},
-	{Header: "INTERVAL", Extract: func(row any) string {
-		if v, ok := row.(sdk.Healthcheck); ok {
-			return fmt.Sprint(v.Interval)
-		}
-		return ""
-	}},
-	{Header: "SSL", Extract: func(row any) string {
-		if v, ok := row.(sdk.Healthcheck); ok {
-			return fmt.Sprint(v.Ssl)
-		}
-		return ""
-	}},
-	{Header: "SSLSNI", Extract: func(row any) string {
-		if v, ok := row.(sdk.Healthcheck); ok {
-			return fmt.Sprint(v.SslSNI)
-		}
-		return ""
-	}},
-	{Header: "FORCE SSL", Extract: func(row any) string {
-		if v, ok := row.(sdk.Healthcheck); ok {
-			return fmt.Sprint(v.ForceSsl)
-		}
-		return ""
-	}},
-	{Header: "CHECKPORT", Extract: func(row any) string {
-		if v, ok := row.(sdk.Healthcheck); ok {
-			return fmt.Sprint(v.Checkport)
-		}
-		return ""
-	}},
-}
-
-func newHaproxyHealthchecksCmd() *cobra.Command {
-	cmd := &cobra.Command{
-		Use:   "healthchecks",
-		Short: "Manage haproxy healthchecks resources",
-	}
-	cmd.AddCommand(newHaproxyHealthchecksListCmd())
-	return cmd
-}
-
-func newHaproxyHealthchecksListCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "list",
-		Short: "List haproxy healthchecks resources",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			result, err := s.SettingsSearchHealthchecks(context.Background(), map[string]any{"rowCount": -1, "current": 1})
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			rows := make([]any, len(result.Rows))
-			for i, r := range result.Rows {
-				rows[i] = r
-			}
-			return printer.PrintTable(rows, haproxyHealthchecksColumns)
-		},
-	}
-}
-
-// haproxyLuasColumns defines table columns for the Luas resource.
-var haproxyLuasColumns = []cli.Column{
-	{Header: "NAME", Extract: func(row any) string {
-		if v, ok := row.(sdk.Lua); ok {
-			return fmt.Sprint(v.Name)
-		}
-		return ""
-	}},
-	{Header: "ENABLED", Extract: func(row any) string {
-		if v, ok := row.(sdk.Lua); ok {
-			return fmt.Sprint(v.Enabled)
-		}
-		return ""
-	}},
-	{Header: "DESCRIPTION", Extract: func(row any) string {
-		if v, ok := row.(sdk.Lua); ok {
-			return fmt.Sprint(v.Description)
-		}
-		return ""
-	}},
-	{Header: "CONTENT", Extract: func(row any) string {
-		if v, ok := row.(sdk.Lua); ok {
-			return fmt.Sprint(v.Content)
-		}
-		return ""
-	}},
-	{Header: "ID", Extract: func(row any) string {
-		if v, ok := row.(sdk.Lua); ok {
-			return fmt.Sprint(v.Id)
-		}
-		return ""
-	}},
-	{Header: "PRELOAD", Extract: func(row any) string {
-		if v, ok := row.(sdk.Lua); ok {
-			return fmt.Sprint(v.Preload)
-		}
-		return ""
-	}},
-	{Header: "FILENAME SCHEME", Extract: func(row any) string {
-		if v, ok := row.(sdk.Lua); ok {
-			return fmt.Sprint(v.FilenameScheme)
-		}
-		return ""
-	}},
-}
-
-func newHaproxyLuasCmd() *cobra.Command {
-	cmd := &cobra.Command{
-		Use:   "luas",
-		Short: "Manage haproxy luas resources",
-	}
-	cmd.AddCommand(newHaproxyLuasListCmd())
-	return cmd
-}
-
-func newHaproxyLuasListCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "list",
-		Short: "List haproxy luas resources",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			result, err := s.SettingsSearchLuas(context.Background(), map[string]any{"rowCount": -1, "current": 1})
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			rows := make([]any, len(result.Rows))
-			for i, r := range result.Rows {
-				rows[i] = r
-			}
-			return printer.PrintTable(rows, haproxyLuasColumns)
-		},
-	}
-}
-
-// haproxyMapfilesColumns defines table columns for the Mapfiles resource.
-var haproxyMapfilesColumns = []cli.Column{
-	{Header: "NAME", Extract: func(row any) string {
-		if v, ok := row.(sdk.Mapfile); ok {
-			return fmt.Sprint(v.Name)
-		}
-		return ""
-	}},
-	{Header: "DESCRIPTION", Extract: func(row any) string {
-		if v, ok := row.(sdk.Mapfile); ok {
-			return fmt.Sprint(v.Description)
-		}
-		return ""
-	}},
-	{Header: "TYPE", Extract: func(row any) string {
-		if v, ok := row.(sdk.Mapfile); ok {
-			return fmt.Sprint(v.Type)
-		}
-		return ""
-	}},
-	{Header: "CONTENT", Extract: func(row any) string {
-		if v, ok := row.(sdk.Mapfile); ok {
-			return fmt.Sprint(v.Content)
-		}
-		return ""
-	}},
-	{Header: "ID", Extract: func(row any) string {
-		if v, ok := row.(sdk.Mapfile); ok {
-			return fmt.Sprint(v.Id)
-		}
-		return ""
-	}},
-	{Header: "URL", Extract: func(row any) string {
-		if v, ok := row.(sdk.Mapfile); ok {
-			return fmt.Sprint(v.Url)
-		}
-		return ""
-	}},
-}
-
-func newHaproxyMapfilesCmd() *cobra.Command {
-	cmd := &cobra.Command{
-		Use:   "mapfiles",
-		Short: "Manage haproxy mapfiles resources",
-	}
-	cmd.AddCommand(newHaproxyMapfilesListCmd())
-	return cmd
-}
-
-func newHaproxyMapfilesListCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "list",
-		Short: "List haproxy mapfiles resources",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			result, err := s.SettingsSearchMapfiles(context.Background(), map[string]any{"rowCount": -1, "current": 1})
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			rows := make([]any, len(result.Rows))
-			for i, r := range result.Rows {
-				rows[i] = r
-			}
-			return printer.PrintTable(rows, haproxyMapfilesColumns)
-		},
-	}
-}
-
-// haproxyServersColumns defines table columns for the Servers resource.
-var haproxyServersColumns = []cli.Column{
-	{Header: "NAME", Extract: func(row any) string {
-		if v, ok := row.(sdk.Server); ok {
-			return fmt.Sprint(v.Name)
-		}
-		return ""
-	}},
-	{Header: "ENABLED", Extract: func(row any) string {
-		if v, ok := row.(sdk.Server); ok {
-			return fmt.Sprint(v.Enabled)
-		}
-		return ""
-	}},
-	{Header: "DESCRIPTION", Extract: func(row any) string {
-		if v, ok := row.(sdk.Server); ok {
-			return fmt.Sprint(v.Description)
-		}
-		return ""
-	}},
-	{Header: "TYPE", Extract: func(row any) string {
-		if v, ok := row.(sdk.Server); ok {
-			return fmt.Sprint(v.Type)
-		}
-		return ""
-	}},
-	{Header: "ADDRESS", Extract: func(row any) string {
-		if v, ok := row.(sdk.Server); ok {
-			return fmt.Sprint(v.Address)
-		}
-		return ""
-	}},
-	{Header: "PORT", Extract: func(row any) string {
-		if v, ok := row.(sdk.Server); ok {
-			return fmt.Sprint(v.Port)
-		}
-		return ""
-	}},
-	{Header: "ID", Extract: func(row any) string {
-		if v, ok := row.(sdk.Server); ok {
-			return fmt.Sprint(v.Id)
-		}
-		return ""
-	}},
-	{Header: "CHECKPORT", Extract: func(row any) string {
-		if v, ok := row.(sdk.Server); ok {
-			return fmt.Sprint(v.Checkport)
-		}
-		return ""
-	}},
-}
-
-func newHaproxyServersCmd() *cobra.Command {
-	cmd := &cobra.Command{
-		Use:   "servers",
-		Short: "Manage haproxy servers resources",
-	}
-	cmd.AddCommand(newHaproxyServersListCmd())
-	return cmd
-}
-
-func newHaproxyServersListCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "list",
-		Short: "List haproxy servers resources",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			result, err := s.SettingsSearchServers(context.Background(), map[string]any{"rowCount": -1, "current": 1})
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			rows := make([]any, len(result.Rows))
-			for i, r := range result.Rows {
-				rows[i] = r
-			}
-			return printer.PrintTable(rows, haproxyServersColumns)
-		},
-	}
-}
-
-// haproxyUsersColumns defines table columns for the Users resource.
-var haproxyUsersColumns = []cli.Column{
-	{Header: "NAME", Extract: func(row any) string {
-		if v, ok := row.(sdk.User); ok {
-			return fmt.Sprint(v.Name)
-		}
-		return ""
-	}},
-	{Header: "ENABLED", Extract: func(row any) string {
-		if v, ok := row.(sdk.User); ok {
-			return fmt.Sprint(v.Enabled)
-		}
-		return ""
-	}},
-	{Header: "DESCRIPTION", Extract: func(row any) string {
-		if v, ok := row.(sdk.User); ok {
-			return fmt.Sprint(v.Description)
-		}
-		return ""
-	}},
-	{Header: "ID", Extract: func(row any) string {
-		if v, ok := row.(sdk.User); ok {
-			return fmt.Sprint(v.Id)
-		}
-		return ""
-	}},
-	{Header: "PASSWORD", Extract: func(row any) string {
-		if v, ok := row.(sdk.User); ok {
-			return fmt.Sprint(v.Password)
-		}
-		return ""
-	}},
-}
-
-func newHaproxyUsersCmd() *cobra.Command {
-	cmd := &cobra.Command{
-		Use:   "users",
-		Short: "Manage haproxy users resources",
-	}
-	cmd.AddCommand(newHaproxyUsersListCmd())
-	return cmd
-}
-
-func newHaproxyUsersListCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "list",
-		Short: "List haproxy users resources",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			result, err := s.SettingsSearchUsers(context.Background(), map[string]any{"rowCount": -1, "current": 1})
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			rows := make([]any, len(result.Rows))
-			for i, r := range result.Rows {
-				rows[i] = r
-			}
-			return printer.PrintTable(rows, haproxyUsersColumns)
 		},
 	}
 }

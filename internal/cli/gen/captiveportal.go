@@ -24,11 +24,9 @@ func registerCaptiveportal() {
 	moduleCmd.AddCommand(newCaptiveportalAccessCmd())
 	moduleCmd.AddCommand(newCaptiveportalTemplateCmd())
 	moduleCmd.AddCommand(newCaptiveportalServiceCmd())
-	moduleCmd.AddCommand(newCaptiveportalTemplatesCmd())
 	moduleCmd.AddCommand(newCaptiveportalSessionCmd())
 	moduleCmd.AddCommand(newCaptiveportalZoneCmd())
 	moduleCmd.AddCommand(newCaptiveportalSettingsCmd())
-	moduleCmd.AddCommand(newCaptiveportalZonesCmd())
 	moduleCmd.AddCommand(newCaptiveportalVoucherCmd())
 	cli.Root.AddCommand(moduleCmd)
 }
@@ -132,6 +130,7 @@ func newCaptiveportalTemplateCmd() *cobra.Command {
 	}
 	cmd.AddCommand(newCaptiveportalTemplateDelTemplateCmd())
 	cmd.AddCommand(newCaptiveportalTemplateGetTemplateCmd())
+	cmd.AddCommand(newCaptiveportalTemplateSearchTemplatesCmd())
 	return cmd
 }
 
@@ -167,6 +166,26 @@ func newCaptiveportalTemplateGetTemplateCmd() *cobra.Command {
 			}
 			s := sdk.NewClient(c)
 			resp, err := s.ServiceGetTemplate(context.Background())
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newCaptiveportalTemplateSearchTemplatesCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "search-templates",
+		Short: "SearchTemplates captiveportal template",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.ServiceSearchTemplates(context.Background())
 			if err != nil {
 				return err
 			}
@@ -301,35 +320,6 @@ func newCaptiveportalServiceStopCmd() *cobra.Command {
 			}
 			s := sdk.NewClient(c)
 			resp, err := s.ServiceStop(context.Background(), nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newCaptiveportalTemplatesCmd() *cobra.Command {
-	cmd := &cobra.Command{
-		Use:   "templates",
-		Short: "Manage captiveportal templates resources",
-	}
-	cmd.AddCommand(newCaptiveportalTemplatesSearchTemplatesCmd())
-	return cmd
-}
-
-func newCaptiveportalTemplatesSearchTemplatesCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "search-templates",
-		Short: "SearchTemplates captiveportal templates",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.ServiceSearchTemplates(context.Background())
 			if err != nil {
 				return err
 			}
@@ -514,6 +504,7 @@ func newCaptiveportalZoneCmd() *cobra.Command {
 	cmd.AddCommand(newCaptiveportalZoneGetCmd())
 	cmd.AddCommand(newCaptiveportalZoneUpdateCmd())
 	cmd.AddCommand(newCaptiveportalZoneToggleCmd())
+	cmd.AddCommand(newCaptiveportalZoneListCmd())
 	return cmd
 }
 
@@ -634,6 +625,30 @@ func newCaptiveportalZoneToggleCmd() *cobra.Command {
 	}
 }
 
+func newCaptiveportalZoneListCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "list",
+		Short: "List captiveportal zone resources",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			result, err := s.SettingsSearchZones(context.Background(), map[string]any{"rowCount": -1, "current": 1})
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			rows := make([]any, len(result.Rows))
+			for i, r := range result.Rows {
+				rows[i] = r
+			}
+			return printer.PrintTable(rows, captiveportalZoneColumns)
+		},
+	}
+}
+
 func newCaptiveportalSettingsCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "settings",
@@ -680,91 +695,6 @@ func newCaptiveportalSettingsSetCmd() *cobra.Command {
 			}
 			printer := cli.NewPrinter(cfg)
 			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-// captiveportalZonesColumns defines table columns for the Zones resource.
-var captiveportalZonesColumns = []cli.Column{
-	{Header: "ENABLED", Extract: func(row any) string {
-		if v, ok := row.(sdk.Zone); ok {
-			return fmt.Sprint(v.Enabled)
-		}
-		return ""
-	}},
-	{Header: "DESCRIPTION", Extract: func(row any) string {
-		if v, ok := row.(sdk.Zone); ok {
-			return fmt.Sprint(v.Description)
-		}
-		return ""
-	}},
-	{Header: "ZONEID", Extract: func(row any) string {
-		if v, ok := row.(sdk.Zone); ok {
-			return fmt.Sprint(v.Zoneid)
-		}
-		return ""
-	}},
-	{Header: "INTERFACES", Extract: func(row any) string {
-		if v, ok := row.(sdk.Zone); ok {
-			return fmt.Sprint(v.Interfaces)
-		}
-		return ""
-	}},
-	{Header: "DISABLERULES", Extract: func(row any) string {
-		if v, ok := row.(sdk.Zone); ok {
-			return fmt.Sprint(v.DisableRules)
-		}
-		return ""
-	}},
-	{Header: "AUTHSERVERS", Extract: func(row any) string {
-		if v, ok := row.(sdk.Zone); ok {
-			return fmt.Sprint(v.Authservers)
-		}
-		return ""
-	}},
-	{Header: "ALWAYSSENDACCOUNTINGREQS", Extract: func(row any) string {
-		if v, ok := row.(sdk.Zone); ok {
-			return fmt.Sprint(v.AlwaysSendAccountingReqs)
-		}
-		return ""
-	}},
-	{Header: "AUTHENFORCEGROUP", Extract: func(row any) string {
-		if v, ok := row.(sdk.Zone); ok {
-			return fmt.Sprint(v.AuthEnforceGroup)
-		}
-		return ""
-	}},
-}
-
-func newCaptiveportalZonesCmd() *cobra.Command {
-	cmd := &cobra.Command{
-		Use:   "zones",
-		Short: "Manage captiveportal zones resources",
-	}
-	cmd.AddCommand(newCaptiveportalZonesListCmd())
-	return cmd
-}
-
-func newCaptiveportalZonesListCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "list",
-		Short: "List captiveportal zones resources",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			result, err := s.SettingsSearchZones(context.Background(), map[string]any{"rowCount": -1, "current": 1})
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			rows := make([]any, len(result.Rows))
-			for i, r := range result.Rows {
-				rows[i] = r
-			}
-			return printer.PrintTable(rows, captiveportalZonesColumns)
 		},
 	}
 }

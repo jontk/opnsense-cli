@@ -8,6 +8,7 @@ from generate.emitter.cli_emitter import (
     _build_verb_view,
     _cli_verb_from_endpoint,
     _columns_for_item,
+    _normalize_kebab,
     _resource_name_from_endpoint,
     _to_go_ident,
 )
@@ -60,6 +61,14 @@ class TestResourceNameDerivation:
         ep = _make_endpoint("alias", "export")
         assert _resource_name_from_endpoint(ep) == "alias"
 
+    def test_acronym_suffix_collapsed(self):
+        ep = _make_endpoint("settings", "add_p_a_c_rule", crud_verb="add")
+        assert _resource_name_from_endpoint(ep) == "pac-rule"
+
+    def test_acronym_suffix_cpu(self):
+        ep = _make_endpoint("settings", "get_c_p_u_type", crud_verb="get")
+        assert _resource_name_from_endpoint(ep) == "cpu-type"
+
 
 # ─── CLI verb mapping ────────────────────────────────────────────────────────
 
@@ -95,6 +104,14 @@ class TestCLIVerbMapping:
     def test_underscore_command_becomes_hyphen(self):
         ep = _make_endpoint("alias", "list_categories")
         assert _cli_verb_from_endpoint(ep) == "list-categories"
+
+    def test_acronym_verb_collapsed(self):
+        ep = _make_endpoint("cpu_usage", "get_c_p_u_type")
+        assert _cli_verb_from_endpoint(ep) == "get-cpu-type"
+
+    def test_export_as_csv_verb(self):
+        ep = _make_endpoint("voucher", "export_as_c_s_v")
+        assert _cli_verb_from_endpoint(ep) == "export-as-csv"
 
 
 # ─── Column selection ─────────────────────────────────────────────────────────
@@ -209,6 +226,29 @@ class TestBuildVerbView:
                             model_item=item)
         view = _build_verb_view(ep, "create")
         assert view.item_type == "ClientConfig"
+
+
+# ─── Kebab normalization (acronym grouping) ────────────────────────────────────
+
+class TestNormalizeKebab:
+    def test_simple_word(self):
+        assert _normalize_kebab("acl") == "acl"
+
+    def test_multi_word(self):
+        assert _normalize_kebab("tag_list") == "tag-list"
+
+    def test_cpu_acronym(self):
+        assert _normalize_kebab("c_p_u_type") == "cpu-type"
+
+    def test_pac_acronym(self):
+        assert _normalize_kebab("p_a_c_rule") == "pac-rule"
+
+    def test_csv_acronym(self):
+        assert _normalize_kebab("export_as_c_s_v") == "export-as-csv"
+
+    def test_ha_proxy_acronym(self):
+        # h_a groups as "HA", proxy stays separate: fetch-ha-proxy-integration
+        assert _normalize_kebab("fetch_h_a_proxy_integration") == "fetch-ha-proxy-integration"
 
 
 # ─── Go identifier conversion ─────────────────────────────────────────────────

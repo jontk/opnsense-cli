@@ -26,7 +26,6 @@ func registerPostfix() {
 	moduleCmd.AddCommand(newPostfixDomainCmd())
 	moduleCmd.AddCommand(newPostfixGeneralCmd())
 	moduleCmd.AddCommand(newPostfixHeadercheckCmd())
-	moduleCmd.AddCommand(newPostfixHeaderchecksCmd())
 	moduleCmd.AddCommand(newPostfixRecipientCmd())
 	moduleCmd.AddCommand(newPostfixRecipientbccCmd())
 	moduleCmd.AddCommand(newPostfixSenderCmd())
@@ -564,6 +563,8 @@ func newPostfixHeadercheckCmd() *cobra.Command {
 	cmd.AddCommand(newPostfixHeadercheckGetCmd())
 	cmd.AddCommand(newPostfixHeadercheckUpdateCmd())
 	cmd.AddCommand(newPostfixHeadercheckToggleCmd())
+	cmd.AddCommand(newPostfixHeadercheckListCmd())
+	cmd.AddCommand(newPostfixHeadercheckSetCmd())
 	return cmd
 }
 
@@ -684,63 +685,10 @@ func newPostfixHeadercheckToggleCmd() *cobra.Command {
 	}
 }
 
-// postfixHeaderchecksColumns defines table columns for the Headerchecks resource.
-var postfixHeaderchecksColumns = []cli.Column{
-	{Header: "ENABLED", Extract: func(row any) string {
-		if v, ok := row.(sdk.Headercheck); ok {
-			return fmt.Sprint(v.Enabled)
-		}
-		return ""
-	}},
-	{Header: "EXPRESSION", Extract: func(row any) string {
-		if v, ok := row.(sdk.Headercheck); ok {
-			return fmt.Sprint(v.Expression)
-		}
-		return ""
-	}},
-	{Header: "FILTER", Extract: func(row any) string {
-		if v, ok := row.(sdk.Headercheck); ok {
-			return fmt.Sprint(v.Filter)
-		}
-		return ""
-	}},
-}
-
-func newPostfixHeaderchecksCmd() *cobra.Command {
-	cmd := &cobra.Command{
-		Use:   "headerchecks",
-		Short: "Manage postfix headerchecks resources",
-	}
-	cmd.AddCommand(newPostfixHeaderchecksGetCmd())
-	cmd.AddCommand(newPostfixHeaderchecksListCmd())
-	cmd.AddCommand(newPostfixHeaderchecksSetCmd())
-	return cmd
-}
-
-func newPostfixHeaderchecksGetCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "get",
-		Short: "Get postfix headerchecks",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.HeaderchecksGet(context.Background())
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newPostfixHeaderchecksListCmd() *cobra.Command {
+func newPostfixHeadercheckListCmd() *cobra.Command {
 	return &cobra.Command{
 		Use:   "list",
-		Short: "List postfix headerchecks resources",
+		Short: "List postfix headercheck resources",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -756,15 +704,15 @@ func newPostfixHeaderchecksListCmd() *cobra.Command {
 			for i, r := range result.Rows {
 				rows[i] = r
 			}
-			return printer.PrintTable(rows, postfixHeaderchecksColumns)
+			return printer.PrintTable(rows, postfixHeadercheckColumns)
 		},
 	}
 }
 
-func newPostfixHeaderchecksSetCmd() *cobra.Command {
+func newPostfixHeadercheckSetCmd() *cobra.Command {
 	return &cobra.Command{
 		Use:   "set",
-		Short: "Set postfix headerchecks",
+		Short: "Set postfix headercheck",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {

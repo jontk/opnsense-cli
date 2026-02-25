@@ -24,7 +24,6 @@ func registerSyslog() {
 	moduleCmd.AddCommand(newSyslogServiceCmd())
 	moduleCmd.AddCommand(newSyslogDestinationCmd())
 	moduleCmd.AddCommand(newSyslogSettingsCmd())
-	moduleCmd.AddCommand(newSyslogDestinationsCmd())
 	cli.Root.AddCommand(moduleCmd)
 }
 
@@ -245,6 +244,7 @@ func newSyslogDestinationCmd() *cobra.Command {
 	cmd.AddCommand(newSyslogDestinationGetCmd())
 	cmd.AddCommand(newSyslogDestinationUpdateCmd())
 	cmd.AddCommand(newSyslogDestinationToggleCmd())
+	cmd.AddCommand(newSyslogDestinationListCmd())
 	return cmd
 }
 
@@ -365,6 +365,30 @@ func newSyslogDestinationToggleCmd() *cobra.Command {
 	}
 }
 
+func newSyslogDestinationListCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "list",
+		Short: "List syslog destination resources",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			result, err := s.SettingsSearchDestinations(context.Background(), map[string]any{"rowCount": -1, "current": 1})
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			rows := make([]any, len(result.Rows))
+			for i, r := range result.Rows {
+				rows[i] = r
+			}
+			return printer.PrintTable(rows, syslogDestinationColumns)
+		},
+	}
+}
+
 func newSyslogSettingsCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "settings",
@@ -411,91 +435,6 @@ func newSyslogSettingsSetCmd() *cobra.Command {
 			}
 			printer := cli.NewPrinter(cfg)
 			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-// syslogDestinationsColumns defines table columns for the Destinations resource.
-var syslogDestinationsColumns = []cli.Column{
-	{Header: "ENABLED", Extract: func(row any) string {
-		if v, ok := row.(sdk.Destination); ok {
-			return fmt.Sprint(v.Enabled)
-		}
-		return ""
-	}},
-	{Header: "DESCRIPTION", Extract: func(row any) string {
-		if v, ok := row.(sdk.Destination); ok {
-			return fmt.Sprint(v.Description)
-		}
-		return ""
-	}},
-	{Header: "PORT", Extract: func(row any) string {
-		if v, ok := row.(sdk.Destination); ok {
-			return fmt.Sprint(v.Port)
-		}
-		return ""
-	}},
-	{Header: "TRANSPORT", Extract: func(row any) string {
-		if v, ok := row.(sdk.Destination); ok {
-			return fmt.Sprint(v.Transport)
-		}
-		return ""
-	}},
-	{Header: "PROGRAM", Extract: func(row any) string {
-		if v, ok := row.(sdk.Destination); ok {
-			return fmt.Sprint(v.Program)
-		}
-		return ""
-	}},
-	{Header: "LEVEL", Extract: func(row any) string {
-		if v, ok := row.(sdk.Destination); ok {
-			return fmt.Sprint(v.Level)
-		}
-		return ""
-	}},
-	{Header: "FACILITY", Extract: func(row any) string {
-		if v, ok := row.(sdk.Destination); ok {
-			return fmt.Sprint(v.Facility)
-		}
-		return ""
-	}},
-	{Header: "HOSTNAME", Extract: func(row any) string {
-		if v, ok := row.(sdk.Destination); ok {
-			return fmt.Sprint(v.Hostname)
-		}
-		return ""
-	}},
-}
-
-func newSyslogDestinationsCmd() *cobra.Command {
-	cmd := &cobra.Command{
-		Use:   "destinations",
-		Short: "Manage syslog destinations resources",
-	}
-	cmd.AddCommand(newSyslogDestinationsListCmd())
-	return cmd
-}
-
-func newSyslogDestinationsListCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "list",
-		Short: "List syslog destinations resources",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			result, err := s.SettingsSearchDestinations(context.Background(), map[string]any{"rowCount": -1, "current": 1})
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			rows := make([]any, len(result.Rows))
-			for i, r := range result.Rows {
-				rows[i] = r
-			}
-			return printer.PrintTable(rows, syslogDestinationsColumns)
 		},
 	}
 }

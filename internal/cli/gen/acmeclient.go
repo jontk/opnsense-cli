@@ -902,7 +902,7 @@ func newAcmeclientSettingsCmd() *cobra.Command {
 		Short: "Manage acmeclient settings resources",
 	}
 	cmd.AddCommand(newAcmeclientSettingsFetchCronIntegrationCmd())
-	cmd.AddCommand(newAcmeclientSettingsFetchHAProxyIntegrationCmd())
+	cmd.AddCommand(newAcmeclientSettingsFetchHaProxyIntegrationCmd())
 	cmd.AddCommand(newAcmeclientSettingsGetCmd())
 	cmd.AddCommand(newAcmeclientSettingsSetCmd())
 	return cmd
@@ -928,10 +928,10 @@ func newAcmeclientSettingsFetchCronIntegrationCmd() *cobra.Command {
 	}
 }
 
-func newAcmeclientSettingsFetchHAProxyIntegrationCmd() *cobra.Command {
+func newAcmeclientSettingsFetchHaProxyIntegrationCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "fetch-h-a-proxy-integration",
-		Short: "FetchHAProxyIntegration acmeclient settings",
+		Use:   "fetch-ha-proxy-integration",
+		Short: "FetchHaProxyIntegration acmeclient settings",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {

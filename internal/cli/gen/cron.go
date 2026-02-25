@@ -24,7 +24,6 @@ func registerCron() {
 	moduleCmd.AddCommand(newCronServiceCmd())
 	moduleCmd.AddCommand(newCronJobCmd())
 	moduleCmd.AddCommand(newCronSettingsCmd())
-	moduleCmd.AddCommand(newCronJobsCmd())
 	cli.Root.AddCommand(moduleCmd)
 }
 
@@ -119,6 +118,7 @@ func newCronJobCmd() *cobra.Command {
 	cmd.AddCommand(newCronJobGetCmd())
 	cmd.AddCommand(newCronJobUpdateCmd())
 	cmd.AddCommand(newCronJobToggleCmd())
+	cmd.AddCommand(newCronJobListCmd())
 	return cmd
 }
 
@@ -239,6 +239,30 @@ func newCronJobToggleCmd() *cobra.Command {
 	}
 }
 
+func newCronJobListCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "list",
+		Short: "List cron job resources",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			result, err := s.SettingsSearchJobs(context.Background(), map[string]any{"rowCount": -1, "current": 1})
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			rows := make([]any, len(result.Rows))
+			for i, r := range result.Rows {
+				rows[i] = r
+			}
+			return printer.PrintTable(rows, cronJobColumns)
+		},
+	}
+}
+
 func newCronSettingsCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "settings",
@@ -285,91 +309,6 @@ func newCronSettingsSetCmd() *cobra.Command {
 			}
 			printer := cli.NewPrinter(cfg)
 			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-// cronJobsColumns defines table columns for the Jobs resource.
-var cronJobsColumns = []cli.Column{
-	{Header: "ENABLED", Extract: func(row any) string {
-		if v, ok := row.(sdk.Job); ok {
-			return fmt.Sprint(v.Enabled)
-		}
-		return ""
-	}},
-	{Header: "DESCRIPTION", Extract: func(row any) string {
-		if v, ok := row.(sdk.Job); ok {
-			return fmt.Sprint(v.Description)
-		}
-		return ""
-	}},
-	{Header: "ORIGIN", Extract: func(row any) string {
-		if v, ok := row.(sdk.Job); ok {
-			return fmt.Sprint(v.Origin)
-		}
-		return ""
-	}},
-	{Header: "MINUTES", Extract: func(row any) string {
-		if v, ok := row.(sdk.Job); ok {
-			return fmt.Sprint(v.Minutes)
-		}
-		return ""
-	}},
-	{Header: "HOURS", Extract: func(row any) string {
-		if v, ok := row.(sdk.Job); ok {
-			return fmt.Sprint(v.Hours)
-		}
-		return ""
-	}},
-	{Header: "DAYS", Extract: func(row any) string {
-		if v, ok := row.(sdk.Job); ok {
-			return fmt.Sprint(v.Days)
-		}
-		return ""
-	}},
-	{Header: "MONTHS", Extract: func(row any) string {
-		if v, ok := row.(sdk.Job); ok {
-			return fmt.Sprint(v.Months)
-		}
-		return ""
-	}},
-	{Header: "WEEKDAYS", Extract: func(row any) string {
-		if v, ok := row.(sdk.Job); ok {
-			return fmt.Sprint(v.Weekdays)
-		}
-		return ""
-	}},
-}
-
-func newCronJobsCmd() *cobra.Command {
-	cmd := &cobra.Command{
-		Use:   "jobs",
-		Short: "Manage cron jobs resources",
-	}
-	cmd.AddCommand(newCronJobsListCmd())
-	return cmd
-}
-
-func newCronJobsListCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "list",
-		Short: "List cron jobs resources",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			result, err := s.SettingsSearchJobs(context.Background(), map[string]any{"rowCount": -1, "current": 1})
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			rows := make([]any, len(result.Rows))
-			for i, r := range result.Rows {
-				rows[i] = r
-			}
-			return printer.PrintTable(rows, cronJobsColumns)
 		},
 	}
 }

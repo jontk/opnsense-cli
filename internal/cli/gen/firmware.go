@@ -160,7 +160,7 @@ func newFirmwareFirmwareGetCmd() *cobra.Command {
 
 func newFirmwareFirmwareGetoptionsCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "getOptions",
+		Use:   "getoptions",
 		Short: "Getoptions firmware firmware",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
@@ -281,7 +281,7 @@ func newFirmwareFirmwareRebootCmd() *cobra.Command {
 
 func newFirmwareFirmwareResyncpluginsCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "resyncPlugins",
+		Use:   "resyncplugins",
 		Short: "Resyncplugins firmware firmware",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
@@ -361,7 +361,7 @@ func newFirmwareFirmwareStatusCmd() *cobra.Command {
 
 func newFirmwareFirmwareSyncpluginsCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "syncPlugins",
+		Use:   "syncplugins",
 		Short: "Syncplugins firmware firmware",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)

@@ -22,8 +22,59 @@ func registerStunnel() {
 		Short: "Manage stunnel resources",
 	}
 	moduleCmd.AddCommand(newStunnelServiceCmd())
-	moduleCmd.AddCommand(newStunnelServicesCmd())
 	cli.Root.AddCommand(moduleCmd)
+}
+
+// stunnelServiceColumns defines table columns for the Service resource.
+var stunnelServiceColumns = []cli.Column{
+	{Header: "ENABLED", Extract: func(row any) string {
+		if v, ok := row.(sdk.Service); ok {
+			return fmt.Sprint(v.Enabled)
+		}
+		return ""
+	}},
+	{Header: "DESCRIPTION", Extract: func(row any) string {
+		if v, ok := row.(sdk.Service); ok {
+			return fmt.Sprint(v.Description)
+		}
+		return ""
+	}},
+	{Header: "ACCEPT PORT", Extract: func(row any) string {
+		if v, ok := row.(sdk.Service); ok {
+			return fmt.Sprint(v.AcceptPort)
+		}
+		return ""
+	}},
+	{Header: "ACCEPT ADDRESS", Extract: func(row any) string {
+		if v, ok := row.(sdk.Service); ok {
+			return fmt.Sprint(v.AcceptAddress)
+		}
+		return ""
+	}},
+	{Header: "CONNECT ADDRESS", Extract: func(row any) string {
+		if v, ok := row.(sdk.Service); ok {
+			return fmt.Sprint(v.ConnectAddress)
+		}
+		return ""
+	}},
+	{Header: "CONNECT PORT", Extract: func(row any) string {
+		if v, ok := row.(sdk.Service); ok {
+			return fmt.Sprint(v.ConnectPort)
+		}
+		return ""
+	}},
+	{Header: "PROTOCOL", Extract: func(row any) string {
+		if v, ok := row.(sdk.Service); ok {
+			return fmt.Sprint(v.Protocol)
+		}
+		return ""
+	}},
+	{Header: "CACERT", Extract: func(row any) string {
+		if v, ok := row.(sdk.Service); ok {
+			return fmt.Sprint(v.Cacert)
+		}
+		return ""
+	}},
 }
 
 func newStunnelServiceCmd() *cobra.Command {
@@ -36,6 +87,13 @@ func newStunnelServiceCmd() *cobra.Command {
 	cmd.AddCommand(newStunnelServiceStartCmd())
 	cmd.AddCommand(newStunnelServiceStatusCmd())
 	cmd.AddCommand(newStunnelServiceStopCmd())
+	cmd.AddCommand(newStunnelServiceCreateCmd())
+	cmd.AddCommand(newStunnelServiceDeleteCmd())
+	cmd.AddCommand(newStunnelServiceGetCmd())
+	cmd.AddCommand(newStunnelServiceListCmd())
+	cmd.AddCommand(newStunnelServiceSetCmd())
+	cmd.AddCommand(newStunnelServiceUpdateCmd())
+	cmd.AddCommand(newStunnelServiceToggleCmd())
 	return cmd
 }
 
@@ -139,77 +197,10 @@ func newStunnelServiceStopCmd() *cobra.Command {
 	}
 }
 
-// stunnelServicesColumns defines table columns for the Services resource.
-var stunnelServicesColumns = []cli.Column{
-	{Header: "ENABLED", Extract: func(row any) string {
-		if v, ok := row.(sdk.Service); ok {
-			return fmt.Sprint(v.Enabled)
-		}
-		return ""
-	}},
-	{Header: "DESCRIPTION", Extract: func(row any) string {
-		if v, ok := row.(sdk.Service); ok {
-			return fmt.Sprint(v.Description)
-		}
-		return ""
-	}},
-	{Header: "ACCEPT PORT", Extract: func(row any) string {
-		if v, ok := row.(sdk.Service); ok {
-			return fmt.Sprint(v.AcceptPort)
-		}
-		return ""
-	}},
-	{Header: "ACCEPT ADDRESS", Extract: func(row any) string {
-		if v, ok := row.(sdk.Service); ok {
-			return fmt.Sprint(v.AcceptAddress)
-		}
-		return ""
-	}},
-	{Header: "CONNECT ADDRESS", Extract: func(row any) string {
-		if v, ok := row.(sdk.Service); ok {
-			return fmt.Sprint(v.ConnectAddress)
-		}
-		return ""
-	}},
-	{Header: "CONNECT PORT", Extract: func(row any) string {
-		if v, ok := row.(sdk.Service); ok {
-			return fmt.Sprint(v.ConnectPort)
-		}
-		return ""
-	}},
-	{Header: "PROTOCOL", Extract: func(row any) string {
-		if v, ok := row.(sdk.Service); ok {
-			return fmt.Sprint(v.Protocol)
-		}
-		return ""
-	}},
-	{Header: "CACERT", Extract: func(row any) string {
-		if v, ok := row.(sdk.Service); ok {
-			return fmt.Sprint(v.Cacert)
-		}
-		return ""
-	}},
-}
-
-func newStunnelServicesCmd() *cobra.Command {
-	cmd := &cobra.Command{
-		Use:   "services",
-		Short: "Manage stunnel services resources",
-	}
-	cmd.AddCommand(newStunnelServicesCreateCmd())
-	cmd.AddCommand(newStunnelServicesDeleteCmd())
-	cmd.AddCommand(newStunnelServicesGetCmd())
-	cmd.AddCommand(newStunnelServicesListCmd())
-	cmd.AddCommand(newStunnelServicesSetCmd())
-	cmd.AddCommand(newStunnelServicesUpdateCmd())
-	cmd.AddCommand(newStunnelServicesToggleCmd())
-	return cmd
-}
-
-func newStunnelServicesCreateCmd() *cobra.Command {
+func newStunnelServiceCreateCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "create",
-		Short: "Create stunnel services",
+		Short: "Create stunnel service",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -233,10 +224,10 @@ func newStunnelServicesCreateCmd() *cobra.Command {
 	return cmd
 }
 
-func newStunnelServicesDeleteCmd() *cobra.Command {
+func newStunnelServiceDeleteCmd() *cobra.Command {
 	return &cobra.Command{
 		Use:   "delete <uuid>",
-		Short: "Delete stunnel services",
+		Short: "Delete stunnel service",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
@@ -254,10 +245,10 @@ func newStunnelServicesDeleteCmd() *cobra.Command {
 	}
 }
 
-func newStunnelServicesGetCmd() *cobra.Command {
+func newStunnelServiceGetCmd() *cobra.Command {
 	return &cobra.Command{
 		Use:   "get",
-		Short: "Get stunnel services",
+		Short: "Get stunnel service",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -274,10 +265,10 @@ func newStunnelServicesGetCmd() *cobra.Command {
 	}
 }
 
-func newStunnelServicesListCmd() *cobra.Command {
+func newStunnelServiceListCmd() *cobra.Command {
 	return &cobra.Command{
 		Use:   "list",
-		Short: "List stunnel services resources",
+		Short: "List stunnel service resources",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -293,15 +284,15 @@ func newStunnelServicesListCmd() *cobra.Command {
 			for i, r := range result.Rows {
 				rows[i] = r
 			}
-			return printer.PrintTable(rows, stunnelServicesColumns)
+			return printer.PrintTable(rows, stunnelServiceColumns)
 		},
 	}
 }
 
-func newStunnelServicesSetCmd() *cobra.Command {
+func newStunnelServiceSetCmd() *cobra.Command {
 	return &cobra.Command{
 		Use:   "set",
-		Short: "Set stunnel services",
+		Short: "Set stunnel service",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -318,10 +309,10 @@ func newStunnelServicesSetCmd() *cobra.Command {
 	}
 }
 
-func newStunnelServicesUpdateCmd() *cobra.Command {
+func newStunnelServiceUpdateCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "update <uuid>",
-		Short: "Update stunnel services",
+		Short: "Update stunnel service",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
@@ -346,10 +337,10 @@ func newStunnelServicesUpdateCmd() *cobra.Command {
 	return cmd
 }
 
-func newStunnelServicesToggleCmd() *cobra.Command {
+func newStunnelServiceToggleCmd() *cobra.Command {
 	return &cobra.Command{
 		Use:   "toggle <uuid>",
-		Short: "Toggle stunnel services",
+		Short: "Toggle stunnel service",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)

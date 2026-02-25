@@ -26,9 +26,6 @@ func registerTrafficshaper() {
 	moduleCmd.AddCommand(newTrafficshaperQueueCmd())
 	moduleCmd.AddCommand(newTrafficshaperRuleCmd())
 	moduleCmd.AddCommand(newTrafficshaperSettingsCmd())
-	moduleCmd.AddCommand(newTrafficshaperPipesCmd())
-	moduleCmd.AddCommand(newTrafficshaperQueuesCmd())
-	moduleCmd.AddCommand(newTrafficshaperRulesCmd())
 	cli.Root.AddCommand(moduleCmd)
 }
 
@@ -165,6 +162,7 @@ func newTrafficshaperPipeCmd() *cobra.Command {
 	cmd.AddCommand(newTrafficshaperPipeGetCmd())
 	cmd.AddCommand(newTrafficshaperPipeUpdateCmd())
 	cmd.AddCommand(newTrafficshaperPipeToggleCmd())
+	cmd.AddCommand(newTrafficshaperPipeListCmd())
 	return cmd
 }
 
@@ -285,6 +283,30 @@ func newTrafficshaperPipeToggleCmd() *cobra.Command {
 	}
 }
 
+func newTrafficshaperPipeListCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "list",
+		Short: "List trafficshaper pipe resources",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			result, err := s.SettingsSearchPipes(context.Background(), map[string]any{"rowCount": -1, "current": 1})
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			rows := make([]any, len(result.Rows))
+			for i, r := range result.Rows {
+				rows[i] = r
+			}
+			return printer.PrintTable(rows, trafficshaperPipeColumns)
+		},
+	}
+}
+
 // trafficshaperQueueColumns defines table columns for the Queue resource.
 var trafficshaperQueueColumns = []cli.Column{
 	{Header: "ENABLED", Extract: func(row any) string {
@@ -347,6 +369,7 @@ func newTrafficshaperQueueCmd() *cobra.Command {
 	cmd.AddCommand(newTrafficshaperQueueGetCmd())
 	cmd.AddCommand(newTrafficshaperQueueUpdateCmd())
 	cmd.AddCommand(newTrafficshaperQueueToggleCmd())
+	cmd.AddCommand(newTrafficshaperQueueListCmd())
 	return cmd
 }
 
@@ -467,6 +490,30 @@ func newTrafficshaperQueueToggleCmd() *cobra.Command {
 	}
 }
 
+func newTrafficshaperQueueListCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "list",
+		Short: "List trafficshaper queue resources",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			result, err := s.SettingsSearchQueues(context.Background(), map[string]any{"rowCount": -1, "current": 1})
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			rows := make([]any, len(result.Rows))
+			for i, r := range result.Rows {
+				rows[i] = r
+			}
+			return printer.PrintTable(rows, trafficshaperQueueColumns)
+		},
+	}
+}
+
 // trafficshaperRuleColumns defines table columns for the Rule resource.
 var trafficshaperRuleColumns = []cli.Column{
 	{Header: "ENABLED", Extract: func(row any) string {
@@ -529,6 +576,7 @@ func newTrafficshaperRuleCmd() *cobra.Command {
 	cmd.AddCommand(newTrafficshaperRuleGetCmd())
 	cmd.AddCommand(newTrafficshaperRuleUpdateCmd())
 	cmd.AddCommand(newTrafficshaperRuleToggleCmd())
+	cmd.AddCommand(newTrafficshaperRuleListCmd())
 	return cmd
 }
 
@@ -645,6 +693,30 @@ func newTrafficshaperRuleToggleCmd() *cobra.Command {
 			}
 			printer := cli.NewPrinter(cfg)
 			return printer.PrintGenericResponse(resp)
+		},
+	}
+}
+
+func newTrafficshaperRuleListCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "list",
+		Short: "List trafficshaper rule resources",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			result, err := s.SettingsSearchRules(context.Background(), map[string]any{"rowCount": -1, "current": 1})
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			rows := make([]any, len(result.Rows))
+			for i, r := range result.Rows {
+				rows[i] = r
+			}
+			return printer.PrintTable(rows, trafficshaperRuleColumns)
 		},
 	}
 }
@@ -779,261 +851,6 @@ func newTrafficshaperSettingsUploadQueuesCmd() *cobra.Command {
 			}
 			printer := cli.NewPrinter(cfg)
 			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-// trafficshaperPipesColumns defines table columns for the Pipes resource.
-var trafficshaperPipesColumns = []cli.Column{
-	{Header: "ENABLED", Extract: func(row any) string {
-		if v, ok := row.(sdk.Pipe); ok {
-			return fmt.Sprint(v.Enabled)
-		}
-		return ""
-	}},
-	{Header: "DESCRIPTION", Extract: func(row any) string {
-		if v, ok := row.(sdk.Pipe); ok {
-			return fmt.Sprint(v.Description)
-		}
-		return ""
-	}},
-	{Header: "NUMBER", Extract: func(row any) string {
-		if v, ok := row.(sdk.Pipe); ok {
-			return fmt.Sprint(v.Number)
-		}
-		return ""
-	}},
-	{Header: "BANDWIDTH", Extract: func(row any) string {
-		if v, ok := row.(sdk.Pipe); ok {
-			return fmt.Sprint(v.Bandwidth)
-		}
-		return ""
-	}},
-	{Header: "BANDWIDTHMETRIC", Extract: func(row any) string {
-		if v, ok := row.(sdk.Pipe); ok {
-			return fmt.Sprint(v.BandwidthMetric)
-		}
-		return ""
-	}},
-	{Header: "QUEUE", Extract: func(row any) string {
-		if v, ok := row.(sdk.Pipe); ok {
-			return fmt.Sprint(v.Queue)
-		}
-		return ""
-	}},
-	{Header: "MASK", Extract: func(row any) string {
-		if v, ok := row.(sdk.Pipe); ok {
-			return fmt.Sprint(v.Mask)
-		}
-		return ""
-	}},
-	{Header: "BUCKETS", Extract: func(row any) string {
-		if v, ok := row.(sdk.Pipe); ok {
-			return fmt.Sprint(v.Buckets)
-		}
-		return ""
-	}},
-}
-
-func newTrafficshaperPipesCmd() *cobra.Command {
-	cmd := &cobra.Command{
-		Use:   "pipes",
-		Short: "Manage trafficshaper pipes resources",
-	}
-	cmd.AddCommand(newTrafficshaperPipesListCmd())
-	return cmd
-}
-
-func newTrafficshaperPipesListCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "list",
-		Short: "List trafficshaper pipes resources",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			result, err := s.SettingsSearchPipes(context.Background(), map[string]any{"rowCount": -1, "current": 1})
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			rows := make([]any, len(result.Rows))
-			for i, r := range result.Rows {
-				rows[i] = r
-			}
-			return printer.PrintTable(rows, trafficshaperPipesColumns)
-		},
-	}
-}
-
-// trafficshaperQueuesColumns defines table columns for the Queues resource.
-var trafficshaperQueuesColumns = []cli.Column{
-	{Header: "ENABLED", Extract: func(row any) string {
-		if v, ok := row.(sdk.Queue); ok {
-			return fmt.Sprint(v.Enabled)
-		}
-		return ""
-	}},
-	{Header: "DESCRIPTION", Extract: func(row any) string {
-		if v, ok := row.(sdk.Queue); ok {
-			return fmt.Sprint(v.Description)
-		}
-		return ""
-	}},
-	{Header: "NUMBER", Extract: func(row any) string {
-		if v, ok := row.(sdk.Queue); ok {
-			return fmt.Sprint(v.Number)
-		}
-		return ""
-	}},
-	{Header: "PIPE", Extract: func(row any) string {
-		if v, ok := row.(sdk.Queue); ok {
-			return fmt.Sprint(v.Pipe)
-		}
-		return ""
-	}},
-	{Header: "WEIGHT", Extract: func(row any) string {
-		if v, ok := row.(sdk.Queue); ok {
-			return fmt.Sprint(v.Weight)
-		}
-		return ""
-	}},
-	{Header: "MASK", Extract: func(row any) string {
-		if v, ok := row.(sdk.Queue); ok {
-			return fmt.Sprint(v.Mask)
-		}
-		return ""
-	}},
-	{Header: "BUCKETS", Extract: func(row any) string {
-		if v, ok := row.(sdk.Queue); ok {
-			return fmt.Sprint(v.Buckets)
-		}
-		return ""
-	}},
-	{Header: "CODEL ENABLE", Extract: func(row any) string {
-		if v, ok := row.(sdk.Queue); ok {
-			return fmt.Sprint(v.CodelEnable)
-		}
-		return ""
-	}},
-}
-
-func newTrafficshaperQueuesCmd() *cobra.Command {
-	cmd := &cobra.Command{
-		Use:   "queues",
-		Short: "Manage trafficshaper queues resources",
-	}
-	cmd.AddCommand(newTrafficshaperQueuesListCmd())
-	return cmd
-}
-
-func newTrafficshaperQueuesListCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "list",
-		Short: "List trafficshaper queues resources",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			result, err := s.SettingsSearchQueues(context.Background(), map[string]any{"rowCount": -1, "current": 1})
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			rows := make([]any, len(result.Rows))
-			for i, r := range result.Rows {
-				rows[i] = r
-			}
-			return printer.PrintTable(rows, trafficshaperQueuesColumns)
-		},
-	}
-}
-
-// trafficshaperRulesColumns defines table columns for the Rules resource.
-var trafficshaperRulesColumns = []cli.Column{
-	{Header: "ENABLED", Extract: func(row any) string {
-		if v, ok := row.(sdk.Rule); ok {
-			return fmt.Sprint(v.Enabled)
-		}
-		return ""
-	}},
-	{Header: "DESCRIPTION", Extract: func(row any) string {
-		if v, ok := row.(sdk.Rule); ok {
-			return fmt.Sprint(v.Description)
-		}
-		return ""
-	}},
-	{Header: "INTERFACE", Extract: func(row any) string {
-		if v, ok := row.(sdk.Rule); ok {
-			return fmt.Sprint(v.Interface)
-		}
-		return ""
-	}},
-	{Header: "PROTO", Extract: func(row any) string {
-		if v, ok := row.(sdk.Rule); ok {
-			return fmt.Sprint(v.Proto)
-		}
-		return ""
-	}},
-	{Header: "SEQUENCE", Extract: func(row any) string {
-		if v, ok := row.(sdk.Rule); ok {
-			return fmt.Sprint(v.Sequence)
-		}
-		return ""
-	}},
-	{Header: "INTERFACE2", Extract: func(row any) string {
-		if v, ok := row.(sdk.Rule); ok {
-			return fmt.Sprint(v.Interface2)
-		}
-		return ""
-	}},
-	{Header: "IPLEN", Extract: func(row any) string {
-		if v, ok := row.(sdk.Rule); ok {
-			return fmt.Sprint(v.Iplen)
-		}
-		return ""
-	}},
-	{Header: "SOURCE", Extract: func(row any) string {
-		if v, ok := row.(sdk.Rule); ok {
-			return fmt.Sprint(v.Source)
-		}
-		return ""
-	}},
-}
-
-func newTrafficshaperRulesCmd() *cobra.Command {
-	cmd := &cobra.Command{
-		Use:   "rules",
-		Short: "Manage trafficshaper rules resources",
-	}
-	cmd.AddCommand(newTrafficshaperRulesListCmd())
-	return cmd
-}
-
-func newTrafficshaperRulesListCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "list",
-		Short: "List trafficshaper rules resources",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			result, err := s.SettingsSearchRules(context.Background(), map[string]any{"rowCount": -1, "current": 1})
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			rows := make([]any, len(result.Rows))
-			for i, r := range result.Rows {
-				rows[i] = r
-			}
-			return printer.PrintTable(rows, trafficshaperRulesColumns)
 		},
 	}
 }

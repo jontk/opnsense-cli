@@ -22,13 +22,11 @@ func registerProxy() {
 		Short: "Manage proxy resources",
 	}
 	moduleCmd.AddCommand(newProxyServiceCmd())
-	moduleCmd.AddCommand(newProxyPACRuleCmd())
+	moduleCmd.AddCommand(newProxyPacRuleCmd())
 	moduleCmd.AddCommand(newProxyPacMatchCmd())
 	moduleCmd.AddCommand(newProxyPacProxyCmd())
 	moduleCmd.AddCommand(newProxyRemoteBlacklistCmd())
-	moduleCmd.AddCommand(newProxyPacRuleCmd())
 	moduleCmd.AddCommand(newProxySettingsCmd())
-	moduleCmd.AddCommand(newProxyRemoteBlacklistsCmd())
 	moduleCmd.AddCommand(newProxyTemplateCmd())
 	moduleCmd.AddCommand(newProxyCustomPolicyCmd())
 	moduleCmd.AddCommand(newProxyPolicyCmd())
@@ -233,8 +231,8 @@ func newProxyServiceStopCmd() *cobra.Command {
 	}
 }
 
-// proxyPACRuleColumns defines table columns for the PACRule resource.
-var proxyPACRuleColumns = []cli.Column{
+// proxyPacRuleColumns defines table columns for the PacRule resource.
+var proxyPacRuleColumns = []cli.Column{
 	{Header: "ENABLED", Extract: func(row any) string {
 		if v, ok := row.(sdk.Rule); ok {
 			return fmt.Sprint(v.Enabled)
@@ -273,19 +271,24 @@ var proxyPACRuleColumns = []cli.Column{
 	}},
 }
 
-func newProxyPACRuleCmd() *cobra.Command {
+func newProxyPacRuleCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "p-a-c-rule",
-		Short: "Manage proxy p-a-c-rule resources",
+		Use:   "pac-rule",
+		Short: "Manage proxy pac-rule resources",
 	}
-	cmd.AddCommand(newProxyPACRuleCreateCmd())
+	cmd.AddCommand(newProxyPacRuleCreateCmd())
+	cmd.AddCommand(newProxyPacRuleDeleteCmd())
+	cmd.AddCommand(newProxyPacRuleGetCmd())
+	cmd.AddCommand(newProxyPacRuleListCmd())
+	cmd.AddCommand(newProxyPacRuleUpdateCmd())
+	cmd.AddCommand(newProxyPacRuleToggleCmd())
 	return cmd
 }
 
-func newProxyPACRuleCreateCmd() *cobra.Command {
+func newProxyPacRuleCreateCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "create",
-		Short: "Create proxy p-a-c-rule",
+		Short: "Create proxy pac-rule",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -307,6 +310,120 @@ func newProxyPACRuleCreateCmd() *cobra.Command {
 	}
 	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
 	return cmd
+}
+
+func newProxyPacRuleDeleteCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "delete <uuid>",
+		Short: "Delete proxy pac-rule",
+		Args:  cobra.ExactArgs(1),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsDelPacRule(context.Background(), args[0])
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintGenericResponse(resp)
+		},
+	}
+}
+
+func newProxyPacRuleGetCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "get",
+		Short: "Get proxy pac-rule",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsGetPacRule(context.Background())
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintGenericResponse(resp)
+		},
+	}
+}
+
+func newProxyPacRuleListCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "list",
+		Short: "List proxy pac-rule resources",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			result, err := s.SettingsSearchPacRule(context.Background(), map[string]any{"rowCount": -1, "current": 1})
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			rows := make([]any, len(result.Rows))
+			for i, r := range result.Rows {
+				rows[i] = r
+			}
+			return printer.PrintTable(rows, proxyPacRuleColumns)
+		},
+	}
+}
+
+func newProxyPacRuleUpdateCmd() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "update <uuid>",
+		Short: "Update proxy pac-rule",
+		Args:  cobra.ExactArgs(1),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body sdk.Rule
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsSetPacRule(context.Background(), args[0], &body)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintGenericResponse(resp)
+		},
+	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
+}
+
+func newProxyPacRuleToggleCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "toggle <uuid>",
+		Short: "Toggle proxy pac-rule",
+		Args:  cobra.ExactArgs(1),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsTogglePacRule(context.Background(), args[0])
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintGenericResponse(resp)
+		},
+	}
 }
 
 // proxyPacMatchColumns defines table columns for the PacMatch resource.
@@ -665,6 +782,7 @@ func newProxyRemoteBlacklistCmd() *cobra.Command {
 	cmd.AddCommand(newProxyRemoteBlacklistGetRemoteBlacklistCmd())
 	cmd.AddCommand(newProxyRemoteBlacklistSetRemoteBlacklistCmd())
 	cmd.AddCommand(newProxyRemoteBlacklistToggleRemoteBlacklistCmd())
+	cmd.AddCommand(newProxyRemoteBlacklistSearchRemoteBlacklistsCmd())
 	return cmd
 }
 
@@ -771,169 +889,22 @@ func newProxyRemoteBlacklistToggleRemoteBlacklistCmd() *cobra.Command {
 	}
 }
 
-// proxyPacRuleColumns defines table columns for the PacRule resource.
-var proxyPacRuleColumns = []cli.Column{
-	{Header: "ENABLED", Extract: func(row any) string {
-		if v, ok := row.(sdk.Rule); ok {
-			return fmt.Sprint(v.Enabled)
-		}
-		return ""
-	}},
-	{Header: "DESCRIPTION", Extract: func(row any) string {
-		if v, ok := row.(sdk.Rule); ok {
-			return fmt.Sprint(v.Description)
-		}
-		return ""
-	}},
-	{Header: "MATCHES", Extract: func(row any) string {
-		if v, ok := row.(sdk.Rule); ok {
-			return fmt.Sprint(v.Matches)
-		}
-		return ""
-	}},
-	{Header: "JOIN TYPE", Extract: func(row any) string {
-		if v, ok := row.(sdk.Rule); ok {
-			return fmt.Sprint(v.JoinType)
-		}
-		return ""
-	}},
-	{Header: "MATCH TYPE", Extract: func(row any) string {
-		if v, ok := row.(sdk.Rule); ok {
-			return fmt.Sprint(v.MatchType)
-		}
-		return ""
-	}},
-	{Header: "PROXIES", Extract: func(row any) string {
-		if v, ok := row.(sdk.Rule); ok {
-			return fmt.Sprint(v.Proxies)
-		}
-		return ""
-	}},
-}
-
-func newProxyPacRuleCmd() *cobra.Command {
-	cmd := &cobra.Command{
-		Use:   "pac-rule",
-		Short: "Manage proxy pac-rule resources",
-	}
-	cmd.AddCommand(newProxyPacRuleDeleteCmd())
-	cmd.AddCommand(newProxyPacRuleGetCmd())
-	cmd.AddCommand(newProxyPacRuleListCmd())
-	cmd.AddCommand(newProxyPacRuleUpdateCmd())
-	cmd.AddCommand(newProxyPacRuleToggleCmd())
-	return cmd
-}
-
-func newProxyPacRuleDeleteCmd() *cobra.Command {
+func newProxyRemoteBlacklistSearchRemoteBlacklistsCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "delete <uuid>",
-		Short: "Delete proxy pac-rule",
-		Args:  cobra.ExactArgs(1),
+		Use:   "search-remote-blacklists",
+		Short: "SearchRemoteBlacklists proxy remote-blacklist",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsDelPacRule(context.Background(), args[0])
+			resp, err := s.SettingsSearchRemoteBlacklists(context.Background())
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintGenericResponse(resp)
-		},
-	}
-}
-
-func newProxyPacRuleGetCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "get",
-		Short: "Get proxy pac-rule",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetPacRule(context.Background())
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintGenericResponse(resp)
-		},
-	}
-}
-
-func newProxyPacRuleListCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "list",
-		Short: "List proxy pac-rule resources",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			result, err := s.SettingsSearchPacRule(context.Background(), map[string]any{"rowCount": -1, "current": 1})
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			rows := make([]any, len(result.Rows))
-			for i, r := range result.Rows {
-				rows[i] = r
-			}
-			return printer.PrintTable(rows, proxyPacRuleColumns)
-		},
-	}
-}
-
-func newProxyPacRuleUpdateCmd() *cobra.Command {
-	cmd := &cobra.Command{
-		Use:   "update <uuid>",
-		Short: "Update proxy pac-rule",
-		Args:  cobra.ExactArgs(1),
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			dataStr, _ := cmd.Flags().GetString("data")
-			var body sdk.Rule
-			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
-				return fmt.Errorf("parsing --data: %w", err)
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsSetPacRule(context.Background(), args[0], &body)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintGenericResponse(resp)
-		},
-	}
-	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
-	return cmd
-}
-
-func newProxyPacRuleToggleCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "toggle <uuid>",
-		Short: "Toggle proxy pac-rule",
-		Args:  cobra.ExactArgs(1),
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsTogglePacRule(context.Background(), args[0])
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintGenericResponse(resp)
+			return printer.PrintJSON(resp)
 		},
 	}
 }
@@ -1000,35 +971,6 @@ func newProxySettingsSetCmd() *cobra.Command {
 			}
 			s := sdk.NewClient(c)
 			resp, err := s.SettingsSet(context.Background(), nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newProxyRemoteBlacklistsCmd() *cobra.Command {
-	cmd := &cobra.Command{
-		Use:   "remote-blacklists",
-		Short: "Manage proxy remote-blacklists resources",
-	}
-	cmd.AddCommand(newProxyRemoteBlacklistsSearchRemoteBlacklistsCmd())
-	return cmd
-}
-
-func newProxyRemoteBlacklistsSearchRemoteBlacklistsCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "search-remote-blacklists",
-		Short: "SearchRemoteBlacklists proxy remote-blacklists",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsSearchRemoteBlacklists(context.Background())
 			if err != nil {
 				return err
 			}

@@ -26,7 +26,6 @@ func registerZabbixagent() {
 	moduleCmd.AddCommand(newZabbixagentUserparameterCmd())
 	moduleCmd.AddCommand(newZabbixagentSettingsCmd())
 	moduleCmd.AddCommand(newZabbixagentAliasesCmd())
-	moduleCmd.AddCommand(newZabbixagentUserparametersCmd())
 	cli.Root.AddCommand(moduleCmd)
 }
 
@@ -351,6 +350,7 @@ func newZabbixagentUserparameterCmd() *cobra.Command {
 	cmd.AddCommand(newZabbixagentUserparameterGetCmd())
 	cmd.AddCommand(newZabbixagentUserparameterUpdateCmd())
 	cmd.AddCommand(newZabbixagentUserparameterToggleCmd())
+	cmd.AddCommand(newZabbixagentUserparameterListCmd())
 	return cmd
 }
 
@@ -471,6 +471,30 @@ func newZabbixagentUserparameterToggleCmd() *cobra.Command {
 	}
 }
 
+func newZabbixagentUserparameterListCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "list",
+		Short: "List zabbixagent userparameter resources",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			result, err := s.SettingsSearchUserparameters(context.Background(), map[string]any{"rowCount": -1, "current": 1})
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			rows := make([]any, len(result.Rows))
+			for i, r := range result.Rows {
+				rows[i] = r
+			}
+			return printer.PrintTable(rows, zabbixagentUserparameterColumns)
+		},
+	}
+}
+
 func newZabbixagentSettingsCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "settings",
@@ -584,73 +608,6 @@ func newZabbixagentAliasesListCmd() *cobra.Command {
 				rows[i] = r
 			}
 			return printer.PrintTable(rows, zabbixagentAliasesColumns)
-		},
-	}
-}
-
-// zabbixagentUserparametersColumns defines table columns for the Userparameters resource.
-var zabbixagentUserparametersColumns = []cli.Column{
-	{Header: "ENABLED", Extract: func(row any) string {
-		if v, ok := row.(sdk.Userparameter); ok {
-			return fmt.Sprint(v.Enabled)
-		}
-		return ""
-	}},
-	{Header: "ID", Extract: func(row any) string {
-		if v, ok := row.(sdk.Userparameter); ok {
-			return fmt.Sprint(v.Id)
-		}
-		return ""
-	}},
-	{Header: "KEY", Extract: func(row any) string {
-		if v, ok := row.(sdk.Userparameter); ok {
-			return fmt.Sprint(v.Key)
-		}
-		return ""
-	}},
-	{Header: "COMMAND", Extract: func(row any) string {
-		if v, ok := row.(sdk.Userparameter); ok {
-			return fmt.Sprint(v.Command)
-		}
-		return ""
-	}},
-	{Header: "ACCEPTPARAMS", Extract: func(row any) string {
-		if v, ok := row.(sdk.Userparameter); ok {
-			return fmt.Sprint(v.AcceptParams)
-		}
-		return ""
-	}},
-}
-
-func newZabbixagentUserparametersCmd() *cobra.Command {
-	cmd := &cobra.Command{
-		Use:   "userparameters",
-		Short: "Manage zabbixagent userparameters resources",
-	}
-	cmd.AddCommand(newZabbixagentUserparametersListCmd())
-	return cmd
-}
-
-func newZabbixagentUserparametersListCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "list",
-		Short: "List zabbixagent userparameters resources",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			result, err := s.SettingsSearchUserparameters(context.Background(), map[string]any{"rowCount": -1, "current": 1})
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			rows := make([]any, len(result.Rows))
-			for i, r := range result.Rows {
-				rows[i] = r
-			}
-			return printer.PrintTable(rows, zabbixagentUserparametersColumns)
 		},
 	}
 }
