@@ -1007,14 +1007,14 @@ func newAcmeclientBindPluginStatusCmd() *cobra.Command {
 		Use:   "bind-plugin-status",
 		Short: "Manage acmeclient bind-plugin-status resources",
 	}
-	cmd.AddCommand(newAcmeclientBindPluginStatusGetBindPluginStatusCmd())
+	cmd.AddCommand(newAcmeclientBindPluginStatusGetCmd())
 	return cmd
 }
 
-func newAcmeclientBindPluginStatusGetBindPluginStatusCmd() *cobra.Command {
+func newAcmeclientBindPluginStatusGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get-bind-plugin-status",
-		Short: "GetBindPluginStatus acmeclient bind-plugin-status",
+		Use:   "get",
+		Short: "Get acmeclient bind-plugin-status",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -1036,14 +1036,14 @@ func newAcmeclientGcloudPluginStatusCmd() *cobra.Command {
 		Use:   "gcloud-plugin-status",
 		Short: "Manage acmeclient gcloud-plugin-status resources",
 	}
-	cmd.AddCommand(newAcmeclientGcloudPluginStatusGetGcloudPluginStatusCmd())
+	cmd.AddCommand(newAcmeclientGcloudPluginStatusGetCmd())
 	return cmd
 }
 
-func newAcmeclientGcloudPluginStatusGetGcloudPluginStatusCmd() *cobra.Command {
+func newAcmeclientGcloudPluginStatusGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get-gcloud-plugin-status",
-		Short: "GetGcloudPluginStatus acmeclient gcloud-plugin-status",
+		Use:   "get",
+		Short: "Get acmeclient gcloud-plugin-status",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {

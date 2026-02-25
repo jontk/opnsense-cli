@@ -372,14 +372,14 @@ func newHaproxyCertificateDiffCmd() *cobra.Command {
 		Use:   "certificate-diff",
 		Short: "Manage haproxy certificate-diff resources",
 	}
-	cmd.AddCommand(newHaproxyCertificateDiffSearchCertificateDiffCmd())
+	cmd.AddCommand(newHaproxyCertificateDiffListCmd())
 	return cmd
 }
 
-func newHaproxyCertificateDiffSearchCertificateDiffCmd() *cobra.Command {
+func newHaproxyCertificateDiffListCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "search-certificate-diff",
-		Short: "SearchCertificateDiff haproxy certificate-diff",
+		Use:   "list",
+		Short: "List haproxy certificate-diff",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {

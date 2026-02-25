@@ -427,14 +427,14 @@ func newWireguardServerInfoCmd() *cobra.Command {
 		Use:   "server-info",
 		Short: "Manage wireguard server-info resources",
 	}
-	cmd.AddCommand(newWireguardServerInfoGetServerInfoCmd())
+	cmd.AddCommand(newWireguardServerInfoGetCmd())
 	return cmd
 }
 
-func newWireguardServerInfoGetServerInfoCmd() *cobra.Command {
+func newWireguardServerInfoGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get-server-info",
-		Short: "GetServerInfo wireguard server-info",
+		Use:   "get",
+		Short: "Get wireguard server-info",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {

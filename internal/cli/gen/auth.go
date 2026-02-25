@@ -454,16 +454,16 @@ func newAuthApiKeyCmd() *cobra.Command {
 		Use:   "api-key",
 		Short: "Manage auth api-key resources",
 	}
-	cmd.AddCommand(newAuthApiKeyAddApiKeyCmd())
-	cmd.AddCommand(newAuthApiKeyDelApiKeyCmd())
-	cmd.AddCommand(newAuthApiKeySearchApiKeyCmd())
+	cmd.AddCommand(newAuthApiKeyCreateCmd())
+	cmd.AddCommand(newAuthApiKeyDeleteCmd())
+	cmd.AddCommand(newAuthApiKeyListCmd())
 	return cmd
 }
 
-func newAuthApiKeyAddApiKeyCmd() *cobra.Command {
+func newAuthApiKeyCreateCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "add-api-key <username>",
-		Short: "AddApiKey auth api-key",
+		Use:   "create <username>",
+		Short: "Create auth api-key",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
@@ -481,10 +481,10 @@ func newAuthApiKeyAddApiKeyCmd() *cobra.Command {
 	}
 }
 
-func newAuthApiKeyDelApiKeyCmd() *cobra.Command {
+func newAuthApiKeyDeleteCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "del-api-key <id>",
-		Short: "DelApiKey auth api-key",
+		Use:   "delete <id>",
+		Short: "Delete auth api-key",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
@@ -502,10 +502,10 @@ func newAuthApiKeyDelApiKeyCmd() *cobra.Command {
 	}
 }
 
-func newAuthApiKeySearchApiKeyCmd() *cobra.Command {
+func newAuthApiKeyListCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "search-api-key",
-		Short: "SearchApiKey auth api-key",
+		Use:   "list",
+		Short: "List auth api-key",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {

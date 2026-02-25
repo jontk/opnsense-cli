@@ -583,14 +583,14 @@ func newTrustOcspInfoDataCmd() *cobra.Command {
 		Use:   "ocsp-info-data",
 		Short: "Manage trust ocsp-info-data resources",
 	}
-	cmd.AddCommand(newTrustOcspInfoDataGetOcspInfoDataCmd())
+	cmd.AddCommand(newTrustOcspInfoDataGetCmd())
 	return cmd
 }
 
-func newTrustOcspInfoDataGetOcspInfoDataCmd() *cobra.Command {
+func newTrustOcspInfoDataGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get-ocsp-info-data <caref>",
-		Short: "GetOcspInfoData trust ocsp-info-data",
+		Use:   "get <caref>",
+		Short: "Get trust ocsp-info-data",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)

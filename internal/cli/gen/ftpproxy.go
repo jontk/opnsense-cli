@@ -181,19 +181,19 @@ func newFtpproxyProxyCmd() *cobra.Command {
 		Use:   "proxy",
 		Short: "Manage ftpproxy proxy resources",
 	}
-	cmd.AddCommand(newFtpproxyProxyAddProxyCmd())
-	cmd.AddCommand(newFtpproxyProxyDelProxyCmd())
-	cmd.AddCommand(newFtpproxyProxyGetProxyCmd())
-	cmd.AddCommand(newFtpproxyProxySearchProxyCmd())
-	cmd.AddCommand(newFtpproxyProxySetProxyCmd())
-	cmd.AddCommand(newFtpproxyProxyToggleProxyCmd())
+	cmd.AddCommand(newFtpproxyProxyCreateCmd())
+	cmd.AddCommand(newFtpproxyProxyDeleteCmd())
+	cmd.AddCommand(newFtpproxyProxyGetCmd())
+	cmd.AddCommand(newFtpproxyProxyListCmd())
+	cmd.AddCommand(newFtpproxyProxyUpdateCmd())
+	cmd.AddCommand(newFtpproxyProxyToggleCmd())
 	return cmd
 }
 
-func newFtpproxyProxyAddProxyCmd() *cobra.Command {
+func newFtpproxyProxyCreateCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "add-proxy",
-		Short: "AddProxy ftpproxy proxy",
+		Use:   "create",
+		Short: "Create ftpproxy proxy",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -210,10 +210,10 @@ func newFtpproxyProxyAddProxyCmd() *cobra.Command {
 	}
 }
 
-func newFtpproxyProxyDelProxyCmd() *cobra.Command {
+func newFtpproxyProxyDeleteCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "del-proxy <uuid>",
-		Short: "DelProxy ftpproxy proxy",
+		Use:   "delete <uuid>",
+		Short: "Delete ftpproxy proxy",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
@@ -231,10 +231,10 @@ func newFtpproxyProxyDelProxyCmd() *cobra.Command {
 	}
 }
 
-func newFtpproxyProxyGetProxyCmd() *cobra.Command {
+func newFtpproxyProxyGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get-proxy",
-		Short: "GetProxy ftpproxy proxy",
+		Use:   "get",
+		Short: "Get ftpproxy proxy",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -251,10 +251,10 @@ func newFtpproxyProxyGetProxyCmd() *cobra.Command {
 	}
 }
 
-func newFtpproxyProxySearchProxyCmd() *cobra.Command {
+func newFtpproxyProxyListCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "search-proxy",
-		Short: "SearchProxy ftpproxy proxy",
+		Use:   "list",
+		Short: "List ftpproxy proxy",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -271,10 +271,10 @@ func newFtpproxyProxySearchProxyCmd() *cobra.Command {
 	}
 }
 
-func newFtpproxyProxySetProxyCmd() *cobra.Command {
+func newFtpproxyProxyUpdateCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "set-proxy <uuid>",
-		Short: "SetProxy ftpproxy proxy",
+		Use:   "update <uuid>",
+		Short: "Update ftpproxy proxy",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
@@ -292,10 +292,10 @@ func newFtpproxyProxySetProxyCmd() *cobra.Command {
 	}
 }
 
-func newFtpproxyProxyToggleProxyCmd() *cobra.Command {
+func newFtpproxyProxyToggleCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "toggle-proxy <uuid>",
-		Short: "ToggleProxy ftpproxy proxy",
+		Use:   "toggle <uuid>",
+		Short: "Toggle ftpproxy proxy",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)

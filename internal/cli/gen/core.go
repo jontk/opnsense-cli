@@ -193,7 +193,7 @@ func newCoreDashboardCmd() *cobra.Command {
 		Use:   "dashboard",
 		Short: "Manage core dashboard resources",
 	}
-	cmd.AddCommand(newCoreDashboardGetDashboardCmd())
+	cmd.AddCommand(newCoreDashboardGetCmd())
 	cmd.AddCommand(newCoreDashboardPictureCmd())
 	cmd.AddCommand(newCoreDashboardProductInfoFeedCmd())
 	cmd.AddCommand(newCoreDashboardRestoreDefaultsCmd())
@@ -201,10 +201,10 @@ func newCoreDashboardCmd() *cobra.Command {
 	return cmd
 }
 
-func newCoreDashboardGetDashboardCmd() *cobra.Command {
+func newCoreDashboardGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get-dashboard",
-		Short: "GetDashboard core dashboard",
+		Use:   "get",
+		Short: "Get core dashboard",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -377,14 +377,14 @@ func newCoreInstalledSectionsCmd() *cobra.Command {
 		Use:   "installed-sections",
 		Short: "Manage core installed-sections resources",
 	}
-	cmd.AddCommand(newCoreInstalledSectionsGetInstalledSectionsCmd())
+	cmd.AddCommand(newCoreInstalledSectionsGetCmd())
 	return cmd
 }
 
-func newCoreInstalledSectionsGetInstalledSectionsCmd() *cobra.Command {
+func newCoreInstalledSectionsGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get-installed-sections",
-		Short: "GetInstalledSections core installed-sections",
+		Use:   "get",
+		Short: "Get core installed-sections",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {

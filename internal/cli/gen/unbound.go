@@ -303,14 +303,14 @@ func newUnboundPoliciesCmd() *cobra.Command {
 		Use:   "policies",
 		Short: "Manage unbound policies resources",
 	}
-	cmd.AddCommand(newUnboundPoliciesGetPoliciesCmd())
+	cmd.AddCommand(newUnboundPoliciesGetCmd())
 	return cmd
 }
 
-func newUnboundPoliciesGetPoliciesCmd() *cobra.Command {
+func newUnboundPoliciesGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get-policies",
-		Short: "GetPolicies unbound policies",
+		Use:   "get",
+		Short: "Get unbound policies",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -332,14 +332,14 @@ func newUnboundQueriesCmd() *cobra.Command {
 		Use:   "queries",
 		Short: "Manage unbound queries resources",
 	}
-	cmd.AddCommand(newUnboundQueriesSearchQueriesCmd())
+	cmd.AddCommand(newUnboundQueriesListCmd())
 	return cmd
 }
 
-func newUnboundQueriesSearchQueriesCmd() *cobra.Command {
+func newUnboundQueriesListCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "search-queries",
-		Short: "SearchQueries unbound queries",
+		Use:   "list",
+		Short: "List unbound queries",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -1553,14 +1553,14 @@ func newUnboundNameserversCmd() *cobra.Command {
 		Use:   "nameservers",
 		Short: "Manage unbound nameservers resources",
 	}
-	cmd.AddCommand(newUnboundNameserversGetNameserversCmd())
+	cmd.AddCommand(newUnboundNameserversGetCmd())
 	return cmd
 }
 
-func newUnboundNameserversGetNameserversCmd() *cobra.Command {
+func newUnboundNameserversGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get-nameservers",
-		Short: "GetNameservers unbound nameservers",
+		Use:   "get",
+		Short: "Get unbound nameservers",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {

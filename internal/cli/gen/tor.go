@@ -970,14 +970,14 @@ func newTorHiddenServicesCmd() *cobra.Command {
 		Use:   "hidden-services",
 		Short: "Manage tor hidden-services resources",
 	}
-	cmd.AddCommand(newTorHiddenServicesGetHiddenServicesCmd())
+	cmd.AddCommand(newTorHiddenServicesGetCmd())
 	return cmd
 }
 
-func newTorHiddenServicesGetHiddenServicesCmd() *cobra.Command {
+func newTorHiddenServicesGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get-hidden-services",
-		Short: "GetHiddenServices tor hidden-services",
+		Use:   "get",
+		Short: "Get tor hidden-services",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {

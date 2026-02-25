@@ -136,14 +136,14 @@ func newQfeedsEventsCmd() *cobra.Command {
 		Use:   "events",
 		Short: "Manage qfeeds events resources",
 	}
-	cmd.AddCommand(newQfeedsEventsSearchEventsCmd())
+	cmd.AddCommand(newQfeedsEventsListCmd())
 	return cmd
 }
 
-func newQfeedsEventsSearchEventsCmd() *cobra.Command {
+func newQfeedsEventsListCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "search-events",
-		Short: "SearchEvents qfeeds events",
+		Use:   "list",
+		Short: "List qfeeds events",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -165,14 +165,14 @@ func newQfeedsFeedsCmd() *cobra.Command {
 		Use:   "feeds",
 		Short: "Manage qfeeds feeds resources",
 	}
-	cmd.AddCommand(newQfeedsFeedsSearchFeedsCmd())
+	cmd.AddCommand(newQfeedsFeedsListCmd())
 	return cmd
 }
 
-func newQfeedsFeedsSearchFeedsCmd() *cobra.Command {
+func newQfeedsFeedsListCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "search-feeds",
-		Short: "SearchFeeds qfeeds feeds",
+		Use:   "list",
+		Short: "List qfeeds feeds",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {

@@ -107,8 +107,9 @@ class TestCLIVerbMapping:
         assert _cli_verb_from_endpoint(ep) == "list-categories"
 
     def test_acronym_verb_collapsed(self):
+        # get_c_p_u_type matches underscore-CRUD pattern → verb "get", resource "cpu-type"
         ep = _make_endpoint("cpu_usage", "get_c_p_u_type")
-        assert _cli_verb_from_endpoint(ep) == "get-cpu-type"
+        assert _cli_verb_from_endpoint(ep) == "get"
 
     def test_export_as_csv_verb(self):
         ep = _make_endpoint("voucher", "export_as_c_s_v")

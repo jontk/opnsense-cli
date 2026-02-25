@@ -136,14 +136,14 @@ func newProxyssoCheckListCmd() *cobra.Command {
 		Use:   "check-list",
 		Short: "Manage proxysso check-list resources",
 	}
-	cmd.AddCommand(newProxyssoCheckListGetCheckListCmd())
+	cmd.AddCommand(newProxyssoCheckListGetCmd())
 	return cmd
 }
 
-func newProxyssoCheckListGetCheckListCmd() *cobra.Command {
+func newProxyssoCheckListGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get-check-list",
-		Short: "GetCheckList proxysso check-list",
+		Use:   "get",
+		Short: "Get proxysso check-list",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {

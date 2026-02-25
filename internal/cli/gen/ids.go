@@ -251,14 +251,14 @@ func newIdsAlertInfoCmd() *cobra.Command {
 		Use:   "alert-info",
 		Short: "Manage ids alert-info resources",
 	}
-	cmd.AddCommand(newIdsAlertInfoGetAlertInfoCmd())
+	cmd.AddCommand(newIdsAlertInfoGetCmd())
 	return cmd
 }
 
-func newIdsAlertInfoGetAlertInfoCmd() *cobra.Command {
+func newIdsAlertInfoGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get-alert-info <alertId>",
-		Short: "GetAlertInfo ids alert-info",
+		Use:   "get <alertId>",
+		Short: "Get ids alert-info",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
@@ -281,14 +281,14 @@ func newIdsAlertLogsCmd() *cobra.Command {
 		Use:   "alert-logs",
 		Short: "Manage ids alert-logs resources",
 	}
-	cmd.AddCommand(newIdsAlertLogsGetAlertLogsCmd())
+	cmd.AddCommand(newIdsAlertLogsGetCmd())
 	return cmd
 }
 
-func newIdsAlertLogsGetAlertLogsCmd() *cobra.Command {
+func newIdsAlertLogsGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get-alert-logs",
-		Short: "GetAlertLogs ids alert-logs",
+		Use:   "get",
+		Short: "Get ids alert-logs",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -1065,16 +1065,16 @@ func newIdsRulesetCmd() *cobra.Command {
 		Use:   "ruleset",
 		Short: "Manage ids ruleset resources",
 	}
-	cmd.AddCommand(newIdsRulesetGetRulesetCmd())
-	cmd.AddCommand(newIdsRulesetSetRulesetCmd())
-	cmd.AddCommand(newIdsRulesetToggleRulesetCmd())
+	cmd.AddCommand(newIdsRulesetGetCmd())
+	cmd.AddCommand(newIdsRulesetUpdateCmd())
+	cmd.AddCommand(newIdsRulesetToggleCmd())
 	return cmd
 }
 
-func newIdsRulesetGetRulesetCmd() *cobra.Command {
+func newIdsRulesetGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get-ruleset <id>",
-		Short: "GetRuleset ids ruleset",
+		Use:   "get <id>",
+		Short: "Get ids ruleset",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
@@ -1092,10 +1092,10 @@ func newIdsRulesetGetRulesetCmd() *cobra.Command {
 	}
 }
 
-func newIdsRulesetSetRulesetCmd() *cobra.Command {
+func newIdsRulesetUpdateCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "set-ruleset <filename>",
-		Short: "SetRuleset ids ruleset",
+		Use:   "update <filename>",
+		Short: "Update ids ruleset",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
@@ -1113,10 +1113,10 @@ func newIdsRulesetSetRulesetCmd() *cobra.Command {
 	}
 }
 
-func newIdsRulesetToggleRulesetCmd() *cobra.Command {
+func newIdsRulesetToggleCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "toggle-ruleset <filenames>",
-		Short: "ToggleRuleset ids ruleset",
+		Use:   "toggle <filenames>",
+		Short: "Toggle ids ruleset",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
@@ -1139,15 +1139,15 @@ func newIdsRulesetpropertiesCmd() *cobra.Command {
 		Use:   "rulesetproperties",
 		Short: "Manage ids rulesetproperties resources",
 	}
-	cmd.AddCommand(newIdsRulesetpropertiesGetRulesetpropertiesCmd())
-	cmd.AddCommand(newIdsRulesetpropertiesSetRulesetpropertiesCmd())
+	cmd.AddCommand(newIdsRulesetpropertiesGetCmd())
+	cmd.AddCommand(newIdsRulesetpropertiesUpdateCmd())
 	return cmd
 }
 
-func newIdsRulesetpropertiesGetRulesetpropertiesCmd() *cobra.Command {
+func newIdsRulesetpropertiesGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get-rulesetproperties",
-		Short: "GetRulesetproperties ids rulesetproperties",
+		Use:   "get",
+		Short: "Get ids rulesetproperties",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -1164,10 +1164,10 @@ func newIdsRulesetpropertiesGetRulesetpropertiesCmd() *cobra.Command {
 	}
 }
 
-func newIdsRulesetpropertiesSetRulesetpropertiesCmd() *cobra.Command {
+func newIdsRulesetpropertiesUpdateCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "set-rulesetproperties",
-		Short: "SetRulesetproperties ids rulesetproperties",
+		Use:   "update",
+		Short: "Update ids rulesetproperties",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -1189,14 +1189,14 @@ func newIdsInstalledRulesCmd() *cobra.Command {
 		Use:   "installed-rules",
 		Short: "Manage ids installed-rules resources",
 	}
-	cmd.AddCommand(newIdsInstalledRulesSearchInstalledRulesCmd())
+	cmd.AddCommand(newIdsInstalledRulesListCmd())
 	return cmd
 }
 
-func newIdsInstalledRulesSearchInstalledRulesCmd() *cobra.Command {
+func newIdsInstalledRulesListCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "search-installed-rules",
-		Short: "SearchInstalledRules ids installed-rules",
+		Use:   "list",
+		Short: "List ids installed-rules",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {

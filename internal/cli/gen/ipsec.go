@@ -1966,16 +1966,16 @@ func newIpsecPhase1Cmd() *cobra.Command {
 		Use:   "phase1",
 		Short: "Manage ipsec phase1 resources",
 	}
-	cmd.AddCommand(newIpsecPhase1SearchPhase1Cmd())
-	cmd.AddCommand(newIpsecPhase1DelPhase1Cmd())
-	cmd.AddCommand(newIpsecPhase1TogglePhase1Cmd())
+	cmd.AddCommand(newIpsecPhase1ListCmd())
+	cmd.AddCommand(newIpsecPhase1DeleteCmd())
+	cmd.AddCommand(newIpsecPhase1ToggleCmd())
 	return cmd
 }
 
-func newIpsecPhase1SearchPhase1Cmd() *cobra.Command {
+func newIpsecPhase1ListCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "search-phase1",
-		Short: "SearchPhase1 ipsec phase1",
+		Use:   "list",
+		Short: "List ipsec phase1",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -1992,10 +1992,10 @@ func newIpsecPhase1SearchPhase1Cmd() *cobra.Command {
 	}
 }
 
-func newIpsecPhase1DelPhase1Cmd() *cobra.Command {
+func newIpsecPhase1DeleteCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "del-phase1 <ikeid>",
-		Short: "DelPhase1 ipsec phase1",
+		Use:   "delete <ikeid>",
+		Short: "Delete ipsec phase1",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
@@ -2013,10 +2013,10 @@ func newIpsecPhase1DelPhase1Cmd() *cobra.Command {
 	}
 }
 
-func newIpsecPhase1TogglePhase1Cmd() *cobra.Command {
+func newIpsecPhase1ToggleCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "toggle-phase1 <ikeid>",
-		Short: "TogglePhase1 ipsec phase1",
+		Use:   "toggle <ikeid>",
+		Short: "Toggle ipsec phase1",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
@@ -2039,16 +2039,16 @@ func newIpsecPhase2Cmd() *cobra.Command {
 		Use:   "phase2",
 		Short: "Manage ipsec phase2 resources",
 	}
-	cmd.AddCommand(newIpsecPhase2SearchPhase2Cmd())
-	cmd.AddCommand(newIpsecPhase2DelPhase2Cmd())
-	cmd.AddCommand(newIpsecPhase2TogglePhase2Cmd())
+	cmd.AddCommand(newIpsecPhase2ListCmd())
+	cmd.AddCommand(newIpsecPhase2DeleteCmd())
+	cmd.AddCommand(newIpsecPhase2ToggleCmd())
 	return cmd
 }
 
-func newIpsecPhase2SearchPhase2Cmd() *cobra.Command {
+func newIpsecPhase2ListCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "search-phase2",
-		Short: "SearchPhase2 ipsec phase2",
+		Use:   "list",
+		Short: "List ipsec phase2",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -2065,10 +2065,10 @@ func newIpsecPhase2SearchPhase2Cmd() *cobra.Command {
 	}
 }
 
-func newIpsecPhase2DelPhase2Cmd() *cobra.Command {
+func newIpsecPhase2DeleteCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "del-phase2 <seqid>",
-		Short: "DelPhase2 ipsec phase2",
+		Use:   "delete <seqid>",
+		Short: "Delete ipsec phase2",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
@@ -2086,10 +2086,10 @@ func newIpsecPhase2DelPhase2Cmd() *cobra.Command {
 	}
 }
 
-func newIpsecPhase2TogglePhase2Cmd() *cobra.Command {
+func newIpsecPhase2ToggleCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "toggle-phase2 <seqid>",
-		Short: "TogglePhase2 ipsec phase2",
+		Use:   "toggle <seqid>",
+		Short: "Toggle ipsec phase2",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)

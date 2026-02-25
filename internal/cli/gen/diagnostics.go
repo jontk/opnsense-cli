@@ -79,14 +79,14 @@ func newDiagnosticsActivityCmd() *cobra.Command {
 		Use:   "activity",
 		Short: "Manage diagnostics activity resources",
 	}
-	cmd.AddCommand(newDiagnosticsActivityGetActivityCmd())
+	cmd.AddCommand(newDiagnosticsActivityGetCmd())
 	return cmd
 }
 
-func newDiagnosticsActivityGetActivityCmd() *cobra.Command {
+func newDiagnosticsActivityGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get-activity",
-		Short: "GetActivity diagnostics activity",
+		Use:   "get",
+		Short: "Get diagnostics activity",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -108,14 +108,14 @@ func newDiagnosticsCpuTypeCmd() *cobra.Command {
 		Use:   "cpu-type",
 		Short: "Manage diagnostics cpu-type resources",
 	}
-	cmd.AddCommand(newDiagnosticsCpuTypeGetCpuTypeCmd())
+	cmd.AddCommand(newDiagnosticsCpuTypeGetCmd())
 	return cmd
 }
 
-func newDiagnosticsCpuTypeGetCpuTypeCmd() *cobra.Command {
+func newDiagnosticsCpuTypeGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get-cpu-type",
-		Short: "GetCpuType diagnostics cpu-type",
+		Use:   "get",
+		Short: "Get diagnostics cpu-type",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -245,14 +245,14 @@ func newDiagnosticsStateCmd() *cobra.Command {
 		Use:   "state",
 		Short: "Manage diagnostics state resources",
 	}
-	cmd.AddCommand(newDiagnosticsStateDelStateCmd())
+	cmd.AddCommand(newDiagnosticsStateDeleteCmd())
 	return cmd
 }
 
-func newDiagnosticsStateDelStateCmd() *cobra.Command {
+func newDiagnosticsStateDeleteCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "del-state <stateid> <creatorid>",
-		Short: "DelState diagnostics state",
+		Use:   "delete <stateid> <creatorid>",
+		Short: "Delete diagnostics state",
 		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
@@ -537,7 +537,7 @@ func newDiagnosticsInterfaceCmd() *cobra.Command {
 	}
 	cmd.AddCommand(newDiagnosticsInterfaceCarpStatusCmd())
 	cmd.AddCommand(newDiagnosticsInterfaceFlushArpCmd())
-	cmd.AddCommand(newDiagnosticsInterfaceGetInterfacesCmd())
+	cmd.AddCommand(newDiagnosticsInterfaceGetCmd())
 	return cmd
 }
 
@@ -582,10 +582,10 @@ func newDiagnosticsInterfaceFlushArpCmd() *cobra.Command {
 	}
 }
 
-func newDiagnosticsInterfaceGetInterfacesCmd() *cobra.Command {
+func newDiagnosticsInterfaceGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get-interfaces",
-		Short: "GetInterfaces diagnostics interface",
+		Use:   "get",
+		Short: "Get diagnostics interface",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -607,15 +607,15 @@ func newDiagnosticsRouteCmd() *cobra.Command {
 		Use:   "route",
 		Short: "Manage diagnostics route resources",
 	}
-	cmd.AddCommand(newDiagnosticsRouteDelRouteCmd())
-	cmd.AddCommand(newDiagnosticsRouteGetRoutesCmd())
+	cmd.AddCommand(newDiagnosticsRouteDeleteCmd())
+	cmd.AddCommand(newDiagnosticsRouteGetCmd())
 	return cmd
 }
 
-func newDiagnosticsRouteDelRouteCmd() *cobra.Command {
+func newDiagnosticsRouteDeleteCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "del-route",
-		Short: "DelRoute diagnostics route",
+		Use:   "delete",
+		Short: "Delete diagnostics route",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -632,10 +632,10 @@ func newDiagnosticsRouteDelRouteCmd() *cobra.Command {
 	}
 }
 
-func newDiagnosticsRouteGetRoutesCmd() *cobra.Command {
+func newDiagnosticsRouteGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get-routes",
-		Short: "GetRoutes diagnostics route",
+		Use:   "get",
+		Short: "Get diagnostics route",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -657,15 +657,15 @@ func newDiagnosticsArpCmd() *cobra.Command {
 		Use:   "arp",
 		Short: "Manage diagnostics arp resources",
 	}
-	cmd.AddCommand(newDiagnosticsArpGetArpCmd())
-	cmd.AddCommand(newDiagnosticsArpSearchArpCmd())
+	cmd.AddCommand(newDiagnosticsArpGetCmd())
+	cmd.AddCommand(newDiagnosticsArpListCmd())
 	return cmd
 }
 
-func newDiagnosticsArpGetArpCmd() *cobra.Command {
+func newDiagnosticsArpGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get-arp",
-		Short: "GetArp diagnostics arp",
+		Use:   "get",
+		Short: "Get diagnostics arp",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -682,10 +682,10 @@ func newDiagnosticsArpGetArpCmd() *cobra.Command {
 	}
 }
 
-func newDiagnosticsArpSearchArpCmd() *cobra.Command {
+func newDiagnosticsArpListCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "search-arp",
-		Short: "SearchArp diagnostics arp",
+		Use:   "list",
+		Short: "List diagnostics arp",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -707,14 +707,14 @@ func newDiagnosticsBpfStatisticsCmd() *cobra.Command {
 		Use:   "bpf-statistics",
 		Short: "Manage diagnostics bpf-statistics resources",
 	}
-	cmd.AddCommand(newDiagnosticsBpfStatisticsGetBpfStatisticsCmd())
+	cmd.AddCommand(newDiagnosticsBpfStatisticsGetCmd())
 	return cmd
 }
 
-func newDiagnosticsBpfStatisticsGetBpfStatisticsCmd() *cobra.Command {
+func newDiagnosticsBpfStatisticsGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get-bpf-statistics",
-		Short: "GetBpfStatistics diagnostics bpf-statistics",
+		Use:   "get",
+		Short: "Get diagnostics bpf-statistics",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -736,14 +736,14 @@ func newDiagnosticsInterfaceConfigCmd() *cobra.Command {
 		Use:   "interface-config",
 		Short: "Manage diagnostics interface-config resources",
 	}
-	cmd.AddCommand(newDiagnosticsInterfaceConfigGetInterfaceConfigCmd())
+	cmd.AddCommand(newDiagnosticsInterfaceConfigGetCmd())
 	return cmd
 }
 
-func newDiagnosticsInterfaceConfigGetInterfaceConfigCmd() *cobra.Command {
+func newDiagnosticsInterfaceConfigGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get-interface-config",
-		Short: "GetInterfaceConfig diagnostics interface-config",
+		Use:   "get",
+		Short: "Get diagnostics interface-config",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -765,14 +765,14 @@ func newDiagnosticsInterfaceNamesCmd() *cobra.Command {
 		Use:   "interface-names",
 		Short: "Manage diagnostics interface-names resources",
 	}
-	cmd.AddCommand(newDiagnosticsInterfaceNamesGetInterfaceNamesCmd())
+	cmd.AddCommand(newDiagnosticsInterfaceNamesGetCmd())
 	return cmd
 }
 
-func newDiagnosticsInterfaceNamesGetInterfaceNamesCmd() *cobra.Command {
+func newDiagnosticsInterfaceNamesGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get-interface-names",
-		Short: "GetInterfaceNames diagnostics interface-names",
+		Use:   "get",
+		Short: "Get diagnostics interface-names",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -794,14 +794,14 @@ func newDiagnosticsInterfaceStatisticsCmd() *cobra.Command {
 		Use:   "interface-statistics",
 		Short: "Manage diagnostics interface-statistics resources",
 	}
-	cmd.AddCommand(newDiagnosticsInterfaceStatisticsGetInterfaceStatisticsCmd())
+	cmd.AddCommand(newDiagnosticsInterfaceStatisticsGetCmd())
 	return cmd
 }
 
-func newDiagnosticsInterfaceStatisticsGetInterfaceStatisticsCmd() *cobra.Command {
+func newDiagnosticsInterfaceStatisticsGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get-interface-statistics",
-		Short: "GetInterfaceStatistics diagnostics interface-statistics",
+		Use:   "get",
+		Short: "Get diagnostics interface-statistics",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -823,14 +823,14 @@ func newDiagnosticsMemoryStatisticsCmd() *cobra.Command {
 		Use:   "memory-statistics",
 		Short: "Manage diagnostics memory-statistics resources",
 	}
-	cmd.AddCommand(newDiagnosticsMemoryStatisticsGetMemoryStatisticsCmd())
+	cmd.AddCommand(newDiagnosticsMemoryStatisticsGetCmd())
 	return cmd
 }
 
-func newDiagnosticsMemoryStatisticsGetMemoryStatisticsCmd() *cobra.Command {
+func newDiagnosticsMemoryStatisticsGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get-memory-statistics",
-		Short: "GetMemoryStatistics diagnostics memory-statistics",
+		Use:   "get",
+		Short: "Get diagnostics memory-statistics",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -852,15 +852,15 @@ func newDiagnosticsNdpCmd() *cobra.Command {
 		Use:   "ndp",
 		Short: "Manage diagnostics ndp resources",
 	}
-	cmd.AddCommand(newDiagnosticsNdpGetNdpCmd())
-	cmd.AddCommand(newDiagnosticsNdpSearchNdpCmd())
+	cmd.AddCommand(newDiagnosticsNdpGetCmd())
+	cmd.AddCommand(newDiagnosticsNdpListCmd())
 	return cmd
 }
 
-func newDiagnosticsNdpGetNdpCmd() *cobra.Command {
+func newDiagnosticsNdpGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get-ndp",
-		Short: "GetNdp diagnostics ndp",
+		Use:   "get",
+		Short: "Get diagnostics ndp",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -877,10 +877,10 @@ func newDiagnosticsNdpGetNdpCmd() *cobra.Command {
 	}
 }
 
-func newDiagnosticsNdpSearchNdpCmd() *cobra.Command {
+func newDiagnosticsNdpListCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "search-ndp",
-		Short: "SearchNdp diagnostics ndp",
+		Use:   "list",
+		Short: "List diagnostics ndp",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -902,14 +902,14 @@ func newDiagnosticsNetisrStatisticsCmd() *cobra.Command {
 		Use:   "netisr-statistics",
 		Short: "Manage diagnostics netisr-statistics resources",
 	}
-	cmd.AddCommand(newDiagnosticsNetisrStatisticsGetNetisrStatisticsCmd())
+	cmd.AddCommand(newDiagnosticsNetisrStatisticsGetCmd())
 	return cmd
 }
 
-func newDiagnosticsNetisrStatisticsGetNetisrStatisticsCmd() *cobra.Command {
+func newDiagnosticsNetisrStatisticsGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get-netisr-statistics",
-		Short: "GetNetisrStatistics diagnostics netisr-statistics",
+		Use:   "get",
+		Short: "Get diagnostics netisr-statistics",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -931,14 +931,14 @@ func newDiagnosticsPfsyncNodesCmd() *cobra.Command {
 		Use:   "pfsync-nodes",
 		Short: "Manage diagnostics pfsync-nodes resources",
 	}
-	cmd.AddCommand(newDiagnosticsPfsyncNodesGetPfsyncNodesCmd())
+	cmd.AddCommand(newDiagnosticsPfsyncNodesGetCmd())
 	return cmd
 }
 
-func newDiagnosticsPfsyncNodesGetPfsyncNodesCmd() *cobra.Command {
+func newDiagnosticsPfsyncNodesGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get-pfsync-nodes",
-		Short: "GetPfsyncNodes diagnostics pfsync-nodes",
+		Use:   "get",
+		Short: "Get diagnostics pfsync-nodes",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -960,14 +960,14 @@ func newDiagnosticsProtocolStatisticsCmd() *cobra.Command {
 		Use:   "protocol-statistics",
 		Short: "Manage diagnostics protocol-statistics resources",
 	}
-	cmd.AddCommand(newDiagnosticsProtocolStatisticsGetProtocolStatisticsCmd())
+	cmd.AddCommand(newDiagnosticsProtocolStatisticsGetCmd())
 	return cmd
 }
 
-func newDiagnosticsProtocolStatisticsGetProtocolStatisticsCmd() *cobra.Command {
+func newDiagnosticsProtocolStatisticsGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get-protocol-statistics",
-		Short: "GetProtocolStatistics diagnostics protocol-statistics",
+		Use:   "get",
+		Short: "Get diagnostics protocol-statistics",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -989,14 +989,14 @@ func newDiagnosticsSocketStatisticsCmd() *cobra.Command {
 		Use:   "socket-statistics",
 		Short: "Manage diagnostics socket-statistics resources",
 	}
-	cmd.AddCommand(newDiagnosticsSocketStatisticsGetSocketStatisticsCmd())
+	cmd.AddCommand(newDiagnosticsSocketStatisticsGetCmd())
 	return cmd
 }
 
-func newDiagnosticsSocketStatisticsGetSocketStatisticsCmd() *cobra.Command {
+func newDiagnosticsSocketStatisticsGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get-socket-statistics",
-		Short: "GetSocketStatistics diagnostics socket-statistics",
+		Use:   "get",
+		Short: "Get diagnostics socket-statistics",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -1018,14 +1018,14 @@ func newDiagnosticsVipStatusCmd() *cobra.Command {
 		Use:   "vip-status",
 		Short: "Manage diagnostics vip-status resources",
 	}
-	cmd.AddCommand(newDiagnosticsVipStatusGetVipStatusCmd())
+	cmd.AddCommand(newDiagnosticsVipStatusGetCmd())
 	return cmd
 }
 
-func newDiagnosticsVipStatusGetVipStatusCmd() *cobra.Command {
+func newDiagnosticsVipStatusGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get-vip-status",
-		Short: "GetVipStatus diagnostics vip-status",
+		Use:   "get",
+		Short: "Get diagnostics vip-status",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -1428,14 +1428,14 @@ func newDiagnosticsMetadataCmd() *cobra.Command {
 		Use:   "metadata",
 		Short: "Manage diagnostics metadata resources",
 	}
-	cmd.AddCommand(newDiagnosticsMetadataGetMetadataCmd())
+	cmd.AddCommand(newDiagnosticsMetadataGetCmd())
 	return cmd
 }
 
-func newDiagnosticsMetadataGetMetadataCmd() *cobra.Command {
+func newDiagnosticsMetadataGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get-metadata",
-		Short: "GetMetadata diagnostics metadata",
+		Use:   "get",
+		Short: "Get diagnostics metadata",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -1457,14 +1457,14 @@ func newDiagnosticsProtocolsCmd() *cobra.Command {
 		Use:   "protocols",
 		Short: "Manage diagnostics protocols resources",
 	}
-	cmd.AddCommand(newDiagnosticsProtocolsGetProtocolsCmd())
+	cmd.AddCommand(newDiagnosticsProtocolsGetCmd())
 	return cmd
 }
 
-func newDiagnosticsProtocolsGetProtocolsCmd() *cobra.Command {
+func newDiagnosticsProtocolsGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get-protocols",
-		Short: "GetProtocols diagnostics protocols",
+		Use:   "get",
+		Short: "Get diagnostics protocols",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -1486,14 +1486,14 @@ func newDiagnosticsServicesCmd() *cobra.Command {
 		Use:   "services",
 		Short: "Manage diagnostics services resources",
 	}
-	cmd.AddCommand(newDiagnosticsServicesGetServicesCmd())
+	cmd.AddCommand(newDiagnosticsServicesGetCmd())
 	return cmd
 }
 
-func newDiagnosticsServicesGetServicesCmd() *cobra.Command {
+func newDiagnosticsServicesGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get-services",
-		Short: "GetServices diagnostics services",
+		Use:   "get",
+		Short: "Get diagnostics services",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -1697,14 +1697,14 @@ func newDiagnosticsJobsCmd() *cobra.Command {
 		Use:   "jobs",
 		Short: "Manage diagnostics jobs resources",
 	}
-	cmd.AddCommand(newDiagnosticsJobsSearchJobsCmd())
+	cmd.AddCommand(newDiagnosticsJobsListCmd())
 	return cmd
 }
 
-func newDiagnosticsJobsSearchJobsCmd() *cobra.Command {
+func newDiagnosticsJobsListCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "search-jobs",
-		Short: "SearchJobs diagnostics jobs",
+		Use:   "list",
+		Short: "List diagnostics jobs",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -2097,14 +2097,14 @@ func newDiagnosticsRrdListCmd() *cobra.Command {
 		Use:   "rrd-list",
 		Short: "Manage diagnostics rrd-list resources",
 	}
-	cmd.AddCommand(newDiagnosticsRrdListGetRrdListCmd())
+	cmd.AddCommand(newDiagnosticsRrdListGetCmd())
 	return cmd
 }
 
-func newDiagnosticsRrdListGetRrdListCmd() *cobra.Command {
+func newDiagnosticsRrdListGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get-rrd-list",
-		Short: "GetRrdList diagnostics rrd-list",
+		Use:   "get",
+		Short: "Get diagnostics rrd-list",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -2126,14 +2126,14 @@ func newDiagnosticsSystemHealthCmd() *cobra.Command {
 		Use:   "system-health",
 		Short: "Manage diagnostics system-health resources",
 	}
-	cmd.AddCommand(newDiagnosticsSystemHealthGetSystemHealthCmd())
+	cmd.AddCommand(newDiagnosticsSystemHealthGetCmd())
 	return cmd
 }
 
-func newDiagnosticsSystemHealthGetSystemHealthCmd() *cobra.Command {
+func newDiagnosticsSystemHealthGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get-system-health",
-		Short: "GetSystemHealth diagnostics system-health",
+		Use:   "get",
+		Short: "Get diagnostics system-health",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {

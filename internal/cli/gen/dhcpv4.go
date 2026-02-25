@@ -43,15 +43,15 @@ func newDhcpv4LeaseCmd() *cobra.Command {
 		Use:   "lease",
 		Short: "Manage dhcpv4 lease resources",
 	}
-	cmd.AddCommand(newDhcpv4LeaseDelLeaseCmd())
-	cmd.AddCommand(newDhcpv4LeaseSearchLeaseCmd())
+	cmd.AddCommand(newDhcpv4LeaseDeleteCmd())
+	cmd.AddCommand(newDhcpv4LeaseListCmd())
 	return cmd
 }
 
-func newDhcpv4LeaseDelLeaseCmd() *cobra.Command {
+func newDhcpv4LeaseDeleteCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "del-lease <ip>",
-		Short: "DelLease dhcpv4 lease",
+		Use:   "delete <ip>",
+		Short: "Delete dhcpv4 lease",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
@@ -69,10 +69,10 @@ func newDhcpv4LeaseDelLeaseCmd() *cobra.Command {
 	}
 }
 
-func newDhcpv4LeaseSearchLeaseCmd() *cobra.Command {
+func newDhcpv4LeaseListCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "search-lease",
-		Short: "SearchLease dhcpv4 lease",
+		Use:   "list",
+		Short: "List dhcpv4 lease",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {

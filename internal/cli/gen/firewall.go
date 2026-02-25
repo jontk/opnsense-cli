@@ -555,14 +555,14 @@ func newFirewallTableSizeCmd() *cobra.Command {
 		Use:   "table-size",
 		Short: "Manage firewall table-size resources",
 	}
-	cmd.AddCommand(newFirewallTableSizeGetTableSizeCmd())
+	cmd.AddCommand(newFirewallTableSizeGetCmd())
 	return cmd
 }
 
-func newFirewallTableSizeGetTableSizeCmd() *cobra.Command {
+func newFirewallTableSizeGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get-table-size",
-		Short: "GetTableSize firewall table-size",
+		Use:   "get",
+		Short: "Get firewall table-size",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -1381,30 +1381,8 @@ func newFirewallRuleLogCmd() *cobra.Command {
 		Use:   "rule-log",
 		Short: "Manage firewall rule-log resources",
 	}
-	cmd.AddCommand(newFirewallRuleLogToggleRuleLogCmd())
 	cmd.AddCommand(newFirewallRuleLogToggleCmd())
 	return cmd
-}
-
-func newFirewallRuleLogToggleRuleLogCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "toggle-rule-log <uuid> <log>",
-		Short: "ToggleRuleLog firewall rule-log",
-		Args:  cobra.ExactArgs(2),
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.DNatToggleRuleLog(context.Background(), args[0], args[1])
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
 }
 
 func newFirewallRuleLogToggleCmd() *cobra.Command {
@@ -1717,14 +1695,14 @@ func newFirewallInterfaceListCmd() *cobra.Command {
 		Use:   "interface-list",
 		Short: "Manage firewall interface-list resources",
 	}
-	cmd.AddCommand(newFirewallInterfaceListGetInterfaceListCmd())
+	cmd.AddCommand(newFirewallInterfaceListGetCmd())
 	return cmd
 }
 
-func newFirewallInterfaceListGetInterfaceListCmd() *cobra.Command {
+func newFirewallInterfaceListGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get-interface-list",
-		Short: "GetInterfaceList firewall interface-list",
+		Use:   "get",
+		Short: "Get firewall interface-list",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {

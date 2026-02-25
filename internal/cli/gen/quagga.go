@@ -1798,14 +1798,14 @@ func newQuaggaBgproute4Cmd() *cobra.Command {
 		Use:   "bgproute4",
 		Short: "Manage quagga bgproute4 resources",
 	}
-	cmd.AddCommand(newQuaggaBgproute4SearchBgproute4Cmd())
+	cmd.AddCommand(newQuaggaBgproute4ListCmd())
 	return cmd
 }
 
-func newQuaggaBgproute4SearchBgproute4Cmd() *cobra.Command {
+func newQuaggaBgproute4ListCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "search-bgproute4",
-		Short: "SearchBgproute4 quagga bgproute4",
+		Use:   "list",
+		Short: "List quagga bgproute4",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -1827,14 +1827,14 @@ func newQuaggaBgproute6Cmd() *cobra.Command {
 		Use:   "bgproute6",
 		Short: "Manage quagga bgproute6 resources",
 	}
-	cmd.AddCommand(newQuaggaBgproute6SearchBgproute6Cmd())
+	cmd.AddCommand(newQuaggaBgproute6ListCmd())
 	return cmd
 }
 
-func newQuaggaBgproute6SearchBgproute6Cmd() *cobra.Command {
+func newQuaggaBgproute6ListCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "search-bgproute6",
-		Short: "SearchBgproute6 quagga bgproute6",
+		Use:   "list",
+		Short: "List quagga bgproute6",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -1856,14 +1856,14 @@ func newQuaggaGeneralroute4Cmd() *cobra.Command {
 		Use:   "generalroute4",
 		Short: "Manage quagga generalroute4 resources",
 	}
-	cmd.AddCommand(newQuaggaGeneralroute4SearchGeneralroute4Cmd())
+	cmd.AddCommand(newQuaggaGeneralroute4ListCmd())
 	return cmd
 }
 
-func newQuaggaGeneralroute4SearchGeneralroute4Cmd() *cobra.Command {
+func newQuaggaGeneralroute4ListCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "search-generalroute4",
-		Short: "SearchGeneralroute4 quagga generalroute4",
+		Use:   "list",
+		Short: "List quagga generalroute4",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -1885,14 +1885,14 @@ func newQuaggaGeneralroute6Cmd() *cobra.Command {
 		Use:   "generalroute6",
 		Short: "Manage quagga generalroute6 resources",
 	}
-	cmd.AddCommand(newQuaggaGeneralroute6SearchGeneralroute6Cmd())
+	cmd.AddCommand(newQuaggaGeneralroute6ListCmd())
 	return cmd
 }
 
-func newQuaggaGeneralroute6SearchGeneralroute6Cmd() *cobra.Command {
+func newQuaggaGeneralroute6ListCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "search-generalroute6",
-		Short: "SearchGeneralroute6 quagga generalroute6",
+		Use:   "list",
+		Short: "List quagga generalroute6",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -1914,14 +1914,14 @@ func newQuaggaOspfneighborCmd() *cobra.Command {
 		Use:   "ospfneighbor",
 		Short: "Manage quagga ospfneighbor resources",
 	}
-	cmd.AddCommand(newQuaggaOspfneighborSearchOspfneighborCmd())
+	cmd.AddCommand(newQuaggaOspfneighborListCmd())
 	return cmd
 }
 
-func newQuaggaOspfneighborSearchOspfneighborCmd() *cobra.Command {
+func newQuaggaOspfneighborListCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "search-ospfneighbor",
-		Short: "SearchOspfneighbor quagga ospfneighbor",
+		Use:   "list",
+		Short: "List quagga ospfneighbor",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -1943,14 +1943,14 @@ func newQuaggaOspfrouteCmd() *cobra.Command {
 		Use:   "ospfroute",
 		Short: "Manage quagga ospfroute resources",
 	}
-	cmd.AddCommand(newQuaggaOspfrouteSearchOspfrouteCmd())
+	cmd.AddCommand(newQuaggaOspfrouteListCmd())
 	return cmd
 }
 
-func newQuaggaOspfrouteSearchOspfrouteCmd() *cobra.Command {
+func newQuaggaOspfrouteListCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "search-ospfroute",
-		Short: "SearchOspfroute quagga ospfroute",
+		Use:   "list",
+		Short: "List quagga ospfroute",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -1972,14 +1972,14 @@ func newQuaggaOspfv3DatabaseCmd() *cobra.Command {
 		Use:   "ospfv3database",
 		Short: "Manage quagga ospfv3database resources",
 	}
-	cmd.AddCommand(newQuaggaOspfv3DatabaseSearchOspfv3databaseCmd())
+	cmd.AddCommand(newQuaggaOspfv3DatabaseListCmd())
 	return cmd
 }
 
-func newQuaggaOspfv3DatabaseSearchOspfv3databaseCmd() *cobra.Command {
+func newQuaggaOspfv3DatabaseListCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "search-ospfv3database",
-		Short: "SearchOspfv3database quagga ospfv3database",
+		Use:   "list",
+		Short: "List quagga ospfv3database",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -2001,14 +2001,14 @@ func newQuaggaOspfv3RouteCmd() *cobra.Command {
 		Use:   "ospfv3route",
 		Short: "Manage quagga ospfv3route resources",
 	}
-	cmd.AddCommand(newQuaggaOspfv3RouteSearchOspfv3routeCmd())
+	cmd.AddCommand(newQuaggaOspfv3RouteListCmd())
 	return cmd
 }
 
-func newQuaggaOspfv3RouteSearchOspfv3routeCmd() *cobra.Command {
+func newQuaggaOspfv3RouteListCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "search-ospfv3route",
-		Short: "SearchOspfv3route quagga ospfv3route",
+		Use:   "list",
+		Short: "List quagga ospfv3route",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {

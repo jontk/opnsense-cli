@@ -44,14 +44,14 @@ func newApcupsdUpsStatusCmd() *cobra.Command {
 		Use:   "ups-status",
 		Short: "Manage apcupsd ups-status resources",
 	}
-	cmd.AddCommand(newApcupsdUpsStatusGetUpsStatusCmd())
+	cmd.AddCommand(newApcupsdUpsStatusGetCmd())
 	return cmd
 }
 
-func newApcupsdUpsStatusGetUpsStatusCmd() *cobra.Command {
+func newApcupsdUpsStatusGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get-ups-status",
-		Short: "GetUpsStatus apcupsd ups-status",
+		Use:   "get",
+		Short: "Get apcupsd ups-status",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {

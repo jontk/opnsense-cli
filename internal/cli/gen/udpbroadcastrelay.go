@@ -224,19 +224,19 @@ func newUdpbroadcastrelayRelayCmd() *cobra.Command {
 		Use:   "relay",
 		Short: "Manage udpbroadcastrelay relay resources",
 	}
-	cmd.AddCommand(newUdpbroadcastrelayRelayAddRelayCmd())
-	cmd.AddCommand(newUdpbroadcastrelayRelayDelRelayCmd())
-	cmd.AddCommand(newUdpbroadcastrelayRelayGetRelayCmd())
-	cmd.AddCommand(newUdpbroadcastrelayRelaySearchRelayCmd())
-	cmd.AddCommand(newUdpbroadcastrelayRelaySetRelayCmd())
-	cmd.AddCommand(newUdpbroadcastrelayRelayToggleRelayCmd())
+	cmd.AddCommand(newUdpbroadcastrelayRelayCreateCmd())
+	cmd.AddCommand(newUdpbroadcastrelayRelayDeleteCmd())
+	cmd.AddCommand(newUdpbroadcastrelayRelayGetCmd())
+	cmd.AddCommand(newUdpbroadcastrelayRelayListCmd())
+	cmd.AddCommand(newUdpbroadcastrelayRelayUpdateCmd())
+	cmd.AddCommand(newUdpbroadcastrelayRelayToggleCmd())
 	return cmd
 }
 
-func newUdpbroadcastrelayRelayAddRelayCmd() *cobra.Command {
+func newUdpbroadcastrelayRelayCreateCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "add-relay",
-		Short: "AddRelay udpbroadcastrelay relay",
+		Use:   "create",
+		Short: "Create udpbroadcastrelay relay",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -253,10 +253,10 @@ func newUdpbroadcastrelayRelayAddRelayCmd() *cobra.Command {
 	}
 }
 
-func newUdpbroadcastrelayRelayDelRelayCmd() *cobra.Command {
+func newUdpbroadcastrelayRelayDeleteCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "del-relay <uuid>",
-		Short: "DelRelay udpbroadcastrelay relay",
+		Use:   "delete <uuid>",
+		Short: "Delete udpbroadcastrelay relay",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
@@ -274,10 +274,10 @@ func newUdpbroadcastrelayRelayDelRelayCmd() *cobra.Command {
 	}
 }
 
-func newUdpbroadcastrelayRelayGetRelayCmd() *cobra.Command {
+func newUdpbroadcastrelayRelayGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get-relay",
-		Short: "GetRelay udpbroadcastrelay relay",
+		Use:   "get",
+		Short: "Get udpbroadcastrelay relay",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -294,10 +294,10 @@ func newUdpbroadcastrelayRelayGetRelayCmd() *cobra.Command {
 	}
 }
 
-func newUdpbroadcastrelayRelaySearchRelayCmd() *cobra.Command {
+func newUdpbroadcastrelayRelayListCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "search-relay",
-		Short: "SearchRelay udpbroadcastrelay relay",
+		Use:   "list",
+		Short: "List udpbroadcastrelay relay",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -314,10 +314,10 @@ func newUdpbroadcastrelayRelaySearchRelayCmd() *cobra.Command {
 	}
 }
 
-func newUdpbroadcastrelayRelaySetRelayCmd() *cobra.Command {
+func newUdpbroadcastrelayRelayUpdateCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "set-relay <uuid>",
-		Short: "SetRelay udpbroadcastrelay relay",
+		Use:   "update <uuid>",
+		Short: "Update udpbroadcastrelay relay",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
@@ -335,10 +335,10 @@ func newUdpbroadcastrelayRelaySetRelayCmd() *cobra.Command {
 	}
 }
 
-func newUdpbroadcastrelayRelayToggleRelayCmd() *cobra.Command {
+func newUdpbroadcastrelayRelayToggleCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "toggle-relay <uuid>",
-		Short: "ToggleRelay udpbroadcastrelay relay",
+		Use:   "toggle <uuid>",
+		Short: "Toggle udpbroadcastrelay relay",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)

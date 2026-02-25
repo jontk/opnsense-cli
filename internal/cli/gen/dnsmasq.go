@@ -1342,14 +1342,14 @@ func newDnsmasqTagListResourceCmd() *cobra.Command {
 		Use:   "tag-list",
 		Short: "Manage dnsmasq tag-list resources",
 	}
-	cmd.AddCommand(newDnsmasqTagListResourceGetTagListCmd())
+	cmd.AddCommand(newDnsmasqTagListResourceGetCmd())
 	return cmd
 }
 
-func newDnsmasqTagListResourceGetTagListCmd() *cobra.Command {
+func newDnsmasqTagListResourceGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get-tag-list",
-		Short: "GetTagList dnsmasq tag-list",
+		Use:   "get",
+		Short: "Get dnsmasq tag-list",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {

@@ -746,14 +746,14 @@ func newOpenvpnRoutesCmd() *cobra.Command {
 		Use:   "routes",
 		Short: "Manage openvpn routes resources",
 	}
-	cmd.AddCommand(newOpenvpnRoutesSearchRoutesCmd())
+	cmd.AddCommand(newOpenvpnRoutesListCmd())
 	return cmd
 }
 
-func newOpenvpnRoutesSearchRoutesCmd() *cobra.Command {
+func newOpenvpnRoutesListCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "search-routes",
-		Short: "SearchRoutes openvpn routes",
+		Use:   "list",
+		Short: "List openvpn routes",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -775,14 +775,14 @@ func newOpenvpnSessionsCmd() *cobra.Command {
 		Use:   "sessions",
 		Short: "Manage openvpn sessions resources",
 	}
-	cmd.AddCommand(newOpenvpnSessionsSearchSessionsCmd())
+	cmd.AddCommand(newOpenvpnSessionsListCmd())
 	return cmd
 }
 
-func newOpenvpnSessionsSearchSessionsCmd() *cobra.Command {
+func newOpenvpnSessionsListCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "search-sessions",
-		Short: "SearchSessions openvpn sessions",
+		Use:   "list",
+		Short: "List openvpn sessions",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {

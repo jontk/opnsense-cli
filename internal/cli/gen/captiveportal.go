@@ -141,16 +141,16 @@ func newCaptiveportalTemplateCmd() *cobra.Command {
 		Use:   "template",
 		Short: "Manage captiveportal template resources",
 	}
-	cmd.AddCommand(newCaptiveportalTemplateDelTemplateCmd())
-	cmd.AddCommand(newCaptiveportalTemplateGetTemplateCmd())
-	cmd.AddCommand(newCaptiveportalTemplateSearchTemplatesCmd())
+	cmd.AddCommand(newCaptiveportalTemplateDeleteCmd())
+	cmd.AddCommand(newCaptiveportalTemplateGetCmd())
+	cmd.AddCommand(newCaptiveportalTemplateListCmd())
 	return cmd
 }
 
-func newCaptiveportalTemplateDelTemplateCmd() *cobra.Command {
+func newCaptiveportalTemplateDeleteCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "del-template <uuid>",
-		Short: "DelTemplate captiveportal template",
+		Use:   "delete <uuid>",
+		Short: "Delete captiveportal template",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
@@ -168,10 +168,10 @@ func newCaptiveportalTemplateDelTemplateCmd() *cobra.Command {
 	}
 }
 
-func newCaptiveportalTemplateGetTemplateCmd() *cobra.Command {
+func newCaptiveportalTemplateGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get-template",
-		Short: "GetTemplate captiveportal template",
+		Use:   "get",
+		Short: "Get captiveportal template",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -188,10 +188,10 @@ func newCaptiveportalTemplateGetTemplateCmd() *cobra.Command {
 	}
 }
 
-func newCaptiveportalTemplateSearchTemplatesCmd() *cobra.Command {
+func newCaptiveportalTemplateListCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "search-templates",
-		Short: "SearchTemplates captiveportal template",
+		Use:   "list",
+		Short: "List captiveportal template",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {

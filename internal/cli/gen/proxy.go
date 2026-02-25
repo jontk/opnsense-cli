@@ -793,19 +793,19 @@ func newProxyRemoteBlacklistCmd() *cobra.Command {
 		Use:   "remote-blacklist",
 		Short: "Manage proxy remote-blacklist resources",
 	}
-	cmd.AddCommand(newProxyRemoteBlacklistAddRemoteBlacklistCmd())
-	cmd.AddCommand(newProxyRemoteBlacklistDelRemoteBlacklistCmd())
-	cmd.AddCommand(newProxyRemoteBlacklistGetRemoteBlacklistCmd())
-	cmd.AddCommand(newProxyRemoteBlacklistSetRemoteBlacklistCmd())
-	cmd.AddCommand(newProxyRemoteBlacklistToggleRemoteBlacklistCmd())
-	cmd.AddCommand(newProxyRemoteBlacklistSearchRemoteBlacklistsCmd())
+	cmd.AddCommand(newProxyRemoteBlacklistCreateCmd())
+	cmd.AddCommand(newProxyRemoteBlacklistDeleteCmd())
+	cmd.AddCommand(newProxyRemoteBlacklistGetCmd())
+	cmd.AddCommand(newProxyRemoteBlacklistUpdateCmd())
+	cmd.AddCommand(newProxyRemoteBlacklistToggleCmd())
+	cmd.AddCommand(newProxyRemoteBlacklistListCmd())
 	return cmd
 }
 
-func newProxyRemoteBlacklistAddRemoteBlacklistCmd() *cobra.Command {
+func newProxyRemoteBlacklistCreateCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "add-remote-blacklist",
-		Short: "AddRemoteBlacklist proxy remote-blacklist",
+		Use:   "create",
+		Short: "Create proxy remote-blacklist",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -822,10 +822,10 @@ func newProxyRemoteBlacklistAddRemoteBlacklistCmd() *cobra.Command {
 	}
 }
 
-func newProxyRemoteBlacklistDelRemoteBlacklistCmd() *cobra.Command {
+func newProxyRemoteBlacklistDeleteCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "del-remote-blacklist <uuid>",
-		Short: "DelRemoteBlacklist proxy remote-blacklist",
+		Use:   "delete <uuid>",
+		Short: "Delete proxy remote-blacklist",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
@@ -843,10 +843,10 @@ func newProxyRemoteBlacklistDelRemoteBlacklistCmd() *cobra.Command {
 	}
 }
 
-func newProxyRemoteBlacklistGetRemoteBlacklistCmd() *cobra.Command {
+func newProxyRemoteBlacklistGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get-remote-blacklist",
-		Short: "GetRemoteBlacklist proxy remote-blacklist",
+		Use:   "get",
+		Short: "Get proxy remote-blacklist",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -863,10 +863,10 @@ func newProxyRemoteBlacklistGetRemoteBlacklistCmd() *cobra.Command {
 	}
 }
 
-func newProxyRemoteBlacklistSetRemoteBlacklistCmd() *cobra.Command {
+func newProxyRemoteBlacklistUpdateCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "set-remote-blacklist <uuid>",
-		Short: "SetRemoteBlacklist proxy remote-blacklist",
+		Use:   "update <uuid>",
+		Short: "Update proxy remote-blacklist",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
@@ -884,10 +884,10 @@ func newProxyRemoteBlacklistSetRemoteBlacklistCmd() *cobra.Command {
 	}
 }
 
-func newProxyRemoteBlacklistToggleRemoteBlacklistCmd() *cobra.Command {
+func newProxyRemoteBlacklistToggleCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "toggle-remote-blacklist <uuid>",
-		Short: "ToggleRemoteBlacklist proxy remote-blacklist",
+		Use:   "toggle <uuid>",
+		Short: "Toggle proxy remote-blacklist",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
@@ -905,10 +905,10 @@ func newProxyRemoteBlacklistToggleRemoteBlacklistCmd() *cobra.Command {
 	}
 }
 
-func newProxyRemoteBlacklistSearchRemoteBlacklistsCmd() *cobra.Command {
+func newProxyRemoteBlacklistListCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "search-remote-blacklists",
-		Short: "SearchRemoteBlacklists proxy remote-blacklist",
+		Use:   "list",
+		Short: "List proxy remote-blacklist",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -1072,19 +1072,19 @@ func newProxyCustomPolicyCmd() *cobra.Command {
 		Use:   "custom-policy",
 		Short: "Manage proxy custom-policy resources",
 	}
-	cmd.AddCommand(newProxyCustomPolicyAddCustomPolicyCmd())
-	cmd.AddCommand(newProxyCustomPolicyDelCustomPolicyCmd())
-	cmd.AddCommand(newProxyCustomPolicyGetCustomPolicyCmd())
-	cmd.AddCommand(newProxyCustomPolicySearchCustomPolicyCmd())
-	cmd.AddCommand(newProxyCustomPolicySetCustomPolicyCmd())
-	cmd.AddCommand(newProxyCustomPolicyToggleCustomPolicyCmd())
+	cmd.AddCommand(newProxyCustomPolicyCreateCmd())
+	cmd.AddCommand(newProxyCustomPolicyDeleteCmd())
+	cmd.AddCommand(newProxyCustomPolicyGetCmd())
+	cmd.AddCommand(newProxyCustomPolicyListCmd())
+	cmd.AddCommand(newProxyCustomPolicyUpdateCmd())
+	cmd.AddCommand(newProxyCustomPolicyToggleCmd())
 	return cmd
 }
 
-func newProxyCustomPolicyAddCustomPolicyCmd() *cobra.Command {
+func newProxyCustomPolicyCreateCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "add-custom-policy",
-		Short: "AddCustomPolicy proxy custom-policy",
+		Use:   "create",
+		Short: "Create proxy custom-policy",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -1101,10 +1101,10 @@ func newProxyCustomPolicyAddCustomPolicyCmd() *cobra.Command {
 	}
 }
 
-func newProxyCustomPolicyDelCustomPolicyCmd() *cobra.Command {
+func newProxyCustomPolicyDeleteCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "del-custom-policy <uuid>",
-		Short: "DelCustomPolicy proxy custom-policy",
+		Use:   "delete <uuid>",
+		Short: "Delete proxy custom-policy",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
@@ -1122,10 +1122,10 @@ func newProxyCustomPolicyDelCustomPolicyCmd() *cobra.Command {
 	}
 }
 
-func newProxyCustomPolicyGetCustomPolicyCmd() *cobra.Command {
+func newProxyCustomPolicyGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get-custom-policy",
-		Short: "GetCustomPolicy proxy custom-policy",
+		Use:   "get",
+		Short: "Get proxy custom-policy",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -1142,10 +1142,10 @@ func newProxyCustomPolicyGetCustomPolicyCmd() *cobra.Command {
 	}
 }
 
-func newProxyCustomPolicySearchCustomPolicyCmd() *cobra.Command {
+func newProxyCustomPolicyListCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "search-custom-policy",
-		Short: "SearchCustomPolicy proxy custom-policy",
+		Use:   "list",
+		Short: "List proxy custom-policy",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -1162,10 +1162,10 @@ func newProxyCustomPolicySearchCustomPolicyCmd() *cobra.Command {
 	}
 }
 
-func newProxyCustomPolicySetCustomPolicyCmd() *cobra.Command {
+func newProxyCustomPolicyUpdateCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "set-custom-policy <uuid>",
-		Short: "SetCustomPolicy proxy custom-policy",
+		Use:   "update <uuid>",
+		Short: "Update proxy custom-policy",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
@@ -1183,10 +1183,10 @@ func newProxyCustomPolicySetCustomPolicyCmd() *cobra.Command {
 	}
 }
 
-func newProxyCustomPolicyToggleCustomPolicyCmd() *cobra.Command {
+func newProxyCustomPolicyToggleCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "toggle-custom-policy <uuid>",
-		Short: "ToggleCustomPolicy proxy custom-policy",
+		Use:   "toggle <uuid>",
+		Short: "Toggle proxy custom-policy",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
@@ -1209,19 +1209,19 @@ func newProxyPolicyCmd() *cobra.Command {
 		Use:   "policy",
 		Short: "Manage proxy policy resources",
 	}
-	cmd.AddCommand(newProxyPolicyAddPolicyCmd())
-	cmd.AddCommand(newProxyPolicyDelPolicyCmd())
-	cmd.AddCommand(newProxyPolicyGetPolicyCmd())
-	cmd.AddCommand(newProxyPolicySearchPolicyCmd())
-	cmd.AddCommand(newProxyPolicySetPolicyCmd())
-	cmd.AddCommand(newProxyPolicyTogglePolicyCmd())
+	cmd.AddCommand(newProxyPolicyCreateCmd())
+	cmd.AddCommand(newProxyPolicyDeleteCmd())
+	cmd.AddCommand(newProxyPolicyGetCmd())
+	cmd.AddCommand(newProxyPolicyListCmd())
+	cmd.AddCommand(newProxyPolicyUpdateCmd())
+	cmd.AddCommand(newProxyPolicyToggleCmd())
 	return cmd
 }
 
-func newProxyPolicyAddPolicyCmd() *cobra.Command {
+func newProxyPolicyCreateCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "add-policy",
-		Short: "AddPolicy proxy policy",
+		Use:   "create",
+		Short: "Create proxy policy",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -1238,10 +1238,10 @@ func newProxyPolicyAddPolicyCmd() *cobra.Command {
 	}
 }
 
-func newProxyPolicyDelPolicyCmd() *cobra.Command {
+func newProxyPolicyDeleteCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "del-policy <uuid>",
-		Short: "DelPolicy proxy policy",
+		Use:   "delete <uuid>",
+		Short: "Delete proxy policy",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
@@ -1259,10 +1259,10 @@ func newProxyPolicyDelPolicyCmd() *cobra.Command {
 	}
 }
 
-func newProxyPolicyGetPolicyCmd() *cobra.Command {
+func newProxyPolicyGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get-policy",
-		Short: "GetPolicy proxy policy",
+		Use:   "get",
+		Short: "Get proxy policy",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -1279,10 +1279,10 @@ func newProxyPolicyGetPolicyCmd() *cobra.Command {
 	}
 }
 
-func newProxyPolicySearchPolicyCmd() *cobra.Command {
+func newProxyPolicyListCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "search-policy",
-		Short: "SearchPolicy proxy policy",
+		Use:   "list",
+		Short: "List proxy policy",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -1299,10 +1299,10 @@ func newProxyPolicySearchPolicyCmd() *cobra.Command {
 	}
 }
 
-func newProxyPolicySetPolicyCmd() *cobra.Command {
+func newProxyPolicyUpdateCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "set-policy <uuid>",
-		Short: "SetPolicy proxy policy",
+		Use:   "update <uuid>",
+		Short: "Update proxy policy",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
@@ -1320,10 +1320,10 @@ func newProxyPolicySetPolicyCmd() *cobra.Command {
 	}
 }
 
-func newProxyPolicyTogglePolicyCmd() *cobra.Command {
+func newProxyPolicyToggleCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "toggle-policy <uuid>",
-		Short: "TogglePolicy proxy policy",
+		Use:   "toggle <uuid>",
+		Short: "Toggle proxy policy",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)

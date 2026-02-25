@@ -1729,14 +1729,14 @@ func newCaddyAllReverseDomainsCmd() *cobra.Command {
 		Use:   "all-reverse-domains",
 		Short: "Manage caddy all-reverse-domains resources",
 	}
-	cmd.AddCommand(newCaddyAllReverseDomainsGetAllReverseDomainsCmd())
+	cmd.AddCommand(newCaddyAllReverseDomainsGetCmd())
 	return cmd
 }
 
-func newCaddyAllReverseDomainsGetAllReverseDomainsCmd() *cobra.Command {
+func newCaddyAllReverseDomainsGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get-all-reverse-domains",
-		Short: "GetAllReverseDomains caddy all-reverse-domains",
+		Use:   "get",
+		Short: "Get caddy all-reverse-domains",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {

@@ -522,14 +522,14 @@ func newInterfacesIfOptionsCmd() *cobra.Command {
 		Use:   "if-options",
 		Short: "Manage interfaces if-options resources",
 	}
-	cmd.AddCommand(newInterfacesIfOptionsGetIfOptionsCmd())
+	cmd.AddCommand(newInterfacesIfOptionsGetCmd())
 	return cmd
 }
 
-func newInterfacesIfOptionsGetIfOptionsCmd() *cobra.Command {
+func newInterfacesIfOptionsGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get-if-options",
-		Short: "GetIfOptions interfaces if-options",
+		Use:   "get",
+		Short: "Get interfaces if-options",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -1470,14 +1470,14 @@ func newInterfacesInterfaceCmd() *cobra.Command {
 		Use:   "interface",
 		Short: "Manage interfaces interface resources",
 	}
-	cmd.AddCommand(newInterfacesInterfaceGetInterfaceCmd())
+	cmd.AddCommand(newInterfacesInterfaceGetCmd())
 	return cmd
 }
 
-func newInterfacesInterfaceGetInterfaceCmd() *cobra.Command {
+func newInterfacesInterfaceGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get-interface",
-		Short: "GetInterface interfaces interface",
+		Use:   "get",
+		Short: "Get interfaces interface",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -1797,14 +1797,14 @@ func newInterfacesUnusedVhidCmd() *cobra.Command {
 		Use:   "unused-vhid",
 		Short: "Manage interfaces unused-vhid resources",
 	}
-	cmd.AddCommand(newInterfacesUnusedVhidGetUnusedVhidCmd())
+	cmd.AddCommand(newInterfacesUnusedVhidGetCmd())
 	return cmd
 }
 
-func newInterfacesUnusedVhidGetUnusedVhidCmd() *cobra.Command {
+func newInterfacesUnusedVhidGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get-unused-vhid",
-		Short: "GetUnusedVhid interfaces unused-vhid",
+		Use:   "get",
+		Short: "Get interfaces unused-vhid",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {

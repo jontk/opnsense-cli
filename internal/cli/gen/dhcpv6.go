@@ -44,15 +44,15 @@ func newDhcpv6LeaseCmd() *cobra.Command {
 		Use:   "lease",
 		Short: "Manage dhcpv6 lease resources",
 	}
-	cmd.AddCommand(newDhcpv6LeaseDelLeaseCmd())
-	cmd.AddCommand(newDhcpv6LeaseSearchLeaseCmd())
+	cmd.AddCommand(newDhcpv6LeaseDeleteCmd())
+	cmd.AddCommand(newDhcpv6LeaseListCmd())
 	return cmd
 }
 
-func newDhcpv6LeaseDelLeaseCmd() *cobra.Command {
+func newDhcpv6LeaseDeleteCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "del-lease <ip>",
-		Short: "DelLease dhcpv6 lease",
+		Use:   "delete <ip>",
+		Short: "Delete dhcpv6 lease",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
@@ -70,10 +70,10 @@ func newDhcpv6LeaseDelLeaseCmd() *cobra.Command {
 	}
 }
 
-func newDhcpv6LeaseSearchLeaseCmd() *cobra.Command {
+func newDhcpv6LeaseListCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "search-lease",
-		Short: "SearchLease dhcpv6 lease",
+		Use:   "list",
+		Short: "List dhcpv6 lease",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -95,14 +95,14 @@ func newDhcpv6PrefixCmd() *cobra.Command {
 		Use:   "prefix",
 		Short: "Manage dhcpv6 prefix resources",
 	}
-	cmd.AddCommand(newDhcpv6PrefixSearchPrefixCmd())
+	cmd.AddCommand(newDhcpv6PrefixListCmd())
 	return cmd
 }
 
-func newDhcpv6PrefixSearchPrefixCmd() *cobra.Command {
+func newDhcpv6PrefixListCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "search-prefix",
-		Short: "SearchPrefix dhcpv6 prefix",
+		Use:   "list",
+		Short: "List dhcpv6 prefix",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {

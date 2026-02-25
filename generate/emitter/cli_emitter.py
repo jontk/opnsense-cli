@@ -120,6 +120,12 @@ def _cli_verb_from_endpoint(ep: Endpoint) -> str:
     cmd = ep.command
     if ep.crud_verb:
         return _CRUD_TO_CLI_VERB.get(ep.crud_verb) or ep.crud_verb
+    # Detect underscore-CRUD pattern even when endpoint resolver didn't link a type.
+    # e.g., search_lease → list, del_lease → delete (untyped endpoints with no model).
+    m = re.match(r'^(add|get|set|del|search|toggle)_(.+)$', cmd)
+    if m:
+        verb = m.group(1)
+        return _CRUD_TO_CLI_VERB.get(verb) or verb
     return _normalize_kebab(cmd)
 
 
