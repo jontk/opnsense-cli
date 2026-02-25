@@ -20,113 +20,113 @@ func NewClient(c *opnsense.Client) *Client {
 }
 
 // GeneralGet calls GET /api/shadowsocks/general/get
-func (c *Client) GeneralGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) GeneralGet(ctx context.Context) (any, error) {
 	path := "/api/shadowsocks/general/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // GeneralSet calls POST /api/shadowsocks/general/set
-func (c *Client) GeneralSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) GeneralSet(ctx context.Context, body any) (any, error) {
 	path := "/api/shadowsocks/general/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // LocalGet calls GET /api/shadowsocks/local/get
-func (c *Client) LocalGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) LocalGet(ctx context.Context) (any, error) {
 	path := "/api/shadowsocks/local/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // LocalSet calls POST /api/shadowsocks/local/set
-func (c *Client) LocalSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) LocalSet(ctx context.Context, body any) (any, error) {
 	path := "/api/shadowsocks/local/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // LocalserviceReconfigure calls POST /api/shadowsocks/localservice/reconfigure
-func (c *Client) LocalserviceReconfigure(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) LocalserviceReconfigure(ctx context.Context, body any) (any, error) {
 	path := "/api/shadowsocks/localservice/reconfigure"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // LocalserviceRestart calls POST /api/shadowsocks/localservice/restart
-func (c *Client) LocalserviceRestart(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) LocalserviceRestart(ctx context.Context, body any) (any, error) {
 	path := "/api/shadowsocks/localservice/restart"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // LocalserviceStart calls POST /api/shadowsocks/localservice/start
-func (c *Client) LocalserviceStart(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) LocalserviceStart(ctx context.Context, body any) (any, error) {
 	path := "/api/shadowsocks/localservice/start"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // LocalserviceStatus calls GET /api/shadowsocks/localservice/status
-func (c *Client) LocalserviceStatus(ctx context.Context) (map[string]any, error) {
+func (c *Client) LocalserviceStatus(ctx context.Context) (any, error) {
 	path := "/api/shadowsocks/localservice/status"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // LocalserviceStop calls POST /api/shadowsocks/localservice/stop
-func (c *Client) LocalserviceStop(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) LocalserviceStop(ctx context.Context, body any) (any, error) {
 	path := "/api/shadowsocks/localservice/stop"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceReconfigure calls POST /api/shadowsocks/service/reconfigure
-func (c *Client) ServiceReconfigure(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceReconfigure(ctx context.Context, body any) (any, error) {
 	path := "/api/shadowsocks/service/reconfigure"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceRestart calls POST /api/shadowsocks/service/restart
-func (c *Client) ServiceRestart(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceRestart(ctx context.Context, body any) (any, error) {
 	path := "/api/shadowsocks/service/restart"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceStart calls POST /api/shadowsocks/service/start
-func (c *Client) ServiceStart(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceStart(ctx context.Context, body any) (any, error) {
 	path := "/api/shadowsocks/service/start"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceStatus calls GET /api/shadowsocks/service/status
-func (c *Client) ServiceStatus(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceStatus(ctx context.Context) (any, error) {
 	path := "/api/shadowsocks/service/status"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ServiceStop calls POST /api/shadowsocks/service/stop
-func (c *Client) ServiceStop(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceStop(ctx context.Context, body any) (any, error) {
 	path := "/api/shadowsocks/service/stop"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }

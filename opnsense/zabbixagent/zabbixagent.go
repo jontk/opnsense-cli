@@ -21,41 +21,41 @@ func NewClient(c *opnsense.Client) *Client {
 }
 
 // ServiceReconfigure calls POST /api/zabbixagent/service/reconfigure
-func (c *Client) ServiceReconfigure(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceReconfigure(ctx context.Context, body any) (any, error) {
 	path := "/api/zabbixagent/service/reconfigure"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceRestart calls POST /api/zabbixagent/service/restart
-func (c *Client) ServiceRestart(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceRestart(ctx context.Context, body any) (any, error) {
 	path := "/api/zabbixagent/service/restart"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceStart calls POST /api/zabbixagent/service/start
-func (c *Client) ServiceStart(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceStart(ctx context.Context, body any) (any, error) {
 	path := "/api/zabbixagent/service/start"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceStatus calls GET /api/zabbixagent/service/status
-func (c *Client) ServiceStatus(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceStatus(ctx context.Context) (any, error) {
 	path := "/api/zabbixagent/service/status"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ServiceStop calls POST /api/zabbixagent/service/stop
-func (c *Client) ServiceStop(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceStop(ctx context.Context, body any) (any, error) {
 	path := "/api/zabbixagent/service/stop"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -97,9 +97,9 @@ func (c *Client) SettingsDelUserparameter(ctx context.Context, uuid string) (*op
 }
 
 // SettingsGet calls GET /api/zabbixagent/settings/get
-func (c *Client) SettingsGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) SettingsGet(ctx context.Context) (any, error) {
 	path := "/api/zabbixagent/settings/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -147,9 +147,9 @@ func (c *Client) SettingsSearchUserparameters(ctx context.Context, body any) (*o
 }
 
 // SettingsSet calls POST /api/zabbixagent/settings/set
-func (c *Client) SettingsSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSet(ctx context.Context, body any) (any, error) {
 	path := "/api/zabbixagent/settings/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }

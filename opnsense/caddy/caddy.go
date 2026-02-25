@@ -21,49 +21,49 @@ func NewClient(c *opnsense.Client) *Client {
 }
 
 // DiagnosticsCaddyfile calls GET /api/caddy/diagnostics/caddyfile
-func (c *Client) DiagnosticsCaddyfile(ctx context.Context) (map[string]any, error) {
+func (c *Client) DiagnosticsCaddyfile(ctx context.Context) (any, error) {
 	path := "/api/caddy/diagnostics/caddyfile"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // DiagnosticsConfig calls GET /api/caddy/diagnostics/config
-func (c *Client) DiagnosticsConfig(ctx context.Context) (map[string]any, error) {
+func (c *Client) DiagnosticsConfig(ctx context.Context) (any, error) {
 	path := "/api/caddy/diagnostics/config"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // DiagnosticsGet calls GET /api/caddy/diagnostics/get
-func (c *Client) DiagnosticsGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) DiagnosticsGet(ctx context.Context) (any, error) {
 	path := "/api/caddy/diagnostics/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // DiagnosticsSet calls POST /api/caddy/diagnostics/set
-func (c *Client) DiagnosticsSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) DiagnosticsSet(ctx context.Context, body any) (any, error) {
 	path := "/api/caddy/diagnostics/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // GeneralGet calls GET /api/caddy/general/get
-func (c *Client) GeneralGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) GeneralGet(ctx context.Context) (any, error) {
 	path := "/api/caddy/general/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // GeneralSet calls POST /api/caddy/general/set
-func (c *Client) GeneralSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) GeneralSet(ctx context.Context, body any) (any, error) {
 	path := "/api/caddy/general/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -213,9 +213,9 @@ func (c *Client) ReverseProxyDelSubdomain(ctx context.Context, uuid string) (*op
 }
 
 // ReverseProxyGet calls GET /api/caddy/reverse_proxy/get
-func (c *Client) ReverseProxyGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) ReverseProxyGet(ctx context.Context) (any, error) {
 	path := "/api/caddy/reverse_proxy/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -234,9 +234,9 @@ func (c *Client) ReverseProxyGetAccessList(ctx context.Context, opts ...string) 
 }
 
 // ReverseProxyGetAllReverseDomains calls GET /api/caddy/reverse_proxy/getAllReverseDomains
-func (c *Client) ReverseProxyGetAllReverseDomains(ctx context.Context) (map[string]any, error) {
+func (c *Client) ReverseProxyGetAllReverseDomains(ctx context.Context) (any, error) {
 	path := "/api/caddy/reverse_proxy/getAllReverseDomains"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -397,9 +397,9 @@ func (c *Client) ReverseProxySearchSubdomain(ctx context.Context, body any) (*op
 }
 
 // ReverseProxySet calls POST /api/caddy/reverse_proxy/set
-func (c *Client) ReverseProxySet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ReverseProxySet(ctx context.Context, body any) (any, error) {
 	path := "/api/caddy/reverse_proxy/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -555,49 +555,49 @@ func (c *Client) ReverseProxyToggleSubdomain(ctx context.Context, uuid string, o
 }
 
 // ServiceReconfigure calls POST /api/caddy/service/reconfigure
-func (c *Client) ServiceReconfigure(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceReconfigure(ctx context.Context, body any) (any, error) {
 	path := "/api/caddy/service/reconfigure"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceRestart calls POST /api/caddy/service/restart
-func (c *Client) ServiceRestart(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceRestart(ctx context.Context, body any) (any, error) {
 	path := "/api/caddy/service/restart"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceStart calls POST /api/caddy/service/start
-func (c *Client) ServiceStart(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceStart(ctx context.Context, body any) (any, error) {
 	path := "/api/caddy/service/start"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceStatus calls GET /api/caddy/service/status
-func (c *Client) ServiceStatus(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceStatus(ctx context.Context) (any, error) {
 	path := "/api/caddy/service/status"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ServiceStop calls POST /api/caddy/service/stop
-func (c *Client) ServiceStop(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceStop(ctx context.Context, body any) (any, error) {
 	path := "/api/caddy/service/stop"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceValidate calls GET /api/caddy/service/validate
-func (c *Client) ServiceValidate(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceValidate(ctx context.Context) (any, error) {
 	path := "/api/caddy/service/validate"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }

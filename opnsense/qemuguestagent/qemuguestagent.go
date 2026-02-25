@@ -20,57 +20,57 @@ func NewClient(c *opnsense.Client) *Client {
 }
 
 // ServiceReconfigure calls POST /api/qemuguestagent/service/reconfigure
-func (c *Client) ServiceReconfigure(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceReconfigure(ctx context.Context, body any) (any, error) {
 	path := "/api/qemuguestagent/service/reconfigure"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceRestart calls POST /api/qemuguestagent/service/restart
-func (c *Client) ServiceRestart(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceRestart(ctx context.Context, body any) (any, error) {
 	path := "/api/qemuguestagent/service/restart"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceStart calls POST /api/qemuguestagent/service/start
-func (c *Client) ServiceStart(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceStart(ctx context.Context, body any) (any, error) {
 	path := "/api/qemuguestagent/service/start"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceStatus calls GET /api/qemuguestagent/service/status
-func (c *Client) ServiceStatus(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceStatus(ctx context.Context) (any, error) {
 	path := "/api/qemuguestagent/service/status"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ServiceStop calls POST /api/qemuguestagent/service/stop
-func (c *Client) ServiceStop(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceStop(ctx context.Context, body any) (any, error) {
 	path := "/api/qemuguestagent/service/stop"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SettingsGet calls GET /api/qemuguestagent/settings/get
-func (c *Client) SettingsGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) SettingsGet(ctx context.Context) (any, error) {
 	path := "/api/qemuguestagent/settings/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // SettingsSet calls POST /api/qemuguestagent/settings/set
-func (c *Client) SettingsSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSet(ctx context.Context, body any) (any, error) {
 	path := "/api/qemuguestagent/settings/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }

@@ -21,9 +21,9 @@ func NewClient(c *opnsense.Client) *Client {
 }
 
 // FirmwareAudit calls POST /api/core/firmware/audit
-func (c *Client) FirmwareAudit(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) FirmwareAudit(ctx context.Context, body any) (any, error) {
 	path := "/api/core/firmware/audit"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -31,57 +31,57 @@ func (c *Client) FirmwareAudit(ctx context.Context, body any) (map[string]any, e
 // FirmwareChangelog calls POST /api/core/firmware/changelog
 // Parameters:
 //   - version
-func (c *Client) FirmwareChangelog(ctx context.Context, version string, body any) (map[string]any, error) {
+func (c *Client) FirmwareChangelog(ctx context.Context, version string, body any) (any, error) {
 	path := fmt.Sprintf("/api/core/firmware/changelog/%s", version)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // FirmwareCheck calls POST /api/core/firmware/check
-func (c *Client) FirmwareCheck(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) FirmwareCheck(ctx context.Context, body any) (any, error) {
 	path := "/api/core/firmware/check"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // FirmwareConnection calls POST /api/core/firmware/connection
-func (c *Client) FirmwareConnection(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) FirmwareConnection(ctx context.Context, body any) (any, error) {
 	path := "/api/core/firmware/connection"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // FirmwareGet calls GET /api/core/firmware/get
-func (c *Client) FirmwareGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) FirmwareGet(ctx context.Context) (any, error) {
 	path := "/api/core/firmware/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // FirmwareGetOptions calls GET /api/core/firmware/getOptions
-func (c *Client) FirmwareGetOptions(ctx context.Context) (map[string]any, error) {
+func (c *Client) FirmwareGetOptions(ctx context.Context) (any, error) {
 	path := "/api/core/firmware/getOptions"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // FirmwareHealth calls POST /api/core/firmware/health
-func (c *Client) FirmwareHealth(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) FirmwareHealth(ctx context.Context, body any) (any, error) {
 	path := "/api/core/firmware/health"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // FirmwareInfo calls GET /api/core/firmware/info
-func (c *Client) FirmwareInfo(ctx context.Context) (map[string]any, error) {
+func (c *Client) FirmwareInfo(ctx context.Context) (any, error) {
 	path := "/api/core/firmware/info"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -89,89 +89,89 @@ func (c *Client) FirmwareInfo(ctx context.Context) (map[string]any, error) {
 // FirmwareLog calls POST /api/core/firmware/log
 // Parameters:
 //   - clear
-func (c *Client) FirmwareLog(ctx context.Context, clear string, body any) (map[string]any, error) {
+func (c *Client) FirmwareLog(ctx context.Context, clear string, body any) (any, error) {
 	path := fmt.Sprintf("/api/core/firmware/log/%s", clear)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // FirmwarePoweroff calls POST /api/core/firmware/poweroff
-func (c *Client) FirmwarePoweroff(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) FirmwarePoweroff(ctx context.Context, body any) (any, error) {
 	path := "/api/core/firmware/poweroff"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // FirmwareReboot calls POST /api/core/firmware/reboot
-func (c *Client) FirmwareReboot(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) FirmwareReboot(ctx context.Context, body any) (any, error) {
 	path := "/api/core/firmware/reboot"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // FirmwareResyncPlugins calls POST /api/core/firmware/resyncPlugins
-func (c *Client) FirmwareResyncPlugins(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) FirmwareResyncPlugins(ctx context.Context, body any) (any, error) {
 	path := "/api/core/firmware/resyncPlugins"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // FirmwareRunning calls GET /api/core/firmware/running
-func (c *Client) FirmwareRunning(ctx context.Context) (map[string]any, error) {
+func (c *Client) FirmwareRunning(ctx context.Context) (any, error) {
 	path := "/api/core/firmware/running"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // FirmwareSet calls POST /api/core/firmware/set
-func (c *Client) FirmwareSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) FirmwareSet(ctx context.Context, body any) (any, error) {
 	path := "/api/core/firmware/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // FirmwareStatus calls POST /api/core/firmware/status
-func (c *Client) FirmwareStatus(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) FirmwareStatus(ctx context.Context, body any) (any, error) {
 	path := "/api/core/firmware/status"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // FirmwareSyncPlugins calls POST /api/core/firmware/syncPlugins
-func (c *Client) FirmwareSyncPlugins(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) FirmwareSyncPlugins(ctx context.Context, body any) (any, error) {
 	path := "/api/core/firmware/syncPlugins"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // FirmwareUpdate calls POST /api/core/firmware/update
-func (c *Client) FirmwareUpdate(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) FirmwareUpdate(ctx context.Context, body any) (any, error) {
 	path := "/api/core/firmware/update"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // FirmwareUpgrade calls POST /api/core/firmware/upgrade
-func (c *Client) FirmwareUpgrade(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) FirmwareUpgrade(ctx context.Context, body any) (any, error) {
 	path := "/api/core/firmware/upgrade"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // FirmwareUpgradestatus calls GET /api/core/firmware/upgradestatus
-func (c *Client) FirmwareUpgradestatus(ctx context.Context) (map[string]any, error) {
+func (c *Client) FirmwareUpgradestatus(ctx context.Context) (any, error) {
 	path := "/api/core/firmware/upgradestatus"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -179,9 +179,9 @@ func (c *Client) FirmwareUpgradestatus(ctx context.Context) (map[string]any, err
 // FirmwareDetails calls POST /api/core/firmware/details
 // Parameters:
 //   - pkg_name
-func (c *Client) FirmwareDetails(ctx context.Context, pkg_name string, body any) (map[string]any, error) {
+func (c *Client) FirmwareDetails(ctx context.Context, pkg_name string, body any) (any, error) {
 	path := fmt.Sprintf("/api/core/firmware/details/%s", pkg_name)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -189,9 +189,9 @@ func (c *Client) FirmwareDetails(ctx context.Context, pkg_name string, body any)
 // FirmwareInstall calls POST /api/core/firmware/install
 // Parameters:
 //   - pkg_name
-func (c *Client) FirmwareInstall(ctx context.Context, pkg_name string, body any) (map[string]any, error) {
+func (c *Client) FirmwareInstall(ctx context.Context, pkg_name string, body any) (any, error) {
 	path := fmt.Sprintf("/api/core/firmware/install/%s", pkg_name)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -199,9 +199,9 @@ func (c *Client) FirmwareInstall(ctx context.Context, pkg_name string, body any)
 // FirmwareLicense calls POST /api/core/firmware/license
 // Parameters:
 //   - pkg_name
-func (c *Client) FirmwareLicense(ctx context.Context, pkg_name string, body any) (map[string]any, error) {
+func (c *Client) FirmwareLicense(ctx context.Context, pkg_name string, body any) (any, error) {
 	path := fmt.Sprintf("/api/core/firmware/license/%s", pkg_name)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -209,9 +209,9 @@ func (c *Client) FirmwareLicense(ctx context.Context, pkg_name string, body any)
 // FirmwareLock calls POST /api/core/firmware/lock
 // Parameters:
 //   - pkg_name
-func (c *Client) FirmwareLock(ctx context.Context, pkg_name string, body any) (map[string]any, error) {
+func (c *Client) FirmwareLock(ctx context.Context, pkg_name string, body any) (any, error) {
 	path := fmt.Sprintf("/api/core/firmware/lock/%s", pkg_name)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -219,9 +219,9 @@ func (c *Client) FirmwareLock(ctx context.Context, pkg_name string, body any) (m
 // FirmwareRemove calls POST /api/core/firmware/remove
 // Parameters:
 //   - pkg_name
-func (c *Client) FirmwareRemove(ctx context.Context, pkg_name string, body any) (map[string]any, error) {
+func (c *Client) FirmwareRemove(ctx context.Context, pkg_name string, body any) (any, error) {
 	path := fmt.Sprintf("/api/core/firmware/remove/%s", pkg_name)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -229,9 +229,9 @@ func (c *Client) FirmwareRemove(ctx context.Context, pkg_name string, body any) 
 // FirmwareReinstall calls POST /api/core/firmware/reinstall
 // Parameters:
 //   - pkg_name
-func (c *Client) FirmwareReinstall(ctx context.Context, pkg_name string, body any) (map[string]any, error) {
+func (c *Client) FirmwareReinstall(ctx context.Context, pkg_name string, body any) (any, error) {
 	path := fmt.Sprintf("/api/core/firmware/reinstall/%s", pkg_name)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -239,9 +239,9 @@ func (c *Client) FirmwareReinstall(ctx context.Context, pkg_name string, body an
 // FirmwareUnlock calls POST /api/core/firmware/unlock
 // Parameters:
 //   - pkg_name
-func (c *Client) FirmwareUnlock(ctx context.Context, pkg_name string, body any) (map[string]any, error) {
+func (c *Client) FirmwareUnlock(ctx context.Context, pkg_name string, body any) (any, error) {
 	path := fmt.Sprintf("/api/core/firmware/unlock/%s", pkg_name)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }

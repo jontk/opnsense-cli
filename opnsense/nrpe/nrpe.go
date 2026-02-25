@@ -39,9 +39,9 @@ func (c *Client) CommandDelCommand(ctx context.Context, uuid string) (*opnsense.
 }
 
 // CommandGet calls GET /api/nrpe/command/get
-func (c *Client) CommandGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) CommandGet(ctx context.Context) (any, error) {
 	path := "/api/nrpe/command/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -68,9 +68,9 @@ func (c *Client) CommandSearchCommand(ctx context.Context, body any) (*opnsense.
 }
 
 // CommandSet calls POST /api/nrpe/command/set
-func (c *Client) CommandSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) CommandSet(ctx context.Context, body any) (any, error) {
 	path := "/api/nrpe/command/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -96,57 +96,57 @@ func (c *Client) CommandToggleCommand(ctx context.Context, uuid string) (*opnsen
 }
 
 // GeneralGet calls GET /api/nrpe/general/get
-func (c *Client) GeneralGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) GeneralGet(ctx context.Context) (any, error) {
 	path := "/api/nrpe/general/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // GeneralSet calls POST /api/nrpe/general/set
-func (c *Client) GeneralSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) GeneralSet(ctx context.Context, body any) (any, error) {
 	path := "/api/nrpe/general/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceReconfigure calls POST /api/nrpe/service/reconfigure
-func (c *Client) ServiceReconfigure(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceReconfigure(ctx context.Context, body any) (any, error) {
 	path := "/api/nrpe/service/reconfigure"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceRestart calls POST /api/nrpe/service/restart
-func (c *Client) ServiceRestart(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceRestart(ctx context.Context, body any) (any, error) {
 	path := "/api/nrpe/service/restart"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceStart calls POST /api/nrpe/service/start
-func (c *Client) ServiceStart(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceStart(ctx context.Context, body any) (any, error) {
 	path := "/api/nrpe/service/start"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceStatus calls GET /api/nrpe/service/status
-func (c *Client) ServiceStatus(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceStatus(ctx context.Context) (any, error) {
 	path := "/api/nrpe/service/status"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ServiceStop calls POST /api/nrpe/service/stop
-func (c *Client) ServiceStop(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceStop(ctx context.Context, body any) (any, error) {
 	path := "/api/nrpe/service/stop"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }

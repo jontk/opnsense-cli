@@ -20,17 +20,17 @@ func NewClient(c *opnsense.Client) *Client {
 }
 
 // ServiceAbort calls POST /api/smart/service/abort
-func (c *Client) ServiceAbort(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceAbort(ctx context.Context, body any) (any, error) {
 	path := "/api/smart/service/abort"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceInfo calls POST /api/smart/service/info
-func (c *Client) ServiceInfo(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceInfo(ctx context.Context, body any) (any, error) {
 	path := "/api/smart/service/info"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -38,28 +38,28 @@ func (c *Client) ServiceInfo(ctx context.Context, body any) (map[string]any, err
 // ServiceList calls POST /api/smart/service/list
 // Parameters:
 //   - details (optional, default: null)
-func (c *Client) ServiceList(ctx context.Context, body any, opts ...string) (map[string]any, error) {
+func (c *Client) ServiceList(ctx context.Context, body any, opts ...string) (any, error) {
 	path := "/api/smart/service/list"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceLogs calls POST /api/smart/service/logs
-func (c *Client) ServiceLogs(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceLogs(ctx context.Context, body any) (any, error) {
 	path := "/api/smart/service/logs"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceTest calls POST /api/smart/service/test
-func (c *Client) ServiceTest(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceTest(ctx context.Context, body any) (any, error) {
 	path := "/api/smart/service/test"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }

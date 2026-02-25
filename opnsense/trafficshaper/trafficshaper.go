@@ -21,25 +21,25 @@ func NewClient(c *opnsense.Client) *Client {
 }
 
 // ServiceFlushreload calls POST /api/trafficshaper/service/flushreload
-func (c *Client) ServiceFlushreload(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceFlushreload(ctx context.Context, body any) (any, error) {
 	path := "/api/trafficshaper/service/flushreload"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceReconfigure calls POST /api/trafficshaper/service/reconfigure
-func (c *Client) ServiceReconfigure(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceReconfigure(ctx context.Context, body any) (any, error) {
 	path := "/api/trafficshaper/service/reconfigure"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceStatistics calls GET /api/trafficshaper/service/statistics
-func (c *Client) ServiceStatistics(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceStatistics(ctx context.Context) (any, error) {
 	path := "/api/trafficshaper/service/statistics"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -99,25 +99,25 @@ func (c *Client) SettingsDelRule(ctx context.Context, uuid string) (*opnsense.Ge
 }
 
 // SettingsDownloadPipes calls GET /api/trafficshaper/settings/downloadPipes
-func (c *Client) SettingsDownloadPipes(ctx context.Context) (map[string]any, error) {
+func (c *Client) SettingsDownloadPipes(ctx context.Context) (any, error) {
 	path := "/api/trafficshaper/settings/downloadPipes"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // SettingsDownloadQueues calls GET /api/trafficshaper/settings/downloadQueues
-func (c *Client) SettingsDownloadQueues(ctx context.Context) (map[string]any, error) {
+func (c *Client) SettingsDownloadQueues(ctx context.Context) (any, error) {
 	path := "/api/trafficshaper/settings/downloadQueues"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // SettingsGet calls GET /api/trafficshaper/settings/get
-func (c *Client) SettingsGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) SettingsGet(ctx context.Context) (any, error) {
 	path := "/api/trafficshaper/settings/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -186,9 +186,9 @@ func (c *Client) SettingsSearchRules(ctx context.Context, body any) (*opnsense.S
 }
 
 // SettingsSet calls POST /api/trafficshaper/settings/set
-func (c *Client) SettingsSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSet(ctx context.Context, body any) (any, error) {
 	path := "/api/trafficshaper/settings/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -266,17 +266,17 @@ func (c *Client) SettingsToggleRule(ctx context.Context, uuid string, opts ...st
 }
 
 // SettingsUploadPipes calls POST /api/trafficshaper/settings/uploadPipes
-func (c *Client) SettingsUploadPipes(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsUploadPipes(ctx context.Context, body any) (any, error) {
 	path := "/api/trafficshaper/settings/uploadPipes"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SettingsUploadQueues calls POST /api/trafficshaper/settings/uploadQueues
-func (c *Client) SettingsUploadQueues(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsUploadQueues(ctx context.Context, body any) (any, error) {
 	path := "/api/trafficshaper/settings/uploadQueues"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }

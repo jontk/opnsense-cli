@@ -21,57 +21,57 @@ func NewClient(c *opnsense.Client) *Client {
 }
 
 // AuthenticationGet calls GET /api/tailscale/authentication/get
-func (c *Client) AuthenticationGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) AuthenticationGet(ctx context.Context) (any, error) {
 	path := "/api/tailscale/authentication/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // AuthenticationSet calls POST /api/tailscale/authentication/set
-func (c *Client) AuthenticationSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) AuthenticationSet(ctx context.Context, body any) (any, error) {
 	path := "/api/tailscale/authentication/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceReconfigure calls POST /api/tailscale/service/reconfigure
-func (c *Client) ServiceReconfigure(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceReconfigure(ctx context.Context, body any) (any, error) {
 	path := "/api/tailscale/service/reconfigure"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceRestart calls POST /api/tailscale/service/restart
-func (c *Client) ServiceRestart(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceRestart(ctx context.Context, body any) (any, error) {
 	path := "/api/tailscale/service/restart"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceStart calls POST /api/tailscale/service/start
-func (c *Client) ServiceStart(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceStart(ctx context.Context, body any) (any, error) {
 	path := "/api/tailscale/service/start"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceStatus calls GET /api/tailscale/service/status
-func (c *Client) ServiceStatus(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceStatus(ctx context.Context) (any, error) {
 	path := "/api/tailscale/service/status"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ServiceStop calls POST /api/tailscale/service/stop
-func (c *Client) ServiceStop(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceStop(ctx context.Context, body any) (any, error) {
 	path := "/api/tailscale/service/stop"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -95,9 +95,9 @@ func (c *Client) SettingsDelSubnet(ctx context.Context, uuid string) (*opnsense.
 }
 
 // SettingsGet calls GET /api/tailscale/settings/get
-func (c *Client) SettingsGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) SettingsGet(ctx context.Context) (any, error) {
 	path := "/api/tailscale/settings/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -116,9 +116,9 @@ func (c *Client) SettingsGetSubnet(ctx context.Context, opts ...string) (*Subnet
 }
 
 // SettingsReload calls GET /api/tailscale/settings/reload
-func (c *Client) SettingsReload(ctx context.Context) (map[string]any, error) {
+func (c *Client) SettingsReload(ctx context.Context) (any, error) {
 	path := "/api/tailscale/settings/reload"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -132,9 +132,9 @@ func (c *Client) SettingsSearchSubnet(ctx context.Context, body any) (*opnsense.
 }
 
 // SettingsSet calls POST /api/tailscale/settings/set
-func (c *Client) SettingsSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSet(ctx context.Context, body any) (any, error) {
 	path := "/api/tailscale/settings/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -150,41 +150,41 @@ func (c *Client) SettingsSetSubnet(ctx context.Context, uuid string, body *Subne
 }
 
 // StatusGet calls GET /api/tailscale/status/get
-func (c *Client) StatusGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) StatusGet(ctx context.Context) (any, error) {
 	path := "/api/tailscale/status/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // StatusIp calls GET /api/tailscale/status/ip
-func (c *Client) StatusIp(ctx context.Context) (map[string]any, error) {
+func (c *Client) StatusIp(ctx context.Context) (any, error) {
 	path := "/api/tailscale/status/ip"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // StatusNet calls GET /api/tailscale/status/net
-func (c *Client) StatusNet(ctx context.Context) (map[string]any, error) {
+func (c *Client) StatusNet(ctx context.Context) (any, error) {
 	path := "/api/tailscale/status/net"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // StatusSet calls POST /api/tailscale/status/set
-func (c *Client) StatusSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) StatusSet(ctx context.Context, body any) (any, error) {
 	path := "/api/tailscale/status/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // StatusStatus calls GET /api/tailscale/status/status
-func (c *Client) StatusStatus(ctx context.Context) (map[string]any, error) {
+func (c *Client) StatusStatus(ctx context.Context) (any, error) {
 	path := "/api/tailscale/status/status"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }

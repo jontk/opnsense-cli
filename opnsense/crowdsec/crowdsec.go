@@ -21,41 +21,41 @@ func NewClient(c *opnsense.Client) *Client {
 }
 
 // AlertsSearch calls GET /api/crowdsec/alerts/search
-func (c *Client) AlertsSearch(ctx context.Context) (map[string]any, error) {
+func (c *Client) AlertsSearch(ctx context.Context) (any, error) {
 	path := "/api/crowdsec/alerts/search"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // AppsecconfigsSearch calls GET /api/crowdsec/appsecconfigs/search
-func (c *Client) AppsecconfigsSearch(ctx context.Context) (map[string]any, error) {
+func (c *Client) AppsecconfigsSearch(ctx context.Context) (any, error) {
 	path := "/api/crowdsec/appsecconfigs/search"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // AppsecrulesSearch calls GET /api/crowdsec/appsecrules/search
-func (c *Client) AppsecrulesSearch(ctx context.Context) (map[string]any, error) {
+func (c *Client) AppsecrulesSearch(ctx context.Context) (any, error) {
 	path := "/api/crowdsec/appsecrules/search"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // BouncersSearch calls GET /api/crowdsec/bouncers/search
-func (c *Client) BouncersSearch(ctx context.Context) (map[string]any, error) {
+func (c *Client) BouncersSearch(ctx context.Context) (any, error) {
 	path := "/api/crowdsec/bouncers/search"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // CollectionsSearch calls GET /api/crowdsec/collections/search
-func (c *Client) CollectionsSearch(ctx context.Context) (map[string]any, error) {
+func (c *Client) CollectionsSearch(ctx context.Context) (any, error) {
 	path := "/api/crowdsec/collections/search"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -63,113 +63,113 @@ func (c *Client) CollectionsSearch(ctx context.Context) (map[string]any, error) 
 // DecisionsDel calls POST /api/crowdsec/decisions/del
 // Parameters:
 //   - decision_id
-func (c *Client) DecisionsDel(ctx context.Context, decision_id string, body any) (map[string]any, error) {
+func (c *Client) DecisionsDel(ctx context.Context, decision_id string, body any) (any, error) {
 	path := fmt.Sprintf("/api/crowdsec/decisions/del/%s", decision_id)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // DecisionsSearch calls GET /api/crowdsec/decisions/search
-func (c *Client) DecisionsSearch(ctx context.Context) (map[string]any, error) {
+func (c *Client) DecisionsSearch(ctx context.Context) (any, error) {
 	path := "/api/crowdsec/decisions/search"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // GeneralGet calls GET /api/crowdsec/general/get
-func (c *Client) GeneralGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) GeneralGet(ctx context.Context) (any, error) {
 	path := "/api/crowdsec/general/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // GeneralSet calls POST /api/crowdsec/general/set
-func (c *Client) GeneralSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) GeneralSet(ctx context.Context, body any) (any, error) {
 	path := "/api/crowdsec/general/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // MachinesSearch calls GET /api/crowdsec/machines/search
-func (c *Client) MachinesSearch(ctx context.Context) (map[string]any, error) {
+func (c *Client) MachinesSearch(ctx context.Context) (any, error) {
 	path := "/api/crowdsec/machines/search"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ParsersSearch calls GET /api/crowdsec/parsers/search
-func (c *Client) ParsersSearch(ctx context.Context) (map[string]any, error) {
+func (c *Client) ParsersSearch(ctx context.Context) (any, error) {
 	path := "/api/crowdsec/parsers/search"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // PostoverflowsSearch calls GET /api/crowdsec/postoverflows/search
-func (c *Client) PostoverflowsSearch(ctx context.Context) (map[string]any, error) {
+func (c *Client) PostoverflowsSearch(ctx context.Context) (any, error) {
 	path := "/api/crowdsec/postoverflows/search"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ScenariosSearch calls GET /api/crowdsec/scenarios/search
-func (c *Client) ScenariosSearch(ctx context.Context) (map[string]any, error) {
+func (c *Client) ScenariosSearch(ctx context.Context) (any, error) {
 	path := "/api/crowdsec/scenarios/search"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ServiceReconfigure calls GET /api/crowdsec/service/reconfigure
-func (c *Client) ServiceReconfigure(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceReconfigure(ctx context.Context) (any, error) {
 	path := "/api/crowdsec/service/reconfigure"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ServiceRestart calls POST /api/crowdsec/service/restart
-func (c *Client) ServiceRestart(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceRestart(ctx context.Context, body any) (any, error) {
 	path := "/api/crowdsec/service/restart"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceStart calls POST /api/crowdsec/service/start
-func (c *Client) ServiceStart(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceStart(ctx context.Context, body any) (any, error) {
 	path := "/api/crowdsec/service/start"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceStatus calls GET /api/crowdsec/service/status
-func (c *Client) ServiceStatus(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceStatus(ctx context.Context) (any, error) {
 	path := "/api/crowdsec/service/status"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ServiceStop calls POST /api/crowdsec/service/stop
-func (c *Client) ServiceStop(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceStop(ctx context.Context, body any) (any, error) {
 	path := "/api/crowdsec/service/stop"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // VersionGet calls GET /api/crowdsec/version/get
-func (c *Client) VersionGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) VersionGet(ctx context.Context) (any, error) {
 	path := "/api/crowdsec/version/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }

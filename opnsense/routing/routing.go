@@ -39,9 +39,9 @@ func (c *Client) SettingsDelGateway(ctx context.Context, uuid string) (*opnsense
 }
 
 // SettingsGet calls GET /api/routing/settings/get
-func (c *Client) SettingsGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) SettingsGet(ctx context.Context) (any, error) {
 	path := "/api/routing/settings/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -60,9 +60,9 @@ func (c *Client) SettingsGetGateway(ctx context.Context, opts ...string) (*Gatew
 }
 
 // SettingsReconfigure calls POST /api/routing/settings/reconfigure
-func (c *Client) SettingsReconfigure(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsReconfigure(ctx context.Context, body any) (any, error) {
 	path := "/api/routing/settings/reconfigure"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -76,9 +76,9 @@ func (c *Client) SettingsSearchGateway(ctx context.Context) (*opnsense.SearchRes
 }
 
 // SettingsSet calls POST /api/routing/settings/set
-func (c *Client) SettingsSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSet(ctx context.Context, body any) (any, error) {
 	path := "/api/routing/settings/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }

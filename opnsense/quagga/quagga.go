@@ -39,9 +39,9 @@ func (c *Client) BfdDelNeighbor(ctx context.Context, uuid string) (*opnsense.Gen
 }
 
 // BfdGet calls GET /api/quagga/bfd/get
-func (c *Client) BfdGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) BfdGet(ctx context.Context) (any, error) {
 	path := "/api/quagga/bfd/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -68,9 +68,9 @@ func (c *Client) BfdSearchNeighbor(ctx context.Context, body any) (*opnsense.Sea
 }
 
 // BfdSet calls POST /api/quagga/bfd/set
-func (c *Client) BfdSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) BfdSet(ctx context.Context, body any) (any, error) {
 	path := "/api/quagga/bfd/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -222,9 +222,9 @@ func (c *Client) BgpDelRoutemap(ctx context.Context, uuid string) (*opnsense.Gen
 }
 
 // BgpGet calls GET /api/quagga/bgp/get
-func (c *Client) BgpGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) BgpGet(ctx context.Context) (any, error) {
 	path := "/api/quagga/bgp/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -377,9 +377,9 @@ func (c *Client) BgpSearchRoutemap(ctx context.Context, body any) (*opnsense.Sea
 }
 
 // BgpSet calls POST /api/quagga/bgp/set
-func (c *Client) BgpSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) BgpSet(ctx context.Context, body any) (any, error) {
 	path := "/api/quagga/bgp/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -525,145 +525,145 @@ func (c *Client) BgpToggleRoutemap(ctx context.Context, uuid string) (*opnsense.
 }
 
 // DiagnosticsBfdcounters calls GET /api/quagga/diagnostics/bfdcounters
-func (c *Client) DiagnosticsBfdcounters(ctx context.Context) (map[string]any, error) {
+func (c *Client) DiagnosticsBfdcounters(ctx context.Context) (any, error) {
 	path := "/api/quagga/diagnostics/bfdcounters"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // DiagnosticsBfdneighbors calls GET /api/quagga/diagnostics/bfdneighbors
-func (c *Client) DiagnosticsBfdneighbors(ctx context.Context) (map[string]any, error) {
+func (c *Client) DiagnosticsBfdneighbors(ctx context.Context) (any, error) {
 	path := "/api/quagga/diagnostics/bfdneighbors"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // DiagnosticsBfdsummary calls GET /api/quagga/diagnostics/bfdsummary
-func (c *Client) DiagnosticsBfdsummary(ctx context.Context) (map[string]any, error) {
+func (c *Client) DiagnosticsBfdsummary(ctx context.Context) (any, error) {
 	path := "/api/quagga/diagnostics/bfdsummary"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // DiagnosticsBgpneighbors calls GET /api/quagga/diagnostics/bgpneighbors
-func (c *Client) DiagnosticsBgpneighbors(ctx context.Context) (map[string]any, error) {
+func (c *Client) DiagnosticsBgpneighbors(ctx context.Context) (any, error) {
 	path := "/api/quagga/diagnostics/bgpneighbors"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // DiagnosticsBgpsummary calls GET /api/quagga/diagnostics/bgpsummary
-func (c *Client) DiagnosticsBgpsummary(ctx context.Context) (map[string]any, error) {
+func (c *Client) DiagnosticsBgpsummary(ctx context.Context) (any, error) {
 	path := "/api/quagga/diagnostics/bgpsummary"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // DiagnosticsGeneralrunningconfig calls GET /api/quagga/diagnostics/generalrunningconfig
-func (c *Client) DiagnosticsGeneralrunningconfig(ctx context.Context) (map[string]any, error) {
+func (c *Client) DiagnosticsGeneralrunningconfig(ctx context.Context) (any, error) {
 	path := "/api/quagga/diagnostics/generalrunningconfig"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // DiagnosticsOspfdatabase calls GET /api/quagga/diagnostics/ospfdatabase
-func (c *Client) DiagnosticsOspfdatabase(ctx context.Context) (map[string]any, error) {
+func (c *Client) DiagnosticsOspfdatabase(ctx context.Context) (any, error) {
 	path := "/api/quagga/diagnostics/ospfdatabase"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // DiagnosticsOspfinterface calls GET /api/quagga/diagnostics/ospfinterface
-func (c *Client) DiagnosticsOspfinterface(ctx context.Context) (map[string]any, error) {
+func (c *Client) DiagnosticsOspfinterface(ctx context.Context) (any, error) {
 	path := "/api/quagga/diagnostics/ospfinterface"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // DiagnosticsOspfoverview calls GET /api/quagga/diagnostics/ospfoverview
-func (c *Client) DiagnosticsOspfoverview(ctx context.Context) (map[string]any, error) {
+func (c *Client) DiagnosticsOspfoverview(ctx context.Context) (any, error) {
 	path := "/api/quagga/diagnostics/ospfoverview"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // DiagnosticsOspfv3interface calls GET /api/quagga/diagnostics/ospfv3interface
-func (c *Client) DiagnosticsOspfv3interface(ctx context.Context) (map[string]any, error) {
+func (c *Client) DiagnosticsOspfv3interface(ctx context.Context) (any, error) {
 	path := "/api/quagga/diagnostics/ospfv3interface"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // DiagnosticsOspfv3overview calls GET /api/quagga/diagnostics/ospfv3overview
-func (c *Client) DiagnosticsOspfv3overview(ctx context.Context) (map[string]any, error) {
+func (c *Client) DiagnosticsOspfv3overview(ctx context.Context) (any, error) {
 	path := "/api/quagga/diagnostics/ospfv3overview"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // DiagnosticsSearchBgproute4 calls GET /api/quagga/diagnostics/searchBgproute4
-func (c *Client) DiagnosticsSearchBgproute4(ctx context.Context) (map[string]any, error) {
+func (c *Client) DiagnosticsSearchBgproute4(ctx context.Context) (any, error) {
 	path := "/api/quagga/diagnostics/searchBgproute4"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // DiagnosticsSearchBgproute6 calls GET /api/quagga/diagnostics/searchBgproute6
-func (c *Client) DiagnosticsSearchBgproute6(ctx context.Context) (map[string]any, error) {
+func (c *Client) DiagnosticsSearchBgproute6(ctx context.Context) (any, error) {
 	path := "/api/quagga/diagnostics/searchBgproute6"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // DiagnosticsSearchGeneralroute4 calls GET /api/quagga/diagnostics/searchGeneralroute4
-func (c *Client) DiagnosticsSearchGeneralroute4(ctx context.Context) (map[string]any, error) {
+func (c *Client) DiagnosticsSearchGeneralroute4(ctx context.Context) (any, error) {
 	path := "/api/quagga/diagnostics/searchGeneralroute4"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // DiagnosticsSearchGeneralroute6 calls GET /api/quagga/diagnostics/searchGeneralroute6
-func (c *Client) DiagnosticsSearchGeneralroute6(ctx context.Context) (map[string]any, error) {
+func (c *Client) DiagnosticsSearchGeneralroute6(ctx context.Context) (any, error) {
 	path := "/api/quagga/diagnostics/searchGeneralroute6"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // DiagnosticsSearchOspfneighbor calls GET /api/quagga/diagnostics/searchOspfneighbor
-func (c *Client) DiagnosticsSearchOspfneighbor(ctx context.Context) (map[string]any, error) {
+func (c *Client) DiagnosticsSearchOspfneighbor(ctx context.Context) (any, error) {
 	path := "/api/quagga/diagnostics/searchOspfneighbor"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // DiagnosticsSearchOspfroute calls GET /api/quagga/diagnostics/searchOspfroute
-func (c *Client) DiagnosticsSearchOspfroute(ctx context.Context) (map[string]any, error) {
+func (c *Client) DiagnosticsSearchOspfroute(ctx context.Context) (any, error) {
 	path := "/api/quagga/diagnostics/searchOspfroute"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // DiagnosticsSearchOspfv3database calls GET /api/quagga/diagnostics/searchOspfv3database
-func (c *Client) DiagnosticsSearchOspfv3database(ctx context.Context) (map[string]any, error) {
+func (c *Client) DiagnosticsSearchOspfv3database(ctx context.Context) (any, error) {
 	path := "/api/quagga/diagnostics/searchOspfv3database"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -671,28 +671,28 @@ func (c *Client) DiagnosticsSearchOspfv3database(ctx context.Context) (map[strin
 // DiagnosticsSearchOspfv3route calls GET /api/quagga/diagnostics/searchOspfv3route
 // Parameters:
 //   - format (optional, default: json)
-func (c *Client) DiagnosticsSearchOspfv3route(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) DiagnosticsSearchOspfv3route(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/quagga/diagnostics/searchOspfv3route"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // GeneralGet calls GET /api/quagga/general/get
-func (c *Client) GeneralGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) GeneralGet(ctx context.Context) (any, error) {
 	path := "/api/quagga/general/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // GeneralSet calls POST /api/quagga/general/set
-func (c *Client) GeneralSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) GeneralSet(ctx context.Context, body any) (any, error) {
 	path := "/api/quagga/general/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -788,9 +788,9 @@ func (c *Client) Ospf6settingsDelRoutemap(ctx context.Context, uuid string) (*op
 }
 
 // Ospf6settingsGet calls GET /api/quagga/ospf6settings/get
-func (c *Client) Ospf6settingsGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) Ospf6settingsGet(ctx context.Context) (any, error) {
 	path := "/api/quagga/ospf6settings/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -901,9 +901,9 @@ func (c *Client) Ospf6settingsSearchRoutemap(ctx context.Context, body any) (*op
 }
 
 // Ospf6settingsSet calls POST /api/quagga/ospf6settings/set
-func (c *Client) Ospf6settingsSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) Ospf6settingsSet(ctx context.Context, body any) (any, error) {
 	path := "/api/quagga/ospf6settings/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -1135,9 +1135,9 @@ func (c *Client) OspfsettingsDelRoutemap(ctx context.Context, uuid string) (*opn
 }
 
 // OspfsettingsGet calls GET /api/quagga/ospfsettings/get
-func (c *Client) OspfsettingsGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) OspfsettingsGet(ctx context.Context) (any, error) {
 	path := "/api/quagga/ospfsettings/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -1290,9 +1290,9 @@ func (c *Client) OspfsettingsSearchRoutemap(ctx context.Context, body any) (*opn
 }
 
 // OspfsettingsSet calls POST /api/quagga/ospfsettings/set
-func (c *Client) OspfsettingsSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) OspfsettingsSet(ctx context.Context, body any) (any, error) {
 	path := "/api/quagga/ospfsettings/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -1438,57 +1438,57 @@ func (c *Client) OspfsettingsToggleRoutemap(ctx context.Context, uuid string) (*
 }
 
 // RipGet calls GET /api/quagga/rip/get
-func (c *Client) RipGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) RipGet(ctx context.Context) (any, error) {
 	path := "/api/quagga/rip/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // RipSet calls POST /api/quagga/rip/set
-func (c *Client) RipSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) RipSet(ctx context.Context, body any) (any, error) {
 	path := "/api/quagga/rip/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceReconfigure calls POST /api/quagga/service/reconfigure
-func (c *Client) ServiceReconfigure(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceReconfigure(ctx context.Context, body any) (any, error) {
 	path := "/api/quagga/service/reconfigure"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceRestart calls POST /api/quagga/service/restart
-func (c *Client) ServiceRestart(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceRestart(ctx context.Context, body any) (any, error) {
 	path := "/api/quagga/service/restart"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceStart calls POST /api/quagga/service/start
-func (c *Client) ServiceStart(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceStart(ctx context.Context, body any) (any, error) {
 	path := "/api/quagga/service/start"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceStatus calls GET /api/quagga/service/status
-func (c *Client) ServiceStatus(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceStatus(ctx context.Context) (any, error) {
 	path := "/api/quagga/service/status"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ServiceStop calls POST /api/quagga/service/stop
-func (c *Client) ServiceStop(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceStop(ctx context.Context, body any) (any, error) {
 	path := "/api/quagga/service/stop"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -1512,9 +1512,9 @@ func (c *Client) StaticDelRoute(ctx context.Context, uuid string) (*opnsense.Gen
 }
 
 // StaticGet calls GET /api/quagga/static/get
-func (c *Client) StaticGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) StaticGet(ctx context.Context) (any, error) {
 	path := "/api/quagga/static/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -1541,9 +1541,9 @@ func (c *Client) StaticSearchRoute(ctx context.Context, body any) (*opnsense.Sea
 }
 
 // StaticSet calls POST /api/quagga/static/set
-func (c *Client) StaticSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) StaticSet(ctx context.Context, body any) (any, error) {
 	path := "/api/quagga/static/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }

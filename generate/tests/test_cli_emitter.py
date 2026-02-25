@@ -1,0 +1,375 @@
+"""Tests for the CLI emitter: resource derivation, verb mapping, column selection."""
+
+from __future__ import annotations
+
+import pytest
+
+from generate.emitter.cli_emitter import (
+    _build_verb_view,
+    _cli_verb_from_endpoint,
+    _collect_resources,
+    _columns_for_item,
+    _normalize_kebab,
+    _resource_name_from_endpoint,
+    _to_go_ident,
+)
+from generate.model.ir import Controller, Endpoint, ModelField, ModelItem, Module, Parameter
+
+
+def _make_endpoint(
+    controller: str,
+    command: str,
+    crud_verb: str = "",
+    methods: list[str] | None = None,
+    parameters: list[Parameter] | None = None,
+    model_item: ModelItem | None = None,
+) -> Endpoint:
+    """Helper to build an Endpoint for testing."""
+    return Endpoint(
+        methods=methods or ["GET"],
+        module="test",
+        controller=controller,
+        command=command,
+        command_camel=command,
+        url_path=f"/api/test/{controller}/{command}",
+        go_method_name=f"{controller.title()}{command.title()}",
+        parameters=parameters or [],
+        crud_verb=crud_verb,
+        model_item=model_item,
+    )
+
+
+# ─── Resource name derivation ───────────────────────────────────────────────
+
+class TestResourceNameDerivation:
+    def test_crud_item_suffix_uses_controller(self):
+        ep = _make_endpoint("alias", "add_item", crud_verb="add")
+        assert _resource_name_from_endpoint(ep) == "alias"
+
+    def test_crud_named_suffix_uses_suffix(self):
+        ep = _make_endpoint("settings", "search_acl", crud_verb="search")
+        assert _resource_name_from_endpoint(ep) == "acl"
+
+    def test_crud_named_suffix_with_underscores(self):
+        ep = _make_endpoint("settings", "add_tag_list", crud_verb="add")
+        assert _resource_name_from_endpoint(ep) == "tag-list"
+
+    def test_non_crud_uses_controller(self):
+        ep = _make_endpoint("service", "reconfigure")
+        assert _resource_name_from_endpoint(ep) == "service"
+
+    def test_non_crud_get_uses_controller(self):
+        ep = _make_endpoint("alias", "export")
+        assert _resource_name_from_endpoint(ep) == "alias"
+
+    def test_acronym_suffix_collapsed(self):
+        ep = _make_endpoint("settings", "add_p_a_c_rule", crud_verb="add")
+        assert _resource_name_from_endpoint(ep) == "pac-rule"
+
+    def test_acronym_suffix_cpu(self):
+        ep = _make_endpoint("settings", "get_c_p_u_type", crud_verb="get")
+        assert _resource_name_from_endpoint(ep) == "cpu-type"
+
+    # No-underscore CRUD patterns (addroute, searchacl, delresolver, etc.)
+    def test_no_underscore_add_route(self):
+        ep = _make_endpoint("routes", "addroute")
+        assert _resource_name_from_endpoint(ep) == "route"
+
+    def test_no_underscore_search_acl(self):
+        ep = _make_endpoint("settings", "searchacl")
+        assert _resource_name_from_endpoint(ep) == "acl"
+
+    def test_no_underscore_del_resolver(self):
+        ep = _make_endpoint("settings", "delresolver")
+        assert _resource_name_from_endpoint(ep) == "resolver"
+
+    def test_no_underscore_toggle_server(self):
+        ep = _make_endpoint("server", "toggleserver")
+        assert _resource_name_from_endpoint(ep) == "server"
+
+    def test_blacklist_delete_uses_controller(self):
+        # "delete" must NOT be parsed as del+ete
+        ep = _make_endpoint("settings", "delete")
+        assert _resource_name_from_endpoint(ep) == "settings"
+
+    def test_blacklist_deletekeytab_uses_controller(self):
+        ep = _make_endpoint("kerberos", "deletekeytab")
+        assert _resource_name_from_endpoint(ep) == "kerberos"
+
+
+# ─── CLI verb mapping ────────────────────────────────────────────────────────
+
+class TestCLIVerbMapping:
+    def test_search_maps_to_list(self):
+        ep = _make_endpoint("alias", "search_item", crud_verb="search")
+        assert _cli_verb_from_endpoint(ep) == "list"
+
+    def test_add_maps_to_create(self):
+        ep = _make_endpoint("alias", "add_item", crud_verb="add")
+        assert _cli_verb_from_endpoint(ep) == "create"
+
+    def test_set_maps_to_update(self):
+        ep = _make_endpoint("alias", "set_item", crud_verb="set")
+        assert _cli_verb_from_endpoint(ep) == "update"
+
+    def test_del_maps_to_delete(self):
+        ep = _make_endpoint("alias", "del_item", crud_verb="del")
+        assert _cli_verb_from_endpoint(ep) == "delete"
+
+    def test_get_maps_to_get(self):
+        ep = _make_endpoint("alias", "get_item", crud_verb="get")
+        assert _cli_verb_from_endpoint(ep) == "get"
+
+    def test_toggle_stays_toggle(self):
+        ep = _make_endpoint("alias", "toggle_item", crud_verb="toggle")
+        assert _cli_verb_from_endpoint(ep) == "toggle"
+
+    def test_non_crud_uses_command_name(self):
+        ep = _make_endpoint("service", "reconfigure")
+        assert _cli_verb_from_endpoint(ep) == "reconfigure"
+
+    def test_underscore_command_becomes_hyphen(self):
+        ep = _make_endpoint("alias", "list_categories")
+        assert _cli_verb_from_endpoint(ep) == "list-categories"
+
+    def test_acronym_verb_collapsed(self):
+        # get_c_p_u_type matches underscore-CRUD pattern → verb "get", resource "cpu-type"
+        ep = _make_endpoint("cpu_usage", "get_c_p_u_type")
+        assert _cli_verb_from_endpoint(ep) == "get"
+
+    def test_export_as_csv_verb(self):
+        ep = _make_endpoint("voucher", "export_as_c_s_v")
+        assert _cli_verb_from_endpoint(ep) == "export-as-csv"
+
+    # No-underscore CRUD patterns
+    def test_no_underscore_addroute_maps_to_create(self):
+        ep = _make_endpoint("routes", "addroute")
+        assert _cli_verb_from_endpoint(ep) == "create"
+
+    def test_no_underscore_searchacl_maps_to_list(self):
+        ep = _make_endpoint("settings", "searchacl")
+        assert _cli_verb_from_endpoint(ep) == "list"
+
+    def test_no_underscore_delresolver_maps_to_delete(self):
+        ep = _make_endpoint("settings", "delresolver")
+        assert _cli_verb_from_endpoint(ep) == "delete"
+
+    def test_no_underscore_toggleserver_maps_to_toggle(self):
+        ep = _make_endpoint("server", "toggleserver")
+        assert _cli_verb_from_endpoint(ep) == "toggle"
+
+    def test_blacklist_delete_stays_delete(self):
+        # "delete" should NOT match del+ete pattern
+        ep = _make_endpoint("settings", "delete")
+        assert _cli_verb_from_endpoint(ep) == "delete"
+
+    def test_blacklist_deletekeytab_stays_as_is(self):
+        ep = _make_endpoint("kerberos", "deletekeytab")
+        assert _cli_verb_from_endpoint(ep) == "deletekeytab"
+
+
+# ─── Column selection ─────────────────────────────────────────────────────────
+
+def _make_field(json_name: str, go_name: str | None = None) -> ModelField:
+    return ModelField(
+        name=json_name,
+        field_type="TextField",
+        go_name=go_name or json_name.title(),
+        json_name=json_name,
+    )
+
+
+class TestColumnSelection:
+    def test_preferred_columns_come_first(self):
+        item = ModelItem(
+            name="alias",
+            go_name="Alias",
+            container_name="aliases",
+            fields=[
+                _make_field("description"),
+                _make_field("type"),
+                _make_field("name"),
+                _make_field("enabled"),
+            ],
+        )
+        cols = _columns_for_item(item)
+        headers = [c["header"] for c in cols]
+        # name and enabled should appear before description and type
+        assert headers.index("NAME") < headers.index("DESCRIPTION")
+        assert headers.index("ENABLED") < headers.index("DESCRIPTION")
+
+    def test_at_most_8_columns(self):
+        item = ModelItem(
+            name="big",
+            go_name="Big",
+            container_name="bigs",
+            fields=[_make_field(f"field{i}") for i in range(20)],
+        )
+        cols = _columns_for_item(item)
+        assert len(cols) <= 8
+
+    def test_empty_fields(self):
+        item = ModelItem(name="empty", go_name="Empty", container_name="empties")
+        cols = _columns_for_item(item)
+        assert cols == []
+
+    def test_header_uppercased(self):
+        item = ModelItem(
+            name="x",
+            go_name="X",
+            container_name="xs",
+            fields=[_make_field("my_field", "MyField")],
+        )
+        cols = _columns_for_item(item)
+        assert cols[0]["header"] == "MY FIELD"
+
+
+# ─── Verb view construction ───────────────────────────────────────────────────
+
+class TestBuildVerbView:
+    def test_search_with_post_body(self):
+        ep = _make_endpoint("alias", "search_item", crud_verb="search", methods=["POST"])
+        view = _build_verb_view(ep, "list")
+        assert view.is_search is True
+        assert view.search_needs_body is True
+
+    def test_search_without_body_for_get(self):
+        ep = _make_endpoint("alias", "search_item", crud_verb="search", methods=["GET"])
+        view = _build_verb_view(ep, "list")
+        assert view.is_search is True
+        assert view.search_needs_body is False
+
+    def test_typed_add_sets_data_flag(self):
+        item = ModelItem(name="alias", go_name="Alias", container_name="aliases")
+        ep = _make_endpoint("alias", "add_item", crud_verb="add", methods=["POST"],
+                            model_item=item)
+        view = _build_verb_view(ep, "create")
+        assert view.has_data_flag is True
+        assert view.is_typed is True
+
+    def test_required_params_become_positional(self):
+        ep = _make_endpoint(
+            "alias", "del_item", crud_verb="del",
+            parameters=[Parameter(name="uuid", required=True)],
+        )
+        view = _build_verb_view(ep, "delete")
+        assert view.positional_params == ["uuid"]
+
+    def test_multiple_required_params(self):
+        ep = _make_endpoint(
+            "voucher", "drop_expired_vouchers",
+            parameters=[
+                Parameter(name="provider", required=True),
+                Parameter(name="group", required=True),
+            ],
+            methods=["POST"],
+        )
+        view = _build_verb_view(ep, "drop-expired-vouchers")
+        assert view.positional_params == ["provider", "group"]
+        assert view.has_body_arg is True
+
+    def test_untyped_post_sets_body_arg(self):
+        ep = _make_endpoint("service", "reconfigure", methods=["POST"])
+        view = _build_verb_view(ep, "reconfigure")
+        assert view.has_body_arg is True
+        assert view.has_data_flag is False
+
+    def test_reserved_type_name_renamed(self):
+        item = ModelItem(name="client", go_name="Client", container_name="clients")
+        ep = _make_endpoint("client", "add_client", crud_verb="add", methods=["POST"],
+                            model_item=item)
+        view = _build_verb_view(ep, "create")
+        assert view.item_type == "ClientConfig"
+
+
+# ─── Kebab normalization (acronym grouping) ────────────────────────────────────
+
+class TestNormalizeKebab:
+    def test_simple_word(self):
+        assert _normalize_kebab("acl") == "acl"
+
+    def test_multi_word(self):
+        assert _normalize_kebab("tag_list") == "tag-list"
+
+    def test_cpu_acronym(self):
+        assert _normalize_kebab("c_p_u_type") == "cpu-type"
+
+    def test_pac_acronym(self):
+        assert _normalize_kebab("p_a_c_rule") == "pac-rule"
+
+    def test_csv_acronym(self):
+        assert _normalize_kebab("export_as_c_s_v") == "export-as-csv"
+
+    def test_ha_proxy_acronym(self):
+        # h_a groups as "HA", proxy stays separate: fetch-ha-proxy-integration
+        assert _normalize_kebab("fetch_h_a_proxy_integration") == "fetch-ha-proxy-integration"
+
+
+# ─── Go identifier conversion ─────────────────────────────────────────────────
+
+class TestToGoIdent:
+    def test_simple(self):
+        assert _to_go_ident("alias") == "Alias"
+
+    def test_hyphenated(self):
+        assert _to_go_ident("tag-list") == "TagList"
+
+    def test_multi_word(self):
+        assert _to_go_ident("alias-util") == "AliasUtil"
+
+
+# ─── SuggestFor prefix grouping ───────────────────────────────────────────────
+
+def _make_module_with_resources(*command_pairs: tuple[str, str, str]) -> Module:
+    """Build a Module containing one controller per (controller, command, crud_verb)."""
+    eps = []
+    for ctrl, cmd, crud_verb in command_pairs:
+        ep = _make_endpoint(ctrl, cmd, crud_verb=crud_verb, methods=["POST"] if crud_verb in ("add", "search") else ["GET"])
+        eps.append((ctrl, ep))
+    # Group by controller
+    from collections import defaultdict
+    by_ctrl: dict[str, list[Endpoint]] = defaultdict(list)
+    for ctrl, ep in eps:
+        by_ctrl[ctrl].append(ep)
+    controllers = [
+        Controller(name=ctrl, php_file=f"{ctrl}.php", endpoints=ctrl_eps)
+        for ctrl, ctrl_eps in by_ctrl.items()
+    ]
+    return Module(name="test", category="core", controllers=controllers)
+
+
+class TestSuggestFor:
+    def test_shared_prefix_gets_suggest_for(self):
+        # "host-override" and "host-alias" → both suggest "host"
+        m = _make_module_with_resources(
+            ("settings", "add_host_override", "add"),
+            ("settings", "search_host_overrides", "search"),
+            ("settings", "add_host_alias", "add"),
+            ("settings", "search_host_aliases", "search"),
+        )
+        resources = _collect_resources(m)
+        res_map = {r.resource: r for r in resources}
+        assert "host-override" in res_map
+        assert "host-alias" in res_map
+        assert res_map["host-override"].suggest_for == ["host"]
+        assert res_map["host-alias"].suggest_for == ["host"]
+
+    def test_no_suggest_for_when_prefix_is_real_resource(self):
+        # If "host" itself exists as a resource, no SuggestFor is added
+        m = _make_module_with_resources(
+            ("settings", "search_host", "search"),
+            ("settings", "add_host_override", "add"),
+        )
+        resources = _collect_resources(m)
+        res_map = {r.resource: r for r in resources}
+        assert res_map.get("host-override") is not None
+        assert res_map["host-override"].suggest_for == []
+
+    def test_single_hyphen_resource_gets_no_suggest(self):
+        # A resource with a hyphen but no sibling sharing the same prefix
+        m = _make_module_with_resources(
+            ("settings", "add_host_override", "add"),
+        )
+        resources = _collect_resources(m)
+        res_map = {r.resource: r for r in resources}
+        assert res_map["host-override"].suggest_for == []

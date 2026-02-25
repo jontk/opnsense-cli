@@ -23,9 +23,9 @@ func NewClient(c *opnsense.Client) *Client {
 // BackupBackups calls GET /api/core/backup/backups
 // Parameters:
 //   - host
-func (c *Client) BackupBackups(ctx context.Context, host string) (map[string]any, error) {
+func (c *Client) BackupBackups(ctx context.Context, host string) (any, error) {
 	path := fmt.Sprintf("/api/core/backup/backups/%s", host)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -33,9 +33,9 @@ func (c *Client) BackupBackups(ctx context.Context, host string) (map[string]any
 // BackupDeleteBackup calls POST /api/core/backup/deleteBackup
 // Parameters:
 //   - backup
-func (c *Client) BackupDeleteBackup(ctx context.Context, backup string, body any) (map[string]any, error) {
+func (c *Client) BackupDeleteBackup(ctx context.Context, backup string, body any) (any, error) {
 	path := fmt.Sprintf("/api/core/backup/deleteBackup/%s", backup)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -45,9 +45,9 @@ func (c *Client) BackupDeleteBackup(ctx context.Context, backup string, body any
 //   - host
 //   - backup1
 //   - backup2
-func (c *Client) BackupDiff(ctx context.Context, host string, backup1 string, backup2 string) (map[string]any, error) {
+func (c *Client) BackupDiff(ctx context.Context, host string, backup1 string, backup2 string) (any, error) {
 	path := fmt.Sprintf("/api/core/backup/diff/%s/%s/%s", host, backup1, backup2)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -56,20 +56,20 @@ func (c *Client) BackupDiff(ctx context.Context, host string, backup1 string, ba
 // Parameters:
 //   - host
 //   - backup (optional, default: null)
-func (c *Client) BackupDownload(ctx context.Context, host string, opts ...string) (map[string]any, error) {
+func (c *Client) BackupDownload(ctx context.Context, host string, opts ...string) (any, error) {
 	path := fmt.Sprintf("/api/core/backup/download/%s", host)
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // BackupProviders calls GET /api/core/backup/providers
-func (c *Client) BackupProviders(ctx context.Context) (map[string]any, error) {
+func (c *Client) BackupProviders(ctx context.Context) (any, error) {
 	path := "/api/core/backup/providers"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -77,105 +77,105 @@ func (c *Client) BackupProviders(ctx context.Context) (map[string]any, error) {
 // BackupRevertBackup calls POST /api/core/backup/revertBackup
 // Parameters:
 //   - backup
-func (c *Client) BackupRevertBackup(ctx context.Context, backup string, body any) (map[string]any, error) {
+func (c *Client) BackupRevertBackup(ctx context.Context, backup string, body any) (any, error) {
 	path := fmt.Sprintf("/api/core/backup/revertBackup/%s", backup)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // DashboardGetDashboard calls GET /api/core/dashboard/getDashboard
-func (c *Client) DashboardGetDashboard(ctx context.Context) (map[string]any, error) {
+func (c *Client) DashboardGetDashboard(ctx context.Context) (any, error) {
 	path := "/api/core/dashboard/getDashboard"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // DashboardPicture calls GET /api/core/dashboard/picture
-func (c *Client) DashboardPicture(ctx context.Context) (map[string]any, error) {
+func (c *Client) DashboardPicture(ctx context.Context) (any, error) {
 	path := "/api/core/dashboard/picture"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // DashboardProductInfoFeed calls GET /api/core/dashboard/productInfoFeed
-func (c *Client) DashboardProductInfoFeed(ctx context.Context) (map[string]any, error) {
+func (c *Client) DashboardProductInfoFeed(ctx context.Context) (any, error) {
 	path := "/api/core/dashboard/productInfoFeed"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // DashboardRestoreDefaults calls POST /api/core/dashboard/restoreDefaults
-func (c *Client) DashboardRestoreDefaults(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) DashboardRestoreDefaults(ctx context.Context, body any) (any, error) {
 	path := "/api/core/dashboard/restoreDefaults"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // DashboardSaveWidgets calls POST /api/core/dashboard/saveWidgets
-func (c *Client) DashboardSaveWidgets(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) DashboardSaveWidgets(ctx context.Context, body any) (any, error) {
 	path := "/api/core/dashboard/saveWidgets"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // DefaultsFactoryDefaults calls POST /api/core/defaults/factoryDefaults
-func (c *Client) DefaultsFactoryDefaults(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) DefaultsFactoryDefaults(ctx context.Context, body any) (any, error) {
 	path := "/api/core/defaults/factoryDefaults"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // DefaultsGet calls GET /api/core/defaults/get
-func (c *Client) DefaultsGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) DefaultsGet(ctx context.Context) (any, error) {
 	path := "/api/core/defaults/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // DefaultsGetInstalledSections calls GET /api/core/defaults/getInstalledSections
-func (c *Client) DefaultsGetInstalledSections(ctx context.Context) (map[string]any, error) {
+func (c *Client) DefaultsGetInstalledSections(ctx context.Context) (any, error) {
 	path := "/api/core/defaults/getInstalledSections"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // DefaultsReset calls POST /api/core/defaults/reset
-func (c *Client) DefaultsReset(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) DefaultsReset(ctx context.Context, body any) (any, error) {
 	path := "/api/core/defaults/reset"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // HasyncGet calls GET /api/core/hasync/get
-func (c *Client) HasyncGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) HasyncGet(ctx context.Context) (any, error) {
 	path := "/api/core/hasync/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // HasyncReconfigure calls POST /api/core/hasync/reconfigure
-func (c *Client) HasyncReconfigure(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) HasyncReconfigure(ctx context.Context, body any) (any, error) {
 	path := "/api/core/hasync/reconfigure"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // HasyncSet calls POST /api/core/hasync/set
-func (c *Client) HasyncSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) HasyncSet(ctx context.Context, body any) (any, error) {
 	path := "/api/core/hasync/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -185,9 +185,9 @@ func (c *Client) HasyncSet(ctx context.Context, body any) (map[string]any, error
 //   - action
 //   - service
 //   - service_id
-func (c *Client) HasyncStatusRemoteService(ctx context.Context, action string, service string, service_id string) (map[string]any, error) {
+func (c *Client) HasyncStatusRemoteService(ctx context.Context, action string, service string, service_id string) (any, error) {
 	path := fmt.Sprintf("/api/core/hasync_status/remoteService/%s/%s/%s", action, service, service_id)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -196,12 +196,12 @@ func (c *Client) HasyncStatusRemoteService(ctx context.Context, action string, s
 // Parameters:
 //   - service (optional, default: null)
 //   - service_id (optional, default: null)
-func (c *Client) HasyncStatusRestart(ctx context.Context, body any, opts ...string) (map[string]any, error) {
+func (c *Client) HasyncStatusRestart(ctx context.Context, body any, opts ...string) (any, error) {
 	path := "/api/core/hasync_status/restart"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -210,20 +210,20 @@ func (c *Client) HasyncStatusRestart(ctx context.Context, body any, opts ...stri
 // Parameters:
 //   - service (optional, default: null)
 //   - service_id (optional, default: null)
-func (c *Client) HasyncStatusRestartAll(ctx context.Context, body any, opts ...string) (map[string]any, error) {
+func (c *Client) HasyncStatusRestartAll(ctx context.Context, body any, opts ...string) (any, error) {
 	path := "/api/core/hasync_status/restartAll"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // HasyncStatusServices calls GET /api/core/hasync_status/services
-func (c *Client) HasyncStatusServices(ctx context.Context) (map[string]any, error) {
+func (c *Client) HasyncStatusServices(ctx context.Context) (any, error) {
 	path := "/api/core/hasync_status/services"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -232,12 +232,12 @@ func (c *Client) HasyncStatusServices(ctx context.Context) (map[string]any, erro
 // Parameters:
 //   - service (optional, default: null)
 //   - service_id (optional, default: null)
-func (c *Client) HasyncStatusStart(ctx context.Context, body any, opts ...string) (map[string]any, error) {
+func (c *Client) HasyncStatusStart(ctx context.Context, body any, opts ...string) (any, error) {
 	path := "/api/core/hasync_status/start"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -246,68 +246,68 @@ func (c *Client) HasyncStatusStart(ctx context.Context, body any, opts ...string
 // Parameters:
 //   - service (optional, default: null)
 //   - service_id (optional, default: null)
-func (c *Client) HasyncStatusStop(ctx context.Context, body any, opts ...string) (map[string]any, error) {
+func (c *Client) HasyncStatusStop(ctx context.Context, body any, opts ...string) (any, error) {
 	path := "/api/core/hasync_status/stop"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // HasyncStatusVersion calls GET /api/core/hasync_status/version
-func (c *Client) HasyncStatusVersion(ctx context.Context) (map[string]any, error) {
+func (c *Client) HasyncStatusVersion(ctx context.Context) (any, error) {
 	path := "/api/core/hasync_status/version"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // InitialSetupAbort calls POST /api/core/initial_setup/abort
-func (c *Client) InitialSetupAbort(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) InitialSetupAbort(ctx context.Context, body any) (any, error) {
 	path := "/api/core/initial_setup/abort"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // InitialSetupConfigure calls GET /api/core/initial_setup/configure
-func (c *Client) InitialSetupConfigure(ctx context.Context) (map[string]any, error) {
+func (c *Client) InitialSetupConfigure(ctx context.Context) (any, error) {
 	path := "/api/core/initial_setup/configure"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // InitialSetupGet calls GET /api/core/initial_setup/get
-func (c *Client) InitialSetupGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) InitialSetupGet(ctx context.Context) (any, error) {
 	path := "/api/core/initial_setup/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // InitialSetupSet calls POST /api/core/initial_setup/set
-func (c *Client) InitialSetupSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) InitialSetupSet(ctx context.Context, body any) (any, error) {
 	path := "/api/core/initial_setup/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // MenuSearch calls GET /api/core/menu/search
-func (c *Client) MenuSearch(ctx context.Context) (map[string]any, error) {
+func (c *Client) MenuSearch(ctx context.Context) (any, error) {
 	path := "/api/core/menu/search"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // MenuTree calls GET /api/core/menu/tree
-func (c *Client) MenuTree(ctx context.Context) (map[string]any, error) {
+func (c *Client) MenuTree(ctx context.Context) (any, error) {
 	path := "/api/core/menu/tree"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -316,20 +316,20 @@ func (c *Client) MenuTree(ctx context.Context) (map[string]any, error) {
 // Parameters:
 //   - name
 //   - id (optional, default: ââ)
-func (c *Client) ServiceRestart(ctx context.Context, name string, body any, opts ...string) (map[string]any, error) {
+func (c *Client) ServiceRestart(ctx context.Context, name string, body any, opts ...string) (any, error) {
 	path := fmt.Sprintf("/api/core/service/restart/%s", name)
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceSearch calls GET /api/core/service/search
-func (c *Client) ServiceSearch(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceSearch(ctx context.Context) (any, error) {
 	path := "/api/core/service/search"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -338,12 +338,12 @@ func (c *Client) ServiceSearch(ctx context.Context) (map[string]any, error) {
 // Parameters:
 //   - name
 //   - id (optional, default: ââ)
-func (c *Client) ServiceStart(ctx context.Context, name string, body any, opts ...string) (map[string]any, error) {
+func (c *Client) ServiceStart(ctx context.Context, name string, body any, opts ...string) (any, error) {
 	path := fmt.Sprintf("/api/core/service/start/%s", name)
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -352,12 +352,12 @@ func (c *Client) ServiceStart(ctx context.Context, name string, body any, opts .
 // Parameters:
 //   - name
 //   - id (optional, default: ââ)
-func (c *Client) ServiceStop(ctx context.Context, name string, body any, opts ...string) (map[string]any, error) {
+func (c *Client) ServiceStop(ctx context.Context, name string, body any, opts ...string) (any, error) {
 	path := fmt.Sprintf("/api/core/service/stop/%s", name)
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -365,17 +365,17 @@ func (c *Client) ServiceStop(ctx context.Context, name string, body any, opts ..
 // SnapshotsActivate calls POST /api/core/snapshots/activate
 // Parameters:
 //   - uuid
-func (c *Client) SnapshotsActivate(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) SnapshotsActivate(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/core/snapshots/activate/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SnapshotsAdd calls POST /api/core/snapshots/add
-func (c *Client) SnapshotsAdd(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SnapshotsAdd(ctx context.Context, body any) (any, error) {
 	path := "/api/core/snapshots/add"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -383,9 +383,9 @@ func (c *Client) SnapshotsAdd(ctx context.Context, body any) (map[string]any, er
 // SnapshotsDel calls POST /api/core/snapshots/del
 // Parameters:
 //   - uuid
-func (c *Client) SnapshotsDel(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) SnapshotsDel(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/core/snapshots/del/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -393,28 +393,28 @@ func (c *Client) SnapshotsDel(ctx context.Context, uuid string, body any) (map[s
 // SnapshotsGet calls GET /api/core/snapshots/get
 // Parameters:
 //   - uuid (optional, default: null)
-func (c *Client) SnapshotsGet(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) SnapshotsGet(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/core/snapshots/get"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // SnapshotsIsSupported calls GET /api/core/snapshots/isSupported
-func (c *Client) SnapshotsIsSupported(ctx context.Context) (map[string]any, error) {
+func (c *Client) SnapshotsIsSupported(ctx context.Context) (any, error) {
 	path := "/api/core/snapshots/isSupported"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // SnapshotsSearch calls GET /api/core/snapshots/search
-func (c *Client) SnapshotsSearch(ctx context.Context) (map[string]any, error) {
+func (c *Client) SnapshotsSearch(ctx context.Context) (any, error) {
 	path := "/api/core/snapshots/search"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -422,41 +422,41 @@ func (c *Client) SnapshotsSearch(ctx context.Context) (map[string]any, error) {
 // SnapshotsSet calls POST /api/core/snapshots/set
 // Parameters:
 //   - uuid
-func (c *Client) SnapshotsSet(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) SnapshotsSet(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/core/snapshots/set/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SystemDismissStatus calls POST /api/core/system/dismissStatus
-func (c *Client) SystemDismissStatus(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SystemDismissStatus(ctx context.Context, body any) (any, error) {
 	path := "/api/core/system/dismissStatus"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SystemHalt calls POST /api/core/system/halt
-func (c *Client) SystemHalt(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SystemHalt(ctx context.Context, body any) (any, error) {
 	path := "/api/core/system/halt"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SystemReboot calls POST /api/core/system/reboot
-func (c *Client) SystemReboot(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SystemReboot(ctx context.Context, body any) (any, error) {
 	path := "/api/core/system/reboot"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SystemStatus calls GET /api/core/system/status
-func (c *Client) SystemStatus(ctx context.Context) (map[string]any, error) {
+func (c *Client) SystemStatus(ctx context.Context) (any, error) {
 	path := "/api/core/system/status"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -480,9 +480,9 @@ func (c *Client) TunablesDelItem(ctx context.Context, uuid string) (*opnsense.Ge
 }
 
 // TunablesGet calls GET /api/core/tunables/get
-func (c *Client) TunablesGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) TunablesGet(ctx context.Context) (any, error) {
 	path := "/api/core/tunables/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -501,17 +501,17 @@ func (c *Client) TunablesGetItem(ctx context.Context, opts ...string) (*Item, er
 }
 
 // TunablesReconfigure calls POST /api/core/tunables/reconfigure
-func (c *Client) TunablesReconfigure(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) TunablesReconfigure(ctx context.Context, body any) (any, error) {
 	path := "/api/core/tunables/reconfigure"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // TunablesReset calls POST /api/core/tunables/reset
-func (c *Client) TunablesReset(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) TunablesReset(ctx context.Context, body any) (any, error) {
 	path := "/api/core/tunables/reset"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -525,9 +525,9 @@ func (c *Client) TunablesSearchItem(ctx context.Context, body any) (*opnsense.Se
 }
 
 // TunablesSet calls POST /api/core/tunables/set
-func (c *Client) TunablesSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) TunablesSet(ctx context.Context, body any) (any, error) {
 	path := "/api/core/tunables/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }

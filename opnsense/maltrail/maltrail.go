@@ -20,129 +20,129 @@ func NewClient(c *opnsense.Client) *Client {
 }
 
 // GeneralGet calls GET /api/maltrail/general/get
-func (c *Client) GeneralGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) GeneralGet(ctx context.Context) (any, error) {
 	path := "/api/maltrail/general/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // GeneralSet calls POST /api/maltrail/general/set
-func (c *Client) GeneralSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) GeneralSet(ctx context.Context, body any) (any, error) {
 	path := "/api/maltrail/general/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SensorGet calls GET /api/maltrail/sensor/get
-func (c *Client) SensorGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) SensorGet(ctx context.Context) (any, error) {
 	path := "/api/maltrail/sensor/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // SensorSet calls POST /api/maltrail/sensor/set
-func (c *Client) SensorSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SensorSet(ctx context.Context, body any) (any, error) {
 	path := "/api/maltrail/sensor/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServerGet calls GET /api/maltrail/server/get
-func (c *Client) ServerGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServerGet(ctx context.Context) (any, error) {
 	path := "/api/maltrail/server/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ServerSet calls POST /api/maltrail/server/set
-func (c *Client) ServerSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServerSet(ctx context.Context, body any) (any, error) {
 	path := "/api/maltrail/server/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServerserviceReconfigure calls POST /api/maltrail/serverservice/reconfigure
-func (c *Client) ServerserviceReconfigure(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServerserviceReconfigure(ctx context.Context, body any) (any, error) {
 	path := "/api/maltrail/serverservice/reconfigure"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServerserviceRestart calls POST /api/maltrail/serverservice/restart
-func (c *Client) ServerserviceRestart(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServerserviceRestart(ctx context.Context, body any) (any, error) {
 	path := "/api/maltrail/serverservice/restart"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServerserviceStart calls POST /api/maltrail/serverservice/start
-func (c *Client) ServerserviceStart(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServerserviceStart(ctx context.Context, body any) (any, error) {
 	path := "/api/maltrail/serverservice/start"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServerserviceStatus calls GET /api/maltrail/serverservice/status
-func (c *Client) ServerserviceStatus(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServerserviceStatus(ctx context.Context) (any, error) {
 	path := "/api/maltrail/serverservice/status"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ServerserviceStop calls POST /api/maltrail/serverservice/stop
-func (c *Client) ServerserviceStop(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServerserviceStop(ctx context.Context, body any) (any, error) {
 	path := "/api/maltrail/serverservice/stop"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceReconfigure calls POST /api/maltrail/service/reconfigure
-func (c *Client) ServiceReconfigure(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceReconfigure(ctx context.Context, body any) (any, error) {
 	path := "/api/maltrail/service/reconfigure"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceRestart calls POST /api/maltrail/service/restart
-func (c *Client) ServiceRestart(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceRestart(ctx context.Context, body any) (any, error) {
 	path := "/api/maltrail/service/restart"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceStart calls POST /api/maltrail/service/start
-func (c *Client) ServiceStart(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceStart(ctx context.Context, body any) (any, error) {
 	path := "/api/maltrail/service/start"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceStatus calls GET /api/maltrail/service/status
-func (c *Client) ServiceStatus(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceStatus(ctx context.Context) (any, error) {
 	path := "/api/maltrail/service/status"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ServiceStop calls POST /api/maltrail/service/stop
-func (c *Client) ServiceStop(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceStop(ctx context.Context, body any) (any, error) {
 	path := "/api/maltrail/service/stop"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }

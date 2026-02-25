@@ -21,49 +21,49 @@ func NewClient(c *opnsense.Client) *Client {
 }
 
 // ActivityGetActivity calls GET /api/diagnostics/activity/getActivity
-func (c *Client) ActivityGetActivity(ctx context.Context) (map[string]any, error) {
+func (c *Client) ActivityGetActivity(ctx context.Context) (any, error) {
 	path := "/api/diagnostics/activity/getActivity"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // CpuUsageGetCPUType calls GET /api/diagnostics/cpu_usage/getCPUType
-func (c *Client) CpuUsageGetCPUType(ctx context.Context) (map[string]any, error) {
+func (c *Client) CpuUsageGetCPUType(ctx context.Context) (any, error) {
 	path := "/api/diagnostics/cpu_usage/getCPUType"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // CpuUsageStream calls GET /api/diagnostics/cpu_usage/stream
-func (c *Client) CpuUsageStream(ctx context.Context) (map[string]any, error) {
+func (c *Client) CpuUsageStream(ctx context.Context) (any, error) {
 	path := "/api/diagnostics/cpu_usage/stream"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // DnsReverseLookup calls GET /api/diagnostics/dns/reverseLookup
-func (c *Client) DnsReverseLookup(ctx context.Context) (map[string]any, error) {
+func (c *Client) DnsReverseLookup(ctx context.Context) (any, error) {
 	path := "/api/diagnostics/dns/reverseLookup"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // DnsDiagnosticsGet calls GET /api/diagnostics/dns_diagnostics/get
-func (c *Client) DnsDiagnosticsGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) DnsDiagnosticsGet(ctx context.Context) (any, error) {
 	path := "/api/diagnostics/dns_diagnostics/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // DnsDiagnosticsSet calls POST /api/diagnostics/dns_diagnostics/set
-func (c *Client) DnsDiagnosticsSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) DnsDiagnosticsSet(ctx context.Context, body any) (any, error) {
 	path := "/api/diagnostics/dns_diagnostics/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -72,65 +72,65 @@ func (c *Client) DnsDiagnosticsSet(ctx context.Context, body any) (map[string]an
 // Parameters:
 //   - stateid
 //   - creatorid
-func (c *Client) FirewallDelState(ctx context.Context, stateid string, creatorid string, body any) (map[string]any, error) {
+func (c *Client) FirewallDelState(ctx context.Context, stateid string, creatorid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/diagnostics/firewall/delState/%s/%s", stateid, creatorid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // FirewallFlushSources calls POST /api/diagnostics/firewall/flushSources
-func (c *Client) FirewallFlushSources(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) FirewallFlushSources(ctx context.Context, body any) (any, error) {
 	path := "/api/diagnostics/firewall/flushSources"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // FirewallFlushStates calls POST /api/diagnostics/firewall/flushStates
-func (c *Client) FirewallFlushStates(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) FirewallFlushStates(ctx context.Context, body any) (any, error) {
 	path := "/api/diagnostics/firewall/flushStates"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // FirewallKillStates calls POST /api/diagnostics/firewall/killStates
-func (c *Client) FirewallKillStates(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) FirewallKillStates(ctx context.Context, body any) (any, error) {
 	path := "/api/diagnostics/firewall/killStates"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // FirewallListRuleIds calls GET /api/diagnostics/firewall/listRuleIds
-func (c *Client) FirewallListRuleIds(ctx context.Context) (map[string]any, error) {
+func (c *Client) FirewallListRuleIds(ctx context.Context) (any, error) {
 	path := "/api/diagnostics/firewall/listRuleIds"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // FirewallLog calls GET /api/diagnostics/firewall/log
-func (c *Client) FirewallLog(ctx context.Context) (map[string]any, error) {
+func (c *Client) FirewallLog(ctx context.Context) (any, error) {
 	path := "/api/diagnostics/firewall/log"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // FirewallLogFilters calls GET /api/diagnostics/firewall/logFilters
-func (c *Client) FirewallLogFilters(ctx context.Context) (map[string]any, error) {
+func (c *Client) FirewallLogFilters(ctx context.Context) (any, error) {
 	path := "/api/diagnostics/firewall/logFilters"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // FirewallPfStates calls GET /api/diagnostics/firewall/pfStates
-func (c *Client) FirewallPfStates(ctx context.Context) (map[string]any, error) {
+func (c *Client) FirewallPfStates(ctx context.Context) (any, error) {
 	path := "/api/diagnostics/firewall/pfStates"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -138,44 +138,44 @@ func (c *Client) FirewallPfStates(ctx context.Context) (map[string]any, error) {
 // FirewallPfStatistics calls GET /api/diagnostics/firewall/pfStatistics
 // Parameters:
 //   - section (optional, default: null)
-func (c *Client) FirewallPfStatistics(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) FirewallPfStatistics(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/diagnostics/firewall/pfStatistics"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // FirewallQueryPfTop calls POST /api/diagnostics/firewall/queryPfTop
-func (c *Client) FirewallQueryPfTop(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) FirewallQueryPfTop(ctx context.Context, body any) (any, error) {
 	path := "/api/diagnostics/firewall/queryPfTop"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // FirewallQueryStates calls POST /api/diagnostics/firewall/queryStates
-func (c *Client) FirewallQueryStates(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) FirewallQueryStates(ctx context.Context, body any) (any, error) {
 	path := "/api/diagnostics/firewall/queryStates"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // FirewallStats calls GET /api/diagnostics/firewall/stats
-func (c *Client) FirewallStats(ctx context.Context) (map[string]any, error) {
+func (c *Client) FirewallStats(ctx context.Context) (any, error) {
 	path := "/api/diagnostics/firewall/stats"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // FirewallStreamLog calls GET /api/diagnostics/firewall/streamLog
-func (c *Client) FirewallStreamLog(ctx context.Context) (map[string]any, error) {
+func (c *Client) FirewallStreamLog(ctx context.Context) (any, error) {
 	path := "/api/diagnostics/firewall/streamLog"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -183,145 +183,145 @@ func (c *Client) FirewallStreamLog(ctx context.Context) (map[string]any, error) 
 // InterfaceCarpStatus calls POST /api/diagnostics/interface/carpStatus
 // Parameters:
 //   - status
-func (c *Client) InterfaceCarpStatus(ctx context.Context, status string, body any) (map[string]any, error) {
+func (c *Client) InterfaceCarpStatus(ctx context.Context, status string, body any) (any, error) {
 	path := fmt.Sprintf("/api/diagnostics/interface/carpStatus/%s", status)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // InterfaceDelRoute calls POST /api/diagnostics/interface/delRoute
-func (c *Client) InterfaceDelRoute(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) InterfaceDelRoute(ctx context.Context, body any) (any, error) {
 	path := "/api/diagnostics/interface/delRoute"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // InterfaceFlushArp calls POST /api/diagnostics/interface/flushArp
-func (c *Client) InterfaceFlushArp(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) InterfaceFlushArp(ctx context.Context, body any) (any, error) {
 	path := "/api/diagnostics/interface/flushArp"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // InterfaceGetArp calls GET /api/diagnostics/interface/getArp
-func (c *Client) InterfaceGetArp(ctx context.Context) (map[string]any, error) {
+func (c *Client) InterfaceGetArp(ctx context.Context) (any, error) {
 	path := "/api/diagnostics/interface/getArp"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // InterfaceGetBpfStatistics calls GET /api/diagnostics/interface/getBpfStatistics
-func (c *Client) InterfaceGetBpfStatistics(ctx context.Context) (map[string]any, error) {
+func (c *Client) InterfaceGetBpfStatistics(ctx context.Context) (any, error) {
 	path := "/api/diagnostics/interface/getBpfStatistics"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // InterfaceGetInterfaceConfig calls GET /api/diagnostics/interface/getInterfaceConfig
-func (c *Client) InterfaceGetInterfaceConfig(ctx context.Context) (map[string]any, error) {
+func (c *Client) InterfaceGetInterfaceConfig(ctx context.Context) (any, error) {
 	path := "/api/diagnostics/interface/getInterfaceConfig"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // InterfaceGetInterfaceNames calls GET /api/diagnostics/interface/getInterfaceNames
-func (c *Client) InterfaceGetInterfaceNames(ctx context.Context) (map[string]any, error) {
+func (c *Client) InterfaceGetInterfaceNames(ctx context.Context) (any, error) {
 	path := "/api/diagnostics/interface/getInterfaceNames"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // InterfaceGetInterfaceStatistics calls GET /api/diagnostics/interface/getInterfaceStatistics
-func (c *Client) InterfaceGetInterfaceStatistics(ctx context.Context) (map[string]any, error) {
+func (c *Client) InterfaceGetInterfaceStatistics(ctx context.Context) (any, error) {
 	path := "/api/diagnostics/interface/getInterfaceStatistics"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // InterfaceGetMemoryStatistics calls GET /api/diagnostics/interface/getMemoryStatistics
-func (c *Client) InterfaceGetMemoryStatistics(ctx context.Context) (map[string]any, error) {
+func (c *Client) InterfaceGetMemoryStatistics(ctx context.Context) (any, error) {
 	path := "/api/diagnostics/interface/getMemoryStatistics"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // InterfaceGetNdp calls GET /api/diagnostics/interface/getNdp
-func (c *Client) InterfaceGetNdp(ctx context.Context) (map[string]any, error) {
+func (c *Client) InterfaceGetNdp(ctx context.Context) (any, error) {
 	path := "/api/diagnostics/interface/getNdp"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // InterfaceGetNetisrStatistics calls GET /api/diagnostics/interface/getNetisrStatistics
-func (c *Client) InterfaceGetNetisrStatistics(ctx context.Context) (map[string]any, error) {
+func (c *Client) InterfaceGetNetisrStatistics(ctx context.Context) (any, error) {
 	path := "/api/diagnostics/interface/getNetisrStatistics"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // InterfaceGetPfsyncNodes calls GET /api/diagnostics/interface/getPfsyncNodes
-func (c *Client) InterfaceGetPfsyncNodes(ctx context.Context) (map[string]any, error) {
+func (c *Client) InterfaceGetPfsyncNodes(ctx context.Context) (any, error) {
 	path := "/api/diagnostics/interface/getPfsyncNodes"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // InterfaceGetProtocolStatistics calls GET /api/diagnostics/interface/getProtocolStatistics
-func (c *Client) InterfaceGetProtocolStatistics(ctx context.Context) (map[string]any, error) {
+func (c *Client) InterfaceGetProtocolStatistics(ctx context.Context) (any, error) {
 	path := "/api/diagnostics/interface/getProtocolStatistics"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // InterfaceGetRoutes calls GET /api/diagnostics/interface/getRoutes
-func (c *Client) InterfaceGetRoutes(ctx context.Context) (map[string]any, error) {
+func (c *Client) InterfaceGetRoutes(ctx context.Context) (any, error) {
 	path := "/api/diagnostics/interface/getRoutes"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // InterfaceGetSocketStatistics calls GET /api/diagnostics/interface/getSocketStatistics
-func (c *Client) InterfaceGetSocketStatistics(ctx context.Context) (map[string]any, error) {
+func (c *Client) InterfaceGetSocketStatistics(ctx context.Context) (any, error) {
 	path := "/api/diagnostics/interface/getSocketStatistics"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // InterfaceGetVipStatus calls GET /api/diagnostics/interface/getVipStatus
-func (c *Client) InterfaceGetVipStatus(ctx context.Context) (map[string]any, error) {
+func (c *Client) InterfaceGetVipStatus(ctx context.Context) (any, error) {
 	path := "/api/diagnostics/interface/getVipStatus"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // InterfaceSearchArp calls GET /api/diagnostics/interface/searchArp
-func (c *Client) InterfaceSearchArp(ctx context.Context) (map[string]any, error) {
+func (c *Client) InterfaceSearchArp(ctx context.Context) (any, error) {
 	path := "/api/diagnostics/interface/searchArp"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // InterfaceSearchNdp calls GET /api/diagnostics/interface/searchNdp
-func (c *Client) InterfaceSearchNdp(ctx context.Context) (map[string]any, error) {
+func (c *Client) InterfaceSearchNdp(ctx context.Context) (any, error) {
 	path := "/api/diagnostics/interface/searchNdp"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -345,9 +345,9 @@ func (c *Client) LvtemplateDelItem(ctx context.Context, uuid string) (*opnsense.
 }
 
 // LvtemplateGet calls GET /api/diagnostics/lvtemplate/get
-func (c *Client) LvtemplateGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) LvtemplateGet(ctx context.Context) (any, error) {
 	path := "/api/diagnostics/lvtemplate/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -374,9 +374,9 @@ func (c *Client) LvtemplateSearchItem(ctx context.Context, body any) (*opnsense.
 }
 
 // LvtemplateSet calls POST /api/diagnostics/lvtemplate/set
-func (c *Client) LvtemplateSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) LvtemplateSet(ctx context.Context, body any) (any, error) {
 	path := "/api/diagnostics/lvtemplate/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -392,49 +392,49 @@ func (c *Client) LvtemplateSetItem(ctx context.Context, uuid string, body *Templ
 }
 
 // NetflowCacheStats calls GET /api/diagnostics/netflow/cacheStats
-func (c *Client) NetflowCacheStats(ctx context.Context) (map[string]any, error) {
+func (c *Client) NetflowCacheStats(ctx context.Context) (any, error) {
 	path := "/api/diagnostics/netflow/cacheStats"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // NetflowGetconfig calls GET /api/diagnostics/netflow/getconfig
-func (c *Client) NetflowGetconfig(ctx context.Context) (map[string]any, error) {
+func (c *Client) NetflowGetconfig(ctx context.Context) (any, error) {
 	path := "/api/diagnostics/netflow/getconfig"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // NetflowIsEnabled calls GET /api/diagnostics/netflow/isEnabled
-func (c *Client) NetflowIsEnabled(ctx context.Context) (map[string]any, error) {
+func (c *Client) NetflowIsEnabled(ctx context.Context) (any, error) {
 	path := "/api/diagnostics/netflow/isEnabled"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // NetflowReconfigure calls POST /api/diagnostics/netflow/reconfigure
-func (c *Client) NetflowReconfigure(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) NetflowReconfigure(ctx context.Context, body any) (any, error) {
 	path := "/api/diagnostics/netflow/reconfigure"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // NetflowSetconfig calls GET /api/diagnostics/netflow/setconfig
-func (c *Client) NetflowSetconfig(ctx context.Context) (map[string]any, error) {
+func (c *Client) NetflowSetconfig(ctx context.Context) (any, error) {
 	path := "/api/diagnostics/netflow/setconfig"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // NetflowStatus calls GET /api/diagnostics/netflow/status
-func (c *Client) NetflowStatus(ctx context.Context) (map[string]any, error) {
+func (c *Client) NetflowStatus(ctx context.Context) (any, error) {
 	path := "/api/diagnostics/netflow/status"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -445,44 +445,44 @@ func (c *Client) NetflowStatus(ctx context.Context) (map[string]any, error) {
 //   - from_date (optional, default: null)
 //   - to_date (optional, default: null)
 //   - resolution (optional, default: null)
-func (c *Client) NetworkinsightExport(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) NetworkinsightExport(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/diagnostics/networkinsight/export"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // NetworkinsightGetInterfaces calls GET /api/diagnostics/networkinsight/getInterfaces
-func (c *Client) NetworkinsightGetInterfaces(ctx context.Context) (map[string]any, error) {
+func (c *Client) NetworkinsightGetInterfaces(ctx context.Context) (any, error) {
 	path := "/api/diagnostics/networkinsight/getInterfaces"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // NetworkinsightGetMetadata calls GET /api/diagnostics/networkinsight/getMetadata
-func (c *Client) NetworkinsightGetMetadata(ctx context.Context) (map[string]any, error) {
+func (c *Client) NetworkinsightGetMetadata(ctx context.Context) (any, error) {
 	path := "/api/diagnostics/networkinsight/getMetadata"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // NetworkinsightGetProtocols calls GET /api/diagnostics/networkinsight/getProtocols
-func (c *Client) NetworkinsightGetProtocols(ctx context.Context) (map[string]any, error) {
+func (c *Client) NetworkinsightGetProtocols(ctx context.Context) (any, error) {
 	path := "/api/diagnostics/networkinsight/getProtocols"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // NetworkinsightGetServices calls GET /api/diagnostics/networkinsight/getServices
-func (c *Client) NetworkinsightGetServices(ctx context.Context) (map[string]any, error) {
+func (c *Client) NetworkinsightGetServices(ctx context.Context) (any, error) {
 	path := "/api/diagnostics/networkinsight/getServices"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -496,12 +496,12 @@ func (c *Client) NetworkinsightGetServices(ctx context.Context) (map[string]any,
 //   - resolution (optional, default: null)
 //   - field (optional, default: null)
 //   - emulation (optional, default: null)
-func (c *Client) NetworkinsightTimeserie(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) NetworkinsightTimeserie(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/diagnostics/networkinsight/timeserie"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -514,12 +514,12 @@ func (c *Client) NetworkinsightTimeserie(ctx context.Context, opts ...string) (m
 //   - field (optional, default: null)
 //   - measure (optional, default: null)
 //   - max_hits (optional, default: null)
-func (c *Client) NetworkinsightTop(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) NetworkinsightTop(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/diagnostics/networkinsight/top"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -527,17 +527,17 @@ func (c *Client) NetworkinsightTop(ctx context.Context, opts ...string) (map[str
 // PacketCaptureDownload calls GET /api/diagnostics/packet_capture/download
 // Parameters:
 //   - jobid
-func (c *Client) PacketCaptureDownload(ctx context.Context, jobid string) (map[string]any, error) {
+func (c *Client) PacketCaptureDownload(ctx context.Context, jobid string) (any, error) {
 	path := fmt.Sprintf("/api/diagnostics/packet_capture/download/%s", jobid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // PacketCaptureGet calls GET /api/diagnostics/packet_capture/get
-func (c *Client) PacketCaptureGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) PacketCaptureGet(ctx context.Context) (any, error) {
 	path := "/api/diagnostics/packet_capture/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -545,9 +545,9 @@ func (c *Client) PacketCaptureGet(ctx context.Context) (map[string]any, error) {
 // PacketCaptureMacInfo calls GET /api/diagnostics/packet_capture/macInfo
 // Parameters:
 //   - macaddr
-func (c *Client) PacketCaptureMacInfo(ctx context.Context, macaddr string) (map[string]any, error) {
+func (c *Client) PacketCaptureMacInfo(ctx context.Context, macaddr string) (any, error) {
 	path := fmt.Sprintf("/api/diagnostics/packet_capture/macInfo/%s", macaddr)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -555,25 +555,25 @@ func (c *Client) PacketCaptureMacInfo(ctx context.Context, macaddr string) (map[
 // PacketCaptureRemove calls POST /api/diagnostics/packet_capture/remove
 // Parameters:
 //   - jobid
-func (c *Client) PacketCaptureRemove(ctx context.Context, jobid string, body any) (map[string]any, error) {
+func (c *Client) PacketCaptureRemove(ctx context.Context, jobid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/diagnostics/packet_capture/remove/%s", jobid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // PacketCaptureSearchJobs calls GET /api/diagnostics/packet_capture/searchJobs
-func (c *Client) PacketCaptureSearchJobs(ctx context.Context) (map[string]any, error) {
+func (c *Client) PacketCaptureSearchJobs(ctx context.Context) (any, error) {
 	path := "/api/diagnostics/packet_capture/searchJobs"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // PacketCaptureSet calls POST /api/diagnostics/packet_capture/set
-func (c *Client) PacketCaptureSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) PacketCaptureSet(ctx context.Context, body any) (any, error) {
 	path := "/api/diagnostics/packet_capture/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -581,9 +581,9 @@ func (c *Client) PacketCaptureSet(ctx context.Context, body any) (map[string]any
 // PacketCaptureStart calls POST /api/diagnostics/packet_capture/start
 // Parameters:
 //   - jobid
-func (c *Client) PacketCaptureStart(ctx context.Context, jobid string, body any) (map[string]any, error) {
+func (c *Client) PacketCaptureStart(ctx context.Context, jobid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/diagnostics/packet_capture/start/%s", jobid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -591,9 +591,9 @@ func (c *Client) PacketCaptureStart(ctx context.Context, jobid string, body any)
 // PacketCaptureStop calls POST /api/diagnostics/packet_capture/stop
 // Parameters:
 //   - jobid
-func (c *Client) PacketCaptureStop(ctx context.Context, jobid string, body any) (map[string]any, error) {
+func (c *Client) PacketCaptureStop(ctx context.Context, jobid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/diagnostics/packet_capture/stop/%s", jobid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -602,20 +602,20 @@ func (c *Client) PacketCaptureStop(ctx context.Context, jobid string, body any) 
 // Parameters:
 //   - jobid
 //   - detail (optional, default: normal)
-func (c *Client) PacketCaptureView(ctx context.Context, jobid string, opts ...string) (map[string]any, error) {
+func (c *Client) PacketCaptureView(ctx context.Context, jobid string, opts ...string) (any, error) {
 	path := fmt.Sprintf("/api/diagnostics/packet_capture/view/%s", jobid)
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // PingGet calls GET /api/diagnostics/ping/get
-func (c *Client) PingGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) PingGet(ctx context.Context) (any, error) {
 	path := "/api/diagnostics/ping/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -623,25 +623,25 @@ func (c *Client) PingGet(ctx context.Context) (map[string]any, error) {
 // PingRemove calls POST /api/diagnostics/ping/remove
 // Parameters:
 //   - jobid
-func (c *Client) PingRemove(ctx context.Context, jobid string, body any) (map[string]any, error) {
+func (c *Client) PingRemove(ctx context.Context, jobid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/diagnostics/ping/remove/%s", jobid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // PingSearchJobs calls GET /api/diagnostics/ping/searchJobs
-func (c *Client) PingSearchJobs(ctx context.Context) (map[string]any, error) {
+func (c *Client) PingSearchJobs(ctx context.Context) (any, error) {
 	path := "/api/diagnostics/ping/searchJobs"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // PingSet calls POST /api/diagnostics/ping/set
-func (c *Client) PingSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) PingSet(ctx context.Context, body any) (any, error) {
 	path := "/api/diagnostics/ping/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -649,9 +649,9 @@ func (c *Client) PingSet(ctx context.Context, body any) (map[string]any, error) 
 // PingStart calls POST /api/diagnostics/ping/start
 // Parameters:
 //   - jobid
-func (c *Client) PingStart(ctx context.Context, jobid string, body any) (map[string]any, error) {
+func (c *Client) PingStart(ctx context.Context, jobid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/diagnostics/ping/start/%s", jobid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -659,89 +659,89 @@ func (c *Client) PingStart(ctx context.Context, jobid string, body any) (map[str
 // PingStop calls POST /api/diagnostics/ping/stop
 // Parameters:
 //   - jobid
-func (c *Client) PingStop(ctx context.Context, jobid string, body any) (map[string]any, error) {
+func (c *Client) PingStop(ctx context.Context, jobid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/diagnostics/ping/stop/%s", jobid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // PortprobeGet calls GET /api/diagnostics/portprobe/get
-func (c *Client) PortprobeGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) PortprobeGet(ctx context.Context) (any, error) {
 	path := "/api/diagnostics/portprobe/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // PortprobeSet calls POST /api/diagnostics/portprobe/set
-func (c *Client) PortprobeSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) PortprobeSet(ctx context.Context, body any) (any, error) {
 	path := "/api/diagnostics/portprobe/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SystemMemory calls GET /api/diagnostics/system/memory
-func (c *Client) SystemMemory(ctx context.Context) (map[string]any, error) {
+func (c *Client) SystemMemory(ctx context.Context) (any, error) {
 	path := "/api/diagnostics/system/memory"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // SystemSystemDisk calls GET /api/diagnostics/system/systemDisk
-func (c *Client) SystemSystemDisk(ctx context.Context) (map[string]any, error) {
+func (c *Client) SystemSystemDisk(ctx context.Context) (any, error) {
 	path := "/api/diagnostics/system/systemDisk"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // SystemSystemInformation calls GET /api/diagnostics/system/systemInformation
-func (c *Client) SystemSystemInformation(ctx context.Context) (map[string]any, error) {
+func (c *Client) SystemSystemInformation(ctx context.Context) (any, error) {
 	path := "/api/diagnostics/system/systemInformation"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // SystemSystemMbuf calls GET /api/diagnostics/system/systemMbuf
-func (c *Client) SystemSystemMbuf(ctx context.Context) (map[string]any, error) {
+func (c *Client) SystemSystemMbuf(ctx context.Context) (any, error) {
 	path := "/api/diagnostics/system/systemMbuf"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // SystemSystemResources calls GET /api/diagnostics/system/systemResources
-func (c *Client) SystemSystemResources(ctx context.Context) (map[string]any, error) {
+func (c *Client) SystemSystemResources(ctx context.Context) (any, error) {
 	path := "/api/diagnostics/system/systemResources"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // SystemSystemSwap calls GET /api/diagnostics/system/systemSwap
-func (c *Client) SystemSystemSwap(ctx context.Context) (map[string]any, error) {
+func (c *Client) SystemSystemSwap(ctx context.Context) (any, error) {
 	path := "/api/diagnostics/system/systemSwap"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // SystemSystemTemperature calls GET /api/diagnostics/system/systemTemperature
-func (c *Client) SystemSystemTemperature(ctx context.Context) (map[string]any, error) {
+func (c *Client) SystemSystemTemperature(ctx context.Context) (any, error) {
 	path := "/api/diagnostics/system/systemTemperature"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // SystemSystemTime calls GET /api/diagnostics/system/systemTime
-func (c *Client) SystemSystemTime(ctx context.Context) (map[string]any, error) {
+func (c *Client) SystemSystemTime(ctx context.Context) (any, error) {
 	path := "/api/diagnostics/system/systemTime"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -750,28 +750,28 @@ func (c *Client) SystemSystemTime(ctx context.Context) (map[string]any, error) {
 // Parameters:
 //   - rrd (optional, default: ââ)
 //   - detail (optional, default: -1)
-func (c *Client) SystemhealthExportAsCSV(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) SystemhealthExportAsCSV(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/diagnostics/systemhealth/exportAsCSV"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // SystemhealthGetInterfaces calls GET /api/diagnostics/systemhealth/getInterfaces
-func (c *Client) SystemhealthGetInterfaces(ctx context.Context) (map[string]any, error) {
+func (c *Client) SystemhealthGetInterfaces(ctx context.Context) (any, error) {
 	path := "/api/diagnostics/systemhealth/getInterfaces"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // SystemhealthGetRrdList calls GET /api/diagnostics/systemhealth/getRrdList
-func (c *Client) SystemhealthGetRrdList(ctx context.Context) (map[string]any, error) {
+func (c *Client) SystemhealthGetRrdList(ctx context.Context) (any, error) {
 	path := "/api/diagnostics/systemhealth/getRrdList"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -780,36 +780,36 @@ func (c *Client) SystemhealthGetRrdList(ctx context.Context) (map[string]any, er
 // Parameters:
 //   - rrd (optional, default: ââ)
 //   - detail (optional, default: -1)
-func (c *Client) SystemhealthGetSystemHealth(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) SystemhealthGetSystemHealth(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/diagnostics/systemhealth/getSystemHealth"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // TracerouteGet calls GET /api/diagnostics/traceroute/get
-func (c *Client) TracerouteGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) TracerouteGet(ctx context.Context) (any, error) {
 	path := "/api/diagnostics/traceroute/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // TracerouteSet calls POST /api/diagnostics/traceroute/set
-func (c *Client) TracerouteSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) TracerouteSet(ctx context.Context, body any) (any, error) {
 	path := "/api/diagnostics/traceroute/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // TrafficInterface calls GET /api/diagnostics/traffic/interface
-func (c *Client) TrafficInterface(ctx context.Context) (map[string]any, error) {
+func (c *Client) TrafficInterface(ctx context.Context) (any, error) {
 	path := "/api/diagnostics/traffic/interface"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -817,9 +817,9 @@ func (c *Client) TrafficInterface(ctx context.Context) (map[string]any, error) {
 // TrafficTop calls GET /api/diagnostics/traffic/top
 // Parameters:
 //   - interfaces
-func (c *Client) TrafficTop(ctx context.Context, interfaces string) (map[string]any, error) {
+func (c *Client) TrafficTop(ctx context.Context, interfaces string) (any, error) {
 	path := fmt.Sprintf("/api/diagnostics/traffic/top/%s", interfaces)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -827,12 +827,12 @@ func (c *Client) TrafficTop(ctx context.Context, interfaces string) (map[string]
 // TrafficStream calls GET /api/diagnostics/traffic/stream
 // Parameters:
 //   - poll_interval (optional, default: 1)
-func (c *Client) TrafficStream(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) TrafficStream(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/diagnostics/traffic/stream"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }

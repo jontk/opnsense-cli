@@ -39,9 +39,9 @@ func (c *Client) DomainDelDomain(ctx context.Context, uuid string) (*opnsense.Ge
 }
 
 // DomainGet calls GET /api/siproxd/domain/get
-func (c *Client) DomainGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) DomainGet(ctx context.Context) (any, error) {
 	path := "/api/siproxd/domain/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -68,9 +68,9 @@ func (c *Client) DomainSearchDomain(ctx context.Context) (*opnsense.SearchResult
 }
 
 // DomainSet calls POST /api/siproxd/domain/set
-func (c *Client) DomainSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) DomainSet(ctx context.Context, body any) (any, error) {
 	path := "/api/siproxd/domain/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -96,65 +96,65 @@ func (c *Client) DomainToggleDomain(ctx context.Context, uuid string) (*opnsense
 }
 
 // GeneralGet calls GET /api/siproxd/general/get
-func (c *Client) GeneralGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) GeneralGet(ctx context.Context) (any, error) {
 	path := "/api/siproxd/general/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // GeneralSet calls POST /api/siproxd/general/set
-func (c *Client) GeneralSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) GeneralSet(ctx context.Context, body any) (any, error) {
 	path := "/api/siproxd/general/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceReconfigure calls POST /api/siproxd/service/reconfigure
-func (c *Client) ServiceReconfigure(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceReconfigure(ctx context.Context, body any) (any, error) {
 	path := "/api/siproxd/service/reconfigure"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceRestart calls POST /api/siproxd/service/restart
-func (c *Client) ServiceRestart(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceRestart(ctx context.Context, body any) (any, error) {
 	path := "/api/siproxd/service/restart"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceShowregistrations calls GET /api/siproxd/service/showregistrations
-func (c *Client) ServiceShowregistrations(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceShowregistrations(ctx context.Context) (any, error) {
 	path := "/api/siproxd/service/showregistrations"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ServiceStart calls POST /api/siproxd/service/start
-func (c *Client) ServiceStart(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceStart(ctx context.Context, body any) (any, error) {
 	path := "/api/siproxd/service/start"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceStatus calls GET /api/siproxd/service/status
-func (c *Client) ServiceStatus(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceStatus(ctx context.Context) (any, error) {
 	path := "/api/siproxd/service/status"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ServiceStop calls POST /api/siproxd/service/stop
-func (c *Client) ServiceStop(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceStop(ctx context.Context, body any) (any, error) {
 	path := "/api/siproxd/service/stop"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -178,9 +178,9 @@ func (c *Client) UserDelUser(ctx context.Context, uuid string) (*opnsense.Generi
 }
 
 // UserGet calls GET /api/siproxd/user/get
-func (c *Client) UserGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) UserGet(ctx context.Context) (any, error) {
 	path := "/api/siproxd/user/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -207,9 +207,9 @@ func (c *Client) UserSearchUser(ctx context.Context) (*opnsense.SearchResult[Use
 }
 
 // UserSet calls POST /api/siproxd/user/set
-func (c *Client) UserSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) UserSet(ctx context.Context, body any) (any, error) {
 	path := "/api/siproxd/user/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }

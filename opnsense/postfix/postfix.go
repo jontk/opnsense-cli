@@ -39,9 +39,9 @@ func (c *Client) AddressDelAddress(ctx context.Context, uuid string) (*opnsense.
 }
 
 // AddressGet calls GET /api/postfix/address/get
-func (c *Client) AddressGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) AddressGet(ctx context.Context) (any, error) {
 	path := "/api/postfix/address/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -68,9 +68,9 @@ func (c *Client) AddressSearchAddress(ctx context.Context, body any) (*opnsense.
 }
 
 // AddressSet calls POST /api/postfix/address/set
-func (c *Client) AddressSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) AddressSet(ctx context.Context, body any) (any, error) {
 	path := "/api/postfix/address/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -96,17 +96,17 @@ func (c *Client) AddressToggleAddress(ctx context.Context, uuid string) (*opnsen
 }
 
 // AntispamGet calls GET /api/postfix/antispam/get
-func (c *Client) AntispamGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) AntispamGet(ctx context.Context) (any, error) {
 	path := "/api/postfix/antispam/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // AntispamSet calls POST /api/postfix/antispam/set
-func (c *Client) AntispamSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) AntispamSet(ctx context.Context, body any) (any, error) {
 	path := "/api/postfix/antispam/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -130,9 +130,9 @@ func (c *Client) DomainDelDomain(ctx context.Context, uuid string) (*opnsense.Ge
 }
 
 // DomainGet calls GET /api/postfix/domain/get
-func (c *Client) DomainGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) DomainGet(ctx context.Context) (any, error) {
 	path := "/api/postfix/domain/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -159,9 +159,9 @@ func (c *Client) DomainSearchDomain(ctx context.Context, body any) (*opnsense.Se
 }
 
 // DomainSet calls POST /api/postfix/domain/set
-func (c *Client) DomainSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) DomainSet(ctx context.Context, body any) (any, error) {
 	path := "/api/postfix/domain/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -187,17 +187,17 @@ func (c *Client) DomainToggleDomain(ctx context.Context, uuid string) (*opnsense
 }
 
 // GeneralGet calls GET /api/postfix/general/get
-func (c *Client) GeneralGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) GeneralGet(ctx context.Context) (any, error) {
 	path := "/api/postfix/general/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // GeneralSet calls POST /api/postfix/general/set
-func (c *Client) GeneralSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) GeneralSet(ctx context.Context, body any) (any, error) {
 	path := "/api/postfix/general/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -221,9 +221,9 @@ func (c *Client) HeaderchecksDelHeadercheck(ctx context.Context, uuid string) (*
 }
 
 // HeaderchecksGet calls GET /api/postfix/headerchecks/get
-func (c *Client) HeaderchecksGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) HeaderchecksGet(ctx context.Context) (any, error) {
 	path := "/api/postfix/headerchecks/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -250,9 +250,9 @@ func (c *Client) HeaderchecksSearchHeaderchecks(ctx context.Context, body any) (
 }
 
 // HeaderchecksSet calls POST /api/postfix/headerchecks/set
-func (c *Client) HeaderchecksSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) HeaderchecksSet(ctx context.Context, body any) (any, error) {
 	path := "/api/postfix/headerchecks/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -296,9 +296,9 @@ func (c *Client) RecipientDelRecipient(ctx context.Context, uuid string) (*opnse
 }
 
 // RecipientGet calls GET /api/postfix/recipient/get
-func (c *Client) RecipientGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) RecipientGet(ctx context.Context) (any, error) {
 	path := "/api/postfix/recipient/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -325,9 +325,9 @@ func (c *Client) RecipientSearchRecipient(ctx context.Context, body any) (*opnse
 }
 
 // RecipientSet calls POST /api/postfix/recipient/set
-func (c *Client) RecipientSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) RecipientSet(ctx context.Context, body any) (any, error) {
 	path := "/api/postfix/recipient/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -371,9 +371,9 @@ func (c *Client) RecipientbccDelRecipientbcc(ctx context.Context, uuid string) (
 }
 
 // RecipientbccGet calls GET /api/postfix/recipientbcc/get
-func (c *Client) RecipientbccGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) RecipientbccGet(ctx context.Context) (any, error) {
 	path := "/api/postfix/recipientbcc/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -400,9 +400,9 @@ func (c *Client) RecipientbccSearchRecipientbcc(ctx context.Context, body any) (
 }
 
 // RecipientbccSet calls POST /api/postfix/recipientbcc/set
-func (c *Client) RecipientbccSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) RecipientbccSet(ctx context.Context, body any) (any, error) {
 	path := "/api/postfix/recipientbcc/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -446,9 +446,9 @@ func (c *Client) SenderDelSender(ctx context.Context, uuid string) (*opnsense.Ge
 }
 
 // SenderGet calls GET /api/postfix/sender/get
-func (c *Client) SenderGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) SenderGet(ctx context.Context) (any, error) {
 	path := "/api/postfix/sender/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -475,9 +475,9 @@ func (c *Client) SenderSearchSender(ctx context.Context, body any) (*opnsense.Se
 }
 
 // SenderSet calls POST /api/postfix/sender/set
-func (c *Client) SenderSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SenderSet(ctx context.Context, body any) (any, error) {
 	path := "/api/postfix/sender/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -521,9 +521,9 @@ func (c *Client) SenderbccDelSenderbcc(ctx context.Context, uuid string) (*opnse
 }
 
 // SenderbccGet calls GET /api/postfix/senderbcc/get
-func (c *Client) SenderbccGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) SenderbccGet(ctx context.Context) (any, error) {
 	path := "/api/postfix/senderbcc/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -550,9 +550,9 @@ func (c *Client) SenderbccSearchSenderbcc(ctx context.Context, body any) (*opnse
 }
 
 // SenderbccSet calls POST /api/postfix/senderbcc/set
-func (c *Client) SenderbccSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SenderbccSet(ctx context.Context, body any) (any, error) {
 	path := "/api/postfix/senderbcc/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -596,9 +596,9 @@ func (c *Client) SendercanonicalDelSendercanonical(ctx context.Context, uuid str
 }
 
 // SendercanonicalGet calls GET /api/postfix/sendercanonical/get
-func (c *Client) SendercanonicalGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) SendercanonicalGet(ctx context.Context) (any, error) {
 	path := "/api/postfix/sendercanonical/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -625,9 +625,9 @@ func (c *Client) SendercanonicalSearchSendercanonical(ctx context.Context, body 
 }
 
 // SendercanonicalSet calls POST /api/postfix/sendercanonical/set
-func (c *Client) SendercanonicalSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SendercanonicalSet(ctx context.Context, body any) (any, error) {
 	path := "/api/postfix/sendercanonical/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -653,49 +653,49 @@ func (c *Client) SendercanonicalToggleSendercanonical(ctx context.Context, uuid 
 }
 
 // ServiceCheckrspamd calls GET /api/postfix/service/checkrspamd
-func (c *Client) ServiceCheckrspamd(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceCheckrspamd(ctx context.Context) (any, error) {
 	path := "/api/postfix/service/checkrspamd"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ServiceReconfigure calls POST /api/postfix/service/reconfigure
-func (c *Client) ServiceReconfigure(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceReconfigure(ctx context.Context, body any) (any, error) {
 	path := "/api/postfix/service/reconfigure"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceRestart calls POST /api/postfix/service/restart
-func (c *Client) ServiceRestart(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceRestart(ctx context.Context, body any) (any, error) {
 	path := "/api/postfix/service/restart"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceStart calls POST /api/postfix/service/start
-func (c *Client) ServiceStart(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceStart(ctx context.Context, body any) (any, error) {
 	path := "/api/postfix/service/start"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceStatus calls GET /api/postfix/service/status
-func (c *Client) ServiceStatus(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceStatus(ctx context.Context) (any, error) {
 	path := "/api/postfix/service/status"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ServiceStop calls POST /api/postfix/service/stop
-func (c *Client) ServiceStop(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceStop(ctx context.Context, body any) (any, error) {
 	path := "/api/postfix/service/stop"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }

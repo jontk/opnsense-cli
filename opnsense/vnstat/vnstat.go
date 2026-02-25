@@ -20,97 +20,97 @@ func NewClient(c *opnsense.Client) *Client {
 }
 
 // GeneralGet calls GET /api/vnstat/general/get
-func (c *Client) GeneralGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) GeneralGet(ctx context.Context) (any, error) {
 	path := "/api/vnstat/general/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // GeneralSet calls POST /api/vnstat/general/set
-func (c *Client) GeneralSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) GeneralSet(ctx context.Context, body any) (any, error) {
 	path := "/api/vnstat/general/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceDaily calls GET /api/vnstat/service/daily
-func (c *Client) ServiceDaily(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceDaily(ctx context.Context) (any, error) {
 	path := "/api/vnstat/service/daily"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ServiceHourly calls GET /api/vnstat/service/hourly
-func (c *Client) ServiceHourly(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceHourly(ctx context.Context) (any, error) {
 	path := "/api/vnstat/service/hourly"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ServiceMonthly calls GET /api/vnstat/service/monthly
-func (c *Client) ServiceMonthly(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceMonthly(ctx context.Context) (any, error) {
 	path := "/api/vnstat/service/monthly"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ServiceReconfigure calls POST /api/vnstat/service/reconfigure
-func (c *Client) ServiceReconfigure(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceReconfigure(ctx context.Context, body any) (any, error) {
 	path := "/api/vnstat/service/reconfigure"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceResetdb calls GET /api/vnstat/service/resetdb
-func (c *Client) ServiceResetdb(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceResetdb(ctx context.Context) (any, error) {
 	path := "/api/vnstat/service/resetdb"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ServiceRestart calls POST /api/vnstat/service/restart
-func (c *Client) ServiceRestart(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceRestart(ctx context.Context, body any) (any, error) {
 	path := "/api/vnstat/service/restart"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceStart calls POST /api/vnstat/service/start
-func (c *Client) ServiceStart(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceStart(ctx context.Context, body any) (any, error) {
 	path := "/api/vnstat/service/start"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceStatus calls GET /api/vnstat/service/status
-func (c *Client) ServiceStatus(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceStatus(ctx context.Context) (any, error) {
 	path := "/api/vnstat/service/status"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ServiceStop calls POST /api/vnstat/service/stop
-func (c *Client) ServiceStop(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceStop(ctx context.Context, body any) (any, error) {
 	path := "/api/vnstat/service/stop"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceYearly calls GET /api/vnstat/service/yearly
-func (c *Client) ServiceYearly(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceYearly(ctx context.Context) (any, error) {
 	path := "/api/vnstat/service/yearly"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }

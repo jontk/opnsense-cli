@@ -47,9 +47,9 @@ func (c *Client) ClientDelClient(ctx context.Context, uuid string) (*opnsense.Ge
 }
 
 // ClientGet calls GET /api/wireguard/client/get
-func (c *Client) ClientGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) ClientGet(ctx context.Context) (any, error) {
 	path := "/api/wireguard/client/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -78,28 +78,28 @@ func (c *Client) ClientGetClientBuilder(ctx context.Context) (*ClientConfig, err
 // ClientGetServerInfo calls GET /api/wireguard/client/getServerInfo
 // Parameters:
 //   - uuid (optional, default: null)
-func (c *Client) ClientGetServerInfo(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) ClientGetServerInfo(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/wireguard/client/getServerInfo"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ClientListServers calls GET /api/wireguard/client/listServers
-func (c *Client) ClientListServers(ctx context.Context) (map[string]any, error) {
+func (c *Client) ClientListServers(ctx context.Context) (any, error) {
 	path := "/api/wireguard/client/listServers"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ClientPsk calls GET /api/wireguard/client/psk
-func (c *Client) ClientPsk(ctx context.Context) (map[string]any, error) {
+func (c *Client) ClientPsk(ctx context.Context) (any, error) {
 	path := "/api/wireguard/client/psk"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -113,9 +113,9 @@ func (c *Client) ClientSearchClient(ctx context.Context, body any) (*opnsense.Se
 }
 
 // ClientSet calls POST /api/wireguard/client/set
-func (c *Client) ClientSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ClientSet(ctx context.Context, body any) (any, error) {
 	path := "/api/wireguard/client/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -141,17 +141,17 @@ func (c *Client) ClientToggleClient(ctx context.Context, uuid string) (*opnsense
 }
 
 // GeneralGet calls GET /api/wireguard/general/get
-func (c *Client) GeneralGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) GeneralGet(ctx context.Context) (any, error) {
 	path := "/api/wireguard/general/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // GeneralSet calls POST /api/wireguard/general/set
-func (c *Client) GeneralSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) GeneralSet(ctx context.Context, body any) (any, error) {
 	path := "/api/wireguard/general/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -180,9 +180,9 @@ func (c *Client) ServerDelServer(ctx context.Context, uuid string) (*opnsense.Ge
 }
 
 // ServerGet calls GET /api/wireguard/server/get
-func (c *Client) ServerGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServerGet(ctx context.Context) (any, error) {
 	path := "/api/wireguard/server/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -201,9 +201,9 @@ func (c *Client) ServerGetServer(ctx context.Context, opts ...string) (*Server, 
 }
 
 // ServerKeyPair calls GET /api/wireguard/server/keyPair
-func (c *Client) ServerKeyPair(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServerKeyPair(ctx context.Context) (any, error) {
 	path := "/api/wireguard/server/keyPair"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -217,9 +217,9 @@ func (c *Client) ServerSearchServer(ctx context.Context, body any) (*opnsense.Se
 }
 
 // ServerSet calls POST /api/wireguard/server/set
-func (c *Client) ServerSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServerSet(ctx context.Context, body any) (any, error) {
 	path := "/api/wireguard/server/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -248,49 +248,49 @@ func (c *Client) ServerToggleServer(ctx context.Context, uuid string) (*opnsense
 }
 
 // ServiceReconfigure calls POST /api/wireguard/service/reconfigure
-func (c *Client) ServiceReconfigure(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceReconfigure(ctx context.Context, body any) (any, error) {
 	path := "/api/wireguard/service/reconfigure"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceRestart calls POST /api/wireguard/service/restart
-func (c *Client) ServiceRestart(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceRestart(ctx context.Context, body any) (any, error) {
 	path := "/api/wireguard/service/restart"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceShow calls GET /api/wireguard/service/show
-func (c *Client) ServiceShow(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceShow(ctx context.Context) (any, error) {
 	path := "/api/wireguard/service/show"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ServiceStart calls POST /api/wireguard/service/start
-func (c *Client) ServiceStart(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceStart(ctx context.Context, body any) (any, error) {
 	path := "/api/wireguard/service/start"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceStatus calls GET /api/wireguard/service/status
-func (c *Client) ServiceStatus(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceStatus(ctx context.Context) (any, error) {
 	path := "/api/wireguard/service/status"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ServiceStop calls POST /api/wireguard/service/stop
-func (c *Client) ServiceStop(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceStop(ctx context.Context, body any) (any, error) {
 	path := "/api/wireguard/service/stop"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }

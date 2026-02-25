@@ -20,25 +20,25 @@ func NewClient(c *opnsense.Client) *Client {
 }
 
 // ServiceGps calls GET /api/ntpd/service/gps
-func (c *Client) ServiceGps(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceGps(ctx context.Context) (any, error) {
 	path := "/api/ntpd/service/gps"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ServiceMeta calls GET /api/ntpd/service/meta
-func (c *Client) ServiceMeta(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceMeta(ctx context.Context) (any, error) {
 	path := "/api/ntpd/service/meta"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ServiceStatus calls GET /api/ntpd/service/status
-func (c *Client) ServiceStatus(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceStatus(ctx context.Context) (any, error) {
 	path := "/api/ntpd/service/status"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }

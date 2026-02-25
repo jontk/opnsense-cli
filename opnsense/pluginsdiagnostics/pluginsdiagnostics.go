@@ -20,9 +20,9 @@ func NewClient(c *opnsense.Client) *Client {
 }
 
 // ProofpointEtStatus calls GET /api/diagnostics/proofpoint_et/status
-func (c *Client) ProofpointEtStatus(ctx context.Context) (map[string]any, error) {
+func (c *Client) ProofpointEtStatus(ctx context.Context) (any, error) {
 	path := "/api/diagnostics/proofpoint_et/status"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }

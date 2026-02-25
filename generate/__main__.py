@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
+from generate.emitter.cli_emitter import emit_cli
 from generate.emitter.go_emitter import emit
 from generate.model.ir import APISpec
 from generate.parser.endpoint_resolver import resolve_endpoints
@@ -14,6 +15,7 @@ from generate.parser.xml_parser import parse_all as parse_xml
 DOCS_DIR = Path("docs/api")
 MODELS_DIR = Path("docs/models")
 OUTPUT_DIR = Path("opnsense")
+CLI_OUTPUT_DIR = Path("internal/cli/gen")
 
 
 def main() -> None:
@@ -60,8 +62,8 @@ def main() -> None:
     )
     print(f"  Resolved {typed} typed CRUD endpoints\n")
 
-    # Stage 3: Emit Go code
-    print("Stage 3: Emitting Go code...")
+    # Stage 3: Emit Go SDK code
+    print("Stage 3: Emitting Go SDK code...")
     spec = APISpec(modules=modules, models=models)
     emit(spec, OUTPUT_DIR)
 
@@ -70,7 +72,14 @@ def main() -> None:
     generated = [f for f in go_files if f.name not in ("client.go", "request.go", "types.go")]
     print(f"  Generated {len(generated)} Go files\n")
 
-    print("Done! Run 'gofmt -w opnsense/' and 'go build ./opnsense/...' to verify.")
+    # Stage 4: Emit CLI commands
+    print("Stage 4: Emitting CLI commands...")
+    emit_cli(spec, CLI_OUTPUT_DIR)
+
+    cli_files = list(CLI_OUTPUT_DIR.glob("*.go"))
+    print(f"  Generated {len(cli_files)} CLI Go files\n")
+
+    print("Done! Run 'gofmt -w opnsense/ internal/cli/gen/' and 'go build ./...' to verify.")
 
 
 if __name__ == "__main__":

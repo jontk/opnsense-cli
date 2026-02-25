@@ -20,57 +20,57 @@ func NewClient(c *opnsense.Client) *Client {
 }
 
 // ServiceCreatekeytab calls POST /api/proxysso/service/createkeytab
-func (c *Client) ServiceCreatekeytab(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceCreatekeytab(ctx context.Context, body any) (any, error) {
 	path := "/api/proxysso/service/createkeytab"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceDeletekeytab calls GET /api/proxysso/service/deletekeytab
-func (c *Client) ServiceDeletekeytab(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceDeletekeytab(ctx context.Context) (any, error) {
 	path := "/api/proxysso/service/deletekeytab"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ServiceGetCheckList calls GET /api/proxysso/service/getCheckList
-func (c *Client) ServiceGetCheckList(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceGetCheckList(ctx context.Context) (any, error) {
 	path := "/api/proxysso/service/getCheckList"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ServiceShowkeytab calls GET /api/proxysso/service/showkeytab
-func (c *Client) ServiceShowkeytab(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceShowkeytab(ctx context.Context) (any, error) {
 	path := "/api/proxysso/service/showkeytab"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ServiceTestkerblogin calls POST /api/proxysso/service/testkerblogin
-func (c *Client) ServiceTestkerblogin(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceTestkerblogin(ctx context.Context, body any) (any, error) {
 	path := "/api/proxysso/service/testkerblogin"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SettingsGet calls GET /api/proxysso/settings/get
-func (c *Client) SettingsGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) SettingsGet(ctx context.Context) (any, error) {
 	path := "/api/proxysso/settings/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // SettingsSet calls POST /api/proxysso/settings/set
-func (c *Client) SettingsSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSet(ctx context.Context, body any) (any, error) {
 	path := "/api/proxysso/settings/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }

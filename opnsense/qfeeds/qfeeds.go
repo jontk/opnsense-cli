@@ -20,49 +20,49 @@ func NewClient(c *opnsense.Client) *Client {
 }
 
 // SettingsGet calls GET /api/qfeeds/settings/get
-func (c *Client) SettingsGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) SettingsGet(ctx context.Context) (any, error) {
 	path := "/api/qfeeds/settings/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // SettingsReconfigure calls GET /api/qfeeds/settings/reconfigure
-func (c *Client) SettingsReconfigure(ctx context.Context) (map[string]any, error) {
+func (c *Client) SettingsReconfigure(ctx context.Context) (any, error) {
 	path := "/api/qfeeds/settings/reconfigure"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // SettingsSearchEvents calls GET /api/qfeeds/settings/searchEvents
-func (c *Client) SettingsSearchEvents(ctx context.Context) (map[string]any, error) {
+func (c *Client) SettingsSearchEvents(ctx context.Context) (any, error) {
 	path := "/api/qfeeds/settings/searchEvents"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // SettingsSearchFeeds calls GET /api/qfeeds/settings/searchFeeds
-func (c *Client) SettingsSearchFeeds(ctx context.Context) (map[string]any, error) {
+func (c *Client) SettingsSearchFeeds(ctx context.Context) (any, error) {
 	path := "/api/qfeeds/settings/searchFeeds"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // SettingsSet calls POST /api/qfeeds/settings/set
-func (c *Client) SettingsSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSet(ctx context.Context, body any) (any, error) {
 	path := "/api/qfeeds/settings/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SettingsStats calls GET /api/qfeeds/settings/stats
-func (c *Client) SettingsStats(ctx context.Context) (map[string]any, error) {
+func (c *Client) SettingsStats(ctx context.Context) (any, error) {
 	path := "/api/qfeeds/settings/stats"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }

@@ -21,9 +21,9 @@ func NewClient(c *opnsense.Client) *Client {
 }
 
 // ServiceReconfigure calls POST /api/dhcrelay/service/reconfigure
-func (c *Client) ServiceReconfigure(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceReconfigure(ctx context.Context, body any) (any, error) {
 	path := "/api/dhcrelay/service/reconfigure"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -65,9 +65,9 @@ func (c *Client) SettingsDelRelay(ctx context.Context, uuid string) (*opnsense.G
 }
 
 // SettingsGet calls GET /api/dhcrelay/settings/get
-func (c *Client) SettingsGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) SettingsGet(ctx context.Context) (any, error) {
 	path := "/api/dhcrelay/settings/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -115,9 +115,9 @@ func (c *Client) SettingsSearchRelay(ctx context.Context, body any) (*opnsense.S
 }
 
 // SettingsSet calls POST /api/dhcrelay/settings/set
-func (c *Client) SettingsSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSet(ctx context.Context, body any) (any, error) {
 	path := "/api/dhcrelay/settings/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }

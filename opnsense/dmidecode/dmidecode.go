@@ -20,9 +20,9 @@ func NewClient(c *opnsense.Client) *Client {
 }
 
 // ServiceGet calls GET /api/dmidecode/service/get
-func (c *Client) ServiceGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceGet(ctx context.Context) (any, error) {
 	path := "/api/dmidecode/service/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }

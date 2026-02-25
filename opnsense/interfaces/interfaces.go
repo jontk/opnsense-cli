@@ -39,9 +39,9 @@ func (c *Client) BridgeSettingsDelItem(ctx context.Context, uuid string) (*opnse
 }
 
 // BridgeSettingsGet calls GET /api/interfaces/bridge_settings/get
-func (c *Client) BridgeSettingsGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) BridgeSettingsGet(ctx context.Context) (any, error) {
 	path := "/api/interfaces/bridge_settings/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -60,9 +60,9 @@ func (c *Client) BridgeSettingsGetItem(ctx context.Context, opts ...string) (*Br
 }
 
 // BridgeSettingsReconfigure calls POST /api/interfaces/bridge_settings/reconfigure
-func (c *Client) BridgeSettingsReconfigure(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) BridgeSettingsReconfigure(ctx context.Context, body any) (any, error) {
 	path := "/api/interfaces/bridge_settings/reconfigure"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -76,9 +76,9 @@ func (c *Client) BridgeSettingsSearchItem(ctx context.Context, body any) (*opnse
 }
 
 // BridgeSettingsSet calls POST /api/interfaces/bridge_settings/set
-func (c *Client) BridgeSettingsSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) BridgeSettingsSet(ctx context.Context, body any) (any, error) {
 	path := "/api/interfaces/bridge_settings/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -112,17 +112,17 @@ func (c *Client) GifSettingsDelItem(ctx context.Context, uuid string) (*opnsense
 }
 
 // GifSettingsGet calls GET /api/interfaces/gif_settings/get
-func (c *Client) GifSettingsGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) GifSettingsGet(ctx context.Context) (any, error) {
 	path := "/api/interfaces/gif_settings/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // GifSettingsGetIfOptions calls GET /api/interfaces/gif_settings/getIfOptions
-func (c *Client) GifSettingsGetIfOptions(ctx context.Context) (map[string]any, error) {
+func (c *Client) GifSettingsGetIfOptions(ctx context.Context) (any, error) {
 	path := "/api/interfaces/gif_settings/getIfOptions"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -141,9 +141,9 @@ func (c *Client) GifSettingsGetItem(ctx context.Context, opts ...string) (*Gif, 
 }
 
 // GifSettingsReconfigure calls POST /api/interfaces/gif_settings/reconfigure
-func (c *Client) GifSettingsReconfigure(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) GifSettingsReconfigure(ctx context.Context, body any) (any, error) {
 	path := "/api/interfaces/gif_settings/reconfigure"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -157,9 +157,9 @@ func (c *Client) GifSettingsSearchItem(ctx context.Context, body any) (*opnsense
 }
 
 // GifSettingsSet calls POST /api/interfaces/gif_settings/set
-func (c *Client) GifSettingsSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) GifSettingsSet(ctx context.Context, body any) (any, error) {
 	path := "/api/interfaces/gif_settings/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -193,17 +193,17 @@ func (c *Client) GreSettingsDelItem(ctx context.Context, uuid string) (*opnsense
 }
 
 // GreSettingsGet calls GET /api/interfaces/gre_settings/get
-func (c *Client) GreSettingsGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) GreSettingsGet(ctx context.Context) (any, error) {
 	path := "/api/interfaces/gre_settings/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // GreSettingsGetIfOptions calls GET /api/interfaces/gre_settings/getIfOptions
-func (c *Client) GreSettingsGetIfOptions(ctx context.Context) (map[string]any, error) {
+func (c *Client) GreSettingsGetIfOptions(ctx context.Context) (any, error) {
 	path := "/api/interfaces/gre_settings/getIfOptions"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -222,9 +222,9 @@ func (c *Client) GreSettingsGetItem(ctx context.Context, opts ...string) (*Gre, 
 }
 
 // GreSettingsReconfigure calls POST /api/interfaces/gre_settings/reconfigure
-func (c *Client) GreSettingsReconfigure(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) GreSettingsReconfigure(ctx context.Context, body any) (any, error) {
 	path := "/api/interfaces/gre_settings/reconfigure"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -238,9 +238,9 @@ func (c *Client) GreSettingsSearchItem(ctx context.Context, body any) (*opnsense
 }
 
 // GreSettingsSet calls POST /api/interfaces/gre_settings/set
-func (c *Client) GreSettingsSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) GreSettingsSet(ctx context.Context, body any) (any, error) {
 	path := "/api/interfaces/gre_settings/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -274,9 +274,9 @@ func (c *Client) LaggSettingsDelItem(ctx context.Context, uuid string) (*opnsens
 }
 
 // LaggSettingsGet calls GET /api/interfaces/lagg_settings/get
-func (c *Client) LaggSettingsGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) LaggSettingsGet(ctx context.Context) (any, error) {
 	path := "/api/interfaces/lagg_settings/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -295,9 +295,9 @@ func (c *Client) LaggSettingsGetItem(ctx context.Context, opts ...string) (*Lagg
 }
 
 // LaggSettingsReconfigure calls POST /api/interfaces/lagg_settings/reconfigure
-func (c *Client) LaggSettingsReconfigure(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) LaggSettingsReconfigure(ctx context.Context, body any) (any, error) {
 	path := "/api/interfaces/lagg_settings/reconfigure"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -311,9 +311,9 @@ func (c *Client) LaggSettingsSearchItem(ctx context.Context, body any) (*opnsens
 }
 
 // LaggSettingsSet calls POST /api/interfaces/lagg_settings/set
-func (c *Client) LaggSettingsSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) LaggSettingsSet(ctx context.Context, body any) (any, error) {
 	path := "/api/interfaces/lagg_settings/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -347,9 +347,9 @@ func (c *Client) LoopbackSettingsDelItem(ctx context.Context, uuid string) (*opn
 }
 
 // LoopbackSettingsGet calls GET /api/interfaces/loopback_settings/get
-func (c *Client) LoopbackSettingsGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) LoopbackSettingsGet(ctx context.Context) (any, error) {
 	path := "/api/interfaces/loopback_settings/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -368,9 +368,9 @@ func (c *Client) LoopbackSettingsGetItem(ctx context.Context, opts ...string) (*
 }
 
 // LoopbackSettingsReconfigure calls POST /api/interfaces/loopback_settings/reconfigure
-func (c *Client) LoopbackSettingsReconfigure(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) LoopbackSettingsReconfigure(ctx context.Context, body any) (any, error) {
 	path := "/api/interfaces/loopback_settings/reconfigure"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -384,9 +384,9 @@ func (c *Client) LoopbackSettingsSearchItem(ctx context.Context, body any) (*opn
 }
 
 // LoopbackSettingsSet calls POST /api/interfaces/loopback_settings/set
-func (c *Client) LoopbackSettingsSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) LoopbackSettingsSet(ctx context.Context, body any) (any, error) {
 	path := "/api/interfaces/loopback_settings/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -420,9 +420,9 @@ func (c *Client) NeighborSettingsDelItem(ctx context.Context, uuid string) (*opn
 }
 
 // NeighborSettingsGet calls GET /api/interfaces/neighbor_settings/get
-func (c *Client) NeighborSettingsGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) NeighborSettingsGet(ctx context.Context) (any, error) {
 	path := "/api/interfaces/neighbor_settings/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -441,9 +441,9 @@ func (c *Client) NeighborSettingsGetItem(ctx context.Context, opts ...string) (*
 }
 
 // NeighborSettingsReconfigure calls POST /api/interfaces/neighbor_settings/reconfigure
-func (c *Client) NeighborSettingsReconfigure(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) NeighborSettingsReconfigure(ctx context.Context, body any) (any, error) {
 	path := "/api/interfaces/neighbor_settings/reconfigure"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -457,9 +457,9 @@ func (c *Client) NeighborSettingsSearchItem(ctx context.Context, body any) (*opn
 }
 
 // NeighborSettingsSet calls POST /api/interfaces/neighbor_settings/set
-func (c *Client) NeighborSettingsSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) NeighborSettingsSet(ctx context.Context, body any) (any, error) {
 	path := "/api/interfaces/neighbor_settings/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -475,9 +475,9 @@ func (c *Client) NeighborSettingsSetItem(ctx context.Context, uuid string, body 
 }
 
 // OverviewExport calls GET /api/interfaces/overview/export
-func (c *Client) OverviewExport(ctx context.Context) (map[string]any, error) {
+func (c *Client) OverviewExport(ctx context.Context) (any, error) {
 	path := "/api/interfaces/overview/export"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -485,12 +485,12 @@ func (c *Client) OverviewExport(ctx context.Context) (map[string]any, error) {
 // OverviewGetInterface calls GET /api/interfaces/overview/getInterface
 // Parameters:
 //   - if (optional, default: null)
-func (c *Client) OverviewGetInterface(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) OverviewGetInterface(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/interfaces/overview/getInterface"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -498,12 +498,12 @@ func (c *Client) OverviewGetInterface(ctx context.Context, opts ...string) (map[
 // OverviewInterfacesInfo calls GET /api/interfaces/overview/interfacesInfo
 // Parameters:
 //   - details (optional, default: false)
-func (c *Client) OverviewInterfacesInfo(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) OverviewInterfacesInfo(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/interfaces/overview/interfacesInfo"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -511,36 +511,36 @@ func (c *Client) OverviewInterfacesInfo(ctx context.Context, opts ...string) (ma
 // OverviewReloadInterface calls GET /api/interfaces/overview/reloadInterface
 // Parameters:
 //   - identifier (optional, default: null)
-func (c *Client) OverviewReloadInterface(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) OverviewReloadInterface(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/interfaces/overview/reloadInterface"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // SettingsGet calls GET /api/interfaces/settings/get
-func (c *Client) SettingsGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) SettingsGet(ctx context.Context) (any, error) {
 	path := "/api/interfaces/settings/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // SettingsReconfigure calls POST /api/interfaces/settings/reconfigure
-func (c *Client) SettingsReconfigure(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsReconfigure(ctx context.Context, body any) (any, error) {
 	path := "/api/interfaces/settings/reconfigure"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // SettingsSet calls POST /api/interfaces/settings/set
-func (c *Client) SettingsSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsSet(ctx context.Context, body any) (any, error) {
 	path := "/api/interfaces/settings/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -564,9 +564,9 @@ func (c *Client) VipSettingsDelItem(ctx context.Context, uuid string) (*opnsense
 }
 
 // VipSettingsGet calls GET /api/interfaces/vip_settings/get
-func (c *Client) VipSettingsGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) VipSettingsGet(ctx context.Context) (any, error) {
 	path := "/api/interfaces/vip_settings/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -585,17 +585,17 @@ func (c *Client) VipSettingsGetItem(ctx context.Context, opts ...string) (*Vip, 
 }
 
 // VipSettingsGetUnusedVhid calls GET /api/interfaces/vip_settings/getUnusedVhid
-func (c *Client) VipSettingsGetUnusedVhid(ctx context.Context) (map[string]any, error) {
+func (c *Client) VipSettingsGetUnusedVhid(ctx context.Context) (any, error) {
 	path := "/api/interfaces/vip_settings/getUnusedVhid"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // VipSettingsReconfigure calls POST /api/interfaces/vip_settings/reconfigure
-func (c *Client) VipSettingsReconfigure(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) VipSettingsReconfigure(ctx context.Context, body any) (any, error) {
 	path := "/api/interfaces/vip_settings/reconfigure"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -609,9 +609,9 @@ func (c *Client) VipSettingsSearchItem(ctx context.Context, body any) (*opnsense
 }
 
 // VipSettingsSet calls POST /api/interfaces/vip_settings/set
-func (c *Client) VipSettingsSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) VipSettingsSet(ctx context.Context, body any) (any, error) {
 	path := "/api/interfaces/vip_settings/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -645,9 +645,9 @@ func (c *Client) VlanSettingsDelItem(ctx context.Context, uuid string) (*opnsens
 }
 
 // VlanSettingsGet calls GET /api/interfaces/vlan_settings/get
-func (c *Client) VlanSettingsGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) VlanSettingsGet(ctx context.Context) (any, error) {
 	path := "/api/interfaces/vlan_settings/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -666,9 +666,9 @@ func (c *Client) VlanSettingsGetItem(ctx context.Context, opts ...string) (*Vlan
 }
 
 // VlanSettingsReconfigure calls POST /api/interfaces/vlan_settings/reconfigure
-func (c *Client) VlanSettingsReconfigure(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) VlanSettingsReconfigure(ctx context.Context, body any) (any, error) {
 	path := "/api/interfaces/vlan_settings/reconfigure"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -682,9 +682,9 @@ func (c *Client) VlanSettingsSearchItem(ctx context.Context, body any) (*opnsens
 }
 
 // VlanSettingsSet calls POST /api/interfaces/vlan_settings/set
-func (c *Client) VlanSettingsSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) VlanSettingsSet(ctx context.Context, body any) (any, error) {
 	path := "/api/interfaces/vlan_settings/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -718,9 +718,9 @@ func (c *Client) VxlanSettingsDelItem(ctx context.Context, uuid string) (*opnsen
 }
 
 // VxlanSettingsGet calls GET /api/interfaces/vxlan_settings/get
-func (c *Client) VxlanSettingsGet(ctx context.Context) (map[string]any, error) {
+func (c *Client) VxlanSettingsGet(ctx context.Context) (any, error) {
 	path := "/api/interfaces/vxlan_settings/get"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -739,9 +739,9 @@ func (c *Client) VxlanSettingsGetItem(ctx context.Context, opts ...string) (*Vxl
 }
 
 // VxlanSettingsReconfigure calls POST /api/interfaces/vxlan_settings/reconfigure
-func (c *Client) VxlanSettingsReconfigure(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) VxlanSettingsReconfigure(ctx context.Context, body any) (any, error) {
 	path := "/api/interfaces/vxlan_settings/reconfigure"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -755,9 +755,9 @@ func (c *Client) VxlanSettingsSearchItem(ctx context.Context, body any) (*opnsen
 }
 
 // VxlanSettingsSet calls POST /api/interfaces/vxlan_settings/set
-func (c *Client) VxlanSettingsSet(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) VxlanSettingsSet(ctx context.Context, body any) (any, error) {
 	path := "/api/interfaces/vxlan_settings/set"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }

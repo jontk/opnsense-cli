@@ -21,9 +21,9 @@ func NewClient(c *opnsense.Client) *Client {
 }
 
 // ClientOverwritesAdd calls POST /api/openvpn/client_overwrites/add
-func (c *Client) ClientOverwritesAdd(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ClientOverwritesAdd(ctx context.Context, body any) (any, error) {
 	path := "/api/openvpn/client_overwrites/add"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -31,9 +31,9 @@ func (c *Client) ClientOverwritesAdd(ctx context.Context, body any) (map[string]
 // ClientOverwritesDel calls POST /api/openvpn/client_overwrites/del
 // Parameters:
 //   - uuid
-func (c *Client) ClientOverwritesDel(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) ClientOverwritesDel(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/openvpn/client_overwrites/del/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -41,20 +41,20 @@ func (c *Client) ClientOverwritesDel(ctx context.Context, uuid string, body any)
 // ClientOverwritesGet calls GET /api/openvpn/client_overwrites/get
 // Parameters:
 //   - uuid (optional, default: null)
-func (c *Client) ClientOverwritesGet(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) ClientOverwritesGet(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/openvpn/client_overwrites/get"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ClientOverwritesSearch calls GET,POST /api/openvpn/client_overwrites/search
-func (c *Client) ClientOverwritesSearch(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ClientOverwritesSearch(ctx context.Context, body any) (any, error) {
 	path := "/api/openvpn/client_overwrites/search"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -62,12 +62,12 @@ func (c *Client) ClientOverwritesSearch(ctx context.Context, body any) (map[stri
 // ClientOverwritesSet calls POST /api/openvpn/client_overwrites/set
 // Parameters:
 //   - uuid (optional, default: null)
-func (c *Client) ClientOverwritesSet(ctx context.Context, body any, opts ...string) (map[string]any, error) {
+func (c *Client) ClientOverwritesSet(ctx context.Context, body any, opts ...string) (any, error) {
 	path := "/api/openvpn/client_overwrites/set"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -76,12 +76,12 @@ func (c *Client) ClientOverwritesSet(ctx context.Context, body any, opts ...stri
 // Parameters:
 //   - uuid
 //   - enabled (optional, default: null)
-func (c *Client) ClientOverwritesToggle(ctx context.Context, uuid string, body any, opts ...string) (map[string]any, error) {
+func (c *Client) ClientOverwritesToggle(ctx context.Context, uuid string, body any, opts ...string) (any, error) {
 	path := fmt.Sprintf("/api/openvpn/client_overwrites/toggle/%s", uuid)
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -89,12 +89,12 @@ func (c *Client) ClientOverwritesToggle(ctx context.Context, uuid string, body a
 // ExportAccounts calls GET /api/openvpn/export/accounts
 // Parameters:
 //   - vpnid (optional, default: null)
-func (c *Client) ExportAccounts(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) ExportAccounts(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/openvpn/export/accounts"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -103,20 +103,20 @@ func (c *Client) ExportAccounts(ctx context.Context, opts ...string) (map[string
 // Parameters:
 //   - vpnid
 //   - certref (optional, default: null)
-func (c *Client) ExportDownload(ctx context.Context, vpnid string, body any, opts ...string) (map[string]any, error) {
+func (c *Client) ExportDownload(ctx context.Context, vpnid string, body any, opts ...string) (any, error) {
 	path := fmt.Sprintf("/api/openvpn/export/download/%s", vpnid)
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ExportProviders calls GET /api/openvpn/export/providers
-func (c *Client) ExportProviders(ctx context.Context) (map[string]any, error) {
+func (c *Client) ExportProviders(ctx context.Context) (any, error) {
 	path := "/api/openvpn/export/providers"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -124,17 +124,17 @@ func (c *Client) ExportProviders(ctx context.Context) (map[string]any, error) {
 // ExportStorePresets calls POST /api/openvpn/export/storePresets
 // Parameters:
 //   - vpnid
-func (c *Client) ExportStorePresets(ctx context.Context, vpnid string, body any) (map[string]any, error) {
+func (c *Client) ExportStorePresets(ctx context.Context, vpnid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/openvpn/export/storePresets/%s", vpnid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ExportTemplates calls GET /api/openvpn/export/templates
-func (c *Client) ExportTemplates(ctx context.Context) (map[string]any, error) {
+func (c *Client) ExportTemplates(ctx context.Context) (any, error) {
 	path := "/api/openvpn/export/templates"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -142,17 +142,17 @@ func (c *Client) ExportTemplates(ctx context.Context) (map[string]any, error) {
 // ExportValidatePresets calls POST /api/openvpn/export/validatePresets
 // Parameters:
 //   - vpnid
-func (c *Client) ExportValidatePresets(ctx context.Context, vpnid string, body any) (map[string]any, error) {
+func (c *Client) ExportValidatePresets(ctx context.Context, vpnid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/openvpn/export/validatePresets/%s", vpnid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // InstancesAdd calls POST /api/openvpn/instances/add
-func (c *Client) InstancesAdd(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) InstancesAdd(ctx context.Context, body any) (any, error) {
 	path := "/api/openvpn/instances/add"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -168,9 +168,9 @@ func (c *Client) InstancesAddStaticKey(ctx context.Context, body *StaticKey) (*o
 // InstancesDel calls POST /api/openvpn/instances/del
 // Parameters:
 //   - uuid
-func (c *Client) InstancesDel(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) InstancesDel(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/openvpn/instances/del/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -188,12 +188,12 @@ func (c *Client) InstancesDelStaticKey(ctx context.Context, uuid string) (*opnse
 // InstancesGenKey calls GET /api/openvpn/instances/genKey
 // Parameters:
 //   - type (optional, default: secret)
-func (c *Client) InstancesGenKey(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) InstancesGenKey(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/openvpn/instances/genKey"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -201,12 +201,12 @@ func (c *Client) InstancesGenKey(ctx context.Context, opts ...string) (map[strin
 // InstancesGet calls GET /api/openvpn/instances/get
 // Parameters:
 //   - uuid (optional, default: null)
-func (c *Client) InstancesGet(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) InstancesGet(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/openvpn/instances/get"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -225,9 +225,9 @@ func (c *Client) InstancesGetStaticKey(ctx context.Context, opts ...string) (*St
 }
 
 // InstancesSearch calls GET,POST /api/openvpn/instances/search
-func (c *Client) InstancesSearch(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) InstancesSearch(ctx context.Context, body any) (any, error) {
 	path := "/api/openvpn/instances/search"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -243,12 +243,12 @@ func (c *Client) InstancesSearchStaticKey(ctx context.Context, body any) (*opnse
 // InstancesSet calls POST /api/openvpn/instances/set
 // Parameters:
 //   - uuid (optional, default: null)
-func (c *Client) InstancesSet(ctx context.Context, body any, opts ...string) (map[string]any, error) {
+func (c *Client) InstancesSet(ctx context.Context, body any, opts ...string) (any, error) {
 	path := "/api/openvpn/instances/set"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -270,28 +270,28 @@ func (c *Client) InstancesSetStaticKey(ctx context.Context, body *StaticKey, opt
 // Parameters:
 //   - uuid
 //   - enabled (optional, default: null)
-func (c *Client) InstancesToggle(ctx context.Context, uuid string, body any, opts ...string) (map[string]any, error) {
+func (c *Client) InstancesToggle(ctx context.Context, uuid string, body any, opts ...string) (any, error) {
 	path := fmt.Sprintf("/api/openvpn/instances/toggle/%s", uuid)
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceKillSession calls POST /api/openvpn/service/killSession
-func (c *Client) ServiceKillSession(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceKillSession(ctx context.Context, body any) (any, error) {
 	path := "/api/openvpn/service/killSession"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceReconfigure calls POST /api/openvpn/service/reconfigure
-func (c *Client) ServiceReconfigure(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) ServiceReconfigure(ctx context.Context, body any) (any, error) {
 	path := "/api/openvpn/service/reconfigure"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -299,28 +299,28 @@ func (c *Client) ServiceReconfigure(ctx context.Context, body any) (map[string]a
 // ServiceRestartService calls POST /api/openvpn/service/restartService
 // Parameters:
 //   - id (optional, default: null)
-func (c *Client) ServiceRestartService(ctx context.Context, body any, opts ...string) (map[string]any, error) {
+func (c *Client) ServiceRestartService(ctx context.Context, body any, opts ...string) (any, error) {
 	path := "/api/openvpn/service/restartService"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
 
 // ServiceSearchRoutes calls GET /api/openvpn/service/searchRoutes
-func (c *Client) ServiceSearchRoutes(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceSearchRoutes(ctx context.Context) (any, error) {
 	path := "/api/openvpn/service/searchRoutes"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ServiceSearchSessions calls GET /api/openvpn/service/searchSessions
-func (c *Client) ServiceSearchSessions(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceSearchSessions(ctx context.Context) (any, error) {
 	path := "/api/openvpn/service/searchSessions"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -328,12 +328,12 @@ func (c *Client) ServiceSearchSessions(ctx context.Context) (map[string]any, err
 // ServiceStartService calls POST /api/openvpn/service/startService
 // Parameters:
 //   - id (optional, default: null)
-func (c *Client) ServiceStartService(ctx context.Context, body any, opts ...string) (map[string]any, error) {
+func (c *Client) ServiceStartService(ctx context.Context, body any, opts ...string) (any, error) {
 	path := "/api/openvpn/service/startService"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -341,12 +341,12 @@ func (c *Client) ServiceStartService(ctx context.Context, body any, opts ...stri
 // ServiceStopService calls POST /api/openvpn/service/stopService
 // Parameters:
 //   - id (optional, default: null)
-func (c *Client) ServiceStopService(ctx context.Context, body any, opts ...string) (map[string]any, error) {
+func (c *Client) ServiceStopService(ctx context.Context, body any, opts ...string) (any, error) {
 	path := "/api/openvpn/service/stopService"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }

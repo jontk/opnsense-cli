@@ -105,7 +105,7 @@ func (c *Client) {{ ep.go_method_name }}(ctx context.Context{% for p in ep.requi
 }
 {% else %}
 {# ── Untyped: keeps current signature with optional params ── #}
-func (c *Client) {{ ep.go_method_name }}(ctx context.Context{% for p in ep.required_params %}, {{ p.name }} string{% endfor %}{% if ep.has_body %}, body any{% endif %}{% if ep.optional_params %}, opts ...string{% endif %}) (map[string]any, error) {
+func (c *Client) {{ ep.go_method_name }}(ctx context.Context{% for p in ep.required_params %}, {{ p.name }} string{% endfor %}{% if ep.has_body %}, body any{% endif %}{% if ep.optional_params %}, opts ...string{% endif %}) (any, error) {
 {% if ep.path_fmt %}
 	path := fmt.Sprintf("{{ ep.path_fmt }}"{% for p in ep.required_params %}, {{ p.name }}{% endfor %})
 {% else %}
@@ -116,7 +116,7 @@ func (c *Client) {{ ep.go_method_name }}(ctx context.Context{% for p in ep.requi
 		path += "/" + o
 	}
 {% endif %}
-	var resp map[string]any
+	var resp any
 {% if ep.primary_method == "POST" %}
 	err := c.client.Do(ctx, "POST", path, {% if ep.has_body %}body{% else %}nil{% endif %}, &resp)
 {% else %}

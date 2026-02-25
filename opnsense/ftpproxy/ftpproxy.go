@@ -21,17 +21,17 @@ func NewClient(c *opnsense.Client) *Client {
 }
 
 // ServiceConfig calls GET /api/ftpproxy/service/config
-func (c *Client) ServiceConfig(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceConfig(ctx context.Context) (any, error) {
 	path := "/api/ftpproxy/service/config"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // ServiceReload calls GET /api/ftpproxy/service/reload
-func (c *Client) ServiceReload(ctx context.Context) (map[string]any, error) {
+func (c *Client) ServiceReload(ctx context.Context) (any, error) {
 	path := "/api/ftpproxy/service/reload"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -39,9 +39,9 @@ func (c *Client) ServiceReload(ctx context.Context) (map[string]any, error) {
 // ServiceRestart calls GET /api/ftpproxy/service/restart
 // Parameters:
 //   - uuid
-func (c *Client) ServiceRestart(ctx context.Context, uuid string) (map[string]any, error) {
+func (c *Client) ServiceRestart(ctx context.Context, uuid string) (any, error) {
 	path := fmt.Sprintf("/api/ftpproxy/service/restart/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -49,9 +49,9 @@ func (c *Client) ServiceRestart(ctx context.Context, uuid string) (map[string]an
 // ServiceStart calls GET /api/ftpproxy/service/start
 // Parameters:
 //   - uuid
-func (c *Client) ServiceStart(ctx context.Context, uuid string) (map[string]any, error) {
+func (c *Client) ServiceStart(ctx context.Context, uuid string) (any, error) {
 	path := fmt.Sprintf("/api/ftpproxy/service/start/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -59,9 +59,9 @@ func (c *Client) ServiceStart(ctx context.Context, uuid string) (map[string]any,
 // ServiceStatus calls GET /api/ftpproxy/service/status
 // Parameters:
 //   - uuid
-func (c *Client) ServiceStatus(ctx context.Context, uuid string) (map[string]any, error) {
+func (c *Client) ServiceStatus(ctx context.Context, uuid string) (any, error) {
 	path := fmt.Sprintf("/api/ftpproxy/service/status/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -69,17 +69,17 @@ func (c *Client) ServiceStatus(ctx context.Context, uuid string) (map[string]any
 // ServiceStop calls GET /api/ftpproxy/service/stop
 // Parameters:
 //   - uuid
-func (c *Client) ServiceStop(ctx context.Context, uuid string) (map[string]any, error) {
+func (c *Client) ServiceStop(ctx context.Context, uuid string) (any, error) {
 	path := fmt.Sprintf("/api/ftpproxy/service/stop/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // SettingsAddProxy calls POST /api/ftpproxy/settings/addProxy
-func (c *Client) SettingsAddProxy(ctx context.Context, body any) (map[string]any, error) {
+func (c *Client) SettingsAddProxy(ctx context.Context, body any) (any, error) {
 	path := "/api/ftpproxy/settings/addProxy"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -87,9 +87,9 @@ func (c *Client) SettingsAddProxy(ctx context.Context, body any) (map[string]any
 // SettingsDelProxy calls POST /api/ftpproxy/settings/delProxy
 // Parameters:
 //   - uuid
-func (c *Client) SettingsDelProxy(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) SettingsDelProxy(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/ftpproxy/settings/delProxy/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -97,20 +97,20 @@ func (c *Client) SettingsDelProxy(ctx context.Context, uuid string, body any) (m
 // SettingsGetProxy calls GET /api/ftpproxy/settings/getProxy
 // Parameters:
 //   - uuid (optional, default: null)
-func (c *Client) SettingsGetProxy(ctx context.Context, opts ...string) (map[string]any, error) {
+func (c *Client) SettingsGetProxy(ctx context.Context, opts ...string) (any, error) {
 	path := "/api/ftpproxy/settings/getProxy"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
 
 // SettingsSearchProxy calls GET /api/ftpproxy/settings/searchProxy
-func (c *Client) SettingsSearchProxy(ctx context.Context) (map[string]any, error) {
+func (c *Client) SettingsSearchProxy(ctx context.Context) (any, error) {
 	path := "/api/ftpproxy/settings/searchProxy"
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
 	return resp, err
 }
@@ -118,9 +118,9 @@ func (c *Client) SettingsSearchProxy(ctx context.Context) (map[string]any, error
 // SettingsSetProxy calls POST /api/ftpproxy/settings/setProxy
 // Parameters:
 //   - uuid
-func (c *Client) SettingsSetProxy(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) SettingsSetProxy(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/ftpproxy/settings/setProxy/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }
@@ -128,9 +128,9 @@ func (c *Client) SettingsSetProxy(ctx context.Context, uuid string, body any) (m
 // SettingsToggleProxy calls POST /api/ftpproxy/settings/toggleProxy
 // Parameters:
 //   - uuid
-func (c *Client) SettingsToggleProxy(ctx context.Context, uuid string, body any) (map[string]any, error) {
+func (c *Client) SettingsToggleProxy(ctx context.Context, uuid string, body any) (any, error) {
 	path := fmt.Sprintf("/api/ftpproxy/settings/toggleProxy/%s", uuid)
-	var resp map[string]any
+	var resp any
 	err := c.client.Do(ctx, "POST", path, body, &resp)
 	return resp, err
 }

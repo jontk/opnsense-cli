@@ -2,3 +2,5 @@ docs/api/
 docs/models/
 .venv/
 __pycache__/
+/opn
+/opn-cli
