@@ -57,6 +57,7 @@ func registerDiagnostics() {
 	moduleCmd.AddCommand(newDiagnosticsVipStatusCmd())
 	moduleCmd.AddCommand(newDiagnosticsLvtemplateCmd())
 	moduleCmd.AddCommand(newDiagnosticsNetflowCmd())
+	moduleCmd.AddCommand(newDiagnosticsConfigCmd())
 	moduleCmd.AddCommand(newDiagnosticsNetworkinsightCmd())
 	moduleCmd.AddCommand(newDiagnosticsMetadataCmd())
 	moduleCmd.AddCommand(newDiagnosticsProtocolsCmd())
@@ -1224,10 +1225,8 @@ func newDiagnosticsNetflowCmd() *cobra.Command {
 		Short: "Manage diagnostics netflow resources",
 	}
 	cmd.AddCommand(newDiagnosticsNetflowCacheStatsCmd())
-	cmd.AddCommand(newDiagnosticsNetflowGetconfigCmd())
 	cmd.AddCommand(newDiagnosticsNetflowIsEnabledCmd())
 	cmd.AddCommand(newDiagnosticsNetflowReconfigureCmd())
-	cmd.AddCommand(newDiagnosticsNetflowSetconfigCmd())
 	cmd.AddCommand(newDiagnosticsNetflowStatusCmd())
 	return cmd
 }
@@ -1243,26 +1242,6 @@ func newDiagnosticsNetflowCacheStatsCmd() *cobra.Command {
 			}
 			s := sdk.NewClient(c)
 			resp, err := s.NetflowCacheStats(context.Background())
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newDiagnosticsNetflowGetconfigCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "getconfig",
-		Short: "Getconfig diagnostics netflow",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.NetflowGetconfig(context.Background())
 			if err != nil {
 				return err
 			}
@@ -1312,26 +1291,6 @@ func newDiagnosticsNetflowReconfigureCmd() *cobra.Command {
 	}
 }
 
-func newDiagnosticsNetflowSetconfigCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "setconfig",
-		Short: "Setconfig diagnostics netflow",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.NetflowSetconfig(context.Background())
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
 func newDiagnosticsNetflowStatusCmd() *cobra.Command {
 	return &cobra.Command{
 		Use:   "status",
@@ -1343,6 +1302,56 @@ func newDiagnosticsNetflowStatusCmd() *cobra.Command {
 			}
 			s := sdk.NewClient(c)
 			resp, err := s.NetflowStatus(context.Background())
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newDiagnosticsConfigCmd() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "config",
+		Short: "Manage diagnostics config resources",
+	}
+	cmd.AddCommand(newDiagnosticsConfigGetCmd())
+	cmd.AddCommand(newDiagnosticsConfigUpdateCmd())
+	return cmd
+}
+
+func newDiagnosticsConfigGetCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "get",
+		Short: "Get diagnostics config",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.NetflowGetconfig(context.Background())
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newDiagnosticsConfigUpdateCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "update",
+		Short: "Update diagnostics config",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.NetflowSetconfig(context.Background())
 			if err != nil {
 				return err
 			}

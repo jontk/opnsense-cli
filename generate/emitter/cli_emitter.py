@@ -38,6 +38,10 @@ _CRUD_TO_CLI_VERB = {
     "toggle": "toggle",
 }
 
+# Commands that start with a CRUD prefix but are NOT CRUD operations.
+# e.g. "delete" = English word, not "del" + resource "ete".
+_NO_UNDERSCORE_CRUD_BLACKLIST = frozenset({"delete", "deletekeytab"})
+
 
 @dataclass
 class CLIVerbView:
@@ -101,16 +105,23 @@ def _resource_name_from_endpoint(ep: Endpoint) -> str:
     Rules:
     - CRUD suffix: add_item, get_item, set_item, del_item, search_item -> resource = controller name
     - CRUD suffix variant: search_acl, add_backend, etc. -> resource = normalized suffix
+    - No-underscore CRUD: addroute, searchacl, etc. -> resource = normalized suffix
     - Non-CRUD: resource = controller name, verb = command as-is
     """
     cmd = ep.command
     # CRUD pattern with _item suffix
     if re.match(r'^(add|get|set|del|search|toggle)_item$', cmd):
         return ep.controller.lower().replace("_", "-")
-    # CRUD pattern with named suffix (e.g., search_acl, add_p_a_c_rule)
+    # CRUD pattern with named suffix and underscore (e.g., search_acl, add_p_a_c_rule)
     m = re.match(r'^(add|get|set|del|search|toggle)_(.+)$', cmd)
     if m:
         return _normalize_kebab(m.group(2))
+    # No-underscore CRUD: addroute, searchacl, delresolver, etc.
+    # Blacklist guards against false positives like "delete" → del+ete.
+    if cmd not in _NO_UNDERSCORE_CRUD_BLACKLIST:
+        m = re.match(r'^(add|get|set|del|search|toggle)([a-z].+)$', cmd)
+        if m:
+            return _normalize_kebab(m.group(2))
     # Non-CRUD: use controller name
     return ep.controller.lower().replace("_", "-")
 
@@ -126,6 +137,12 @@ def _cli_verb_from_endpoint(ep: Endpoint) -> str:
     if m:
         verb = m.group(1)
         return _CRUD_TO_CLI_VERB.get(verb) or verb
+    # No-underscore CRUD: addroute → create, searchacl → list, etc.
+    if cmd not in _NO_UNDERSCORE_CRUD_BLACKLIST:
+        m = re.match(r'^(add|get|set|del|search|toggle)([a-z].+)$', cmd)
+        if m:
+            verb = m.group(1)
+            return _CRUD_TO_CLI_VERB.get(verb) or verb
     return _normalize_kebab(cmd)
 
 

@@ -35,6 +35,7 @@ func registerCore() {
 		},
 	}
 	moduleCmd.AddCommand(newCoreBackupCmd())
+	moduleCmd.AddCommand(newCoreEteBackupCmd())
 	moduleCmd.AddCommand(newCoreDashboardCmd())
 	moduleCmd.AddCommand(newCoreDefaultsCmd())
 	moduleCmd.AddCommand(newCoreInstalledSectionsCmd())
@@ -55,7 +56,6 @@ func newCoreBackupCmd() *cobra.Command {
 		Short: "Manage core backup resources",
 	}
 	cmd.AddCommand(newCoreBackupBackupsCmd())
-	cmd.AddCommand(newCoreBackupDeleteBackupCmd())
 	cmd.AddCommand(newCoreBackupDiffCmd())
 	cmd.AddCommand(newCoreBackupDownloadCmd())
 	cmd.AddCommand(newCoreBackupProvidersCmd())
@@ -75,27 +75,6 @@ func newCoreBackupBackupsCmd() *cobra.Command {
 			}
 			s := sdk.NewClient(c)
 			resp, err := s.BackupBackups(context.Background(), args[0])
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newCoreBackupDeleteBackupCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "delete-backup <backup>",
-		Short: "DeleteBackup core backup",
-		Args:  cobra.ExactArgs(1),
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.BackupDeleteBackup(context.Background(), args[0], nil)
 			if err != nil {
 				return err
 			}
@@ -179,6 +158,36 @@ func newCoreBackupRevertBackupCmd() *cobra.Command {
 			}
 			s := sdk.NewClient(c)
 			resp, err := s.BackupRevertBackup(context.Background(), args[0], nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newCoreEteBackupCmd() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "ete-backup",
+		Short: "Manage core ete-backup resources",
+	}
+	cmd.AddCommand(newCoreEteBackupDeleteCmd())
+	return cmd
+}
+
+func newCoreEteBackupDeleteCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "delete <backup>",
+		Short: "Delete core ete-backup",
+		Args:  cobra.ExactArgs(1),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.BackupDeleteBackup(context.Background(), args[0], nil)
 			if err != nil {
 				return err
 			}

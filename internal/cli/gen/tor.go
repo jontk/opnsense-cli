@@ -33,37 +33,37 @@ func registerTor() {
 			return fmt.Errorf("%s\n\nRun '%s --help' for usage.", msg, cmd.CommandPath())
 		},
 	}
+	moduleCmd.AddCommand(newTorAclCmd())
 	moduleCmd.AddCommand(newTorExitaclCmd())
+	moduleCmd.AddCommand(newTorHidservauthCmd())
 	moduleCmd.AddCommand(newTorGeneralCmd())
+	moduleCmd.AddCommand(newTorServiceCmd())
 	moduleCmd.AddCommand(newTorHiddenserviceCmd())
 	moduleCmd.AddCommand(newTorHiddenserviceaclCmd())
 	moduleCmd.AddCommand(newTorRelayCmd())
-	moduleCmd.AddCommand(newTorServiceCmd())
 	moduleCmd.AddCommand(newTorHiddenServicesCmd())
 	moduleCmd.AddCommand(newTorSocksaclCmd())
 	cli.Root.AddCommand(moduleCmd)
 }
 
-func newTorExitaclCmd() *cobra.Command {
+func newTorAclCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "exitacl",
-		Short: "Manage tor exitacl resources",
+		Use:   "acl",
+		Short: "Manage tor acl resources",
 	}
-	cmd.AddCommand(newTorExitaclAddaclCmd())
-	cmd.AddCommand(newTorExitaclDelaclCmd())
-	cmd.AddCommand(newTorExitaclGetCmd())
-	cmd.AddCommand(newTorExitaclGetaclCmd())
-	cmd.AddCommand(newTorExitaclSearchaclCmd())
-	cmd.AddCommand(newTorExitaclSetCmd())
-	cmd.AddCommand(newTorExitaclSetaclCmd())
-	cmd.AddCommand(newTorExitaclToggleaclCmd())
+	cmd.AddCommand(newTorAclCreateCmd())
+	cmd.AddCommand(newTorAclDeleteCmd())
+	cmd.AddCommand(newTorAclGetCmd())
+	cmd.AddCommand(newTorAclListCmd())
+	cmd.AddCommand(newTorAclUpdateCmd())
+	cmd.AddCommand(newTorAclToggleCmd())
 	return cmd
 }
 
-func newTorExitaclAddaclCmd() *cobra.Command {
+func newTorAclCreateCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "addacl",
-		Short: "Addacl tor exitacl",
+		Use:   "create",
+		Short: "Create tor acl",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -80,10 +80,10 @@ func newTorExitaclAddaclCmd() *cobra.Command {
 	}
 }
 
-func newTorExitaclDelaclCmd() *cobra.Command {
+func newTorAclDeleteCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "delacl <uuid>",
-		Short: "Delacl tor exitacl",
+		Use:   "delete <uuid>",
+		Short: "Delete tor acl",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
@@ -101,30 +101,10 @@ func newTorExitaclDelaclCmd() *cobra.Command {
 	}
 }
 
-func newTorExitaclGetCmd() *cobra.Command {
+func newTorAclGetCmd() *cobra.Command {
 	return &cobra.Command{
 		Use:   "get",
-		Short: "Get tor exitacl",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.ExitaclGet(context.Background())
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newTorExitaclGetaclCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "getacl",
-		Short: "Getacl tor exitacl",
+		Short: "Get tor acl",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -141,10 +121,10 @@ func newTorExitaclGetaclCmd() *cobra.Command {
 	}
 }
 
-func newTorExitaclSearchaclCmd() *cobra.Command {
+func newTorAclListCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "searchacl",
-		Short: "Searchacl tor exitacl",
+		Use:   "list",
+		Short: "List tor acl",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -152,6 +132,78 @@ func newTorExitaclSearchaclCmd() *cobra.Command {
 			}
 			s := sdk.NewClient(c)
 			resp, err := s.ExitaclSearchacl(context.Background(), nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newTorAclUpdateCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "update <uuid>",
+		Short: "Update tor acl",
+		Args:  cobra.ExactArgs(1),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.ExitaclSetacl(context.Background(), args[0], nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newTorAclToggleCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "toggle <uuid>",
+		Short: "Toggle tor acl",
+		Args:  cobra.ExactArgs(1),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.ExitaclToggleacl(context.Background(), args[0], nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newTorExitaclCmd() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "exitacl",
+		Short: "Manage tor exitacl resources",
+	}
+	cmd.AddCommand(newTorExitaclGetCmd())
+	cmd.AddCommand(newTorExitaclSetCmd())
+	return cmd
+}
+
+func newTorExitaclGetCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "get",
+		Short: "Get tor exitacl",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.ExitaclGet(context.Background())
 			if err != nil {
 				return err
 			}
@@ -181,68 +233,24 @@ func newTorExitaclSetCmd() *cobra.Command {
 	}
 }
 
-func newTorExitaclSetaclCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "setacl <uuid>",
-		Short: "Setacl tor exitacl",
-		Args:  cobra.ExactArgs(1),
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.ExitaclSetacl(context.Background(), args[0], nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newTorExitaclToggleaclCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "toggleacl <uuid>",
-		Short: "Toggleacl tor exitacl",
-		Args:  cobra.ExactArgs(1),
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.ExitaclToggleacl(context.Background(), args[0], nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newTorGeneralCmd() *cobra.Command {
+func newTorHidservauthCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "general",
-		Short: "Manage tor general resources",
+		Use:   "hidservauth",
+		Short: "Manage tor hidservauth resources",
 	}
-	cmd.AddCommand(newTorGeneralAddhidservauthCmd())
-	cmd.AddCommand(newTorGeneralDelhidservauthCmd())
-	cmd.AddCommand(newTorGeneralGetCmd())
-	cmd.AddCommand(newTorGeneralGethidservauthCmd())
-	cmd.AddCommand(newTorGeneralSearchhidservauthCmd())
-	cmd.AddCommand(newTorGeneralSetCmd())
-	cmd.AddCommand(newTorGeneralSethidservauthCmd())
-	cmd.AddCommand(newTorGeneralTogglehidservauthCmd())
+	cmd.AddCommand(newTorHidservauthCreateCmd())
+	cmd.AddCommand(newTorHidservauthDeleteCmd())
+	cmd.AddCommand(newTorHidservauthGetCmd())
+	cmd.AddCommand(newTorHidservauthListCmd())
+	cmd.AddCommand(newTorHidservauthUpdateCmd())
+	cmd.AddCommand(newTorHidservauthToggleCmd())
 	return cmd
 }
 
-func newTorGeneralAddhidservauthCmd() *cobra.Command {
+func newTorHidservauthCreateCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "addhidservauth",
-		Short: "Addhidservauth tor general",
+		Use:   "create",
+		Short: "Create tor hidservauth",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -259,10 +267,10 @@ func newTorGeneralAddhidservauthCmd() *cobra.Command {
 	}
 }
 
-func newTorGeneralDelhidservauthCmd() *cobra.Command {
+func newTorHidservauthDeleteCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "delhidservauth <uuid>",
-		Short: "Delhidservauth tor general",
+		Use:   "delete <uuid>",
+		Short: "Delete tor hidservauth",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
@@ -280,30 +288,10 @@ func newTorGeneralDelhidservauthCmd() *cobra.Command {
 	}
 }
 
-func newTorGeneralGetCmd() *cobra.Command {
+func newTorHidservauthGetCmd() *cobra.Command {
 	return &cobra.Command{
 		Use:   "get",
-		Short: "Get tor general",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.GeneralGet(context.Background())
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newTorGeneralGethidservauthCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "gethidservauth",
-		Short: "Gethidservauth tor general",
+		Short: "Get tor hidservauth",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -320,10 +308,10 @@ func newTorGeneralGethidservauthCmd() *cobra.Command {
 	}
 }
 
-func newTorGeneralSearchhidservauthCmd() *cobra.Command {
+func newTorHidservauthListCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "searchhidservauth",
-		Short: "Searchhidservauth tor general",
+		Use:   "list",
+		Short: "List tor hidservauth",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -331,6 +319,78 @@ func newTorGeneralSearchhidservauthCmd() *cobra.Command {
 			}
 			s := sdk.NewClient(c)
 			resp, err := s.GeneralSearchhidservauth(context.Background(), nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newTorHidservauthUpdateCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "update <uuid>",
+		Short: "Update tor hidservauth",
+		Args:  cobra.ExactArgs(1),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.GeneralSethidservauth(context.Background(), args[0], nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newTorHidservauthToggleCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "toggle <uuid>",
+		Short: "Toggle tor hidservauth",
+		Args:  cobra.ExactArgs(1),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.GeneralTogglehidservauth(context.Background(), args[0], nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newTorGeneralCmd() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "general",
+		Short: "Manage tor general resources",
+	}
+	cmd.AddCommand(newTorGeneralGetCmd())
+	cmd.AddCommand(newTorGeneralSetCmd())
+	return cmd
+}
+
+func newTorGeneralGetCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "get",
+		Short: "Get tor general",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.GeneralGet(context.Background())
 			if err != nil {
 				return err
 			}
@@ -360,68 +420,31 @@ func newTorGeneralSetCmd() *cobra.Command {
 	}
 }
 
-func newTorGeneralSethidservauthCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "sethidservauth <uuid>",
-		Short: "Sethidservauth tor general",
-		Args:  cobra.ExactArgs(1),
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.GeneralSethidservauth(context.Background(), args[0], nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newTorGeneralTogglehidservauthCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "togglehidservauth <uuid>",
-		Short: "Togglehidservauth tor general",
-		Args:  cobra.ExactArgs(1),
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.GeneralTogglehidservauth(context.Background(), args[0], nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newTorHiddenserviceCmd() *cobra.Command {
+func newTorServiceCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "hiddenservice",
-		Short: "Manage tor hiddenservice resources",
+		Use:   "service",
+		Short: "Manage tor service resources",
 	}
-	cmd.AddCommand(newTorHiddenserviceAddserviceCmd())
-	cmd.AddCommand(newTorHiddenserviceDelserviceCmd())
-	cmd.AddCommand(newTorHiddenserviceGetCmd())
-	cmd.AddCommand(newTorHiddenserviceGetserviceCmd())
-	cmd.AddCommand(newTorHiddenserviceSearchserviceCmd())
-	cmd.AddCommand(newTorHiddenserviceSetCmd())
-	cmd.AddCommand(newTorHiddenserviceSetserviceCmd())
-	cmd.AddCommand(newTorHiddenserviceToggleserviceCmd())
+	cmd.AddCommand(newTorServiceCreateCmd())
+	cmd.AddCommand(newTorServiceDeleteCmd())
+	cmd.AddCommand(newTorServiceGetCmd())
+	cmd.AddCommand(newTorServiceListCmd())
+	cmd.AddCommand(newTorServiceUpdateCmd())
+	cmd.AddCommand(newTorServiceToggleCmd())
+	cmd.AddCommand(newTorServiceCircuitsCmd())
+	cmd.AddCommand(newTorServiceReconfigureCmd())
+	cmd.AddCommand(newTorServiceRestartCmd())
+	cmd.AddCommand(newTorServiceStartCmd())
+	cmd.AddCommand(newTorServiceStatusCmd())
+	cmd.AddCommand(newTorServiceStopCmd())
+	cmd.AddCommand(newTorServiceStreamsCmd())
 	return cmd
 }
 
-func newTorHiddenserviceAddserviceCmd() *cobra.Command {
+func newTorServiceCreateCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "addservice",
-		Short: "Addservice tor hiddenservice",
+		Use:   "create",
+		Short: "Create tor service",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -438,10 +461,10 @@ func newTorHiddenserviceAddserviceCmd() *cobra.Command {
 	}
 }
 
-func newTorHiddenserviceDelserviceCmd() *cobra.Command {
+func newTorServiceDeleteCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "delservice <uuid>",
-		Short: "Delservice tor hiddenservice",
+		Use:   "delete <uuid>",
+		Short: "Delete tor service",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
@@ -459,30 +482,10 @@ func newTorHiddenserviceDelserviceCmd() *cobra.Command {
 	}
 }
 
-func newTorHiddenserviceGetCmd() *cobra.Command {
+func newTorServiceGetCmd() *cobra.Command {
 	return &cobra.Command{
 		Use:   "get",
-		Short: "Get tor hiddenservice",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.HiddenserviceGet(context.Background())
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newTorHiddenserviceGetserviceCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "getservice",
-		Short: "Getservice tor hiddenservice",
+		Short: "Get tor service",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -499,10 +502,10 @@ func newTorHiddenserviceGetserviceCmd() *cobra.Command {
 	}
 }
 
-func newTorHiddenserviceSearchserviceCmd() *cobra.Command {
+func newTorServiceListCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "searchservice",
-		Short: "Searchservice tor hiddenservice",
+		Use:   "list",
+		Short: "List tor service",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -519,30 +522,10 @@ func newTorHiddenserviceSearchserviceCmd() *cobra.Command {
 	}
 }
 
-func newTorHiddenserviceSetCmd() *cobra.Command {
+func newTorServiceUpdateCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "set",
-		Short: "Set tor hiddenservice",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.HiddenserviceSet(context.Background(), nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newTorHiddenserviceSetserviceCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "setservice <uuid>",
-		Short: "Setservice tor hiddenservice",
+		Use:   "update <uuid>",
+		Short: "Update tor service",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
@@ -560,10 +543,10 @@ func newTorHiddenserviceSetserviceCmd() *cobra.Command {
 	}
 }
 
-func newTorHiddenserviceToggleserviceCmd() *cobra.Command {
+func newTorServiceToggleCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "toggleservice <uuid>",
-		Short: "Toggleservice tor hiddenservice",
+		Use:   "toggle <uuid>",
+		Short: "Toggle tor service",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
@@ -579,250 +562,6 @@ func newTorHiddenserviceToggleserviceCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
-}
-
-func newTorHiddenserviceaclCmd() *cobra.Command {
-	cmd := &cobra.Command{
-		Use:   "hiddenserviceacl",
-		Short: "Manage tor hiddenserviceacl resources",
-	}
-	cmd.AddCommand(newTorHiddenserviceaclAddaclCmd())
-	cmd.AddCommand(newTorHiddenserviceaclDelaclCmd())
-	cmd.AddCommand(newTorHiddenserviceaclGetCmd())
-	cmd.AddCommand(newTorHiddenserviceaclGetaclCmd())
-	cmd.AddCommand(newTorHiddenserviceaclSearchaclCmd())
-	cmd.AddCommand(newTorHiddenserviceaclSetCmd())
-	cmd.AddCommand(newTorHiddenserviceaclSetaclCmd())
-	cmd.AddCommand(newTorHiddenserviceaclToggleaclCmd())
-	return cmd
-}
-
-func newTorHiddenserviceaclAddaclCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "addacl",
-		Short: "Addacl tor hiddenserviceacl",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.HiddenserviceaclAddacl(context.Background(), nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newTorHiddenserviceaclDelaclCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "delacl <uuid>",
-		Short: "Delacl tor hiddenserviceacl",
-		Args:  cobra.ExactArgs(1),
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.HiddenserviceaclDelacl(context.Background(), args[0], nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newTorHiddenserviceaclGetCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "get",
-		Short: "Get tor hiddenserviceacl",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.HiddenserviceaclGet(context.Background())
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newTorHiddenserviceaclGetaclCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "getacl",
-		Short: "Getacl tor hiddenserviceacl",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.HiddenserviceaclGetacl(context.Background())
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newTorHiddenserviceaclSearchaclCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "searchacl",
-		Short: "Searchacl tor hiddenserviceacl",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.HiddenserviceaclSearchacl(context.Background(), nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newTorHiddenserviceaclSetCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "set",
-		Short: "Set tor hiddenserviceacl",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.HiddenserviceaclSet(context.Background(), nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newTorHiddenserviceaclSetaclCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "setacl <uuid>",
-		Short: "Setacl tor hiddenserviceacl",
-		Args:  cobra.ExactArgs(1),
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.HiddenserviceaclSetacl(context.Background(), args[0], nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newTorHiddenserviceaclToggleaclCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "toggleacl <uuid>",
-		Short: "Toggleacl tor hiddenserviceacl",
-		Args:  cobra.ExactArgs(1),
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.HiddenserviceaclToggleacl(context.Background(), args[0], nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newTorRelayCmd() *cobra.Command {
-	cmd := &cobra.Command{
-		Use:   "relay",
-		Short: "Manage tor relay resources",
-	}
-	cmd.AddCommand(newTorRelayGetCmd())
-	cmd.AddCommand(newTorRelaySetCmd())
-	return cmd
-}
-
-func newTorRelayGetCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "get",
-		Short: "Get tor relay",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.RelayGet(context.Background())
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newTorRelaySetCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "set",
-		Short: "Set tor relay",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.RelaySet(context.Background(), nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newTorServiceCmd() *cobra.Command {
-	cmd := &cobra.Command{
-		Use:   "service",
-		Short: "Manage tor service resources",
-	}
-	cmd.AddCommand(newTorServiceCircuitsCmd())
-	cmd.AddCommand(newTorServiceReconfigureCmd())
-	cmd.AddCommand(newTorServiceRestartCmd())
-	cmd.AddCommand(newTorServiceStartCmd())
-	cmd.AddCommand(newTorServiceStatusCmd())
-	cmd.AddCommand(newTorServiceStopCmd())
-	cmd.AddCommand(newTorServiceStreamsCmd())
-	return cmd
 }
 
 func newTorServiceCircuitsCmd() *cobra.Command {
@@ -965,6 +704,156 @@ func newTorServiceStreamsCmd() *cobra.Command {
 	}
 }
 
+func newTorHiddenserviceCmd() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "hiddenservice",
+		Short: "Manage tor hiddenservice resources",
+	}
+	cmd.AddCommand(newTorHiddenserviceGetCmd())
+	cmd.AddCommand(newTorHiddenserviceSetCmd())
+	return cmd
+}
+
+func newTorHiddenserviceGetCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "get",
+		Short: "Get tor hiddenservice",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.HiddenserviceGet(context.Background())
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newTorHiddenserviceSetCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "set",
+		Short: "Set tor hiddenservice",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.HiddenserviceSet(context.Background(), nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newTorHiddenserviceaclCmd() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "hiddenserviceacl",
+		Short: "Manage tor hiddenserviceacl resources",
+	}
+	cmd.AddCommand(newTorHiddenserviceaclGetCmd())
+	cmd.AddCommand(newTorHiddenserviceaclSetCmd())
+	return cmd
+}
+
+func newTorHiddenserviceaclGetCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "get",
+		Short: "Get tor hiddenserviceacl",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.HiddenserviceaclGet(context.Background())
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newTorHiddenserviceaclSetCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "set",
+		Short: "Set tor hiddenserviceacl",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.HiddenserviceaclSet(context.Background(), nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newTorRelayCmd() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "relay",
+		Short: "Manage tor relay resources",
+	}
+	cmd.AddCommand(newTorRelayGetCmd())
+	cmd.AddCommand(newTorRelaySetCmd())
+	return cmd
+}
+
+func newTorRelayGetCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "get",
+		Short: "Get tor relay",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.RelayGet(context.Background())
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newTorRelaySetCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "set",
+		Short: "Set tor relay",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.RelaySet(context.Background(), nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
 func newTorHiddenServicesCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "hidden-services",
@@ -999,56 +888,9 @@ func newTorSocksaclCmd() *cobra.Command {
 		Use:   "socksacl",
 		Short: "Manage tor socksacl resources",
 	}
-	cmd.AddCommand(newTorSocksaclAddaclCmd())
-	cmd.AddCommand(newTorSocksaclDelaclCmd())
 	cmd.AddCommand(newTorSocksaclGetCmd())
-	cmd.AddCommand(newTorSocksaclGetaclCmd())
-	cmd.AddCommand(newTorSocksaclSearchaclCmd())
 	cmd.AddCommand(newTorSocksaclSetCmd())
-	cmd.AddCommand(newTorSocksaclSetaclCmd())
-	cmd.AddCommand(newTorSocksaclToggleaclCmd())
 	return cmd
-}
-
-func newTorSocksaclAddaclCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "addacl",
-		Short: "Addacl tor socksacl",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SocksaclAddacl(context.Background(), nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newTorSocksaclDelaclCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "delacl <uuid>",
-		Short: "Delacl tor socksacl",
-		Args:  cobra.ExactArgs(1),
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SocksaclDelacl(context.Background(), args[0], nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
 }
 
 func newTorSocksaclGetCmd() *cobra.Command {
@@ -1071,46 +913,6 @@ func newTorSocksaclGetCmd() *cobra.Command {
 	}
 }
 
-func newTorSocksaclGetaclCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "getacl",
-		Short: "Getacl tor socksacl",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SocksaclGetacl(context.Background())
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newTorSocksaclSearchaclCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "searchacl",
-		Short: "Searchacl tor socksacl",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SocksaclSearchacl(context.Background(), nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
 func newTorSocksaclSetCmd() *cobra.Command {
 	return &cobra.Command{
 		Use:   "set",
@@ -1122,48 +924,6 @@ func newTorSocksaclSetCmd() *cobra.Command {
 			}
 			s := sdk.NewClient(c)
 			resp, err := s.SocksaclSet(context.Background(), nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newTorSocksaclSetaclCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "setacl <uuid>",
-		Short: "Setacl tor socksacl",
-		Args:  cobra.ExactArgs(1),
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SocksaclSetacl(context.Background(), args[0], nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newTorSocksaclToggleaclCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "toggleacl <uuid>",
-		Short: "Toggleacl tor socksacl",
-		Args:  cobra.ExactArgs(1),
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SocksaclToggleacl(context.Background(), args[0], nil)
 			if err != nil {
 				return err
 			}

@@ -51,6 +51,8 @@ func registerHaproxy() {
 	moduleCmd.AddCommand(newHaproxyLuaCmd())
 	moduleCmd.AddCommand(newHaproxyMapfileCmd())
 	moduleCmd.AddCommand(newHaproxyUserCmd())
+	moduleCmd.AddCommand(newHaproxyMailerCmd())
+	moduleCmd.AddCommand(newHaproxyResolverCmd())
 	moduleCmd.AddCommand(newHaproxySettingsCmd())
 	moduleCmd.AddCommand(newHaproxyStatisticsCmd())
 	cli.Root.AddCommand(moduleCmd)
@@ -3026,32 +3028,24 @@ func newHaproxyUserListCmd() *cobra.Command {
 	}
 }
 
-func newHaproxySettingsCmd() *cobra.Command {
+func newHaproxyMailerCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "settings",
-		Short: "Manage haproxy settings resources",
+		Use:   "mailer",
+		Short: "Manage haproxy mailer resources",
 	}
-	cmd.AddCommand(newHaproxySettingsAddmailerCmd())
-	cmd.AddCommand(newHaproxySettingsAddresolverCmd())
-	cmd.AddCommand(newHaproxySettingsDelmailerCmd())
-	cmd.AddCommand(newHaproxySettingsDelresolverCmd())
-	cmd.AddCommand(newHaproxySettingsGetCmd())
-	cmd.AddCommand(newHaproxySettingsGetmailerCmd())
-	cmd.AddCommand(newHaproxySettingsGetresolverCmd())
-	cmd.AddCommand(newHaproxySettingsSearchmailersCmd())
-	cmd.AddCommand(newHaproxySettingsSearchresolversCmd())
-	cmd.AddCommand(newHaproxySettingsSetCmd())
-	cmd.AddCommand(newHaproxySettingsSetmailerCmd())
-	cmd.AddCommand(newHaproxySettingsSetresolverCmd())
-	cmd.AddCommand(newHaproxySettingsTogglemailerCmd())
-	cmd.AddCommand(newHaproxySettingsToggleresolverCmd())
+	cmd.AddCommand(newHaproxyMailerCreateCmd())
+	cmd.AddCommand(newHaproxyMailerDeleteCmd())
+	cmd.AddCommand(newHaproxyMailerGetCmd())
+	cmd.AddCommand(newHaproxyMailerUpdateCmd())
+	cmd.AddCommand(newHaproxyMailerToggleCmd())
+	cmd.AddCommand(newHaproxyMailerListCmd())
 	return cmd
 }
 
-func newHaproxySettingsAddmailerCmd() *cobra.Command {
+func newHaproxyMailerCreateCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "addmailer",
-		Short: "Addmailer haproxy settings",
+		Use:   "create",
+		Short: "Create haproxy mailer",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -3068,30 +3062,10 @@ func newHaproxySettingsAddmailerCmd() *cobra.Command {
 	}
 }
 
-func newHaproxySettingsAddresolverCmd() *cobra.Command {
+func newHaproxyMailerDeleteCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "addresolver",
-		Short: "Addresolver haproxy settings",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsAddresolver(context.Background(), nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newHaproxySettingsDelmailerCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "delmailer <uuid>",
-		Short: "Delmailer haproxy settings",
+		Use:   "delete <uuid>",
+		Short: "Delete haproxy mailer",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
@@ -3109,10 +3083,126 @@ func newHaproxySettingsDelmailerCmd() *cobra.Command {
 	}
 }
 
-func newHaproxySettingsDelresolverCmd() *cobra.Command {
+func newHaproxyMailerGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "delresolver <uuid>",
-		Short: "Delresolver haproxy settings",
+		Use:   "get",
+		Short: "Get haproxy mailer",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsGetmailer(context.Background())
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newHaproxyMailerUpdateCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "update <uuid>",
+		Short: "Update haproxy mailer",
+		Args:  cobra.ExactArgs(1),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsSetmailer(context.Background(), args[0], nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newHaproxyMailerToggleCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "toggle <uuid>",
+		Short: "Toggle haproxy mailer",
+		Args:  cobra.ExactArgs(1),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsTogglemailer(context.Background(), args[0], nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newHaproxyMailerListCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "list",
+		Short: "List haproxy mailer",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsSearchmailers(context.Background(), nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newHaproxyResolverCmd() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "resolver",
+		Short: "Manage haproxy resolver resources",
+	}
+	cmd.AddCommand(newHaproxyResolverCreateCmd())
+	cmd.AddCommand(newHaproxyResolverDeleteCmd())
+	cmd.AddCommand(newHaproxyResolverGetCmd())
+	cmd.AddCommand(newHaproxyResolverUpdateCmd())
+	cmd.AddCommand(newHaproxyResolverToggleCmd())
+	cmd.AddCommand(newHaproxyResolverListCmd())
+	return cmd
+}
+
+func newHaproxyResolverCreateCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "create",
+		Short: "Create haproxy resolver",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsAddresolver(context.Background(), nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newHaproxyResolverDeleteCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "delete <uuid>",
+		Short: "Delete haproxy resolver",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
@@ -3128,6 +3218,98 @@ func newHaproxySettingsDelresolverCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+}
+
+func newHaproxyResolverGetCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "get",
+		Short: "Get haproxy resolver",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsGetresolver(context.Background())
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newHaproxyResolverUpdateCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "update <uuid>",
+		Short: "Update haproxy resolver",
+		Args:  cobra.ExactArgs(1),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsSetresolver(context.Background(), args[0], nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newHaproxyResolverToggleCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "toggle <uuid>",
+		Short: "Toggle haproxy resolver",
+		Args:  cobra.ExactArgs(1),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsToggleresolver(context.Background(), args[0], nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newHaproxyResolverListCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "list",
+		Short: "List haproxy resolver",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsSearchresolvers(context.Background(), nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newHaproxySettingsCmd() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "settings",
+		Short: "Manage haproxy settings resources",
+	}
+	cmd.AddCommand(newHaproxySettingsGetCmd())
+	cmd.AddCommand(newHaproxySettingsSetCmd())
+	return cmd
 }
 
 func newHaproxySettingsGetCmd() *cobra.Command {
@@ -3150,86 +3332,6 @@ func newHaproxySettingsGetCmd() *cobra.Command {
 	}
 }
 
-func newHaproxySettingsGetmailerCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "getmailer",
-		Short: "Getmailer haproxy settings",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetmailer(context.Background())
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newHaproxySettingsGetresolverCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "getresolver",
-		Short: "Getresolver haproxy settings",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetresolver(context.Background())
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newHaproxySettingsSearchmailersCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "searchmailers",
-		Short: "Searchmailers haproxy settings",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsSearchmailers(context.Background(), nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newHaproxySettingsSearchresolversCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "searchresolvers",
-		Short: "Searchresolvers haproxy settings",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsSearchresolvers(context.Background(), nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
 func newHaproxySettingsSetCmd() *cobra.Command {
 	return &cobra.Command{
 		Use:   "set",
@@ -3241,90 +3343,6 @@ func newHaproxySettingsSetCmd() *cobra.Command {
 			}
 			s := sdk.NewClient(c)
 			resp, err := s.SettingsSet(context.Background(), nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newHaproxySettingsSetmailerCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "setmailer <uuid>",
-		Short: "Setmailer haproxy settings",
-		Args:  cobra.ExactArgs(1),
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsSetmailer(context.Background(), args[0], nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newHaproxySettingsSetresolverCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "setresolver <uuid>",
-		Short: "Setresolver haproxy settings",
-		Args:  cobra.ExactArgs(1),
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsSetresolver(context.Background(), args[0], nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newHaproxySettingsTogglemailerCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "togglemailer <uuid>",
-		Short: "Togglemailer haproxy settings",
-		Args:  cobra.ExactArgs(1),
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsTogglemailer(context.Background(), args[0], nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newHaproxySettingsToggleresolverCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "toggleresolver <uuid>",
-		Short: "Toggleresolver haproxy settings",
-		Args:  cobra.ExactArgs(1),
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsToggleresolver(context.Background(), args[0], nil)
 			if err != nil {
 				return err
 			}

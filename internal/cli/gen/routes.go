@@ -34,7 +34,7 @@ func registerRoutes() {
 		},
 	}
 	moduleCmd.AddCommand(newRoutesGatewayCmd())
-	moduleCmd.AddCommand(newRoutesRoutesCmd())
+	moduleCmd.AddCommand(newRoutesRouteCmd())
 	cli.Root.AddCommand(moduleCmd)
 }
 
@@ -67,27 +67,26 @@ func newRoutesGatewayStatusCmd() *cobra.Command {
 	}
 }
 
-func newRoutesRoutesCmd() *cobra.Command {
+func newRoutesRouteCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "routes",
-		Short: "Manage routes routes resources",
+		Use:   "route",
+		Short: "Manage routes route resources",
 	}
-	cmd.AddCommand(newRoutesRoutesAddrouteCmd())
-	cmd.AddCommand(newRoutesRoutesDelrouteCmd())
-	cmd.AddCommand(newRoutesRoutesGetCmd())
-	cmd.AddCommand(newRoutesRoutesGetrouteCmd())
-	cmd.AddCommand(newRoutesRoutesReconfigureCmd())
-	cmd.AddCommand(newRoutesRoutesSearchrouteCmd())
-	cmd.AddCommand(newRoutesRoutesSetCmd())
-	cmd.AddCommand(newRoutesRoutesSetrouteCmd())
-	cmd.AddCommand(newRoutesRoutesTogglerouteCmd())
+	cmd.AddCommand(newRoutesRouteCreateCmd())
+	cmd.AddCommand(newRoutesRouteDeleteCmd())
+	cmd.AddCommand(newRoutesRouteGetCmd())
+	cmd.AddCommand(newRoutesRouteListCmd())
+	cmd.AddCommand(newRoutesRouteUpdateCmd())
+	cmd.AddCommand(newRoutesRouteToggleCmd())
+	cmd.AddCommand(newRoutesRouteReconfigureCmd())
+	cmd.AddCommand(newRoutesRouteSetCmd())
 	return cmd
 }
 
-func newRoutesRoutesAddrouteCmd() *cobra.Command {
+func newRoutesRouteCreateCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "addroute",
-		Short: "Addroute routes routes",
+		Use:   "create",
+		Short: "Create routes route",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -104,10 +103,10 @@ func newRoutesRoutesAddrouteCmd() *cobra.Command {
 	}
 }
 
-func newRoutesRoutesDelrouteCmd() *cobra.Command {
+func newRoutesRouteDeleteCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "delroute <uuid>",
-		Short: "Delroute routes routes",
+		Use:   "delete <uuid>",
+		Short: "Delete routes route",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
@@ -125,30 +124,10 @@ func newRoutesRoutesDelrouteCmd() *cobra.Command {
 	}
 }
 
-func newRoutesRoutesGetCmd() *cobra.Command {
+func newRoutesRouteGetCmd() *cobra.Command {
 	return &cobra.Command{
 		Use:   "get",
-		Short: "Get routes routes",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.RoutesGet(context.Background())
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newRoutesRoutesGetrouteCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "getroute",
-		Short: "Getroute routes routes",
+		Short: "Get routes route",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -165,30 +144,10 @@ func newRoutesRoutesGetrouteCmd() *cobra.Command {
 	}
 }
 
-func newRoutesRoutesReconfigureCmd() *cobra.Command {
+func newRoutesRouteListCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "reconfigure",
-		Short: "Reconfigure routes routes",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.RoutesReconfigure(context.Background(), nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newRoutesRoutesSearchrouteCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "searchroute",
-		Short: "Searchroute routes routes",
+		Use:   "list",
+		Short: "List routes route",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -205,30 +164,10 @@ func newRoutesRoutesSearchrouteCmd() *cobra.Command {
 	}
 }
 
-func newRoutesRoutesSetCmd() *cobra.Command {
+func newRoutesRouteUpdateCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "set",
-		Short: "Set routes routes",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.RoutesSet(context.Background(), nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newRoutesRoutesSetrouteCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "setroute <uuid>",
-		Short: "Setroute routes routes",
+		Use:   "update <uuid>",
+		Short: "Update routes route",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
@@ -246,10 +185,10 @@ func newRoutesRoutesSetrouteCmd() *cobra.Command {
 	}
 }
 
-func newRoutesRoutesTogglerouteCmd() *cobra.Command {
+func newRoutesRouteToggleCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "toggleroute <uuid>",
-		Short: "Toggleroute routes routes",
+		Use:   "toggle <uuid>",
+		Short: "Toggle routes route",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
@@ -258,6 +197,46 @@ func newRoutesRoutesTogglerouteCmd() *cobra.Command {
 			}
 			s := sdk.NewClient(c)
 			resp, err := s.RoutesToggleroute(context.Background(), args[0], nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newRoutesRouteReconfigureCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "reconfigure",
+		Short: "Reconfigure routes route",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.RoutesReconfigure(context.Background(), nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newRoutesRouteSetCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "set",
+		Short: "Set routes route",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.RoutesSet(context.Background(), nil)
 			if err != nil {
 				return err
 			}

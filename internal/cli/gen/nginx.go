@@ -33,29 +33,50 @@ func registerNginx() {
 			return fmt.Errorf("%s\n\nRun '%s --help' for usage.", msg, cmd.CommandPath())
 		},
 	}
-	moduleCmd.AddCommand(newNginxBansCmd())
+	moduleCmd.AddCommand(newNginxBanCmd())
 	moduleCmd.AddCommand(newNginxLogsCmd())
 	moduleCmd.AddCommand(newNginxServiceCmd())
+	moduleCmd.AddCommand(newNginxCachePathCmd())
+	moduleCmd.AddCommand(newNginxCredentialCmd())
+	moduleCmd.AddCommand(newNginxCustompolicyCmd())
+	moduleCmd.AddCommand(newNginxErrorpageCmd())
+	moduleCmd.AddCommand(newNginxHttprewriteCmd())
+	moduleCmd.AddCommand(newNginxHttpserverCmd())
+	moduleCmd.AddCommand(newNginxIpaclCmd())
+	moduleCmd.AddCommand(newNginxLimitRequestConnectionCmd())
+	moduleCmd.AddCommand(newNginxLimitZoneCmd())
+	moduleCmd.AddCommand(newNginxLocationCmd())
+	moduleCmd.AddCommand(newNginxNaxsiruleCmd())
+	moduleCmd.AddCommand(newNginxProxyCacheValidCmd())
+	moduleCmd.AddCommand(newNginxResolverCmd())
+	moduleCmd.AddCommand(newNginxSecurityHeaderCmd())
+	moduleCmd.AddCommand(newNginxSnifwdCmd())
+	moduleCmd.AddCommand(newNginxStreamserverCmd())
+	moduleCmd.AddCommand(newNginxSyslogTargetCmd())
+	moduleCmd.AddCommand(newNginxTlsFingerprintCmd())
+	moduleCmd.AddCommand(newNginxUpstreamCmd())
+	moduleCmd.AddCommand(newNginxUpstreamserverCmd())
+	moduleCmd.AddCommand(newNginxUserlistCmd())
 	moduleCmd.AddCommand(newNginxSettingsCmd())
 	cli.Root.AddCommand(moduleCmd)
 }
 
-func newNginxBansCmd() *cobra.Command {
+func newNginxBanCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "bans",
-		Short: "Manage nginx bans resources",
+		Use:   "ban",
+		Short: "Manage nginx ban resources",
 	}
-	cmd.AddCommand(newNginxBansDelbanCmd())
-	cmd.AddCommand(newNginxBansGetCmd())
-	cmd.AddCommand(newNginxBansSearchbanCmd())
-	cmd.AddCommand(newNginxBansSetCmd())
+	cmd.AddCommand(newNginxBanDeleteCmd())
+	cmd.AddCommand(newNginxBanListCmd())
+	cmd.AddCommand(newNginxBanGetCmd())
+	cmd.AddCommand(newNginxBanSetCmd())
 	return cmd
 }
 
-func newNginxBansDelbanCmd() *cobra.Command {
+func newNginxBanDeleteCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "delban <uuid>",
-		Short: "Delban nginx bans",
+		Use:   "delete <uuid>",
+		Short: "Delete nginx ban",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
@@ -73,30 +94,10 @@ func newNginxBansDelbanCmd() *cobra.Command {
 	}
 }
 
-func newNginxBansGetCmd() *cobra.Command {
+func newNginxBanListCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
-		Short: "Get nginx bans",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.BansGet(context.Background())
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxBansSearchbanCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "searchban",
-		Short: "Searchban nginx bans",
+		Use:   "list",
+		Short: "List nginx ban",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -113,10 +114,30 @@ func newNginxBansSearchbanCmd() *cobra.Command {
 	}
 }
 
-func newNginxBansSetCmd() *cobra.Command {
+func newNginxBanGetCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "get",
+		Short: "Get nginx ban",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.BansGet(context.Background())
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxBanSetCmd() *cobra.Command {
 	return &cobra.Command{
 		Use:   "set",
-		Short: "Set nginx bans",
+		Short: "Set nginx ban",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -380,128 +401,23 @@ func newNginxServiceVtsCmd() *cobra.Command {
 	}
 }
 
-func newNginxSettingsCmd() *cobra.Command {
+func newNginxCachePathCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "settings",
-		Short: "Manage nginx settings resources",
+		Use:   "cache-path",
+		Short: "Manage nginx cache-path resources",
 	}
-	cmd.AddCommand(newNginxSettingsAddcachePathCmd())
-	cmd.AddCommand(newNginxSettingsAddcredentialCmd())
-	cmd.AddCommand(newNginxSettingsAddcustompolicyCmd())
-	cmd.AddCommand(newNginxSettingsAdderrorpageCmd())
-	cmd.AddCommand(newNginxSettingsAddhttprewriteCmd())
-	cmd.AddCommand(newNginxSettingsAddhttpserverCmd())
-	cmd.AddCommand(newNginxSettingsAddipaclCmd())
-	cmd.AddCommand(newNginxSettingsAddlimitRequestConnectionCmd())
-	cmd.AddCommand(newNginxSettingsAddlimitZoneCmd())
-	cmd.AddCommand(newNginxSettingsAddlocationCmd())
-	cmd.AddCommand(newNginxSettingsAddnaxsiruleCmd())
-	cmd.AddCommand(newNginxSettingsAddproxyCacheValidCmd())
-	cmd.AddCommand(newNginxSettingsAddresolverCmd())
-	cmd.AddCommand(newNginxSettingsAddsecurityHeaderCmd())
-	cmd.AddCommand(newNginxSettingsAddsnifwdCmd())
-	cmd.AddCommand(newNginxSettingsAddstreamserverCmd())
-	cmd.AddCommand(newNginxSettingsAddsyslogTargetCmd())
-	cmd.AddCommand(newNginxSettingsAddtlsFingerprintCmd())
-	cmd.AddCommand(newNginxSettingsAddupstreamCmd())
-	cmd.AddCommand(newNginxSettingsAddupstreamserverCmd())
-	cmd.AddCommand(newNginxSettingsAdduserlistCmd())
-	cmd.AddCommand(newNginxSettingsDelcachePathCmd())
-	cmd.AddCommand(newNginxSettingsDelcredentialCmd())
-	cmd.AddCommand(newNginxSettingsDelcustompolicyCmd())
-	cmd.AddCommand(newNginxSettingsDelerrorpageCmd())
-	cmd.AddCommand(newNginxSettingsDelhttprewriteCmd())
-	cmd.AddCommand(newNginxSettingsDelhttpserverCmd())
-	cmd.AddCommand(newNginxSettingsDelipaclCmd())
-	cmd.AddCommand(newNginxSettingsDellimitRequestConnectionCmd())
-	cmd.AddCommand(newNginxSettingsDellimitZoneCmd())
-	cmd.AddCommand(newNginxSettingsDellocationCmd())
-	cmd.AddCommand(newNginxSettingsDelnaxsiruleCmd())
-	cmd.AddCommand(newNginxSettingsDelproxyCacheValidCmd())
-	cmd.AddCommand(newNginxSettingsDelresolverCmd())
-	cmd.AddCommand(newNginxSettingsDelsecurityHeaderCmd())
-	cmd.AddCommand(newNginxSettingsDelsnifwdCmd())
-	cmd.AddCommand(newNginxSettingsDelstreamserverCmd())
-	cmd.AddCommand(newNginxSettingsDelsyslogTargetCmd())
-	cmd.AddCommand(newNginxSettingsDeltlsFingerprintCmd())
-	cmd.AddCommand(newNginxSettingsDelupstreamCmd())
-	cmd.AddCommand(newNginxSettingsDelupstreamserverCmd())
-	cmd.AddCommand(newNginxSettingsDeluserlistCmd())
-	cmd.AddCommand(newNginxSettingsDownloadrulesCmd())
-	cmd.AddCommand(newNginxSettingsGetCmd())
-	cmd.AddCommand(newNginxSettingsGetcachePathCmd())
-	cmd.AddCommand(newNginxSettingsGetcredentialCmd())
-	cmd.AddCommand(newNginxSettingsGetcustompolicyCmd())
-	cmd.AddCommand(newNginxSettingsGeterrorpageCmd())
-	cmd.AddCommand(newNginxSettingsGethttprewriteCmd())
-	cmd.AddCommand(newNginxSettingsGethttpserverCmd())
-	cmd.AddCommand(newNginxSettingsGetipaclCmd())
-	cmd.AddCommand(newNginxSettingsGetlimitRequestConnectionCmd())
-	cmd.AddCommand(newNginxSettingsGetlimitZoneCmd())
-	cmd.AddCommand(newNginxSettingsGetlocationCmd())
-	cmd.AddCommand(newNginxSettingsGetnaxsiruleCmd())
-	cmd.AddCommand(newNginxSettingsGetproxyCacheValidCmd())
-	cmd.AddCommand(newNginxSettingsGetresolverCmd())
-	cmd.AddCommand(newNginxSettingsGetsecurityHeaderCmd())
-	cmd.AddCommand(newNginxSettingsGetsnifwdCmd())
-	cmd.AddCommand(newNginxSettingsGetstreamserverCmd())
-	cmd.AddCommand(newNginxSettingsGetsyslogTargetCmd())
-	cmd.AddCommand(newNginxSettingsGettlsFingerprintCmd())
-	cmd.AddCommand(newNginxSettingsGetupstreamCmd())
-	cmd.AddCommand(newNginxSettingsGetupstreamserverCmd())
-	cmd.AddCommand(newNginxSettingsGetuserlistCmd())
-	cmd.AddCommand(newNginxSettingsSearchcachePathCmd())
-	cmd.AddCommand(newNginxSettingsSearchcredentialCmd())
-	cmd.AddCommand(newNginxSettingsSearchcustompolicyCmd())
-	cmd.AddCommand(newNginxSettingsSearcherrorpageCmd())
-	cmd.AddCommand(newNginxSettingsSearchhttprewriteCmd())
-	cmd.AddCommand(newNginxSettingsSearchhttpserverCmd())
-	cmd.AddCommand(newNginxSettingsSearchipaclCmd())
-	cmd.AddCommand(newNginxSettingsSearchlimitRequestConnectionCmd())
-	cmd.AddCommand(newNginxSettingsSearchlimitZoneCmd())
-	cmd.AddCommand(newNginxSettingsSearchlocationCmd())
-	cmd.AddCommand(newNginxSettingsSearchnaxsiruleCmd())
-	cmd.AddCommand(newNginxSettingsSearchproxyCacheValidCmd())
-	cmd.AddCommand(newNginxSettingsSearchresolverCmd())
-	cmd.AddCommand(newNginxSettingsSearchsecurityHeaderCmd())
-	cmd.AddCommand(newNginxSettingsSearchsnifwdCmd())
-	cmd.AddCommand(newNginxSettingsSearchstreamserverCmd())
-	cmd.AddCommand(newNginxSettingsSearchsyslogTargetCmd())
-	cmd.AddCommand(newNginxSettingsSearchtlsFingerprintCmd())
-	cmd.AddCommand(newNginxSettingsSearchupstreamCmd())
-	cmd.AddCommand(newNginxSettingsSearchupstreamserverCmd())
-	cmd.AddCommand(newNginxSettingsSearchuserlistCmd())
-	cmd.AddCommand(newNginxSettingsSetCmd())
-	cmd.AddCommand(newNginxSettingsSetcachePathCmd())
-	cmd.AddCommand(newNginxSettingsSetcredentialCmd())
-	cmd.AddCommand(newNginxSettingsSetcustompolicyCmd())
-	cmd.AddCommand(newNginxSettingsSeterrorpageCmd())
-	cmd.AddCommand(newNginxSettingsSethttprewriteCmd())
-	cmd.AddCommand(newNginxSettingsSethttpserverCmd())
-	cmd.AddCommand(newNginxSettingsSetipaclCmd())
-	cmd.AddCommand(newNginxSettingsSetlimitRequestConnectionCmd())
-	cmd.AddCommand(newNginxSettingsSetlimitZoneCmd())
-	cmd.AddCommand(newNginxSettingsSetlocationCmd())
-	cmd.AddCommand(newNginxSettingsSetnaxsiruleCmd())
-	cmd.AddCommand(newNginxSettingsSetproxyCacheValidCmd())
-	cmd.AddCommand(newNginxSettingsSetresolverCmd())
-	cmd.AddCommand(newNginxSettingsSetsecurityHeaderCmd())
-	cmd.AddCommand(newNginxSettingsSetsnifwdCmd())
-	cmd.AddCommand(newNginxSettingsSetstreamserverCmd())
-	cmd.AddCommand(newNginxSettingsSetsyslogTargetCmd())
-	cmd.AddCommand(newNginxSettingsSettlsFingerprintCmd())
-	cmd.AddCommand(newNginxSettingsSetupstreamCmd())
-	cmd.AddCommand(newNginxSettingsSetupstreamserverCmd())
-	cmd.AddCommand(newNginxSettingsSetuserlistCmd())
-	cmd.AddCommand(newNginxSettingsShowconfigCmd())
-	cmd.AddCommand(newNginxSettingsTestconfigCmd())
+	cmd.AddCommand(newNginxCachePathCreateCmd())
+	cmd.AddCommand(newNginxCachePathDeleteCmd())
+	cmd.AddCommand(newNginxCachePathGetCmd())
+	cmd.AddCommand(newNginxCachePathListCmd())
+	cmd.AddCommand(newNginxCachePathUpdateCmd())
 	return cmd
 }
 
-func newNginxSettingsAddcachePathCmd() *cobra.Command {
+func newNginxCachePathCreateCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "addcache-path",
-		Short: "AddcachePath nginx settings",
+		Use:   "create",
+		Short: "Create nginx cache-path",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -518,410 +434,10 @@ func newNginxSettingsAddcachePathCmd() *cobra.Command {
 	}
 }
 
-func newNginxSettingsAddcredentialCmd() *cobra.Command {
+func newNginxCachePathDeleteCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "addcredential",
-		Short: "Addcredential nginx settings",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsAddcredential(context.Background(), nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsAddcustompolicyCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "addcustompolicy",
-		Short: "Addcustompolicy nginx settings",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsAddcustompolicy(context.Background(), nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsAdderrorpageCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "adderrorpage",
-		Short: "Adderrorpage nginx settings",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsAdderrorpage(context.Background(), nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsAddhttprewriteCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "addhttprewrite",
-		Short: "Addhttprewrite nginx settings",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsAddhttprewrite(context.Background(), nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsAddhttpserverCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "addhttpserver",
-		Short: "Addhttpserver nginx settings",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsAddhttpserver(context.Background(), nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsAddipaclCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "addipacl",
-		Short: "Addipacl nginx settings",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsAddipacl(context.Background(), nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsAddlimitRequestConnectionCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "addlimit-request-connection",
-		Short: "AddlimitRequestConnection nginx settings",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsAddlimitRequestConnection(context.Background(), nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsAddlimitZoneCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "addlimit-zone",
-		Short: "AddlimitZone nginx settings",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsAddlimitZone(context.Background(), nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsAddlocationCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "addlocation",
-		Short: "Addlocation nginx settings",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsAddlocation(context.Background(), nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsAddnaxsiruleCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "addnaxsirule",
-		Short: "Addnaxsirule nginx settings",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsAddnaxsirule(context.Background(), nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsAddproxyCacheValidCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "addproxy-cache-valid",
-		Short: "AddproxyCacheValid nginx settings",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsAddproxyCacheValid(context.Background(), nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsAddresolverCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "addresolver",
-		Short: "Addresolver nginx settings",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsAddresolver(context.Background(), nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsAddsecurityHeaderCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "addsecurity-header",
-		Short: "AddsecurityHeader nginx settings",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsAddsecurityHeader(context.Background(), nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsAddsnifwdCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "addsnifwd",
-		Short: "Addsnifwd nginx settings",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsAddsnifwd(context.Background(), nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsAddstreamserverCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "addstreamserver",
-		Short: "Addstreamserver nginx settings",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsAddstreamserver(context.Background(), nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsAddsyslogTargetCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "addsyslog-target",
-		Short: "AddsyslogTarget nginx settings",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsAddsyslogTarget(context.Background(), nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsAddtlsFingerprintCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "addtls-fingerprint",
-		Short: "AddtlsFingerprint nginx settings",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsAddtlsFingerprint(context.Background(), nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsAddupstreamCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "addupstream",
-		Short: "Addupstream nginx settings",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsAddupstream(context.Background(), nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsAddupstreamserverCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "addupstreamserver",
-		Short: "Addupstreamserver nginx settings",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsAddupstreamserver(context.Background(), nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsAdduserlistCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "adduserlist",
-		Short: "Adduserlist nginx settings",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsAdduserlist(context.Background(), nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsDelcachePathCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "delcache-path <uuid>",
-		Short: "DelcachePath nginx settings",
+		Use:   "delete <uuid>",
+		Short: "Delete nginx cache-path",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
@@ -939,10 +455,104 @@ func newNginxSettingsDelcachePathCmd() *cobra.Command {
 	}
 }
 
-func newNginxSettingsDelcredentialCmd() *cobra.Command {
+func newNginxCachePathGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "delcredential <uuid>",
-		Short: "Delcredential nginx settings",
+		Use:   "get",
+		Short: "Get nginx cache-path",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsGetcachePath(context.Background())
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxCachePathListCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "list",
+		Short: "List nginx cache-path",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsSearchcachePath(context.Background(), nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxCachePathUpdateCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "update <uuid>",
+		Short: "Update nginx cache-path",
+		Args:  cobra.ExactArgs(1),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsSetcachePath(context.Background(), args[0], nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxCredentialCmd() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "credential",
+		Short: "Manage nginx credential resources",
+	}
+	cmd.AddCommand(newNginxCredentialCreateCmd())
+	cmd.AddCommand(newNginxCredentialDeleteCmd())
+	cmd.AddCommand(newNginxCredentialGetCmd())
+	cmd.AddCommand(newNginxCredentialListCmd())
+	cmd.AddCommand(newNginxCredentialUpdateCmd())
+	return cmd
+}
+
+func newNginxCredentialCreateCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "create",
+		Short: "Create nginx credential",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsAddcredential(context.Background(), nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxCredentialDeleteCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "delete <uuid>",
+		Short: "Delete nginx credential",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
@@ -960,10 +570,104 @@ func newNginxSettingsDelcredentialCmd() *cobra.Command {
 	}
 }
 
-func newNginxSettingsDelcustompolicyCmd() *cobra.Command {
+func newNginxCredentialGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "delcustompolicy <uuid>",
-		Short: "Delcustompolicy nginx settings",
+		Use:   "get",
+		Short: "Get nginx credential",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsGetcredential(context.Background())
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxCredentialListCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "list",
+		Short: "List nginx credential",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsSearchcredential(context.Background(), nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxCredentialUpdateCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "update <uuid>",
+		Short: "Update nginx credential",
+		Args:  cobra.ExactArgs(1),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsSetcredential(context.Background(), args[0], nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxCustompolicyCmd() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "custompolicy",
+		Short: "Manage nginx custompolicy resources",
+	}
+	cmd.AddCommand(newNginxCustompolicyCreateCmd())
+	cmd.AddCommand(newNginxCustompolicyDeleteCmd())
+	cmd.AddCommand(newNginxCustompolicyGetCmd())
+	cmd.AddCommand(newNginxCustompolicyListCmd())
+	cmd.AddCommand(newNginxCustompolicyUpdateCmd())
+	return cmd
+}
+
+func newNginxCustompolicyCreateCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "create",
+		Short: "Create nginx custompolicy",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsAddcustompolicy(context.Background(), nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxCustompolicyDeleteCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "delete <uuid>",
+		Short: "Delete nginx custompolicy",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
@@ -981,10 +685,104 @@ func newNginxSettingsDelcustompolicyCmd() *cobra.Command {
 	}
 }
 
-func newNginxSettingsDelerrorpageCmd() *cobra.Command {
+func newNginxCustompolicyGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "delerrorpage <uuid>",
-		Short: "Delerrorpage nginx settings",
+		Use:   "get",
+		Short: "Get nginx custompolicy",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsGetcustompolicy(context.Background())
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxCustompolicyListCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "list",
+		Short: "List nginx custompolicy",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsSearchcustompolicy(context.Background(), nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxCustompolicyUpdateCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "update <uuid>",
+		Short: "Update nginx custompolicy",
+		Args:  cobra.ExactArgs(1),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsSetcustompolicy(context.Background(), args[0], nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxErrorpageCmd() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "errorpage",
+		Short: "Manage nginx errorpage resources",
+	}
+	cmd.AddCommand(newNginxErrorpageCreateCmd())
+	cmd.AddCommand(newNginxErrorpageDeleteCmd())
+	cmd.AddCommand(newNginxErrorpageGetCmd())
+	cmd.AddCommand(newNginxErrorpageListCmd())
+	cmd.AddCommand(newNginxErrorpageUpdateCmd())
+	return cmd
+}
+
+func newNginxErrorpageCreateCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "create",
+		Short: "Create nginx errorpage",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsAdderrorpage(context.Background(), nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxErrorpageDeleteCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "delete <uuid>",
+		Short: "Delete nginx errorpage",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
@@ -1002,10 +800,104 @@ func newNginxSettingsDelerrorpageCmd() *cobra.Command {
 	}
 }
 
-func newNginxSettingsDelhttprewriteCmd() *cobra.Command {
+func newNginxErrorpageGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "delhttprewrite <uuid>",
-		Short: "Delhttprewrite nginx settings",
+		Use:   "get",
+		Short: "Get nginx errorpage",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsGeterrorpage(context.Background())
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxErrorpageListCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "list",
+		Short: "List nginx errorpage",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsSearcherrorpage(context.Background(), nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxErrorpageUpdateCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "update <uuid>",
+		Short: "Update nginx errorpage",
+		Args:  cobra.ExactArgs(1),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsSeterrorpage(context.Background(), args[0], nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxHttprewriteCmd() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "httprewrite",
+		Short: "Manage nginx httprewrite resources",
+	}
+	cmd.AddCommand(newNginxHttprewriteCreateCmd())
+	cmd.AddCommand(newNginxHttprewriteDeleteCmd())
+	cmd.AddCommand(newNginxHttprewriteGetCmd())
+	cmd.AddCommand(newNginxHttprewriteListCmd())
+	cmd.AddCommand(newNginxHttprewriteUpdateCmd())
+	return cmd
+}
+
+func newNginxHttprewriteCreateCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "create",
+		Short: "Create nginx httprewrite",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsAddhttprewrite(context.Background(), nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxHttprewriteDeleteCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "delete <uuid>",
+		Short: "Delete nginx httprewrite",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
@@ -1023,10 +915,104 @@ func newNginxSettingsDelhttprewriteCmd() *cobra.Command {
 	}
 }
 
-func newNginxSettingsDelhttpserverCmd() *cobra.Command {
+func newNginxHttprewriteGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "delhttpserver <uuid>",
-		Short: "Delhttpserver nginx settings",
+		Use:   "get",
+		Short: "Get nginx httprewrite",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsGethttprewrite(context.Background())
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxHttprewriteListCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "list",
+		Short: "List nginx httprewrite",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsSearchhttprewrite(context.Background(), nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxHttprewriteUpdateCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "update <uuid>",
+		Short: "Update nginx httprewrite",
+		Args:  cobra.ExactArgs(1),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsSethttprewrite(context.Background(), args[0], nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxHttpserverCmd() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "httpserver",
+		Short: "Manage nginx httpserver resources",
+	}
+	cmd.AddCommand(newNginxHttpserverCreateCmd())
+	cmd.AddCommand(newNginxHttpserverDeleteCmd())
+	cmd.AddCommand(newNginxHttpserverGetCmd())
+	cmd.AddCommand(newNginxHttpserverListCmd())
+	cmd.AddCommand(newNginxHttpserverUpdateCmd())
+	return cmd
+}
+
+func newNginxHttpserverCreateCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "create",
+		Short: "Create nginx httpserver",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsAddhttpserver(context.Background(), nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxHttpserverDeleteCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "delete <uuid>",
+		Short: "Delete nginx httpserver",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
@@ -1044,10 +1030,104 @@ func newNginxSettingsDelhttpserverCmd() *cobra.Command {
 	}
 }
 
-func newNginxSettingsDelipaclCmd() *cobra.Command {
+func newNginxHttpserverGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "delipacl <uuid>",
-		Short: "Delipacl nginx settings",
+		Use:   "get",
+		Short: "Get nginx httpserver",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsGethttpserver(context.Background())
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxHttpserverListCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "list",
+		Short: "List nginx httpserver",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsSearchhttpserver(context.Background(), nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxHttpserverUpdateCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "update <uuid>",
+		Short: "Update nginx httpserver",
+		Args:  cobra.ExactArgs(1),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsSethttpserver(context.Background(), args[0], nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxIpaclCmd() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "ipacl",
+		Short: "Manage nginx ipacl resources",
+	}
+	cmd.AddCommand(newNginxIpaclCreateCmd())
+	cmd.AddCommand(newNginxIpaclDeleteCmd())
+	cmd.AddCommand(newNginxIpaclGetCmd())
+	cmd.AddCommand(newNginxIpaclListCmd())
+	cmd.AddCommand(newNginxIpaclUpdateCmd())
+	return cmd
+}
+
+func newNginxIpaclCreateCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "create",
+		Short: "Create nginx ipacl",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsAddipacl(context.Background(), nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxIpaclDeleteCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "delete <uuid>",
+		Short: "Delete nginx ipacl",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
@@ -1065,10 +1145,104 @@ func newNginxSettingsDelipaclCmd() *cobra.Command {
 	}
 }
 
-func newNginxSettingsDellimitRequestConnectionCmd() *cobra.Command {
+func newNginxIpaclGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "dellimit-request-connection <uuid>",
-		Short: "DellimitRequestConnection nginx settings",
+		Use:   "get",
+		Short: "Get nginx ipacl",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsGetipacl(context.Background())
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxIpaclListCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "list",
+		Short: "List nginx ipacl",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsSearchipacl(context.Background(), nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxIpaclUpdateCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "update <uuid>",
+		Short: "Update nginx ipacl",
+		Args:  cobra.ExactArgs(1),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsSetipacl(context.Background(), args[0], nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxLimitRequestConnectionCmd() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "limit-request-connection",
+		Short: "Manage nginx limit-request-connection resources",
+	}
+	cmd.AddCommand(newNginxLimitRequestConnectionCreateCmd())
+	cmd.AddCommand(newNginxLimitRequestConnectionDeleteCmd())
+	cmd.AddCommand(newNginxLimitRequestConnectionGetCmd())
+	cmd.AddCommand(newNginxLimitRequestConnectionListCmd())
+	cmd.AddCommand(newNginxLimitRequestConnectionUpdateCmd())
+	return cmd
+}
+
+func newNginxLimitRequestConnectionCreateCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "create",
+		Short: "Create nginx limit-request-connection",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsAddlimitRequestConnection(context.Background(), nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxLimitRequestConnectionDeleteCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "delete <uuid>",
+		Short: "Delete nginx limit-request-connection",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
@@ -1086,10 +1260,104 @@ func newNginxSettingsDellimitRequestConnectionCmd() *cobra.Command {
 	}
 }
 
-func newNginxSettingsDellimitZoneCmd() *cobra.Command {
+func newNginxLimitRequestConnectionGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "dellimit-zone <uuid>",
-		Short: "DellimitZone nginx settings",
+		Use:   "get",
+		Short: "Get nginx limit-request-connection",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsGetlimitRequestConnection(context.Background())
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxLimitRequestConnectionListCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "list",
+		Short: "List nginx limit-request-connection",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsSearchlimitRequestConnection(context.Background(), nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxLimitRequestConnectionUpdateCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "update <uuid>",
+		Short: "Update nginx limit-request-connection",
+		Args:  cobra.ExactArgs(1),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsSetlimitRequestConnection(context.Background(), args[0], nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxLimitZoneCmd() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "limit-zone",
+		Short: "Manage nginx limit-zone resources",
+	}
+	cmd.AddCommand(newNginxLimitZoneCreateCmd())
+	cmd.AddCommand(newNginxLimitZoneDeleteCmd())
+	cmd.AddCommand(newNginxLimitZoneGetCmd())
+	cmd.AddCommand(newNginxLimitZoneListCmd())
+	cmd.AddCommand(newNginxLimitZoneUpdateCmd())
+	return cmd
+}
+
+func newNginxLimitZoneCreateCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "create",
+		Short: "Create nginx limit-zone",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsAddlimitZone(context.Background(), nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxLimitZoneDeleteCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "delete <uuid>",
+		Short: "Delete nginx limit-zone",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
@@ -1107,10 +1375,104 @@ func newNginxSettingsDellimitZoneCmd() *cobra.Command {
 	}
 }
 
-func newNginxSettingsDellocationCmd() *cobra.Command {
+func newNginxLimitZoneGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "dellocation <uuid>",
-		Short: "Dellocation nginx settings",
+		Use:   "get",
+		Short: "Get nginx limit-zone",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsGetlimitZone(context.Background())
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxLimitZoneListCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "list",
+		Short: "List nginx limit-zone",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsSearchlimitZone(context.Background(), nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxLimitZoneUpdateCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "update <uuid>",
+		Short: "Update nginx limit-zone",
+		Args:  cobra.ExactArgs(1),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsSetlimitZone(context.Background(), args[0], nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxLocationCmd() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "location",
+		Short: "Manage nginx location resources",
+	}
+	cmd.AddCommand(newNginxLocationCreateCmd())
+	cmd.AddCommand(newNginxLocationDeleteCmd())
+	cmd.AddCommand(newNginxLocationGetCmd())
+	cmd.AddCommand(newNginxLocationListCmd())
+	cmd.AddCommand(newNginxLocationUpdateCmd())
+	return cmd
+}
+
+func newNginxLocationCreateCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "create",
+		Short: "Create nginx location",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsAddlocation(context.Background(), nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxLocationDeleteCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "delete <uuid>",
+		Short: "Delete nginx location",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
@@ -1128,10 +1490,104 @@ func newNginxSettingsDellocationCmd() *cobra.Command {
 	}
 }
 
-func newNginxSettingsDelnaxsiruleCmd() *cobra.Command {
+func newNginxLocationGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "delnaxsirule <uuid>",
-		Short: "Delnaxsirule nginx settings",
+		Use:   "get",
+		Short: "Get nginx location",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsGetlocation(context.Background())
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxLocationListCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "list",
+		Short: "List nginx location",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsSearchlocation(context.Background(), nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxLocationUpdateCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "update <uuid>",
+		Short: "Update nginx location",
+		Args:  cobra.ExactArgs(1),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsSetlocation(context.Background(), args[0], nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxNaxsiruleCmd() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "naxsirule",
+		Short: "Manage nginx naxsirule resources",
+	}
+	cmd.AddCommand(newNginxNaxsiruleCreateCmd())
+	cmd.AddCommand(newNginxNaxsiruleDeleteCmd())
+	cmd.AddCommand(newNginxNaxsiruleGetCmd())
+	cmd.AddCommand(newNginxNaxsiruleListCmd())
+	cmd.AddCommand(newNginxNaxsiruleUpdateCmd())
+	return cmd
+}
+
+func newNginxNaxsiruleCreateCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "create",
+		Short: "Create nginx naxsirule",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsAddnaxsirule(context.Background(), nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxNaxsiruleDeleteCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "delete <uuid>",
+		Short: "Delete nginx naxsirule",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
@@ -1149,10 +1605,104 @@ func newNginxSettingsDelnaxsiruleCmd() *cobra.Command {
 	}
 }
 
-func newNginxSettingsDelproxyCacheValidCmd() *cobra.Command {
+func newNginxNaxsiruleGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "delproxy-cache-valid <uuid>",
-		Short: "DelproxyCacheValid nginx settings",
+		Use:   "get",
+		Short: "Get nginx naxsirule",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsGetnaxsirule(context.Background())
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxNaxsiruleListCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "list",
+		Short: "List nginx naxsirule",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsSearchnaxsirule(context.Background(), nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxNaxsiruleUpdateCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "update <uuid>",
+		Short: "Update nginx naxsirule",
+		Args:  cobra.ExactArgs(1),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsSetnaxsirule(context.Background(), args[0], nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxProxyCacheValidCmd() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "proxy-cache-valid",
+		Short: "Manage nginx proxy-cache-valid resources",
+	}
+	cmd.AddCommand(newNginxProxyCacheValidCreateCmd())
+	cmd.AddCommand(newNginxProxyCacheValidDeleteCmd())
+	cmd.AddCommand(newNginxProxyCacheValidGetCmd())
+	cmd.AddCommand(newNginxProxyCacheValidListCmd())
+	cmd.AddCommand(newNginxProxyCacheValidUpdateCmd())
+	return cmd
+}
+
+func newNginxProxyCacheValidCreateCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "create",
+		Short: "Create nginx proxy-cache-valid",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsAddproxyCacheValid(context.Background(), nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxProxyCacheValidDeleteCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "delete <uuid>",
+		Short: "Delete nginx proxy-cache-valid",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
@@ -1170,10 +1720,104 @@ func newNginxSettingsDelproxyCacheValidCmd() *cobra.Command {
 	}
 }
 
-func newNginxSettingsDelresolverCmd() *cobra.Command {
+func newNginxProxyCacheValidGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "delresolver <uuid>",
-		Short: "Delresolver nginx settings",
+		Use:   "get",
+		Short: "Get nginx proxy-cache-valid",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsGetproxyCacheValid(context.Background())
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxProxyCacheValidListCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "list",
+		Short: "List nginx proxy-cache-valid",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsSearchproxyCacheValid(context.Background(), nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxProxyCacheValidUpdateCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "update <uuid>",
+		Short: "Update nginx proxy-cache-valid",
+		Args:  cobra.ExactArgs(1),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsSetproxyCacheValid(context.Background(), args[0], nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxResolverCmd() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "resolver",
+		Short: "Manage nginx resolver resources",
+	}
+	cmd.AddCommand(newNginxResolverCreateCmd())
+	cmd.AddCommand(newNginxResolverDeleteCmd())
+	cmd.AddCommand(newNginxResolverGetCmd())
+	cmd.AddCommand(newNginxResolverListCmd())
+	cmd.AddCommand(newNginxResolverUpdateCmd())
+	return cmd
+}
+
+func newNginxResolverCreateCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "create",
+		Short: "Create nginx resolver",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsAddresolver(context.Background(), nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxResolverDeleteCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "delete <uuid>",
+		Short: "Delete nginx resolver",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
@@ -1191,10 +1835,104 @@ func newNginxSettingsDelresolverCmd() *cobra.Command {
 	}
 }
 
-func newNginxSettingsDelsecurityHeaderCmd() *cobra.Command {
+func newNginxResolverGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "delsecurity-header <uuid>",
-		Short: "DelsecurityHeader nginx settings",
+		Use:   "get",
+		Short: "Get nginx resolver",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsGetresolver(context.Background())
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxResolverListCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "list",
+		Short: "List nginx resolver",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsSearchresolver(context.Background(), nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxResolverUpdateCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "update <uuid>",
+		Short: "Update nginx resolver",
+		Args:  cobra.ExactArgs(1),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsSetresolver(context.Background(), args[0], nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxSecurityHeaderCmd() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "security-header",
+		Short: "Manage nginx security-header resources",
+	}
+	cmd.AddCommand(newNginxSecurityHeaderCreateCmd())
+	cmd.AddCommand(newNginxSecurityHeaderDeleteCmd())
+	cmd.AddCommand(newNginxSecurityHeaderGetCmd())
+	cmd.AddCommand(newNginxSecurityHeaderListCmd())
+	cmd.AddCommand(newNginxSecurityHeaderUpdateCmd())
+	return cmd
+}
+
+func newNginxSecurityHeaderCreateCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "create",
+		Short: "Create nginx security-header",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsAddsecurityHeader(context.Background(), nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxSecurityHeaderDeleteCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "delete <uuid>",
+		Short: "Delete nginx security-header",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
@@ -1212,10 +1950,104 @@ func newNginxSettingsDelsecurityHeaderCmd() *cobra.Command {
 	}
 }
 
-func newNginxSettingsDelsnifwdCmd() *cobra.Command {
+func newNginxSecurityHeaderGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "delsnifwd <uuid>",
-		Short: "Delsnifwd nginx settings",
+		Use:   "get",
+		Short: "Get nginx security-header",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsGetsecurityHeader(context.Background())
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxSecurityHeaderListCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "list",
+		Short: "List nginx security-header",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsSearchsecurityHeader(context.Background(), nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxSecurityHeaderUpdateCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "update <uuid>",
+		Short: "Update nginx security-header",
+		Args:  cobra.ExactArgs(1),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsSetsecurityHeader(context.Background(), args[0], nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxSnifwdCmd() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "snifwd",
+		Short: "Manage nginx snifwd resources",
+	}
+	cmd.AddCommand(newNginxSnifwdCreateCmd())
+	cmd.AddCommand(newNginxSnifwdDeleteCmd())
+	cmd.AddCommand(newNginxSnifwdGetCmd())
+	cmd.AddCommand(newNginxSnifwdListCmd())
+	cmd.AddCommand(newNginxSnifwdUpdateCmd())
+	return cmd
+}
+
+func newNginxSnifwdCreateCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "create",
+		Short: "Create nginx snifwd",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsAddsnifwd(context.Background(), nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxSnifwdDeleteCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "delete <uuid>",
+		Short: "Delete nginx snifwd",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
@@ -1233,10 +2065,104 @@ func newNginxSettingsDelsnifwdCmd() *cobra.Command {
 	}
 }
 
-func newNginxSettingsDelstreamserverCmd() *cobra.Command {
+func newNginxSnifwdGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "delstreamserver <uuid>",
-		Short: "Delstreamserver nginx settings",
+		Use:   "get",
+		Short: "Get nginx snifwd",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsGetsnifwd(context.Background())
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxSnifwdListCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "list",
+		Short: "List nginx snifwd",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsSearchsnifwd(context.Background(), nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxSnifwdUpdateCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "update <uuid>",
+		Short: "Update nginx snifwd",
+		Args:  cobra.ExactArgs(1),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsSetsnifwd(context.Background(), args[0], nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxStreamserverCmd() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "streamserver",
+		Short: "Manage nginx streamserver resources",
+	}
+	cmd.AddCommand(newNginxStreamserverCreateCmd())
+	cmd.AddCommand(newNginxStreamserverDeleteCmd())
+	cmd.AddCommand(newNginxStreamserverGetCmd())
+	cmd.AddCommand(newNginxStreamserverListCmd())
+	cmd.AddCommand(newNginxStreamserverUpdateCmd())
+	return cmd
+}
+
+func newNginxStreamserverCreateCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "create",
+		Short: "Create nginx streamserver",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsAddstreamserver(context.Background(), nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxStreamserverDeleteCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "delete <uuid>",
+		Short: "Delete nginx streamserver",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
@@ -1254,10 +2180,104 @@ func newNginxSettingsDelstreamserverCmd() *cobra.Command {
 	}
 }
 
-func newNginxSettingsDelsyslogTargetCmd() *cobra.Command {
+func newNginxStreamserverGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "delsyslog-target <uuid>",
-		Short: "DelsyslogTarget nginx settings",
+		Use:   "get",
+		Short: "Get nginx streamserver",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsGetstreamserver(context.Background())
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxStreamserverListCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "list",
+		Short: "List nginx streamserver",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsSearchstreamserver(context.Background(), nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxStreamserverUpdateCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "update <uuid>",
+		Short: "Update nginx streamserver",
+		Args:  cobra.ExactArgs(1),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsSetstreamserver(context.Background(), args[0], nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxSyslogTargetCmd() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "syslog-target",
+		Short: "Manage nginx syslog-target resources",
+	}
+	cmd.AddCommand(newNginxSyslogTargetCreateCmd())
+	cmd.AddCommand(newNginxSyslogTargetDeleteCmd())
+	cmd.AddCommand(newNginxSyslogTargetGetCmd())
+	cmd.AddCommand(newNginxSyslogTargetListCmd())
+	cmd.AddCommand(newNginxSyslogTargetUpdateCmd())
+	return cmd
+}
+
+func newNginxSyslogTargetCreateCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "create",
+		Short: "Create nginx syslog-target",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsAddsyslogTarget(context.Background(), nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxSyslogTargetDeleteCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "delete <uuid>",
+		Short: "Delete nginx syslog-target",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
@@ -1275,10 +2295,104 @@ func newNginxSettingsDelsyslogTargetCmd() *cobra.Command {
 	}
 }
 
-func newNginxSettingsDeltlsFingerprintCmd() *cobra.Command {
+func newNginxSyslogTargetGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "deltls-fingerprint <uuid>",
-		Short: "DeltlsFingerprint nginx settings",
+		Use:   "get",
+		Short: "Get nginx syslog-target",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsGetsyslogTarget(context.Background())
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxSyslogTargetListCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "list",
+		Short: "List nginx syslog-target",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsSearchsyslogTarget(context.Background(), nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxSyslogTargetUpdateCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "update <uuid>",
+		Short: "Update nginx syslog-target",
+		Args:  cobra.ExactArgs(1),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsSetsyslogTarget(context.Background(), args[0], nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxTlsFingerprintCmd() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "tls-fingerprint",
+		Short: "Manage nginx tls-fingerprint resources",
+	}
+	cmd.AddCommand(newNginxTlsFingerprintCreateCmd())
+	cmd.AddCommand(newNginxTlsFingerprintDeleteCmd())
+	cmd.AddCommand(newNginxTlsFingerprintGetCmd())
+	cmd.AddCommand(newNginxTlsFingerprintListCmd())
+	cmd.AddCommand(newNginxTlsFingerprintUpdateCmd())
+	return cmd
+}
+
+func newNginxTlsFingerprintCreateCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "create",
+		Short: "Create nginx tls-fingerprint",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsAddtlsFingerprint(context.Background(), nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxTlsFingerprintDeleteCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "delete <uuid>",
+		Short: "Delete nginx tls-fingerprint",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
@@ -1296,10 +2410,104 @@ func newNginxSettingsDeltlsFingerprintCmd() *cobra.Command {
 	}
 }
 
-func newNginxSettingsDelupstreamCmd() *cobra.Command {
+func newNginxTlsFingerprintGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "delupstream <uuid>",
-		Short: "Delupstream nginx settings",
+		Use:   "get",
+		Short: "Get nginx tls-fingerprint",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsGettlsFingerprint(context.Background())
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxTlsFingerprintListCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "list",
+		Short: "List nginx tls-fingerprint",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsSearchtlsFingerprint(context.Background(), nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxTlsFingerprintUpdateCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "update <uuid>",
+		Short: "Update nginx tls-fingerprint",
+		Args:  cobra.ExactArgs(1),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsSettlsFingerprint(context.Background(), args[0], nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxUpstreamCmd() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "upstream",
+		Short: "Manage nginx upstream resources",
+	}
+	cmd.AddCommand(newNginxUpstreamCreateCmd())
+	cmd.AddCommand(newNginxUpstreamDeleteCmd())
+	cmd.AddCommand(newNginxUpstreamGetCmd())
+	cmd.AddCommand(newNginxUpstreamListCmd())
+	cmd.AddCommand(newNginxUpstreamUpdateCmd())
+	return cmd
+}
+
+func newNginxUpstreamCreateCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "create",
+		Short: "Create nginx upstream",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsAddupstream(context.Background(), nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxUpstreamDeleteCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "delete <uuid>",
+		Short: "Delete nginx upstream",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
@@ -1317,10 +2525,104 @@ func newNginxSettingsDelupstreamCmd() *cobra.Command {
 	}
 }
 
-func newNginxSettingsDelupstreamserverCmd() *cobra.Command {
+func newNginxUpstreamGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "delupstreamserver <uuid>",
-		Short: "Delupstreamserver nginx settings",
+		Use:   "get",
+		Short: "Get nginx upstream",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsGetupstream(context.Background())
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxUpstreamListCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "list",
+		Short: "List nginx upstream",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsSearchupstream(context.Background(), nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxUpstreamUpdateCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "update <uuid>",
+		Short: "Update nginx upstream",
+		Args:  cobra.ExactArgs(1),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsSetupstream(context.Background(), args[0], nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxUpstreamserverCmd() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "upstreamserver",
+		Short: "Manage nginx upstreamserver resources",
+	}
+	cmd.AddCommand(newNginxUpstreamserverCreateCmd())
+	cmd.AddCommand(newNginxUpstreamserverDeleteCmd())
+	cmd.AddCommand(newNginxUpstreamserverGetCmd())
+	cmd.AddCommand(newNginxUpstreamserverListCmd())
+	cmd.AddCommand(newNginxUpstreamserverUpdateCmd())
+	return cmd
+}
+
+func newNginxUpstreamserverCreateCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "create",
+		Short: "Create nginx upstreamserver",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsAddupstreamserver(context.Background(), nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxUpstreamserverDeleteCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "delete <uuid>",
+		Short: "Delete nginx upstreamserver",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
@@ -1338,10 +2640,104 @@ func newNginxSettingsDelupstreamserverCmd() *cobra.Command {
 	}
 }
 
-func newNginxSettingsDeluserlistCmd() *cobra.Command {
+func newNginxUpstreamserverGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "deluserlist <uuid>",
-		Short: "Deluserlist nginx settings",
+		Use:   "get",
+		Short: "Get nginx upstreamserver",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsGetupstreamserver(context.Background())
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxUpstreamserverListCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "list",
+		Short: "List nginx upstreamserver",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsSearchupstreamserver(context.Background(), nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxUpstreamserverUpdateCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "update <uuid>",
+		Short: "Update nginx upstreamserver",
+		Args:  cobra.ExactArgs(1),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsSetupstreamserver(context.Background(), args[0], nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxUserlistCmd() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "userlist",
+		Short: "Manage nginx userlist resources",
+	}
+	cmd.AddCommand(newNginxUserlistCreateCmd())
+	cmd.AddCommand(newNginxUserlistDeleteCmd())
+	cmd.AddCommand(newNginxUserlistGetCmd())
+	cmd.AddCommand(newNginxUserlistListCmd())
+	cmd.AddCommand(newNginxUserlistUpdateCmd())
+	return cmd
+}
+
+func newNginxUserlistCreateCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "create",
+		Short: "Create nginx userlist",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsAdduserlist(context.Background(), nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxUserlistDeleteCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "delete <uuid>",
+		Short: "Delete nginx userlist",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
@@ -1357,6 +2753,80 @@ func newNginxSettingsDeluserlistCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+}
+
+func newNginxUserlistGetCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "get",
+		Short: "Get nginx userlist",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsGetuserlist(context.Background())
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxUserlistListCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "list",
+		Short: "List nginx userlist",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsSearchuserlist(context.Background(), nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxUserlistUpdateCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "update <uuid>",
+		Short: "Update nginx userlist",
+		Args:  cobra.ExactArgs(1),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsSetuserlist(context.Background(), args[0], nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newNginxSettingsCmd() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "settings",
+		Short: "Manage nginx settings resources",
+	}
+	cmd.AddCommand(newNginxSettingsDownloadrulesCmd())
+	cmd.AddCommand(newNginxSettingsGetCmd())
+	cmd.AddCommand(newNginxSettingsSetCmd())
+	cmd.AddCommand(newNginxSettingsShowconfigCmd())
+	cmd.AddCommand(newNginxSettingsTestconfigCmd())
+	return cmd
 }
 
 func newNginxSettingsDownloadrulesCmd() *cobra.Command {
@@ -1399,846 +2869,6 @@ func newNginxSettingsGetCmd() *cobra.Command {
 	}
 }
 
-func newNginxSettingsGetcachePathCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "getcache-path",
-		Short: "GetcachePath nginx settings",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetcachePath(context.Background())
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsGetcredentialCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "getcredential",
-		Short: "Getcredential nginx settings",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetcredential(context.Background())
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsGetcustompolicyCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "getcustompolicy",
-		Short: "Getcustompolicy nginx settings",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetcustompolicy(context.Background())
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsGeterrorpageCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "geterrorpage",
-		Short: "Geterrorpage nginx settings",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsGeterrorpage(context.Background())
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsGethttprewriteCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "gethttprewrite",
-		Short: "Gethttprewrite nginx settings",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsGethttprewrite(context.Background())
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsGethttpserverCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "gethttpserver",
-		Short: "Gethttpserver nginx settings",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsGethttpserver(context.Background())
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsGetipaclCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "getipacl",
-		Short: "Getipacl nginx settings",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetipacl(context.Background())
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsGetlimitRequestConnectionCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "getlimit-request-connection",
-		Short: "GetlimitRequestConnection nginx settings",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetlimitRequestConnection(context.Background())
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsGetlimitZoneCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "getlimit-zone",
-		Short: "GetlimitZone nginx settings",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetlimitZone(context.Background())
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsGetlocationCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "getlocation",
-		Short: "Getlocation nginx settings",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetlocation(context.Background())
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsGetnaxsiruleCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "getnaxsirule",
-		Short: "Getnaxsirule nginx settings",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetnaxsirule(context.Background())
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsGetproxyCacheValidCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "getproxy-cache-valid",
-		Short: "GetproxyCacheValid nginx settings",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetproxyCacheValid(context.Background())
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsGetresolverCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "getresolver",
-		Short: "Getresolver nginx settings",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetresolver(context.Background())
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsGetsecurityHeaderCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "getsecurity-header",
-		Short: "GetsecurityHeader nginx settings",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetsecurityHeader(context.Background())
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsGetsnifwdCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "getsnifwd",
-		Short: "Getsnifwd nginx settings",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetsnifwd(context.Background())
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsGetstreamserverCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "getstreamserver",
-		Short: "Getstreamserver nginx settings",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetstreamserver(context.Background())
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsGetsyslogTargetCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "getsyslog-target",
-		Short: "GetsyslogTarget nginx settings",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetsyslogTarget(context.Background())
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsGettlsFingerprintCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "gettls-fingerprint",
-		Short: "GettlsFingerprint nginx settings",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsGettlsFingerprint(context.Background())
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsGetupstreamCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "getupstream",
-		Short: "Getupstream nginx settings",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetupstream(context.Background())
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsGetupstreamserverCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "getupstreamserver",
-		Short: "Getupstreamserver nginx settings",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetupstreamserver(context.Background())
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsGetuserlistCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "getuserlist",
-		Short: "Getuserlist nginx settings",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetuserlist(context.Background())
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsSearchcachePathCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "searchcache-path",
-		Short: "SearchcachePath nginx settings",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsSearchcachePath(context.Background(), nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsSearchcredentialCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "searchcredential",
-		Short: "Searchcredential nginx settings",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsSearchcredential(context.Background(), nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsSearchcustompolicyCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "searchcustompolicy",
-		Short: "Searchcustompolicy nginx settings",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsSearchcustompolicy(context.Background(), nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsSearcherrorpageCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "searcherrorpage",
-		Short: "Searcherrorpage nginx settings",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsSearcherrorpage(context.Background(), nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsSearchhttprewriteCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "searchhttprewrite",
-		Short: "Searchhttprewrite nginx settings",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsSearchhttprewrite(context.Background(), nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsSearchhttpserverCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "searchhttpserver",
-		Short: "Searchhttpserver nginx settings",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsSearchhttpserver(context.Background(), nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsSearchipaclCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "searchipacl",
-		Short: "Searchipacl nginx settings",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsSearchipacl(context.Background(), nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsSearchlimitRequestConnectionCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "searchlimit-request-connection",
-		Short: "SearchlimitRequestConnection nginx settings",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsSearchlimitRequestConnection(context.Background(), nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsSearchlimitZoneCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "searchlimit-zone",
-		Short: "SearchlimitZone nginx settings",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsSearchlimitZone(context.Background(), nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsSearchlocationCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "searchlocation",
-		Short: "Searchlocation nginx settings",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsSearchlocation(context.Background(), nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsSearchnaxsiruleCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "searchnaxsirule",
-		Short: "Searchnaxsirule nginx settings",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsSearchnaxsirule(context.Background(), nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsSearchproxyCacheValidCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "searchproxy-cache-valid",
-		Short: "SearchproxyCacheValid nginx settings",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsSearchproxyCacheValid(context.Background(), nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsSearchresolverCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "searchresolver",
-		Short: "Searchresolver nginx settings",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsSearchresolver(context.Background(), nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsSearchsecurityHeaderCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "searchsecurity-header",
-		Short: "SearchsecurityHeader nginx settings",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsSearchsecurityHeader(context.Background(), nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsSearchsnifwdCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "searchsnifwd",
-		Short: "Searchsnifwd nginx settings",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsSearchsnifwd(context.Background(), nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsSearchstreamserverCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "searchstreamserver",
-		Short: "Searchstreamserver nginx settings",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsSearchstreamserver(context.Background(), nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsSearchsyslogTargetCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "searchsyslog-target",
-		Short: "SearchsyslogTarget nginx settings",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsSearchsyslogTarget(context.Background(), nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsSearchtlsFingerprintCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "searchtls-fingerprint",
-		Short: "SearchtlsFingerprint nginx settings",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsSearchtlsFingerprint(context.Background(), nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsSearchupstreamCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "searchupstream",
-		Short: "Searchupstream nginx settings",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsSearchupstream(context.Background(), nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsSearchupstreamserverCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "searchupstreamserver",
-		Short: "Searchupstreamserver nginx settings",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsSearchupstreamserver(context.Background(), nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsSearchuserlistCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "searchuserlist",
-		Short: "Searchuserlist nginx settings",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsSearchuserlist(context.Background(), nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
 func newNginxSettingsSetCmd() *cobra.Command {
 	return &cobra.Command{
 		Use:   "set",
@@ -2250,447 +2880,6 @@ func newNginxSettingsSetCmd() *cobra.Command {
 			}
 			s := sdk.NewClient(c)
 			resp, err := s.SettingsSet(context.Background(), nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsSetcachePathCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "setcache-path <uuid>",
-		Short: "SetcachePath nginx settings",
-		Args:  cobra.ExactArgs(1),
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsSetcachePath(context.Background(), args[0], nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsSetcredentialCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "setcredential <uuid>",
-		Short: "Setcredential nginx settings",
-		Args:  cobra.ExactArgs(1),
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsSetcredential(context.Background(), args[0], nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsSetcustompolicyCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "setcustompolicy <uuid>",
-		Short: "Setcustompolicy nginx settings",
-		Args:  cobra.ExactArgs(1),
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsSetcustompolicy(context.Background(), args[0], nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsSeterrorpageCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "seterrorpage <uuid>",
-		Short: "Seterrorpage nginx settings",
-		Args:  cobra.ExactArgs(1),
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsSeterrorpage(context.Background(), args[0], nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsSethttprewriteCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "sethttprewrite <uuid>",
-		Short: "Sethttprewrite nginx settings",
-		Args:  cobra.ExactArgs(1),
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsSethttprewrite(context.Background(), args[0], nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsSethttpserverCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "sethttpserver <uuid>",
-		Short: "Sethttpserver nginx settings",
-		Args:  cobra.ExactArgs(1),
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsSethttpserver(context.Background(), args[0], nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsSetipaclCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "setipacl <uuid>",
-		Short: "Setipacl nginx settings",
-		Args:  cobra.ExactArgs(1),
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsSetipacl(context.Background(), args[0], nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsSetlimitRequestConnectionCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "setlimit-request-connection <uuid>",
-		Short: "SetlimitRequestConnection nginx settings",
-		Args:  cobra.ExactArgs(1),
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsSetlimitRequestConnection(context.Background(), args[0], nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsSetlimitZoneCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "setlimit-zone <uuid>",
-		Short: "SetlimitZone nginx settings",
-		Args:  cobra.ExactArgs(1),
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsSetlimitZone(context.Background(), args[0], nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsSetlocationCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "setlocation <uuid>",
-		Short: "Setlocation nginx settings",
-		Args:  cobra.ExactArgs(1),
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsSetlocation(context.Background(), args[0], nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsSetnaxsiruleCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "setnaxsirule <uuid>",
-		Short: "Setnaxsirule nginx settings",
-		Args:  cobra.ExactArgs(1),
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsSetnaxsirule(context.Background(), args[0], nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsSetproxyCacheValidCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "setproxy-cache-valid <uuid>",
-		Short: "SetproxyCacheValid nginx settings",
-		Args:  cobra.ExactArgs(1),
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsSetproxyCacheValid(context.Background(), args[0], nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsSetresolverCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "setresolver <uuid>",
-		Short: "Setresolver nginx settings",
-		Args:  cobra.ExactArgs(1),
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsSetresolver(context.Background(), args[0], nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsSetsecurityHeaderCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "setsecurity-header <uuid>",
-		Short: "SetsecurityHeader nginx settings",
-		Args:  cobra.ExactArgs(1),
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsSetsecurityHeader(context.Background(), args[0], nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsSetsnifwdCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "setsnifwd <uuid>",
-		Short: "Setsnifwd nginx settings",
-		Args:  cobra.ExactArgs(1),
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsSetsnifwd(context.Background(), args[0], nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsSetstreamserverCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "setstreamserver <uuid>",
-		Short: "Setstreamserver nginx settings",
-		Args:  cobra.ExactArgs(1),
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsSetstreamserver(context.Background(), args[0], nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsSetsyslogTargetCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "setsyslog-target <uuid>",
-		Short: "SetsyslogTarget nginx settings",
-		Args:  cobra.ExactArgs(1),
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsSetsyslogTarget(context.Background(), args[0], nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsSettlsFingerprintCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "settls-fingerprint <uuid>",
-		Short: "SettlsFingerprint nginx settings",
-		Args:  cobra.ExactArgs(1),
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsSettlsFingerprint(context.Background(), args[0], nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsSetupstreamCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "setupstream <uuid>",
-		Short: "Setupstream nginx settings",
-		Args:  cobra.ExactArgs(1),
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsSetupstream(context.Background(), args[0], nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsSetupstreamserverCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "setupstreamserver <uuid>",
-		Short: "Setupstreamserver nginx settings",
-		Args:  cobra.ExactArgs(1),
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsSetupstreamserver(context.Background(), args[0], nil)
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newNginxSettingsSetuserlistCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "setuserlist <uuid>",
-		Short: "Setuserlist nginx settings",
-		Args:  cobra.ExactArgs(1),
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.SettingsSetuserlist(context.Background(), args[0], nil)
 			if err != nil {
 				return err
 			}

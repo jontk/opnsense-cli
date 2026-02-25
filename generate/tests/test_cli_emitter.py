@@ -70,6 +70,32 @@ class TestResourceNameDerivation:
         ep = _make_endpoint("settings", "get_c_p_u_type", crud_verb="get")
         assert _resource_name_from_endpoint(ep) == "cpu-type"
 
+    # No-underscore CRUD patterns (addroute, searchacl, delresolver, etc.)
+    def test_no_underscore_add_route(self):
+        ep = _make_endpoint("routes", "addroute")
+        assert _resource_name_from_endpoint(ep) == "route"
+
+    def test_no_underscore_search_acl(self):
+        ep = _make_endpoint("settings", "searchacl")
+        assert _resource_name_from_endpoint(ep) == "acl"
+
+    def test_no_underscore_del_resolver(self):
+        ep = _make_endpoint("settings", "delresolver")
+        assert _resource_name_from_endpoint(ep) == "resolver"
+
+    def test_no_underscore_toggle_server(self):
+        ep = _make_endpoint("server", "toggleserver")
+        assert _resource_name_from_endpoint(ep) == "server"
+
+    def test_blacklist_delete_uses_controller(self):
+        # "delete" must NOT be parsed as del+ete
+        ep = _make_endpoint("settings", "delete")
+        assert _resource_name_from_endpoint(ep) == "settings"
+
+    def test_blacklist_deletekeytab_uses_controller(self):
+        ep = _make_endpoint("kerberos", "deletekeytab")
+        assert _resource_name_from_endpoint(ep) == "kerberos"
+
 
 # ─── CLI verb mapping ────────────────────────────────────────────────────────
 
@@ -114,6 +140,32 @@ class TestCLIVerbMapping:
     def test_export_as_csv_verb(self):
         ep = _make_endpoint("voucher", "export_as_c_s_v")
         assert _cli_verb_from_endpoint(ep) == "export-as-csv"
+
+    # No-underscore CRUD patterns
+    def test_no_underscore_addroute_maps_to_create(self):
+        ep = _make_endpoint("routes", "addroute")
+        assert _cli_verb_from_endpoint(ep) == "create"
+
+    def test_no_underscore_searchacl_maps_to_list(self):
+        ep = _make_endpoint("settings", "searchacl")
+        assert _cli_verb_from_endpoint(ep) == "list"
+
+    def test_no_underscore_delresolver_maps_to_delete(self):
+        ep = _make_endpoint("settings", "delresolver")
+        assert _cli_verb_from_endpoint(ep) == "delete"
+
+    def test_no_underscore_toggleserver_maps_to_toggle(self):
+        ep = _make_endpoint("server", "toggleserver")
+        assert _cli_verb_from_endpoint(ep) == "toggle"
+
+    def test_blacklist_delete_stays_delete(self):
+        # "delete" should NOT match del+ete pattern
+        ep = _make_endpoint("settings", "delete")
+        assert _cli_verb_from_endpoint(ep) == "delete"
+
+    def test_blacklist_deletekeytab_stays_as_is(self):
+        ep = _make_endpoint("kerberos", "deletekeytab")
+        assert _cli_verb_from_endpoint(ep) == "deletekeytab"
 
 
 # ─── Column selection ─────────────────────────────────────────────────────────

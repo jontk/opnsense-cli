@@ -36,6 +36,7 @@ func registerWol() {
 	}
 	moduleCmd.AddCommand(newWolHostCmd())
 	moduleCmd.AddCommand(newWolWolCmd())
+	moduleCmd.AddCommand(newWolWakeCmd())
 	cli.Root.AddCommand(moduleCmd)
 }
 
@@ -200,7 +201,6 @@ func newWolWolCmd() *cobra.Command {
 		Short: "Manage wol wol resources",
 	}
 	cmd.AddCommand(newWolWolGetCmd())
-	cmd.AddCommand(newWolWolGetwakeCmd())
 	cmd.AddCommand(newWolWolSetCmd())
 	cmd.AddCommand(newWolWolWakeallCmd())
 	return cmd
@@ -217,26 +217,6 @@ func newWolWolGetCmd() *cobra.Command {
 			}
 			s := sdk.NewClient(c)
 			resp, err := s.WolGet(context.Background())
-			if err != nil {
-				return err
-			}
-			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
-		},
-	}
-}
-
-func newWolWolGetwakeCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "getwake",
-		Short: "Getwake wol wol",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			c, cfg, err := cli.NewClientFromCmd(cmd)
-			if err != nil {
-				return err
-			}
-			s := sdk.NewClient(c)
-			resp, err := s.WolGetwake(context.Background())
 			if err != nil {
 				return err
 			}
@@ -277,6 +257,35 @@ func newWolWolWakeallCmd() *cobra.Command {
 			}
 			s := sdk.NewClient(c)
 			resp, err := s.WolWakeall(context.Background(), nil)
+			if err != nil {
+				return err
+			}
+			printer := cli.NewPrinter(cfg)
+			return printer.PrintJSON(resp)
+		},
+	}
+}
+
+func newWolWakeCmd() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "wake",
+		Short: "Manage wol wake resources",
+	}
+	cmd.AddCommand(newWolWakeGetCmd())
+	return cmd
+}
+
+func newWolWakeGetCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "get",
+		Short: "Get wol wake",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			c, cfg, err := cli.NewClientFromCmd(cmd)
+			if err != nil {
+				return err
+			}
+			s := sdk.NewClient(c)
+			resp, err := s.WolGetwake(context.Background())
 			if err != nil {
 				return err
 			}
