@@ -7,12 +7,13 @@ import pytest
 from generate.emitter.cli_emitter import (
     _build_verb_view,
     _cli_verb_from_endpoint,
+    _collect_resources,
     _columns_for_item,
     _normalize_kebab,
     _resource_name_from_endpoint,
     _to_go_ident,
 )
-from generate.model.ir import Endpoint, ModelField, ModelItem, Parameter
+from generate.model.ir import Controller, Endpoint, ModelField, ModelItem, Module, Parameter
 
 
 def _make_endpoint(
@@ -262,3 +263,60 @@ class TestToGoIdent:
 
     def test_multi_word(self):
         assert _to_go_ident("alias-util") == "AliasUtil"
+
+
+# ─── SuggestFor prefix grouping ───────────────────────────────────────────────
+
+def _make_module_with_resources(*command_pairs: tuple[str, str, str]) -> Module:
+    """Build a Module containing one controller per (controller, command, crud_verb)."""
+    eps = []
+    for ctrl, cmd, crud_verb in command_pairs:
+        ep = _make_endpoint(ctrl, cmd, crud_verb=crud_verb, methods=["POST"] if crud_verb in ("add", "search") else ["GET"])
+        eps.append((ctrl, ep))
+    # Group by controller
+    from collections import defaultdict
+    by_ctrl: dict[str, list[Endpoint]] = defaultdict(list)
+    for ctrl, ep in eps:
+        by_ctrl[ctrl].append(ep)
+    controllers = [
+        Controller(name=ctrl, php_file=f"{ctrl}.php", endpoints=ctrl_eps)
+        for ctrl, ctrl_eps in by_ctrl.items()
+    ]
+    return Module(name="test", category="core", controllers=controllers)
+
+
+class TestSuggestFor:
+    def test_shared_prefix_gets_suggest_for(self):
+        # "host-override" and "host-alias" → both suggest "host"
+        m = _make_module_with_resources(
+            ("settings", "add_host_override", "add"),
+            ("settings", "search_host_overrides", "search"),
+            ("settings", "add_host_alias", "add"),
+            ("settings", "search_host_aliases", "search"),
+        )
+        resources = _collect_resources(m)
+        res_map = {r.resource: r for r in resources}
+        assert "host-override" in res_map
+        assert "host-alias" in res_map
+        assert res_map["host-override"].suggest_for == ["host"]
+        assert res_map["host-alias"].suggest_for == ["host"]
+
+    def test_no_suggest_for_when_prefix_is_real_resource(self):
+        # If "host" itself exists as a resource, no SuggestFor is added
+        m = _make_module_with_resources(
+            ("settings", "search_host", "search"),
+            ("settings", "add_host_override", "add"),
+        )
+        resources = _collect_resources(m)
+        res_map = {r.resource: r for r in resources}
+        assert res_map.get("host-override") is not None
+        assert res_map["host-override"].suggest_for == []
+
+    def test_single_hyphen_resource_gets_no_suggest(self):
+        # A resource with a hyphen but no sibling sharing the same prefix
+        m = _make_module_with_resources(
+            ("settings", "add_host_override", "add"),
+        )
+        resources = _collect_resources(m)
+        res_map = {r.resource: r for r in resources}
+        assert res_map["host-override"].suggest_for == []

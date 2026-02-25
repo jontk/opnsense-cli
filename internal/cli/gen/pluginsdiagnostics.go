@@ -4,6 +4,7 @@ package gen
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/jontk/opnsense-cli/internal/cli"
 	sdk "github.com/jontk/opnsense-cli/opnsense/pluginsdiagnostics"
@@ -16,8 +17,21 @@ func init() {
 
 func registerPluginsDiagnostics() {
 	moduleCmd := &cobra.Command{
-		Use:   "diagnostics",
-		Short: "Manage diagnostics resources",
+		Use:   "plugins-diagnostics",
+		Short: "Manage plugins-diagnostics resources",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			if len(args) == 0 {
+				return cmd.Help()
+			}
+			msg := fmt.Sprintf("unknown command %q for %q", args[0], cmd.CommandPath())
+			if sugg := cmd.SuggestionsFor(args[0]); len(sugg) > 0 {
+				msg += "\n\nDid you mean this?"
+				for _, s := range sugg {
+					msg += "\n\t" + s
+				}
+			}
+			return fmt.Errorf("%s\n\nRun '%s --help' for usage.", msg, cmd.CommandPath())
+		},
 	}
 	moduleCmd.AddCommand(newPluginsDiagnosticsProofpointEtCmd())
 	cli.Root.AddCommand(moduleCmd)
@@ -26,7 +40,7 @@ func registerPluginsDiagnostics() {
 func newPluginsDiagnosticsProofpointEtCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "proofpoint-et",
-		Short: "Manage diagnostics proofpoint-et resources",
+		Short: "Manage plugins-diagnostics proofpoint-et resources",
 	}
 	cmd.AddCommand(newPluginsDiagnosticsProofpointEtStatusCmd())
 	return cmd

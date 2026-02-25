@@ -20,6 +20,19 @@ func registerDyndns() {
 	moduleCmd := &cobra.Command{
 		Use:   "dyndns",
 		Short: "Manage dyndns resources",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			if len(args) == 0 {
+				return cmd.Help()
+			}
+			msg := fmt.Sprintf("unknown command %q for %q", args[0], cmd.CommandPath())
+			if sugg := cmd.SuggestionsFor(args[0]); len(sugg) > 0 {
+				msg += "\n\nDid you mean this?"
+				for _, s := range sugg {
+					msg += "\n\t" + s
+				}
+			}
+			return fmt.Errorf("%s\n\nRun '%s --help' for usage.", msg, cmd.CommandPath())
+		},
 	}
 	moduleCmd.AddCommand(newDyndnsAccountsCmd())
 	moduleCmd.AddCommand(newDyndnsServiceCmd())

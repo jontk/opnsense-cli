@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import re
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 
 from jinja2 import Environment, FileSystemLoader
@@ -66,12 +66,15 @@ class CLIResourceView:
     item_type: str          # Go type used for columns (e.g., "Alias"), "" if mixed
     columns: list[dict[str, str]]  # [{header, field_name, extractor}]
     verbs: list[CLIVerbView]
+    suggest_for: list[str] = field(default_factory=list)
+    # Common prefix shared with sibling resources (e.g. "host" for host-override/host-alias)
 
 
 @dataclass
 class CLIModuleView:
     """Template-friendly view of one module."""
     module_name: str        # e.g. "firewall"
+    cli_name: str           # cobra Use name; may differ from module_name if disambiguated
     package_name: str       # Go package name (e.g. "firewall")
     go_file_ident: str      # Identifier for the Go file and func (e.g. "Firewall")
     sdk_package: str        # Full import path (e.g. "github.com/.../opnsense/firewall")
@@ -286,6 +289,21 @@ def _collect_resources(module: Module) -> list[CLIResourceView]:
                         all_res_idents.add(other.go_ident)
                         break
 
+    # Third pass: populate SuggestFor for resources sharing a common hyphen-prefix.
+    # e.g. "host-override" and "host-alias" both suggest "host" when user types it.
+    resource_names = {r.resource for r in resolved}
+    prefix_groups: dict[str, list[CLIResourceView]] = {}
+    for res in resolved:
+        if "-" in res.resource:
+            prefix = res.resource.split("-")[0]
+            # Only hint the prefix if it is not itself an existing resource
+            if prefix not in resource_names:
+                prefix_groups.setdefault(prefix, []).append(res)
+    for prefix, members in prefix_groups.items():
+        if len(members) > 1:
+            for res in members:
+                res.suggest_for = [prefix]
+
     return resolved
 
 
@@ -324,13 +342,21 @@ def emit_cli(spec: APISpec, output_dir: str | Path | None = None) -> None:
             continue
 
         go_ident = module.name.replace("_", " ").title().replace(" ", "")
-        # Disambiguate if another module already used this go_ident
-        # (e.g., core/diagnostics vs plugins/diagnostics)
+        # Disambiguate Go identifier if another module already used it
+        # (e.g., core/diagnostics vs plugins/diagnostics → PluginsDiagnostics)
         if any(v.go_file_ident == go_ident for v in module_views):
             go_ident = module.category.title() + go_ident
 
+        # Disambiguate the Cobra Use name independently — the Go ident conflict
+        # above already handled file-level uniqueness, but two modules can still
+        # register the same CLI command name (e.g. both register "diagnostics").
+        cli_name = module.name
+        if any(v.cli_name == cli_name for v in module_views):
+            cli_name = f"{module.category}-{module.name}"
+
         view = CLIModuleView(
             module_name=module.name,
+            cli_name=cli_name,
             package_name=pkg,
             go_file_ident=go_ident,
             sdk_package=f"github.com/jontk/opnsense-cli/opnsense/{pkg}",
