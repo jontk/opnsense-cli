@@ -21,7 +21,7 @@ type General struct {
 	TlsDnsEchDomain                string            `json:"TlsDnsEchDomain,omitempty"`
 	Accesslist                     string            `json:"accesslist,omitempty"`
 	ClientIpHeaders                string            `json:"ClientIpHeaders,omitempty"`
-	DisableSuperuser               string            `json:"DisableSuperuser"` // Required. Default: 0. Valid: root, www.
+	DisableSuperuser               string            `json:"DisableSuperuser"` // Required. Default: 0. Valid: 0, 1.
 	GracePeriod                    opnsense.OPNInt   `json:"GracePeriod"`      // Required. Default: 10.
 	HttpVersions                   string            `json:"HttpVersions"`     // Required. Default: h1,h2. Valid: h1, h2, h3.
 	TimeoutReadBody                *opnsense.OPNInt  `json:"timeout_read_body,omitempty"`
@@ -41,7 +41,7 @@ type General struct {
 	AuthProvider                   string            `json:"AuthProvider,omitempty"` // Valid: authelia, authentik.
 	AuthToDomain                   string            `json:"AuthToDomain,omitempty"`
 	AuthToPort                     string            `json:"AuthToPort,omitempty"`
-	AuthToTls                      string            `json:"AuthToTls"` // Required. Default: 0. Valid: http, https.
+	AuthToTls                      string            `json:"AuthToTls"` // Required. Default: 0. Valid: 0, 1.
 	AuthToUri                      string            `json:"AuthToUri,omitempty"`
 	CopyHeaders                    string            `json:"CopyHeaders,omitempty"`
 }
@@ -60,7 +60,7 @@ type Reverse struct {
 	AccessLog                  *opnsense.OPNBool `json:"AccessLog,omitempty"`
 	DynDns                     *opnsense.OPNBool `json:"DynDns,omitempty"`
 	AcmePassthrough            string            `json:"AcmePassthrough,omitempty"`
-	DisableTls                 string            `json:"DisableTls"`               // Required. Default: 0. Valid: https, http.
+	DisableTls                 string            `json:"DisableTls"`               // Required. Default: 0. Valid: 0, 1.
 	ClientAuthMode             string            `json:"ClientAuthMode,omitempty"` // Valid: request, require, verify_if_given.
 	ClientAuthTrustPool        string            `json:"ClientAuthTrustPool,omitempty"`
 }
@@ -94,7 +94,7 @@ type Handle struct {
 	ToPort                             string            `json:"ToPort,omitempty"`
 	ToPath                             string            `json:"ToPath,omitempty"`
 	ForwardAuth                        *opnsense.OPNBool `json:"ForwardAuth,omitempty"`
-	HttpTls                            string            `json:"HttpTls"`               // Required. Default: 0. Valid: http, https, h2c.
+	HttpTls                            string            `json:"HttpTls"`               // Required. Default: 0. Valid: 0, 1, 2.
 	HttpVersion                        string            `json:"HttpVersion,omitempty"` // Valid: http1, http2, http3.
 	HttpKeepalive                      *opnsense.OPNInt  `json:"HttpKeepalive,omitempty"`
 	HttpNtlm                           *opnsense.OPNBool `json:"HttpNtlm,omitempty"`

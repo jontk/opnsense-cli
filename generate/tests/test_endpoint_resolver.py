@@ -109,6 +109,38 @@ class TestParseCrud:
     def test_set_single_char_suffix(self):
         assert _parse_crud("set_x") == ("set", "x")
 
+    def test_no_underscore_addroute(self):
+        """No-underscore CRUD: addroute → ('add', 'route')."""
+        assert _parse_crud("addroute") == ("add", "route")
+
+    def test_no_underscore_searchresolver(self):
+        """No-underscore CRUD: searchresolver → ('search', 'resolver')."""
+        assert _parse_crud("searchresolver") == ("search", "resolver")
+
+    def test_no_underscore_delresolver(self):
+        """No-underscore CRUD: delresolver → ('del', 'resolver')."""
+        assert _parse_crud("delresolver") == ("del", "resolver")
+
+    def test_no_underscore_setroute(self):
+        """No-underscore CRUD: setroute → ('set', 'route')."""
+        assert _parse_crud("setroute") == ("set", "route")
+
+    def test_no_underscore_getroute(self):
+        """No-underscore CRUD: getroute → ('get', 'route')."""
+        assert _parse_crud("getroute") == ("get", "route")
+
+    def test_no_underscore_blacklist_delete(self):
+        """'delete' is blacklisted and should not be parsed as del+ete."""
+        assert _parse_crud("delete") == ("", "")
+
+    def test_no_underscore_blacklist_deletekeytab(self):
+        """'deletekeytab' is blacklisted and should not match."""
+        assert _parse_crud("deletekeytab") == ("", "")
+
+    def test_underscore_takes_priority_over_no_underscore(self):
+        """Underscore pattern takes priority: add_route → ('add', 'route') not ('add', '_route')."""
+        assert _parse_crud("add_route") == ("add", "route")
+
 
 # ---------------------------------------------------------------------------
 # _match_item - exact match

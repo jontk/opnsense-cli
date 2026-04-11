@@ -11,5 +11,5 @@ type Settings struct {
 	Httpport  string           `json:"httpport"` // Required. Default: 3000.
 	Httpsport string           `json:"httpsport,omitempty"`
 	Cert      string           `json:"cert,omitempty"`
-	Dnsmode   string           `json:"dnsmode,omitempty"` // Valid: Option0, Option1, Option2, Option3.
+	Dnsmode   string           `json:"dnsmode,omitempty"` // Valid: 0, 1, 2, 3.
 }

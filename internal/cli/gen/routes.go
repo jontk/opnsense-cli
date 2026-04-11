@@ -68,6 +68,34 @@ func newRoutesGatewayStatusCmd() *cobra.Command {
 	}
 }
 
+// routesRouteColumns defines table columns for the Route resource.
+var routesRouteColumns = []cli.Column{
+	{Header: "NETWORK", Extract: func(row any) string {
+		if v, ok := row.(sdk.Route); ok {
+			return fmt.Sprint(v.Network)
+		}
+		return ""
+	}},
+	{Header: "GATEWAY", Extract: func(row any) string {
+		if v, ok := row.(sdk.Route); ok {
+			return fmt.Sprint(v.Gateway)
+		}
+		return ""
+	}},
+	{Header: "DESCR", Extract: func(row any) string {
+		if v, ok := row.(sdk.Route); ok {
+			return fmt.Sprint(v.Descr)
+		}
+		return ""
+	}},
+	{Header: "DISABLED", Extract: func(row any) string {
+		if v, ok := row.(sdk.Route); ok {
+			return fmt.Sprint(v.Disabled)
+		}
+		return ""
+	}},
+}
+
 func newRoutesRouteCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "route",
@@ -94,17 +122,17 @@ func newRoutesRouteCreateCmd() *cobra.Command {
 				return err
 			}
 			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
+			var body sdk.Route
 			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
 				return fmt.Errorf("parsing --data: %w", err)
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.RoutesAddroute(context.Background(), body)
+			resp, err := s.RoutesAddroute(context.Background(), &body)
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
 	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
@@ -112,7 +140,7 @@ func newRoutesRouteCreateCmd() *cobra.Command {
 }
 
 func newRoutesRouteDeleteCmd() *cobra.Command {
-	cmd := &cobra.Command{
+	return &cobra.Command{
 		Use:   "delete <uuid>",
 		Short: "Delete routes route",
 		Args:  cobra.ExactArgs(1),
@@ -122,21 +150,14 @@ func newRoutesRouteDeleteCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
-			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
-				return fmt.Errorf("parsing --data: %w", err)
-			}
-			resp, err := s.RoutesDelroute(context.Background(), args[0], body)
+			resp, err := s.RoutesDelroute(context.Background(), args[0])
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
-	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
-	return cmd
 }
 
 func newRoutesRouteGetCmd() *cobra.Command {
@@ -154,36 +175,33 @@ func newRoutesRouteGetCmd() *cobra.Command {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
 }
 
 func newRoutesRouteListCmd() *cobra.Command {
-	cmd := &cobra.Command{
+	return &cobra.Command{
 		Use:   "list",
-		Short: "List routes route",
+		Short: "List routes route resources",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
-			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
-			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
-				return fmt.Errorf("parsing --data: %w", err)
-			}
 			s := sdk.NewClient(c)
-			resp, err := s.RoutesSearchroute(context.Background(), body)
+			result, err := s.RoutesSearchroute(context.Background(), map[string]any{"rowCount": -1, "current": 1})
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			rows := make([]any, len(result.Rows))
+			for i, r := range result.Rows {
+				rows[i] = r
+			}
+			return printer.PrintTable(rows, routesRouteColumns)
 		},
 	}
-	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
-	return cmd
 }
 
 func newRoutesRouteUpdateCmd() *cobra.Command {
@@ -196,18 +214,18 @@ func newRoutesRouteUpdateCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			s := sdk.NewClient(c)
 			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
+			var body sdk.Route
 			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
 				return fmt.Errorf("parsing --data: %w", err)
 			}
-			resp, err := s.RoutesSetroute(context.Background(), args[0], body)
+			s := sdk.NewClient(c)
+			resp, err := s.RoutesSetroute(context.Background(), args[0], &body)
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
 	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
@@ -215,7 +233,7 @@ func newRoutesRouteUpdateCmd() *cobra.Command {
 }
 
 func newRoutesRouteToggleCmd() *cobra.Command {
-	cmd := &cobra.Command{
+	return &cobra.Command{
 		Use:   "toggle <uuid>",
 		Short: "Toggle routes route",
 		Args:  cobra.ExactArgs(1),
@@ -225,21 +243,14 @@ func newRoutesRouteToggleCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
-			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
-				return fmt.Errorf("parsing --data: %w", err)
-			}
-			resp, err := s.RoutesToggleroute(context.Background(), args[0], body)
+			resp, err := s.RoutesToggleroute(context.Background(), args[0])
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
-	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
-	return cmd
 }
 
 func newRoutesRouteReconfigureCmd() *cobra.Command {

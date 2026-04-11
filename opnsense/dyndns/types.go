@@ -25,7 +25,7 @@ type Account struct {
 	Hostnames      string           `json:"hostnames"` // Required.
 	Wildcard       opnsense.OPNBool `json:"wildcard"`  // Required. Default: 0.
 	Zone           string           `json:"zone,omitempty"`
-	Checkip        string           `json:"checkip"` // Required. Default: web_dyndns. Valid: web_akamai, web_akamai_ipv4, web_akamai_ipv6, web_cloudflare, web_cloudflare_ipv4, web_cloudflare_ipv6, dns_cloudflare, web_dynu_ipv4, web_dynu_ipv6, web_freedns, web_he, web_icanhazip, web_ipify_ipv4, web_ipify_ipv6, web_loopia, web_myonlineportal, web_noip_ipv4, web_noip_ipv6, web_nsupdate_info_ipv4, web_nsupdate_info_ipv6, web_zoneedit, if.
+	Checkip        string           `json:"checkip"` // Required. Default: web_dyndns. Valid: web_akamai, akamai-ipv4, akamai-ipv6, web_cloudflare, cloudflare-ipv4, cloudflare-ipv6, dns_cloudflare-dns, dynu-ipv4, dynu-ipv6, web_freedns, web_he, web_icanhazip, web_ipify-ipv4, web_ipify-ipv6, web_loopia, web_myonlineportal, web_noip-ipv4, web_noip-ipv6, web_nsupdate.info-ipv4, web_nsupdate.info-ipv6, web_zoneedit, if.
 	Dynipv6host    string           `json:"dynipv6host,omitempty"`
 	CheckipTimeout opnsense.OPNInt  `json:"checkip_timeout"` // Required. Default: 10.
 	ForceSsl       opnsense.OPNBool `json:"force_ssl"`       // Required. Default: 1.

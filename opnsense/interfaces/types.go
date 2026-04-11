@@ -62,9 +62,9 @@ type Lagg struct {
 	PrimaryMember   string           `json:"primary_member,omitempty"`
 	Proto           string           `json:"proto"`                 // Required. Default: lacp. Valid: none, lacp, failover, fec, loadbalance, roundrobin.
 	LacpFastTimeout opnsense.OPNBool `json:"lacp_fast_timeout"`     // Required. Default: 0.
-	UseFlowid       string           `json:"use_flowid,omitempty"`  // Valid: default, yes, no.
+	UseFlowid       string           `json:"use_flowid,omitempty"`  // Valid: , 1, 0.
 	Lagghash        string           `json:"lagghash,omitempty"`    // Valid: l2, l3, l4.
-	LacpStrict      string           `json:"lacp_strict,omitempty"` // Valid: default, yes, no.
+	LacpStrict      string           `json:"lacp_strict,omitempty"` // Valid: , 1, 0.
 	Mtu             *opnsense.OPNInt `json:"mtu,omitempty"`
 	Descr           string           `json:"descr,omitempty"`
 }
@@ -88,7 +88,7 @@ type Settings struct {
 	Disablechecksumoffloading     opnsense.OPNBool `json:"disablechecksumoffloading"`     // Required. Default: 1.
 	Disablesegmentationoffloading opnsense.OPNBool `json:"disablesegmentationoffloading"` // Required. Default: 1.
 	Disablelargereceiveoffloading opnsense.OPNBool `json:"disablelargereceiveoffloading"` // Required. Default: 1.
-	Disablevlanhwfilter           string           `json:"disablevlanhwfilter"`           // Required. Default: 2. Valid: opt0, opt1, opt2.
+	Disablevlanhwfilter           string           `json:"disablevlanhwfilter"`           // Required. Default: 2. Valid: 0, 1, 2.
 	Disableipv6                   opnsense.OPNBool `json:"disableipv6"`                   // Required. Default: 0.
 	Dhcp6Norelease                opnsense.OPNBool `json:"dhcp6_norelease"`               // Required. Default: 0.
 	Dhcp6Debug                    opnsense.OPNBool `json:"dhcp6_debug"`                   // Required. Default: 0.
@@ -121,8 +121,8 @@ type Vip struct {
 type Vlan struct {
 	If     string          `json:"if"`              // Required.
 	Tag    opnsense.OPNInt `json:"tag"`             // Required.
-	Pcp    string          `json:"pcp"`             // Required. Default: 0. Valid: pcp1, pcp0, pcp2, pcp3, pcp4, pcp5, pcp6, pcp7.
-	Proto  string          `json:"proto,omitempty"` // Valid: opt1, opt2.
+	Pcp    string          `json:"pcp"`             // Required. Default: 0. Valid: 1, 0, 2, 3, 4, 5, 6, 7.
+	Proto  string          `json:"proto,omitempty"` // Valid: 802.1q, 802.1ad.
 	Descr  string          `json:"descr,omitempty"`
 	Vlanif string          `json:"vlanif"` // Required.
 }

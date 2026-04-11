@@ -29,21 +29,21 @@ func (c *Client) GatewayStatus(ctx context.Context) (any, error) {
 }
 
 // RoutesAddroute calls POST /api/routes/routes/addroute
-func (c *Client) RoutesAddroute(ctx context.Context, body any) (any, error) {
+func (c *Client) RoutesAddroute(ctx context.Context, body *Route) (*opnsense.GenericResponse, error) {
 	path := "/api/routes/routes/addroute"
-	var resp any
-	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	var resp opnsense.GenericResponse
+	err := c.client.Do(ctx, "POST", path, map[string]any{"route": body}, &resp)
+	return &resp, err
 }
 
 // RoutesDelroute calls POST /api/routes/routes/delroute
 // Parameters:
 //   - uuid
-func (c *Client) RoutesDelroute(ctx context.Context, uuid string, body any) (any, error) {
+func (c *Client) RoutesDelroute(ctx context.Context, uuid string) (*opnsense.GenericResponse, error) {
 	path := fmt.Sprintf("/api/routes/routes/delroute/%s", uuid)
-	var resp any
-	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	var resp opnsense.GenericResponse
+	err := c.client.Do(ctx, "POST", path, nil, &resp)
+	return &resp, err
 }
 
 // RoutesGet calls GET /api/routes/routes/get
@@ -57,14 +57,14 @@ func (c *Client) RoutesGet(ctx context.Context) (any, error) {
 // RoutesGetroute calls GET /api/routes/routes/getroute
 // Parameters:
 //   - uuid (optional, default: null)
-func (c *Client) RoutesGetroute(ctx context.Context, opts ...string) (any, error) {
+func (c *Client) RoutesGetroute(ctx context.Context, opts ...string) (*Route, error) {
 	path := "/api/routes/routes/getroute"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp any
+	var resp routeGetItemResponse
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
-	return resp, err
+	return &resp.Route, err
 }
 
 // RoutesReconfigure calls POST /api/routes/routes/reconfigure
@@ -76,11 +76,11 @@ func (c *Client) RoutesReconfigure(ctx context.Context, body any) (any, error) {
 }
 
 // RoutesSearchroute calls GET,POST /api/routes/routes/searchroute
-func (c *Client) RoutesSearchroute(ctx context.Context, body any) (any, error) {
+func (c *Client) RoutesSearchroute(ctx context.Context, body any) (*opnsense.SearchResult[Route], error) {
 	path := "/api/routes/routes/searchroute"
-	var resp any
+	var resp opnsense.SearchResult[Route]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // RoutesSet calls POST /api/routes/routes/set
@@ -94,23 +94,23 @@ func (c *Client) RoutesSet(ctx context.Context, body any) (any, error) {
 // RoutesSetroute calls POST /api/routes/routes/setroute
 // Parameters:
 //   - uuid
-func (c *Client) RoutesSetroute(ctx context.Context, uuid string, body any) (any, error) {
+func (c *Client) RoutesSetroute(ctx context.Context, uuid string, body *Route) (*opnsense.GenericResponse, error) {
 	path := fmt.Sprintf("/api/routes/routes/setroute/%s", uuid)
-	var resp any
-	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	var resp opnsense.GenericResponse
+	err := c.client.Do(ctx, "POST", path, map[string]any{"route": body}, &resp)
+	return &resp, err
 }
 
 // RoutesToggleroute calls POST /api/routes/routes/toggleroute
 // Parameters:
 //   - uuid
 //   - disabled (optional, default: null)
-func (c *Client) RoutesToggleroute(ctx context.Context, uuid string, body any, opts ...string) (any, error) {
+func (c *Client) RoutesToggleroute(ctx context.Context, uuid string, opts ...string) (*opnsense.GenericResponse, error) {
 	path := fmt.Sprintf("/api/routes/routes/toggleroute/%s", uuid)
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp any
-	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	var resp opnsense.GenericResponse
+	err := c.client.Do(ctx, "POST", path, nil, &resp)
+	return &resp, err
 }

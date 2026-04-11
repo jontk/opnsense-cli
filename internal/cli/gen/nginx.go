@@ -62,6 +62,25 @@ func registerNginx() {
 	cli.Root.AddCommand(moduleCmd)
 }
 
+// nginxBanColumns defines table columns for the Ban resource.
+var nginxBanColumns = []cli.Column{
+	{Header: "IP", Extract: func(row any) string {
+		if v, ok := row.(sdk.Ban); ok {
+			return fmt.Sprint(v.Ip)
+		}
+		return ""
+	}},
+	{Header: "TIME", Extract: func(row any) string {
+		if v, ok := row.(sdk.Ban); ok {
+			if v.Time != nil {
+				return fmt.Sprint(*v.Time)
+			}
+			return ""
+		}
+		return ""
+	}},
+}
+
 func newNginxBanCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "ban",
@@ -75,7 +94,7 @@ func newNginxBanCmd() *cobra.Command {
 }
 
 func newNginxBanDeleteCmd() *cobra.Command {
-	cmd := &cobra.Command{
+	return &cobra.Command{
 		Use:   "delete <uuid>",
 		Short: "Delete nginx ban",
 		Args:  cobra.ExactArgs(1),
@@ -85,48 +104,38 @@ func newNginxBanDeleteCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
-			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
-				return fmt.Errorf("parsing --data: %w", err)
-			}
-			resp, err := s.BansDelban(context.Background(), args[0], body)
+			resp, err := s.BansDelban(context.Background(), args[0])
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
-	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
-	return cmd
 }
 
 func newNginxBanListCmd() *cobra.Command {
-	cmd := &cobra.Command{
+	return &cobra.Command{
 		Use:   "list",
-		Short: "List nginx ban",
+		Short: "List nginx ban resources",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
-			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
-			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
-				return fmt.Errorf("parsing --data: %w", err)
-			}
 			s := sdk.NewClient(c)
-			resp, err := s.BansSearchban(context.Background(), body)
+			result, err := s.BansSearchban(context.Background(), map[string]any{"rowCount": -1, "current": 1})
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			rows := make([]any, len(result.Rows))
+			for i, r := range result.Rows {
+				rows[i] = r
+			}
+			return printer.PrintTable(rows, nginxBanColumns)
 		},
 	}
-	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
-	return cmd
 }
 
 func newNginxBanGetCmd() *cobra.Command {
@@ -444,6 +453,49 @@ func newNginxServiceVtsCmd() *cobra.Command {
 	}
 }
 
+// nginxCachePathColumns defines table columns for the CachePath resource.
+var nginxCachePathColumns = []cli.Column{
+	{Header: "PATH", Extract: func(row any) string {
+		if v, ok := row.(sdk.CachePath); ok {
+			return fmt.Sprint(v.Path)
+		}
+		return ""
+	}},
+	{Header: "SIZE", Extract: func(row any) string {
+		if v, ok := row.(sdk.CachePath); ok {
+			if v.Size != nil {
+				return fmt.Sprint(*v.Size)
+			}
+			return ""
+		}
+		return ""
+	}},
+	{Header: "INACTIVE", Extract: func(row any) string {
+		if v, ok := row.(sdk.CachePath); ok {
+			if v.Inactive != nil {
+				return fmt.Sprint(*v.Inactive)
+			}
+			return ""
+		}
+		return ""
+	}},
+	{Header: "USE TEMP PATH", Extract: func(row any) string {
+		if v, ok := row.(sdk.CachePath); ok {
+			return fmt.Sprint(v.UseTempPath)
+		}
+		return ""
+	}},
+	{Header: "MAX SIZE", Extract: func(row any) string {
+		if v, ok := row.(sdk.CachePath); ok {
+			if v.MaxSize != nil {
+				return fmt.Sprint(*v.MaxSize)
+			}
+			return ""
+		}
+		return ""
+	}},
+}
+
 func newNginxCachePathCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "cache-path",
@@ -467,17 +519,17 @@ func newNginxCachePathCreateCmd() *cobra.Command {
 				return err
 			}
 			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
+			var body sdk.CachePath
 			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
 				return fmt.Errorf("parsing --data: %w", err)
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsAddcachePath(context.Background(), body)
+			resp, err := s.SettingsAddcachePath(context.Background(), &body)
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
 	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
@@ -485,7 +537,7 @@ func newNginxCachePathCreateCmd() *cobra.Command {
 }
 
 func newNginxCachePathDeleteCmd() *cobra.Command {
-	cmd := &cobra.Command{
+	return &cobra.Command{
 		Use:   "delete <uuid>",
 		Short: "Delete nginx cache-path",
 		Args:  cobra.ExactArgs(1),
@@ -495,21 +547,14 @@ func newNginxCachePathDeleteCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
-			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
-				return fmt.Errorf("parsing --data: %w", err)
-			}
-			resp, err := s.SettingsDelcachePath(context.Background(), args[0], body)
+			resp, err := s.SettingsDelcachePath(context.Background(), args[0])
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
-	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
-	return cmd
 }
 
 func newNginxCachePathGetCmd() *cobra.Command {
@@ -527,36 +572,33 @@ func newNginxCachePathGetCmd() *cobra.Command {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
 }
 
 func newNginxCachePathListCmd() *cobra.Command {
-	cmd := &cobra.Command{
+	return &cobra.Command{
 		Use:   "list",
-		Short: "List nginx cache-path",
+		Short: "List nginx cache-path resources",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
-			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
-			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
-				return fmt.Errorf("parsing --data: %w", err)
-			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSearchcachePath(context.Background(), body)
+			result, err := s.SettingsSearchcachePath(context.Background(), map[string]any{"rowCount": -1, "current": 1})
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			rows := make([]any, len(result.Rows))
+			for i, r := range result.Rows {
+				rows[i] = r
+			}
+			return printer.PrintTable(rows, nginxCachePathColumns)
 		},
 	}
-	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
-	return cmd
 }
 
 func newNginxCachePathUpdateCmd() *cobra.Command {
@@ -569,22 +611,38 @@ func newNginxCachePathUpdateCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			s := sdk.NewClient(c)
 			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
+			var body sdk.CachePath
 			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
 				return fmt.Errorf("parsing --data: %w", err)
 			}
-			resp, err := s.SettingsSetcachePath(context.Background(), args[0], body)
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsSetcachePath(context.Background(), args[0], &body)
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
 	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
 	return cmd
+}
+
+// nginxCredentialColumns defines table columns for the Credential resource.
+var nginxCredentialColumns = []cli.Column{
+	{Header: "USERNAME", Extract: func(row any) string {
+		if v, ok := row.(sdk.Credential); ok {
+			return fmt.Sprint(v.Username)
+		}
+		return ""
+	}},
+	{Header: "PASSWORD", Extract: func(row any) string {
+		if v, ok := row.(sdk.Credential); ok {
+			return fmt.Sprint(v.Password)
+		}
+		return ""
+	}},
 }
 
 func newNginxCredentialCmd() *cobra.Command {
@@ -610,17 +668,17 @@ func newNginxCredentialCreateCmd() *cobra.Command {
 				return err
 			}
 			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
+			var body sdk.Credential
 			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
 				return fmt.Errorf("parsing --data: %w", err)
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsAddcredential(context.Background(), body)
+			resp, err := s.SettingsAddcredential(context.Background(), &body)
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
 	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
@@ -628,7 +686,7 @@ func newNginxCredentialCreateCmd() *cobra.Command {
 }
 
 func newNginxCredentialDeleteCmd() *cobra.Command {
-	cmd := &cobra.Command{
+	return &cobra.Command{
 		Use:   "delete <uuid>",
 		Short: "Delete nginx credential",
 		Args:  cobra.ExactArgs(1),
@@ -638,21 +696,14 @@ func newNginxCredentialDeleteCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
-			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
-				return fmt.Errorf("parsing --data: %w", err)
-			}
-			resp, err := s.SettingsDelcredential(context.Background(), args[0], body)
+			resp, err := s.SettingsDelcredential(context.Background(), args[0])
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
-	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
-	return cmd
 }
 
 func newNginxCredentialGetCmd() *cobra.Command {
@@ -670,36 +721,33 @@ func newNginxCredentialGetCmd() *cobra.Command {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
 }
 
 func newNginxCredentialListCmd() *cobra.Command {
-	cmd := &cobra.Command{
+	return &cobra.Command{
 		Use:   "list",
-		Short: "List nginx credential",
+		Short: "List nginx credential resources",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
-			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
-			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
-				return fmt.Errorf("parsing --data: %w", err)
-			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSearchcredential(context.Background(), body)
+			result, err := s.SettingsSearchcredential(context.Background(), map[string]any{"rowCount": -1, "current": 1})
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			rows := make([]any, len(result.Rows))
+			for i, r := range result.Rows {
+				rows[i] = r
+			}
+			return printer.PrintTable(rows, nginxCredentialColumns)
 		},
 	}
-	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
-	return cmd
 }
 
 func newNginxCredentialUpdateCmd() *cobra.Command {
@@ -712,22 +760,56 @@ func newNginxCredentialUpdateCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			s := sdk.NewClient(c)
 			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
+			var body sdk.Credential
 			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
 				return fmt.Errorf("parsing --data: %w", err)
 			}
-			resp, err := s.SettingsSetcredential(context.Background(), args[0], body)
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsSetcredential(context.Background(), args[0], &body)
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
 	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
 	return cmd
+}
+
+// nginxCustompolicyColumns defines table columns for the Custompolicy resource.
+var nginxCustompolicyColumns = []cli.Column{
+	{Header: "NAME", Extract: func(row any) string {
+		if v, ok := row.(sdk.CustomPolicy); ok {
+			return fmt.Sprint(v.Name)
+		}
+		return ""
+	}},
+	{Header: "NAXSI RULES", Extract: func(row any) string {
+		if v, ok := row.(sdk.CustomPolicy); ok {
+			return fmt.Sprint(v.NaxsiRules)
+		}
+		return ""
+	}},
+	{Header: "VALUE", Extract: func(row any) string {
+		if v, ok := row.(sdk.CustomPolicy); ok {
+			return fmt.Sprint(v.Value)
+		}
+		return ""
+	}},
+	{Header: "OPERATOR", Extract: func(row any) string {
+		if v, ok := row.(sdk.CustomPolicy); ok {
+			return fmt.Sprint(v.Operator)
+		}
+		return ""
+	}},
+	{Header: "ACTION", Extract: func(row any) string {
+		if v, ok := row.(sdk.CustomPolicy); ok {
+			return fmt.Sprint(v.Action)
+		}
+		return ""
+	}},
 }
 
 func newNginxCustompolicyCmd() *cobra.Command {
@@ -753,17 +835,17 @@ func newNginxCustompolicyCreateCmd() *cobra.Command {
 				return err
 			}
 			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
+			var body sdk.CustomPolicy
 			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
 				return fmt.Errorf("parsing --data: %w", err)
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsAddcustompolicy(context.Background(), body)
+			resp, err := s.SettingsAddcustompolicy(context.Background(), &body)
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
 	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
@@ -771,7 +853,7 @@ func newNginxCustompolicyCreateCmd() *cobra.Command {
 }
 
 func newNginxCustompolicyDeleteCmd() *cobra.Command {
-	cmd := &cobra.Command{
+	return &cobra.Command{
 		Use:   "delete <uuid>",
 		Short: "Delete nginx custompolicy",
 		Args:  cobra.ExactArgs(1),
@@ -781,21 +863,14 @@ func newNginxCustompolicyDeleteCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
-			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
-				return fmt.Errorf("parsing --data: %w", err)
-			}
-			resp, err := s.SettingsDelcustompolicy(context.Background(), args[0], body)
+			resp, err := s.SettingsDelcustompolicy(context.Background(), args[0])
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
-	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
-	return cmd
 }
 
 func newNginxCustompolicyGetCmd() *cobra.Command {
@@ -813,36 +888,33 @@ func newNginxCustompolicyGetCmd() *cobra.Command {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
 }
 
 func newNginxCustompolicyListCmd() *cobra.Command {
-	cmd := &cobra.Command{
+	return &cobra.Command{
 		Use:   "list",
-		Short: "List nginx custompolicy",
+		Short: "List nginx custompolicy resources",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
-			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
-			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
-				return fmt.Errorf("parsing --data: %w", err)
-			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSearchcustompolicy(context.Background(), body)
+			result, err := s.SettingsSearchcustompolicy(context.Background(), map[string]any{"rowCount": -1, "current": 1})
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			rows := make([]any, len(result.Rows))
+			for i, r := range result.Rows {
+				rows[i] = r
+			}
+			return printer.PrintTable(rows, nginxCustompolicyColumns)
 		},
 	}
-	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
-	return cmd
 }
 
 func newNginxCustompolicyUpdateCmd() *cobra.Command {
@@ -855,22 +927,56 @@ func newNginxCustompolicyUpdateCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			s := sdk.NewClient(c)
 			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
+			var body sdk.CustomPolicy
 			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
 				return fmt.Errorf("parsing --data: %w", err)
 			}
-			resp, err := s.SettingsSetcustompolicy(context.Background(), args[0], body)
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsSetcustompolicy(context.Background(), args[0], &body)
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
 	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
 	return cmd
+}
+
+// nginxErrorpageColumns defines table columns for the Errorpage resource.
+var nginxErrorpageColumns = []cli.Column{
+	{Header: "NAME", Extract: func(row any) string {
+		if v, ok := row.(sdk.Errorpage); ok {
+			return fmt.Sprint(v.Name)
+		}
+		return ""
+	}},
+	{Header: "STATUSCODES", Extract: func(row any) string {
+		if v, ok := row.(sdk.Errorpage); ok {
+			return fmt.Sprint(v.Statuscodes)
+		}
+		return ""
+	}},
+	{Header: "PAGECONTENT", Extract: func(row any) string {
+		if v, ok := row.(sdk.Errorpage); ok {
+			return fmt.Sprint(v.Pagecontent)
+		}
+		return ""
+	}},
+	{Header: "REDIRECT", Extract: func(row any) string {
+		if v, ok := row.(sdk.Errorpage); ok {
+			return fmt.Sprint(v.Redirect)
+		}
+		return ""
+	}},
+	{Header: "RESPONSE", Extract: func(row any) string {
+		if v, ok := row.(sdk.Errorpage); ok {
+			return fmt.Sprint(v.Response)
+		}
+		return ""
+	}},
 }
 
 func newNginxErrorpageCmd() *cobra.Command {
@@ -896,17 +1002,17 @@ func newNginxErrorpageCreateCmd() *cobra.Command {
 				return err
 			}
 			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
+			var body sdk.Errorpage
 			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
 				return fmt.Errorf("parsing --data: %w", err)
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsAdderrorpage(context.Background(), body)
+			resp, err := s.SettingsAdderrorpage(context.Background(), &body)
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
 	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
@@ -914,7 +1020,7 @@ func newNginxErrorpageCreateCmd() *cobra.Command {
 }
 
 func newNginxErrorpageDeleteCmd() *cobra.Command {
-	cmd := &cobra.Command{
+	return &cobra.Command{
 		Use:   "delete <uuid>",
 		Short: "Delete nginx errorpage",
 		Args:  cobra.ExactArgs(1),
@@ -924,21 +1030,14 @@ func newNginxErrorpageDeleteCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
-			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
-				return fmt.Errorf("parsing --data: %w", err)
-			}
-			resp, err := s.SettingsDelerrorpage(context.Background(), args[0], body)
+			resp, err := s.SettingsDelerrorpage(context.Background(), args[0])
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
-	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
-	return cmd
 }
 
 func newNginxErrorpageGetCmd() *cobra.Command {
@@ -956,36 +1055,33 @@ func newNginxErrorpageGetCmd() *cobra.Command {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
 }
 
 func newNginxErrorpageListCmd() *cobra.Command {
-	cmd := &cobra.Command{
+	return &cobra.Command{
 		Use:   "list",
-		Short: "List nginx errorpage",
+		Short: "List nginx errorpage resources",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
-			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
-			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
-				return fmt.Errorf("parsing --data: %w", err)
-			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSearcherrorpage(context.Background(), body)
+			result, err := s.SettingsSearcherrorpage(context.Background(), map[string]any{"rowCount": -1, "current": 1})
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			rows := make([]any, len(result.Rows))
+			for i, r := range result.Rows {
+				rows[i] = r
+			}
+			return printer.PrintTable(rows, nginxErrorpageColumns)
 		},
 	}
-	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
-	return cmd
 }
 
 func newNginxErrorpageUpdateCmd() *cobra.Command {
@@ -998,22 +1094,50 @@ func newNginxErrorpageUpdateCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			s := sdk.NewClient(c)
 			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
+			var body sdk.Errorpage
 			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
 				return fmt.Errorf("parsing --data: %w", err)
 			}
-			resp, err := s.SettingsSeterrorpage(context.Background(), args[0], body)
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsSeterrorpage(context.Background(), args[0], &body)
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
 	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
 	return cmd
+}
+
+// nginxHttprewriteColumns defines table columns for the Httprewrite resource.
+var nginxHttprewriteColumns = []cli.Column{
+	{Header: "DESCRIPTION", Extract: func(row any) string {
+		if v, ok := row.(sdk.HttpRewrite); ok {
+			return fmt.Sprint(v.Description)
+		}
+		return ""
+	}},
+	{Header: "SOURCE", Extract: func(row any) string {
+		if v, ok := row.(sdk.HttpRewrite); ok {
+			return fmt.Sprint(v.Source)
+		}
+		return ""
+	}},
+	{Header: "DESTINATION", Extract: func(row any) string {
+		if v, ok := row.(sdk.HttpRewrite); ok {
+			return fmt.Sprint(v.Destination)
+		}
+		return ""
+	}},
+	{Header: "FLAG", Extract: func(row any) string {
+		if v, ok := row.(sdk.HttpRewrite); ok {
+			return fmt.Sprint(v.Flag)
+		}
+		return ""
+	}},
 }
 
 func newNginxHttprewriteCmd() *cobra.Command {
@@ -1039,17 +1163,17 @@ func newNginxHttprewriteCreateCmd() *cobra.Command {
 				return err
 			}
 			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
+			var body sdk.HttpRewrite
 			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
 				return fmt.Errorf("parsing --data: %w", err)
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsAddhttprewrite(context.Background(), body)
+			resp, err := s.SettingsAddhttprewrite(context.Background(), &body)
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
 	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
@@ -1057,7 +1181,7 @@ func newNginxHttprewriteCreateCmd() *cobra.Command {
 }
 
 func newNginxHttprewriteDeleteCmd() *cobra.Command {
-	cmd := &cobra.Command{
+	return &cobra.Command{
 		Use:   "delete <uuid>",
 		Short: "Delete nginx httprewrite",
 		Args:  cobra.ExactArgs(1),
@@ -1067,21 +1191,14 @@ func newNginxHttprewriteDeleteCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
-			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
-				return fmt.Errorf("parsing --data: %w", err)
-			}
-			resp, err := s.SettingsDelhttprewrite(context.Background(), args[0], body)
+			resp, err := s.SettingsDelhttprewrite(context.Background(), args[0])
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
-	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
-	return cmd
 }
 
 func newNginxHttprewriteGetCmd() *cobra.Command {
@@ -1099,36 +1216,33 @@ func newNginxHttprewriteGetCmd() *cobra.Command {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
 }
 
 func newNginxHttprewriteListCmd() *cobra.Command {
-	cmd := &cobra.Command{
+	return &cobra.Command{
 		Use:   "list",
-		Short: "List nginx httprewrite",
+		Short: "List nginx httprewrite resources",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
-			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
-			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
-				return fmt.Errorf("parsing --data: %w", err)
-			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSearchhttprewrite(context.Background(), body)
+			result, err := s.SettingsSearchhttprewrite(context.Background(), map[string]any{"rowCount": -1, "current": 1})
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			rows := make([]any, len(result.Rows))
+			for i, r := range result.Rows {
+				rows[i] = r
+			}
+			return printer.PrintTable(rows, nginxHttprewriteColumns)
 		},
 	}
-	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
-	return cmd
 }
 
 func newNginxHttprewriteUpdateCmd() *cobra.Command {
@@ -1141,22 +1255,74 @@ func newNginxHttprewriteUpdateCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			s := sdk.NewClient(c)
 			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
+			var body sdk.HttpRewrite
 			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
 				return fmt.Errorf("parsing --data: %w", err)
 			}
-			resp, err := s.SettingsSethttprewrite(context.Background(), args[0], body)
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsSethttprewrite(context.Background(), args[0], &body)
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
 	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
 	return cmd
+}
+
+// nginxHttpserverColumns defines table columns for the Httpserver resource.
+var nginxHttpserverColumns = []cli.Column{
+	{Header: "SERVERNAME", Extract: func(row any) string {
+		if v, ok := row.(sdk.HttpServer); ok {
+			return fmt.Sprint(v.Servername)
+		}
+		return ""
+	}},
+	{Header: "SYSLOG TARGETS", Extract: func(row any) string {
+		if v, ok := row.(sdk.HttpServer); ok {
+			return fmt.Sprint(v.SyslogTargets)
+		}
+		return ""
+	}},
+	{Header: "LISTEN HTTP ADDRESS", Extract: func(row any) string {
+		if v, ok := row.(sdk.HttpServer); ok {
+			return fmt.Sprint(v.ListenHttpAddress)
+		}
+		return ""
+	}},
+	{Header: "LISTEN HTTPS ADDRESS", Extract: func(row any) string {
+		if v, ok := row.(sdk.HttpServer); ok {
+			return fmt.Sprint(v.ListenHttpsAddress)
+		}
+		return ""
+	}},
+	{Header: "DEFAULT SERVER", Extract: func(row any) string {
+		if v, ok := row.(sdk.HttpServer); ok {
+			return fmt.Sprint(v.DefaultServer)
+		}
+		return ""
+	}},
+	{Header: "TLS REJECT HANDSHAKE", Extract: func(row any) string {
+		if v, ok := row.(sdk.HttpServer); ok {
+			return fmt.Sprint(v.TlsRejectHandshake)
+		}
+		return ""
+	}},
+	{Header: "PROXY PROTOCOL", Extract: func(row any) string {
+		if v, ok := row.(sdk.HttpServer); ok {
+			return fmt.Sprint(v.ProxyProtocol)
+		}
+		return ""
+	}},
+	{Header: "TRUSTED PROXIES", Extract: func(row any) string {
+		if v, ok := row.(sdk.HttpServer); ok {
+			return fmt.Sprint(v.TrustedProxies)
+		}
+		return ""
+	}},
 }
 
 func newNginxHttpserverCmd() *cobra.Command {
@@ -1182,17 +1348,17 @@ func newNginxHttpserverCreateCmd() *cobra.Command {
 				return err
 			}
 			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
+			var body sdk.HttpServer
 			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
 				return fmt.Errorf("parsing --data: %w", err)
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsAddhttpserver(context.Background(), body)
+			resp, err := s.SettingsAddhttpserver(context.Background(), &body)
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
 	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
@@ -1200,7 +1366,7 @@ func newNginxHttpserverCreateCmd() *cobra.Command {
 }
 
 func newNginxHttpserverDeleteCmd() *cobra.Command {
-	cmd := &cobra.Command{
+	return &cobra.Command{
 		Use:   "delete <uuid>",
 		Short: "Delete nginx httpserver",
 		Args:  cobra.ExactArgs(1),
@@ -1210,21 +1376,14 @@ func newNginxHttpserverDeleteCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
-			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
-				return fmt.Errorf("parsing --data: %w", err)
-			}
-			resp, err := s.SettingsDelhttpserver(context.Background(), args[0], body)
+			resp, err := s.SettingsDelhttpserver(context.Background(), args[0])
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
-	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
-	return cmd
 }
 
 func newNginxHttpserverGetCmd() *cobra.Command {
@@ -1242,36 +1401,33 @@ func newNginxHttpserverGetCmd() *cobra.Command {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
 }
 
 func newNginxHttpserverListCmd() *cobra.Command {
-	cmd := &cobra.Command{
+	return &cobra.Command{
 		Use:   "list",
-		Short: "List nginx httpserver",
+		Short: "List nginx httpserver resources",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
-			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
-			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
-				return fmt.Errorf("parsing --data: %w", err)
-			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSearchhttpserver(context.Background(), body)
+			result, err := s.SettingsSearchhttpserver(context.Background(), map[string]any{"rowCount": -1, "current": 1})
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			rows := make([]any, len(result.Rows))
+			for i, r := range result.Rows {
+				rows[i] = r
+			}
+			return printer.PrintTable(rows, nginxHttpserverColumns)
 		},
 	}
-	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
-	return cmd
 }
 
 func newNginxHttpserverUpdateCmd() *cobra.Command {
@@ -1284,22 +1440,44 @@ func newNginxHttpserverUpdateCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			s := sdk.NewClient(c)
 			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
+			var body sdk.HttpServer
 			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
 				return fmt.Errorf("parsing --data: %w", err)
 			}
-			resp, err := s.SettingsSethttpserver(context.Background(), args[0], body)
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsSethttpserver(context.Background(), args[0], &body)
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
 	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
 	return cmd
+}
+
+// nginxIpaclColumns defines table columns for the Ipacl resource.
+var nginxIpaclColumns = []cli.Column{
+	{Header: "DESCRIPTION", Extract: func(row any) string {
+		if v, ok := row.(sdk.IpAcl); ok {
+			return fmt.Sprint(v.Description)
+		}
+		return ""
+	}},
+	{Header: "DATA", Extract: func(row any) string {
+		if v, ok := row.(sdk.IpAcl); ok {
+			return fmt.Sprint(v.Data)
+		}
+		return ""
+	}},
+	{Header: "DEFAULT ACTION", Extract: func(row any) string {
+		if v, ok := row.(sdk.IpAcl); ok {
+			return fmt.Sprint(v.DefaultAction)
+		}
+		return ""
+	}},
 }
 
 func newNginxIpaclCmd() *cobra.Command {
@@ -1325,17 +1503,17 @@ func newNginxIpaclCreateCmd() *cobra.Command {
 				return err
 			}
 			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
+			var body sdk.IpAcl
 			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
 				return fmt.Errorf("parsing --data: %w", err)
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsAddipacl(context.Background(), body)
+			resp, err := s.SettingsAddipacl(context.Background(), &body)
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
 	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
@@ -1343,7 +1521,7 @@ func newNginxIpaclCreateCmd() *cobra.Command {
 }
 
 func newNginxIpaclDeleteCmd() *cobra.Command {
-	cmd := &cobra.Command{
+	return &cobra.Command{
 		Use:   "delete <uuid>",
 		Short: "Delete nginx ipacl",
 		Args:  cobra.ExactArgs(1),
@@ -1353,21 +1531,14 @@ func newNginxIpaclDeleteCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
-			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
-				return fmt.Errorf("parsing --data: %w", err)
-			}
-			resp, err := s.SettingsDelipacl(context.Background(), args[0], body)
+			resp, err := s.SettingsDelipacl(context.Background(), args[0])
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
-	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
-	return cmd
 }
 
 func newNginxIpaclGetCmd() *cobra.Command {
@@ -1385,36 +1556,33 @@ func newNginxIpaclGetCmd() *cobra.Command {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
 }
 
 func newNginxIpaclListCmd() *cobra.Command {
-	cmd := &cobra.Command{
+	return &cobra.Command{
 		Use:   "list",
-		Short: "List nginx ipacl",
+		Short: "List nginx ipacl resources",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
-			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
-			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
-				return fmt.Errorf("parsing --data: %w", err)
-			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSearchipacl(context.Background(), body)
+			result, err := s.SettingsSearchipacl(context.Background(), map[string]any{"rowCount": -1, "current": 1})
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			rows := make([]any, len(result.Rows))
+			for i, r := range result.Rows {
+				rows[i] = r
+			}
+			return printer.PrintTable(rows, nginxIpaclColumns)
 		},
 	}
-	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
-	return cmd
 }
 
 func newNginxIpaclUpdateCmd() *cobra.Command {
@@ -1427,22 +1595,59 @@ func newNginxIpaclUpdateCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			s := sdk.NewClient(c)
 			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
+			var body sdk.IpAcl
 			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
 				return fmt.Errorf("parsing --data: %w", err)
 			}
-			resp, err := s.SettingsSetipacl(context.Background(), args[0], body)
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsSetipacl(context.Background(), args[0], &body)
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
 	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
 	return cmd
+}
+
+// nginxLimitRequestConnectionColumns defines table columns for the LimitRequestConnection resource.
+var nginxLimitRequestConnectionColumns = []cli.Column{
+	{Header: "DESCRIPTION", Extract: func(row any) string {
+		if v, ok := row.(sdk.LimitRequestConnection); ok {
+			return fmt.Sprint(v.Description)
+		}
+		return ""
+	}},
+	{Header: "LIMIT ZONE", Extract: func(row any) string {
+		if v, ok := row.(sdk.LimitRequestConnection); ok {
+			return fmt.Sprint(v.LimitZone)
+		}
+		return ""
+	}},
+	{Header: "CONNECTION COUNT", Extract: func(row any) string {
+		if v, ok := row.(sdk.LimitRequestConnection); ok {
+			return fmt.Sprint(v.ConnectionCount)
+		}
+		return ""
+	}},
+	{Header: "BURST", Extract: func(row any) string {
+		if v, ok := row.(sdk.LimitRequestConnection); ok {
+			if v.Burst != nil {
+				return fmt.Sprint(*v.Burst)
+			}
+			return ""
+		}
+		return ""
+	}},
+	{Header: "NODELAY", Extract: func(row any) string {
+		if v, ok := row.(sdk.LimitRequestConnection); ok {
+			return fmt.Sprint(v.Nodelay)
+		}
+		return ""
+	}},
 }
 
 func newNginxLimitRequestConnectionCmd() *cobra.Command {
@@ -1468,17 +1673,17 @@ func newNginxLimitRequestConnectionCreateCmd() *cobra.Command {
 				return err
 			}
 			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
+			var body sdk.LimitRequestConnection
 			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
 				return fmt.Errorf("parsing --data: %w", err)
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsAddlimitRequestConnection(context.Background(), body)
+			resp, err := s.SettingsAddlimitRequestConnection(context.Background(), &body)
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
 	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
@@ -1486,7 +1691,7 @@ func newNginxLimitRequestConnectionCreateCmd() *cobra.Command {
 }
 
 func newNginxLimitRequestConnectionDeleteCmd() *cobra.Command {
-	cmd := &cobra.Command{
+	return &cobra.Command{
 		Use:   "delete <uuid>",
 		Short: "Delete nginx limit-request-connection",
 		Args:  cobra.ExactArgs(1),
@@ -1496,21 +1701,14 @@ func newNginxLimitRequestConnectionDeleteCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
-			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
-				return fmt.Errorf("parsing --data: %w", err)
-			}
-			resp, err := s.SettingsDellimitRequestConnection(context.Background(), args[0], body)
+			resp, err := s.SettingsDellimitRequestConnection(context.Background(), args[0])
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
-	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
-	return cmd
 }
 
 func newNginxLimitRequestConnectionGetCmd() *cobra.Command {
@@ -1528,36 +1726,33 @@ func newNginxLimitRequestConnectionGetCmd() *cobra.Command {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
 }
 
 func newNginxLimitRequestConnectionListCmd() *cobra.Command {
-	cmd := &cobra.Command{
+	return &cobra.Command{
 		Use:   "list",
-		Short: "List nginx limit-request-connection",
+		Short: "List nginx limit-request-connection resources",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
-			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
-			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
-				return fmt.Errorf("parsing --data: %w", err)
-			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSearchlimitRequestConnection(context.Background(), body)
+			result, err := s.SettingsSearchlimitRequestConnection(context.Background(), map[string]any{"rowCount": -1, "current": 1})
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			rows := make([]any, len(result.Rows))
+			for i, r := range result.Rows {
+				rows[i] = r
+			}
+			return printer.PrintTable(rows, nginxLimitRequestConnectionColumns)
 		},
 	}
-	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
-	return cmd
 }
 
 func newNginxLimitRequestConnectionUpdateCmd() *cobra.Command {
@@ -1570,22 +1765,56 @@ func newNginxLimitRequestConnectionUpdateCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			s := sdk.NewClient(c)
 			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
+			var body sdk.LimitRequestConnection
 			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
 				return fmt.Errorf("parsing --data: %w", err)
 			}
-			resp, err := s.SettingsSetlimitRequestConnection(context.Background(), args[0], body)
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsSetlimitRequestConnection(context.Background(), args[0], &body)
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
 	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
 	return cmd
+}
+
+// nginxLimitZoneColumns defines table columns for the LimitZone resource.
+var nginxLimitZoneColumns = []cli.Column{
+	{Header: "DESCRIPTION", Extract: func(row any) string {
+		if v, ok := row.(sdk.LimitZone); ok {
+			return fmt.Sprint(v.Description)
+		}
+		return ""
+	}},
+	{Header: "KEY", Extract: func(row any) string {
+		if v, ok := row.(sdk.LimitZone); ok {
+			return fmt.Sprint(v.Key)
+		}
+		return ""
+	}},
+	{Header: "RATE UNIT", Extract: func(row any) string {
+		if v, ok := row.(sdk.LimitZone); ok {
+			return fmt.Sprint(v.RateUnit)
+		}
+		return ""
+	}},
+	{Header: "SIZE", Extract: func(row any) string {
+		if v, ok := row.(sdk.LimitZone); ok {
+			return fmt.Sprint(v.Size)
+		}
+		return ""
+	}},
+	{Header: "RATE", Extract: func(row any) string {
+		if v, ok := row.(sdk.LimitZone); ok {
+			return fmt.Sprint(v.Rate)
+		}
+		return ""
+	}},
 }
 
 func newNginxLimitZoneCmd() *cobra.Command {
@@ -1611,17 +1840,17 @@ func newNginxLimitZoneCreateCmd() *cobra.Command {
 				return err
 			}
 			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
+			var body sdk.LimitZone
 			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
 				return fmt.Errorf("parsing --data: %w", err)
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsAddlimitZone(context.Background(), body)
+			resp, err := s.SettingsAddlimitZone(context.Background(), &body)
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
 	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
@@ -1629,7 +1858,7 @@ func newNginxLimitZoneCreateCmd() *cobra.Command {
 }
 
 func newNginxLimitZoneDeleteCmd() *cobra.Command {
-	cmd := &cobra.Command{
+	return &cobra.Command{
 		Use:   "delete <uuid>",
 		Short: "Delete nginx limit-zone",
 		Args:  cobra.ExactArgs(1),
@@ -1639,21 +1868,14 @@ func newNginxLimitZoneDeleteCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
-			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
-				return fmt.Errorf("parsing --data: %w", err)
-			}
-			resp, err := s.SettingsDellimitZone(context.Background(), args[0], body)
+			resp, err := s.SettingsDellimitZone(context.Background(), args[0])
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
-	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
-	return cmd
 }
 
 func newNginxLimitZoneGetCmd() *cobra.Command {
@@ -1671,36 +1893,33 @@ func newNginxLimitZoneGetCmd() *cobra.Command {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
 }
 
 func newNginxLimitZoneListCmd() *cobra.Command {
-	cmd := &cobra.Command{
+	return &cobra.Command{
 		Use:   "list",
-		Short: "List nginx limit-zone",
+		Short: "List nginx limit-zone resources",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
-			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
-			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
-				return fmt.Errorf("parsing --data: %w", err)
-			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSearchlimitZone(context.Background(), body)
+			result, err := s.SettingsSearchlimitZone(context.Background(), map[string]any{"rowCount": -1, "current": 1})
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			rows := make([]any, len(result.Rows))
+			for i, r := range result.Rows {
+				rows[i] = r
+			}
+			return printer.PrintTable(rows, nginxLimitZoneColumns)
 		},
 	}
-	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
-	return cmd
 }
 
 func newNginxLimitZoneUpdateCmd() *cobra.Command {
@@ -1713,22 +1932,80 @@ func newNginxLimitZoneUpdateCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			s := sdk.NewClient(c)
 			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
+			var body sdk.LimitZone
 			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
 				return fmt.Errorf("parsing --data: %w", err)
 			}
-			resp, err := s.SettingsSetlimitZone(context.Background(), args[0], body)
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsSetlimitZone(context.Background(), args[0], &body)
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
 	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
 	return cmd
+}
+
+// nginxLocationColumns defines table columns for the Location resource.
+var nginxLocationColumns = []cli.Column{
+	{Header: "DESCRIPTION", Extract: func(row any) string {
+		if v, ok := row.(sdk.Location); ok {
+			return fmt.Sprint(v.Description)
+		}
+		return ""
+	}},
+	{Header: "URLPATTERN", Extract: func(row any) string {
+		if v, ok := row.(sdk.Location); ok {
+			return fmt.Sprint(v.Urlpattern)
+		}
+		return ""
+	}},
+	{Header: "MATCHTYPE", Extract: func(row any) string {
+		if v, ok := row.(sdk.Location); ok {
+			return fmt.Sprint(v.Matchtype)
+		}
+		return ""
+	}},
+	{Header: "ENABLE SECRULES", Extract: func(row any) string {
+		if v, ok := row.(sdk.Location); ok {
+			return fmt.Sprint(v.EnableSecrules)
+		}
+		return ""
+	}},
+	{Header: "ENABLE LEARNING MODE", Extract: func(row any) string {
+		if v, ok := row.(sdk.Location); ok {
+			return fmt.Sprint(v.EnableLearningMode)
+		}
+		return ""
+	}},
+	{Header: "SECRULES ERRORPAGE", Extract: func(row any) string {
+		if v, ok := row.(sdk.Location); ok {
+			return fmt.Sprint(v.SecrulesErrorpage)
+		}
+		return ""
+	}},
+	{Header: "XSS BLOCK SCORE", Extract: func(row any) string {
+		if v, ok := row.(sdk.Location); ok {
+			if v.XssBlockScore != nil {
+				return fmt.Sprint(*v.XssBlockScore)
+			}
+			return ""
+		}
+		return ""
+	}},
+	{Header: "SQLI BLOCK SCORE", Extract: func(row any) string {
+		if v, ok := row.(sdk.Location); ok {
+			if v.SqliBlockScore != nil {
+				return fmt.Sprint(*v.SqliBlockScore)
+			}
+			return ""
+		}
+		return ""
+	}},
 }
 
 func newNginxLocationCmd() *cobra.Command {
@@ -1754,17 +2031,17 @@ func newNginxLocationCreateCmd() *cobra.Command {
 				return err
 			}
 			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
+			var body sdk.Location
 			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
 				return fmt.Errorf("parsing --data: %w", err)
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsAddlocation(context.Background(), body)
+			resp, err := s.SettingsAddlocation(context.Background(), &body)
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
 	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
@@ -1772,7 +2049,7 @@ func newNginxLocationCreateCmd() *cobra.Command {
 }
 
 func newNginxLocationDeleteCmd() *cobra.Command {
-	cmd := &cobra.Command{
+	return &cobra.Command{
 		Use:   "delete <uuid>",
 		Short: "Delete nginx location",
 		Args:  cobra.ExactArgs(1),
@@ -1782,21 +2059,14 @@ func newNginxLocationDeleteCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
-			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
-				return fmt.Errorf("parsing --data: %w", err)
-			}
-			resp, err := s.SettingsDellocation(context.Background(), args[0], body)
+			resp, err := s.SettingsDellocation(context.Background(), args[0])
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
-	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
-	return cmd
 }
 
 func newNginxLocationGetCmd() *cobra.Command {
@@ -1814,36 +2084,33 @@ func newNginxLocationGetCmd() *cobra.Command {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
 }
 
 func newNginxLocationListCmd() *cobra.Command {
-	cmd := &cobra.Command{
+	return &cobra.Command{
 		Use:   "list",
-		Short: "List nginx location",
+		Short: "List nginx location resources",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
-			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
-			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
-				return fmt.Errorf("parsing --data: %w", err)
-			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSearchlocation(context.Background(), body)
+			result, err := s.SettingsSearchlocation(context.Background(), map[string]any{"rowCount": -1, "current": 1})
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			rows := make([]any, len(result.Rows))
+			for i, r := range result.Rows {
+				rows[i] = r
+			}
+			return printer.PrintTable(rows, nginxLocationColumns)
 		},
 	}
-	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
-	return cmd
 }
 
 func newNginxLocationUpdateCmd() *cobra.Command {
@@ -1856,22 +2123,74 @@ func newNginxLocationUpdateCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			s := sdk.NewClient(c)
 			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
+			var body sdk.Location
 			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
 				return fmt.Errorf("parsing --data: %w", err)
 			}
-			resp, err := s.SettingsSetlocation(context.Background(), args[0], body)
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsSetlocation(context.Background(), args[0], &body)
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
 	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
 	return cmd
+}
+
+// nginxNaxsiruleColumns defines table columns for the Naxsirule resource.
+var nginxNaxsiruleColumns = []cli.Column{
+	{Header: "NAME", Extract: func(row any) string {
+		if v, ok := row.(sdk.NaxsiRule); ok {
+			return fmt.Sprint(v.Name)
+		}
+		return ""
+	}},
+	{Header: "DESCRIPTION", Extract: func(row any) string {
+		if v, ok := row.(sdk.NaxsiRule); ok {
+			return fmt.Sprint(v.Description)
+		}
+		return ""
+	}},
+	{Header: "RULETYPE", Extract: func(row any) string {
+		if v, ok := row.(sdk.NaxsiRule); ok {
+			return fmt.Sprint(v.Ruletype)
+		}
+		return ""
+	}},
+	{Header: "MESSAGE", Extract: func(row any) string {
+		if v, ok := row.(sdk.NaxsiRule); ok {
+			return fmt.Sprint(v.Message)
+		}
+		return ""
+	}},
+	{Header: "IDENTIFIER", Extract: func(row any) string {
+		if v, ok := row.(sdk.NaxsiRule); ok {
+			return fmt.Sprint(v.Identifier)
+		}
+		return ""
+	}},
+	{Header: "DOLLAR URL", Extract: func(row any) string {
+		if v, ok := row.(sdk.NaxsiRule); ok {
+			return fmt.Sprint(v.DollarUrl)
+		}
+		return ""
+	}},
+	{Header: "MATCH VALUE", Extract: func(row any) string {
+		if v, ok := row.(sdk.NaxsiRule); ok {
+			return fmt.Sprint(v.MatchValue)
+		}
+		return ""
+	}},
+	{Header: "MATCH TYPE", Extract: func(row any) string {
+		if v, ok := row.(sdk.NaxsiRule); ok {
+			return fmt.Sprint(v.MatchType)
+		}
+		return ""
+	}},
 }
 
 func newNginxNaxsiruleCmd() *cobra.Command {
@@ -1897,17 +2216,17 @@ func newNginxNaxsiruleCreateCmd() *cobra.Command {
 				return err
 			}
 			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
+			var body sdk.NaxsiRule
 			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
 				return fmt.Errorf("parsing --data: %w", err)
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsAddnaxsirule(context.Background(), body)
+			resp, err := s.SettingsAddnaxsirule(context.Background(), &body)
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
 	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
@@ -1915,7 +2234,7 @@ func newNginxNaxsiruleCreateCmd() *cobra.Command {
 }
 
 func newNginxNaxsiruleDeleteCmd() *cobra.Command {
-	cmd := &cobra.Command{
+	return &cobra.Command{
 		Use:   "delete <uuid>",
 		Short: "Delete nginx naxsirule",
 		Args:  cobra.ExactArgs(1),
@@ -1925,21 +2244,14 @@ func newNginxNaxsiruleDeleteCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
-			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
-				return fmt.Errorf("parsing --data: %w", err)
-			}
-			resp, err := s.SettingsDelnaxsirule(context.Background(), args[0], body)
+			resp, err := s.SettingsDelnaxsirule(context.Background(), args[0])
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
-	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
-	return cmd
 }
 
 func newNginxNaxsiruleGetCmd() *cobra.Command {
@@ -1957,36 +2269,33 @@ func newNginxNaxsiruleGetCmd() *cobra.Command {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
 }
 
 func newNginxNaxsiruleListCmd() *cobra.Command {
-	cmd := &cobra.Command{
+	return &cobra.Command{
 		Use:   "list",
-		Short: "List nginx naxsirule",
+		Short: "List nginx naxsirule resources",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
-			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
-			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
-				return fmt.Errorf("parsing --data: %w", err)
-			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSearchnaxsirule(context.Background(), body)
+			result, err := s.SettingsSearchnaxsirule(context.Background(), map[string]any{"rowCount": -1, "current": 1})
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			rows := make([]any, len(result.Rows))
+			for i, r := range result.Rows {
+				rows[i] = r
+			}
+			return printer.PrintTable(rows, nginxNaxsiruleColumns)
 		},
 	}
-	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
-	return cmd
 }
 
 func newNginxNaxsiruleUpdateCmd() *cobra.Command {
@@ -1999,22 +2308,44 @@ func newNginxNaxsiruleUpdateCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			s := sdk.NewClient(c)
 			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
+			var body sdk.NaxsiRule
 			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
 				return fmt.Errorf("parsing --data: %w", err)
 			}
-			resp, err := s.SettingsSetnaxsirule(context.Background(), args[0], body)
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsSetnaxsirule(context.Background(), args[0], &body)
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
 	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
 	return cmd
+}
+
+// nginxProxyCacheValidColumns defines table columns for the ProxyCacheValid resource.
+var nginxProxyCacheValidColumns = []cli.Column{
+	{Header: "DESCRIPTION", Extract: func(row any) string {
+		if v, ok := row.(sdk.ProxyCacheValid); ok {
+			return fmt.Sprint(v.Description)
+		}
+		return ""
+	}},
+	{Header: "CODE", Extract: func(row any) string {
+		if v, ok := row.(sdk.ProxyCacheValid); ok {
+			return fmt.Sprint(v.Code)
+		}
+		return ""
+	}},
+	{Header: "VALID", Extract: func(row any) string {
+		if v, ok := row.(sdk.ProxyCacheValid); ok {
+			return fmt.Sprint(v.Valid)
+		}
+		return ""
+	}},
 }
 
 func newNginxProxyCacheValidCmd() *cobra.Command {
@@ -2040,17 +2371,17 @@ func newNginxProxyCacheValidCreateCmd() *cobra.Command {
 				return err
 			}
 			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
+			var body sdk.ProxyCacheValid
 			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
 				return fmt.Errorf("parsing --data: %w", err)
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsAddproxyCacheValid(context.Background(), body)
+			resp, err := s.SettingsAddproxyCacheValid(context.Background(), &body)
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
 	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
@@ -2058,7 +2389,7 @@ func newNginxProxyCacheValidCreateCmd() *cobra.Command {
 }
 
 func newNginxProxyCacheValidDeleteCmd() *cobra.Command {
-	cmd := &cobra.Command{
+	return &cobra.Command{
 		Use:   "delete <uuid>",
 		Short: "Delete nginx proxy-cache-valid",
 		Args:  cobra.ExactArgs(1),
@@ -2068,21 +2399,14 @@ func newNginxProxyCacheValidDeleteCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
-			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
-				return fmt.Errorf("parsing --data: %w", err)
-			}
-			resp, err := s.SettingsDelproxyCacheValid(context.Background(), args[0], body)
+			resp, err := s.SettingsDelproxyCacheValid(context.Background(), args[0])
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
-	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
-	return cmd
 }
 
 func newNginxProxyCacheValidGetCmd() *cobra.Command {
@@ -2100,36 +2424,33 @@ func newNginxProxyCacheValidGetCmd() *cobra.Command {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
 }
 
 func newNginxProxyCacheValidListCmd() *cobra.Command {
-	cmd := &cobra.Command{
+	return &cobra.Command{
 		Use:   "list",
-		Short: "List nginx proxy-cache-valid",
+		Short: "List nginx proxy-cache-valid resources",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
-			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
-			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
-				return fmt.Errorf("parsing --data: %w", err)
-			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSearchproxyCacheValid(context.Background(), body)
+			result, err := s.SettingsSearchproxyCacheValid(context.Background(), map[string]any{"rowCount": -1, "current": 1})
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			rows := make([]any, len(result.Rows))
+			for i, r := range result.Rows {
+				rows[i] = r
+			}
+			return printer.PrintTable(rows, nginxProxyCacheValidColumns)
 		},
 	}
-	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
-	return cmd
 }
 
 func newNginxProxyCacheValidUpdateCmd() *cobra.Command {
@@ -2142,22 +2463,74 @@ func newNginxProxyCacheValidUpdateCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			s := sdk.NewClient(c)
 			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
+			var body sdk.ProxyCacheValid
 			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
 				return fmt.Errorf("parsing --data: %w", err)
 			}
-			resp, err := s.SettingsSetproxyCacheValid(context.Background(), args[0], body)
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsSetproxyCacheValid(context.Background(), args[0], &body)
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
 	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
 	return cmd
+}
+
+// nginxResolverColumns defines table columns for the Resolver resource.
+var nginxResolverColumns = []cli.Column{
+	{Header: "DESCRIPTION", Extract: func(row any) string {
+		if v, ok := row.(sdk.Resolver); ok {
+			return fmt.Sprint(v.Description)
+		}
+		return ""
+	}},
+	{Header: "ADDRESS", Extract: func(row any) string {
+		if v, ok := row.(sdk.Resolver); ok {
+			return fmt.Sprint(v.Address)
+		}
+		return ""
+	}},
+	{Header: "VALID", Extract: func(row any) string {
+		if v, ok := row.(sdk.Resolver); ok {
+			if v.Valid != nil {
+				return fmt.Sprint(*v.Valid)
+			}
+			return ""
+		}
+		return ""
+	}},
+	{Header: "IPV4 OFF", Extract: func(row any) string {
+		if v, ok := row.(sdk.Resolver); ok {
+			if v.Ipv4Off != nil {
+				return fmt.Sprint(*v.Ipv4Off)
+			}
+			return ""
+		}
+		return ""
+	}},
+	{Header: "IPV6 OFF", Extract: func(row any) string {
+		if v, ok := row.(sdk.Resolver); ok {
+			if v.Ipv6Off != nil {
+				return fmt.Sprint(*v.Ipv6Off)
+			}
+			return ""
+		}
+		return ""
+	}},
+	{Header: "TIMEOUT", Extract: func(row any) string {
+		if v, ok := row.(sdk.Resolver); ok {
+			if v.Timeout != nil {
+				return fmt.Sprint(*v.Timeout)
+			}
+			return ""
+		}
+		return ""
+	}},
 }
 
 func newNginxResolverCmd() *cobra.Command {
@@ -2183,17 +2556,17 @@ func newNginxResolverCreateCmd() *cobra.Command {
 				return err
 			}
 			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
+			var body sdk.Resolver
 			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
 				return fmt.Errorf("parsing --data: %w", err)
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsAddresolver(context.Background(), body)
+			resp, err := s.SettingsAddresolver(context.Background(), &body)
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
 	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
@@ -2201,7 +2574,7 @@ func newNginxResolverCreateCmd() *cobra.Command {
 }
 
 func newNginxResolverDeleteCmd() *cobra.Command {
-	cmd := &cobra.Command{
+	return &cobra.Command{
 		Use:   "delete <uuid>",
 		Short: "Delete nginx resolver",
 		Args:  cobra.ExactArgs(1),
@@ -2211,21 +2584,14 @@ func newNginxResolverDeleteCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
-			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
-				return fmt.Errorf("parsing --data: %w", err)
-			}
-			resp, err := s.SettingsDelresolver(context.Background(), args[0], body)
+			resp, err := s.SettingsDelresolver(context.Background(), args[0])
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
-	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
-	return cmd
 }
 
 func newNginxResolverGetCmd() *cobra.Command {
@@ -2243,36 +2609,33 @@ func newNginxResolverGetCmd() *cobra.Command {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
 }
 
 func newNginxResolverListCmd() *cobra.Command {
-	cmd := &cobra.Command{
+	return &cobra.Command{
 		Use:   "list",
-		Short: "List nginx resolver",
+		Short: "List nginx resolver resources",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
-			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
-			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
-				return fmt.Errorf("parsing --data: %w", err)
-			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSearchresolver(context.Background(), body)
+			result, err := s.SettingsSearchresolver(context.Background(), map[string]any{"rowCount": -1, "current": 1})
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			rows := make([]any, len(result.Rows))
+			for i, r := range result.Rows {
+				rows[i] = r
+			}
+			return printer.PrintTable(rows, nginxResolverColumns)
 		},
 	}
-	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
-	return cmd
 }
 
 func newNginxResolverUpdateCmd() *cobra.Command {
@@ -2285,22 +2648,77 @@ func newNginxResolverUpdateCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			s := sdk.NewClient(c)
 			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
+			var body sdk.Resolver
 			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
 				return fmt.Errorf("parsing --data: %w", err)
 			}
-			resp, err := s.SettingsSetresolver(context.Background(), args[0], body)
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsSetresolver(context.Background(), args[0], &body)
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
 	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
 	return cmd
+}
+
+// nginxSecurityHeaderColumns defines table columns for the SecurityHeader resource.
+var nginxSecurityHeaderColumns = []cli.Column{
+	{Header: "DESCRIPTION", Extract: func(row any) string {
+		if v, ok := row.(sdk.SecurityHeader); ok {
+			return fmt.Sprint(v.Description)
+		}
+		return ""
+	}},
+	{Header: "REFERRER", Extract: func(row any) string {
+		if v, ok := row.(sdk.SecurityHeader); ok {
+			return fmt.Sprint(v.Referrer)
+		}
+		return ""
+	}},
+	{Header: "XSSPROTECTION", Extract: func(row any) string {
+		if v, ok := row.(sdk.SecurityHeader); ok {
+			return fmt.Sprint(v.Xssprotection)
+		}
+		return ""
+	}},
+	{Header: "CONTENT TYPE OPTIONS", Extract: func(row any) string {
+		if v, ok := row.(sdk.SecurityHeader); ok {
+			return fmt.Sprint(v.ContentTypeOptions)
+		}
+		return ""
+	}},
+	{Header: "STRICT TRANSPORT SECURITY TIME", Extract: func(row any) string {
+		if v, ok := row.(sdk.SecurityHeader); ok {
+			if v.StrictTransportSecurityTime != nil {
+				return fmt.Sprint(*v.StrictTransportSecurityTime)
+			}
+			return ""
+		}
+		return ""
+	}},
+	{Header: "STRICT TRANSPORT SECURITY INCLUDE SUBDOMAINS", Extract: func(row any) string {
+		if v, ok := row.(sdk.SecurityHeader); ok {
+			return fmt.Sprint(v.StrictTransportSecurityIncludeSubdomains)
+		}
+		return ""
+	}},
+	{Header: "STRICT TRANSPORT SECURITY PRELOAD", Extract: func(row any) string {
+		if v, ok := row.(sdk.SecurityHeader); ok {
+			return fmt.Sprint(v.StrictTransportSecurityPreload)
+		}
+		return ""
+	}},
+	{Header: "ENABLE CSP", Extract: func(row any) string {
+		if v, ok := row.(sdk.SecurityHeader); ok {
+			return fmt.Sprint(v.EnableCsp)
+		}
+		return ""
+	}},
 }
 
 func newNginxSecurityHeaderCmd() *cobra.Command {
@@ -2326,17 +2744,17 @@ func newNginxSecurityHeaderCreateCmd() *cobra.Command {
 				return err
 			}
 			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
+			var body sdk.SecurityHeader
 			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
 				return fmt.Errorf("parsing --data: %w", err)
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsAddsecurityHeader(context.Background(), body)
+			resp, err := s.SettingsAddsecurityHeader(context.Background(), &body)
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
 	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
@@ -2344,7 +2762,7 @@ func newNginxSecurityHeaderCreateCmd() *cobra.Command {
 }
 
 func newNginxSecurityHeaderDeleteCmd() *cobra.Command {
-	cmd := &cobra.Command{
+	return &cobra.Command{
 		Use:   "delete <uuid>",
 		Short: "Delete nginx security-header",
 		Args:  cobra.ExactArgs(1),
@@ -2354,21 +2772,14 @@ func newNginxSecurityHeaderDeleteCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
-			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
-				return fmt.Errorf("parsing --data: %w", err)
-			}
-			resp, err := s.SettingsDelsecurityHeader(context.Background(), args[0], body)
+			resp, err := s.SettingsDelsecurityHeader(context.Background(), args[0])
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
-	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
-	return cmd
 }
 
 func newNginxSecurityHeaderGetCmd() *cobra.Command {
@@ -2386,36 +2797,33 @@ func newNginxSecurityHeaderGetCmd() *cobra.Command {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
 }
 
 func newNginxSecurityHeaderListCmd() *cobra.Command {
-	cmd := &cobra.Command{
+	return &cobra.Command{
 		Use:   "list",
-		Short: "List nginx security-header",
+		Short: "List nginx security-header resources",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
-			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
-			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
-				return fmt.Errorf("parsing --data: %w", err)
-			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSearchsecurityHeader(context.Background(), body)
+			result, err := s.SettingsSearchsecurityHeader(context.Background(), map[string]any{"rowCount": -1, "current": 1})
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			rows := make([]any, len(result.Rows))
+			for i, r := range result.Rows {
+				rows[i] = r
+			}
+			return printer.PrintTable(rows, nginxSecurityHeaderColumns)
 		},
 	}
-	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
-	return cmd
 }
 
 func newNginxSecurityHeaderUpdateCmd() *cobra.Command {
@@ -2428,18 +2836,18 @@ func newNginxSecurityHeaderUpdateCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			s := sdk.NewClient(c)
 			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
+			var body sdk.SecurityHeader
 			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
 				return fmt.Errorf("parsing --data: %w", err)
 			}
-			resp, err := s.SettingsSetsecurityHeader(context.Background(), args[0], body)
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsSetsecurityHeader(context.Background(), args[0], &body)
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
 	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
@@ -2589,6 +2997,58 @@ func newNginxSnifwdUpdateCmd() *cobra.Command {
 	return cmd
 }
 
+// nginxStreamserverColumns defines table columns for the Streamserver resource.
+var nginxStreamserverColumns = []cli.Column{
+	{Header: "LISTEN ADDRESS", Extract: func(row any) string {
+		if v, ok := row.(sdk.StreamServer); ok {
+			return fmt.Sprint(v.ListenAddress)
+		}
+		return ""
+	}},
+	{Header: "SYSLOG TARGETS", Extract: func(row any) string {
+		if v, ok := row.(sdk.StreamServer); ok {
+			return fmt.Sprint(v.SyslogTargets)
+		}
+		return ""
+	}},
+	{Header: "UDP", Extract: func(row any) string {
+		if v, ok := row.(sdk.StreamServer); ok {
+			return fmt.Sprint(v.Udp)
+		}
+		return ""
+	}},
+	{Header: "TRUSTED PROXIES", Extract: func(row any) string {
+		if v, ok := row.(sdk.StreamServer); ok {
+			return fmt.Sprint(v.TrustedProxies)
+		}
+		return ""
+	}},
+	{Header: "PROXY PROTOCOL", Extract: func(row any) string {
+		if v, ok := row.(sdk.StreamServer); ok {
+			return fmt.Sprint(v.ProxyProtocol)
+		}
+		return ""
+	}},
+	{Header: "CERTIFICATE", Extract: func(row any) string {
+		if v, ok := row.(sdk.StreamServer); ok {
+			return fmt.Sprint(v.Certificate)
+		}
+		return ""
+	}},
+	{Header: "CA", Extract: func(row any) string {
+		if v, ok := row.(sdk.StreamServer); ok {
+			return fmt.Sprint(v.Ca)
+		}
+		return ""
+	}},
+	{Header: "VERIFY CLIENT", Extract: func(row any) string {
+		if v, ok := row.(sdk.StreamServer); ok {
+			return fmt.Sprint(v.VerifyClient)
+		}
+		return ""
+	}},
+}
+
 func newNginxStreamserverCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "streamserver",
@@ -2612,17 +3072,17 @@ func newNginxStreamserverCreateCmd() *cobra.Command {
 				return err
 			}
 			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
+			var body sdk.StreamServer
 			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
 				return fmt.Errorf("parsing --data: %w", err)
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsAddstreamserver(context.Background(), body)
+			resp, err := s.SettingsAddstreamserver(context.Background(), &body)
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
 	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
@@ -2630,7 +3090,7 @@ func newNginxStreamserverCreateCmd() *cobra.Command {
 }
 
 func newNginxStreamserverDeleteCmd() *cobra.Command {
-	cmd := &cobra.Command{
+	return &cobra.Command{
 		Use:   "delete <uuid>",
 		Short: "Delete nginx streamserver",
 		Args:  cobra.ExactArgs(1),
@@ -2640,21 +3100,14 @@ func newNginxStreamserverDeleteCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
-			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
-				return fmt.Errorf("parsing --data: %w", err)
-			}
-			resp, err := s.SettingsDelstreamserver(context.Background(), args[0], body)
+			resp, err := s.SettingsDelstreamserver(context.Background(), args[0])
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
-	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
-	return cmd
 }
 
 func newNginxStreamserverGetCmd() *cobra.Command {
@@ -2672,36 +3125,33 @@ func newNginxStreamserverGetCmd() *cobra.Command {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
 }
 
 func newNginxStreamserverListCmd() *cobra.Command {
-	cmd := &cobra.Command{
+	return &cobra.Command{
 		Use:   "list",
-		Short: "List nginx streamserver",
+		Short: "List nginx streamserver resources",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
-			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
-			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
-				return fmt.Errorf("parsing --data: %w", err)
-			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSearchstreamserver(context.Background(), body)
+			result, err := s.SettingsSearchstreamserver(context.Background(), map[string]any{"rowCount": -1, "current": 1})
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			rows := make([]any, len(result.Rows))
+			for i, r := range result.Rows {
+				rows[i] = r
+			}
+			return printer.PrintTable(rows, nginxStreamserverColumns)
 		},
 	}
-	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
-	return cmd
 }
 
 func newNginxStreamserverUpdateCmd() *cobra.Command {
@@ -2714,22 +3164,68 @@ func newNginxStreamserverUpdateCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			s := sdk.NewClient(c)
 			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
+			var body sdk.StreamServer
 			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
 				return fmt.Errorf("parsing --data: %w", err)
 			}
-			resp, err := s.SettingsSetstreamserver(context.Background(), args[0], body)
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsSetstreamserver(context.Background(), args[0], &body)
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
 	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
 	return cmd
+}
+
+// nginxSyslogTargetColumns defines table columns for the SyslogTarget resource.
+var nginxSyslogTargetColumns = []cli.Column{
+	{Header: "DESCRIPTION", Extract: func(row any) string {
+		if v, ok := row.(sdk.SyslogTarget); ok {
+			return fmt.Sprint(v.Description)
+		}
+		return ""
+	}},
+	{Header: "PORT", Extract: func(row any) string {
+		if v, ok := row.(sdk.SyslogTarget); ok {
+			return fmt.Sprint(v.Port)
+		}
+		return ""
+	}},
+	{Header: "HOST", Extract: func(row any) string {
+		if v, ok := row.(sdk.SyslogTarget); ok {
+			return fmt.Sprint(v.Host)
+		}
+		return ""
+	}},
+	{Header: "FACILITY", Extract: func(row any) string {
+		if v, ok := row.(sdk.SyslogTarget); ok {
+			return fmt.Sprint(v.Facility)
+		}
+		return ""
+	}},
+	{Header: "SEVERITY", Extract: func(row any) string {
+		if v, ok := row.(sdk.SyslogTarget); ok {
+			return fmt.Sprint(v.Severity)
+		}
+		return ""
+	}},
+	{Header: "TAG", Extract: func(row any) string {
+		if v, ok := row.(sdk.SyslogTarget); ok {
+			return fmt.Sprint(v.Tag)
+		}
+		return ""
+	}},
+	{Header: "NOHOSTNAME", Extract: func(row any) string {
+		if v, ok := row.(sdk.SyslogTarget); ok {
+			return fmt.Sprint(v.Nohostname)
+		}
+		return ""
+	}},
 }
 
 func newNginxSyslogTargetCmd() *cobra.Command {
@@ -2755,17 +3251,17 @@ func newNginxSyslogTargetCreateCmd() *cobra.Command {
 				return err
 			}
 			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
+			var body sdk.SyslogTarget
 			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
 				return fmt.Errorf("parsing --data: %w", err)
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsAddsyslogTarget(context.Background(), body)
+			resp, err := s.SettingsAddsyslogTarget(context.Background(), &body)
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
 	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
@@ -2773,7 +3269,7 @@ func newNginxSyslogTargetCreateCmd() *cobra.Command {
 }
 
 func newNginxSyslogTargetDeleteCmd() *cobra.Command {
-	cmd := &cobra.Command{
+	return &cobra.Command{
 		Use:   "delete <uuid>",
 		Short: "Delete nginx syslog-target",
 		Args:  cobra.ExactArgs(1),
@@ -2783,21 +3279,14 @@ func newNginxSyslogTargetDeleteCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
-			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
-				return fmt.Errorf("parsing --data: %w", err)
-			}
-			resp, err := s.SettingsDelsyslogTarget(context.Background(), args[0], body)
+			resp, err := s.SettingsDelsyslogTarget(context.Background(), args[0])
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
-	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
-	return cmd
 }
 
 func newNginxSyslogTargetGetCmd() *cobra.Command {
@@ -2815,36 +3304,33 @@ func newNginxSyslogTargetGetCmd() *cobra.Command {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
 }
 
 func newNginxSyslogTargetListCmd() *cobra.Command {
-	cmd := &cobra.Command{
+	return &cobra.Command{
 		Use:   "list",
-		Short: "List nginx syslog-target",
+		Short: "List nginx syslog-target resources",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
-			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
-			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
-				return fmt.Errorf("parsing --data: %w", err)
-			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSearchsyslogTarget(context.Background(), body)
+			result, err := s.SettingsSearchsyslogTarget(context.Background(), map[string]any{"rowCount": -1, "current": 1})
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			rows := make([]any, len(result.Rows))
+			for i, r := range result.Rows {
+				rows[i] = r
+			}
+			return printer.PrintTable(rows, nginxSyslogTargetColumns)
 		},
 	}
-	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
-	return cmd
 }
 
 func newNginxSyslogTargetUpdateCmd() *cobra.Command {
@@ -2857,22 +3343,56 @@ func newNginxSyslogTargetUpdateCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			s := sdk.NewClient(c)
 			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
+			var body sdk.SyslogTarget
 			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
 				return fmt.Errorf("parsing --data: %w", err)
 			}
-			resp, err := s.SettingsSetsyslogTarget(context.Background(), args[0], body)
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsSetsyslogTarget(context.Background(), args[0], &body)
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
 	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
 	return cmd
+}
+
+// nginxTlsFingerprintColumns defines table columns for the TlsFingerprint resource.
+var nginxTlsFingerprintColumns = []cli.Column{
+	{Header: "DESCRIPTION", Extract: func(row any) string {
+		if v, ok := row.(sdk.TlsFingerprint); ok {
+			return fmt.Sprint(v.Description)
+		}
+		return ""
+	}},
+	{Header: "USER AGENT", Extract: func(row any) string {
+		if v, ok := row.(sdk.TlsFingerprint); ok {
+			return fmt.Sprint(v.UserAgent)
+		}
+		return ""
+	}},
+	{Header: "TRUSTED", Extract: func(row any) string {
+		if v, ok := row.(sdk.TlsFingerprint); ok {
+			return fmt.Sprint(v.Trusted)
+		}
+		return ""
+	}},
+	{Header: "CURVES", Extract: func(row any) string {
+		if v, ok := row.(sdk.TlsFingerprint); ok {
+			return fmt.Sprint(v.Curves)
+		}
+		return ""
+	}},
+	{Header: "CIPHERS", Extract: func(row any) string {
+		if v, ok := row.(sdk.TlsFingerprint); ok {
+			return fmt.Sprint(v.Ciphers)
+		}
+		return ""
+	}},
 }
 
 func newNginxTlsFingerprintCmd() *cobra.Command {
@@ -2898,17 +3418,17 @@ func newNginxTlsFingerprintCreateCmd() *cobra.Command {
 				return err
 			}
 			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
+			var body sdk.TlsFingerprint
 			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
 				return fmt.Errorf("parsing --data: %w", err)
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsAddtlsFingerprint(context.Background(), body)
+			resp, err := s.SettingsAddtlsFingerprint(context.Background(), &body)
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
 	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
@@ -2916,7 +3436,7 @@ func newNginxTlsFingerprintCreateCmd() *cobra.Command {
 }
 
 func newNginxTlsFingerprintDeleteCmd() *cobra.Command {
-	cmd := &cobra.Command{
+	return &cobra.Command{
 		Use:   "delete <uuid>",
 		Short: "Delete nginx tls-fingerprint",
 		Args:  cobra.ExactArgs(1),
@@ -2926,21 +3446,14 @@ func newNginxTlsFingerprintDeleteCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
-			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
-				return fmt.Errorf("parsing --data: %w", err)
-			}
-			resp, err := s.SettingsDeltlsFingerprint(context.Background(), args[0], body)
+			resp, err := s.SettingsDeltlsFingerprint(context.Background(), args[0])
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
-	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
-	return cmd
 }
 
 func newNginxTlsFingerprintGetCmd() *cobra.Command {
@@ -2958,36 +3471,33 @@ func newNginxTlsFingerprintGetCmd() *cobra.Command {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
 }
 
 func newNginxTlsFingerprintListCmd() *cobra.Command {
-	cmd := &cobra.Command{
+	return &cobra.Command{
 		Use:   "list",
-		Short: "List nginx tls-fingerprint",
+		Short: "List nginx tls-fingerprint resources",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
-			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
-			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
-				return fmt.Errorf("parsing --data: %w", err)
-			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSearchtlsFingerprint(context.Background(), body)
+			result, err := s.SettingsSearchtlsFingerprint(context.Background(), map[string]any{"rowCount": -1, "current": 1})
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			rows := make([]any, len(result.Rows))
+			for i, r := range result.Rows {
+				rows[i] = r
+			}
+			return printer.PrintTable(rows, nginxTlsFingerprintColumns)
 		},
 	}
-	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
-	return cmd
 }
 
 func newNginxTlsFingerprintUpdateCmd() *cobra.Command {
@@ -3000,22 +3510,86 @@ func newNginxTlsFingerprintUpdateCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			s := sdk.NewClient(c)
 			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
+			var body sdk.TlsFingerprint
 			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
 				return fmt.Errorf("parsing --data: %w", err)
 			}
-			resp, err := s.SettingsSettlsFingerprint(context.Background(), args[0], body)
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsSettlsFingerprint(context.Background(), args[0], &body)
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
 	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
 	return cmd
+}
+
+// nginxUpstreamColumns defines table columns for the Upstream resource.
+var nginxUpstreamColumns = []cli.Column{
+	{Header: "DESCRIPTION", Extract: func(row any) string {
+		if v, ok := row.(sdk.Upstream); ok {
+			return fmt.Sprint(v.Description)
+		}
+		return ""
+	}},
+	{Header: "SERVERENTRIES", Extract: func(row any) string {
+		if v, ok := row.(sdk.Upstream); ok {
+			return fmt.Sprint(v.Serverentries)
+		}
+		return ""
+	}},
+	{Header: "LOAD BALANCING ALGORITHM", Extract: func(row any) string {
+		if v, ok := row.(sdk.Upstream); ok {
+			return fmt.Sprint(v.LoadBalancingAlgorithm)
+		}
+		return ""
+	}},
+	{Header: "KEEPALIVE", Extract: func(row any) string {
+		if v, ok := row.(sdk.Upstream); ok {
+			if v.Keepalive != nil {
+				return fmt.Sprint(*v.Keepalive)
+			}
+			return ""
+		}
+		return ""
+	}},
+	{Header: "KEEPALIVE REQUESTS", Extract: func(row any) string {
+		if v, ok := row.(sdk.Upstream); ok {
+			if v.KeepaliveRequests != nil {
+				return fmt.Sprint(*v.KeepaliveRequests)
+			}
+			return ""
+		}
+		return ""
+	}},
+	{Header: "KEEPALIVE TIMEOUT", Extract: func(row any) string {
+		if v, ok := row.(sdk.Upstream); ok {
+			if v.KeepaliveTimeout != nil {
+				return fmt.Sprint(*v.KeepaliveTimeout)
+			}
+			return ""
+		}
+		return ""
+	}},
+	{Header: "HOST PORT", Extract: func(row any) string {
+		if v, ok := row.(sdk.Upstream); ok {
+			if v.HostPort != nil {
+				return fmt.Sprint(*v.HostPort)
+			}
+			return ""
+		}
+		return ""
+	}},
+	{Header: "X FORWARDED HOST VERBATIM", Extract: func(row any) string {
+		if v, ok := row.(sdk.Upstream); ok {
+			return fmt.Sprint(v.XForwardedHostVerbatim)
+		}
+		return ""
+	}},
 }
 
 func newNginxUpstreamCmd() *cobra.Command {
@@ -3041,17 +3615,17 @@ func newNginxUpstreamCreateCmd() *cobra.Command {
 				return err
 			}
 			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
+			var body sdk.Upstream
 			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
 				return fmt.Errorf("parsing --data: %w", err)
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsAddupstream(context.Background(), body)
+			resp, err := s.SettingsAddupstream(context.Background(), &body)
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
 	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
@@ -3059,7 +3633,7 @@ func newNginxUpstreamCreateCmd() *cobra.Command {
 }
 
 func newNginxUpstreamDeleteCmd() *cobra.Command {
-	cmd := &cobra.Command{
+	return &cobra.Command{
 		Use:   "delete <uuid>",
 		Short: "Delete nginx upstream",
 		Args:  cobra.ExactArgs(1),
@@ -3069,21 +3643,14 @@ func newNginxUpstreamDeleteCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
-			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
-				return fmt.Errorf("parsing --data: %w", err)
-			}
-			resp, err := s.SettingsDelupstream(context.Background(), args[0], body)
+			resp, err := s.SettingsDelupstream(context.Background(), args[0])
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
-	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
-	return cmd
 }
 
 func newNginxUpstreamGetCmd() *cobra.Command {
@@ -3101,36 +3668,33 @@ func newNginxUpstreamGetCmd() *cobra.Command {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
 }
 
 func newNginxUpstreamListCmd() *cobra.Command {
-	cmd := &cobra.Command{
+	return &cobra.Command{
 		Use:   "list",
-		Short: "List nginx upstream",
+		Short: "List nginx upstream resources",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
-			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
-			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
-				return fmt.Errorf("parsing --data: %w", err)
-			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSearchupstream(context.Background(), body)
+			result, err := s.SettingsSearchupstream(context.Background(), map[string]any{"rowCount": -1, "current": 1})
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			rows := make([]any, len(result.Rows))
+			for i, r := range result.Rows {
+				rows[i] = r
+			}
+			return printer.PrintTable(rows, nginxUpstreamColumns)
 		},
 	}
-	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
-	return cmd
 }
 
 func newNginxUpstreamUpdateCmd() *cobra.Command {
@@ -3143,22 +3707,83 @@ func newNginxUpstreamUpdateCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			s := sdk.NewClient(c)
 			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
+			var body sdk.Upstream
 			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
 				return fmt.Errorf("parsing --data: %w", err)
 			}
-			resp, err := s.SettingsSetupstream(context.Background(), args[0], body)
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsSetupstream(context.Background(), args[0], &body)
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
 	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
 	return cmd
+}
+
+// nginxUpstreamserverColumns defines table columns for the Upstreamserver resource.
+var nginxUpstreamserverColumns = []cli.Column{
+	{Header: "DESCRIPTION", Extract: func(row any) string {
+		if v, ok := row.(sdk.UpstreamServer); ok {
+			return fmt.Sprint(v.Description)
+		}
+		return ""
+	}},
+	{Header: "PORT", Extract: func(row any) string {
+		if v, ok := row.(sdk.UpstreamServer); ok {
+			return fmt.Sprint(v.Port)
+		}
+		return ""
+	}},
+	{Header: "SERVER", Extract: func(row any) string {
+		if v, ok := row.(sdk.UpstreamServer); ok {
+			return fmt.Sprint(v.Server)
+		}
+		return ""
+	}},
+	{Header: "PRIORITY", Extract: func(row any) string {
+		if v, ok := row.(sdk.UpstreamServer); ok {
+			return fmt.Sprint(v.Priority)
+		}
+		return ""
+	}},
+	{Header: "MAX CONNS", Extract: func(row any) string {
+		if v, ok := row.(sdk.UpstreamServer); ok {
+			if v.MaxConns != nil {
+				return fmt.Sprint(*v.MaxConns)
+			}
+			return ""
+		}
+		return ""
+	}},
+	{Header: "MAX FAILS", Extract: func(row any) string {
+		if v, ok := row.(sdk.UpstreamServer); ok {
+			if v.MaxFails != nil {
+				return fmt.Sprint(*v.MaxFails)
+			}
+			return ""
+		}
+		return ""
+	}},
+	{Header: "FAIL TIMEOUT", Extract: func(row any) string {
+		if v, ok := row.(sdk.UpstreamServer); ok {
+			if v.FailTimeout != nil {
+				return fmt.Sprint(*v.FailTimeout)
+			}
+			return ""
+		}
+		return ""
+	}},
+	{Header: "NO USE", Extract: func(row any) string {
+		if v, ok := row.(sdk.UpstreamServer); ok {
+			return fmt.Sprint(v.NoUse)
+		}
+		return ""
+	}},
 }
 
 func newNginxUpstreamserverCmd() *cobra.Command {
@@ -3184,17 +3809,17 @@ func newNginxUpstreamserverCreateCmd() *cobra.Command {
 				return err
 			}
 			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
+			var body sdk.UpstreamServer
 			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
 				return fmt.Errorf("parsing --data: %w", err)
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsAddupstreamserver(context.Background(), body)
+			resp, err := s.SettingsAddupstreamserver(context.Background(), &body)
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
 	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
@@ -3202,7 +3827,7 @@ func newNginxUpstreamserverCreateCmd() *cobra.Command {
 }
 
 func newNginxUpstreamserverDeleteCmd() *cobra.Command {
-	cmd := &cobra.Command{
+	return &cobra.Command{
 		Use:   "delete <uuid>",
 		Short: "Delete nginx upstreamserver",
 		Args:  cobra.ExactArgs(1),
@@ -3212,21 +3837,14 @@ func newNginxUpstreamserverDeleteCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
-			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
-				return fmt.Errorf("parsing --data: %w", err)
-			}
-			resp, err := s.SettingsDelupstreamserver(context.Background(), args[0], body)
+			resp, err := s.SettingsDelupstreamserver(context.Background(), args[0])
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
-	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
-	return cmd
 }
 
 func newNginxUpstreamserverGetCmd() *cobra.Command {
@@ -3244,36 +3862,33 @@ func newNginxUpstreamserverGetCmd() *cobra.Command {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
 }
 
 func newNginxUpstreamserverListCmd() *cobra.Command {
-	cmd := &cobra.Command{
+	return &cobra.Command{
 		Use:   "list",
-		Short: "List nginx upstreamserver",
+		Short: "List nginx upstreamserver resources",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
-			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
-			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
-				return fmt.Errorf("parsing --data: %w", err)
-			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSearchupstreamserver(context.Background(), body)
+			result, err := s.SettingsSearchupstreamserver(context.Background(), map[string]any{"rowCount": -1, "current": 1})
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			rows := make([]any, len(result.Rows))
+			for i, r := range result.Rows {
+				rows[i] = r
+			}
+			return printer.PrintTable(rows, nginxUpstreamserverColumns)
 		},
 	}
-	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
-	return cmd
 }
 
 func newNginxUpstreamserverUpdateCmd() *cobra.Command {
@@ -3286,22 +3901,38 @@ func newNginxUpstreamserverUpdateCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			s := sdk.NewClient(c)
 			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
+			var body sdk.UpstreamServer
 			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
 				return fmt.Errorf("parsing --data: %w", err)
 			}
-			resp, err := s.SettingsSetupstreamserver(context.Background(), args[0], body)
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsSetupstreamserver(context.Background(), args[0], &body)
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
 	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
 	return cmd
+}
+
+// nginxUserlistColumns defines table columns for the Userlist resource.
+var nginxUserlistColumns = []cli.Column{
+	{Header: "NAME", Extract: func(row any) string {
+		if v, ok := row.(sdk.Userlist); ok {
+			return fmt.Sprint(v.Name)
+		}
+		return ""
+	}},
+	{Header: "USERS", Extract: func(row any) string {
+		if v, ok := row.(sdk.Userlist); ok {
+			return fmt.Sprint(v.Users)
+		}
+		return ""
+	}},
 }
 
 func newNginxUserlistCmd() *cobra.Command {
@@ -3327,17 +3958,17 @@ func newNginxUserlistCreateCmd() *cobra.Command {
 				return err
 			}
 			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
+			var body sdk.Userlist
 			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
 				return fmt.Errorf("parsing --data: %w", err)
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsAdduserlist(context.Background(), body)
+			resp, err := s.SettingsAdduserlist(context.Background(), &body)
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
 	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
@@ -3345,7 +3976,7 @@ func newNginxUserlistCreateCmd() *cobra.Command {
 }
 
 func newNginxUserlistDeleteCmd() *cobra.Command {
-	cmd := &cobra.Command{
+	return &cobra.Command{
 		Use:   "delete <uuid>",
 		Short: "Delete nginx userlist",
 		Args:  cobra.ExactArgs(1),
@@ -3355,21 +3986,14 @@ func newNginxUserlistDeleteCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
-			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
-				return fmt.Errorf("parsing --data: %w", err)
-			}
-			resp, err := s.SettingsDeluserlist(context.Background(), args[0], body)
+			resp, err := s.SettingsDeluserlist(context.Background(), args[0])
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
-	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
-	return cmd
 }
 
 func newNginxUserlistGetCmd() *cobra.Command {
@@ -3387,36 +4011,33 @@ func newNginxUserlistGetCmd() *cobra.Command {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
 }
 
 func newNginxUserlistListCmd() *cobra.Command {
-	cmd := &cobra.Command{
+	return &cobra.Command{
 		Use:   "list",
-		Short: "List nginx userlist",
+		Short: "List nginx userlist resources",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
-			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
-			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
-				return fmt.Errorf("parsing --data: %w", err)
-			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSearchuserlist(context.Background(), body)
+			result, err := s.SettingsSearchuserlist(context.Background(), map[string]any{"rowCount": -1, "current": 1})
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			rows := make([]any, len(result.Rows))
+			for i, r := range result.Rows {
+				rows[i] = r
+			}
+			return printer.PrintTable(rows, nginxUserlistColumns)
 		},
 	}
-	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
-	return cmd
 }
 
 func newNginxUserlistUpdateCmd() *cobra.Command {
@@ -3429,18 +4050,18 @@ func newNginxUserlistUpdateCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			s := sdk.NewClient(c)
 			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
+			var body sdk.Userlist
 			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
 				return fmt.Errorf("parsing --data: %w", err)
 			}
-			resp, err := s.SettingsSetuserlist(context.Background(), args[0], body)
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsSetuserlist(context.Background(), args[0], &body)
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
 	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")

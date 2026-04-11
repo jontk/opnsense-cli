@@ -13,7 +13,7 @@ type Ca struct {
 	Serial             *opnsense.OPNInt `json:"serial,omitempty"`
 	Caref              string           `json:"caref,omitempty"`
 	Action             string           `json:"action,omitempty"`   // Required. Default: internal. Valid: existing, internal, ocsp.
-	KeyType            string           `json:"key_type,omitempty"` // Required. Default: 2048. Valid: RSA-512, RSA-1024, RSA-2048, RSA-3072, RSA-4096, RSA-8192, prime256v1, secp384r1, secp521r1.
+	KeyType            string           `json:"key_type,omitempty"` // Required. Default: 2048. Valid: 512, 1024, 2048, 3072, 4096, 8192, prime256v1, secp384r1, secp521r1.
 	Digest             string           `json:"digest,omitempty"`   // Required. Default: sha256. Valid: sha1, sha224, sha256, sha384, sha512.
 	Lifetime           *opnsense.OPNInt `json:"lifetime,omitempty"` // Required. Default: 825.
 	City               string           `json:"city,omitempty"`
@@ -41,7 +41,7 @@ type Cert struct {
 	Csr                string            `json:"csr,omitempty"`
 	Prv                string            `json:"prv,omitempty"`
 	Action             string            `json:"action,omitempty"`               // Required. Default: internal. Valid: internal, external, import, sign_csr, import_csr, reissue, manual.
-	KeyType            string            `json:"key_type,omitempty"`             // Required. Default: 2048. Valid: RSA-512, RSA-1024, RSA-2048, RSA-3072, RSA-4096, RSA-8192, prime256v1, secp384r1, secp521r1.
+	KeyType            string            `json:"key_type,omitempty"`             // Required. Default: 2048. Valid: 512, 1024, 2048, 3072, 4096, 8192, prime256v1, secp384r1, secp521r1.
 	Digest             string            `json:"digest,omitempty"`               // Required. Default: sha256. Valid: sha1, sha224, sha256, sha384, sha512.
 	CertType           string            `json:"cert_type,omitempty"`            // Required. Default: usr_cert. Valid: usr_cert, server_cert, combined_server_client, v3_ca.
 	Lifetime           *opnsense.OPNInt  `json:"lifetime,omitempty"`             // Required. Default: 397.
@@ -78,7 +78,7 @@ type Settings struct {
 	EnableConfigConstraints opnsense.OPNBool `json:"enable_config_constraints"` // Required. Default: 0.
 	CipherString            string           `json:"CipherString,omitempty"`
 	Ciphersuites            string           `json:"Ciphersuites,omitempty"`
-	SignatureAlgorithms     string           `json:"SignatureAlgorithms,omitempty"` // Valid: o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15.
+	SignatureAlgorithms     string           `json:"SignatureAlgorithms,omitempty"` // Valid: ECDSA+SHA256, ECDSA+SHA384, ECDSA+SHA512, ed25519:ed448, rsa_pss_pss_sha256, rsa_pss_pss_sha384, rsa_pss_pss_sha512, rsa_pss_rsae_sha256, rsa_pss_rsae_sha384, rsa_pss_rsae_sha512, RSA+SHA256, RSA+SHA384, RSA+SHA512, ECDSA+SHA224, RSA+SHA224.
 	Groups                  string           `json:"groups,omitempty"`
 	MinProtocol             string           `json:"MinProtocol,omitempty"`      // Valid: TLSv1, TLSv1.1, TLSv1.2, TLSv1.3.
 	MinProtocolDTLS         string           `json:"MinProtocol_DTLS,omitempty"` // Valid: DTLSv1, DTLSv1.1.

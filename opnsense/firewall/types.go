@@ -93,7 +93,7 @@ type Rule struct {
 	Ipprotocol      string            `json:"ipprotocol"`          // Required. Default: inet. Valid: inet, inet6, inet46.
 	Protocol        string            `json:"protocol"`            // Required. Default: any.
 	Icmptype        string            `json:"icmptype,omitempty"`  // Valid: Common, Deprecated.
-	Icmp6type       string            `json:"icmp6type,omitempty"` // Valid: unreach, toobig, timex, paramprob, echoreq, echorep, listqry, listenrep, listendone, routersol, routeradv, neighbrsol, neighbradv, redir, routrrenum, niqry, nirep, mtraceresp, mtrace.
+	Icmp6type       string            `json:"icmp6type,omitempty"` // Valid: 1, 2, 3, 4, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 200, 201.
 	SourceNet       string            `json:"source_net"`          // Required. Default: any.
 	SourceNot       opnsense.OPNBool  `json:"source_not"`          // Required. Default: 0.
 	SourcePort      string            `json:"source_port,omitempty"`
@@ -121,9 +121,9 @@ type Rule struct {
 	Overload        string            `json:"overload,omitempty"`
 	Adaptivestart   *opnsense.OPNInt  `json:"adaptivestart,omitempty"`
 	Adaptiveend     *opnsense.OPNInt  `json:"adaptiveend,omitempty"`
-	Prio            string            `json:"prio,omitempty"`         // Valid: opt1, opt0, opt2, opt3, opt4, opt5, opt6, opt7.
-	SetPrio         string            `json:"set-prio,omitempty"`     // Valid: opt1, opt0, opt2, opt3, opt4, opt5, opt6, opt7.
-	SetPrioLow      string            `json:"set-prio-low,omitempty"` // Valid: opt1, opt0, opt2, opt3, opt4, opt5, opt6, opt7.
+	Prio            string            `json:"prio,omitempty"`         // Valid: 1, 0, 2, 3, 4, 5, 6, 7.
+	SetPrio         string            `json:"set-prio,omitempty"`     // Valid: 1, 0, 2, 3, 4, 5, 6, 7.
+	SetPrioLow      string            `json:"set-prio-low,omitempty"` // Valid: 1, 0, 2, 3, 4, 5, 6, 7.
 	Tag             string            `json:"tag,omitempty"`
 	Tagged          string            `json:"tagged,omitempty"`
 	Tcpflags1       string            `json:"tcpflags1,omitempty"` // Valid: syn, ack, fin, rst, psh, urg, ece, cwr.

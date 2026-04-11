@@ -7,7 +7,7 @@ import "github.com/jontk/opnsense-cli/opnsense"
 // General represents a general model item.
 type General struct {
 	Enabled         opnsense.OPNBool `json:"enabled"`         // Required. Default: 0.
-	LogLevel        string           `json:"logLevel"`        // Required. Default: 2. Valid: ll1, ll2, ll3, ll4, ll5.
+	LogLevel        string           `json:"logLevel"`        // Required. Default: 2. Valid: 1, 2, 3, 4, 5.
 	LogFullUsername string           `json:"logFullUsername"` // Required. Default: off. Valid: on, off.
 	LogMac          string           `json:"logMac"`          // Required. Default: Original. Valid: Static, Original, VendorHashed, VendorKeyHashed, FullyHashed, FullyKeyHashed.
 	LoopPrevention  string           `json:"loopPrevention"`  // Required. Default: on. Valid: on, off.

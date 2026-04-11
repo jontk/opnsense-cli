@@ -171,21 +171,21 @@ func (c *Client) GeneralTogglehidservauth(ctx context.Context, uuid string, body
 }
 
 // HiddenserviceAddservice calls POST /api/tor/hiddenservice/addservice
-func (c *Client) HiddenserviceAddservice(ctx context.Context, body any) (any, error) {
+func (c *Client) HiddenserviceAddservice(ctx context.Context, body *Service) (*opnsense.GenericResponse, error) {
 	path := "/api/tor/hiddenservice/addservice"
-	var resp any
-	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	var resp opnsense.GenericResponse
+	err := c.client.Do(ctx, "POST", path, map[string]any{"service": body}, &resp)
+	return &resp, err
 }
 
 // HiddenserviceDelservice calls POST /api/tor/hiddenservice/delservice
 // Parameters:
 //   - uuid
-func (c *Client) HiddenserviceDelservice(ctx context.Context, uuid string, body any) (any, error) {
+func (c *Client) HiddenserviceDelservice(ctx context.Context, uuid string) (*opnsense.GenericResponse, error) {
 	path := fmt.Sprintf("/api/tor/hiddenservice/delservice/%s", uuid)
-	var resp any
-	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	var resp opnsense.GenericResponse
+	err := c.client.Do(ctx, "POST", path, nil, &resp)
+	return &resp, err
 }
 
 // HiddenserviceGet calls GET /api/tor/hiddenservice/get
@@ -199,22 +199,22 @@ func (c *Client) HiddenserviceGet(ctx context.Context) (any, error) {
 // HiddenserviceGetservice calls GET /api/tor/hiddenservice/getservice
 // Parameters:
 //   - uuid (optional, default: null)
-func (c *Client) HiddenserviceGetservice(ctx context.Context, opts ...string) (any, error) {
+func (c *Client) HiddenserviceGetservice(ctx context.Context, opts ...string) (*Service, error) {
 	path := "/api/tor/hiddenservice/getservice"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp any
+	var resp serviceGetItemResponse
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
-	return resp, err
+	return &resp.Service, err
 }
 
 // HiddenserviceSearchservice calls GET,POST /api/tor/hiddenservice/searchservice
-func (c *Client) HiddenserviceSearchservice(ctx context.Context, body any) (any, error) {
+func (c *Client) HiddenserviceSearchservice(ctx context.Context, body any) (*opnsense.SearchResult[Service], error) {
 	path := "/api/tor/hiddenservice/searchservice"
-	var resp any
+	var resp opnsense.SearchResult[Service]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // HiddenserviceSet calls POST /api/tor/hiddenservice/set
@@ -228,39 +228,39 @@ func (c *Client) HiddenserviceSet(ctx context.Context, body any) (any, error) {
 // HiddenserviceSetservice calls POST /api/tor/hiddenservice/setservice
 // Parameters:
 //   - uuid
-func (c *Client) HiddenserviceSetservice(ctx context.Context, uuid string, body any) (any, error) {
+func (c *Client) HiddenserviceSetservice(ctx context.Context, uuid string, body *Service) (*opnsense.GenericResponse, error) {
 	path := fmt.Sprintf("/api/tor/hiddenservice/setservice/%s", uuid)
-	var resp any
-	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	var resp opnsense.GenericResponse
+	err := c.client.Do(ctx, "POST", path, map[string]any{"service": body}, &resp)
+	return &resp, err
 }
 
 // HiddenserviceToggleservice calls POST /api/tor/hiddenservice/toggleservice
 // Parameters:
 //   - uuid
-func (c *Client) HiddenserviceToggleservice(ctx context.Context, uuid string, body any) (any, error) {
+func (c *Client) HiddenserviceToggleservice(ctx context.Context, uuid string) (*opnsense.GenericResponse, error) {
 	path := fmt.Sprintf("/api/tor/hiddenservice/toggleservice/%s", uuid)
-	var resp any
-	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	var resp opnsense.GenericResponse
+	err := c.client.Do(ctx, "POST", path, nil, &resp)
+	return &resp, err
 }
 
 // HiddenserviceaclAddacl calls POST /api/tor/hiddenserviceacl/addacl
-func (c *Client) HiddenserviceaclAddacl(ctx context.Context, body any) (any, error) {
+func (c *Client) HiddenserviceaclAddacl(ctx context.Context, body *Hiddenserviceacl) (*opnsense.GenericResponse, error) {
 	path := "/api/tor/hiddenserviceacl/addacl"
-	var resp any
-	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	var resp opnsense.GenericResponse
+	err := c.client.Do(ctx, "POST", path, map[string]any{"hiddenserviceacl": body}, &resp)
+	return &resp, err
 }
 
 // HiddenserviceaclDelacl calls POST /api/tor/hiddenserviceacl/delacl
 // Parameters:
 //   - uuid
-func (c *Client) HiddenserviceaclDelacl(ctx context.Context, uuid string, body any) (any, error) {
+func (c *Client) HiddenserviceaclDelacl(ctx context.Context, uuid string) (*opnsense.GenericResponse, error) {
 	path := fmt.Sprintf("/api/tor/hiddenserviceacl/delacl/%s", uuid)
-	var resp any
-	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	var resp opnsense.GenericResponse
+	err := c.client.Do(ctx, "POST", path, nil, &resp)
+	return &resp, err
 }
 
 // HiddenserviceaclGet calls GET /api/tor/hiddenserviceacl/get
@@ -274,22 +274,22 @@ func (c *Client) HiddenserviceaclGet(ctx context.Context) (any, error) {
 // HiddenserviceaclGetacl calls GET /api/tor/hiddenserviceacl/getacl
 // Parameters:
 //   - uuid (optional, default: null)
-func (c *Client) HiddenserviceaclGetacl(ctx context.Context, opts ...string) (any, error) {
+func (c *Client) HiddenserviceaclGetacl(ctx context.Context, opts ...string) (*Hiddenserviceacl, error) {
 	path := "/api/tor/hiddenserviceacl/getacl"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp any
+	var resp hiddenserviceaclGetItemResponse
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
-	return resp, err
+	return &resp.Hiddenserviceacl, err
 }
 
 // HiddenserviceaclSearchacl calls GET,POST /api/tor/hiddenserviceacl/searchacl
-func (c *Client) HiddenserviceaclSearchacl(ctx context.Context, body any) (any, error) {
+func (c *Client) HiddenserviceaclSearchacl(ctx context.Context, body any) (*opnsense.SearchResult[Hiddenserviceacl], error) {
 	path := "/api/tor/hiddenserviceacl/searchacl"
-	var resp any
+	var resp opnsense.SearchResult[Hiddenserviceacl]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // HiddenserviceaclSet calls POST /api/tor/hiddenserviceacl/set
@@ -303,21 +303,21 @@ func (c *Client) HiddenserviceaclSet(ctx context.Context, body any) (any, error)
 // HiddenserviceaclSetacl calls POST /api/tor/hiddenserviceacl/setacl
 // Parameters:
 //   - uuid
-func (c *Client) HiddenserviceaclSetacl(ctx context.Context, uuid string, body any) (any, error) {
+func (c *Client) HiddenserviceaclSetacl(ctx context.Context, uuid string, body *Hiddenserviceacl) (*opnsense.GenericResponse, error) {
 	path := fmt.Sprintf("/api/tor/hiddenserviceacl/setacl/%s", uuid)
-	var resp any
-	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	var resp opnsense.GenericResponse
+	err := c.client.Do(ctx, "POST", path, map[string]any{"hiddenserviceacl": body}, &resp)
+	return &resp, err
 }
 
 // HiddenserviceaclToggleacl calls POST /api/tor/hiddenserviceacl/toggleacl
 // Parameters:
 //   - uuid
-func (c *Client) HiddenserviceaclToggleacl(ctx context.Context, uuid string, body any) (any, error) {
+func (c *Client) HiddenserviceaclToggleacl(ctx context.Context, uuid string) (*opnsense.GenericResponse, error) {
 	path := fmt.Sprintf("/api/tor/hiddenserviceacl/toggleacl/%s", uuid)
-	var resp any
-	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	var resp opnsense.GenericResponse
+	err := c.client.Do(ctx, "POST", path, nil, &resp)
+	return &resp, err
 }
 
 // RelayGet calls GET /api/tor/relay/get

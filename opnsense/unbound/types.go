@@ -22,7 +22,7 @@ type General struct {
 	Txtsupport        *opnsense.OPNBool `json:"txtsupport,omitempty"`
 	Cacheflush        *opnsense.OPNBool `json:"cacheflush,omitempty"`
 	Safesearch        *opnsense.OPNBool `json:"safesearch,omitempty"`
-	LocalZoneType     string            `json:"local_zone_type"` // Required. Default: transparent. Valid: opt1, opt2, opt3, opt4, opt5, opt6, opt7, opt8, opt9, opt10, opt11.
+	LocalZoneType     string            `json:"local_zone_type"` // Required. Default: transparent. Valid: transparent, always_nxdomain, always_refuse, always_transparent, deny, inform, inform_deny, nodefault, refuse, static, typetransparent.
 	OutgoingInterface string            `json:"outgoing_interface,omitempty"`
 	EnableWpad        *opnsense.OPNBool `json:"enable_wpad,omitempty"`
 }
@@ -47,8 +47,8 @@ type Advanced struct {
 	Logtagqueryreply          *opnsense.OPNBool `json:"logtagqueryreply,omitempty"`
 	Logservfail               *opnsense.OPNBool `json:"logservfail,omitempty"`
 	Loglocalactions           *opnsense.OPNBool `json:"loglocalactions,omitempty"`
-	Logverbosity              string            `json:"logverbosity"` // Required. Default: 1. Valid: opt1, opt2, opt3, opt4, opt5, opt6.
-	Valloglevel               string            `json:"valloglevel"`  // Required. Default: 0. Valid: opt1, opt2, opt3.
+	Logverbosity              string            `json:"logverbosity"` // Required. Default: 1. Valid: 0, 1, 2, 3, 4, 5.
+	Valloglevel               string            `json:"valloglevel"`  // Required. Default: 0. Valid: 0, 1, 2.
 	Privatedomain             string            `json:"privatedomain,omitempty"`
 	Privateaddress            string            `json:"privateaddress"` // Required. Default: 0.0.0.0/8,10.0.0.0/8,100.64.0.0/10,169.254.0.0/16,172.16.0.0/12,192.0.2.0/24,192.168.0.0/16,198.18.0.0/15,198.51.100.0/24,203.0.113.0/24,233.252.0.0/24,::1/128,2001:db8::/32,fc00::/8,fd00::/8,fe80::/10.
 	Insecuredomain            string            `json:"insecuredomain,omitempty"`
@@ -73,7 +73,7 @@ type Advanced struct {
 type Acl struct {
 	Enabled     opnsense.OPNBool `json:"enabled"`  // Required. Default: 1.
 	Name        string           `json:"name"`     // Required.
-	Action      string           `json:"action"`   // Required. Default: allow. Valid: opt1, opt2, opt3, opt4, opt5, opt6.
+	Action      string           `json:"action"`   // Required. Default: allow. Valid: allow, deny, refuse, allow_snoop, deny_non_local, refuse_non_local.
 	Networks    string           `json:"networks"` // Required.
 	Description string           `json:"description,omitempty"`
 }

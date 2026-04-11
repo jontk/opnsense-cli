@@ -792,3 +792,11 @@ type serverGetItemResponse struct {
 type userGetItemResponse struct {
 	User User `json:"user"`
 }
+
+type mailerGetItemResponse struct {
+	Mailer Mailer `json:"mailer"`
+}
+
+type resolverGetItemResponse struct {
+	Resolver Resolver `json:"resolver"`
+}
