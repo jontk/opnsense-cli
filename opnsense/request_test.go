@@ -416,6 +416,7 @@ func TestIsRetryable(t *testing.T) {
 		{"401 error", &APIError{StatusCode: 401}, false},
 		{"404 error", &APIError{StatusCode: 404}, false},
 		{"network error", errors.New("connection refused"), true},
+		{"decode failure", &nonRetryableError{errors.New("json: invalid")}, false},
 	}
 
 	for _, tt := range tests {
@@ -425,6 +426,53 @@ func TestIsRetryable(t *testing.T) {
 				t.Errorf("isRetryable(%v) = %v, want %v", tt.err, got, tt.want)
 			}
 		})
+	}
+}
+
+func TestDo_noRetryOnDecodeFailure(t *testing.T) {
+	var attempts atomic.Int32
+
+	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		attempts.Add(1)
+		w.WriteHeader(http.StatusOK)
+		_, _ = w.Write([]byte(`not valid json`))
+	}))
+	defer srv.Close()
+
+	c := NewClient(srv.URL, "key", "secret", WithRetry(3, 1*time.Millisecond))
+
+	var resp StatusResponse
+	err := c.Do(context.Background(), http.MethodGet, "/api/test", nil, &resp)
+	if err == nil {
+		t.Fatal("Do() returned nil error, want decode error")
+	}
+
+	// Decode failure must not be retried: only 1 attempt expected.
+	if got := attempts.Load(); got != 1 {
+		t.Errorf("attempts = %d, want 1 (decode errors are not retryable)", got)
+	}
+}
+
+func TestDo_noRetryForPOST(t *testing.T) {
+	var attempts atomic.Int32
+
+	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		attempts.Add(1)
+		w.WriteHeader(http.StatusInternalServerError)
+		_, _ = w.Write([]byte("server error"))
+	}))
+	defer srv.Close()
+
+	c := NewClient(srv.URL, "key", "secret", WithRetry(3, 1*time.Millisecond))
+
+	err := c.Do(context.Background(), http.MethodPost, "/api/test", nil, nil)
+	if err == nil {
+		t.Fatal("Do() returned nil error, want error")
+	}
+
+	// POST must never be retried to avoid duplicate mutations.
+	if got := attempts.Load(); got != 1 {
+		t.Errorf("attempts = %d, want 1 (POST must not be retried)", got)
 	}
 }
 
