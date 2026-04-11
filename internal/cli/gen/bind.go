@@ -178,7 +178,7 @@ func newBindAclListCmd() *cobra.Command {
 }
 
 func newBindAclSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set bind acl",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -186,8 +186,13 @@ func newBindAclSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.AclSet(context.Background(), nil)
+			resp, err := s.AclSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -195,6 +200,8 @@ func newBindAclSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newBindAclUpdateCmd() *cobra.Command {
@@ -277,7 +284,7 @@ func newBindDnsblGetCmd() *cobra.Command {
 }
 
 func newBindDnsblSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set bind dnsbl",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -285,8 +292,13 @@ func newBindDnsblSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.DnsblSet(context.Background(), nil)
+			resp, err := s.DnsblSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -294,6 +306,8 @@ func newBindDnsblSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 // bindForwardDomainColumns defines table columns for the ForwardDomain resource.
@@ -742,7 +756,7 @@ func newBindDomainGetCmd() *cobra.Command {
 }
 
 func newBindDomainSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set bind domain",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -750,8 +764,13 @@ func newBindDomainSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.DomainSet(context.Background(), nil)
+			resp, err := s.DomainSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -759,6 +778,8 @@ func newBindDomainSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newBindDomainUpdateCmd() *cobra.Command {
@@ -1012,7 +1033,7 @@ func newBindGeneralGetCmd() *cobra.Command {
 }
 
 func newBindGeneralSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set bind general",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1020,8 +1041,13 @@ func newBindGeneralSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.GeneralSet(context.Background(), nil)
+			resp, err := s.GeneralSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1029,6 +1055,8 @@ func newBindGeneralSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newBindGeneralZoneshowCmd() *cobra.Command {
@@ -1213,7 +1241,7 @@ func newBindRecordListCmd() *cobra.Command {
 }
 
 func newBindRecordSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set bind record",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1221,8 +1249,13 @@ func newBindRecordSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.RecordSet(context.Background(), nil)
+			resp, err := s.RecordSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1230,6 +1263,8 @@ func newBindRecordSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newBindRecordUpdateCmd() *cobra.Command {
@@ -1315,7 +1350,7 @@ func newBindServiceDnsblCmd() *cobra.Command {
 }
 
 func newBindServiceReconfigureCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "reconfigure",
 		Short: "Reconfigure bind service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1323,8 +1358,13 @@ func newBindServiceReconfigureCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceReconfigure(context.Background(), nil)
+			resp, err := s.ServiceReconfigure(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1332,10 +1372,12 @@ func newBindServiceReconfigureCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newBindServiceRestartCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "restart",
 		Short: "Restart bind service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1343,8 +1385,13 @@ func newBindServiceRestartCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceRestart(context.Background(), nil)
+			resp, err := s.ServiceRestart(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1352,10 +1399,12 @@ func newBindServiceRestartCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newBindServiceStartCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "start",
 		Short: "Start bind service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1363,8 +1412,13 @@ func newBindServiceStartCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceStart(context.Background(), nil)
+			resp, err := s.ServiceStart(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1372,6 +1426,8 @@ func newBindServiceStartCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newBindServiceStatusCmd() *cobra.Command {
@@ -1395,7 +1451,7 @@ func newBindServiceStatusCmd() *cobra.Command {
 }
 
 func newBindServiceStopCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "stop",
 		Short: "Stop bind service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1403,8 +1459,13 @@ func newBindServiceStopCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceStop(context.Background(), nil)
+			resp, err := s.ServiceStop(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1412,4 +1473,6 @@ func newBindServiceStopCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }

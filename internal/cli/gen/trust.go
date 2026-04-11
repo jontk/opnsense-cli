@@ -4,6 +4,7 @@ package gen
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 
 	"github.com/jontk/opnsense-cli/internal/cli"
@@ -59,7 +60,7 @@ func newTrustCaCmd() *cobra.Command {
 }
 
 func newTrustCaAddCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "add",
 		Short: "Add trust ca",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -67,8 +68,13 @@ func newTrustCaAddCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.CaAdd(context.Background(), nil)
+			resp, err := s.CaAdd(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -76,6 +82,8 @@ func newTrustCaAddCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newTrustCaCaInfoCmd() *cobra.Command {
@@ -120,7 +128,7 @@ func newTrustCaCaListCmd() *cobra.Command {
 }
 
 func newTrustCaDelCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "del <uuid>",
 		Short: "Del trust ca",
 		Args:  cobra.ExactArgs(1),
@@ -130,7 +138,12 @@ func newTrustCaDelCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.CaDel(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.CaDel(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -138,10 +151,12 @@ func newTrustCaDelCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newTrustCaGenerateFileCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "generate-file",
 		Short: "GenerateFile trust ca",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -149,8 +164,13 @@ func newTrustCaGenerateFileCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.CaGenerateFile(context.Background(), nil)
+			resp, err := s.CaGenerateFile(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -158,6 +178,8 @@ func newTrustCaGenerateFileCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newTrustCaGetCmd() *cobra.Command {
@@ -202,7 +224,7 @@ func newTrustCaRawDumpCmd() *cobra.Command {
 }
 
 func newTrustCaSearchCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "search",
 		Short: "Search trust ca",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -210,8 +232,13 @@ func newTrustCaSearchCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.CaSearch(context.Background(), nil)
+			resp, err := s.CaSearch(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -219,10 +246,12 @@ func newTrustCaSearchCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newTrustCaSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set trust ca",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -230,8 +259,13 @@ func newTrustCaSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.CaSet(context.Background(), nil)
+			resp, err := s.CaSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -239,6 +273,8 @@ func newTrustCaSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newTrustCertCmd() *cobra.Command {
@@ -260,7 +296,7 @@ func newTrustCertCmd() *cobra.Command {
 }
 
 func newTrustCertAddCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "add",
 		Short: "Add trust cert",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -268,8 +304,13 @@ func newTrustCertAddCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.CertAdd(context.Background(), nil)
+			resp, err := s.CertAdd(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -277,6 +318,8 @@ func newTrustCertAddCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newTrustCertCaInfoCmd() *cobra.Command {
@@ -320,7 +363,7 @@ func newTrustCertCaListCmd() *cobra.Command {
 }
 
 func newTrustCertDelCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "del <uuid>",
 		Short: "Del trust cert",
 		Args:  cobra.ExactArgs(1),
@@ -330,7 +373,12 @@ func newTrustCertDelCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.CertDel(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.CertDel(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -338,10 +386,12 @@ func newTrustCertDelCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newTrustCertGenerateFileCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "generate-file",
 		Short: "GenerateFile trust cert",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -349,8 +399,13 @@ func newTrustCertGenerateFileCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.CertGenerateFile(context.Background(), nil)
+			resp, err := s.CertGenerateFile(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -358,6 +413,8 @@ func newTrustCertGenerateFileCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newTrustCertGetCmd() *cobra.Command {
@@ -402,7 +459,7 @@ func newTrustCertRawDumpCmd() *cobra.Command {
 }
 
 func newTrustCertSearchCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "search",
 		Short: "Search trust cert",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -410,8 +467,13 @@ func newTrustCertSearchCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.CertSearch(context.Background(), nil)
+			resp, err := s.CertSearch(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -419,10 +481,12 @@ func newTrustCertSearchCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newTrustCertSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set trust cert",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -430,8 +494,13 @@ func newTrustCertSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.CertSet(context.Background(), nil)
+			resp, err := s.CertSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -439,6 +508,8 @@ func newTrustCertSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newTrustCertUserListCmd() *cobra.Command {
@@ -475,7 +546,7 @@ func newTrustCrlCmd() *cobra.Command {
 }
 
 func newTrustCrlDelCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "del <caref>",
 		Short: "Del trust crl",
 		Args:  cobra.ExactArgs(1),
@@ -485,7 +556,12 @@ func newTrustCrlDelCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.CrlDel(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.CrlDel(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -493,6 +569,8 @@ func newTrustCrlDelCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newTrustCrlGetCmd() *cobra.Command {
@@ -558,7 +636,7 @@ func newTrustCrlSearchCmd() *cobra.Command {
 }
 
 func newTrustCrlSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set <caref>",
 		Short: "Set trust crl",
 		Args:  cobra.ExactArgs(1),
@@ -568,7 +646,12 @@ func newTrustCrlSetCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.CrlSet(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.CrlSet(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -576,6 +659,8 @@ func newTrustCrlSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newTrustOcspInfoDataCmd() *cobra.Command {
@@ -640,7 +725,7 @@ func newTrustSettingsGetCmd() *cobra.Command {
 }
 
 func newTrustSettingsReconfigureCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "reconfigure",
 		Short: "Reconfigure trust settings",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -648,8 +733,13 @@ func newTrustSettingsReconfigureCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsReconfigure(context.Background(), nil)
+			resp, err := s.SettingsReconfigure(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -657,10 +747,12 @@ func newTrustSettingsReconfigureCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newTrustSettingsSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set trust settings",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -668,8 +760,13 @@ func newTrustSettingsSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSet(context.Background(), nil)
+			resp, err := s.SettingsSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -677,4 +774,6 @@ func newTrustSettingsSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }

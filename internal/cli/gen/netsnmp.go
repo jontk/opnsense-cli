@@ -71,7 +71,7 @@ func newNetsnmpGeneralGetCmd() *cobra.Command {
 }
 
 func newNetsnmpGeneralSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set netsnmp general",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -79,8 +79,13 @@ func newNetsnmpGeneralSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.GeneralSet(context.Background(), nil)
+			resp, err := s.GeneralSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -88,6 +93,8 @@ func newNetsnmpGeneralSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNetsnmpServiceCmd() *cobra.Command {
@@ -104,7 +111,7 @@ func newNetsnmpServiceCmd() *cobra.Command {
 }
 
 func newNetsnmpServiceReconfigureCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "reconfigure",
 		Short: "Reconfigure netsnmp service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -112,8 +119,13 @@ func newNetsnmpServiceReconfigureCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceReconfigure(context.Background(), nil)
+			resp, err := s.ServiceReconfigure(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -121,10 +133,12 @@ func newNetsnmpServiceReconfigureCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNetsnmpServiceRestartCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "restart",
 		Short: "Restart netsnmp service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -132,8 +146,13 @@ func newNetsnmpServiceRestartCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceRestart(context.Background(), nil)
+			resp, err := s.ServiceRestart(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -141,10 +160,12 @@ func newNetsnmpServiceRestartCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNetsnmpServiceStartCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "start",
 		Short: "Start netsnmp service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -152,8 +173,13 @@ func newNetsnmpServiceStartCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceStart(context.Background(), nil)
+			resp, err := s.ServiceStart(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -161,6 +187,8 @@ func newNetsnmpServiceStartCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNetsnmpServiceStatusCmd() *cobra.Command {
@@ -184,7 +212,7 @@ func newNetsnmpServiceStatusCmd() *cobra.Command {
 }
 
 func newNetsnmpServiceStopCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "stop",
 		Short: "Stop netsnmp service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -192,8 +220,13 @@ func newNetsnmpServiceStopCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceStop(context.Background(), nil)
+			resp, err := s.ServiceStop(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -201,6 +234,8 @@ func newNetsnmpServiceStopCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 // netsnmpUserColumns defines table columns for the User resource.
@@ -345,7 +380,7 @@ func newNetsnmpUserListCmd() *cobra.Command {
 }
 
 func newNetsnmpUserSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set netsnmp user",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -353,8 +388,13 @@ func newNetsnmpUserSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.UserSet(context.Background(), nil)
+			resp, err := s.UserSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -362,6 +402,8 @@ func newNetsnmpUserSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNetsnmpUserUpdateCmd() *cobra.Command {

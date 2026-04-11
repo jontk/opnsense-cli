@@ -177,7 +177,7 @@ func newSiproxdDomainListCmd() *cobra.Command {
 }
 
 func newSiproxdDomainSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set siproxd domain",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -185,8 +185,13 @@ func newSiproxdDomainSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.DomainSet(context.Background(), nil)
+			resp, err := s.DomainSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -194,6 +199,8 @@ func newSiproxdDomainSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newSiproxdDomainUpdateCmd() *cobra.Command {
@@ -276,7 +283,7 @@ func newSiproxdGeneralGetCmd() *cobra.Command {
 }
 
 func newSiproxdGeneralSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set siproxd general",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -284,8 +291,13 @@ func newSiproxdGeneralSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.GeneralSet(context.Background(), nil)
+			resp, err := s.GeneralSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -293,6 +305,8 @@ func newSiproxdGeneralSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newSiproxdServiceCmd() *cobra.Command {
@@ -310,7 +324,7 @@ func newSiproxdServiceCmd() *cobra.Command {
 }
 
 func newSiproxdServiceReconfigureCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "reconfigure",
 		Short: "Reconfigure siproxd service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -318,8 +332,13 @@ func newSiproxdServiceReconfigureCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceReconfigure(context.Background(), nil)
+			resp, err := s.ServiceReconfigure(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -327,10 +346,12 @@ func newSiproxdServiceReconfigureCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newSiproxdServiceRestartCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "restart",
 		Short: "Restart siproxd service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -338,8 +359,13 @@ func newSiproxdServiceRestartCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceRestart(context.Background(), nil)
+			resp, err := s.ServiceRestart(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -347,6 +373,8 @@ func newSiproxdServiceRestartCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newSiproxdServiceShowregistrationsCmd() *cobra.Command {
@@ -370,7 +398,7 @@ func newSiproxdServiceShowregistrationsCmd() *cobra.Command {
 }
 
 func newSiproxdServiceStartCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "start",
 		Short: "Start siproxd service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -378,8 +406,13 @@ func newSiproxdServiceStartCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceStart(context.Background(), nil)
+			resp, err := s.ServiceStart(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -387,6 +420,8 @@ func newSiproxdServiceStartCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newSiproxdServiceStatusCmd() *cobra.Command {
@@ -410,7 +445,7 @@ func newSiproxdServiceStatusCmd() *cobra.Command {
 }
 
 func newSiproxdServiceStopCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "stop",
 		Short: "Stop siproxd service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -418,8 +453,13 @@ func newSiproxdServiceStopCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceStop(context.Background(), nil)
+			resp, err := s.ServiceStop(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -427,6 +467,8 @@ func newSiproxdServiceStopCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 // siproxdUserColumns defines table columns for the User resource.
@@ -559,7 +601,7 @@ func newSiproxdUserListCmd() *cobra.Command {
 }
 
 func newSiproxdUserSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set siproxd user",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -567,8 +609,13 @@ func newSiproxdUserSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.UserSet(context.Background(), nil)
+			resp, err := s.UserSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -576,6 +623,8 @@ func newSiproxdUserSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newSiproxdUserUpdateCmd() *cobra.Command {

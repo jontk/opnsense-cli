@@ -4,6 +4,7 @@ package gen
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 
 	"github.com/jontk/opnsense-cli/internal/cli"
@@ -70,7 +71,7 @@ func newCicapAntivirusGetCmd() *cobra.Command {
 }
 
 func newCicapAntivirusSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set cicap antivirus",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -78,8 +79,13 @@ func newCicapAntivirusSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.AntivirusSet(context.Background(), nil)
+			resp, err := s.AntivirusSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -87,6 +93,8 @@ func newCicapAntivirusSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newCicapGeneralCmd() *cobra.Command {
@@ -120,7 +128,7 @@ func newCicapGeneralGetCmd() *cobra.Command {
 }
 
 func newCicapGeneralSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set cicap general",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -128,8 +136,13 @@ func newCicapGeneralSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.GeneralSet(context.Background(), nil)
+			resp, err := s.GeneralSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -137,6 +150,8 @@ func newCicapGeneralSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newCicapServiceCmd() *cobra.Command {
@@ -174,7 +189,7 @@ func newCicapServiceCheckclamavCmd() *cobra.Command {
 }
 
 func newCicapServiceReconfigureCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "reconfigure",
 		Short: "Reconfigure cicap service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -182,8 +197,13 @@ func newCicapServiceReconfigureCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceReconfigure(context.Background(), nil)
+			resp, err := s.ServiceReconfigure(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -191,10 +211,12 @@ func newCicapServiceReconfigureCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newCicapServiceRestartCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "restart",
 		Short: "Restart cicap service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -202,8 +224,13 @@ func newCicapServiceRestartCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceRestart(context.Background(), nil)
+			resp, err := s.ServiceRestart(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -211,10 +238,12 @@ func newCicapServiceRestartCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newCicapServiceStartCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "start",
 		Short: "Start cicap service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -222,8 +251,13 @@ func newCicapServiceStartCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceStart(context.Background(), nil)
+			resp, err := s.ServiceStart(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -231,6 +265,8 @@ func newCicapServiceStartCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newCicapServiceStatusCmd() *cobra.Command {
@@ -254,7 +290,7 @@ func newCicapServiceStatusCmd() *cobra.Command {
 }
 
 func newCicapServiceStopCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "stop",
 		Short: "Stop cicap service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -262,8 +298,13 @@ func newCicapServiceStopCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceStop(context.Background(), nil)
+			resp, err := s.ServiceStop(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -271,4 +312,6 @@ func newCicapServiceStopCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }

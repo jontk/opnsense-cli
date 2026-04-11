@@ -72,7 +72,7 @@ func newTaygaGeneralGetCmd() *cobra.Command {
 }
 
 func newTaygaGeneralSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set tayga general",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -80,8 +80,13 @@ func newTaygaGeneralSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.GeneralSet(context.Background(), nil)
+			resp, err := s.GeneralSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -89,6 +94,8 @@ func newTaygaGeneralSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 // taygaStaticmappingColumns defines table columns for the Staticmapping resource.
@@ -305,7 +312,7 @@ func newTaygaMappingGetCmd() *cobra.Command {
 }
 
 func newTaygaMappingSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set tayga mapping",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -313,8 +320,13 @@ func newTaygaMappingSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.MappingSet(context.Background(), nil)
+			resp, err := s.MappingSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -322,6 +334,8 @@ func newTaygaMappingSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newTaygaServiceCmd() *cobra.Command {
@@ -338,7 +352,7 @@ func newTaygaServiceCmd() *cobra.Command {
 }
 
 func newTaygaServiceReconfigureCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "reconfigure",
 		Short: "Reconfigure tayga service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -346,8 +360,13 @@ func newTaygaServiceReconfigureCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceReconfigure(context.Background(), nil)
+			resp, err := s.ServiceReconfigure(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -355,10 +374,12 @@ func newTaygaServiceReconfigureCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newTaygaServiceRestartCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "restart",
 		Short: "Restart tayga service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -366,8 +387,13 @@ func newTaygaServiceRestartCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceRestart(context.Background(), nil)
+			resp, err := s.ServiceRestart(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -375,10 +401,12 @@ func newTaygaServiceRestartCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newTaygaServiceStartCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "start",
 		Short: "Start tayga service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -386,8 +414,13 @@ func newTaygaServiceStartCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceStart(context.Background(), nil)
+			resp, err := s.ServiceStart(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -395,6 +428,8 @@ func newTaygaServiceStartCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newTaygaServiceStatusCmd() *cobra.Command {
@@ -418,7 +453,7 @@ func newTaygaServiceStatusCmd() *cobra.Command {
 }
 
 func newTaygaServiceStopCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "stop",
 		Short: "Stop tayga service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -426,8 +461,13 @@ func newTaygaServiceStopCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceStop(context.Background(), nil)
+			resp, err := s.ServiceStop(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -435,4 +475,6 @@ func newTaygaServiceStopCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }

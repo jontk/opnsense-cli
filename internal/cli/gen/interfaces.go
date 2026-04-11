@@ -199,7 +199,7 @@ func newInterfacesBridgeSettingsGetCmd() *cobra.Command {
 }
 
 func newInterfacesBridgeSettingsReconfigureCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "reconfigure",
 		Short: "Reconfigure interfaces bridge-settings",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -207,8 +207,13 @@ func newInterfacesBridgeSettingsReconfigureCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.BridgeSettingsReconfigure(context.Background(), nil)
+			resp, err := s.BridgeSettingsReconfigure(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -216,6 +221,8 @@ func newInterfacesBridgeSettingsReconfigureCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newInterfacesBridgeSettingsListCmd() *cobra.Command {
@@ -243,7 +250,7 @@ func newInterfacesBridgeSettingsListCmd() *cobra.Command {
 }
 
 func newInterfacesBridgeSettingsSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set interfaces bridge-settings",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -251,8 +258,13 @@ func newInterfacesBridgeSettingsSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.BridgeSettingsSet(context.Background(), nil)
+			resp, err := s.BridgeSettingsSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -260,6 +272,8 @@ func newInterfacesBridgeSettingsSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newInterfacesBridgeSettingsUpdateCmd() *cobra.Command {
@@ -426,7 +440,7 @@ func newInterfacesGifSettingsGetCmd() *cobra.Command {
 }
 
 func newInterfacesGifSettingsReconfigureCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "reconfigure",
 		Short: "Reconfigure interfaces gif-settings",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -434,8 +448,13 @@ func newInterfacesGifSettingsReconfigureCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.GifSettingsReconfigure(context.Background(), nil)
+			resp, err := s.GifSettingsReconfigure(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -443,6 +462,8 @@ func newInterfacesGifSettingsReconfigureCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newInterfacesGifSettingsListCmd() *cobra.Command {
@@ -470,7 +491,7 @@ func newInterfacesGifSettingsListCmd() *cobra.Command {
 }
 
 func newInterfacesGifSettingsSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set interfaces gif-settings",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -478,8 +499,13 @@ func newInterfacesGifSettingsSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.GifSettingsSet(context.Background(), nil)
+			resp, err := s.GifSettingsSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -487,6 +513,8 @@ func newInterfacesGifSettingsSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newInterfacesGifSettingsUpdateCmd() *cobra.Command {
@@ -682,7 +710,7 @@ func newInterfacesGreSettingsGetCmd() *cobra.Command {
 }
 
 func newInterfacesGreSettingsReconfigureCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "reconfigure",
 		Short: "Reconfigure interfaces gre-settings",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -690,8 +718,13 @@ func newInterfacesGreSettingsReconfigureCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.GreSettingsReconfigure(context.Background(), nil)
+			resp, err := s.GreSettingsReconfigure(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -699,6 +732,8 @@ func newInterfacesGreSettingsReconfigureCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newInterfacesGreSettingsListCmd() *cobra.Command {
@@ -726,7 +761,7 @@ func newInterfacesGreSettingsListCmd() *cobra.Command {
 }
 
 func newInterfacesGreSettingsSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set interfaces gre-settings",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -734,8 +769,13 @@ func newInterfacesGreSettingsSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.GreSettingsSet(context.Background(), nil)
+			resp, err := s.GreSettingsSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -743,6 +783,8 @@ func newInterfacesGreSettingsSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newInterfacesGreSettingsUpdateCmd() *cobra.Command {
@@ -909,7 +951,7 @@ func newInterfacesLaggSettingsGetCmd() *cobra.Command {
 }
 
 func newInterfacesLaggSettingsReconfigureCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "reconfigure",
 		Short: "Reconfigure interfaces lagg-settings",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -917,8 +959,13 @@ func newInterfacesLaggSettingsReconfigureCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.LaggSettingsReconfigure(context.Background(), nil)
+			resp, err := s.LaggSettingsReconfigure(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -926,6 +973,8 @@ func newInterfacesLaggSettingsReconfigureCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newInterfacesLaggSettingsListCmd() *cobra.Command {
@@ -953,7 +1002,7 @@ func newInterfacesLaggSettingsListCmd() *cobra.Command {
 }
 
 func newInterfacesLaggSettingsSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set interfaces lagg-settings",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -961,8 +1010,13 @@ func newInterfacesLaggSettingsSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.LaggSettingsSet(context.Background(), nil)
+			resp, err := s.LaggSettingsSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -970,6 +1024,8 @@ func newInterfacesLaggSettingsSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newInterfacesLaggSettingsUpdateCmd() *cobra.Command {
@@ -1100,7 +1156,7 @@ func newInterfacesLoopbackSettingsGetCmd() *cobra.Command {
 }
 
 func newInterfacesLoopbackSettingsReconfigureCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "reconfigure",
 		Short: "Reconfigure interfaces loopback-settings",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1108,8 +1164,13 @@ func newInterfacesLoopbackSettingsReconfigureCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.LoopbackSettingsReconfigure(context.Background(), nil)
+			resp, err := s.LoopbackSettingsReconfigure(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1117,6 +1178,8 @@ func newInterfacesLoopbackSettingsReconfigureCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newInterfacesLoopbackSettingsListCmd() *cobra.Command {
@@ -1144,7 +1207,7 @@ func newInterfacesLoopbackSettingsListCmd() *cobra.Command {
 }
 
 func newInterfacesLoopbackSettingsSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set interfaces loopback-settings",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1152,8 +1215,13 @@ func newInterfacesLoopbackSettingsSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.LoopbackSettingsSet(context.Background(), nil)
+			resp, err := s.LoopbackSettingsSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1161,6 +1229,8 @@ func newInterfacesLoopbackSettingsSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newInterfacesLoopbackSettingsUpdateCmd() *cobra.Command {
@@ -1303,7 +1373,7 @@ func newInterfacesNeighborSettingsGetCmd() *cobra.Command {
 }
 
 func newInterfacesNeighborSettingsReconfigureCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "reconfigure",
 		Short: "Reconfigure interfaces neighbor-settings",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1311,8 +1381,13 @@ func newInterfacesNeighborSettingsReconfigureCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.NeighborSettingsReconfigure(context.Background(), nil)
+			resp, err := s.NeighborSettingsReconfigure(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1320,6 +1395,8 @@ func newInterfacesNeighborSettingsReconfigureCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newInterfacesNeighborSettingsListCmd() *cobra.Command {
@@ -1347,7 +1424,7 @@ func newInterfacesNeighborSettingsListCmd() *cobra.Command {
 }
 
 func newInterfacesNeighborSettingsSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set interfaces neighbor-settings",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1355,8 +1432,13 @@ func newInterfacesNeighborSettingsSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.NeighborSettingsSet(context.Background(), nil)
+			resp, err := s.NeighborSettingsSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1364,6 +1446,8 @@ func newInterfacesNeighborSettingsSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newInterfacesNeighborSettingsUpdateCmd() *cobra.Command {
@@ -1526,7 +1610,7 @@ func newInterfacesSettingsGetCmd() *cobra.Command {
 }
 
 func newInterfacesSettingsReconfigureCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "reconfigure",
 		Short: "Reconfigure interfaces settings",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1534,8 +1618,13 @@ func newInterfacesSettingsReconfigureCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsReconfigure(context.Background(), nil)
+			resp, err := s.SettingsReconfigure(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1543,10 +1632,12 @@ func newInterfacesSettingsReconfigureCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newInterfacesSettingsSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set interfaces settings",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1554,8 +1645,13 @@ func newInterfacesSettingsSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSet(context.Background(), nil)
+			resp, err := s.SettingsSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1563,6 +1659,8 @@ func newInterfacesSettingsSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 // interfacesVipSettingsColumns defines table columns for the VipSettings resource.
@@ -1701,7 +1799,7 @@ func newInterfacesVipSettingsGetCmd() *cobra.Command {
 }
 
 func newInterfacesVipSettingsReconfigureCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "reconfigure",
 		Short: "Reconfigure interfaces vip-settings",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1709,8 +1807,13 @@ func newInterfacesVipSettingsReconfigureCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.VipSettingsReconfigure(context.Background(), nil)
+			resp, err := s.VipSettingsReconfigure(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1718,6 +1821,8 @@ func newInterfacesVipSettingsReconfigureCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newInterfacesVipSettingsListCmd() *cobra.Command {
@@ -1745,7 +1850,7 @@ func newInterfacesVipSettingsListCmd() *cobra.Command {
 }
 
 func newInterfacesVipSettingsSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set interfaces vip-settings",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1753,8 +1858,13 @@ func newInterfacesVipSettingsSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.VipSettingsSet(context.Background(), nil)
+			resp, err := s.VipSettingsSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1762,6 +1872,8 @@ func newInterfacesVipSettingsSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newInterfacesVipSettingsUpdateCmd() *cobra.Command {
@@ -1945,7 +2057,7 @@ func newInterfacesVlanSettingsGetCmd() *cobra.Command {
 }
 
 func newInterfacesVlanSettingsReconfigureCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "reconfigure",
 		Short: "Reconfigure interfaces vlan-settings",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1953,8 +2065,13 @@ func newInterfacesVlanSettingsReconfigureCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.VlanSettingsReconfigure(context.Background(), nil)
+			resp, err := s.VlanSettingsReconfigure(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1962,6 +2079,8 @@ func newInterfacesVlanSettingsReconfigureCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newInterfacesVlanSettingsListCmd() *cobra.Command {
@@ -1989,7 +2108,7 @@ func newInterfacesVlanSettingsListCmd() *cobra.Command {
 }
 
 func newInterfacesVlanSettingsSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set interfaces vlan-settings",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1997,8 +2116,13 @@ func newInterfacesVlanSettingsSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.VlanSettingsSet(context.Background(), nil)
+			resp, err := s.VlanSettingsSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -2006,6 +2130,8 @@ func newInterfacesVlanSettingsSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newInterfacesVlanSettingsUpdateCmd() *cobra.Command {
@@ -2172,7 +2298,7 @@ func newInterfacesVxlanSettingsGetCmd() *cobra.Command {
 }
 
 func newInterfacesVxlanSettingsReconfigureCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "reconfigure",
 		Short: "Reconfigure interfaces vxlan-settings",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -2180,8 +2306,13 @@ func newInterfacesVxlanSettingsReconfigureCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.VxlanSettingsReconfigure(context.Background(), nil)
+			resp, err := s.VxlanSettingsReconfigure(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -2189,6 +2320,8 @@ func newInterfacesVxlanSettingsReconfigureCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newInterfacesVxlanSettingsListCmd() *cobra.Command {
@@ -2216,7 +2349,7 @@ func newInterfacesVxlanSettingsListCmd() *cobra.Command {
 }
 
 func newInterfacesVxlanSettingsSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set interfaces vxlan-settings",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -2224,8 +2357,13 @@ func newInterfacesVxlanSettingsSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.VxlanSettingsSet(context.Background(), nil)
+			resp, err := s.VxlanSettingsSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -2233,6 +2371,8 @@ func newInterfacesVxlanSettingsSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newInterfacesVxlanSettingsUpdateCmd() *cobra.Command {

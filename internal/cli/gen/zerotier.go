@@ -4,6 +4,7 @@ package gen
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 
 	"github.com/jontk/opnsense-cli/internal/cli"
@@ -54,7 +55,7 @@ func newZerotierNetworkCmd() *cobra.Command {
 }
 
 func newZerotierNetworkAddCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "add",
 		Short: "Add zerotier network",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -62,8 +63,13 @@ func newZerotierNetworkAddCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.NetworkAdd(context.Background(), nil)
+			resp, err := s.NetworkAdd(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -71,10 +77,12 @@ func newZerotierNetworkAddCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newZerotierNetworkDelCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "del",
 		Short: "Del zerotier network",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -82,8 +90,13 @@ func newZerotierNetworkDelCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.NetworkDel(context.Background(), nil)
+			resp, err := s.NetworkDel(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -91,6 +104,8 @@ func newZerotierNetworkDelCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newZerotierNetworkGetCmd() *cobra.Command {
@@ -154,7 +169,7 @@ func newZerotierNetworkSearchCmd() *cobra.Command {
 }
 
 func newZerotierNetworkSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set zerotier network",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -162,8 +177,13 @@ func newZerotierNetworkSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.NetworkSet(context.Background(), nil)
+			resp, err := s.NetworkSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -171,10 +191,12 @@ func newZerotierNetworkSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newZerotierNetworkToggleCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "toggle",
 		Short: "Toggle zerotier network",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -182,8 +204,13 @@ func newZerotierNetworkToggleCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.NetworkToggle(context.Background(), nil)
+			resp, err := s.NetworkToggle(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -191,6 +218,8 @@ func newZerotierNetworkToggleCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newZerotierSettingsCmd() *cobra.Command {
@@ -225,7 +254,7 @@ func newZerotierSettingsGetCmd() *cobra.Command {
 }
 
 func newZerotierSettingsSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set zerotier settings",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -233,8 +262,13 @@ func newZerotierSettingsSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSet(context.Background(), nil)
+			resp, err := s.SettingsSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -242,6 +276,8 @@ func newZerotierSettingsSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newZerotierSettingsStatusCmd() *cobra.Command {

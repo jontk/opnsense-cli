@@ -59,7 +59,7 @@ func newOpenvpnClientOverwritesCmd() *cobra.Command {
 }
 
 func newOpenvpnClientOverwritesAddCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "add",
 		Short: "Add openvpn client-overwrites",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -67,8 +67,13 @@ func newOpenvpnClientOverwritesAddCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ClientOverwritesAdd(context.Background(), nil)
+			resp, err := s.ClientOverwritesAdd(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -76,10 +81,12 @@ func newOpenvpnClientOverwritesAddCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newOpenvpnClientOverwritesDelCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "del <uuid>",
 		Short: "Del openvpn client-overwrites",
 		Args:  cobra.ExactArgs(1),
@@ -89,7 +96,12 @@ func newOpenvpnClientOverwritesDelCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.ClientOverwritesDel(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.ClientOverwritesDel(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -97,6 +109,8 @@ func newOpenvpnClientOverwritesDelCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newOpenvpnClientOverwritesGetCmd() *cobra.Command {
@@ -120,7 +134,7 @@ func newOpenvpnClientOverwritesGetCmd() *cobra.Command {
 }
 
 func newOpenvpnClientOverwritesSearchCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "search",
 		Short: "Search openvpn client-overwrites",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -128,8 +142,13 @@ func newOpenvpnClientOverwritesSearchCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ClientOverwritesSearch(context.Background(), nil)
+			resp, err := s.ClientOverwritesSearch(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -137,10 +156,12 @@ func newOpenvpnClientOverwritesSearchCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newOpenvpnClientOverwritesSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set openvpn client-overwrites",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -148,8 +169,13 @@ func newOpenvpnClientOverwritesSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ClientOverwritesSet(context.Background(), nil)
+			resp, err := s.ClientOverwritesSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -157,10 +183,12 @@ func newOpenvpnClientOverwritesSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newOpenvpnClientOverwritesToggleCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "toggle <uuid>",
 		Short: "Toggle openvpn client-overwrites",
 		Args:  cobra.ExactArgs(1),
@@ -170,7 +198,12 @@ func newOpenvpnClientOverwritesToggleCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.ClientOverwritesToggle(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.ClientOverwritesToggle(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -178,6 +211,8 @@ func newOpenvpnClientOverwritesToggleCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newOpenvpnExportCmd() *cobra.Command {
@@ -215,7 +250,7 @@ func newOpenvpnExportAccountsCmd() *cobra.Command {
 }
 
 func newOpenvpnExportDownloadCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "download <vpnid>",
 		Short: "Download openvpn export",
 		Args:  cobra.ExactArgs(1),
@@ -225,7 +260,12 @@ func newOpenvpnExportDownloadCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.ExportDownload(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.ExportDownload(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -233,6 +273,8 @@ func newOpenvpnExportDownloadCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newOpenvpnExportProvidersCmd() *cobra.Command {
@@ -256,7 +298,7 @@ func newOpenvpnExportProvidersCmd() *cobra.Command {
 }
 
 func newOpenvpnExportStorePresetsCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "store-presets <vpnid>",
 		Short: "StorePresets openvpn export",
 		Args:  cobra.ExactArgs(1),
@@ -266,7 +308,12 @@ func newOpenvpnExportStorePresetsCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.ExportStorePresets(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.ExportStorePresets(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -274,6 +321,8 @@ func newOpenvpnExportStorePresetsCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newOpenvpnExportTemplatesCmd() *cobra.Command {
@@ -297,7 +346,7 @@ func newOpenvpnExportTemplatesCmd() *cobra.Command {
 }
 
 func newOpenvpnExportValidatePresetsCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "validate-presets <vpnid>",
 		Short: "ValidatePresets openvpn export",
 		Args:  cobra.ExactArgs(1),
@@ -307,7 +356,12 @@ func newOpenvpnExportValidatePresetsCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.ExportValidatePresets(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.ExportValidatePresets(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -315,6 +369,8 @@ func newOpenvpnExportValidatePresetsCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newOpenvpnInstancesCmd() *cobra.Command {
@@ -333,7 +389,7 @@ func newOpenvpnInstancesCmd() *cobra.Command {
 }
 
 func newOpenvpnInstancesAddCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "add",
 		Short: "Add openvpn instances",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -341,8 +397,13 @@ func newOpenvpnInstancesAddCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.InstancesAdd(context.Background(), nil)
+			resp, err := s.InstancesAdd(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -350,10 +411,12 @@ func newOpenvpnInstancesAddCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newOpenvpnInstancesDelCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "del <uuid>",
 		Short: "Del openvpn instances",
 		Args:  cobra.ExactArgs(1),
@@ -363,7 +426,12 @@ func newOpenvpnInstancesDelCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.InstancesDel(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.InstancesDel(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -371,6 +439,8 @@ func newOpenvpnInstancesDelCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newOpenvpnInstancesGenKeyCmd() *cobra.Command {
@@ -414,7 +484,7 @@ func newOpenvpnInstancesGetCmd() *cobra.Command {
 }
 
 func newOpenvpnInstancesSearchCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "search",
 		Short: "Search openvpn instances",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -422,8 +492,13 @@ func newOpenvpnInstancesSearchCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.InstancesSearch(context.Background(), nil)
+			resp, err := s.InstancesSearch(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -431,10 +506,12 @@ func newOpenvpnInstancesSearchCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newOpenvpnInstancesSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set openvpn instances",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -442,8 +519,13 @@ func newOpenvpnInstancesSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.InstancesSet(context.Background(), nil)
+			resp, err := s.InstancesSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -451,10 +533,12 @@ func newOpenvpnInstancesSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newOpenvpnInstancesToggleCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "toggle <uuid>",
 		Short: "Toggle openvpn instances",
 		Args:  cobra.ExactArgs(1),
@@ -464,7 +548,12 @@ func newOpenvpnInstancesToggleCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.InstancesToggle(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.InstancesToggle(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -472,6 +561,8 @@ func newOpenvpnInstancesToggleCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 // openvpnStaticKeyColumns defines table columns for the StaticKey resource.
@@ -642,7 +733,7 @@ func newOpenvpnServiceCmd() *cobra.Command {
 }
 
 func newOpenvpnServiceKillSessionCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "kill-session",
 		Short: "KillSession openvpn service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -650,8 +741,13 @@ func newOpenvpnServiceKillSessionCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceKillSession(context.Background(), nil)
+			resp, err := s.ServiceKillSession(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -659,10 +755,12 @@ func newOpenvpnServiceKillSessionCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newOpenvpnServiceReconfigureCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "reconfigure",
 		Short: "Reconfigure openvpn service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -670,8 +768,13 @@ func newOpenvpnServiceReconfigureCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceReconfigure(context.Background(), nil)
+			resp, err := s.ServiceReconfigure(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -679,10 +782,12 @@ func newOpenvpnServiceReconfigureCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newOpenvpnServiceRestartServiceCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "restart-service",
 		Short: "RestartService openvpn service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -690,8 +795,13 @@ func newOpenvpnServiceRestartServiceCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceRestartService(context.Background(), nil)
+			resp, err := s.ServiceRestartService(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -699,10 +809,12 @@ func newOpenvpnServiceRestartServiceCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newOpenvpnServiceStartServiceCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "start-service",
 		Short: "StartService openvpn service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -710,8 +822,13 @@ func newOpenvpnServiceStartServiceCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceStartService(context.Background(), nil)
+			resp, err := s.ServiceStartService(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -719,10 +836,12 @@ func newOpenvpnServiceStartServiceCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newOpenvpnServiceStopServiceCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "stop-service",
 		Short: "StopService openvpn service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -730,8 +849,13 @@ func newOpenvpnServiceStopServiceCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceStopService(context.Background(), nil)
+			resp, err := s.ServiceStopService(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -739,6 +863,8 @@ func newOpenvpnServiceStopServiceCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newOpenvpnRoutesCmd() *cobra.Command {

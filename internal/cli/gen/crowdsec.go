@@ -4,6 +4,7 @@ package gen
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 
 	"github.com/jontk/opnsense-cli/internal/cli"
@@ -205,7 +206,7 @@ func newCrowdsecDecisionsCmd() *cobra.Command {
 }
 
 func newCrowdsecDecisionsDelCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "del <decision_id>",
 		Short: "Del crowdsec decisions",
 		Args:  cobra.ExactArgs(1),
@@ -215,7 +216,12 @@ func newCrowdsecDecisionsDelCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.DecisionsDel(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.DecisionsDel(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -223,6 +229,8 @@ func newCrowdsecDecisionsDelCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newCrowdsecDecisionsSearchCmd() *cobra.Command {
@@ -276,7 +284,7 @@ func newCrowdsecGeneralGetCmd() *cobra.Command {
 }
 
 func newCrowdsecGeneralSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set crowdsec general",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -284,8 +292,13 @@ func newCrowdsecGeneralSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.GeneralSet(context.Background(), nil)
+			resp, err := s.GeneralSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -293,6 +306,8 @@ func newCrowdsecGeneralSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newCrowdsecMachinesCmd() *cobra.Command {
@@ -445,7 +460,7 @@ func newCrowdsecServiceReconfigureCmd() *cobra.Command {
 }
 
 func newCrowdsecServiceRestartCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "restart",
 		Short: "Restart crowdsec service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -453,8 +468,13 @@ func newCrowdsecServiceRestartCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceRestart(context.Background(), nil)
+			resp, err := s.ServiceRestart(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -462,10 +482,12 @@ func newCrowdsecServiceRestartCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newCrowdsecServiceStartCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "start",
 		Short: "Start crowdsec service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -473,8 +495,13 @@ func newCrowdsecServiceStartCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceStart(context.Background(), nil)
+			resp, err := s.ServiceStart(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -482,6 +509,8 @@ func newCrowdsecServiceStartCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newCrowdsecServiceStatusCmd() *cobra.Command {
@@ -505,7 +534,7 @@ func newCrowdsecServiceStatusCmd() *cobra.Command {
 }
 
 func newCrowdsecServiceStopCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "stop",
 		Short: "Stop crowdsec service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -513,8 +542,13 @@ func newCrowdsecServiceStopCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceStop(context.Background(), nil)
+			resp, err := s.ServiceStop(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -522,6 +556,8 @@ func newCrowdsecServiceStopCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newCrowdsecVersionCmd() *cobra.Command {

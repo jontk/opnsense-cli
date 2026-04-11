@@ -4,6 +4,7 @@ package gen
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 
 	"github.com/jontk/opnsense-cli/internal/cli"
@@ -71,7 +72,7 @@ func newShadowsocksGeneralGetCmd() *cobra.Command {
 }
 
 func newShadowsocksGeneralSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set shadowsocks general",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -79,8 +80,13 @@ func newShadowsocksGeneralSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.GeneralSet(context.Background(), nil)
+			resp, err := s.GeneralSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -88,6 +94,8 @@ func newShadowsocksGeneralSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newShadowsocksLocalCmd() *cobra.Command {
@@ -121,7 +129,7 @@ func newShadowsocksLocalGetCmd() *cobra.Command {
 }
 
 func newShadowsocksLocalSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set shadowsocks local",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -129,8 +137,13 @@ func newShadowsocksLocalSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.LocalSet(context.Background(), nil)
+			resp, err := s.LocalSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -138,6 +151,8 @@ func newShadowsocksLocalSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newShadowsocksLocalserviceCmd() *cobra.Command {
@@ -154,7 +169,7 @@ func newShadowsocksLocalserviceCmd() *cobra.Command {
 }
 
 func newShadowsocksLocalserviceReconfigureCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "reconfigure",
 		Short: "Reconfigure shadowsocks localservice",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -162,8 +177,13 @@ func newShadowsocksLocalserviceReconfigureCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.LocalserviceReconfigure(context.Background(), nil)
+			resp, err := s.LocalserviceReconfigure(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -171,10 +191,12 @@ func newShadowsocksLocalserviceReconfigureCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newShadowsocksLocalserviceRestartCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "restart",
 		Short: "Restart shadowsocks localservice",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -182,8 +204,13 @@ func newShadowsocksLocalserviceRestartCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.LocalserviceRestart(context.Background(), nil)
+			resp, err := s.LocalserviceRestart(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -191,10 +218,12 @@ func newShadowsocksLocalserviceRestartCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newShadowsocksLocalserviceStartCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "start",
 		Short: "Start shadowsocks localservice",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -202,8 +231,13 @@ func newShadowsocksLocalserviceStartCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.LocalserviceStart(context.Background(), nil)
+			resp, err := s.LocalserviceStart(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -211,6 +245,8 @@ func newShadowsocksLocalserviceStartCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newShadowsocksLocalserviceStatusCmd() *cobra.Command {
@@ -234,7 +270,7 @@ func newShadowsocksLocalserviceStatusCmd() *cobra.Command {
 }
 
 func newShadowsocksLocalserviceStopCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "stop",
 		Short: "Stop shadowsocks localservice",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -242,8 +278,13 @@ func newShadowsocksLocalserviceStopCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.LocalserviceStop(context.Background(), nil)
+			resp, err := s.LocalserviceStop(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -251,6 +292,8 @@ func newShadowsocksLocalserviceStopCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newShadowsocksServiceCmd() *cobra.Command {
@@ -267,7 +310,7 @@ func newShadowsocksServiceCmd() *cobra.Command {
 }
 
 func newShadowsocksServiceReconfigureCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "reconfigure",
 		Short: "Reconfigure shadowsocks service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -275,8 +318,13 @@ func newShadowsocksServiceReconfigureCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceReconfigure(context.Background(), nil)
+			resp, err := s.ServiceReconfigure(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -284,10 +332,12 @@ func newShadowsocksServiceReconfigureCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newShadowsocksServiceRestartCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "restart",
 		Short: "Restart shadowsocks service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -295,8 +345,13 @@ func newShadowsocksServiceRestartCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceRestart(context.Background(), nil)
+			resp, err := s.ServiceRestart(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -304,10 +359,12 @@ func newShadowsocksServiceRestartCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newShadowsocksServiceStartCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "start",
 		Short: "Start shadowsocks service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -315,8 +372,13 @@ func newShadowsocksServiceStartCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceStart(context.Background(), nil)
+			resp, err := s.ServiceStart(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -324,6 +386,8 @@ func newShadowsocksServiceStartCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newShadowsocksServiceStatusCmd() *cobra.Command {
@@ -347,7 +411,7 @@ func newShadowsocksServiceStatusCmd() *cobra.Command {
 }
 
 func newShadowsocksServiceStopCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "stop",
 		Short: "Stop shadowsocks service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -355,8 +419,13 @@ func newShadowsocksServiceStopCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceStop(context.Background(), nil)
+			resp, err := s.ServiceStop(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -364,4 +433,6 @@ func newShadowsocksServiceStopCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }

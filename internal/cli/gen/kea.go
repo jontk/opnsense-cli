@@ -76,7 +76,7 @@ func newKeaCtrlAgentGetCmd() *cobra.Command {
 }
 
 func newKeaCtrlAgentSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set kea ctrl-agent",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -84,8 +84,13 @@ func newKeaCtrlAgentSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.CtrlAgentSet(context.Background(), nil)
+			resp, err := s.CtrlAgentSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -93,6 +98,8 @@ func newKeaCtrlAgentSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 // keaPeerColumns defines table columns for the Peer resource.
@@ -643,7 +650,7 @@ func newKeaDhcpv4GetCmd() *cobra.Command {
 }
 
 func newKeaDhcpv4SetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set kea dhcpv4",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -651,8 +658,13 @@ func newKeaDhcpv4SetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.Dhcpv4Set(context.Background(), nil)
+			resp, err := s.Dhcpv4Set(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -660,10 +672,12 @@ func newKeaDhcpv4SetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newKeaDhcpv4UploadReservationsCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "upload-reservations",
 		Short: "UploadReservations kea dhcpv4",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -671,8 +685,13 @@ func newKeaDhcpv4UploadReservationsCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.Dhcpv4UploadReservations(context.Background(), nil)
+			resp, err := s.Dhcpv4UploadReservations(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -680,6 +699,8 @@ func newKeaDhcpv4UploadReservationsCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 // keaPdPoolColumns defines table columns for the PdPool resource.
@@ -902,7 +923,7 @@ func newKeaDhcpv6GetCmd() *cobra.Command {
 }
 
 func newKeaDhcpv6SetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set kea dhcpv6",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -910,8 +931,13 @@ func newKeaDhcpv6SetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.Dhcpv6Set(context.Background(), nil)
+			resp, err := s.Dhcpv6Set(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -919,10 +945,12 @@ func newKeaDhcpv6SetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newKeaDhcpv6UploadReservationsCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "upload-reservations",
 		Short: "UploadReservations kea dhcpv6",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -930,8 +958,13 @@ func newKeaDhcpv6UploadReservationsCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.Dhcpv6UploadReservations(context.Background(), nil)
+			resp, err := s.Dhcpv6UploadReservations(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -939,6 +972,8 @@ func newKeaDhcpv6UploadReservationsCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newKeaServiceCmd() *cobra.Command {
@@ -955,7 +990,7 @@ func newKeaServiceCmd() *cobra.Command {
 }
 
 func newKeaServiceReconfigureCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "reconfigure",
 		Short: "Reconfigure kea service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -963,8 +998,13 @@ func newKeaServiceReconfigureCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceReconfigure(context.Background(), nil)
+			resp, err := s.ServiceReconfigure(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -972,10 +1012,12 @@ func newKeaServiceReconfigureCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newKeaServiceRestartCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "restart",
 		Short: "Restart kea service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -983,8 +1025,13 @@ func newKeaServiceRestartCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceRestart(context.Background(), nil)
+			resp, err := s.ServiceRestart(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -992,10 +1039,12 @@ func newKeaServiceRestartCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newKeaServiceStartCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "start",
 		Short: "Start kea service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1003,8 +1052,13 @@ func newKeaServiceStartCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceStart(context.Background(), nil)
+			resp, err := s.ServiceStart(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1012,6 +1066,8 @@ func newKeaServiceStartCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newKeaServiceStatusCmd() *cobra.Command {
@@ -1035,7 +1091,7 @@ func newKeaServiceStatusCmd() *cobra.Command {
 }
 
 func newKeaServiceStopCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "stop",
 		Short: "Stop kea service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1043,8 +1099,13 @@ func newKeaServiceStopCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceStop(context.Background(), nil)
+			resp, err := s.ServiceStop(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1052,4 +1113,6 @@ func newKeaServiceStopCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }

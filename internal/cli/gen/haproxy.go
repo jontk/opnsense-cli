@@ -230,7 +230,7 @@ func newHaproxyMaintenanceCertSyncBulkCmd() *cobra.Command {
 }
 
 func newHaproxyMaintenanceFetchCronIntegrationCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "fetch-cron-integration",
 		Short: "FetchCronIntegration haproxy maintenance",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -238,8 +238,13 @@ func newHaproxyMaintenanceFetchCronIntegrationCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.MaintenanceFetchCronIntegration(context.Background(), nil)
+			resp, err := s.MaintenanceFetchCronIntegration(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -247,6 +252,8 @@ func newHaproxyMaintenanceFetchCronIntegrationCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newHaproxyMaintenanceGetCmd() *cobra.Command {
@@ -350,7 +357,7 @@ func newHaproxyMaintenanceServerWeightBulkCmd() *cobra.Command {
 }
 
 func newHaproxyMaintenanceSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set haproxy maintenance",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -358,8 +365,13 @@ func newHaproxyMaintenanceSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.MaintenanceSet(context.Background(), nil)
+			resp, err := s.MaintenanceSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -367,6 +379,8 @@ func newHaproxyMaintenanceSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newHaproxyCertificateDiffCmd() *cobra.Command {
@@ -646,7 +660,7 @@ func newHaproxyServiceConfigtestCmd() *cobra.Command {
 }
 
 func newHaproxyServiceReconfigureCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "reconfigure",
 		Short: "Reconfigure haproxy service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -654,8 +668,13 @@ func newHaproxyServiceReconfigureCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceReconfigure(context.Background(), nil)
+			resp, err := s.ServiceReconfigure(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -663,10 +682,12 @@ func newHaproxyServiceReconfigureCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newHaproxyServiceRestartCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "restart",
 		Short: "Restart haproxy service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -674,8 +695,13 @@ func newHaproxyServiceRestartCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceRestart(context.Background(), nil)
+			resp, err := s.ServiceRestart(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -683,10 +709,12 @@ func newHaproxyServiceRestartCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newHaproxyServiceStartCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "start",
 		Short: "Start haproxy service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -694,8 +722,13 @@ func newHaproxyServiceStartCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceStart(context.Background(), nil)
+			resp, err := s.ServiceStart(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -703,6 +736,8 @@ func newHaproxyServiceStartCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newHaproxyServiceStatusCmd() *cobra.Command {
@@ -726,7 +761,7 @@ func newHaproxyServiceStatusCmd() *cobra.Command {
 }
 
 func newHaproxyServiceStopCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "stop",
 		Short: "Stop haproxy service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -734,8 +769,13 @@ func newHaproxyServiceStopCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceStop(context.Background(), nil)
+			resp, err := s.ServiceStop(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -743,6 +783,8 @@ func newHaproxyServiceStopCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 // haproxyAclColumns defines table columns for the Acl resource.
@@ -3043,7 +3085,7 @@ func newHaproxyMailerCmd() *cobra.Command {
 }
 
 func newHaproxyMailerCreateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "create",
 		Short: "Create haproxy mailer",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -3051,8 +3093,13 @@ func newHaproxyMailerCreateCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsAddmailer(context.Background(), nil)
+			resp, err := s.SettingsAddmailer(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -3060,10 +3107,12 @@ func newHaproxyMailerCreateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newHaproxyMailerDeleteCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "delete <uuid>",
 		Short: "Delete haproxy mailer",
 		Args:  cobra.ExactArgs(1),
@@ -3073,7 +3122,12 @@ func newHaproxyMailerDeleteCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsDelmailer(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.SettingsDelmailer(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -3081,6 +3135,8 @@ func newHaproxyMailerDeleteCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newHaproxyMailerGetCmd() *cobra.Command {
@@ -3104,7 +3160,7 @@ func newHaproxyMailerGetCmd() *cobra.Command {
 }
 
 func newHaproxyMailerUpdateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "update <uuid>",
 		Short: "Update haproxy mailer",
 		Args:  cobra.ExactArgs(1),
@@ -3114,7 +3170,12 @@ func newHaproxyMailerUpdateCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSetmailer(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.SettingsSetmailer(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -3122,10 +3183,12 @@ func newHaproxyMailerUpdateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newHaproxyMailerToggleCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "toggle <uuid>",
 		Short: "Toggle haproxy mailer",
 		Args:  cobra.ExactArgs(1),
@@ -3135,7 +3198,12 @@ func newHaproxyMailerToggleCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsTogglemailer(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.SettingsTogglemailer(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -3143,10 +3211,12 @@ func newHaproxyMailerToggleCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newHaproxyMailerListCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "list",
 		Short: "List haproxy mailer",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -3154,8 +3224,13 @@ func newHaproxyMailerListCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSearchmailers(context.Background(), nil)
+			resp, err := s.SettingsSearchmailers(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -3163,6 +3238,8 @@ func newHaproxyMailerListCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newHaproxyResolverCmd() *cobra.Command {
@@ -3180,7 +3257,7 @@ func newHaproxyResolverCmd() *cobra.Command {
 }
 
 func newHaproxyResolverCreateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "create",
 		Short: "Create haproxy resolver",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -3188,8 +3265,13 @@ func newHaproxyResolverCreateCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsAddresolver(context.Background(), nil)
+			resp, err := s.SettingsAddresolver(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -3197,10 +3279,12 @@ func newHaproxyResolverCreateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newHaproxyResolverDeleteCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "delete <uuid>",
 		Short: "Delete haproxy resolver",
 		Args:  cobra.ExactArgs(1),
@@ -3210,7 +3294,12 @@ func newHaproxyResolverDeleteCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsDelresolver(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.SettingsDelresolver(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -3218,6 +3307,8 @@ func newHaproxyResolverDeleteCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newHaproxyResolverGetCmd() *cobra.Command {
@@ -3241,7 +3332,7 @@ func newHaproxyResolverGetCmd() *cobra.Command {
 }
 
 func newHaproxyResolverUpdateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "update <uuid>",
 		Short: "Update haproxy resolver",
 		Args:  cobra.ExactArgs(1),
@@ -3251,7 +3342,12 @@ func newHaproxyResolverUpdateCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSetresolver(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.SettingsSetresolver(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -3259,10 +3355,12 @@ func newHaproxyResolverUpdateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newHaproxyResolverToggleCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "toggle <uuid>",
 		Short: "Toggle haproxy resolver",
 		Args:  cobra.ExactArgs(1),
@@ -3272,7 +3370,12 @@ func newHaproxyResolverToggleCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsToggleresolver(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.SettingsToggleresolver(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -3280,10 +3383,12 @@ func newHaproxyResolverToggleCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newHaproxyResolverListCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "list",
 		Short: "List haproxy resolver",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -3291,8 +3396,13 @@ func newHaproxyResolverListCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSearchresolvers(context.Background(), nil)
+			resp, err := s.SettingsSearchresolvers(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -3300,6 +3410,8 @@ func newHaproxyResolverListCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newHaproxySettingsCmd() *cobra.Command {
@@ -3333,7 +3445,7 @@ func newHaproxySettingsGetCmd() *cobra.Command {
 }
 
 func newHaproxySettingsSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set haproxy settings",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -3341,8 +3453,13 @@ func newHaproxySettingsSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSet(context.Background(), nil)
+			resp, err := s.SettingsSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -3350,6 +3467,8 @@ func newHaproxySettingsSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newHaproxyStatisticsCmd() *cobra.Command {

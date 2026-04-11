@@ -4,6 +4,7 @@ package gen
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 
 	"github.com/jontk/opnsense-cli/internal/cli"
@@ -54,7 +55,7 @@ func newRelaydServiceCmd() *cobra.Command {
 }
 
 func newRelaydServiceConfigtestCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "configtest",
 		Short: "Configtest relayd service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -62,8 +63,13 @@ func newRelaydServiceConfigtestCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceConfigtest(context.Background(), nil)
+			resp, err := s.ServiceConfigtest(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -71,10 +77,12 @@ func newRelaydServiceConfigtestCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newRelaydServiceReconfigureCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "reconfigure",
 		Short: "Reconfigure relayd service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -82,8 +90,13 @@ func newRelaydServiceReconfigureCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceReconfigure(context.Background(), nil)
+			resp, err := s.ServiceReconfigure(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -91,10 +104,12 @@ func newRelaydServiceReconfigureCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newRelaydServiceRestartCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "restart",
 		Short: "Restart relayd service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -102,8 +117,13 @@ func newRelaydServiceRestartCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceRestart(context.Background(), nil)
+			resp, err := s.ServiceRestart(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -111,10 +131,12 @@ func newRelaydServiceRestartCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newRelaydServiceStartCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "start",
 		Short: "Start relayd service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -122,8 +144,13 @@ func newRelaydServiceStartCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceStart(context.Background(), nil)
+			resp, err := s.ServiceStart(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -131,6 +158,8 @@ func newRelaydServiceStartCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newRelaydServiceStatusCmd() *cobra.Command {
@@ -154,7 +183,7 @@ func newRelaydServiceStatusCmd() *cobra.Command {
 }
 
 func newRelaydServiceStopCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "stop",
 		Short: "Stop relayd service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -162,8 +191,13 @@ func newRelaydServiceStopCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceStop(context.Background(), nil)
+			resp, err := s.ServiceStop(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -171,6 +205,8 @@ func newRelaydServiceStopCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newRelaydSettingsCmd() *cobra.Command {
@@ -248,7 +284,7 @@ func newRelaydSettingsGetCmd() *cobra.Command {
 }
 
 func newRelaydSettingsSearchCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "search",
 		Short: "Search relayd settings",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -256,8 +292,13 @@ func newRelaydSettingsSearchCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSearch(context.Background(), nil)
+			resp, err := s.SettingsSearch(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -265,10 +306,12 @@ func newRelaydSettingsSearchCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newRelaydSettingsSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set relayd settings",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -276,8 +319,13 @@ func newRelaydSettingsSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSet(context.Background(), nil)
+			resp, err := s.SettingsSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -285,10 +333,12 @@ func newRelaydSettingsSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newRelaydSettingsToggleCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "toggle <nodeType> <uuid>",
 		Short: "Toggle relayd settings",
 		Args:  cobra.ExactArgs(2),
@@ -298,7 +348,12 @@ func newRelaydSettingsToggleCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsToggle(context.Background(), args[0], args[1], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.SettingsToggle(context.Background(), args[0], args[1], body)
 			if err != nil {
 				return err
 			}
@@ -306,6 +361,8 @@ func newRelaydSettingsToggleCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newRelaydStatusCmd() *cobra.Command {
@@ -339,7 +396,7 @@ func newRelaydStatusSumCmd() *cobra.Command {
 }
 
 func newRelaydStatusToggleCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "toggle",
 		Short: "Toggle relayd status",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -347,8 +404,13 @@ func newRelaydStatusToggleCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.StatusToggle(context.Background(), nil)
+			resp, err := s.StatusToggle(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -356,4 +418,6 @@ func newRelaydStatusToggleCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }

@@ -65,7 +65,7 @@ func newProxyServiceCmd() *cobra.Command {
 }
 
 func newProxyServiceDownloadaclsCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "downloadacls",
 		Short: "Downloadacls proxy service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -73,8 +73,13 @@ func newProxyServiceDownloadaclsCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceDownloadacls(context.Background(), nil)
+			resp, err := s.ServiceDownloadacls(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -82,10 +87,12 @@ func newProxyServiceDownloadaclsCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newProxyServiceFetchaclsCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "fetchacls",
 		Short: "Fetchacls proxy service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -93,8 +100,13 @@ func newProxyServiceFetchaclsCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceFetchacls(context.Background(), nil)
+			resp, err := s.ServiceFetchacls(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -102,10 +114,12 @@ func newProxyServiceFetchaclsCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newProxyServiceReconfigureCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "reconfigure",
 		Short: "Reconfigure proxy service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -113,8 +127,13 @@ func newProxyServiceReconfigureCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceReconfigure(context.Background(), nil)
+			resp, err := s.ServiceReconfigure(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -122,10 +141,12 @@ func newProxyServiceReconfigureCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newProxyServiceRefreshTemplateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "refresh-template",
 		Short: "RefreshTemplate proxy service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -133,8 +154,13 @@ func newProxyServiceRefreshTemplateCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceRefreshTemplate(context.Background(), nil)
+			resp, err := s.ServiceRefreshTemplate(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -142,10 +168,12 @@ func newProxyServiceRefreshTemplateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newProxyServiceResetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "reset",
 		Short: "Reset proxy service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -153,8 +181,13 @@ func newProxyServiceResetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceReset(context.Background(), nil)
+			resp, err := s.ServiceReset(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -162,6 +195,8 @@ func newProxyServiceResetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newProxyServiceRestartCmd() *cobra.Command {
@@ -225,7 +260,7 @@ func newProxyServiceStatusCmd() *cobra.Command {
 }
 
 func newProxyServiceStopCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "stop",
 		Short: "Stop proxy service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -233,8 +268,13 @@ func newProxyServiceStopCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceStop(context.Background(), nil)
+			resp, err := s.ServiceStop(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -242,6 +282,8 @@ func newProxyServiceStopCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 // proxyPacRuleColumns defines table columns for the PacRule resource.
@@ -803,7 +845,7 @@ func newProxyRemoteBlacklistCmd() *cobra.Command {
 }
 
 func newProxyRemoteBlacklistCreateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "create",
 		Short: "Create proxy remote-blacklist",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -811,8 +853,13 @@ func newProxyRemoteBlacklistCreateCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsAddRemoteBlacklist(context.Background(), nil)
+			resp, err := s.SettingsAddRemoteBlacklist(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -820,10 +867,12 @@ func newProxyRemoteBlacklistCreateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newProxyRemoteBlacklistDeleteCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "delete <uuid>",
 		Short: "Delete proxy remote-blacklist",
 		Args:  cobra.ExactArgs(1),
@@ -833,7 +882,12 @@ func newProxyRemoteBlacklistDeleteCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsDelRemoteBlacklist(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.SettingsDelRemoteBlacklist(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -841,6 +895,8 @@ func newProxyRemoteBlacklistDeleteCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newProxyRemoteBlacklistGetCmd() *cobra.Command {
@@ -864,7 +920,7 @@ func newProxyRemoteBlacklistGetCmd() *cobra.Command {
 }
 
 func newProxyRemoteBlacklistUpdateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "update <uuid>",
 		Short: "Update proxy remote-blacklist",
 		Args:  cobra.ExactArgs(1),
@@ -874,7 +930,12 @@ func newProxyRemoteBlacklistUpdateCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSetRemoteBlacklist(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.SettingsSetRemoteBlacklist(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -882,10 +943,12 @@ func newProxyRemoteBlacklistUpdateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newProxyRemoteBlacklistToggleCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "toggle <uuid>",
 		Short: "Toggle proxy remote-blacklist",
 		Args:  cobra.ExactArgs(1),
@@ -895,7 +958,12 @@ func newProxyRemoteBlacklistToggleCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsToggleRemoteBlacklist(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.SettingsToggleRemoteBlacklist(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -903,6 +971,8 @@ func newProxyRemoteBlacklistToggleCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newProxyRemoteBlacklistListCmd() *cobra.Command {
@@ -937,7 +1007,7 @@ func newProxySettingsCmd() *cobra.Command {
 }
 
 func newProxySettingsFetchRbCronCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "fetch-rb-cron",
 		Short: "FetchRbCron proxy settings",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -945,8 +1015,13 @@ func newProxySettingsFetchRbCronCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsFetchRbCron(context.Background(), nil)
+			resp, err := s.SettingsFetchRbCron(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -954,6 +1029,8 @@ func newProxySettingsFetchRbCronCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newProxySettingsGetCmd() *cobra.Command {
@@ -977,7 +1054,7 @@ func newProxySettingsGetCmd() *cobra.Command {
 }
 
 func newProxySettingsSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set proxy settings",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -985,8 +1062,13 @@ func newProxySettingsSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSet(context.Background(), nil)
+			resp, err := s.SettingsSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -994,6 +1076,8 @@ func newProxySettingsSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newProxyTemplateCmd() *cobra.Command {
@@ -1028,7 +1112,7 @@ func newProxyTemplateGetCmd() *cobra.Command {
 }
 
 func newProxyTemplateResetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "reset",
 		Short: "Reset proxy template",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1036,8 +1120,13 @@ func newProxyTemplateResetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.TemplateReset(context.Background(), nil)
+			resp, err := s.TemplateReset(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1045,10 +1134,12 @@ func newProxyTemplateResetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newProxyTemplateSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set proxy template",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1056,8 +1147,13 @@ func newProxyTemplateSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.TemplateSet(context.Background(), nil)
+			resp, err := s.TemplateSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1065,6 +1161,8 @@ func newProxyTemplateSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newProxyCustomPolicyCmd() *cobra.Command {
@@ -1082,7 +1180,7 @@ func newProxyCustomPolicyCmd() *cobra.Command {
 }
 
 func newProxyCustomPolicyCreateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "create",
 		Short: "Create proxy custom-policy",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1090,8 +1188,13 @@ func newProxyCustomPolicyCreateCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.AclAddCustomPolicy(context.Background(), nil)
+			resp, err := s.AclAddCustomPolicy(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1099,10 +1202,12 @@ func newProxyCustomPolicyCreateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newProxyCustomPolicyDeleteCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "delete <uuid>",
 		Short: "Delete proxy custom-policy",
 		Args:  cobra.ExactArgs(1),
@@ -1112,7 +1217,12 @@ func newProxyCustomPolicyDeleteCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.AclDelCustomPolicy(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.AclDelCustomPolicy(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -1120,6 +1230,8 @@ func newProxyCustomPolicyDeleteCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newProxyCustomPolicyGetCmd() *cobra.Command {
@@ -1143,7 +1255,7 @@ func newProxyCustomPolicyGetCmd() *cobra.Command {
 }
 
 func newProxyCustomPolicyListCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "list",
 		Short: "List proxy custom-policy",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1151,8 +1263,13 @@ func newProxyCustomPolicyListCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.AclSearchCustomPolicy(context.Background(), nil)
+			resp, err := s.AclSearchCustomPolicy(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1160,10 +1277,12 @@ func newProxyCustomPolicyListCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newProxyCustomPolicyUpdateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "update <uuid>",
 		Short: "Update proxy custom-policy",
 		Args:  cobra.ExactArgs(1),
@@ -1173,7 +1292,12 @@ func newProxyCustomPolicyUpdateCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.AclSetCustomPolicy(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.AclSetCustomPolicy(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -1181,10 +1305,12 @@ func newProxyCustomPolicyUpdateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newProxyCustomPolicyToggleCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "toggle <uuid>",
 		Short: "Toggle proxy custom-policy",
 		Args:  cobra.ExactArgs(1),
@@ -1194,7 +1320,12 @@ func newProxyCustomPolicyToggleCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.AclToggleCustomPolicy(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.AclToggleCustomPolicy(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -1202,6 +1333,8 @@ func newProxyCustomPolicyToggleCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newProxyPolicyCmd() *cobra.Command {
@@ -1219,7 +1352,7 @@ func newProxyPolicyCmd() *cobra.Command {
 }
 
 func newProxyPolicyCreateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "create",
 		Short: "Create proxy policy",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1227,8 +1360,13 @@ func newProxyPolicyCreateCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.AclAddPolicy(context.Background(), nil)
+			resp, err := s.AclAddPolicy(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1236,10 +1374,12 @@ func newProxyPolicyCreateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newProxyPolicyDeleteCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "delete <uuid>",
 		Short: "Delete proxy policy",
 		Args:  cobra.ExactArgs(1),
@@ -1249,7 +1389,12 @@ func newProxyPolicyDeleteCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.AclDelPolicy(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.AclDelPolicy(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -1257,6 +1402,8 @@ func newProxyPolicyDeleteCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newProxyPolicyGetCmd() *cobra.Command {
@@ -1280,7 +1427,7 @@ func newProxyPolicyGetCmd() *cobra.Command {
 }
 
 func newProxyPolicyListCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "list",
 		Short: "List proxy policy",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1288,8 +1435,13 @@ func newProxyPolicyListCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.AclSearchPolicy(context.Background(), nil)
+			resp, err := s.AclSearchPolicy(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1297,10 +1449,12 @@ func newProxyPolicyListCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newProxyPolicyUpdateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "update <uuid>",
 		Short: "Update proxy policy",
 		Args:  cobra.ExactArgs(1),
@@ -1310,7 +1464,12 @@ func newProxyPolicyUpdateCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.AclSetPolicy(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.AclSetPolicy(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -1318,10 +1477,12 @@ func newProxyPolicyUpdateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newProxyPolicyToggleCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "toggle <uuid>",
 		Short: "Toggle proxy policy",
 		Args:  cobra.ExactArgs(1),
@@ -1331,7 +1492,12 @@ func newProxyPolicyToggleCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.AclTogglePolicy(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.AclTogglePolicy(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -1339,6 +1505,8 @@ func newProxyPolicyToggleCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newProxyAclCmd() *cobra.Command {
@@ -1354,7 +1522,7 @@ func newProxyAclCmd() *cobra.Command {
 }
 
 func newProxyAclApplyCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "apply",
 		Short: "Apply proxy acl",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1362,8 +1530,13 @@ func newProxyAclApplyCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.AclApply(context.Background(), nil)
+			resp, err := s.AclApply(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1371,6 +1544,8 @@ func newProxyAclApplyCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newProxyAclGetCmd() *cobra.Command {
@@ -1394,7 +1569,7 @@ func newProxyAclGetCmd() *cobra.Command {
 }
 
 func newProxyAclSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set proxy acl",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1402,8 +1577,13 @@ func newProxyAclSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.AclSet(context.Background(), nil)
+			resp, err := s.AclSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1411,10 +1591,12 @@ func newProxyAclSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newProxyAclTestCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "test",
 		Short: "Test proxy acl",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1422,8 +1604,13 @@ func newProxyAclTestCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.AclTest(context.Background(), nil)
+			resp, err := s.AclTest(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1431,4 +1618,6 @@ func newProxyAclTestCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }

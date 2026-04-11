@@ -147,7 +147,7 @@ func newCoreBackupProvidersCmd() *cobra.Command {
 }
 
 func newCoreBackupRevertBackupCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "revert-backup <backup>",
 		Short: "RevertBackup core backup",
 		Args:  cobra.ExactArgs(1),
@@ -157,7 +157,12 @@ func newCoreBackupRevertBackupCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.BackupRevertBackup(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.BackupRevertBackup(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -165,6 +170,8 @@ func newCoreBackupRevertBackupCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newCoreEteBackupCmd() *cobra.Command {
@@ -177,7 +184,7 @@ func newCoreEteBackupCmd() *cobra.Command {
 }
 
 func newCoreEteBackupDeleteCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "delete <backup>",
 		Short: "Delete core ete-backup",
 		Args:  cobra.ExactArgs(1),
@@ -187,7 +194,12 @@ func newCoreEteBackupDeleteCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.BackupDeleteBackup(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.BackupDeleteBackup(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -195,6 +207,8 @@ func newCoreEteBackupDeleteCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newCoreDashboardCmd() *cobra.Command {
@@ -271,7 +285,7 @@ func newCoreDashboardProductInfoFeedCmd() *cobra.Command {
 }
 
 func newCoreDashboardRestoreDefaultsCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "restore-defaults",
 		Short: "RestoreDefaults core dashboard",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -279,8 +293,13 @@ func newCoreDashboardRestoreDefaultsCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.DashboardRestoreDefaults(context.Background(), nil)
+			resp, err := s.DashboardRestoreDefaults(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -288,10 +307,12 @@ func newCoreDashboardRestoreDefaultsCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newCoreDashboardSaveWidgetsCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "save-widgets",
 		Short: "SaveWidgets core dashboard",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -299,8 +320,13 @@ func newCoreDashboardSaveWidgetsCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.DashboardSaveWidgets(context.Background(), nil)
+			resp, err := s.DashboardSaveWidgets(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -308,6 +334,8 @@ func newCoreDashboardSaveWidgetsCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newCoreDefaultsCmd() *cobra.Command {
@@ -322,7 +350,7 @@ func newCoreDefaultsCmd() *cobra.Command {
 }
 
 func newCoreDefaultsFactoryDefaultsCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "factory-defaults",
 		Short: "FactoryDefaults core defaults",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -330,8 +358,13 @@ func newCoreDefaultsFactoryDefaultsCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.DefaultsFactoryDefaults(context.Background(), nil)
+			resp, err := s.DefaultsFactoryDefaults(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -339,6 +372,8 @@ func newCoreDefaultsFactoryDefaultsCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newCoreDefaultsGetCmd() *cobra.Command {
@@ -362,7 +397,7 @@ func newCoreDefaultsGetCmd() *cobra.Command {
 }
 
 func newCoreDefaultsResetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "reset",
 		Short: "Reset core defaults",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -370,8 +405,13 @@ func newCoreDefaultsResetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.DefaultsReset(context.Background(), nil)
+			resp, err := s.DefaultsReset(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -379,6 +419,8 @@ func newCoreDefaultsResetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newCoreInstalledSectionsCmd() *cobra.Command {
@@ -442,7 +484,7 @@ func newCoreHasyncGetCmd() *cobra.Command {
 }
 
 func newCoreHasyncReconfigureCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "reconfigure",
 		Short: "Reconfigure core hasync",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -450,8 +492,13 @@ func newCoreHasyncReconfigureCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.HasyncReconfigure(context.Background(), nil)
+			resp, err := s.HasyncReconfigure(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -459,10 +506,12 @@ func newCoreHasyncReconfigureCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newCoreHasyncSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set core hasync",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -470,8 +519,13 @@ func newCoreHasyncSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.HasyncSet(context.Background(), nil)
+			resp, err := s.HasyncSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -479,6 +533,8 @@ func newCoreHasyncSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newCoreHasyncStatusCmd() *cobra.Command {
@@ -518,7 +574,7 @@ func newCoreHasyncStatusRemoteServiceCmd() *cobra.Command {
 }
 
 func newCoreHasyncStatusRestartCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "restart",
 		Short: "Restart core hasync-status",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -526,8 +582,13 @@ func newCoreHasyncStatusRestartCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.HasyncStatusRestart(context.Background(), nil)
+			resp, err := s.HasyncStatusRestart(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -535,10 +596,12 @@ func newCoreHasyncStatusRestartCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newCoreHasyncStatusRestartAllCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "restart-all",
 		Short: "RestartAll core hasync-status",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -546,8 +609,13 @@ func newCoreHasyncStatusRestartAllCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.HasyncStatusRestartAll(context.Background(), nil)
+			resp, err := s.HasyncStatusRestartAll(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -555,6 +623,8 @@ func newCoreHasyncStatusRestartAllCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newCoreHasyncStatusServicesCmd() *cobra.Command {
@@ -578,7 +648,7 @@ func newCoreHasyncStatusServicesCmd() *cobra.Command {
 }
 
 func newCoreHasyncStatusStartCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "start",
 		Short: "Start core hasync-status",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -586,8 +656,13 @@ func newCoreHasyncStatusStartCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.HasyncStatusStart(context.Background(), nil)
+			resp, err := s.HasyncStatusStart(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -595,10 +670,12 @@ func newCoreHasyncStatusStartCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newCoreHasyncStatusStopCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "stop",
 		Short: "Stop core hasync-status",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -606,8 +683,13 @@ func newCoreHasyncStatusStopCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.HasyncStatusStop(context.Background(), nil)
+			resp, err := s.HasyncStatusStop(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -615,6 +697,8 @@ func newCoreHasyncStatusStopCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newCoreHasyncStatusVersionCmd() *cobra.Command {
@@ -650,7 +734,7 @@ func newCoreInitialSetupCmd() *cobra.Command {
 }
 
 func newCoreInitialSetupAbortCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "abort",
 		Short: "Abort core initial-setup",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -658,8 +742,13 @@ func newCoreInitialSetupAbortCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.InitialSetupAbort(context.Background(), nil)
+			resp, err := s.InitialSetupAbort(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -667,6 +756,8 @@ func newCoreInitialSetupAbortCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newCoreInitialSetupConfigureCmd() *cobra.Command {
@@ -710,7 +801,7 @@ func newCoreInitialSetupGetCmd() *cobra.Command {
 }
 
 func newCoreInitialSetupSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set core initial-setup",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -718,8 +809,13 @@ func newCoreInitialSetupSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.InitialSetupSet(context.Background(), nil)
+			resp, err := s.InitialSetupSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -727,6 +823,8 @@ func newCoreInitialSetupSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newCoreMenuCmd() *cobra.Command {
@@ -792,7 +890,7 @@ func newCoreServiceCmd() *cobra.Command {
 }
 
 func newCoreServiceRestartCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "restart <name>",
 		Short: "Restart core service",
 		Args:  cobra.ExactArgs(1),
@@ -802,7 +900,12 @@ func newCoreServiceRestartCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceRestart(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.ServiceRestart(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -810,6 +913,8 @@ func newCoreServiceRestartCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newCoreServiceSearchCmd() *cobra.Command {
@@ -833,7 +938,7 @@ func newCoreServiceSearchCmd() *cobra.Command {
 }
 
 func newCoreServiceStartCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "start <name>",
 		Short: "Start core service",
 		Args:  cobra.ExactArgs(1),
@@ -843,7 +948,12 @@ func newCoreServiceStartCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceStart(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.ServiceStart(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -851,10 +961,12 @@ func newCoreServiceStartCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newCoreServiceStopCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "stop <name>",
 		Short: "Stop core service",
 		Args:  cobra.ExactArgs(1),
@@ -864,7 +976,12 @@ func newCoreServiceStopCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceStop(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.ServiceStop(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -872,6 +989,8 @@ func newCoreServiceStopCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newCoreSnapshotsCmd() *cobra.Command {
@@ -890,7 +1009,7 @@ func newCoreSnapshotsCmd() *cobra.Command {
 }
 
 func newCoreSnapshotsActivateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "activate <uuid>",
 		Short: "Activate core snapshots",
 		Args:  cobra.ExactArgs(1),
@@ -900,7 +1019,12 @@ func newCoreSnapshotsActivateCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SnapshotsActivate(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.SnapshotsActivate(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -908,10 +1032,12 @@ func newCoreSnapshotsActivateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newCoreSnapshotsAddCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "add",
 		Short: "Add core snapshots",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -919,8 +1045,13 @@ func newCoreSnapshotsAddCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SnapshotsAdd(context.Background(), nil)
+			resp, err := s.SnapshotsAdd(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -928,10 +1059,12 @@ func newCoreSnapshotsAddCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newCoreSnapshotsDelCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "del <uuid>",
 		Short: "Del core snapshots",
 		Args:  cobra.ExactArgs(1),
@@ -941,7 +1074,12 @@ func newCoreSnapshotsDelCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SnapshotsDel(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.SnapshotsDel(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -949,6 +1087,8 @@ func newCoreSnapshotsDelCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newCoreSnapshotsGetCmd() *cobra.Command {
@@ -1012,7 +1152,7 @@ func newCoreSnapshotsSearchCmd() *cobra.Command {
 }
 
 func newCoreSnapshotsSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set <uuid>",
 		Short: "Set core snapshots",
 		Args:  cobra.ExactArgs(1),
@@ -1022,7 +1162,12 @@ func newCoreSnapshotsSetCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SnapshotsSet(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.SnapshotsSet(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -1030,6 +1175,8 @@ func newCoreSnapshotsSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newCoreSystemCmd() *cobra.Command {
@@ -1045,7 +1192,7 @@ func newCoreSystemCmd() *cobra.Command {
 }
 
 func newCoreSystemDismissStatusCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "dismiss-status",
 		Short: "DismissStatus core system",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1053,8 +1200,13 @@ func newCoreSystemDismissStatusCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SystemDismissStatus(context.Background(), nil)
+			resp, err := s.SystemDismissStatus(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1062,10 +1214,12 @@ func newCoreSystemDismissStatusCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newCoreSystemHaltCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "halt",
 		Short: "Halt core system",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1073,8 +1227,13 @@ func newCoreSystemHaltCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SystemHalt(context.Background(), nil)
+			resp, err := s.SystemHalt(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1082,10 +1241,12 @@ func newCoreSystemHaltCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newCoreSystemRebootCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "reboot",
 		Short: "Reboot core system",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1093,8 +1254,13 @@ func newCoreSystemRebootCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SystemReboot(context.Background(), nil)
+			resp, err := s.SystemReboot(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1102,6 +1268,8 @@ func newCoreSystemRebootCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newCoreSystemStatusCmd() *cobra.Command {
@@ -1243,7 +1411,7 @@ func newCoreTunablesGetCmd() *cobra.Command {
 }
 
 func newCoreTunablesReconfigureCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "reconfigure",
 		Short: "Reconfigure core tunables",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1251,8 +1419,13 @@ func newCoreTunablesReconfigureCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.TunablesReconfigure(context.Background(), nil)
+			resp, err := s.TunablesReconfigure(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1260,10 +1433,12 @@ func newCoreTunablesReconfigureCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newCoreTunablesResetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "reset",
 		Short: "Reset core tunables",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1271,8 +1446,13 @@ func newCoreTunablesResetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.TunablesReset(context.Background(), nil)
+			resp, err := s.TunablesReset(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1280,6 +1460,8 @@ func newCoreTunablesResetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newCoreTunablesListCmd() *cobra.Command {
@@ -1307,7 +1489,7 @@ func newCoreTunablesListCmd() *cobra.Command {
 }
 
 func newCoreTunablesSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set core tunables",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1315,8 +1497,13 @@ func newCoreTunablesSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.TunablesSet(context.Background(), nil)
+			resp, err := s.TunablesSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1324,6 +1511,8 @@ func newCoreTunablesSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newCoreTunablesUpdateCmd() *cobra.Command {

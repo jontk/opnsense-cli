@@ -185,7 +185,7 @@ func newUnboundDiagnosticsStatsCmd() *cobra.Command {
 }
 
 func newUnboundDiagnosticsTestBlocklistCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "test-blocklist",
 		Short: "TestBlocklist unbound diagnostics",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -193,8 +193,13 @@ func newUnboundDiagnosticsTestBlocklistCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.DiagnosticsTestBlocklist(context.Background(), nil)
+			resp, err := s.DiagnosticsTestBlocklist(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -202,6 +207,8 @@ func newUnboundDiagnosticsTestBlocklistCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newUnboundOverviewCmd() *cobra.Command {
@@ -392,7 +399,7 @@ func newUnboundServiceDnsblCmd() *cobra.Command {
 }
 
 func newUnboundServiceReconfigureCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "reconfigure",
 		Short: "Reconfigure unbound service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -400,8 +407,13 @@ func newUnboundServiceReconfigureCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceReconfigure(context.Background(), nil)
+			resp, err := s.ServiceReconfigure(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -409,6 +421,8 @@ func newUnboundServiceReconfigureCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newUnboundServiceReconfigureGeneralCmd() *cobra.Command {
@@ -432,7 +446,7 @@ func newUnboundServiceReconfigureGeneralCmd() *cobra.Command {
 }
 
 func newUnboundServiceRestartCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "restart",
 		Short: "Restart unbound service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -440,8 +454,13 @@ func newUnboundServiceRestartCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceRestart(context.Background(), nil)
+			resp, err := s.ServiceRestart(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -449,10 +468,12 @@ func newUnboundServiceRestartCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newUnboundServiceStartCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "start",
 		Short: "Start unbound service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -460,8 +481,13 @@ func newUnboundServiceStartCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceStart(context.Background(), nil)
+			resp, err := s.ServiceStart(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -469,6 +495,8 @@ func newUnboundServiceStartCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newUnboundServiceStatusCmd() *cobra.Command {
@@ -492,7 +520,7 @@ func newUnboundServiceStatusCmd() *cobra.Command {
 }
 
 func newUnboundServiceStopCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "stop",
 		Short: "Stop unbound service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -500,8 +528,13 @@ func newUnboundServiceStopCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceStop(context.Background(), nil)
+			resp, err := s.ServiceStop(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -509,6 +542,8 @@ func newUnboundServiceStopCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 // unboundAclColumns defines table columns for the Acl resource.
@@ -1509,7 +1544,7 @@ func newUnboundSettingsGetCmd() *cobra.Command {
 }
 
 func newUnboundSettingsSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set unbound settings",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1517,8 +1552,13 @@ func newUnboundSettingsSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSet(context.Background(), nil)
+			resp, err := s.SettingsSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1526,10 +1566,12 @@ func newUnboundSettingsSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newUnboundSettingsUpdateBlocklistCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "update-blocklist",
 		Short: "UpdateBlocklist unbound settings",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1537,8 +1579,13 @@ func newUnboundSettingsUpdateBlocklistCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsUpdateBlocklist(context.Background(), nil)
+			resp, err := s.SettingsUpdateBlocklist(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1546,6 +1593,8 @@ func newUnboundSettingsUpdateBlocklistCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newUnboundNameserversCmd() *cobra.Command {
