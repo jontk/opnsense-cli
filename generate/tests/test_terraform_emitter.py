@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import pytest
 
-from generate.emitter.terraform_emitter import _build_field_views, _is_sensitive_field
+from generate.emitter.terraform_emitter import _build_field_views, _is_sensitive_field, _to_snake_case
 from generate.model.ir import ModelField, ModelItem
 
 
@@ -193,3 +193,39 @@ class TestSensitiveFieldDetection:
     def test_enckey_is_sensitive(self):
         """Net-SNMP enckey is an encryption passphrase — must be sensitive."""
         assert _is_sensitive_field("user", "enckey") is True
+
+
+class TestToSnakeCase:
+    def test_already_snake_is_unchanged(self):
+        assert _to_snake_case("enabled") == "enabled"
+        assert _to_snake_case("dns_challenge") == "dns_challenge"
+
+    def test_camel_case(self):
+        assert _to_snake_case("dnsChallenge") == "dns_challenge"
+        assert _to_snake_case("http2Enabled") == "http2_enabled"
+
+    def test_pascal_case(self):
+        assert _to_snake_case("DnsChallenge") == "dns_challenge"
+        assert _to_snake_case("StaticKey") == "static_key"
+        assert _to_snake_case("Key") == "key"
+
+    def test_acronym_sequences(self):
+        """Consecutive uppercase letters (acronyms) must stay grouped."""
+        assert _to_snake_case("AdvDNSSLLifetime") == "adv_dnssl_lifetime"
+        assert _to_snake_case("sslSNI") == "ssl_sni"
+
+    def test_mixed_underscores_and_camel(self):
+        assert _to_snake_case("ssl_advancedEnabled") == "ssl_advanced_enabled"
+        assert _to_snake_case("stickiness_bytesInRatePeriod") == "stickiness_bytes_in_rate_period"
+
+    def test_hyphens_become_underscores(self):
+        assert _to_snake_case("some-field") == "some_field"
+
+    def test_build_field_views_uses_snake_case(self):
+        """tf_name on a camelCase field must be snake_case."""
+        field = _make_field("dnsChallenge", required=False)
+        field.name = "dnsChallenge"
+        # Override json_name (used for tf_name):
+        field.json_name = "dnsChallenge"
+        views = _build_field_views(_make_item([field]))
+        assert views[0].tf_name == "dns_challenge"
