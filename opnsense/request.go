@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"math/rand/v2"
@@ -22,8 +23,17 @@ func (e *APIError) Error() string {
 	return fmt.Sprintf("opnsense: API error %d %s: %s", e.StatusCode, e.Status, e.Body)
 }
 
+// nonRetryableError wraps an error that must not be retried (e.g. a local
+// JSON decode failure). It unwraps transparently so callers can still use
+// errors.As/Is on the underlying error.
+type nonRetryableError struct{ err error }
+
+func (e *nonRetryableError) Error() string { return e.err.Error() }
+func (e *nonRetryableError) Unwrap() error { return e.err }
+
 // Do executes an API request. If WithRetry was configured, transient errors
 // (5xx responses and network errors) are retried with exponential backoff.
+// Non-idempotent methods (POST) are never retried to prevent duplicate mutations.
 //
 //   - method: HTTP method (GET, POST, etc.)
 //   - path: API path (e.g. /api/firewall/alias/addItem)
@@ -40,8 +50,14 @@ func (c *Client) Do(ctx context.Context, method, path string, body, resp any) er
 		}
 	}
 
-	var lastErr error
+	// Only idempotent methods (GET, HEAD) are safe to retry.
+	// POST mutates state and must not be replayed after a partial failure.
 	attempts := 1 + c.maxRetries
+	if method != http.MethodGet && method != http.MethodHead {
+		attempts = 1
+	}
+
+	var lastErr error
 	for attempt := range attempts {
 		lastErr = c.do(ctx, method, path, bodyData, resp)
 		if lastErr == nil {
@@ -104,7 +120,9 @@ func (c *Client) do(ctx context.Context, method, path string, bodyData []byte, r
 
 	if resp != nil && len(respBody) > 0 {
 		if err := json.Unmarshal(respBody, resp); err != nil {
-			return fmt.Errorf("opnsense: unmarshal response: %w", err)
+			// Wrap as non-retryable: a local decode failure is never transient
+			// and replaying the request cannot fix a malformed response.
+			return &nonRetryableError{fmt.Errorf("opnsense: unmarshal response: %w", err)}
 		}
 	}
 
@@ -112,11 +130,16 @@ func (c *Client) do(ctx context.Context, method, path string, bodyData []byte, r
 }
 
 // isRetryable returns true for transient errors: 5xx API errors and network errors.
+// Local decode failures wrapped as nonRetryableError are never retryable.
 func isRetryable(err error) bool {
 	if apiErr, ok := err.(*APIError); ok {
 		return apiErr.StatusCode >= 500
 	}
-	// Network errors (wrapped by Do) are retryable
+	var nre *nonRetryableError
+	if errors.As(err, &nre) {
+		return false
+	}
+	// Network errors (from http.Client.Do) are retryable
 	return true
 }
 
