@@ -31,6 +31,10 @@ _NO_UNDERSCORE_CRUD_BLACKLIST = frozenset({"delete", "deletekeytab"})
 _SENSITIVE_EXACT_NAMES: frozenset[str] = frozenset({
     "password", "psk", "secret", "privkey",
     "privatekey", "privateKey", "tunnel_password",
+    # Caddy basicauth password (distinct from 'basicauthuser' which is not sensitive)
+    "basicauthpass",
+    # Net-SNMP user encryption key (8-64 char passphrase used to derive AES/DES keys)
+    "enckey",
 })
 
 # Field-name suffixes that indicate credential material.
