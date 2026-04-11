@@ -171,7 +171,10 @@ func (r *{{ r.go_struct_name }}Resource) Create(ctx context.Context, req resourc
 	}
 {% endif %}
 
-	r.readIntoModel(ctx, result.UUID, &plan, &resp.Diagnostics)
+	if notFound := r.readIntoModel(ctx, result.UUID, &plan, &resp.Diagnostics); notFound {
+		resp.Diagnostics.AddError("Error creating {{ r.tf_type_name | replace('_', ' ') }}", "resource vanished immediately after creation")
+		return
+	}
 	if resp.Diagnostics.HasError() {
 		return
 	}
@@ -186,7 +189,10 @@ func (r *{{ r.go_struct_name }}Resource) Read(ctx context.Context, req resource.
 		return
 	}
 
-	r.readIntoModel(ctx, state.ID.ValueString(), &state, &resp.Diagnostics)
+	if notFound := r.readIntoModel(ctx, state.ID.ValueString(), &state, &resp.Diagnostics); notFound {
+		resp.State.RemoveResource(ctx)
+		return
+	}
 	if resp.Diagnostics.HasError() {
 		return
 	}
@@ -227,7 +233,10 @@ func (r *{{ r.go_struct_name }}Resource) Update(ctx context.Context, req resourc
 	}
 {% endif %}
 
-	r.readIntoModel(ctx, state.ID.ValueString(), &plan, &resp.Diagnostics)
+	if notFound := r.readIntoModel(ctx, state.ID.ValueString(), &plan, &resp.Diagnostics); notFound {
+		resp.Diagnostics.AddError("Error updating {{ r.tf_type_name | replace('_', ' ') }}", "resource not found after update")
+		return
+	}
 	if resp.Diagnostics.HasError() {
 		return
 	}
@@ -288,15 +297,21 @@ func (r *{{ r.go_struct_name }}Resource) modelToSDK(m *{{ r.go_struct_name }}Res
 	}
 }
 
-func (r *{{ r.go_struct_name }}Resource) readIntoModel(ctx context.Context, uuid string, m *{{ r.go_struct_name }}ResourceModel, diags *diag.Diagnostics) {
+// readIntoModel fetches the remote resource and populates m.
+// Returns true (and adds nothing to diags) when the resource no longer exists
+// on the remote host, allowing the caller to remove it from Terraform state.
+func (r *{{ r.go_struct_name }}Resource) readIntoModel(ctx context.Context, uuid string, m *{{ r.go_struct_name }}ResourceModel, diags *diag.Diagnostics) bool {
 {% if r.get_has_opts %}
 	item, err := r.client.{{ r.get_method }}(ctx, uuid)
 {% else %}
 	item, err := r.client.{{ r.get_method }}(ctx)
 {% endif %}
 	if err != nil {
+		if tfutil.IsNotFound(err) {
+			return true
+		}
 		diags.AddError("Error reading {{ r.tf_type_name | replace('_', ' ') }}", err.Error())
-		return
+		return false
 	}
 
 	m.ID = types.StringValue(uuid)
@@ -315,4 +330,5 @@ func (r *{{ r.go_struct_name }}Resource) readIntoModel(ctx context.Context, uuid
 	m.{{ f.go_name }} = tfutil.StringToTF(item.{{ f.go_name }})
 {% endif %}
 {% endfor %}
+	return false
 }
