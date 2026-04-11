@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import pytest
 
-from generate.emitter.terraform_emitter import _build_field_views
+from generate.emitter.terraform_emitter import _build_field_views, _is_sensitive_field
 from generate.model.ir import ModelField, ModelItem
 
 
@@ -125,3 +125,59 @@ class TestBuildFieldViewsDefaultValidation:
         views = _build_field_views(_make_item([field]))
         assert len(views) == 1
         assert views[0].default_value == "h1,h2"
+
+
+class TestSensitiveFieldDetection:
+    def test_password_is_sensitive(self):
+        assert _is_sensitive_field("user", "password") is True
+
+    def test_psk_is_sensitive(self):
+        assert _is_sensitive_field("client", "psk") is True
+
+    def test_secret_is_sensitive(self):
+        assert _is_sensitive_field("server", "secret") is True
+
+    def test_privkey_is_sensitive(self):
+        assert _is_sensitive_field("wireguard_server", "privkey") is True
+
+    def test_private_key_camel_is_sensitive(self):
+        assert _is_sensitive_field("keypair", "privateKey") is True
+
+    def test_tunnel_password_is_sensitive(self):
+        assert _is_sensitive_field("user", "tunnel_password") is True
+
+    def test_key_in_openvpn_context_is_sensitive(self):
+        """A field named 'key' in a non-excluded context must be sensitive."""
+        assert _is_sensitive_field("statickey", "key") is True
+
+    def test_key_in_ipsec_psk_context_is_sensitive(self):
+        assert _is_sensitive_field("psk", "Key") is True
+
+    def test_key_in_zabbix_alias_is_not_sensitive(self):
+        """zabbixagent alias key is a metric identifier, not a credential."""
+        assert _is_sensitive_field("alias", "key") is False
+
+    def test_key_in_zabbix_userparameter_is_not_sensitive(self):
+        assert _is_sensitive_field("userparameter", "key") is False
+
+    def test_name_field_is_not_sensitive(self):
+        assert _is_sensitive_field("user", "name") is False
+
+    def test_description_is_not_sensitive(self):
+        assert _is_sensitive_field("server", "description") is False
+
+    def test_enabled_is_not_sensitive(self):
+        assert _is_sensitive_field("server", "enabled") is False
+
+    def test_sensitive_field_sets_view_sensitive_true(self):
+        """_build_field_views must propagate sensitivity to TFFieldView."""
+        field = _make_field("password", required=False)
+        views = _build_field_views(_make_item([field]))
+        assert len(views) == 1
+        assert views[0].sensitive is True
+
+    def test_non_sensitive_field_sets_view_sensitive_false(self):
+        field = _make_field("description", required=False)
+        views = _build_field_views(_make_item([field]))
+        assert len(views) == 1
+        assert views[0].sensitive is False

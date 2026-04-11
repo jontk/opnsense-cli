@@ -27,6 +27,39 @@ _RESERVED_TYPE_NAMES = {"Client", "NewClient"}
 # Commands that start with a CRUD prefix but are NOT CRUD operations
 _NO_UNDERSCORE_CRUD_BLACKLIST = frozenset({"delete", "deletekeytab"})
 
+# Field names that always carry credential/secret material.
+_SENSITIVE_EXACT_NAMES: frozenset[str] = frozenset({
+    "password", "psk", "secret", "privkey",
+    "privatekey", "privateKey", "tunnel_password",
+})
+
+# Field-name suffixes that indicate credential material.
+_SENSITIVE_SUFFIXES: tuple[str, ...] = (
+    "_password", "_psk", "_secret", "_privkey",
+)
+
+# Fields literally named "key" or "Key" that are NOT credentials.
+# Matched against item.name (the XML container element name).
+_NON_SENSITIVE_KEY_CONTEXTS: frozenset[str] = frozenset({
+    "alias",           # zabbixagent: metric alias key (identifier, not a secret)
+    "userparameter",   # zabbixagent: user-parameter key (identifier, not a secret)
+})
+
+
+def _is_sensitive_field(item_name: str, field_name: str) -> bool:
+    """Return True if the field carries sensitive/secret material."""
+    fl = field_name.lower()
+    if fl in _SENSITIVE_EXACT_NAMES:
+        return True
+    for suffix in _SENSITIVE_SUFFIXES:
+        if fl.endswith(suffix):
+            return True
+    # "key" / "Key" is a credential unless the item is a known non-secret context.
+    if fl == "key" and item_name.lower() not in _NON_SENSITIVE_KEY_CONTEXTS:
+        return True
+    return False
+
+
 # Corrections for known-invalid defaults in source XML model files.
 # The docs/models directory is auto-generated (gitignored) and the upstream
 # XML occasionally has defaults that do not satisfy the field's own validators.
@@ -402,7 +435,7 @@ def _build_field_views(item: ModelItem) -> list[TFFieldView]:
             required=required,
             optional=optional,
             computed=computed,
-            sensitive=False,
+            sensitive=_is_sensitive_field(item.name, f.name),
             omitempty=omitempty,
             is_pointer=is_pointer,
             default_value=default_value,
