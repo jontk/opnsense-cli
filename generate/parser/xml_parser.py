@@ -273,12 +273,18 @@ def _parse_field(field_elem: ET.Element) -> ModelField | None:
     if multiple_elem is not None and multiple_elem.text:
         multiple = multiple_elem.text.strip().upper() in ("Y", "YES", "1", "TRUE")
 
-    # Extract option values
+    # Extract option values.
+    # OPNsense convention: if the element has a 'value' attribute, that is the
+    # actual stored/API value; the tag name is merely a valid XML identifier.
+    # When there is no 'value' attribute, the tag name IS the stored value.
     option_values = field_elem.find("OptionValues")
     if option_values is not None:
+        seen: set[str] = set()
         for opt in option_values:
-            opt_val = opt.tag
-            options.append(opt_val)
+            opt_val = opt.attrib.get("value", opt.tag)
+            if opt_val not in seen:
+                seen.add(opt_val)
+                options.append(opt_val)
 
     go_type = _field_type_to_go(field_type)
 
