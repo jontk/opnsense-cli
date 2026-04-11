@@ -11,7 +11,7 @@ type General struct {
 	AgentName     string           `json:"agent_name,omitempty"`
 	Protocol      string           `json:"protocol"`    // Required. Default: tcp. Valid: tcp, udp.
 	Port          opnsense.OPNInt  `json:"port"`        // Required. Default: 1514.
-	DebugLevel    string           `json:"debug_level"` // Required. Default: 0. Valid: val0, val1, val2.
+	DebugLevel    string           `json:"debug_level"` // Required. Default: 0. Valid: 0, 1, 2.
 }
 
 // Auth represents a auth model item.

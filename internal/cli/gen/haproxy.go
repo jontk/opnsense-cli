@@ -3070,6 +3070,58 @@ func newHaproxyUserListCmd() *cobra.Command {
 	}
 }
 
+// haproxyMailerColumns defines table columns for the Mailer resource.
+var haproxyMailerColumns = []cli.Column{
+	{Header: "NAME", Extract: func(row any) string {
+		if v, ok := row.(sdk.Mailer); ok {
+			return fmt.Sprint(v.Name)
+		}
+		return ""
+	}},
+	{Header: "ENABLED", Extract: func(row any) string {
+		if v, ok := row.(sdk.Mailer); ok {
+			return fmt.Sprint(v.Enabled)
+		}
+		return ""
+	}},
+	{Header: "DESCRIPTION", Extract: func(row any) string {
+		if v, ok := row.(sdk.Mailer); ok {
+			return fmt.Sprint(v.Description)
+		}
+		return ""
+	}},
+	{Header: "ID", Extract: func(row any) string {
+		if v, ok := row.(sdk.Mailer); ok {
+			return fmt.Sprint(v.Id)
+		}
+		return ""
+	}},
+	{Header: "MAILSERVERS", Extract: func(row any) string {
+		if v, ok := row.(sdk.Mailer); ok {
+			return fmt.Sprint(v.Mailservers)
+		}
+		return ""
+	}},
+	{Header: "SENDER", Extract: func(row any) string {
+		if v, ok := row.(sdk.Mailer); ok {
+			return fmt.Sprint(v.Sender)
+		}
+		return ""
+	}},
+	{Header: "RECIPIENT", Extract: func(row any) string {
+		if v, ok := row.(sdk.Mailer); ok {
+			return fmt.Sprint(v.Recipient)
+		}
+		return ""
+	}},
+	{Header: "LOGLEVEL", Extract: func(row any) string {
+		if v, ok := row.(sdk.Mailer); ok {
+			return fmt.Sprint(v.Loglevel)
+		}
+		return ""
+	}},
+}
+
 func newHaproxyMailerCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "mailer",
@@ -3094,17 +3146,17 @@ func newHaproxyMailerCreateCmd() *cobra.Command {
 				return err
 			}
 			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
+			var body sdk.Mailer
 			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
 				return fmt.Errorf("parsing --data: %w", err)
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsAddmailer(context.Background(), body)
+			resp, err := s.SettingsAddmailer(context.Background(), &body)
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
 	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
@@ -3112,7 +3164,7 @@ func newHaproxyMailerCreateCmd() *cobra.Command {
 }
 
 func newHaproxyMailerDeleteCmd() *cobra.Command {
-	cmd := &cobra.Command{
+	return &cobra.Command{
 		Use:   "delete <uuid>",
 		Short: "Delete haproxy mailer",
 		Args:  cobra.ExactArgs(1),
@@ -3122,21 +3174,14 @@ func newHaproxyMailerDeleteCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
-			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
-				return fmt.Errorf("parsing --data: %w", err)
-			}
-			resp, err := s.SettingsDelmailer(context.Background(), args[0], body)
+			resp, err := s.SettingsDelmailer(context.Background(), args[0])
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
-	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
-	return cmd
 }
 
 func newHaproxyMailerGetCmd() *cobra.Command {
@@ -3154,7 +3199,7 @@ func newHaproxyMailerGetCmd() *cobra.Command {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
 }
@@ -3169,18 +3214,18 @@ func newHaproxyMailerUpdateCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			s := sdk.NewClient(c)
 			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
+			var body sdk.Mailer
 			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
 				return fmt.Errorf("parsing --data: %w", err)
 			}
-			resp, err := s.SettingsSetmailer(context.Background(), args[0], body)
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsSetmailer(context.Background(), args[0], &body)
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
 	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
@@ -3188,7 +3233,7 @@ func newHaproxyMailerUpdateCmd() *cobra.Command {
 }
 
 func newHaproxyMailerToggleCmd() *cobra.Command {
-	cmd := &cobra.Command{
+	return &cobra.Command{
 		Use:   "toggle <uuid>",
 		Short: "Toggle haproxy mailer",
 		Args:  cobra.ExactArgs(1),
@@ -3198,48 +3243,93 @@ func newHaproxyMailerToggleCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
-			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
-				return fmt.Errorf("parsing --data: %w", err)
-			}
-			resp, err := s.SettingsTogglemailer(context.Background(), args[0], body)
+			resp, err := s.SettingsTogglemailer(context.Background(), args[0])
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
-	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
-	return cmd
 }
 
 func newHaproxyMailerListCmd() *cobra.Command {
-	cmd := &cobra.Command{
+	return &cobra.Command{
 		Use:   "list",
-		Short: "List haproxy mailer",
+		Short: "List haproxy mailer resources",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
-			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
-			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
-				return fmt.Errorf("parsing --data: %w", err)
-			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSearchmailers(context.Background(), body)
+			result, err := s.SettingsSearchmailers(context.Background(), map[string]any{"rowCount": -1, "current": 1})
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			rows := make([]any, len(result.Rows))
+			for i, r := range result.Rows {
+				rows[i] = r
+			}
+			return printer.PrintTable(rows, haproxyMailerColumns)
 		},
 	}
-	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
-	return cmd
+}
+
+// haproxyResolverColumns defines table columns for the Resolver resource.
+var haproxyResolverColumns = []cli.Column{
+	{Header: "NAME", Extract: func(row any) string {
+		if v, ok := row.(sdk.Resolver); ok {
+			return fmt.Sprint(v.Name)
+		}
+		return ""
+	}},
+	{Header: "ENABLED", Extract: func(row any) string {
+		if v, ok := row.(sdk.Resolver); ok {
+			return fmt.Sprint(v.Enabled)
+		}
+		return ""
+	}},
+	{Header: "DESCRIPTION", Extract: func(row any) string {
+		if v, ok := row.(sdk.Resolver); ok {
+			return fmt.Sprint(v.Description)
+		}
+		return ""
+	}},
+	{Header: "ID", Extract: func(row any) string {
+		if v, ok := row.(sdk.Resolver); ok {
+			return fmt.Sprint(v.Id)
+		}
+		return ""
+	}},
+	{Header: "NAMESERVERS", Extract: func(row any) string {
+		if v, ok := row.(sdk.Resolver); ok {
+			return fmt.Sprint(v.Nameservers)
+		}
+		return ""
+	}},
+	{Header: "PARSE RESOLV CONF", Extract: func(row any) string {
+		if v, ok := row.(sdk.Resolver); ok {
+			return fmt.Sprint(v.ParseResolvConf)
+		}
+		return ""
+	}},
+	{Header: "RESOLVE RETRIES", Extract: func(row any) string {
+		if v, ok := row.(sdk.Resolver); ok {
+			if v.ResolveRetries != nil {
+				return fmt.Sprint(*v.ResolveRetries)
+			}
+			return ""
+		}
+		return ""
+	}},
+	{Header: "TIMEOUT RESOLVE", Extract: func(row any) string {
+		if v, ok := row.(sdk.Resolver); ok {
+			return fmt.Sprint(v.TimeoutResolve)
+		}
+		return ""
+	}},
 }
 
 func newHaproxyResolverCmd() *cobra.Command {
@@ -3266,17 +3356,17 @@ func newHaproxyResolverCreateCmd() *cobra.Command {
 				return err
 			}
 			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
+			var body sdk.Resolver
 			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
 				return fmt.Errorf("parsing --data: %w", err)
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsAddresolver(context.Background(), body)
+			resp, err := s.SettingsAddresolver(context.Background(), &body)
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
 	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
@@ -3284,7 +3374,7 @@ func newHaproxyResolverCreateCmd() *cobra.Command {
 }
 
 func newHaproxyResolverDeleteCmd() *cobra.Command {
-	cmd := &cobra.Command{
+	return &cobra.Command{
 		Use:   "delete <uuid>",
 		Short: "Delete haproxy resolver",
 		Args:  cobra.ExactArgs(1),
@@ -3294,21 +3384,14 @@ func newHaproxyResolverDeleteCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
-			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
-				return fmt.Errorf("parsing --data: %w", err)
-			}
-			resp, err := s.SettingsDelresolver(context.Background(), args[0], body)
+			resp, err := s.SettingsDelresolver(context.Background(), args[0])
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
-	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
-	return cmd
 }
 
 func newHaproxyResolverGetCmd() *cobra.Command {
@@ -3326,7 +3409,7 @@ func newHaproxyResolverGetCmd() *cobra.Command {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
 }
@@ -3341,18 +3424,18 @@ func newHaproxyResolverUpdateCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			s := sdk.NewClient(c)
 			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
+			var body sdk.Resolver
 			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
 				return fmt.Errorf("parsing --data: %w", err)
 			}
-			resp, err := s.SettingsSetresolver(context.Background(), args[0], body)
+			s := sdk.NewClient(c)
+			resp, err := s.SettingsSetresolver(context.Background(), args[0], &body)
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
 	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
@@ -3360,7 +3443,7 @@ func newHaproxyResolverUpdateCmd() *cobra.Command {
 }
 
 func newHaproxyResolverToggleCmd() *cobra.Command {
-	cmd := &cobra.Command{
+	return &cobra.Command{
 		Use:   "toggle <uuid>",
 		Short: "Toggle haproxy resolver",
 		Args:  cobra.ExactArgs(1),
@@ -3370,48 +3453,38 @@ func newHaproxyResolverToggleCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
-			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
-				return fmt.Errorf("parsing --data: %w", err)
-			}
-			resp, err := s.SettingsToggleresolver(context.Background(), args[0], body)
+			resp, err := s.SettingsToggleresolver(context.Background(), args[0])
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			return printer.PrintGenericResponse(resp)
 		},
 	}
-	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
-	return cmd
 }
 
 func newHaproxyResolverListCmd() *cobra.Command {
-	cmd := &cobra.Command{
+	return &cobra.Command{
 		Use:   "list",
-		Short: "List haproxy resolver",
+		Short: "List haproxy resolver resources",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
-			dataStr, _ := cmd.Flags().GetString("data")
-			var body map[string]any
-			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
-				return fmt.Errorf("parsing --data: %w", err)
-			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSearchresolvers(context.Background(), body)
+			result, err := s.SettingsSearchresolvers(context.Background(), map[string]any{"rowCount": -1, "current": 1})
 			if err != nil {
 				return err
 			}
 			printer := cli.NewPrinter(cfg)
-			return printer.PrintJSON(resp)
+			rows := make([]any, len(result.Rows))
+			for i, r := range result.Rows {
+				rows[i] = r
+			}
+			return printer.PrintTable(rows, haproxyResolverColumns)
 		},
 	}
-	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
-	return cmd
 }
 
 func newHaproxySettingsCmd() *cobra.Command {

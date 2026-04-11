@@ -8,7 +8,7 @@ import "github.com/jontk/opnsense-cli/opnsense"
 type General struct {
 	Enabled          opnsense.OPNBool `json:"Enabled"` // Required. Default: 0.
 	UPSName          string           `json:"UPSName,omitempty"`
-	UPSCable         string           `json:"UPSCable"` // Required. Default: smart. Valid: option, option, option, option, option, option, option, option, option, option, option, option, option, option, option, option, option, option, option.
+	UPSCable         string           `json:"UPSCable"` // Required. Default: smart. Valid: simple, smart, ether, usb, 940-0020B, 940-0020C, 940-0023A, 940-0024B, 940-0024C, 940-0024G, 940-0095A, 940-0095B, 940-0095C, 940-0119A, 940-0127A, 940-0128A, 940-0625A, 940-1524C, MAM-04-02-2000.
 	UPSType          string           `json:"UPSType"`  // Required. Default: apcsmart. Valid: apcsmart, usb, net, snmp, netsnmp, dumb, pcnet, modbus.
 	Device           string           `json:"Device,omitempty"`
 	Polltime         opnsense.OPNInt  `json:"Polltime"`         // Required. Default: 60.

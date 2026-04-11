@@ -303,19 +303,19 @@ func (c *Client) SettingsAddUser(ctx context.Context, body *User) (*opnsense.Gen
 }
 
 // SettingsAddmailer calls POST /api/haproxy/settings/addmailer
-func (c *Client) SettingsAddmailer(ctx context.Context, body any) (any, error) {
+func (c *Client) SettingsAddmailer(ctx context.Context, body *Mailer) (*opnsense.GenericResponse, error) {
 	path := "/api/haproxy/settings/addmailer"
-	var resp any
-	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	var resp opnsense.GenericResponse
+	err := c.client.Do(ctx, "POST", path, map[string]any{"mailer": body}, &resp)
+	return &resp, err
 }
 
 // SettingsAddresolver calls POST /api/haproxy/settings/addresolver
-func (c *Client) SettingsAddresolver(ctx context.Context, body any) (any, error) {
+func (c *Client) SettingsAddresolver(ctx context.Context, body *Resolver) (*opnsense.GenericResponse, error) {
 	path := "/api/haproxy/settings/addresolver"
-	var resp any
-	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	var resp opnsense.GenericResponse
+	err := c.client.Do(ctx, "POST", path, map[string]any{"resolver": body}, &resp)
+	return &resp, err
 }
 
 // SettingsDelAcl calls POST /api/haproxy/settings/delAcl
@@ -451,21 +451,21 @@ func (c *Client) SettingsDelUser(ctx context.Context, uuid string) (*opnsense.Ge
 // SettingsDelmailer calls POST /api/haproxy/settings/delmailer
 // Parameters:
 //   - uuid
-func (c *Client) SettingsDelmailer(ctx context.Context, uuid string, body any) (any, error) {
+func (c *Client) SettingsDelmailer(ctx context.Context, uuid string) (*opnsense.GenericResponse, error) {
 	path := fmt.Sprintf("/api/haproxy/settings/delmailer/%s", uuid)
-	var resp any
-	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	var resp opnsense.GenericResponse
+	err := c.client.Do(ctx, "POST", path, nil, &resp)
+	return &resp, err
 }
 
 // SettingsDelresolver calls POST /api/haproxy/settings/delresolver
 // Parameters:
 //   - uuid
-func (c *Client) SettingsDelresolver(ctx context.Context, uuid string, body any) (any, error) {
+func (c *Client) SettingsDelresolver(ctx context.Context, uuid string) (*opnsense.GenericResponse, error) {
 	path := fmt.Sprintf("/api/haproxy/settings/delresolver/%s", uuid)
-	var resp any
-	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	var resp opnsense.GenericResponse
+	err := c.client.Do(ctx, "POST", path, nil, &resp)
+	return &resp, err
 }
 
 // SettingsGet calls GET /api/haproxy/settings/get
@@ -648,27 +648,27 @@ func (c *Client) SettingsGetUser(ctx context.Context, opts ...string) (*User, er
 // SettingsGetmailer calls GET /api/haproxy/settings/getmailer
 // Parameters:
 //   - uuid (optional, default: null)
-func (c *Client) SettingsGetmailer(ctx context.Context, opts ...string) (any, error) {
+func (c *Client) SettingsGetmailer(ctx context.Context, opts ...string) (*Mailer, error) {
 	path := "/api/haproxy/settings/getmailer"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp any
+	var resp mailerGetItemResponse
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
-	return resp, err
+	return &resp.Mailer, err
 }
 
 // SettingsGetresolver calls GET /api/haproxy/settings/getresolver
 // Parameters:
 //   - uuid (optional, default: null)
-func (c *Client) SettingsGetresolver(ctx context.Context, opts ...string) (any, error) {
+func (c *Client) SettingsGetresolver(ctx context.Context, opts ...string) (*Resolver, error) {
 	path := "/api/haproxy/settings/getresolver"
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp any
+	var resp resolverGetItemResponse
 	err := c.client.Do(ctx, "GET", path, nil, &resp)
-	return resp, err
+	return &resp.Resolver, err
 }
 
 // SettingsSearchAcls calls GET,POST /api/haproxy/settings/searchAcls
@@ -776,19 +776,19 @@ func (c *Client) SettingsSearchUsers(ctx context.Context, body any) (*opnsense.S
 }
 
 // SettingsSearchmailers calls GET,POST /api/haproxy/settings/searchmailers
-func (c *Client) SettingsSearchmailers(ctx context.Context, body any) (any, error) {
+func (c *Client) SettingsSearchmailers(ctx context.Context, body any) (*opnsense.SearchResult[Mailer], error) {
 	path := "/api/haproxy/settings/searchmailers"
-	var resp any
+	var resp opnsense.SearchResult[Mailer]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // SettingsSearchresolvers calls GET,POST /api/haproxy/settings/searchresolvers
-func (c *Client) SettingsSearchresolvers(ctx context.Context, body any) (any, error) {
+func (c *Client) SettingsSearchresolvers(ctx context.Context, body any) (*opnsense.SearchResult[Resolver], error) {
 	path := "/api/haproxy/settings/searchresolvers"
-	var resp any
+	var resp opnsense.SearchResult[Resolver]
 	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	return &resp, err
 }
 
 // SettingsSet calls POST /api/haproxy/settings/set
@@ -932,21 +932,21 @@ func (c *Client) SettingsSetUser(ctx context.Context, uuid string, body *User) (
 // SettingsSetmailer calls POST /api/haproxy/settings/setmailer
 // Parameters:
 //   - uuid
-func (c *Client) SettingsSetmailer(ctx context.Context, uuid string, body any) (any, error) {
+func (c *Client) SettingsSetmailer(ctx context.Context, uuid string, body *Mailer) (*opnsense.GenericResponse, error) {
 	path := fmt.Sprintf("/api/haproxy/settings/setmailer/%s", uuid)
-	var resp any
-	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	var resp opnsense.GenericResponse
+	err := c.client.Do(ctx, "POST", path, map[string]any{"mailer": body}, &resp)
+	return &resp, err
 }
 
 // SettingsSetresolver calls POST /api/haproxy/settings/setresolver
 // Parameters:
 //   - uuid
-func (c *Client) SettingsSetresolver(ctx context.Context, uuid string, body any) (any, error) {
+func (c *Client) SettingsSetresolver(ctx context.Context, uuid string, body *Resolver) (*opnsense.GenericResponse, error) {
 	path := fmt.Sprintf("/api/haproxy/settings/setresolver/%s", uuid)
-	var resp any
-	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	var resp opnsense.GenericResponse
+	err := c.client.Do(ctx, "POST", path, map[string]any{"resolver": body}, &resp)
+	return &resp, err
 }
 
 // SettingsToggleBackend calls POST /api/haproxy/settings/toggleBackend
@@ -1047,28 +1047,28 @@ func (c *Client) SettingsToggleUser(ctx context.Context, uuid string, opts ...st
 // Parameters:
 //   - uuid
 //   - enabled (optional, default: null)
-func (c *Client) SettingsTogglemailer(ctx context.Context, uuid string, body any, opts ...string) (any, error) {
+func (c *Client) SettingsTogglemailer(ctx context.Context, uuid string, opts ...string) (*opnsense.GenericResponse, error) {
 	path := fmt.Sprintf("/api/haproxy/settings/togglemailer/%s", uuid)
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp any
-	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	var resp opnsense.GenericResponse
+	err := c.client.Do(ctx, "POST", path, nil, &resp)
+	return &resp, err
 }
 
 // SettingsToggleresolver calls POST /api/haproxy/settings/toggleresolver
 // Parameters:
 //   - uuid
 //   - enabled (optional, default: null)
-func (c *Client) SettingsToggleresolver(ctx context.Context, uuid string, body any, opts ...string) (any, error) {
+func (c *Client) SettingsToggleresolver(ctx context.Context, uuid string, opts ...string) (*opnsense.GenericResponse, error) {
 	path := fmt.Sprintf("/api/haproxy/settings/toggleresolver/%s", uuid)
 	for _, o := range opts {
 		path += "/" + o
 	}
-	var resp any
-	err := c.client.Do(ctx, "POST", path, body, &resp)
-	return resp, err
+	var resp opnsense.GenericResponse
+	err := c.client.Do(ctx, "POST", path, nil, &resp)
+	return &resp, err
 }
 
 // StatisticsCounters calls GET /api/haproxy/statistics/counters

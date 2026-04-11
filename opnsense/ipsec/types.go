@@ -10,12 +10,12 @@ type Connection struct {
 	Proposals   string           `json:"proposals"`  // Required. Default: default.
 	Unique      string           `json:"unique"`     // Required. Default: no. Valid: no, never, keep, replace.
 	Aggressive  opnsense.OPNBool `json:"aggressive"` // Required. Default: 0.
-	Version     string           `json:"version"`    // Required. Default: 0. Valid: ike, ikev1, ikev2.
+	Version     string           `json:"version"`    // Required. Default: 0. Valid: 0, 1, 2.
 	Mobike      opnsense.OPNBool `json:"mobike"`     // Required. Default: 1.
 	LocalAddrs  string           `json:"local_addrs,omitempty"`
-	LocalPort   string           `json:"local_port,omitempty"` // Valid: port500, port4500.
+	LocalPort   string           `json:"local_port,omitempty"` // Valid: , 4500.
 	RemoteAddrs string           `json:"remote_addrs,omitempty"`
-	RemotePort  string           `json:"remote_port,omitempty"` // Valid: port500, port4500.
+	RemotePort  string           `json:"remote_port,omitempty"` // Valid: , 4500.
 	Encap       opnsense.OPNBool `json:"encap"`                 // Required. Default: 0.
 	ReauthTime  *opnsense.OPNInt `json:"reauth_time,omitempty"`
 	RekeyTime   *opnsense.OPNInt `json:"rekey_time,omitempty"`
@@ -36,7 +36,7 @@ type Local struct {
 	Enabled     opnsense.OPNBool `json:"enabled"`    // Required. Default: 1.
 	Connection  string           `json:"connection"` // Required.
 	Round       opnsense.OPNInt  `json:"round"`      // Required. Default: 0.
-	Auth        string           `json:"auth"`       // Required. Default: psk. Valid: psk, pubkey, eap_tls, eap_mschapv2, xauth_pam, eap_radius.
+	Auth        string           `json:"auth"`       // Required. Default: psk. Valid: psk, pubkey, eap-tls, eap-mschapv2, xauth-pam, eap-radius.
 	Id          string           `json:"id,omitempty"`
 	EapId       string           `json:"eap_id,omitempty"`
 	Certs       string           `json:"certs,omitempty"`
@@ -49,7 +49,7 @@ type Remote struct {
 	Enabled     opnsense.OPNBool `json:"enabled"`    // Required. Default: 1.
 	Connection  string           `json:"connection"` // Required.
 	Round       opnsense.OPNInt  `json:"round"`      // Required. Default: 0.
-	Auth        string           `json:"auth"`       // Required. Default: psk. Valid: psk, pubkey, eap_tls, eap_mschapv2, xauth_pam, eap_radius.
+	Auth        string           `json:"auth"`       // Required. Default: psk. Valid: psk, pubkey, eap-tls, eap-mschapv2, xauth-pam, eap-radius.
 	Id          string           `json:"id,omitempty"`
 	EapId       string           `json:"eap_id,omitempty"`
 	Groups      string           `json:"groups,omitempty"`
@@ -66,7 +66,7 @@ type Child struct {
 	Reqid        *opnsense.OPNInt `json:"reqid,omitempty"`
 	EspProposals string           `json:"esp_proposals"` // Required. Default: default.
 	Sha25696     opnsense.OPNBool `json:"sha256_96"`     // Required. Default: 0.
-	StartAction  string           `json:"start_action"`  // Required. Default: start. Valid: none, trap_start, route, start, trap.
+	StartAction  string           `json:"start_action"`  // Required. Default: start. Valid: none, trap|start, route, start, trap.
 	CloseAction  string           `json:"close_action"`  // Required. Default: none. Valid: none, trap, start.
 	DpdAction    string           `json:"dpd_action"`    // Required. Default: clear. Valid: clear, trap, start.
 	Mode         string           `json:"mode"`          // Required. Default: tunnel. Valid: tunnel, transport, pass, drop.

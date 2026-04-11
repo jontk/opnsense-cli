@@ -16,7 +16,7 @@ type Overwrite struct {
 	LocalNetworks   string           `json:"local_networks,omitempty"`
 	RemoteNetworks  string           `json:"remote_networks,omitempty"`
 	RouteGateway    string           `json:"route_gateway,omitempty"`
-	RedirectGateway string           `json:"redirect_gateway,omitempty"` // Valid: local, autolocal, def1, bypass_dhcp, bypass_dns, block_local, ipv6, notipv4.
+	RedirectGateway string           `json:"redirect_gateway,omitempty"` // Valid: local, autolocal, def1, bypass-dhcp, bypass-dns, block-local, ipv6, !ipv4.
 	RegisterDns     opnsense.OPNBool `json:"register_dns"`               // Required. Default: 0.
 	DnsDomain       string           `json:"dns_domain,omitempty"`
 	DnsDomainSearch string           `json:"dns_domain_search,omitempty"`
@@ -31,7 +31,7 @@ type Instance struct {
 	Vpnid                string            `json:"vpnid"`    // Required.
 	Enabled              opnsense.OPNBool  `json:"enabled"`  // Required. Default: 1.
 	DevType              string            `json:"dev_type"` // Required. Default: tun. Valid: tun, tap, ovpn.
-	Verb                 string            `json:"verb"`     // Required. Default: 3. Valid: o0, o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11.
+	Verb                 string            `json:"verb"`     // Required. Default: 3. Valid: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11.
 	Proto                string            `json:"proto"`    // Required. Default: udp. Valid: udp, udp4, udp6, tcp, tcp4, tcp6.
 	Port                 string            `json:"port,omitempty"`
 	PortShare            string            `json:"port-share,omitempty"`
@@ -50,7 +50,7 @@ type Instance struct {
 	Cert                 string            `json:"cert,omitempty"`
 	Crl                  string            `json:"crl,omitempty"`
 	Ca                   string            `json:"ca,omitempty"`
-	CertDepth            string            `json:"cert_depth,omitempty"`            // Valid: item1, item2, item3, item4, item5.
+	CertDepth            string            `json:"cert_depth,omitempty"`            // Valid: 1, 2, 3, 4, 5.
 	RemoteCertTls        opnsense.OPNBool  `json:"remote_cert_tls"`                 // Required. Default: 0.
 	VerifyClientCert     string            `json:"verify_client_cert"`              // Required. Default: require. Valid: none, require.
 	UseOcsp              opnsense.OPNBool  `json:"use_ocsp"`                        // Required. Default: 0.
@@ -64,7 +64,7 @@ type Instance struct {
 	VariousPushFlags     string            `json:"various_push_flags,omitempty"` // Valid: block-ipv6, block-outside-dns, register-dns, explicit-exit-notify.
 	PushInactive         *opnsense.OPNInt  `json:"push_inactive,omitempty"`
 	UsernameAsCommonName opnsense.OPNBool  `json:"username_as_common_name"` // Required. Default: 0.
-	Strictusercn         string            `json:"strictusercn"`            // Required. Default: 0. Valid: o0, o1, o2.
+	Strictusercn         string            `json:"strictusercn"`            // Required. Default: 0. Valid: 0, 1, 2.
 	Username             string            `json:"username,omitempty"`
 	Password             string            `json:"password,omitempty"`
 	Maxclients           *opnsense.OPNInt  `json:"maxclients,omitempty"`
@@ -75,7 +75,7 @@ type Instance struct {
 	AuthGenTokenRenewal  *opnsense.OPNInt  `json:"auth-gen-token-renewal,omitempty"`
 	AuthGenTokenSecret   string            `json:"auth-gen-token-secret,omitempty"`
 	ProvisionExclusive   opnsense.OPNBool  `json:"provision_exclusive"`        // Required. Default: 0.
-	RedirectGateway      string            `json:"redirect_gateway,omitempty"` // Valid: local, autolocal, def1, bypass_dhcp, bypass_dns, block_local, ipv6, notipv4.
+	RedirectGateway      string            `json:"redirect_gateway,omitempty"` // Valid: local, autolocal, def1, bypass-dhcp, bypass-dns, block-local, ipv6, !ipv4.
 	RouteMetric          *opnsense.OPNInt  `json:"route_metric,omitempty"`
 	RegisterDns          opnsense.OPNBool  `json:"register_dns"` // Required. Default: 0.
 	DnsDomain            string            `json:"dns_domain,omitempty"`

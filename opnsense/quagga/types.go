@@ -121,7 +121,7 @@ type Interface struct {
 type Area struct {
 	Enabled opnsense.OPNBool `json:"enabled"` // Required. Default: 1.
 	Id      string           `json:"id"`      // Required.
-	Type    string           `json:"type"`    // Required. Default: stub. Valid: stub, stub-no-summary, nssa, nssa-no-summary.
+	Type    string           `json:"type"`    // Required. Default: stub. Valid: stub, stub no-summary, nssa, nssa no-summary.
 }
 
 // Route represents a route model item.

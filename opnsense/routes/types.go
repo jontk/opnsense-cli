@@ -11,3 +11,7 @@ type Route struct {
 	Descr    string           `json:"descr,omitempty"`
 	Disabled opnsense.OPNBool `json:"disabled"` // Required. Default: 0.
 }
+
+type routeGetItemResponse struct {
+	Route Route `json:"route"`
+}

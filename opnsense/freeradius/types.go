@@ -109,7 +109,7 @@ type User struct {
 	Enabled                     opnsense.OPNBool `json:"enabled"`            // Required. Default: 1.
 	Username                    string           `json:"username"`           // Required.
 	Password                    string           `json:"password"`           // Required.
-	Passwordencryption          string           `json:"passwordencryption"` // Required. Default: Cleartext-Password. Valid: cleartext, ntprehashed.
+	Passwordencryption          string           `json:"passwordencryption"` // Required. Default: Cleartext-Password. Valid: Cleartext-Password, NT-Password.
 	Description                 string           `json:"description,omitempty"`
 	Ip                          string           `json:"ip,omitempty"`
 	Subnet                      string           `json:"subnet,omitempty"`
@@ -130,7 +130,7 @@ type User struct {
 	MikrotikVlanIdNumber        *opnsense.OPNInt `json:"mikrotik_vlan_id_number,omitempty"`
 	MikrotikVlanIdType          *opnsense.OPNInt `json:"mikrotik_vlan_id_type,omitempty"`
 	SessionlimitMaxSessionLimit *opnsense.OPNInt `json:"sessionlimit_max_session_limit,omitempty"`
-	Servicetype                 string           `json:"servicetype,omitempty"` // Valid: Option1, Option2, Option3, Option4, Option5, Option6, Option7, Option8, Option9, Option10, Option11, Option12, Option13, Option14, Option15, Option16, Option17, Option18, Option19.
+	Servicetype                 string           `json:"servicetype,omitempty"` // Valid: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19.
 	LinkedAVPair                string           `json:"linkedAVPair,omitempty"`
 	TunnelPassword              string           `json:"tunnel_password,omitempty"`
 }

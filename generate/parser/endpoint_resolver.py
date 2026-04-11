@@ -2,9 +2,15 @@
 
 from __future__ import annotations
 
+import re
+
 from generate.model.ir import ModelItem, Module
 
 _CRUD_PREFIXES = ("add_", "set_", "get_", "del_", "search_", "toggle_")
+
+# Commands that start with a CRUD prefix but are NOT CRUD operations.
+# e.g. "delete" = English word, not "del" + resource "ete".
+_NO_UNDERSCORE_CRUD_BLACKLIST = frozenset({"delete", "deletekeytab"})
 
 # Manual overrides for cases where endpoint suffix and item name are unrelated.
 # Key: (module_name, controller_name, suffix) → item_name
@@ -34,16 +40,24 @@ def resolve_endpoints(modules: list[Module]) -> None:
 
 
 def _parse_crud(command: str) -> tuple[str, str]:
-    """Parse a command like 'add_item' into ('add', 'item').
+    """Parse a command like 'add_item' or 'addroute' into ('add', 'item'/'route').
 
-    Returns ('', '') if the command doesn't match a CRUD pattern.
+    Tries underscore-separated patterns first (add_route), then no-underscore
+    patterns (addroute). Returns ('', '') if no CRUD pattern matches.
     """
+    # Underscore-separated patterns (add_route, search_acl, etc.)
     for prefix in _CRUD_PREFIXES:
         if command.startswith(prefix):
             verb = prefix.rstrip("_")
             suffix = command[len(prefix):]
             if suffix:
                 return verb, suffix
+    # No-underscore patterns (addroute, searchresolver, delresolver, etc.)
+    # Blacklist guards against false positives like "delete" → del+ete.
+    if command not in _NO_UNDERSCORE_CRUD_BLACKLIST:
+        m = re.match(r'^(add|get|set|del|search|toggle)([a-z].+)$', command)
+        if m:
+            return m.group(1), m.group(2)
     return "", ""
 
 

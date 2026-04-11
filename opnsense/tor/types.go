@@ -61,3 +61,11 @@ type Hiddenserviceacl struct {
 	TargetHost    string           `json:"target_host"`   // Required. Default: 127.0.0.1.
 	TargetPort    opnsense.OPNInt  `json:"target_port"`   // Required. Default: 80.
 }
+
+type serviceGetItemResponse struct {
+	Service Service `json:"service"`
+}
+
+type hiddenserviceaclGetItemResponse struct {
+	Hiddenserviceacl Hiddenserviceacl `json:"hiddenserviceacl"`
+}

@@ -50,7 +50,7 @@ type Rule struct {
 	Sequence       opnsense.OPNInt  `json:"sequence"`  // Required. Default: 1.
 	Interface      string           `json:"interface"` // Required. Default: wan.
 	Interface2     string           `json:"interface2,omitempty"`
-	Proto          string           `json:"proto"` // Required. Default: ip. Valid: ip, ip4, ip6, udp, tcp, tcp_ack, tcp_ack_not, icmp, ipv6_icmp, igmp, esp, ah, gre.
+	Proto          string           `json:"proto"` // Required. Default: ip. Valid: ip, ip4, ip6, udp, tcp, tcp_ack, tcp_ack_not, icmp, ipv6-icmp, igmp, esp, ah, gre.
 	Iplen          *opnsense.OPNInt `json:"iplen,omitempty"`
 	Source         string           `json:"source"`              // Required. Default: any.
 	SourceNot      opnsense.OPNBool `json:"source_not"`          // Required. Default: 0.

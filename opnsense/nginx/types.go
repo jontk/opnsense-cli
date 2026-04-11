@@ -27,7 +27,7 @@ type Http struct {
 	ServerNamesHashMaxSize    *opnsense.OPNInt  `json:"server_names_hash_max_size,omitempty"`
 	VariablesHashMaxSize      *opnsense.OPNInt  `json:"variables_hash_max_size,omitempty"`
 	VariablesHashBucketSize   *opnsense.OPNInt  `json:"variables_hash_bucket_size,omitempty"`
-	BanResponse               string            `json:"ban_response"` // Required. Default: 403. Valid: http_403, http_444.
+	BanResponse               string            `json:"ban_response"` // Required. Default: 403. Valid: 403, 444.
 	LogPermBan                opnsense.OPNBool  `json:"log_perm_ban"` // Required. Default: 0.
 	BotsUa                    string            `json:"bots_ua"`      // Required. Default: Python-urllib,Nmap,python-requests,libwww-perl,MJ12bot,Jorgee,fasthttp,libwww,Telesphoreo,A6-Indexer,ltx71,okhttp,ZmEu,sqlmap,LMAO/2.0,l9explore,l9tcpid,Masscan,zgrab,Ronin/2.0,Hakai/2.0,Indy\sLibrary,^Mozilla/[\d\.]+$,Morfeus\sFucking\sScanner,MSIE\s[0-6]\.\d+.
 	HeadersMoreEnable         *opnsense.OPNBool `json:"headers_more_enable,omitempty"`
@@ -60,7 +60,7 @@ type Upstream struct {
 	TlsEnable              opnsense.OPNBool `json:"tls_enable"`                // Required. Default: 0.
 	TlsClientCertificate   string           `json:"tls_client_certificate,omitempty"`
 	TlsNameOverride        string           `json:"tls_name_override,omitempty"`
-	TlsProtocolVersions    string           `json:"tls_protocol_versions,omitempty"` // Valid: TLSv1, TLSv1_1, TLSv1_2, TLSv1_3.
+	TlsProtocolVersions    string           `json:"tls_protocol_versions,omitempty"` // Valid: TLSv1, TLSv1.1, TLSv1.2, TLSv1.3.
 	TlsSessionReuse        opnsense.OPNBool `json:"tls_session_reuse"`               // Required. Default: 1.
 	TlsTrustedCertificate  string           `json:"tls_trusted_certificate,omitempty"`
 	TlsVerify              opnsense.OPNBool `json:"tls_verify"` // Required. Default: 1.
@@ -83,7 +83,7 @@ type UpstreamServer struct {
 type Location struct {
 	Description             string            `json:"description"`          // Required.
 	Urlpattern              string            `json:"urlpattern"`           // Required.
-	Matchtype               string            `json:"matchtype,omitempty"`  // Valid: option1, option2, option3, option4.
+	Matchtype               string            `json:"matchtype,omitempty"`  // Valid: =, ~, ~*, ^~.
 	EnableSecrules          opnsense.OPNBool  `json:"enable_secrules"`      // Required. Default: 0.
 	EnableLearningMode      opnsense.OPNBool  `json:"enable_learning_mode"` // Required. Default: 0.
 	SecrulesErrorpage       string            `json:"secrules_errorpage,omitempty"`
@@ -139,7 +139,7 @@ type CustomPolicy struct {
 	Name       string          `json:"name"`        // Required.
 	NaxsiRules string          `json:"naxsi_rules"` // Required.
 	Value      opnsense.OPNInt `json:"value"`       // Required.
-	Operator   string          `json:"operator"`    // Required. Default: >=. Valid: option1, option2, option3, option4.
+	Operator   string          `json:"operator"`    // Required. Default: >=. Valid: >=, >, <, <=.
 	Action     string          `json:"action"`      // Required. Default: BLOCK. Valid: BLOCK, ALLOW, DROP, LOG.
 }
 
@@ -193,7 +193,7 @@ type HttpServer struct {
 	HttpsOnly                      opnsense.OPNBool `json:"https_only"`          // Required. Default: 0.
 	Http2                          opnsense.OPNBool `json:"http2"`               // Required. Default: 1.
 	EnableHttp3                    opnsense.OPNBool `json:"enable_http3"`        // Required. Default: 0.
-	TlsProtocols                   string           `json:"tls_protocols"`       // Required. Default: TLSv1.2,TLSv1.3. Valid: TLSv1_2, TLSv1_3.
+	TlsProtocols                   string           `json:"tls_protocols"`       // Required. Default: TLSv1.2,TLSv1.3. Valid: TLSv1.2, TLSv1.3.
 	TlsCiphers                     string           `json:"tls_ciphers,omitempty"`
 	TlsEcdhCurve                   string           `json:"tls_ecdh_curve,omitempty"`
 	TlsPreferServerCiphers         opnsense.OPNBool `json:"tls_prefer_server_ciphers"` // Required. Default: 1.
@@ -289,7 +289,7 @@ type HttpRewrite struct {
 type SecurityHeader struct {
 	Description                              string           `json:"description"`             // Required.
 	Referrer                                 string           `json:"referrer,omitempty"`      // Valid: no-referrer, no-referrer-when-downgrade, same-origin, origin, strict-origin, strict-origin-when-cross-origin, origin-when-cross-origin, unsafe-url.
-	Xssprotection                            string           `json:"xssprotection,omitempty"` // Valid: val1, val2, val3.
+	Xssprotection                            string           `json:"xssprotection,omitempty"` // Valid: 1; mode=block, 0, 1.
 	ContentTypeOptions                       opnsense.OPNBool `json:"content_type_options"`    // Required.
 	StrictTransportSecurityTime              *opnsense.OPNInt `json:"strict_transport_security_time,omitempty"`
 	StrictTransportSecurityIncludeSubdomains opnsense.OPNBool `json:"strict_transport_security_include_subdomains"` // Required. Default: 1.
@@ -403,7 +403,7 @@ type SecurityHeader struct {
 type LimitZone struct {
 	Description string          `json:"description"` // Required.
 	Key         string          `json:"key"`         // Required. Default: binary_remote_addr. Valid: binary_remote_addr.
-	RateUnit    string          `json:"rate_unit"`   // Required. Default: r/s. Valid: val1, val2.
+	RateUnit    string          `json:"rate_unit"`   // Required. Default: r/s. Valid: r/s, r/m.
 	Size        opnsense.OPNInt `json:"size"`        // Required. Default: 10.
 	Rate        opnsense.OPNInt `json:"rate"`        // Required. Default: 20.
 }
@@ -411,10 +411,10 @@ type LimitZone struct {
 // Errorpage represents a errorpage model item.
 type Errorpage struct {
 	Name        string `json:"name"`        // Required.
-	Statuscodes string `json:"statuscodes"` // Required. Valid: status_400, status_401, status_403, status_404, status_405, status_407, status_408, status_410, status_415, status_429, status_431, status_500, status_501, status_502, status_503, status_504.
+	Statuscodes string `json:"statuscodes"` // Required. Valid: 400, 401, 403, 404, 405, 407, 408, 410, 415, 429, 431, 500, 501, 502, 503, 504.
 	Pagecontent string `json:"pagecontent,omitempty"`
 	Redirect    string `json:"redirect,omitempty"`
-	Response    string `json:"response,omitempty"` // Valid: status_200, status_300, status_301, status_302, status_401, status_403, status_404, status_451, status_500, status_503.
+	Response    string `json:"response,omitempty"` // Valid: 200, 300, 301, 302, 401, 403, 404, 451, 500, 503.
 }
 
 // TlsFingerprint represents a tls_fingerprint model item.
@@ -466,4 +466,84 @@ type SyslogTarget struct {
 	Severity    string           `json:"severity"` // Required. Default: error. Valid: debug, info, notice, warn, error, crit, alert, emerg.
 	Tag         string           `json:"tag,omitempty"`
 	Nohostname  opnsense.OPNBool `json:"nohostname"` // Required. Default: N.
+}
+
+type cache_pathGetItemResponse struct {
+	CachePath CachePath `json:"cache_path"`
+}
+
+type credentialGetItemResponse struct {
+	Credential Credential `json:"credential"`
+}
+
+type custom_policyGetItemResponse struct {
+	CustomPolicy CustomPolicy `json:"custom_policy"`
+}
+
+type errorpageGetItemResponse struct {
+	Errorpage Errorpage `json:"errorpage"`
+}
+
+type http_rewriteGetItemResponse struct {
+	HttpRewrite HttpRewrite `json:"http_rewrite"`
+}
+
+type http_serverGetItemResponse struct {
+	HttpServer HttpServer `json:"http_server"`
+}
+
+type ip_aclGetItemResponse struct {
+	IpAcl IpAcl `json:"ip_acl"`
+}
+
+type limit_request_connectionGetItemResponse struct {
+	LimitRequestConnection LimitRequestConnection `json:"limit_request_connection"`
+}
+
+type limit_zoneGetItemResponse struct {
+	LimitZone LimitZone `json:"limit_zone"`
+}
+
+type locationGetItemResponse struct {
+	Location Location `json:"location"`
+}
+
+type naxsi_ruleGetItemResponse struct {
+	NaxsiRule NaxsiRule `json:"naxsi_rule"`
+}
+
+type proxy_cache_validGetItemResponse struct {
+	ProxyCacheValid ProxyCacheValid `json:"proxy_cache_valid"`
+}
+
+type resolverGetItemResponse struct {
+	Resolver Resolver `json:"resolver"`
+}
+
+type security_headerGetItemResponse struct {
+	SecurityHeader SecurityHeader `json:"security_header"`
+}
+
+type stream_serverGetItemResponse struct {
+	StreamServer StreamServer `json:"stream_server"`
+}
+
+type syslog_targetGetItemResponse struct {
+	SyslogTarget SyslogTarget `json:"syslog_target"`
+}
+
+type tls_fingerprintGetItemResponse struct {
+	TlsFingerprint TlsFingerprint `json:"tls_fingerprint"`
+}
+
+type upstreamGetItemResponse struct {
+	Upstream Upstream `json:"upstream"`
+}
+
+type upstream_serverGetItemResponse struct {
+	UpstreamServer UpstreamServer `json:"upstream_server"`
+}
+
+type userlistGetItemResponse struct {
+	Userlist Userlist `json:"userlist"`
 }

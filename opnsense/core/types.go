@@ -10,7 +10,7 @@ type Settings struct {
 	Disconnectppps  opnsense.OPNBool  `json:"disconnectppps"` // Required. Default: 0.
 	Pfsyncinterface string            `json:"pfsyncinterface,omitempty"`
 	Pfsyncpeerip    string            `json:"pfsyncpeerip,omitempty"`
-	Pfsyncversion   string            `json:"pfsyncversion"` // Required. Default: 1400. Valid: v1301, v1400.
+	Pfsyncversion   string            `json:"pfsyncversion"` // Required. Default: 1400. Valid: 1301, 1400.
 	Pfsyncdefer     *opnsense.OPNBool `json:"pfsyncdefer,omitempty"`
 	Synchronizetoip string            `json:"synchronizetoip,omitempty"`
 	Verifypeer      opnsense.OPNBool  `json:"verifypeer"` // Required. Default: 0.
