@@ -181,3 +181,15 @@ class TestSensitiveFieldDetection:
         views = _build_field_views(_make_item([field]))
         assert len(views) == 1
         assert views[0].sensitive is False
+
+    def test_basicauthpass_is_sensitive(self):
+        """Caddy basicauthpass is a password — must be sensitive."""
+        assert _is_sensitive_field("basicauth", "basicauthpass") is True
+
+    def test_basicauthuser_is_not_sensitive(self):
+        """Caddy basicauthuser is a username identifier, not a credential."""
+        assert _is_sensitive_field("basicauth", "basicauthuser") is False
+
+    def test_enckey_is_sensitive(self):
+        """Net-SNMP enckey is an encryption passphrase — must be sensitive."""
+        assert _is_sensitive_field("user", "enckey") is True
