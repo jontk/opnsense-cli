@@ -395,8 +395,10 @@ def _build_field_views(item: ModelItem) -> list[TFFieldView]:
             continue
         seen.add(f.go_name)
 
-        # Compute tf_name and skip if it would conflict with the "id" attribute
-        tf_name = f.json_name.replace("-", "_")
+        # Compute tf_name: normalize to snake_case (Terraform convention).
+        # The json_name from the OPNsense XML uses camelCase or PascalCase;
+        # Terraform users expect lowercase_underscore attribute names.
+        tf_name = _to_snake_case(f.json_name)
         if tf_name == "id":
             continue
 
@@ -470,3 +472,20 @@ def _safe_go_name(name: str) -> str:
 def _to_pascal(name: str) -> str:
     """Convert snake_case/kebab-case to PascalCase."""
     return name.replace("-", " ").replace("_", " ").title().replace(" ", "")
+
+
+def _to_snake_case(name: str) -> str:
+    """Convert camelCase, PascalCase, or mixed names to snake_case.
+
+    Examples:
+        DnsChallenge        -> dns_challenge
+        ssl_advancedEnabled -> ssl_advanced_enabled
+        http2Enabled        -> http2_enabled
+        AdvDNSSLLifetime    -> adv_dnssl_lifetime
+        already_snake       -> already_snake
+    """
+    # Insert _ before an uppercase letter that follows a lowercase letter or digit.
+    s = re.sub(r"([a-z0-9])([A-Z])", r"\1_\2", name)
+    # Insert _ before an uppercase letter sequence followed by a lowercase letter.
+    s = re.sub(r"([A-Z]+)([A-Z][a-z])", r"\1_\2", s)
+    return s.lower().replace("-", "_")
