@@ -248,15 +248,16 @@ func newFtpproxyProxyDeleteCmd() *cobra.Command {
 
 func newFtpproxyProxyGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get ftpproxy proxy",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetProxy(context.Background())
+			resp, err := s.SettingsGetProxy(context.Background(), args...)
 			if err != nil {
 				return err
 			}

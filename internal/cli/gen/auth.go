@@ -111,15 +111,16 @@ func newAuthGroupDelCmd() *cobra.Command {
 
 func newAuthGroupGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get auth group",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.GroupGet(context.Background())
+			resp, err := s.GroupGet(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -400,15 +401,16 @@ func newAuthUserDownloadCmd() *cobra.Command {
 
 func newAuthUserGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get auth user",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.UserGet(context.Background())
+			resp, err := s.UserGet(context.Background(), args...)
 			if err != nil {
 				return err
 			}

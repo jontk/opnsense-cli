@@ -288,15 +288,16 @@ func newStunnelServiceDeleteCmd() *cobra.Command {
 
 func newStunnelServiceGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get stunnel service",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServicesGetItem(context.Background())
+			resp, err := s.ServicesGetItem(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -386,17 +387,17 @@ func newStunnelServiceUpdateCmd() *cobra.Command {
 }
 
 func newStunnelServiceToggleCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "toggle <uuid>",
+	cmd := &cobra.Command{
+		Use:   "toggle <uuid> [<enabled>]",
 		Short: "Toggle stunnel service",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.RangeArgs(1, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServicesToggleItem(context.Background(), args[0])
+			resp, err := s.ServicesToggleItem(context.Background(), args[0], args[1:]...)
 			if err != nil {
 				return err
 			}
@@ -404,4 +405,5 @@ func newStunnelServiceToggleCmd() *cobra.Command {
 			return printer.PrintGenericResponse(resp)
 		},
 	}
+	return cmd
 }

@@ -374,15 +374,16 @@ func newClamavUrlDeleteCmd() *cobra.Command {
 
 func newClamavUrlGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get clamav url",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.UrlGetUrl(context.Background())
+			resp, err := s.UrlGetUrl(context.Background(), args...)
 			if err != nil {
 				return err
 			}

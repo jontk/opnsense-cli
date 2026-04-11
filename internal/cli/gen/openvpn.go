@@ -115,15 +115,16 @@ func newOpenvpnClientOverwritesDelCmd() *cobra.Command {
 
 func newOpenvpnClientOverwritesGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get openvpn client-overwrites",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.ClientOverwritesGet(context.Background())
+			resp, err := s.ClientOverwritesGet(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -189,9 +190,9 @@ func newOpenvpnClientOverwritesSetCmd() *cobra.Command {
 
 func newOpenvpnClientOverwritesToggleCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "toggle <uuid>",
+		Use:   "toggle <uuid> [<enabled>]",
 		Short: "Toggle openvpn client-overwrites",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.RangeArgs(1, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -231,15 +232,16 @@ func newOpenvpnExportCmd() *cobra.Command {
 
 func newOpenvpnExportAccountsCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "accounts",
+		Use:   "accounts [<vpnid>]",
 		Short: "Accounts openvpn export",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.ExportAccounts(context.Background())
+			resp, err := s.ExportAccounts(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -251,9 +253,9 @@ func newOpenvpnExportAccountsCmd() *cobra.Command {
 
 func newOpenvpnExportDownloadCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "download <vpnid>",
+		Use:   "download <vpnid> [<certref>]",
 		Short: "Download openvpn export",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.RangeArgs(1, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -445,15 +447,16 @@ func newOpenvpnInstancesDelCmd() *cobra.Command {
 
 func newOpenvpnInstancesGenKeyCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "gen-key",
+		Use:   "gen-key [<type>]",
 		Short: "GenKey openvpn instances",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.InstancesGenKey(context.Background())
+			resp, err := s.InstancesGenKey(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -465,15 +468,16 @@ func newOpenvpnInstancesGenKeyCmd() *cobra.Command {
 
 func newOpenvpnInstancesGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get openvpn instances",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.InstancesGet(context.Background())
+			resp, err := s.InstancesGet(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -539,9 +543,9 @@ func newOpenvpnInstancesSetCmd() *cobra.Command {
 
 func newOpenvpnInstancesToggleCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "toggle <uuid>",
+		Use:   "toggle <uuid> [<enabled>]",
 		Short: "Toggle openvpn instances",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.RangeArgs(1, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -650,15 +654,16 @@ func newOpenvpnStaticKeyDeleteCmd() *cobra.Command {
 
 func newOpenvpnStaticKeyGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get openvpn static-key",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.InstancesGetStaticKey(context.Background())
+			resp, err := s.InstancesGetStaticKey(context.Background(), args...)
 			if err != nil {
 				return err
 			}

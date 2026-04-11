@@ -558,15 +558,16 @@ func newHaproxyServerDeleteCmd() *cobra.Command {
 
 func newHaproxyServerGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get haproxy server",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetServer(context.Background())
+			resp, err := s.SettingsGetServer(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -605,17 +606,17 @@ func newHaproxyServerUpdateCmd() *cobra.Command {
 }
 
 func newHaproxyServerToggleCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "toggle <uuid>",
+	cmd := &cobra.Command{
+		Use:   "toggle <uuid> [<enabled>]",
 		Short: "Toggle haproxy server",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.RangeArgs(1, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsToggleServer(context.Background(), args[0])
+			resp, err := s.SettingsToggleServer(context.Background(), args[0], args[1:]...)
 			if err != nil {
 				return err
 			}
@@ -623,6 +624,7 @@ func newHaproxyServerToggleCmd() *cobra.Command {
 			return printer.PrintGenericResponse(resp)
 		},
 	}
+	return cmd
 }
 
 func newHaproxyServiceCmd() *cobra.Command {
@@ -905,15 +907,16 @@ func newHaproxyAclDeleteCmd() *cobra.Command {
 
 func newHaproxyAclGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get haproxy acl",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetAcl(context.Background())
+			resp, err := s.SettingsGetAcl(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -1090,15 +1093,16 @@ func newHaproxyActionDeleteCmd() *cobra.Command {
 
 func newHaproxyActionGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get haproxy action",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetAction(context.Background())
+			resp, err := s.SettingsGetAction(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -1276,15 +1280,16 @@ func newHaproxyBackendDeleteCmd() *cobra.Command {
 
 func newHaproxyBackendGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get haproxy backend",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetBackend(context.Background())
+			resp, err := s.SettingsGetBackend(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -1323,17 +1328,17 @@ func newHaproxyBackendUpdateCmd() *cobra.Command {
 }
 
 func newHaproxyBackendToggleCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "toggle <uuid>",
+	cmd := &cobra.Command{
+		Use:   "toggle <uuid> [<enabled>]",
 		Short: "Toggle haproxy backend",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.RangeArgs(1, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsToggleBackend(context.Background(), args[0])
+			resp, err := s.SettingsToggleBackend(context.Background(), args[0], args[1:]...)
 			if err != nil {
 				return err
 			}
@@ -1341,6 +1346,7 @@ func newHaproxyBackendToggleCmd() *cobra.Command {
 			return printer.PrintGenericResponse(resp)
 		},
 	}
+	return cmd
 }
 
 func newHaproxyBackendListCmd() *cobra.Command {
@@ -1465,15 +1471,16 @@ func newHaproxyCpuDeleteCmd() *cobra.Command {
 
 func newHaproxyCpuGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get haproxy cpu",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetCpu(context.Background())
+			resp, err := s.SettingsGetCpu(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -1512,17 +1519,17 @@ func newHaproxyCpuUpdateCmd() *cobra.Command {
 }
 
 func newHaproxyCpuToggleCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "toggle <uuid>",
+	cmd := &cobra.Command{
+		Use:   "toggle <uuid> [<enabled>]",
 		Short: "Toggle haproxy cpu",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.RangeArgs(1, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsToggleCpu(context.Background(), args[0])
+			resp, err := s.SettingsToggleCpu(context.Background(), args[0], args[1:]...)
 			if err != nil {
 				return err
 			}
@@ -1530,6 +1537,7 @@ func newHaproxyCpuToggleCmd() *cobra.Command {
 			return printer.PrintGenericResponse(resp)
 		},
 	}
+	return cmd
 }
 
 func newHaproxyCpuListCmd() *cobra.Command {
@@ -1653,15 +1661,16 @@ func newHaproxyErrorfileDeleteCmd() *cobra.Command {
 
 func newHaproxyErrorfileGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get haproxy errorfile",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetErrorfile(context.Background())
+			resp, err := s.SettingsGetErrorfile(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -1841,15 +1850,16 @@ func newHaproxyFcgiDeleteCmd() *cobra.Command {
 
 func newHaproxyFcgiGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get haproxy fcgi",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetFcgi(context.Background())
+			resp, err := s.SettingsGetFcgi(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -2027,15 +2037,16 @@ func newHaproxyFrontendDeleteCmd() *cobra.Command {
 
 func newHaproxyFrontendGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get haproxy frontend",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetFrontend(context.Background())
+			resp, err := s.SettingsGetFrontend(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -2225,15 +2236,16 @@ func newHaproxyGroupDeleteCmd() *cobra.Command {
 
 func newHaproxyGroupGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get haproxy group",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetGroup(context.Background())
+			resp, err := s.SettingsGetGroup(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -2272,17 +2284,17 @@ func newHaproxyGroupUpdateCmd() *cobra.Command {
 }
 
 func newHaproxyGroupToggleCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "toggle <uuid>",
+	cmd := &cobra.Command{
+		Use:   "toggle <uuid> [<enabled>]",
 		Short: "Toggle haproxy group",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.RangeArgs(1, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsToggleGroup(context.Background(), args[0])
+			resp, err := s.SettingsToggleGroup(context.Background(), args[0], args[1:]...)
 			if err != nil {
 				return err
 			}
@@ -2290,6 +2302,7 @@ func newHaproxyGroupToggleCmd() *cobra.Command {
 			return printer.PrintGenericResponse(resp)
 		},
 	}
+	return cmd
 }
 
 func newHaproxyGroupListCmd() *cobra.Command {
@@ -2437,15 +2450,16 @@ func newHaproxyHealthcheckDeleteCmd() *cobra.Command {
 
 func newHaproxyHealthcheckGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get haproxy healthcheck",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetHealthcheck(context.Background())
+			resp, err := s.SettingsGetHealthcheck(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -2617,15 +2631,16 @@ func newHaproxyLuaDeleteCmd() *cobra.Command {
 
 func newHaproxyLuaGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get haproxy lua",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetLua(context.Background())
+			resp, err := s.SettingsGetLua(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -2664,17 +2679,17 @@ func newHaproxyLuaUpdateCmd() *cobra.Command {
 }
 
 func newHaproxyLuaToggleCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "toggle <uuid>",
+	cmd := &cobra.Command{
+		Use:   "toggle <uuid> [<enabled>]",
 		Short: "Toggle haproxy lua",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.RangeArgs(1, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsToggleLua(context.Background(), args[0])
+			resp, err := s.SettingsToggleLua(context.Background(), args[0], args[1:]...)
 			if err != nil {
 				return err
 			}
@@ -2682,6 +2697,7 @@ func newHaproxyLuaToggleCmd() *cobra.Command {
 			return printer.PrintGenericResponse(resp)
 		},
 	}
+	return cmd
 }
 
 func newHaproxyLuaListCmd() *cobra.Command {
@@ -2811,15 +2827,16 @@ func newHaproxyMapfileDeleteCmd() *cobra.Command {
 
 func newHaproxyMapfileGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get haproxy mapfile",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetMapfile(context.Background())
+			resp, err := s.SettingsGetMapfile(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -2979,15 +2996,16 @@ func newHaproxyUserDeleteCmd() *cobra.Command {
 
 func newHaproxyUserGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get haproxy user",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetUser(context.Background())
+			resp, err := s.SettingsGetUser(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -3026,17 +3044,17 @@ func newHaproxyUserUpdateCmd() *cobra.Command {
 }
 
 func newHaproxyUserToggleCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "toggle <uuid>",
+	cmd := &cobra.Command{
+		Use:   "toggle <uuid> [<enabled>]",
 		Short: "Toggle haproxy user",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.RangeArgs(1, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsToggleUser(context.Background(), args[0])
+			resp, err := s.SettingsToggleUser(context.Background(), args[0], args[1:]...)
 			if err != nil {
 				return err
 			}
@@ -3044,6 +3062,7 @@ func newHaproxyUserToggleCmd() *cobra.Command {
 			return printer.PrintGenericResponse(resp)
 		},
 	}
+	return cmd
 }
 
 func newHaproxyUserListCmd() *cobra.Command {
@@ -3186,15 +3205,16 @@ func newHaproxyMailerDeleteCmd() *cobra.Command {
 
 func newHaproxyMailerGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get haproxy mailer",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetmailer(context.Background())
+			resp, err := s.SettingsGetmailer(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -3233,17 +3253,17 @@ func newHaproxyMailerUpdateCmd() *cobra.Command {
 }
 
 func newHaproxyMailerToggleCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "toggle <uuid>",
+	cmd := &cobra.Command{
+		Use:   "toggle <uuid> [<enabled>]",
 		Short: "Toggle haproxy mailer",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.RangeArgs(1, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsTogglemailer(context.Background(), args[0])
+			resp, err := s.SettingsTogglemailer(context.Background(), args[0], args[1:]...)
 			if err != nil {
 				return err
 			}
@@ -3251,6 +3271,7 @@ func newHaproxyMailerToggleCmd() *cobra.Command {
 			return printer.PrintGenericResponse(resp)
 		},
 	}
+	return cmd
 }
 
 func newHaproxyMailerListCmd() *cobra.Command {
@@ -3396,15 +3417,16 @@ func newHaproxyResolverDeleteCmd() *cobra.Command {
 
 func newHaproxyResolverGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get haproxy resolver",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetresolver(context.Background())
+			resp, err := s.SettingsGetresolver(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -3443,17 +3465,17 @@ func newHaproxyResolverUpdateCmd() *cobra.Command {
 }
 
 func newHaproxyResolverToggleCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "toggle <uuid>",
+	cmd := &cobra.Command{
+		Use:   "toggle <uuid> [<enabled>]",
 		Short: "Toggle haproxy resolver",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.RangeArgs(1, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsToggleresolver(context.Background(), args[0])
+			resp, err := s.SettingsToggleresolver(context.Background(), args[0], args[1:]...)
 			if err != nil {
 				return err
 			}
@@ -3461,6 +3483,7 @@ func newHaproxyResolverToggleCmd() *cobra.Command {
 			return printer.PrintGenericResponse(resp)
 		},
 	}
+	return cmd
 }
 
 func newHaproxyResolverListCmd() *cobra.Command {

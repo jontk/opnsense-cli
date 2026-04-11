@@ -135,15 +135,16 @@ func newPostfixAddressDeleteCmd() *cobra.Command {
 
 func newPostfixAddressGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get postfix address",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.AddressGetAddress(context.Background())
+			resp, err := s.AddressGetAddress(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -397,15 +398,16 @@ func newPostfixDomainDeleteCmd() *cobra.Command {
 
 func newPostfixDomainGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get postfix domain",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.DomainGetDomain(context.Background())
+			resp, err := s.DomainGetDomain(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -659,15 +661,16 @@ func newPostfixHeadercheckDeleteCmd() *cobra.Command {
 
 func newPostfixHeadercheckGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get postfix headercheck",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.HeaderchecksGetHeadercheck(context.Background())
+			resp, err := s.HeaderchecksGetHeadercheck(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -864,15 +867,16 @@ func newPostfixRecipientDeleteCmd() *cobra.Command {
 
 func newPostfixRecipientGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get postfix recipient",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.RecipientGetRecipient(context.Background())
+			resp, err := s.RecipientGetRecipient(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -1069,15 +1073,16 @@ func newPostfixRecipientbccDeleteCmd() *cobra.Command {
 
 func newPostfixRecipientbccGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get postfix recipientbcc",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.RecipientbccGetRecipientbcc(context.Background())
+			resp, err := s.RecipientbccGetRecipientbcc(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -1274,15 +1279,16 @@ func newPostfixSenderDeleteCmd() *cobra.Command {
 
 func newPostfixSenderGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get postfix sender",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SenderGetSender(context.Background())
+			resp, err := s.SenderGetSender(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -1479,15 +1485,16 @@ func newPostfixSenderbccDeleteCmd() *cobra.Command {
 
 func newPostfixSenderbccGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get postfix senderbcc",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SenderbccGetSenderbcc(context.Background())
+			resp, err := s.SenderbccGetSenderbcc(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -1684,15 +1691,16 @@ func newPostfixSendercanonicalDeleteCmd() *cobra.Command {
 
 func newPostfixSendercanonicalGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get postfix sendercanonical",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SendercanonicalGetSendercanonical(context.Background())
+			resp, err := s.SendercanonicalGetSendercanonical(context.Background(), args...)
 			if err != nil {
 				return err
 			}

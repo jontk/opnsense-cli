@@ -134,15 +134,16 @@ func newSiproxdDomainDeleteCmd() *cobra.Command {
 
 func newSiproxdDomainGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get siproxd domain",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.DomainGetDomain(context.Background())
+			resp, err := s.DomainGetDomain(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -558,15 +559,16 @@ func newSiproxdUserDeleteCmd() *cobra.Command {
 
 func newSiproxdUserGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get siproxd user",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.UserGetUser(context.Background())
+			resp, err := s.UserGetUser(context.Background(), args...)
 			if err != nil {
 				return err
 			}

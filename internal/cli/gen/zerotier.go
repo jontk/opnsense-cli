@@ -110,15 +110,16 @@ func newZerotierNetworkDelCmd() *cobra.Command {
 
 func newZerotierNetworkGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get zerotier network",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.NetworkGet(context.Background())
+			resp, err := s.NetworkGet(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -130,15 +131,16 @@ func newZerotierNetworkGetCmd() *cobra.Command {
 
 func newZerotierNetworkInfoCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "info",
+		Use:   "info [<uuid>]",
 		Short: "Info zerotier network",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.NetworkInfo(context.Background())
+			resp, err := s.NetworkInfo(context.Background(), args...)
 			if err != nil {
 				return err
 			}

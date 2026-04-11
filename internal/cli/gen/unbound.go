@@ -224,17 +224,17 @@ func newUnboundOverviewCmd() *cobra.Command {
 }
 
 func newUnboundOverviewRollingCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "rolling <timeperiod>",
+	cmd := &cobra.Command{
+		Use:   "rolling <timeperiod> [<clients>]",
 		Short: "Rolling unbound overview",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.RangeArgs(1, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.OverviewRolling(context.Background(), args[0])
+			resp, err := s.OverviewRolling(context.Background(), args[0], args[1:]...)
 			if err != nil {
 				return err
 			}
@@ -242,6 +242,7 @@ func newUnboundOverviewRollingCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	return cmd
 }
 
 func newUnboundOverviewIsBlockListEnabledCmd() *cobra.Command {
@@ -316,15 +317,16 @@ func newUnboundPoliciesCmd() *cobra.Command {
 
 func newUnboundPoliciesGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get unbound policies",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.OverviewGetPolicies(context.Background())
+			resp, err := s.OverviewGetPolicies(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -644,15 +646,16 @@ func newUnboundAclDeleteCmd() *cobra.Command {
 
 func newUnboundAclGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get unbound acl",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetAcl(context.Background())
+			resp, err := s.SettingsGetAcl(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -715,17 +718,17 @@ func newUnboundAclUpdateCmd() *cobra.Command {
 }
 
 func newUnboundAclToggleCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "toggle <uuid>",
+	cmd := &cobra.Command{
+		Use:   "toggle <uuid> [<enabled>]",
 		Short: "Toggle unbound acl",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.RangeArgs(1, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsToggleAcl(context.Background(), args[0])
+			resp, err := s.SettingsToggleAcl(context.Background(), args[0], args[1:]...)
 			if err != nil {
 				return err
 			}
@@ -733,6 +736,7 @@ func newUnboundAclToggleCmd() *cobra.Command {
 			return printer.PrintGenericResponse(resp)
 		},
 	}
+	return cmd
 }
 
 // unboundDnsblColumns defines table columns for the Dnsbl resource.
@@ -851,15 +855,16 @@ func newUnboundDnsblDeleteCmd() *cobra.Command {
 
 func newUnboundDnsblGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get unbound dnsbl",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetDnsbl(context.Background())
+			resp, err := s.SettingsGetDnsbl(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -922,17 +927,17 @@ func newUnboundDnsblUpdateCmd() *cobra.Command {
 }
 
 func newUnboundDnsblToggleCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "toggle <uuid>",
+	cmd := &cobra.Command{
+		Use:   "toggle <uuid> [<enabled>]",
 		Short: "Toggle unbound dnsbl",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.RangeArgs(1, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsToggleDnsbl(context.Background(), args[0])
+			resp, err := s.SettingsToggleDnsbl(context.Background(), args[0], args[1:]...)
 			if err != nil {
 				return err
 			}
@@ -940,6 +945,7 @@ func newUnboundDnsblToggleCmd() *cobra.Command {
 			return printer.PrintGenericResponse(resp)
 		},
 	}
+	return cmd
 }
 
 // unboundForwardColumns defines table columns for the Forward resource.
@@ -1019,15 +1025,16 @@ func newUnboundForwardDeleteCmd() *cobra.Command {
 
 func newUnboundForwardGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get unbound forward",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetForward(context.Background())
+			resp, err := s.SettingsGetForward(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -1090,17 +1097,17 @@ func newUnboundForwardUpdateCmd() *cobra.Command {
 }
 
 func newUnboundForwardToggleCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "toggle <uuid>",
+	cmd := &cobra.Command{
+		Use:   "toggle <uuid> [<enabled>]",
 		Short: "Toggle unbound forward",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.RangeArgs(1, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsToggleForward(context.Background(), args[0])
+			resp, err := s.SettingsToggleForward(context.Background(), args[0], args[1:]...)
 			if err != nil {
 				return err
 			}
@@ -1108,6 +1115,7 @@ func newUnboundForwardToggleCmd() *cobra.Command {
 			return printer.PrintGenericResponse(resp)
 		},
 	}
+	return cmd
 }
 
 // unboundHostAliasColumns defines table columns for the HostAlias resource.
@@ -1208,15 +1216,16 @@ func newUnboundHostAliasDeleteCmd() *cobra.Command {
 
 func newUnboundHostAliasGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get unbound host-alias",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetHostAlias(context.Background())
+			resp, err := s.SettingsGetHostAlias(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -1279,17 +1288,17 @@ func newUnboundHostAliasUpdateCmd() *cobra.Command {
 }
 
 func newUnboundHostAliasToggleCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "toggle <uuid>",
+	cmd := &cobra.Command{
+		Use:   "toggle <uuid> [<enabled>]",
 		Short: "Toggle unbound host-alias",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.RangeArgs(1, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsToggleHostAlias(context.Background(), args[0])
+			resp, err := s.SettingsToggleHostAlias(context.Background(), args[0], args[1:]...)
 			if err != nil {
 				return err
 			}
@@ -1297,6 +1306,7 @@ func newUnboundHostAliasToggleCmd() *cobra.Command {
 			return printer.PrintGenericResponse(resp)
 		},
 	}
+	return cmd
 }
 
 // unboundHostOverrideColumns defines table columns for the HostOverride resource.
@@ -1421,15 +1431,16 @@ func newUnboundHostOverrideDeleteCmd() *cobra.Command {
 
 func newUnboundHostOverrideGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get unbound host-override",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetHostOverride(context.Background())
+			resp, err := s.SettingsGetHostOverride(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -1492,17 +1503,17 @@ func newUnboundHostOverrideUpdateCmd() *cobra.Command {
 }
 
 func newUnboundHostOverrideToggleCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "toggle <uuid>",
+	cmd := &cobra.Command{
+		Use:   "toggle <uuid> [<enabled>]",
 		Short: "Toggle unbound host-override",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.RangeArgs(1, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsToggleHostOverride(context.Background(), args[0])
+			resp, err := s.SettingsToggleHostOverride(context.Background(), args[0], args[1:]...)
 			if err != nil {
 				return err
 			}
@@ -1510,6 +1521,7 @@ func newUnboundHostOverrideToggleCmd() *cobra.Command {
 			return printer.PrintGenericResponse(resp)
 		},
 	}
+	return cmd
 }
 
 func newUnboundSettingsCmd() *cobra.Command {

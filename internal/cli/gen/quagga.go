@@ -175,15 +175,16 @@ func newQuaggaNeighborDeleteCmd() *cobra.Command {
 
 func newQuaggaNeighborGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get quagga neighbor",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.BfdGetNeighbor(context.Background())
+			resp, err := s.BfdGetNeighbor(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -421,15 +422,16 @@ func newQuaggaAspathDeleteCmd() *cobra.Command {
 
 func newQuaggaAspathGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get quagga aspath",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.BgpGetAspath(context.Background())
+			resp, err := s.BgpGetAspath(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -616,15 +618,16 @@ func newQuaggaCommunitylistDeleteCmd() *cobra.Command {
 
 func newQuaggaCommunitylistGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get quagga communitylist",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.BgpGetCommunitylist(context.Background())
+			resp, err := s.BgpGetCommunitylist(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -829,15 +832,16 @@ func newQuaggaPeergroupDeleteCmd() *cobra.Command {
 
 func newQuaggaPeergroupGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get quagga peergroup",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.BgpGetPeergroup(context.Background())
+			resp, err := s.BgpGetPeergroup(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -1030,15 +1034,16 @@ func newQuaggaPrefixlistDeleteCmd() *cobra.Command {
 
 func newQuaggaPrefixlistGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get quagga prefixlist",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.BgpGetPrefixlist(context.Background())
+			resp, err := s.BgpGetPrefixlist(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -1213,15 +1218,16 @@ func newQuaggaRedistributionDeleteCmd() *cobra.Command {
 
 func newQuaggaRedistributionGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get quagga redistribution",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.BgpGetRedistribution(context.Background())
+			resp, err := s.BgpGetRedistribution(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -1420,15 +1426,16 @@ func newQuaggaRoutemapDeleteCmd() *cobra.Command {
 
 func newQuaggaRoutemapGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get quagga routemap",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.BgpGetRoutemap(context.Background())
+			resp, err := s.BgpGetRoutemap(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -2021,15 +2028,16 @@ func newQuaggaOspfv3RouteCmd() *cobra.Command {
 
 func newQuaggaOspfv3RouteListCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "list",
+		Use:   "list [<format>]",
 		Short: "List quagga ospfv3route",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.DiagnosticsSearchOspfv3route(context.Background())
+			resp, err := s.DiagnosticsSearchOspfv3route(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -2221,15 +2229,16 @@ func newQuaggaInterfaceDeleteCmd() *cobra.Command {
 
 func newQuaggaInterfaceGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get quagga interface",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.Ospf6settingsGetInterface(context.Background())
+			resp, err := s.Ospf6settingsGetInterface(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -2422,15 +2431,16 @@ func newQuaggaNetworkDeleteCmd() *cobra.Command {
 
 func newQuaggaNetworkGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get quagga network",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.Ospf6settingsGetNetwork(context.Background())
+			resp, err := s.Ospf6settingsGetNetwork(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -2656,15 +2666,16 @@ func newQuaggaAreaDeleteCmd() *cobra.Command {
 
 func newQuaggaAreaGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get quagga area",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.OspfsettingsGetArea(context.Background())
+			resp, err := s.OspfsettingsGetArea(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -3094,15 +3105,16 @@ func newQuaggaRouteDeleteCmd() *cobra.Command {
 
 func newQuaggaRouteGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get quagga route",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.StaticGetRoute(context.Background())
+			resp, err := s.StaticGetRoute(context.Background(), args...)
 			if err != nil {
 				return err
 			}

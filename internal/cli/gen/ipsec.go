@@ -175,15 +175,16 @@ func newIpsecChildDeleteCmd() *cobra.Command {
 
 func newIpsecChildGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get ipsec child",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.ConnectionsGetChild(context.Background())
+			resp, err := s.ConnectionsGetChild(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -245,17 +246,17 @@ func newIpsecChildUpdateCmd() *cobra.Command {
 }
 
 func newIpsecChildToggleCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "toggle <uuid>",
+	cmd := &cobra.Command{
+		Use:   "toggle <uuid> [<enabled>]",
 		Short: "Toggle ipsec child",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.RangeArgs(1, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.ConnectionsToggleChild(context.Background(), args[0])
+			resp, err := s.ConnectionsToggleChild(context.Background(), args[0], args[1:]...)
 			if err != nil {
 				return err
 			}
@@ -263,6 +264,7 @@ func newIpsecChildToggleCmd() *cobra.Command {
 			return printer.PrintGenericResponse(resp)
 		},
 	}
+	return cmd
 }
 
 // ipsecConnectionColumns defines table columns for the Connection resource.
@@ -385,15 +387,16 @@ func newIpsecConnectionDeleteCmd() *cobra.Command {
 
 func newIpsecConnectionGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get ipsec connection",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.ConnectionsGetConnection(context.Background())
+			resp, err := s.ConnectionsGetConnection(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -455,17 +458,17 @@ func newIpsecConnectionUpdateCmd() *cobra.Command {
 }
 
 func newIpsecConnectionToggleCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "toggle <uuid>",
+	cmd := &cobra.Command{
+		Use:   "toggle <uuid> [<enabled>]",
 		Short: "Toggle ipsec connection",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.RangeArgs(1, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.ConnectionsToggleConnection(context.Background(), args[0])
+			resp, err := s.ConnectionsToggleConnection(context.Background(), args[0], args[1:]...)
 			if err != nil {
 				return err
 			}
@@ -473,6 +476,7 @@ func newIpsecConnectionToggleCmd() *cobra.Command {
 			return printer.PrintGenericResponse(resp)
 		},
 	}
+	return cmd
 }
 
 func newIpsecConnectionConnectionExistsCmd() *cobra.Command {
@@ -679,15 +683,16 @@ func newIpsecLocalDeleteCmd() *cobra.Command {
 
 func newIpsecLocalGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get ipsec local",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.ConnectionsGetLocal(context.Background())
+			resp, err := s.ConnectionsGetLocal(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -749,17 +754,17 @@ func newIpsecLocalUpdateCmd() *cobra.Command {
 }
 
 func newIpsecLocalToggleCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "toggle <uuid>",
+	cmd := &cobra.Command{
+		Use:   "toggle <uuid> [<enabled>]",
 		Short: "Toggle ipsec local",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.RangeArgs(1, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.ConnectionsToggleLocal(context.Background(), args[0])
+			resp, err := s.ConnectionsToggleLocal(context.Background(), args[0], args[1:]...)
 			if err != nil {
 				return err
 			}
@@ -767,6 +772,7 @@ func newIpsecLocalToggleCmd() *cobra.Command {
 			return printer.PrintGenericResponse(resp)
 		},
 	}
+	return cmd
 }
 
 // ipsecRemoteColumns defines table columns for the Remote resource.
@@ -885,15 +891,16 @@ func newIpsecRemoteDeleteCmd() *cobra.Command {
 
 func newIpsecRemoteGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get ipsec remote",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.ConnectionsGetRemote(context.Background())
+			resp, err := s.ConnectionsGetRemote(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -955,17 +962,17 @@ func newIpsecRemoteUpdateCmd() *cobra.Command {
 }
 
 func newIpsecRemoteToggleCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "toggle <uuid>",
+	cmd := &cobra.Command{
+		Use:   "toggle <uuid> [<enabled>]",
 		Short: "Toggle ipsec remote",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.RangeArgs(1, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.ConnectionsToggleRemote(context.Background(), args[0])
+			resp, err := s.ConnectionsToggleRemote(context.Background(), args[0], args[1:]...)
 			if err != nil {
 				return err
 			}
@@ -973,6 +980,7 @@ func newIpsecRemoteToggleCmd() *cobra.Command {
 			return printer.PrintGenericResponse(resp)
 		},
 	}
+	return cmd
 }
 
 // ipsecKeyPairsColumns defines table columns for the KeyPairs resource.
@@ -1082,17 +1090,17 @@ func newIpsecKeyPairsDeleteCmd() *cobra.Command {
 }
 
 func newIpsecKeyPairsGenKeyPairCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "gen-key-pair <type>",
+	cmd := &cobra.Command{
+		Use:   "gen-key-pair <type> [<size>]",
 		Short: "GenKeyPair ipsec key-pairs",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.RangeArgs(1, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.KeyPairsGenKeyPair(context.Background(), args[0])
+			resp, err := s.KeyPairsGenKeyPair(context.Background(), args[0], args[1:]...)
 			if err != nil {
 				return err
 			}
@@ -1100,19 +1108,21 @@ func newIpsecKeyPairsGenKeyPairCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	return cmd
 }
 
 func newIpsecKeyPairsGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get ipsec key-pairs",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.KeyPairsGetItem(context.Background())
+			resp, err := s.KeyPairsGetItem(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -1378,15 +1388,16 @@ func newIpsecManualSpdDelCmd() *cobra.Command {
 
 func newIpsecManualSpdGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get ipsec manual-spd",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.ManualSpdGet(context.Background())
+			resp, err := s.ManualSpdGet(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -1452,9 +1463,9 @@ func newIpsecManualSpdSetCmd() *cobra.Command {
 
 func newIpsecManualSpdToggleCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "toggle <uuid>",
+		Use:   "toggle <uuid> [<enabled>]",
 		Short: "Toggle ipsec manual-spd",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.RangeArgs(1, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -1549,15 +1560,16 @@ func newIpsecPoolsDelCmd() *cobra.Command {
 
 func newIpsecPoolsGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get ipsec pools",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.PoolsGet(context.Background())
+			resp, err := s.PoolsGet(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -1623,9 +1635,9 @@ func newIpsecPoolsSetCmd() *cobra.Command {
 
 func newIpsecPoolsToggleCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "toggle <uuid>",
+		Use:   "toggle <uuid> [<enabled>]",
 		Short: "Toggle ipsec pools",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.RangeArgs(1, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -1747,15 +1759,16 @@ func newIpsecPreSharedKeysDeleteCmd() *cobra.Command {
 
 func newIpsecPreSharedKeysGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get ipsec pre-shared-keys",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.PreSharedKeysGetItem(context.Background())
+			resp, err := s.PreSharedKeysGetItem(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -2169,9 +2182,9 @@ func newIpsecPhase1DeleteCmd() *cobra.Command {
 
 func newIpsecPhase1ToggleCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "toggle <ikeid>",
+		Use:   "toggle <ikeid> [<enabled>]",
 		Short: "Toggle ipsec phase1",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.RangeArgs(1, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -2256,9 +2269,9 @@ func newIpsecPhase2DeleteCmd() *cobra.Command {
 
 func newIpsecPhase2ToggleCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "toggle <seqid>",
+		Use:   "toggle <seqid> [<enabled>]",
 		Short: "Toggle ipsec phase2",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.RangeArgs(1, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -2504,15 +2517,16 @@ func newIpsecVtiDelCmd() *cobra.Command {
 
 func newIpsecVtiGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get ipsec vti",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.VtiGet(context.Background())
+			resp, err := s.VtiGet(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -2578,9 +2592,9 @@ func newIpsecVtiSetCmd() *cobra.Command {
 
 func newIpsecVtiToggleCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "toggle <uuid>",
+		Use:   "toggle <uuid> [<enabled>]",
 		Short: "Toggle ipsec vti",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.RangeArgs(1, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {

@@ -161,15 +161,16 @@ func newRadsecproxyClientsDeleteCmd() *cobra.Command {
 
 func newRadsecproxyClientsGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get radsecproxy clients",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.ClientsGetItem(context.Background())
+			resp, err := s.ClientsGetItem(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -259,17 +260,17 @@ func newRadsecproxyClientsUpdateCmd() *cobra.Command {
 }
 
 func newRadsecproxyClientsToggleCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "toggle <uuid>",
+	cmd := &cobra.Command{
+		Use:   "toggle <uuid> [<enabled>]",
 		Short: "Toggle radsecproxy clients",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.RangeArgs(1, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.ClientsToggleItem(context.Background(), args[0])
+			resp, err := s.ClientsToggleItem(context.Background(), args[0], args[1:]...)
 			if err != nil {
 				return err
 			}
@@ -277,6 +278,7 @@ func newRadsecproxyClientsToggleCmd() *cobra.Command {
 			return printer.PrintGenericResponse(resp)
 		},
 	}
+	return cmd
 }
 
 func newRadsecproxyGeneralCmd() *cobra.Command {
@@ -447,15 +449,16 @@ func newRadsecproxyRealmsDeleteCmd() *cobra.Command {
 
 func newRadsecproxyRealmsGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get radsecproxy realms",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.RealmsGetItem(context.Background())
+			resp, err := s.RealmsGetItem(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -545,17 +548,17 @@ func newRadsecproxyRealmsUpdateCmd() *cobra.Command {
 }
 
 func newRadsecproxyRealmsToggleCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "toggle <uuid>",
+	cmd := &cobra.Command{
+		Use:   "toggle <uuid> [<enabled>]",
 		Short: "Toggle radsecproxy realms",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.RangeArgs(1, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.RealmsToggleItem(context.Background(), args[0])
+			resp, err := s.RealmsToggleItem(context.Background(), args[0], args[1:]...)
 			if err != nil {
 				return err
 			}
@@ -563,6 +566,7 @@ func newRadsecproxyRealmsToggleCmd() *cobra.Command {
 			return printer.PrintGenericResponse(resp)
 		},
 	}
+	return cmd
 }
 
 // radsecproxyRewritesColumns defines table columns for the Rewrites resource.
@@ -682,15 +686,16 @@ func newRadsecproxyRewritesDeleteCmd() *cobra.Command {
 
 func newRadsecproxyRewritesGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get radsecproxy rewrites",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.RewritesGetItem(context.Background())
+			resp, err := s.RewritesGetItem(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -780,17 +785,17 @@ func newRadsecproxyRewritesUpdateCmd() *cobra.Command {
 }
 
 func newRadsecproxyRewritesToggleCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "toggle <uuid>",
+	cmd := &cobra.Command{
+		Use:   "toggle <uuid> [<enabled>]",
 		Short: "Toggle radsecproxy rewrites",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.RangeArgs(1, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.RewritesToggleItem(context.Background(), args[0])
+			resp, err := s.RewritesToggleItem(context.Background(), args[0], args[1:]...)
 			if err != nil {
 				return err
 			}
@@ -798,6 +803,7 @@ func newRadsecproxyRewritesToggleCmd() *cobra.Command {
 			return printer.PrintGenericResponse(resp)
 		},
 	}
+	return cmd
 }
 
 // radsecproxyServersColumns defines table columns for the Servers resource.
@@ -917,15 +923,16 @@ func newRadsecproxyServersDeleteCmd() *cobra.Command {
 
 func newRadsecproxyServersGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get radsecproxy servers",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServersGetItem(context.Background())
+			resp, err := s.ServersGetItem(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -1015,17 +1022,17 @@ func newRadsecproxyServersUpdateCmd() *cobra.Command {
 }
 
 func newRadsecproxyServersToggleCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "toggle <uuid>",
+	cmd := &cobra.Command{
+		Use:   "toggle <uuid> [<enabled>]",
 		Short: "Toggle radsecproxy servers",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.RangeArgs(1, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServersToggleItem(context.Background(), args[0])
+			resp, err := s.ServersToggleItem(context.Background(), args[0], args[1:]...)
 			if err != nil {
 				return err
 			}
@@ -1033,6 +1040,7 @@ func newRadsecproxyServersToggleCmd() *cobra.Command {
 			return printer.PrintGenericResponse(resp)
 		},
 	}
+	return cmd
 }
 
 func newRadsecproxyServiceCmd() *cobra.Command {
@@ -1290,15 +1298,16 @@ func newRadsecproxyTlsDeleteCmd() *cobra.Command {
 
 func newRadsecproxyTlsGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get radsecproxy tls",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.TlsGetItem(context.Background())
+			resp, err := s.TlsGetItem(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -1388,17 +1397,17 @@ func newRadsecproxyTlsUpdateCmd() *cobra.Command {
 }
 
 func newRadsecproxyTlsToggleCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "toggle <uuid>",
+	cmd := &cobra.Command{
+		Use:   "toggle <uuid> [<enabled>]",
 		Short: "Toggle radsecproxy tls",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.RangeArgs(1, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.TlsToggleItem(context.Background(), args[0])
+			resp, err := s.TlsToggleItem(context.Background(), args[0], args[1:]...)
 			if err != nil {
 				return err
 			}
@@ -1406,4 +1415,5 @@ func newRadsecproxyTlsToggleCmd() *cobra.Command {
 			return printer.PrintGenericResponse(resp)
 		},
 	}
+	return cmd
 }

@@ -78,15 +78,16 @@ func newCaptiveportalAccessApiCmd() *cobra.Command {
 
 func newCaptiveportalAccessLogoffCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "logoff",
+		Use:   "logoff [<zoneid>]",
 		Short: "Logoff captiveportal access",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.AccessLogoff(context.Background())
+			resp, err := s.AccessLogoff(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -191,15 +192,16 @@ func newCaptiveportalTemplateDeleteCmd() *cobra.Command {
 
 func newCaptiveportalTemplateGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<fileid>]",
 		Short: "Get captiveportal template",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceGetTemplate(context.Background())
+			resp, err := s.ServiceGetTemplate(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -467,15 +469,16 @@ func newCaptiveportalSessionDisconnectCmd() *cobra.Command {
 
 func newCaptiveportalSessionListCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "list",
+		Use:   "list [<zoneid>]",
 		Short: "List captiveportal session",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SessionList(context.Background())
+			resp, err := s.SessionList(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -641,15 +644,16 @@ func newCaptiveportalZoneDeleteCmd() *cobra.Command {
 
 func newCaptiveportalZoneGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get captiveportal zone",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetZone(context.Background())
+			resp, err := s.SettingsGetZone(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -688,17 +692,17 @@ func newCaptiveportalZoneUpdateCmd() *cobra.Command {
 }
 
 func newCaptiveportalZoneToggleCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "toggle <uuid>",
+	cmd := &cobra.Command{
+		Use:   "toggle <uuid> [<enabled>]",
 		Short: "Toggle captiveportal zone",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.RangeArgs(1, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsToggleZone(context.Background(), args[0])
+			resp, err := s.SettingsToggleZone(context.Background(), args[0], args[1:]...)
 			if err != nil {
 				return err
 			}
@@ -706,6 +710,7 @@ func newCaptiveportalZoneToggleCmd() *cobra.Command {
 			return printer.PrintGenericResponse(resp)
 		},
 	}
+	return cmd
 }
 
 func newCaptiveportalZoneListCmd() *cobra.Command {

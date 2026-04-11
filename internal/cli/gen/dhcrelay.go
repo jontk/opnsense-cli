@@ -156,15 +156,16 @@ func newDhcrelayDestDeleteCmd() *cobra.Command {
 
 func newDhcrelayDestGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get dhcrelay dest",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetDest(context.Background())
+			resp, err := s.SettingsGetDest(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -324,15 +325,16 @@ func newDhcrelayRelayDeleteCmd() *cobra.Command {
 
 func newDhcrelayRelayGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get dhcrelay relay",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetRelay(context.Background())
+			resp, err := s.SettingsGetRelay(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -395,17 +397,17 @@ func newDhcrelayRelayUpdateCmd() *cobra.Command {
 }
 
 func newDhcrelayRelayToggleCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "toggle <uuid>",
+	cmd := &cobra.Command{
+		Use:   "toggle <uuid> [<enabled>]",
 		Short: "Toggle dhcrelay relay",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.RangeArgs(1, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsToggleRelay(context.Background(), args[0])
+			resp, err := s.SettingsToggleRelay(context.Background(), args[0], args[1:]...)
 			if err != nil {
 				return err
 			}
@@ -413,6 +415,7 @@ func newDhcrelayRelayToggleCmd() *cobra.Command {
 			return printer.PrintGenericResponse(resp)
 		},
 	}
+	return cmd
 }
 
 func newDhcrelaySettingsCmd() *cobra.Command {

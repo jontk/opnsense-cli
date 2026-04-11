@@ -205,15 +205,16 @@ func newFirewallAliasExportCmd() *cobra.Command {
 
 func newFirewallAliasGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get firewall alias",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.AliasGetItem(context.Background())
+			resp, err := s.AliasGetItem(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -437,17 +438,17 @@ func newFirewallAliasUpdateCmd() *cobra.Command {
 }
 
 func newFirewallAliasToggleCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "toggle <uuid>",
+	cmd := &cobra.Command{
+		Use:   "toggle <uuid> [<enabled>]",
 		Short: "Toggle firewall alias",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.RangeArgs(1, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.AliasToggleItem(context.Background(), args[0])
+			resp, err := s.AliasToggleItem(context.Background(), args[0], args[1:]...)
 			if err != nil {
 				return err
 			}
@@ -455,6 +456,7 @@ func newFirewallAliasToggleCmd() *cobra.Command {
 			return printer.PrintGenericResponse(resp)
 		},
 	}
+	return cmd
 }
 
 // firewallAliasUuidColumns defines table columns for the AliasUuid resource.
@@ -883,15 +885,16 @@ func newFirewallCategoryDeleteCmd() *cobra.Command {
 
 func newFirewallCategoryGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get firewall category",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.CategoryGetItem(context.Background())
+			resp, err := s.CategoryGetItem(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -1075,15 +1078,16 @@ func newFirewallRuleDeleteCmd() *cobra.Command {
 
 func newFirewallRuleGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get firewall rule",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.DNatGetRule(context.Background())
+			resp, err := s.DNatGetRule(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -1146,17 +1150,17 @@ func newFirewallRuleUpdateCmd() *cobra.Command {
 }
 
 func newFirewallRuleToggleCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "toggle <uuid>",
+	cmd := &cobra.Command{
+		Use:   "toggle <uuid> [<disabled>]",
 		Short: "Toggle firewall rule",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.RangeArgs(1, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.DNatToggleRule(context.Background(), args[0])
+			resp, err := s.DNatToggleRule(context.Background(), args[0], args[1:]...)
 			if err != nil {
 				return err
 			}
@@ -1164,6 +1168,7 @@ func newFirewallRuleToggleCmd() *cobra.Command {
 			return printer.PrintGenericResponse(resp)
 		},
 	}
+	return cmd
 }
 
 func newFirewallDNatCmd() *cobra.Command {
@@ -2004,15 +2009,16 @@ func newFirewallGroupDeleteCmd() *cobra.Command {
 
 func newFirewallGroupGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get firewall group",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.GroupGetItem(context.Background())
+			resp, err := s.GroupGetItem(context.Background(), args...)
 			if err != nil {
 				return err
 			}

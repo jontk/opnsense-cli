@@ -249,15 +249,16 @@ func newTincHostDeleteCmd() *cobra.Command {
 
 func newTincHostGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get tinc host",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetHost(context.Background())
+			resp, err := s.SettingsGetHost(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -319,17 +320,17 @@ func newTincHostUpdateCmd() *cobra.Command {
 }
 
 func newTincHostToggleCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "toggle <uuid>",
+	cmd := &cobra.Command{
+		Use:   "toggle <uuid> [<enabled>]",
 		Short: "Toggle tinc host",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.RangeArgs(1, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsToggleHost(context.Background(), args[0])
+			resp, err := s.SettingsToggleHost(context.Background(), args[0], args[1:]...)
 			if err != nil {
 				return err
 			}
@@ -337,6 +338,7 @@ func newTincHostToggleCmd() *cobra.Command {
 			return printer.PrintGenericResponse(resp)
 		},
 	}
+	return cmd
 }
 
 // tincNetworkColumns defines table columns for the Network resource.
@@ -427,15 +429,16 @@ func newTincNetworkDeleteCmd() *cobra.Command {
 
 func newTincNetworkGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get tinc network",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetNetwork(context.Background())
+			resp, err := s.SettingsGetNetwork(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -497,17 +500,17 @@ func newTincNetworkUpdateCmd() *cobra.Command {
 }
 
 func newTincNetworkToggleCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "toggle <uuid>",
+	cmd := &cobra.Command{
+		Use:   "toggle <uuid> [<enabled>]",
 		Short: "Toggle tinc network",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.RangeArgs(1, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsToggleNetwork(context.Background(), args[0])
+			resp, err := s.SettingsToggleNetwork(context.Background(), args[0], args[1:]...)
 			if err != nil {
 				return err
 			}
@@ -515,6 +518,7 @@ func newTincNetworkToggleCmd() *cobra.Command {
 			return printer.PrintGenericResponse(resp)
 		},
 	}
+	return cmd
 }
 
 func newTincSettingsCmd() *cobra.Command {

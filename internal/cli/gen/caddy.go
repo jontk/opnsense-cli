@@ -320,15 +320,16 @@ func newCaddyAccessListDeleteCmd() *cobra.Command {
 
 func newCaddyAccessListGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get caddy access-list",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.ReverseProxyGetAccessList(context.Background())
+			resp, err := s.ReverseProxyGetAccessList(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -475,15 +476,16 @@ func newCaddyBasicAuthDeleteCmd() *cobra.Command {
 
 func newCaddyBasicAuthGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get caddy basic-auth",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.ReverseProxyGetBasicAuth(context.Background())
+			resp, err := s.ReverseProxyGetBasicAuth(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -661,15 +663,16 @@ func newCaddyHandleDeleteCmd() *cobra.Command {
 
 func newCaddyHandleGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get caddy handle",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.ReverseProxyGetHandle(context.Background())
+			resp, err := s.ReverseProxyGetHandle(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -732,17 +735,17 @@ func newCaddyHandleUpdateCmd() *cobra.Command {
 }
 
 func newCaddyHandleToggleCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "toggle <uuid>",
+	cmd := &cobra.Command{
+		Use:   "toggle <uuid> [<enabled>]",
 		Short: "Toggle caddy handle",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.RangeArgs(1, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.ReverseProxyToggleHandle(context.Background(), args[0])
+			resp, err := s.ReverseProxyToggleHandle(context.Background(), args[0], args[1:]...)
 			if err != nil {
 				return err
 			}
@@ -750,6 +753,7 @@ func newCaddyHandleToggleCmd() *cobra.Command {
 			return printer.PrintGenericResponse(resp)
 		},
 	}
+	return cmd
 }
 
 // caddyHeaderColumns defines table columns for the Header resource.
@@ -849,15 +853,16 @@ func newCaddyHeaderDeleteCmd() *cobra.Command {
 
 func newCaddyHeaderGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get caddy header",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.ReverseProxyGetHeader(context.Background())
+			resp, err := s.ReverseProxyGetHeader(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -1035,15 +1040,16 @@ func newCaddyLayer4DeleteCmd() *cobra.Command {
 
 func newCaddyLayer4GetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get caddy layer4",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.ReverseProxyGetLayer4(context.Background())
+			resp, err := s.ReverseProxyGetLayer4(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -1106,17 +1112,17 @@ func newCaddyLayer4UpdateCmd() *cobra.Command {
 }
 
 func newCaddyLayer4ToggleCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "toggle <uuid>",
+	cmd := &cobra.Command{
+		Use:   "toggle <uuid> [<enabled>]",
 		Short: "Toggle caddy layer4",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.RangeArgs(1, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.ReverseProxyToggleLayer4(context.Background(), args[0])
+			resp, err := s.ReverseProxyToggleLayer4(context.Background(), args[0], args[1:]...)
 			if err != nil {
 				return err
 			}
@@ -1124,6 +1130,7 @@ func newCaddyLayer4ToggleCmd() *cobra.Command {
 			return printer.PrintGenericResponse(resp)
 		},
 	}
+	return cmd
 }
 
 // caddyLayer4OpenvpnColumns defines table columns for the Layer4Openvpn resource.
@@ -1206,15 +1213,16 @@ func newCaddyLayer4OpenvpnDeleteCmd() *cobra.Command {
 
 func newCaddyLayer4OpenvpnGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get caddy layer4-openvpn",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.ReverseProxyGetLayer4Openvpn(context.Background())
+			resp, err := s.ReverseProxyGetLayer4Openvpn(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -1277,17 +1285,17 @@ func newCaddyLayer4OpenvpnUpdateCmd() *cobra.Command {
 }
 
 func newCaddyLayer4OpenvpnToggleCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "toggle <uuid>",
+	cmd := &cobra.Command{
+		Use:   "toggle <uuid> [<enabled>]",
 		Short: "Toggle caddy layer4-openvpn",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.RangeArgs(1, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.ReverseProxyToggleLayer4Openvpn(context.Background(), args[0])
+			resp, err := s.ReverseProxyToggleLayer4Openvpn(context.Background(), args[0], args[1:]...)
 			if err != nil {
 				return err
 			}
@@ -1295,6 +1303,7 @@ func newCaddyLayer4OpenvpnToggleCmd() *cobra.Command {
 			return printer.PrintGenericResponse(resp)
 		},
 	}
+	return cmd
 }
 
 // caddyReverseProxyColumns defines table columns for the ReverseProxy resource.
@@ -1417,15 +1426,16 @@ func newCaddyReverseProxyDeleteCmd() *cobra.Command {
 
 func newCaddyReverseProxyGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get caddy reverse-proxy",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.ReverseProxyGetReverseProxy(context.Background())
+			resp, err := s.ReverseProxyGetReverseProxy(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -1515,17 +1525,17 @@ func newCaddyReverseProxyUpdateCmd() *cobra.Command {
 }
 
 func newCaddyReverseProxyToggleCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "toggle <uuid>",
+	cmd := &cobra.Command{
+		Use:   "toggle <uuid> [<enabled>]",
 		Short: "Toggle caddy reverse-proxy",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.RangeArgs(1, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.ReverseProxyToggleReverseProxy(context.Background(), args[0])
+			resp, err := s.ReverseProxyToggleReverseProxy(context.Background(), args[0], args[1:]...)
 			if err != nil {
 				return err
 			}
@@ -1533,6 +1543,7 @@ func newCaddyReverseProxyToggleCmd() *cobra.Command {
 			return printer.PrintGenericResponse(resp)
 		},
 	}
+	return cmd
 }
 
 // caddySubdomainColumns defines table columns for the Subdomain resource.
@@ -1654,15 +1665,16 @@ func newCaddySubdomainDeleteCmd() *cobra.Command {
 
 func newCaddySubdomainGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get caddy subdomain",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.ReverseProxyGetSubdomain(context.Background())
+			resp, err := s.ReverseProxyGetSubdomain(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -1725,17 +1737,17 @@ func newCaddySubdomainUpdateCmd() *cobra.Command {
 }
 
 func newCaddySubdomainToggleCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "toggle <uuid>",
+	cmd := &cobra.Command{
+		Use:   "toggle <uuid> [<enabled>]",
 		Short: "Toggle caddy subdomain",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.RangeArgs(1, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.ReverseProxyToggleSubdomain(context.Background(), args[0])
+			resp, err := s.ReverseProxyToggleSubdomain(context.Background(), args[0], args[1:]...)
 			if err != nil {
 				return err
 			}
@@ -1743,6 +1755,7 @@ func newCaddySubdomainToggleCmd() *cobra.Command {
 			return printer.PrintGenericResponse(resp)
 		},
 	}
+	return cmd
 }
 
 func newCaddyAllReverseDomainsCmd() *cobra.Command {

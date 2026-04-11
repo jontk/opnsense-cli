@@ -52,7 +52,8 @@ class CLIVerbView:
     positional_params: list[str]  # required path param names, in order → args[i]
     has_data_flag: bool         # True if command takes --data JSON flag (typed add/set)
     has_body_arg: bool          # True if untyped POST endpoint (pass nil body)
-    has_optional_params: bool   # True if SDK method has variadic opts (not used by CLI)
+    has_optional_params: bool   # True if SDK method has variadic opts
+    optional_params: list[str]  # optional path param names (passed as opts ...string)
     item_type: str              # Go type name if typed, else ""
     is_typed: bool              # True if there's a model item
     is_search: bool             # True if crud_verb == "search"
@@ -185,7 +186,8 @@ def _build_verb_view(ep: Endpoint, cli_verb: str) -> CLIVerbView:
     """Build a CLIVerbView from an Endpoint."""
     # All required parameters become positional CLI args
     positional_params = [p.name for p in ep.parameters if p.required]
-    has_optional_params = any(not p.required for p in ep.parameters)
+    optional_params = [p.name for p in ep.parameters if not p.required]
+    has_optional_params = bool(optional_params)
 
     primary = ep.methods[-1] if len(ep.methods) > 1 else ep.methods[0]
     has_body = primary == "POST"
@@ -204,6 +206,7 @@ def _build_verb_view(ep: Endpoint, cli_verb: str) -> CLIVerbView:
         has_data_flag=has_data_flag,
         has_body_arg=has_body and not is_typed and not is_search,
         has_optional_params=has_optional_params,
+        optional_params=optional_params,
         item_type=_safe_go_name(ep.model_item.go_name) if ep.model_item else "",
         is_typed=is_typed,
         is_search=is_search,

@@ -249,15 +249,16 @@ func newTrafficshaperPipeDeleteCmd() *cobra.Command {
 
 func newTrafficshaperPipeGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get trafficshaper pipe",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetPipe(context.Background())
+			resp, err := s.SettingsGetPipe(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -296,17 +297,17 @@ func newTrafficshaperPipeUpdateCmd() *cobra.Command {
 }
 
 func newTrafficshaperPipeToggleCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "toggle <uuid>",
+	cmd := &cobra.Command{
+		Use:   "toggle <uuid> [<enabled>]",
 		Short: "Toggle trafficshaper pipe",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.RangeArgs(1, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsTogglePipe(context.Background(), args[0])
+			resp, err := s.SettingsTogglePipe(context.Background(), args[0], args[1:]...)
 			if err != nil {
 				return err
 			}
@@ -314,6 +315,7 @@ func newTrafficshaperPipeToggleCmd() *cobra.Command {
 			return printer.PrintGenericResponse(resp)
 		},
 	}
+	return cmd
 }
 
 func newTrafficshaperPipeListCmd() *cobra.Command {
@@ -459,15 +461,16 @@ func newTrafficshaperQueueDeleteCmd() *cobra.Command {
 
 func newTrafficshaperQueueGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get trafficshaper queue",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetQueue(context.Background())
+			resp, err := s.SettingsGetQueue(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -506,17 +509,17 @@ func newTrafficshaperQueueUpdateCmd() *cobra.Command {
 }
 
 func newTrafficshaperQueueToggleCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "toggle <uuid>",
+	cmd := &cobra.Command{
+		Use:   "toggle <uuid> [<enabled>]",
 		Short: "Toggle trafficshaper queue",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.RangeArgs(1, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsToggleQueue(context.Background(), args[0])
+			resp, err := s.SettingsToggleQueue(context.Background(), args[0], args[1:]...)
 			if err != nil {
 				return err
 			}
@@ -524,6 +527,7 @@ func newTrafficshaperQueueToggleCmd() *cobra.Command {
 			return printer.PrintGenericResponse(resp)
 		},
 	}
+	return cmd
 }
 
 func newTrafficshaperQueueListCmd() *cobra.Command {
@@ -669,15 +673,16 @@ func newTrafficshaperRuleDeleteCmd() *cobra.Command {
 
 func newTrafficshaperRuleGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get trafficshaper rule",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetRule(context.Background())
+			resp, err := s.SettingsGetRule(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -716,17 +721,17 @@ func newTrafficshaperRuleUpdateCmd() *cobra.Command {
 }
 
 func newTrafficshaperRuleToggleCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "toggle <uuid>",
+	cmd := &cobra.Command{
+		Use:   "toggle <uuid> [<enabled>]",
 		Short: "Toggle trafficshaper rule",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.RangeArgs(1, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsToggleRule(context.Background(), args[0])
+			resp, err := s.SettingsToggleRule(context.Background(), args[0], args[1:]...)
 			if err != nil {
 				return err
 			}
@@ -734,6 +739,7 @@ func newTrafficshaperRuleToggleCmd() *cobra.Command {
 			return printer.PrintGenericResponse(resp)
 		},
 	}
+	return cmd
 }
 
 func newTrafficshaperRuleListCmd() *cobra.Command {

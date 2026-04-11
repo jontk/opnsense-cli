@@ -297,15 +297,16 @@ func newRadvdEntryDeleteCmd() *cobra.Command {
 
 func newRadvdEntryGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get radvd entry",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetEntry(context.Background())
+			resp, err := s.SettingsGetEntry(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -368,17 +369,17 @@ func newRadvdEntryUpdateCmd() *cobra.Command {
 }
 
 func newRadvdEntryToggleCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "toggle <uuid>",
+	cmd := &cobra.Command{
+		Use:   "toggle <uuid> [<enabled>]",
 		Short: "Toggle radvd entry",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.RangeArgs(1, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsToggleEntry(context.Background(), args[0])
+			resp, err := s.SettingsToggleEntry(context.Background(), args[0], args[1:]...)
 			if err != nil {
 				return err
 			}
@@ -386,6 +387,7 @@ func newRadvdEntryToggleCmd() *cobra.Command {
 			return printer.PrintGenericResponse(resp)
 		},
 	}
+	return cmd
 }
 
 func newRadvdSettingsCmd() *cobra.Command {

@@ -166,14 +166,19 @@ func new{{ m.go_file_ident }}{{ res.go_ident }}{{ verb_go }}Cmd() *cobra.Command
 	return cmd
 {% elif n > 0 %}
 {# ── Positional args (get/delete/toggle/untyped with path params) ── #}
-{% if verb.has_body_arg %}
+{% set m_opt = verb.optional_params | length %}
+{% if verb.has_body_arg or verb.has_optional_params %}
 	cmd := &cobra.Command{
 {% else %}
 	return &cobra.Command{
 {% endif %}
-		Use:   "{{ verb.cli_verb }}{% for p in verb.positional_params %} <{{ p }}>{% endfor %}",
+		Use:   "{{ verb.cli_verb }}{% for p in verb.positional_params %} <{{ p }}>{% endfor %}{% for p in verb.optional_params %} [<{{ p }}>]{% endfor %}",
 		Short: "{{ verb_go }} {{ m.module_name }} {{ res.resource }}",
+{% if verb.has_optional_params %}
+		Args:  cobra.RangeArgs({{ n }}, {{ n + m_opt }}),
+{% else %}
 		Args:  cobra.ExactArgs({{ n }}),
+{% endif %}
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -187,6 +192,8 @@ func new{{ m.go_file_ident }}{{ res.go_ident }}{{ verb_go }}Cmd() *cobra.Command
 				return fmt.Errorf("parsing --data: %w", err)
 			}
 			resp, err := s.{{ verb.go_method }}(context.Background(){% for i in range(n) %}, args[{{ i }}]{% endfor %}, body)
+{% elif verb.has_optional_params %}
+			resp, err := s.{{ verb.go_method }}(context.Background(){% for i in range(n) %}, args[{{ i }}]{% endfor %}, args[{{ n }}:]...)
 {% else %}
 			resp, err := s.{{ verb.go_method }}(context.Background(){% for i in range(n) %}, args[{{ i }}]{% endfor %})
 {% endif %}
@@ -205,6 +212,8 @@ func new{{ m.go_file_ident }}{{ res.go_ident }}{{ verb_go }}Cmd() *cobra.Command
 	}
 {% if verb.has_body_arg %}
 	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
+{% elif verb.has_optional_params %}
 	return cmd
 {% endif %}
 {% elif verb.has_body_arg %}
@@ -234,17 +243,25 @@ func new{{ m.go_file_ident }}{{ res.go_ident }}{{ verb_go }}Cmd() *cobra.Command
 	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
 	return cmd
 {% else %}
-{# ── No positional args, no body (GET-like) ── #}
+{# ── No positional args, no body (GET-like, or GET-like with optional path params) ── #}
+{% set m_opt = verb.optional_params | length %}
 	return &cobra.Command{
-		Use:   "{{ verb.cli_verb }}",
+		Use:   "{{ verb.cli_verb }}{% for p in verb.optional_params %} [<{{ p }}>]{% endfor %}",
 		Short: "{{ verb_go }} {{ m.module_name }} {{ res.resource }}",
+{% if verb.has_optional_params %}
+		Args:  cobra.RangeArgs(0, {{ m_opt }}),
+{% endif %}
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
+{% if verb.has_optional_params %}
+			resp, err := s.{{ verb.go_method }}(context.Background(), args...)
+{% else %}
 			resp, err := s.{{ verb.go_method }}(context.Background())
+{% endif %}
 			if err != nil {
 				return err
 			}

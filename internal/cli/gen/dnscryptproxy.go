@@ -131,15 +131,16 @@ func newDnscryptproxyCloakDeleteCmd() *cobra.Command {
 
 func newDnscryptproxyCloakGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get dnscryptproxy cloak",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.CloakGetCloak(context.Background())
+			resp, err := s.CloakGetCloak(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -393,15 +394,16 @@ func newDnscryptproxyForwardDeleteCmd() *cobra.Command {
 
 func newDnscryptproxyForwardGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get dnscryptproxy forward",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.ForwardGetForward(context.Background())
+			resp, err := s.ForwardGetForward(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -655,15 +657,16 @@ func newDnscryptproxyServerDeleteCmd() *cobra.Command {
 
 func newDnscryptproxyServerGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get dnscryptproxy server",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServerGetServer(context.Background())
+			resp, err := s.ServerGetServer(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -1022,15 +1025,16 @@ func newDnscryptproxyWhitelistDeleteCmd() *cobra.Command {
 
 func newDnscryptproxyWhitelistGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get dnscryptproxy whitelist",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.WhitelistGetWhitelist(context.Background())
+			resp, err := s.WhitelistGetWhitelist(context.Background(), args...)
 			if err != nil {
 				return err
 			}
