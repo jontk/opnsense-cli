@@ -162,15 +162,16 @@ func newWireguardClientDeleteCmd() *cobra.Command {
 
 func newWireguardClientGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get wireguard client",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.ClientGetClient(context.Background())
+			resp, err := s.ClientGetClient(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -440,15 +441,16 @@ func newWireguardServerInfoCmd() *cobra.Command {
 
 func newWireguardServerInfoGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get wireguard server-info",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.ClientGetServerInfo(context.Background())
+			resp, err := s.ClientGetServerInfo(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -636,15 +638,16 @@ func newWireguardServerDeleteCmd() *cobra.Command {
 
 func newWireguardServerGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get wireguard server",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServerGetServer(context.Background())
+			resp, err := s.ServerGetServer(context.Background(), args...)
 			if err != nil {
 				return err
 			}

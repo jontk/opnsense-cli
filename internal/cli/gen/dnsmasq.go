@@ -320,15 +320,16 @@ func newDnsmasqBootDeleteCmd() *cobra.Command {
 
 func newDnsmasqBootGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get dnsmasq boot",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetBoot(context.Background())
+			resp, err := s.SettingsGetBoot(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -499,15 +500,16 @@ func newDnsmasqDomainDeleteCmd() *cobra.Command {
 
 func newDnsmasqDomainGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get dnsmasq domain",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetDomain(context.Background())
+			resp, err := s.SettingsGetDomain(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -690,15 +692,16 @@ func newDnsmasqHostDeleteCmd() *cobra.Command {
 
 func newDnsmasqHostGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get dnsmasq host",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetHost(context.Background())
+			resp, err := s.SettingsGetHost(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -875,15 +878,16 @@ func newDnsmasqOptionDeleteCmd() *cobra.Command {
 
 func newDnsmasqOptionGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get dnsmasq option",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetOption(context.Background())
+			resp, err := s.SettingsGetOption(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -1060,15 +1064,16 @@ func newDnsmasqRangeDeleteCmd() *cobra.Command {
 
 func newDnsmasqRangeGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get dnsmasq range",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetRange(context.Background())
+			resp, err := s.SettingsGetRange(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -1203,15 +1208,16 @@ func newDnsmasqTagDeleteCmd() *cobra.Command {
 
 func newDnsmasqTagGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get dnsmasq tag",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetTag(context.Background())
+			resp, err := s.SettingsGetTag(context.Background(), args...)
 			if err != nil {
 				return err
 			}

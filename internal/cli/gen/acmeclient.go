@@ -118,15 +118,16 @@ func newAcmeclientAccountsDelCmd() *cobra.Command {
 
 func newAcmeclientAccountsGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get acmeclient accounts",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.AccountsGet(context.Background())
+			resp, err := s.AccountsGet(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -220,9 +221,9 @@ func newAcmeclientAccountsSetCmd() *cobra.Command {
 
 func newAcmeclientAccountsToggleCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "toggle <uuid>",
+		Use:   "toggle <uuid> [<enabled>]",
 		Short: "Toggle acmeclient accounts",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.RangeArgs(1, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -350,15 +351,16 @@ func newAcmeclientActionsDelCmd() *cobra.Command {
 
 func newAcmeclientActionsGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get acmeclient actions",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.ActionsGet(context.Background())
+			resp, err := s.ActionsGet(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -504,9 +506,9 @@ func newAcmeclientActionsSshTestConnectionCmd() *cobra.Command {
 
 func newAcmeclientActionsToggleCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "toggle <uuid>",
+		Use:   "toggle <uuid> [<enabled>]",
 		Short: "Toggle acmeclient actions",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.RangeArgs(1, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -656,15 +658,16 @@ func newAcmeclientCertificatesDelCmd() *cobra.Command {
 
 func newAcmeclientCertificatesGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get acmeclient certificates",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.CertificatesGet(context.Background())
+			resp, err := s.CertificatesGet(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -828,9 +831,9 @@ func newAcmeclientCertificatesSignCmd() *cobra.Command {
 
 func newAcmeclientCertificatesToggleCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "toggle <uuid>",
+		Use:   "toggle <uuid> [<enabled>]",
 		Short: "Toggle acmeclient certificates",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.RangeArgs(1, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -1329,15 +1332,16 @@ func newAcmeclientValidationsDelCmd() *cobra.Command {
 
 func newAcmeclientValidationsGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get acmeclient validations",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.ValidationsGet(context.Background())
+			resp, err := s.ValidationsGet(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -1403,9 +1407,9 @@ func newAcmeclientValidationsSetCmd() *cobra.Command {
 
 func newAcmeclientValidationsToggleCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "toggle <uuid>",
+		Use:   "toggle <uuid> [<enabled>]",
 		Short: "Toggle acmeclient validations",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.RangeArgs(1, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {

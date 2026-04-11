@@ -192,15 +192,16 @@ func newCronJobDeleteCmd() *cobra.Command {
 
 func newCronJobGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get cron job",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetJob(context.Background())
+			resp, err := s.SettingsGetJob(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -239,17 +240,17 @@ func newCronJobUpdateCmd() *cobra.Command {
 }
 
 func newCronJobToggleCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "toggle <uuid>",
+	cmd := &cobra.Command{
+		Use:   "toggle <uuid> [<enabled>]",
 		Short: "Toggle cron job",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.RangeArgs(1, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsToggleJob(context.Background(), args[0])
+			resp, err := s.SettingsToggleJob(context.Background(), args[0], args[1:]...)
 			if err != nil {
 				return err
 			}
@@ -257,6 +258,7 @@ func newCronJobToggleCmd() *cobra.Command {
 			return printer.PrintGenericResponse(resp)
 		},
 	}
+	return cmd
 }
 
 func newCronJobListCmd() *cobra.Command {

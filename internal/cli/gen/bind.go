@@ -135,15 +135,16 @@ func newBindAclDeleteCmd() *cobra.Command {
 
 func newBindAclGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get bind acl",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.AclGetAcl(context.Background())
+			resp, err := s.AclGetAcl(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -737,15 +738,16 @@ func newBindDomainDeleteCmd() *cobra.Command {
 
 func newBindDomainGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get bind domain",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.DomainGetDomain(context.Background())
+			resp, err := s.DomainGetDomain(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -1061,15 +1063,16 @@ func newBindGeneralSetCmd() *cobra.Command {
 
 func newBindGeneralZoneshowCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "zoneshow",
+		Use:   "zoneshow [<zonename>]",
 		Short: "Zoneshow bind general",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.GeneralZoneshow(context.Background())
+			resp, err := s.GeneralZoneshow(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -1081,15 +1084,16 @@ func newBindGeneralZoneshowCmd() *cobra.Command {
 
 func newBindGeneralZonetestCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "zonetest",
+		Use:   "zonetest [<zonename>]",
 		Short: "Zonetest bind general",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.GeneralZonetest(context.Background())
+			resp, err := s.GeneralZonetest(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -1198,15 +1202,16 @@ func newBindRecordDeleteCmd() *cobra.Command {
 
 func newBindRecordGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get bind record",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.RecordGetRecord(context.Background())
+			resp, err := s.RecordGetRecord(context.Background(), args...)
 			if err != nil {
 				return err
 			}

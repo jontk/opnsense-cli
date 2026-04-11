@@ -319,15 +319,16 @@ func newTailscaleSubnetDeleteCmd() *cobra.Command {
 
 func newTailscaleSubnetGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get tailscale subnet",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetSubnet(context.Background())
+			resp, err := s.SettingsGetSubnet(context.Background(), args...)
 			if err != nil {
 				return err
 			}

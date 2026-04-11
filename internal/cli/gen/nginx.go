@@ -200,15 +200,16 @@ func newNginxLogsCmd() *cobra.Command {
 
 func newNginxLogsAccessesCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "accesses",
+		Use:   "accesses [<uuid>] [<fileno>] [<page>] [<perPage>] [<query>]",
 		Short: "Accesses nginx logs",
+		Args:  cobra.RangeArgs(0, 5),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.LogsAccesses(context.Background())
+			resp, err := s.LogsAccesses(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -220,15 +221,16 @@ func newNginxLogsAccessesCmd() *cobra.Command {
 
 func newNginxLogsErrorsCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "errors",
+		Use:   "errors [<uuid>] [<fileno>] [<page>] [<perPage>] [<query>]",
 		Short: "Errors nginx logs",
+		Args:  cobra.RangeArgs(0, 5),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.LogsErrors(context.Background())
+			resp, err := s.LogsErrors(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -240,15 +242,16 @@ func newNginxLogsErrorsCmd() *cobra.Command {
 
 func newNginxLogsStreamaccessesCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "streamaccesses",
+		Use:   "streamaccesses [<uuid>] [<fileno>] [<page>] [<perPage>] [<query>]",
 		Short: "Streamaccesses nginx logs",
+		Args:  cobra.RangeArgs(0, 5),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.LogsStreamaccesses(context.Background())
+			resp, err := s.LogsStreamaccesses(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -260,15 +263,16 @@ func newNginxLogsStreamaccessesCmd() *cobra.Command {
 
 func newNginxLogsStreamerrorsCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "streamerrors",
+		Use:   "streamerrors [<uuid>] [<fileno>] [<page>] [<perPage>] [<query>]",
 		Short: "Streamerrors nginx logs",
+		Args:  cobra.RangeArgs(0, 5),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.LogsStreamerrors(context.Background())
+			resp, err := s.LogsStreamerrors(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -559,15 +563,16 @@ func newNginxCachePathDeleteCmd() *cobra.Command {
 
 func newNginxCachePathGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get nginx cache-path",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetcachePath(context.Background())
+			resp, err := s.SettingsGetcachePath(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -708,15 +713,16 @@ func newNginxCredentialDeleteCmd() *cobra.Command {
 
 func newNginxCredentialGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get nginx credential",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetcredential(context.Background())
+			resp, err := s.SettingsGetcredential(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -875,15 +881,16 @@ func newNginxCustompolicyDeleteCmd() *cobra.Command {
 
 func newNginxCustompolicyGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get nginx custompolicy",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetcustompolicy(context.Background())
+			resp, err := s.SettingsGetcustompolicy(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -1042,15 +1049,16 @@ func newNginxErrorpageDeleteCmd() *cobra.Command {
 
 func newNginxErrorpageGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get nginx errorpage",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsGeterrorpage(context.Background())
+			resp, err := s.SettingsGeterrorpage(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -1203,15 +1211,16 @@ func newNginxHttprewriteDeleteCmd() *cobra.Command {
 
 func newNginxHttprewriteGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get nginx httprewrite",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsGethttprewrite(context.Background())
+			resp, err := s.SettingsGethttprewrite(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -1388,15 +1397,16 @@ func newNginxHttpserverDeleteCmd() *cobra.Command {
 
 func newNginxHttpserverGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get nginx httpserver",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsGethttpserver(context.Background())
+			resp, err := s.SettingsGethttpserver(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -1543,15 +1553,16 @@ func newNginxIpaclDeleteCmd() *cobra.Command {
 
 func newNginxIpaclGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get nginx ipacl",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetipacl(context.Background())
+			resp, err := s.SettingsGetipacl(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -1713,15 +1724,16 @@ func newNginxLimitRequestConnectionDeleteCmd() *cobra.Command {
 
 func newNginxLimitRequestConnectionGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get nginx limit-request-connection",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetlimitRequestConnection(context.Background())
+			resp, err := s.SettingsGetlimitRequestConnection(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -1880,15 +1892,16 @@ func newNginxLimitZoneDeleteCmd() *cobra.Command {
 
 func newNginxLimitZoneGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get nginx limit-zone",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetlimitZone(context.Background())
+			resp, err := s.SettingsGetlimitZone(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -2071,15 +2084,16 @@ func newNginxLocationDeleteCmd() *cobra.Command {
 
 func newNginxLocationGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get nginx location",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetlocation(context.Background())
+			resp, err := s.SettingsGetlocation(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -2256,15 +2270,16 @@ func newNginxNaxsiruleDeleteCmd() *cobra.Command {
 
 func newNginxNaxsiruleGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get nginx naxsirule",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetnaxsirule(context.Background())
+			resp, err := s.SettingsGetnaxsirule(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -2411,15 +2426,16 @@ func newNginxProxyCacheValidDeleteCmd() *cobra.Command {
 
 func newNginxProxyCacheValidGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get nginx proxy-cache-valid",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetproxyCacheValid(context.Background())
+			resp, err := s.SettingsGetproxyCacheValid(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -2596,15 +2612,16 @@ func newNginxResolverDeleteCmd() *cobra.Command {
 
 func newNginxResolverGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get nginx resolver",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetresolver(context.Background())
+			resp, err := s.SettingsGetresolver(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -2784,15 +2801,16 @@ func newNginxSecurityHeaderDeleteCmd() *cobra.Command {
 
 func newNginxSecurityHeaderGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get nginx security-header",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetsecurityHeader(context.Background())
+			resp, err := s.SettingsGetsecurityHeader(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -2924,15 +2942,16 @@ func newNginxSnifwdDeleteCmd() *cobra.Command {
 
 func newNginxSnifwdGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get nginx snifwd",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetsnifwd(context.Background())
+			resp, err := s.SettingsGetsnifwd(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -3112,15 +3131,16 @@ func newNginxStreamserverDeleteCmd() *cobra.Command {
 
 func newNginxStreamserverGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get nginx streamserver",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetstreamserver(context.Background())
+			resp, err := s.SettingsGetstreamserver(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -3291,15 +3311,16 @@ func newNginxSyslogTargetDeleteCmd() *cobra.Command {
 
 func newNginxSyslogTargetGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get nginx syslog-target",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetsyslogTarget(context.Background())
+			resp, err := s.SettingsGetsyslogTarget(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -3458,15 +3479,16 @@ func newNginxTlsFingerprintDeleteCmd() *cobra.Command {
 
 func newNginxTlsFingerprintGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get nginx tls-fingerprint",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsGettlsFingerprint(context.Background())
+			resp, err := s.SettingsGettlsFingerprint(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -3655,15 +3677,16 @@ func newNginxUpstreamDeleteCmd() *cobra.Command {
 
 func newNginxUpstreamGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get nginx upstream",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetupstream(context.Background())
+			resp, err := s.SettingsGetupstream(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -3849,15 +3872,16 @@ func newNginxUpstreamserverDeleteCmd() *cobra.Command {
 
 func newNginxUpstreamserverGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get nginx upstreamserver",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetupstreamserver(context.Background())
+			resp, err := s.SettingsGetupstreamserver(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -3998,15 +4022,16 @@ func newNginxUserlistDeleteCmd() *cobra.Command {
 
 func newNginxUserlistGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get nginx userlist",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetuserlist(context.Background())
+			resp, err := s.SettingsGetuserlist(context.Background(), args...)
 			if err != nil {
 				return err
 			}

@@ -320,15 +320,16 @@ func newMonitServiceDeleteCmd() *cobra.Command {
 
 func newMonitServiceGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get monit service",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetService(context.Background())
+			resp, err := s.SettingsGetService(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -391,17 +392,17 @@ func newMonitServiceUpdateCmd() *cobra.Command {
 }
 
 func newMonitServiceToggleCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "toggle <uuid>",
+	cmd := &cobra.Command{
+		Use:   "toggle <uuid> [<enabled>]",
 		Short: "Toggle monit service",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.RangeArgs(1, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsToggleService(context.Background(), args[0])
+			resp, err := s.SettingsToggleService(context.Background(), args[0], args[1:]...)
 			if err != nil {
 				return err
 			}
@@ -409,6 +410,7 @@ func newMonitServiceToggleCmd() *cobra.Command {
 			return printer.PrintGenericResponse(resp)
 		},
 	}
+	return cmd
 }
 
 // monitAlertColumns defines table columns for the Alert resource.
@@ -524,15 +526,16 @@ func newMonitAlertDeleteCmd() *cobra.Command {
 
 func newMonitAlertGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get monit alert",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetAlert(context.Background())
+			resp, err := s.SettingsGetAlert(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -595,17 +598,17 @@ func newMonitAlertUpdateCmd() *cobra.Command {
 }
 
 func newMonitAlertToggleCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "toggle <uuid>",
+	cmd := &cobra.Command{
+		Use:   "toggle <uuid> [<enabled>]",
 		Short: "Toggle monit alert",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.RangeArgs(1, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsToggleAlert(context.Background(), args[0])
+			resp, err := s.SettingsToggleAlert(context.Background(), args[0], args[1:]...)
 			if err != nil {
 				return err
 			}
@@ -613,6 +616,7 @@ func newMonitAlertToggleCmd() *cobra.Command {
 			return printer.PrintGenericResponse(resp)
 		},
 	}
+	return cmd
 }
 
 // monitTestColumns defines table columns for the Test resource.
@@ -712,15 +716,16 @@ func newMonitTestDeleteCmd() *cobra.Command {
 
 func newMonitTestGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get monit test",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetTest(context.Background())
+			resp, err := s.SettingsGetTest(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -931,15 +936,16 @@ func newMonitStatusCmd() *cobra.Command {
 
 func newMonitStatusGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<format>]",
 		Short: "Get monit status",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.StatusGet(context.Background())
+			resp, err := s.StatusGet(context.Background(), args...)
 			if err != nil {
 				return err
 			}

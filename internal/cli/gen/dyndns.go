@@ -157,15 +157,16 @@ func newDyndnsAccountsDeleteCmd() *cobra.Command {
 
 func newDyndnsAccountsGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get dyndns accounts",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.AccountsGetItem(context.Background())
+			resp, err := s.AccountsGetItem(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -255,17 +256,17 @@ func newDyndnsAccountsUpdateCmd() *cobra.Command {
 }
 
 func newDyndnsAccountsToggleCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "toggle <uuid>",
+	cmd := &cobra.Command{
+		Use:   "toggle <uuid> [<enabled>]",
 		Short: "Toggle dyndns accounts",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.RangeArgs(1, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.AccountsToggleItem(context.Background(), args[0])
+			resp, err := s.AccountsToggleItem(context.Background(), args[0], args[1:]...)
 			if err != nil {
 				return err
 			}
@@ -273,6 +274,7 @@ func newDyndnsAccountsToggleCmd() *cobra.Command {
 			return printer.PrintGenericResponse(resp)
 		},
 	}
+	return cmd
 }
 
 func newDyndnsServiceCmd() *cobra.Command {

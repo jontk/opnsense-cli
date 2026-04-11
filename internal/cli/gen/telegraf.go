@@ -243,15 +243,16 @@ func newTelegrafKeyDeleteCmd() *cobra.Command {
 
 func newTelegrafKeyGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get telegraf key",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.KeyGetKey(context.Background())
+			resp, err := s.KeyGetKey(context.Background(), args...)
 			if err != nil {
 				return err
 			}

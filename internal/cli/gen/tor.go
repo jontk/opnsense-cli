@@ -145,15 +145,16 @@ func newTorAclDeleteCmd() *cobra.Command {
 
 func newTorAclGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get tor acl",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.HiddenserviceaclGetacl(context.Background())
+			resp, err := s.HiddenserviceaclGetacl(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -364,15 +365,16 @@ func newTorHidservauthDeleteCmd() *cobra.Command {
 
 func newTorHidservauthGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get tor hidservauth",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.GeneralGethidservauth(context.Background())
+			resp, err := s.GeneralGethidservauth(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -621,15 +623,16 @@ func newTorServiceDeleteCmd() *cobra.Command {
 
 func newTorServiceGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get tor service",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.HiddenserviceGetservice(context.Background())
+			resp, err := s.HiddenserviceGetservice(context.Background(), args...)
 			if err != nil {
 				return err
 			}

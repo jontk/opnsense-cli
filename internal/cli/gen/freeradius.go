@@ -144,15 +144,16 @@ func newFreeradiusAvpairDeleteCmd() *cobra.Command {
 
 func newFreeradiusAvpairGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get freeradius avpair",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.AvpairGetAvpair(context.Background())
+			resp, err := s.AvpairGetAvpair(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -361,15 +362,16 @@ func newFreeradiusClientDeleteCmd() *cobra.Command {
 
 func newFreeradiusClientGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get freeradius client",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.ClientGetClient(context.Background())
+			resp, err := s.ClientGetClient(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -572,15 +574,16 @@ func newFreeradiusDhcpDeleteCmd() *cobra.Command {
 
 func newFreeradiusDhcpGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get freeradius dhcp",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.DhcpGetDhcp(context.Background())
+			resp, err := s.DhcpGetDhcp(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -951,15 +954,16 @@ func newFreeradiusLdapgroupDeleteCmd() *cobra.Command {
 
 func newFreeradiusLdapgroupGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get freeradius ldapgroup",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.LdapgroupGetLdapgroup(context.Background())
+			resp, err := s.LdapgroupGetLdapgroup(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -1156,15 +1160,16 @@ func newFreeradiusLeaseDeleteCmd() *cobra.Command {
 
 func newFreeradiusLeaseGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get freeradius lease",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.LeaseGetLease(context.Background())
+			resp, err := s.LeaseGetLease(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -1390,15 +1395,16 @@ func newFreeradiusHomeserverDeleteCmd() *cobra.Command {
 
 func newFreeradiusHomeserverGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get freeradius homeserver",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.ProxyGetHomeserver(context.Background())
+			resp, err := s.ProxyGetHomeserver(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -1585,15 +1591,16 @@ func newFreeradiusHomeserverpoolDeleteCmd() *cobra.Command {
 
 func newFreeradiusHomeserverpoolGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get freeradius homeserverpool",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.ProxyGetHomeserverpool(context.Background())
+			resp, err := s.ProxyGetHomeserverpool(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -1777,15 +1784,16 @@ func newFreeradiusRealmDeleteCmd() *cobra.Command {
 
 func newFreeradiusRealmGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get freeradius realm",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.ProxyGetRealm(context.Background())
+			resp, err := s.ProxyGetRealm(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -2183,15 +2191,16 @@ func newFreeradiusUserDeleteCmd() *cobra.Command {
 
 func newFreeradiusUserGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get freeradius user",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.UserGetUser(context.Background())
+			resp, err := s.UserGetUser(context.Background(), args...)
 			if err != nil {
 				return err
 			}

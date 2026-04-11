@@ -225,15 +225,16 @@ func newRelaydSettingsCmd() *cobra.Command {
 
 func newRelaydSettingsDelCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "del",
+		Use:   "del [<nodeType>] [<uuid>]",
 		Short: "Del relayd settings",
+		Args:  cobra.RangeArgs(0, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsDel(context.Background())
+			resp, err := s.SettingsDel(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -265,15 +266,16 @@ func newRelaydSettingsDirtyCmd() *cobra.Command {
 
 func newRelaydSettingsGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<nodeType>] [<uuid>]",
 		Short: "Get relayd settings",
+		Args:  cobra.RangeArgs(0, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsGet(context.Background())
+			resp, err := s.SettingsGet(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -339,9 +341,9 @@ func newRelaydSettingsSetCmd() *cobra.Command {
 
 func newRelaydSettingsToggleCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "toggle <nodeType> <uuid>",
+		Use:   "toggle <nodeType> <uuid> [<enabled>]",
 		Short: "Toggle relayd settings",
-		Args:  cobra.ExactArgs(2),
+		Args:  cobra.RangeArgs(2, 3),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -377,15 +379,16 @@ func newRelaydStatusCmd() *cobra.Command {
 
 func newRelaydStatusSumCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "sum",
+		Use:   "sum [<wait>]",
 		Short: "Sum relayd status",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.StatusSum(context.Background())
+			resp, err := s.StatusSum(context.Background(), args...)
 			if err != nil {
 				return err
 			}

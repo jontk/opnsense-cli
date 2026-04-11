@@ -312,17 +312,17 @@ func newIdsAlertInfoCmd() *cobra.Command {
 }
 
 func newIdsAlertInfoGetCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "get <alertId>",
+	cmd := &cobra.Command{
+		Use:   "get <alertId> [<fileid>]",
 		Short: "Get ids alert-info",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.RangeArgs(1, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceGetAlertInfo(context.Background(), args[0])
+			resp, err := s.ServiceGetAlertInfo(context.Background(), args[0], args[1:]...)
 			if err != nil {
 				return err
 			}
@@ -330,6 +330,7 @@ func newIdsAlertInfoGetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	return cmd
 }
 
 func newIdsAlertLogsCmd() *cobra.Command {
@@ -471,15 +472,16 @@ func newIdsPolicyDeleteCmd() *cobra.Command {
 
 func newIdsPolicyGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get ids policy",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetPolicy(context.Background())
+			resp, err := s.SettingsGetPolicy(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -542,17 +544,17 @@ func newIdsPolicyUpdateCmd() *cobra.Command {
 }
 
 func newIdsPolicyToggleCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "toggle <uuid>",
+	cmd := &cobra.Command{
+		Use:   "toggle <uuid> [<enabled>]",
 		Short: "Toggle ids policy",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.RangeArgs(1, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsTogglePolicy(context.Background(), args[0])
+			resp, err := s.SettingsTogglePolicy(context.Background(), args[0], args[1:]...)
 			if err != nil {
 				return err
 			}
@@ -560,6 +562,7 @@ func newIdsPolicyToggleCmd() *cobra.Command {
 			return printer.PrintGenericResponse(resp)
 		},
 	}
+	return cmd
 }
 
 // idsPolicyRuleColumns defines table columns for the PolicyRule resource.
@@ -660,15 +663,16 @@ func newIdsPolicyRuleDeleteCmd() *cobra.Command {
 
 func newIdsPolicyRuleGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get ids policy-rule",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetPolicyRule(context.Background())
+			resp, err := s.SettingsGetPolicyRule(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -731,17 +735,17 @@ func newIdsPolicyRuleUpdateCmd() *cobra.Command {
 }
 
 func newIdsPolicyRuleToggleCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "toggle <uuid>",
+	cmd := &cobra.Command{
+		Use:   "toggle <uuid> [<enabled>]",
 		Short: "Toggle ids policy-rule",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.RangeArgs(1, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsTogglePolicyRule(context.Background(), args[0])
+			resp, err := s.SettingsTogglePolicyRule(context.Background(), args[0], args[1:]...)
 			if err != nil {
 				return err
 			}
@@ -749,6 +753,7 @@ func newIdsPolicyRuleToggleCmd() *cobra.Command {
 			return printer.PrintGenericResponse(resp)
 		},
 	}
+	return cmd
 }
 
 // idsUserRuleColumns defines table columns for the UserRule resource.
@@ -849,15 +854,16 @@ func newIdsUserRuleDeleteCmd() *cobra.Command {
 
 func newIdsUserRuleGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get ids user-rule",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetUserRule(context.Background())
+			resp, err := s.SettingsGetUserRule(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -920,17 +926,17 @@ func newIdsUserRuleUpdateCmd() *cobra.Command {
 }
 
 func newIdsUserRuleToggleCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "toggle <uuid>",
+	cmd := &cobra.Command{
+		Use:   "toggle <uuid> [<enabled>]",
 		Short: "Toggle ids user-rule",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.RangeArgs(1, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsToggleUserRule(context.Background(), args[0])
+			resp, err := s.SettingsToggleUserRule(context.Background(), args[0], args[1:]...)
 			if err != nil {
 				return err
 			}
@@ -938,6 +944,7 @@ func newIdsUserRuleToggleCmd() *cobra.Command {
 			return printer.PrintGenericResponse(resp)
 		},
 	}
+	return cmd
 }
 
 func newIdsSettingsCmd() *cobra.Command {
@@ -1105,15 +1112,16 @@ func newIdsRuleInfoCmd() *cobra.Command {
 
 func newIdsRuleInfoGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<sid>]",
 		Short: "Get ids rule-info",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetRuleInfo(context.Background())
+			resp, err := s.SettingsGetRuleInfo(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -1185,9 +1193,9 @@ func newIdsRulesetUpdateCmd() *cobra.Command {
 
 func newIdsRulesetToggleCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "toggle <filenames>",
+		Use:   "toggle <filenames> [<enabled>]",
 		Short: "Toggle ids ruleset",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.RangeArgs(1, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -1377,17 +1385,17 @@ func newIdsRuleUpdateCmd() *cobra.Command {
 }
 
 func newIdsRuleToggleCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "toggle <sids>",
+	cmd := &cobra.Command{
+		Use:   "toggle <sids> [<enabled>]",
 		Short: "Toggle ids rule",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.RangeArgs(1, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsToggleRule(context.Background(), args[0])
+			resp, err := s.SettingsToggleRule(context.Background(), args[0], args[1:]...)
 			if err != nil {
 				return err
 			}
@@ -1395,4 +1403,5 @@ func newIdsRuleToggleCmd() *cobra.Command {
 			return printer.PrintGenericResponse(resp)
 		},
 	}
+	return cmd
 }

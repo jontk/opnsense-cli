@@ -468,15 +468,16 @@ func newDiagnosticsFirewallPfStatesCmd() *cobra.Command {
 
 func newDiagnosticsFirewallPfStatisticsCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "pf-statistics",
+		Use:   "pf-statistics [<section>]",
 		Short: "PfStatistics diagnostics firewall",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.FirewallPfStatistics(context.Background())
+			resp, err := s.FirewallPfStatistics(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -1199,15 +1200,16 @@ func newDiagnosticsLvtemplateDeleteCmd() *cobra.Command {
 
 func newDiagnosticsLvtemplateGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get diagnostics lvtemplate",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.LvtemplateGetItem(context.Background())
+			resp, err := s.LvtemplateGetItem(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -1458,15 +1460,16 @@ func newDiagnosticsNetworkinsightCmd() *cobra.Command {
 
 func newDiagnosticsNetworkinsightExportCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "export",
+		Use:   "export [<provider>] [<from_date>] [<to_date>] [<resolution>]",
 		Short: "Export diagnostics networkinsight",
+		Args:  cobra.RangeArgs(0, 4),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.NetworkinsightExport(context.Background())
+			resp, err := s.NetworkinsightExport(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -1478,15 +1481,16 @@ func newDiagnosticsNetworkinsightExportCmd() *cobra.Command {
 
 func newDiagnosticsNetworkinsightTimeserieCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "timeserie",
+		Use:   "timeserie [<provider>] [<measure>] [<from_date>] [<to_date>] [<resolution>] [<field>] [<emulation>]",
 		Short: "Timeserie diagnostics networkinsight",
+		Args:  cobra.RangeArgs(0, 7),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.NetworkinsightTimeserie(context.Background())
+			resp, err := s.NetworkinsightTimeserie(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -1498,15 +1502,16 @@ func newDiagnosticsNetworkinsightTimeserieCmd() *cobra.Command {
 
 func newDiagnosticsNetworkinsightTopCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "top",
+		Use:   "top [<provider>] [<from_date>] [<to_date>] [<field>] [<measure>] [<max_hits>]",
 		Short: "Top diagnostics networkinsight",
+		Args:  cobra.RangeArgs(0, 6),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.NetworkinsightTop(context.Background())
+			resp, err := s.NetworkinsightTop(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -1793,17 +1798,17 @@ func newDiagnosticsPacketCaptureStopCmd() *cobra.Command {
 }
 
 func newDiagnosticsPacketCaptureViewCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "view <jobid>",
+	cmd := &cobra.Command{
+		Use:   "view <jobid> [<detail>]",
 		Short: "View diagnostics packet-capture",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.RangeArgs(1, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.PacketCaptureView(context.Background(), args[0])
+			resp, err := s.PacketCaptureView(context.Background(), args[0], args[1:]...)
 			if err != nil {
 				return err
 			}
@@ -1811,6 +1816,7 @@ func newDiagnosticsPacketCaptureViewCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	return cmd
 }
 
 func newDiagnosticsJobsCmd() *cobra.Command {
@@ -2230,15 +2236,16 @@ func newDiagnosticsSystemhealthCmd() *cobra.Command {
 
 func newDiagnosticsSystemhealthExportAsCsvCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "export-as-csv",
+		Use:   "export-as-csv [<rrd>] [<detail>]",
 		Short: "ExportAsCsv diagnostics systemhealth",
+		Args:  cobra.RangeArgs(0, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SystemhealthExportAsCSV(context.Background())
+			resp, err := s.SystemhealthExportAsCSV(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -2288,15 +2295,16 @@ func newDiagnosticsSystemHealthCmd() *cobra.Command {
 
 func newDiagnosticsSystemHealthGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<rrd>] [<detail>]",
 		Short: "Get diagnostics system-health",
+		Args:  cobra.RangeArgs(0, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SystemhealthGetSystemHealth(context.Background())
+			resp, err := s.SystemhealthGetSystemHealth(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -2417,15 +2425,16 @@ func newDiagnosticsTrafficTopCmd() *cobra.Command {
 
 func newDiagnosticsTrafficStreamCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "stream",
+		Use:   "stream [<poll_interval>]",
 		Short: "Stream diagnostics traffic",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.TrafficStream(context.Background())
+			resp, err := s.TrafficStream(context.Background(), args...)
 			if err != nil {
 				return err
 			}

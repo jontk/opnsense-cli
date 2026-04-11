@@ -187,15 +187,16 @@ func newKeaPeerDeleteCmd() *cobra.Command {
 
 func newKeaPeerGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get kea peer",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.Dhcpv4GetPeer(context.Background())
+			resp, err := s.Dhcpv4GetPeer(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -354,15 +355,16 @@ func newKeaReservationDeleteCmd() *cobra.Command {
 
 func newKeaReservationGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get kea reservation",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.Dhcpv4GetReservation(context.Background())
+			resp, err := s.Dhcpv4GetReservation(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -527,15 +529,16 @@ func newKeaSubnetDeleteCmd() *cobra.Command {
 
 func newKeaSubnetGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get kea subnet",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.Dhcpv4GetSubnet(context.Background())
+			resp, err := s.Dhcpv4GetSubnet(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -800,15 +803,16 @@ func newKeaPdPoolDeleteCmd() *cobra.Command {
 
 func newKeaPdPoolGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get kea pd-pool",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.Dhcpv6GetPdPool(context.Background())
+			resp, err := s.Dhcpv6GetPdPool(context.Background(), args...)
 			if err != nil {
 				return err
 			}

@@ -106,17 +106,17 @@ func newCoreBackupDiffCmd() *cobra.Command {
 }
 
 func newCoreBackupDownloadCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "download <host>",
+	cmd := &cobra.Command{
+		Use:   "download <host> [<backup>]",
 		Short: "Download core backup",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.RangeArgs(1, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.BackupDownload(context.Background(), args[0])
+			resp, err := s.BackupDownload(context.Background(), args[0], args[1:]...)
 			if err != nil {
 				return err
 			}
@@ -124,6 +124,7 @@ func newCoreBackupDownloadCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	return cmd
 }
 
 func newCoreBackupProvidersCmd() *cobra.Command {
@@ -891,9 +892,9 @@ func newCoreServiceCmd() *cobra.Command {
 
 func newCoreServiceRestartCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "restart <name>",
+		Use:   "restart <name> [<id>]",
 		Short: "Restart core service",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.RangeArgs(1, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -939,9 +940,9 @@ func newCoreServiceSearchCmd() *cobra.Command {
 
 func newCoreServiceStartCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "start <name>",
+		Use:   "start <name> [<id>]",
 		Short: "Start core service",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.RangeArgs(1, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -967,9 +968,9 @@ func newCoreServiceStartCmd() *cobra.Command {
 
 func newCoreServiceStopCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "stop <name>",
+		Use:   "stop <name> [<id>]",
 		Short: "Stop core service",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.RangeArgs(1, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
@@ -1093,15 +1094,16 @@ func newCoreSnapshotsDelCmd() *cobra.Command {
 
 func newCoreSnapshotsGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get core snapshots",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SnapshotsGet(context.Background())
+			resp, err := s.SnapshotsGet(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -1392,15 +1394,16 @@ func newCoreTunablesDeleteCmd() *cobra.Command {
 
 func newCoreTunablesGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get core tunables",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.TunablesGetItem(context.Background())
+			resp, err := s.TunablesGetItem(context.Background(), args...)
 			if err != nil {
 				return err
 			}

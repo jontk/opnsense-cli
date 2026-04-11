@@ -180,15 +180,16 @@ func newInterfacesBridgeSettingsDeleteCmd() *cobra.Command {
 
 func newInterfacesBridgeSettingsGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get interfaces bridge-settings",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.BridgeSettingsGetItem(context.Background())
+			resp, err := s.BridgeSettingsGetItem(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -421,15 +422,16 @@ func newInterfacesGifSettingsDeleteCmd() *cobra.Command {
 
 func newInterfacesGifSettingsGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get interfaces gif-settings",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.GifSettingsGetItem(context.Background())
+			resp, err := s.GifSettingsGetItem(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -691,15 +693,16 @@ func newInterfacesGreSettingsDeleteCmd() *cobra.Command {
 
 func newInterfacesGreSettingsGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get interfaces gre-settings",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.GreSettingsGetItem(context.Background())
+			resp, err := s.GreSettingsGetItem(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -932,15 +935,16 @@ func newInterfacesLaggSettingsDeleteCmd() *cobra.Command {
 
 func newInterfacesLaggSettingsGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get interfaces lagg-settings",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.LaggSettingsGetItem(context.Background())
+			resp, err := s.LaggSettingsGetItem(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -1137,15 +1141,16 @@ func newInterfacesLoopbackSettingsDeleteCmd() *cobra.Command {
 
 func newInterfacesLoopbackSettingsGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get interfaces loopback-settings",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.LoopbackSettingsGetItem(context.Background())
+			resp, err := s.LoopbackSettingsGetItem(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -1354,15 +1359,16 @@ func newInterfacesNeighborSettingsDeleteCmd() *cobra.Command {
 
 func newInterfacesNeighborSettingsGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get interfaces neighbor-settings",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.NeighborSettingsGetItem(context.Background())
+			resp, err := s.NeighborSettingsGetItem(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -1511,15 +1517,16 @@ func newInterfacesOverviewExportCmd() *cobra.Command {
 
 func newInterfacesOverviewInterfacesInfoCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "interfaces-info",
+		Use:   "interfaces-info [<details>]",
 		Short: "InterfacesInfo interfaces overview",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.OverviewInterfacesInfo(context.Background())
+			resp, err := s.OverviewInterfacesInfo(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -1531,15 +1538,16 @@ func newInterfacesOverviewInterfacesInfoCmd() *cobra.Command {
 
 func newInterfacesOverviewReloadInterfaceCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "reload-interface",
+		Use:   "reload-interface [<identifier>]",
 		Short: "ReloadInterface interfaces overview",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.OverviewReloadInterface(context.Background())
+			resp, err := s.OverviewReloadInterface(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -1560,15 +1568,16 @@ func newInterfacesInterfaceCmd() *cobra.Command {
 
 func newInterfacesInterfaceGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<if>]",
 		Short: "Get interfaces interface",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.OverviewGetInterface(context.Background())
+			resp, err := s.OverviewGetInterface(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -1780,15 +1789,16 @@ func newInterfacesVipSettingsDeleteCmd() *cobra.Command {
 
 func newInterfacesVipSettingsGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get interfaces vip-settings",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.VipSettingsGetItem(context.Background())
+			resp, err := s.VipSettingsGetItem(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -2038,15 +2048,16 @@ func newInterfacesVlanSettingsDeleteCmd() *cobra.Command {
 
 func newInterfacesVlanSettingsGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get interfaces vlan-settings",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.VlanSettingsGetItem(context.Background())
+			resp, err := s.VlanSettingsGetItem(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -2279,15 +2290,16 @@ func newInterfacesVxlanSettingsDeleteCmd() *cobra.Command {
 
 func newInterfacesVxlanSettingsGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get interfaces vxlan-settings",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.VxlanSettingsGetItem(context.Background())
+			resp, err := s.VxlanSettingsGetItem(context.Background(), args...)
 			if err != nil {
 				return err
 			}

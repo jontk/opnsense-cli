@@ -184,15 +184,16 @@ func newTrustCaGenerateFileCmd() *cobra.Command {
 
 func newTrustCaGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get trust ca",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.CaGet(context.Background())
+			resp, err := s.CaGet(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -324,15 +325,16 @@ func newTrustCertAddCmd() *cobra.Command {
 
 func newTrustCertCaInfoCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "ca-info",
+		Use:   "ca-info [<caref>]",
 		Short: "CaInfo trust cert",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.CertCaInfo(context.Background())
+			resp, err := s.CertCaInfo(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -419,15 +421,16 @@ func newTrustCertGenerateFileCmd() *cobra.Command {
 
 func newTrustCertGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get trust cert",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.CertGet(context.Background())
+			resp, err := s.CertGet(context.Background(), args...)
 			if err != nil {
 				return err
 			}

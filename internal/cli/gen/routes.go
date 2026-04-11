@@ -162,15 +162,16 @@ func newRoutesRouteDeleteCmd() *cobra.Command {
 
 func newRoutesRouteGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get routes route",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.RoutesGetroute(context.Background())
+			resp, err := s.RoutesGetroute(context.Background(), args...)
 			if err != nil {
 				return err
 			}
@@ -233,17 +234,17 @@ func newRoutesRouteUpdateCmd() *cobra.Command {
 }
 
 func newRoutesRouteToggleCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "toggle <uuid>",
+	cmd := &cobra.Command{
+		Use:   "toggle <uuid> [<disabled>]",
 		Short: "Toggle routes route",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.RangeArgs(1, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.RoutesToggleroute(context.Background(), args[0])
+			resp, err := s.RoutesToggleroute(context.Background(), args[0], args[1:]...)
 			if err != nil {
 				return err
 			}
@@ -251,6 +252,7 @@ func newRoutesRouteToggleCmd() *cobra.Command {
 			return printer.PrintGenericResponse(resp)
 		},
 	}
+	return cmd
 }
 
 func newRoutesRouteReconfigureCmd() *cobra.Command {

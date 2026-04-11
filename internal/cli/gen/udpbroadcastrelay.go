@@ -298,15 +298,16 @@ func newUdpbroadcastrelayRelayDeleteCmd() *cobra.Command {
 
 func newUdpbroadcastrelayRelayGetCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "get",
+		Use:   "get [<uuid>]",
 		Short: "Get udpbroadcastrelay relay",
+		Args:  cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, cfg, err := cli.NewClientFromCmd(cmd)
 			if err != nil {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsGetRelay(context.Background())
+			resp, err := s.SettingsGetRelay(context.Background(), args...)
 			if err != nil {
 				return err
 			}
