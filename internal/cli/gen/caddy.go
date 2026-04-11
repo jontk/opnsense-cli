@@ -122,7 +122,7 @@ func newCaddyDiagnosticsGetCmd() *cobra.Command {
 }
 
 func newCaddyDiagnosticsSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set caddy diagnostics",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -130,8 +130,13 @@ func newCaddyDiagnosticsSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.DiagnosticsSet(context.Background(), nil)
+			resp, err := s.DiagnosticsSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -139,6 +144,8 @@ func newCaddyDiagnosticsSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newCaddyGeneralCmd() *cobra.Command {
@@ -172,7 +179,7 @@ func newCaddyGeneralGetCmd() *cobra.Command {
 }
 
 func newCaddyGeneralSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set caddy general",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -180,8 +187,13 @@ func newCaddyGeneralSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.GeneralSet(context.Background(), nil)
+			resp, err := s.GeneralSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -189,6 +201,8 @@ func newCaddyGeneralSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 // caddyAccessListColumns defines table columns for the AccessList resource.
@@ -1446,7 +1460,7 @@ func newCaddyReverseProxyListCmd() *cobra.Command {
 }
 
 func newCaddyReverseProxySetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set caddy reverse-proxy",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1454,8 +1468,13 @@ func newCaddyReverseProxySetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ReverseProxySet(context.Background(), nil)
+			resp, err := s.ReverseProxySet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1463,6 +1482,8 @@ func newCaddyReverseProxySetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newCaddyReverseProxyUpdateCmd() *cobra.Command {
@@ -1768,7 +1789,7 @@ func newCaddyServiceCmd() *cobra.Command {
 }
 
 func newCaddyServiceReconfigureCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "reconfigure",
 		Short: "Reconfigure caddy service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1776,8 +1797,13 @@ func newCaddyServiceReconfigureCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceReconfigure(context.Background(), nil)
+			resp, err := s.ServiceReconfigure(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1785,10 +1811,12 @@ func newCaddyServiceReconfigureCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newCaddyServiceRestartCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "restart",
 		Short: "Restart caddy service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1796,8 +1824,13 @@ func newCaddyServiceRestartCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceRestart(context.Background(), nil)
+			resp, err := s.ServiceRestart(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1805,10 +1838,12 @@ func newCaddyServiceRestartCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newCaddyServiceStartCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "start",
 		Short: "Start caddy service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1816,8 +1851,13 @@ func newCaddyServiceStartCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceStart(context.Background(), nil)
+			resp, err := s.ServiceStart(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1825,6 +1865,8 @@ func newCaddyServiceStartCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newCaddyServiceStatusCmd() *cobra.Command {
@@ -1848,7 +1890,7 @@ func newCaddyServiceStatusCmd() *cobra.Command {
 }
 
 func newCaddyServiceStopCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "stop",
 		Short: "Stop caddy service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1856,8 +1898,13 @@ func newCaddyServiceStopCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceStop(context.Background(), nil)
+			resp, err := s.ServiceStop(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1865,6 +1912,8 @@ func newCaddyServiceStopCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newCaddyServiceValidateCmd() *cobra.Command {

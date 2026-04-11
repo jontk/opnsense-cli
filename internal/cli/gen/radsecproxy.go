@@ -204,7 +204,7 @@ func newRadsecproxyClientsListCmd() *cobra.Command {
 }
 
 func newRadsecproxyClientsSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set radsecproxy clients",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -212,8 +212,13 @@ func newRadsecproxyClientsSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ClientsSet(context.Background(), nil)
+			resp, err := s.ClientsSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -221,6 +226,8 @@ func newRadsecproxyClientsSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newRadsecproxyClientsUpdateCmd() *cobra.Command {
@@ -303,7 +310,7 @@ func newRadsecproxyGeneralGetCmd() *cobra.Command {
 }
 
 func newRadsecproxyGeneralSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set radsecproxy general",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -311,8 +318,13 @@ func newRadsecproxyGeneralSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.GeneralSet(context.Background(), nil)
+			resp, err := s.GeneralSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -320,6 +332,8 @@ func newRadsecproxyGeneralSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 // radsecproxyRealmsColumns defines table columns for the Realms resource.
@@ -476,7 +490,7 @@ func newRadsecproxyRealmsListCmd() *cobra.Command {
 }
 
 func newRadsecproxyRealmsSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set radsecproxy realms",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -484,8 +498,13 @@ func newRadsecproxyRealmsSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.RealmsSet(context.Background(), nil)
+			resp, err := s.RealmsSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -493,6 +512,8 @@ func newRadsecproxyRealmsSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newRadsecproxyRealmsUpdateCmd() *cobra.Command {
@@ -704,7 +725,7 @@ func newRadsecproxyRewritesListCmd() *cobra.Command {
 }
 
 func newRadsecproxyRewritesSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set radsecproxy rewrites",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -712,8 +733,13 @@ func newRadsecproxyRewritesSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.RewritesSet(context.Background(), nil)
+			resp, err := s.RewritesSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -721,6 +747,8 @@ func newRadsecproxyRewritesSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newRadsecproxyRewritesUpdateCmd() *cobra.Command {
@@ -932,7 +960,7 @@ func newRadsecproxyServersListCmd() *cobra.Command {
 }
 
 func newRadsecproxyServersSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set radsecproxy servers",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -940,8 +968,13 @@ func newRadsecproxyServersSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServersSet(context.Background(), nil)
+			resp, err := s.ServersSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -949,6 +982,8 @@ func newRadsecproxyServersSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newRadsecproxyServersUpdateCmd() *cobra.Command {
@@ -1014,7 +1049,7 @@ func newRadsecproxyServiceCmd() *cobra.Command {
 }
 
 func newRadsecproxyServiceReconfigureCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "reconfigure",
 		Short: "Reconfigure radsecproxy service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1022,8 +1057,13 @@ func newRadsecproxyServiceReconfigureCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceReconfigure(context.Background(), nil)
+			resp, err := s.ServiceReconfigure(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1031,10 +1071,12 @@ func newRadsecproxyServiceReconfigureCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newRadsecproxyServiceRestartCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "restart",
 		Short: "Restart radsecproxy service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1042,8 +1084,13 @@ func newRadsecproxyServiceRestartCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceRestart(context.Background(), nil)
+			resp, err := s.ServiceRestart(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1051,10 +1098,12 @@ func newRadsecproxyServiceRestartCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newRadsecproxyServiceStartCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "start",
 		Short: "Start radsecproxy service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1062,8 +1111,13 @@ func newRadsecproxyServiceStartCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceStart(context.Background(), nil)
+			resp, err := s.ServiceStart(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1071,6 +1125,8 @@ func newRadsecproxyServiceStartCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newRadsecproxyServiceStatusCmd() *cobra.Command {
@@ -1094,7 +1150,7 @@ func newRadsecproxyServiceStatusCmd() *cobra.Command {
 }
 
 func newRadsecproxyServiceStopCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "stop",
 		Short: "Stop radsecproxy service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1102,8 +1158,13 @@ func newRadsecproxyServiceStopCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceStop(context.Background(), nil)
+			resp, err := s.ServiceStop(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1111,6 +1172,8 @@ func newRadsecproxyServiceStopCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 // radsecproxyTlsColumns defines table columns for the Tls resource.
@@ -1270,7 +1333,7 @@ func newRadsecproxyTlsListCmd() *cobra.Command {
 }
 
 func newRadsecproxyTlsSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set radsecproxy tls",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1278,8 +1341,13 @@ func newRadsecproxyTlsSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.TlsSet(context.Background(), nil)
+			resp, err := s.TlsSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1287,6 +1355,8 @@ func newRadsecproxyTlsSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newRadsecproxyTlsUpdateCmd() *cobra.Command {

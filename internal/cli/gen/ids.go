@@ -67,7 +67,7 @@ func newIdsServiceCmd() *cobra.Command {
 }
 
 func newIdsServiceDropAlertLogCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "drop-alert-log",
 		Short: "DropAlertLog ids service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -75,8 +75,13 @@ func newIdsServiceDropAlertLogCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceDropAlertLog(context.Background(), nil)
+			resp, err := s.ServiceDropAlertLog(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -84,10 +89,12 @@ func newIdsServiceDropAlertLogCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newIdsServiceQueryAlertsCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "query-alerts",
 		Short: "QueryAlerts ids service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -95,8 +102,13 @@ func newIdsServiceQueryAlertsCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceQueryAlerts(context.Background(), nil)
+			resp, err := s.ServiceQueryAlerts(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -104,10 +116,12 @@ func newIdsServiceQueryAlertsCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newIdsServiceReconfigureCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "reconfigure",
 		Short: "Reconfigure ids service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -115,8 +129,13 @@ func newIdsServiceReconfigureCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceReconfigure(context.Background(), nil)
+			resp, err := s.ServiceReconfigure(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -124,10 +143,12 @@ func newIdsServiceReconfigureCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newIdsServiceReloadRulesCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "reload-rules",
 		Short: "ReloadRules ids service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -135,8 +156,13 @@ func newIdsServiceReloadRulesCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceReloadRules(context.Background(), nil)
+			resp, err := s.ServiceReloadRules(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -144,10 +170,12 @@ func newIdsServiceReloadRulesCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newIdsServiceRestartCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "restart",
 		Short: "Restart ids service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -155,8 +183,13 @@ func newIdsServiceRestartCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceRestart(context.Background(), nil)
+			resp, err := s.ServiceRestart(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -164,10 +197,12 @@ func newIdsServiceRestartCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newIdsServiceStartCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "start",
 		Short: "Start ids service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -175,8 +210,13 @@ func newIdsServiceStartCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceStart(context.Background(), nil)
+			resp, err := s.ServiceStart(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -184,6 +224,8 @@ func newIdsServiceStartCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newIdsServiceStatusCmd() *cobra.Command {
@@ -207,7 +249,7 @@ func newIdsServiceStatusCmd() *cobra.Command {
 }
 
 func newIdsServiceStopCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "stop",
 		Short: "Stop ids service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -215,8 +257,13 @@ func newIdsServiceStopCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceStop(context.Background(), nil)
+			resp, err := s.ServiceStop(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -224,10 +271,12 @@ func newIdsServiceStopCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newIdsServiceUpdateRulesCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "update-rules",
 		Short: "UpdateRules ids service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -235,8 +284,13 @@ func newIdsServiceUpdateRulesCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceUpdateRules(context.Background(), nil)
+			resp, err := s.ServiceUpdateRules(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -244,6 +298,8 @@ func newIdsServiceUpdateRulesCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newIdsAlertInfoCmd() *cobra.Command {
@@ -978,7 +1034,7 @@ func newIdsSettingsListRulesetsCmd() *cobra.Command {
 }
 
 func newIdsSettingsSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set ids settings",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -986,8 +1042,13 @@ func newIdsSettingsSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSet(context.Background(), nil)
+			resp, err := s.SettingsSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -995,6 +1056,8 @@ func newIdsSettingsSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 // idsRuleInfoColumns defines table columns for the RuleInfo resource.
@@ -1093,7 +1156,7 @@ func newIdsRulesetGetCmd() *cobra.Command {
 }
 
 func newIdsRulesetUpdateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "update <filename>",
 		Short: "Update ids ruleset",
 		Args:  cobra.ExactArgs(1),
@@ -1103,7 +1166,12 @@ func newIdsRulesetUpdateCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSetRuleset(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.SettingsSetRuleset(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -1111,10 +1179,12 @@ func newIdsRulesetUpdateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newIdsRulesetToggleCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "toggle <filenames>",
 		Short: "Toggle ids ruleset",
 		Args:  cobra.ExactArgs(1),
@@ -1124,7 +1194,12 @@ func newIdsRulesetToggleCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsToggleRuleset(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.SettingsToggleRuleset(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -1132,6 +1207,8 @@ func newIdsRulesetToggleCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newIdsRulesetpropertiesCmd() *cobra.Command {
@@ -1165,7 +1242,7 @@ func newIdsRulesetpropertiesGetCmd() *cobra.Command {
 }
 
 func newIdsRulesetpropertiesUpdateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "update",
 		Short: "Update ids rulesetproperties",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1173,8 +1250,13 @@ func newIdsRulesetpropertiesUpdateCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSetRulesetproperties(context.Background(), nil)
+			resp, err := s.SettingsSetRulesetproperties(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1182,6 +1264,8 @@ func newIdsRulesetpropertiesUpdateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newIdsInstalledRulesCmd() *cobra.Command {
@@ -1194,7 +1278,7 @@ func newIdsInstalledRulesCmd() *cobra.Command {
 }
 
 func newIdsInstalledRulesListCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "list",
 		Short: "List ids installed-rules",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1202,8 +1286,13 @@ func newIdsInstalledRulesListCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSearchInstalledRules(context.Background(), nil)
+			resp, err := s.SettingsSearchInstalledRules(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1211,6 +1300,8 @@ func newIdsInstalledRulesListCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 // idsRuleColumns defines table columns for the Rule resource.

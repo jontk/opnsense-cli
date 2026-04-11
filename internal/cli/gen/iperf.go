@@ -4,6 +4,7 @@ package gen
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 
 	"github.com/jontk/opnsense-cli/internal/cli"
@@ -90,7 +91,7 @@ func newIperfInstanceQueryCmd() *cobra.Command {
 }
 
 func newIperfInstanceSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set iperf instance",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -98,8 +99,13 @@ func newIperfInstanceSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.InstanceSet(context.Background(), nil)
+			resp, err := s.InstanceSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -107,6 +113,8 @@ func newIperfInstanceSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newIperfServiceCmd() *cobra.Command {

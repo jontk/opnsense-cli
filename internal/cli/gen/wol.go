@@ -227,7 +227,7 @@ func newWolWolGetCmd() *cobra.Command {
 }
 
 func newWolWolSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set wol wol",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -235,8 +235,13 @@ func newWolWolSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.WolSet(context.Background(), nil)
+			resp, err := s.WolSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -244,10 +249,12 @@ func newWolWolSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newWolWolWakeallCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "wakeall",
 		Short: "Wakeall wol wol",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -255,8 +262,13 @@ func newWolWolWakeallCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.WolWakeall(context.Background(), nil)
+			resp, err := s.WolWakeall(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -264,6 +276,8 @@ func newWolWolWakeallCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newWolWakeCmd() *cobra.Command {

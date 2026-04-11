@@ -187,7 +187,7 @@ func newFreeradiusAvpairListCmd() *cobra.Command {
 }
 
 func newFreeradiusAvpairSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set freeradius avpair",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -195,8 +195,13 @@ func newFreeradiusAvpairSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.AvpairSet(context.Background(), nil)
+			resp, err := s.AvpairSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -204,6 +209,8 @@ func newFreeradiusAvpairSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newFreeradiusAvpairUpdateCmd() *cobra.Command {
@@ -397,7 +404,7 @@ func newFreeradiusClientListCmd() *cobra.Command {
 }
 
 func newFreeradiusClientSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set freeradius client",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -405,8 +412,13 @@ func newFreeradiusClientSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ClientSet(context.Background(), nil)
+			resp, err := s.ClientSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -414,6 +426,8 @@ func newFreeradiusClientSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newFreeradiusClientUpdateCmd() *cobra.Command {
@@ -601,7 +615,7 @@ func newFreeradiusDhcpListCmd() *cobra.Command {
 }
 
 func newFreeradiusDhcpSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set freeradius dhcp",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -609,8 +623,13 @@ func newFreeradiusDhcpSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.DhcpSet(context.Background(), nil)
+			resp, err := s.DhcpSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -618,6 +637,8 @@ func newFreeradiusDhcpSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newFreeradiusDhcpUpdateCmd() *cobra.Command {
@@ -700,7 +721,7 @@ func newFreeradiusEapGetCmd() *cobra.Command {
 }
 
 func newFreeradiusEapSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set freeradius eap",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -708,8 +729,13 @@ func newFreeradiusEapSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.EapSet(context.Background(), nil)
+			resp, err := s.EapSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -717,6 +743,8 @@ func newFreeradiusEapSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newFreeradiusGeneralCmd() *cobra.Command {
@@ -750,7 +778,7 @@ func newFreeradiusGeneralGetCmd() *cobra.Command {
 }
 
 func newFreeradiusGeneralSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set freeradius general",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -758,8 +786,13 @@ func newFreeradiusGeneralSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.GeneralSet(context.Background(), nil)
+			resp, err := s.GeneralSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -767,6 +800,8 @@ func newFreeradiusGeneralSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newFreeradiusLdapCmd() *cobra.Command {
@@ -800,7 +835,7 @@ func newFreeradiusLdapGetCmd() *cobra.Command {
 }
 
 func newFreeradiusLdapSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set freeradius ldap",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -808,8 +843,13 @@ func newFreeradiusLdapSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.LdapSet(context.Background(), nil)
+			resp, err := s.LdapSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -817,6 +857,8 @@ func newFreeradiusLdapSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 // freeradiusLdapgroupColumns defines table columns for the Ldapgroup resource.
@@ -952,7 +994,7 @@ func newFreeradiusLdapgroupListCmd() *cobra.Command {
 }
 
 func newFreeradiusLdapgroupSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set freeradius ldapgroup",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -960,8 +1002,13 @@ func newFreeradiusLdapgroupSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.LdapgroupSet(context.Background(), nil)
+			resp, err := s.LdapgroupSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -969,6 +1016,8 @@ func newFreeradiusLdapgroupSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newFreeradiusLdapgroupUpdateCmd() *cobra.Command {
@@ -1150,7 +1199,7 @@ func newFreeradiusLeaseListCmd() *cobra.Command {
 }
 
 func newFreeradiusLeaseSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set freeradius lease",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1158,8 +1207,13 @@ func newFreeradiusLeaseSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.LeaseSet(context.Background(), nil)
+			resp, err := s.LeaseSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1167,6 +1221,8 @@ func newFreeradiusLeaseSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newFreeradiusLeaseUpdateCmd() *cobra.Command {
@@ -1843,7 +1899,7 @@ func newFreeradiusProxyGetCmd() *cobra.Command {
 }
 
 func newFreeradiusProxySetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set freeradius proxy",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1851,8 +1907,13 @@ func newFreeradiusProxySetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ProxySet(context.Background(), nil)
+			resp, err := s.ProxySet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1860,6 +1921,8 @@ func newFreeradiusProxySetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newFreeradiusServiceCmd() *cobra.Command {
@@ -1876,7 +1939,7 @@ func newFreeradiusServiceCmd() *cobra.Command {
 }
 
 func newFreeradiusServiceReconfigureCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "reconfigure",
 		Short: "Reconfigure freeradius service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1884,8 +1947,13 @@ func newFreeradiusServiceReconfigureCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceReconfigure(context.Background(), nil)
+			resp, err := s.ServiceReconfigure(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1893,10 +1961,12 @@ func newFreeradiusServiceReconfigureCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newFreeradiusServiceRestartCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "restart",
 		Short: "Restart freeradius service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1904,8 +1974,13 @@ func newFreeradiusServiceRestartCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceRestart(context.Background(), nil)
+			resp, err := s.ServiceRestart(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1913,10 +1988,12 @@ func newFreeradiusServiceRestartCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newFreeradiusServiceStartCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "start",
 		Short: "Start freeradius service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1924,8 +2001,13 @@ func newFreeradiusServiceStartCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceStart(context.Background(), nil)
+			resp, err := s.ServiceStart(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1933,6 +2015,8 @@ func newFreeradiusServiceStartCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newFreeradiusServiceStatusCmd() *cobra.Command {
@@ -1956,7 +2040,7 @@ func newFreeradiusServiceStatusCmd() *cobra.Command {
 }
 
 func newFreeradiusServiceStopCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "stop",
 		Short: "Stop freeradius service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1964,8 +2048,13 @@ func newFreeradiusServiceStopCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceStop(context.Background(), nil)
+			resp, err := s.ServiceStop(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1973,6 +2062,8 @@ func newFreeradiusServiceStopCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 // freeradiusUserColumns defines table columns for the User resource.
@@ -2135,7 +2226,7 @@ func newFreeradiusUserListCmd() *cobra.Command {
 }
 
 func newFreeradiusUserSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set freeradius user",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -2143,8 +2234,13 @@ func newFreeradiusUserSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.UserSet(context.Background(), nil)
+			resp, err := s.UserSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -2152,6 +2248,8 @@ func newFreeradiusUserSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newFreeradiusUserUpdateCmd() *cobra.Command {

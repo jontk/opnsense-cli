@@ -517,7 +517,7 @@ func newIpsecConnectionIsEnabledCmd() *cobra.Command {
 }
 
 func newIpsecConnectionSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set ipsec connection",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -525,8 +525,13 @@ func newIpsecConnectionSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ConnectionsSet(context.Background(), nil)
+			resp, err := s.ConnectionsSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -534,6 +539,8 @@ func newIpsecConnectionSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newIpsecConnectionSwanctlCmd() *cobra.Command {
@@ -1140,7 +1147,7 @@ func newIpsecKeyPairsListCmd() *cobra.Command {
 }
 
 func newIpsecKeyPairsSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set ipsec key-pairs",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1148,8 +1155,13 @@ func newIpsecKeyPairsSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.KeyPairsSet(context.Background(), nil)
+			resp, err := s.KeyPairsSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1157,6 +1169,8 @@ func newIpsecKeyPairsSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newIpsecKeyPairsUpdateCmd() *cobra.Command {
@@ -1247,7 +1261,7 @@ func newIpsecLegacySubsystemCmd() *cobra.Command {
 }
 
 func newIpsecLegacySubsystemApplyConfigCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "apply-config",
 		Short: "ApplyConfig ipsec legacy-subsystem",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1255,8 +1269,13 @@ func newIpsecLegacySubsystemApplyConfigCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.LegacySubsystemApplyConfig(context.Background(), nil)
+			resp, err := s.LegacySubsystemApplyConfig(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1264,6 +1283,8 @@ func newIpsecLegacySubsystemApplyConfigCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newIpsecLegacySubsystemStatusCmd() *cobra.Command {
@@ -1301,7 +1322,7 @@ func newIpsecManualSpdCmd() *cobra.Command {
 }
 
 func newIpsecManualSpdAddCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "add",
 		Short: "Add ipsec manual-spd",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1309,8 +1330,13 @@ func newIpsecManualSpdAddCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ManualSpdAdd(context.Background(), nil)
+			resp, err := s.ManualSpdAdd(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1318,10 +1344,12 @@ func newIpsecManualSpdAddCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newIpsecManualSpdDelCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "del <uuid>",
 		Short: "Del ipsec manual-spd",
 		Args:  cobra.ExactArgs(1),
@@ -1331,7 +1359,12 @@ func newIpsecManualSpdDelCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.ManualSpdDel(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.ManualSpdDel(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -1339,6 +1372,8 @@ func newIpsecManualSpdDelCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newIpsecManualSpdGetCmd() *cobra.Command {
@@ -1362,7 +1397,7 @@ func newIpsecManualSpdGetCmd() *cobra.Command {
 }
 
 func newIpsecManualSpdSearchCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "search",
 		Short: "Search ipsec manual-spd",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1370,8 +1405,13 @@ func newIpsecManualSpdSearchCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ManualSpdSearch(context.Background(), nil)
+			resp, err := s.ManualSpdSearch(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1379,10 +1419,12 @@ func newIpsecManualSpdSearchCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newIpsecManualSpdSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set ipsec manual-spd",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1390,8 +1432,13 @@ func newIpsecManualSpdSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ManualSpdSet(context.Background(), nil)
+			resp, err := s.ManualSpdSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1399,10 +1446,12 @@ func newIpsecManualSpdSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newIpsecManualSpdToggleCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "toggle <uuid>",
 		Short: "Toggle ipsec manual-spd",
 		Args:  cobra.ExactArgs(1),
@@ -1412,7 +1461,12 @@ func newIpsecManualSpdToggleCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.ManualSpdToggle(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.ManualSpdToggle(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -1420,6 +1474,8 @@ func newIpsecManualSpdToggleCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newIpsecPoolsCmd() *cobra.Command {
@@ -1437,7 +1493,7 @@ func newIpsecPoolsCmd() *cobra.Command {
 }
 
 func newIpsecPoolsAddCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "add",
 		Short: "Add ipsec pools",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1445,8 +1501,13 @@ func newIpsecPoolsAddCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.PoolsAdd(context.Background(), nil)
+			resp, err := s.PoolsAdd(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1454,10 +1515,12 @@ func newIpsecPoolsAddCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newIpsecPoolsDelCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "del <uuid>",
 		Short: "Del ipsec pools",
 		Args:  cobra.ExactArgs(1),
@@ -1467,7 +1530,12 @@ func newIpsecPoolsDelCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.PoolsDel(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.PoolsDel(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -1475,6 +1543,8 @@ func newIpsecPoolsDelCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newIpsecPoolsGetCmd() *cobra.Command {
@@ -1498,7 +1568,7 @@ func newIpsecPoolsGetCmd() *cobra.Command {
 }
 
 func newIpsecPoolsSearchCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "search",
 		Short: "Search ipsec pools",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1506,8 +1576,13 @@ func newIpsecPoolsSearchCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.PoolsSearch(context.Background(), nil)
+			resp, err := s.PoolsSearch(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1515,10 +1590,12 @@ func newIpsecPoolsSearchCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newIpsecPoolsSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set ipsec pools",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1526,8 +1603,13 @@ func newIpsecPoolsSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.PoolsSet(context.Background(), nil)
+			resp, err := s.PoolsSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1535,10 +1617,12 @@ func newIpsecPoolsSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newIpsecPoolsToggleCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "toggle <uuid>",
 		Short: "Toggle ipsec pools",
 		Args:  cobra.ExactArgs(1),
@@ -1548,7 +1632,12 @@ func newIpsecPoolsToggleCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.PoolsToggle(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.PoolsToggle(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -1556,6 +1645,8 @@ func newIpsecPoolsToggleCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 // ipsecPreSharedKeysColumns defines table columns for the PreSharedKeys resource.
@@ -1699,7 +1790,7 @@ func newIpsecPreSharedKeysListCmd() *cobra.Command {
 }
 
 func newIpsecPreSharedKeysSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set ipsec pre-shared-keys",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1707,8 +1798,13 @@ func newIpsecPreSharedKeysSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.PreSharedKeysSet(context.Background(), nil)
+			resp, err := s.PreSharedKeysSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1716,6 +1812,8 @@ func newIpsecPreSharedKeysSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newIpsecPreSharedKeysUpdateCmd() *cobra.Command {
@@ -1756,7 +1854,7 @@ func newIpsecSadCmd() *cobra.Command {
 }
 
 func newIpsecSadDeleteCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "delete <id>",
 		Short: "Delete ipsec sad",
 		Args:  cobra.ExactArgs(1),
@@ -1766,7 +1864,12 @@ func newIpsecSadDeleteCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SadDelete(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.SadDelete(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -1774,6 +1877,8 @@ func newIpsecSadDeleteCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newIpsecSadSearchCmd() *cobra.Command {
@@ -1810,7 +1915,7 @@ func newIpsecServiceCmd() *cobra.Command {
 }
 
 func newIpsecServiceReconfigureCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "reconfigure",
 		Short: "Reconfigure ipsec service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1818,8 +1923,13 @@ func newIpsecServiceReconfigureCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceReconfigure(context.Background(), nil)
+			resp, err := s.ServiceReconfigure(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1827,10 +1937,12 @@ func newIpsecServiceReconfigureCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newIpsecServiceRestartCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "restart",
 		Short: "Restart ipsec service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1838,8 +1950,13 @@ func newIpsecServiceRestartCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceRestart(context.Background(), nil)
+			resp, err := s.ServiceRestart(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1847,10 +1964,12 @@ func newIpsecServiceRestartCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newIpsecServiceStartCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "start",
 		Short: "Start ipsec service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1858,8 +1977,13 @@ func newIpsecServiceStartCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceStart(context.Background(), nil)
+			resp, err := s.ServiceStart(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1867,6 +1991,8 @@ func newIpsecServiceStartCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newIpsecServiceStatusCmd() *cobra.Command {
@@ -1890,7 +2016,7 @@ func newIpsecServiceStatusCmd() *cobra.Command {
 }
 
 func newIpsecServiceStopCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "stop",
 		Short: "Stop ipsec service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1898,8 +2024,13 @@ func newIpsecServiceStopCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceStop(context.Background(), nil)
+			resp, err := s.ServiceStop(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1907,6 +2038,8 @@ func newIpsecServiceStopCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newIpsecSessionsCmd() *cobra.Command {
@@ -1920,7 +2053,7 @@ func newIpsecSessionsCmd() *cobra.Command {
 }
 
 func newIpsecSessionsConnectCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "connect <id>",
 		Short: "Connect ipsec sessions",
 		Args:  cobra.ExactArgs(1),
@@ -1930,7 +2063,12 @@ func newIpsecSessionsConnectCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SessionsConnect(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.SessionsConnect(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -1938,10 +2076,12 @@ func newIpsecSessionsConnectCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newIpsecSessionsDisconnectCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "disconnect <id>",
 		Short: "Disconnect ipsec sessions",
 		Args:  cobra.ExactArgs(1),
@@ -1951,7 +2091,12 @@ func newIpsecSessionsDisconnectCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SessionsDisconnect(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.SessionsDisconnect(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -1959,6 +2104,8 @@ func newIpsecSessionsDisconnectCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newIpsecPhase1Cmd() *cobra.Command {
@@ -1993,7 +2140,7 @@ func newIpsecPhase1ListCmd() *cobra.Command {
 }
 
 func newIpsecPhase1DeleteCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "delete <ikeid>",
 		Short: "Delete ipsec phase1",
 		Args:  cobra.ExactArgs(1),
@@ -2003,7 +2150,12 @@ func newIpsecPhase1DeleteCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.TunnelDelPhase1(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.TunnelDelPhase1(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -2011,10 +2163,12 @@ func newIpsecPhase1DeleteCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newIpsecPhase1ToggleCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "toggle <ikeid>",
 		Short: "Toggle ipsec phase1",
 		Args:  cobra.ExactArgs(1),
@@ -2024,7 +2178,12 @@ func newIpsecPhase1ToggleCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.TunnelTogglePhase1(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.TunnelTogglePhase1(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -2032,6 +2191,8 @@ func newIpsecPhase1ToggleCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newIpsecPhase2Cmd() *cobra.Command {
@@ -2066,7 +2227,7 @@ func newIpsecPhase2ListCmd() *cobra.Command {
 }
 
 func newIpsecPhase2DeleteCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "delete <seqid>",
 		Short: "Delete ipsec phase2",
 		Args:  cobra.ExactArgs(1),
@@ -2076,7 +2237,12 @@ func newIpsecPhase2DeleteCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.TunnelDelPhase2(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.TunnelDelPhase2(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -2084,10 +2250,12 @@ func newIpsecPhase2DeleteCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newIpsecPhase2ToggleCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "toggle <seqid>",
 		Short: "Toggle ipsec phase2",
 		Args:  cobra.ExactArgs(1),
@@ -2097,7 +2265,12 @@ func newIpsecPhase2ToggleCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.TunnelTogglePhase2(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.TunnelTogglePhase2(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -2105,6 +2278,8 @@ func newIpsecPhase2ToggleCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newIpsecSettingsCmd() *cobra.Command {
@@ -2138,7 +2313,7 @@ func newIpsecSettingsGetCmd() *cobra.Command {
 }
 
 func newIpsecSettingsSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set ipsec settings",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -2146,8 +2321,13 @@ func newIpsecSettingsSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSet(context.Background(), nil)
+			resp, err := s.SettingsSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -2155,6 +2335,8 @@ func newIpsecSettingsSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newIpsecSpdCmd() *cobra.Command {
@@ -2168,7 +2350,7 @@ func newIpsecSpdCmd() *cobra.Command {
 }
 
 func newIpsecSpdDeleteCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "delete <id>",
 		Short: "Delete ipsec spd",
 		Args:  cobra.ExactArgs(1),
@@ -2178,7 +2360,12 @@ func newIpsecSpdDeleteCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SpdDelete(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.SpdDelete(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -2186,6 +2373,8 @@ func newIpsecSpdDeleteCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newIpsecSpdSearchCmd() *cobra.Command {
@@ -2218,7 +2407,7 @@ func newIpsecTunnelCmd() *cobra.Command {
 }
 
 func newIpsecTunnelToggleCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "toggle",
 		Short: "Toggle ipsec tunnel",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -2226,8 +2415,13 @@ func newIpsecTunnelToggleCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.TunnelToggle(context.Background(), nil)
+			resp, err := s.TunnelToggle(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -2235,6 +2429,8 @@ func newIpsecTunnelToggleCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newIpsecVtiCmd() *cobra.Command {
@@ -2252,7 +2448,7 @@ func newIpsecVtiCmd() *cobra.Command {
 }
 
 func newIpsecVtiAddCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "add",
 		Short: "Add ipsec vti",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -2260,8 +2456,13 @@ func newIpsecVtiAddCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.VtiAdd(context.Background(), nil)
+			resp, err := s.VtiAdd(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -2269,10 +2470,12 @@ func newIpsecVtiAddCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newIpsecVtiDelCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "del <uuid>",
 		Short: "Del ipsec vti",
 		Args:  cobra.ExactArgs(1),
@@ -2282,7 +2485,12 @@ func newIpsecVtiDelCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.VtiDel(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.VtiDel(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -2290,6 +2498,8 @@ func newIpsecVtiDelCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newIpsecVtiGetCmd() *cobra.Command {
@@ -2313,7 +2523,7 @@ func newIpsecVtiGetCmd() *cobra.Command {
 }
 
 func newIpsecVtiSearchCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "search",
 		Short: "Search ipsec vti",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -2321,8 +2531,13 @@ func newIpsecVtiSearchCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.VtiSearch(context.Background(), nil)
+			resp, err := s.VtiSearch(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -2330,10 +2545,12 @@ func newIpsecVtiSearchCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newIpsecVtiSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set ipsec vti",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -2341,8 +2558,13 @@ func newIpsecVtiSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.VtiSet(context.Background(), nil)
+			resp, err := s.VtiSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -2350,10 +2572,12 @@ func newIpsecVtiSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newIpsecVtiToggleCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "toggle <uuid>",
 		Short: "Toggle ipsec vti",
 		Args:  cobra.ExactArgs(1),
@@ -2363,7 +2587,12 @@ func newIpsecVtiToggleCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.VtiToggle(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.VtiToggle(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -2371,4 +2600,6 @@ func newIpsecVtiToggleCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }

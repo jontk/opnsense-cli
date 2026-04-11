@@ -4,6 +4,7 @@ package gen
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 
 	"github.com/jontk/opnsense-cli/internal/cli"
@@ -51,7 +52,7 @@ func newSmartServiceCmd() *cobra.Command {
 }
 
 func newSmartServiceAbortCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "abort",
 		Short: "Abort smart service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -59,8 +60,13 @@ func newSmartServiceAbortCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceAbort(context.Background(), nil)
+			resp, err := s.ServiceAbort(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -68,10 +74,12 @@ func newSmartServiceAbortCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newSmartServiceInfoCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "info",
 		Short: "Info smart service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -79,8 +87,13 @@ func newSmartServiceInfoCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceInfo(context.Background(), nil)
+			resp, err := s.ServiceInfo(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -88,10 +101,12 @@ func newSmartServiceInfoCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newSmartServiceListCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "list",
 		Short: "List smart service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -99,8 +114,13 @@ func newSmartServiceListCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceList(context.Background(), nil)
+			resp, err := s.ServiceList(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -108,10 +128,12 @@ func newSmartServiceListCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newSmartServiceLogsCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "logs",
 		Short: "Logs smart service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -119,8 +141,13 @@ func newSmartServiceLogsCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceLogs(context.Background(), nil)
+			resp, err := s.ServiceLogs(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -128,10 +155,12 @@ func newSmartServiceLogsCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newSmartServiceTestCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "test",
 		Short: "Test smart service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -139,8 +168,13 @@ func newSmartServiceTestCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceTest(context.Background(), nil)
+			resp, err := s.ServiceTest(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -148,4 +182,6 @@ func newSmartServiceTestCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }

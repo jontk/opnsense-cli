@@ -4,6 +4,7 @@ package gen
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 
 	"github.com/jontk/opnsense-cli/internal/cli"
@@ -61,7 +62,7 @@ func newTorAclCmd() *cobra.Command {
 }
 
 func newTorAclCreateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "create",
 		Short: "Create tor acl",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -69,8 +70,13 @@ func newTorAclCreateCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ExitaclAddacl(context.Background(), nil)
+			resp, err := s.ExitaclAddacl(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -78,10 +84,12 @@ func newTorAclCreateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newTorAclDeleteCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "delete <uuid>",
 		Short: "Delete tor acl",
 		Args:  cobra.ExactArgs(1),
@@ -91,7 +99,12 @@ func newTorAclDeleteCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.ExitaclDelacl(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.ExitaclDelacl(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -99,6 +112,8 @@ func newTorAclDeleteCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newTorAclGetCmd() *cobra.Command {
@@ -122,7 +137,7 @@ func newTorAclGetCmd() *cobra.Command {
 }
 
 func newTorAclListCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "list",
 		Short: "List tor acl",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -130,8 +145,13 @@ func newTorAclListCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ExitaclSearchacl(context.Background(), nil)
+			resp, err := s.ExitaclSearchacl(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -139,10 +159,12 @@ func newTorAclListCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newTorAclUpdateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "update <uuid>",
 		Short: "Update tor acl",
 		Args:  cobra.ExactArgs(1),
@@ -152,7 +174,12 @@ func newTorAclUpdateCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.ExitaclSetacl(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.ExitaclSetacl(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -160,10 +187,12 @@ func newTorAclUpdateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newTorAclToggleCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "toggle <uuid>",
 		Short: "Toggle tor acl",
 		Args:  cobra.ExactArgs(1),
@@ -173,7 +202,12 @@ func newTorAclToggleCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.ExitaclToggleacl(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.ExitaclToggleacl(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -181,6 +215,8 @@ func newTorAclToggleCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newTorExitaclCmd() *cobra.Command {
@@ -214,7 +250,7 @@ func newTorExitaclGetCmd() *cobra.Command {
 }
 
 func newTorExitaclSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set tor exitacl",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -222,8 +258,13 @@ func newTorExitaclSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ExitaclSet(context.Background(), nil)
+			resp, err := s.ExitaclSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -231,6 +272,8 @@ func newTorExitaclSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newTorHidservauthCmd() *cobra.Command {
@@ -248,7 +291,7 @@ func newTorHidservauthCmd() *cobra.Command {
 }
 
 func newTorHidservauthCreateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "create",
 		Short: "Create tor hidservauth",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -256,8 +299,13 @@ func newTorHidservauthCreateCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.GeneralAddhidservauth(context.Background(), nil)
+			resp, err := s.GeneralAddhidservauth(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -265,10 +313,12 @@ func newTorHidservauthCreateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newTorHidservauthDeleteCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "delete <uuid>",
 		Short: "Delete tor hidservauth",
 		Args:  cobra.ExactArgs(1),
@@ -278,7 +328,12 @@ func newTorHidservauthDeleteCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.GeneralDelhidservauth(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.GeneralDelhidservauth(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -286,6 +341,8 @@ func newTorHidservauthDeleteCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newTorHidservauthGetCmd() *cobra.Command {
@@ -309,7 +366,7 @@ func newTorHidservauthGetCmd() *cobra.Command {
 }
 
 func newTorHidservauthListCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "list",
 		Short: "List tor hidservauth",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -317,8 +374,13 @@ func newTorHidservauthListCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.GeneralSearchhidservauth(context.Background(), nil)
+			resp, err := s.GeneralSearchhidservauth(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -326,10 +388,12 @@ func newTorHidservauthListCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newTorHidservauthUpdateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "update <uuid>",
 		Short: "Update tor hidservauth",
 		Args:  cobra.ExactArgs(1),
@@ -339,7 +403,12 @@ func newTorHidservauthUpdateCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.GeneralSethidservauth(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.GeneralSethidservauth(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -347,10 +416,12 @@ func newTorHidservauthUpdateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newTorHidservauthToggleCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "toggle <uuid>",
 		Short: "Toggle tor hidservauth",
 		Args:  cobra.ExactArgs(1),
@@ -360,7 +431,12 @@ func newTorHidservauthToggleCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.GeneralTogglehidservauth(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.GeneralTogglehidservauth(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -368,6 +444,8 @@ func newTorHidservauthToggleCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newTorGeneralCmd() *cobra.Command {
@@ -401,7 +479,7 @@ func newTorGeneralGetCmd() *cobra.Command {
 }
 
 func newTorGeneralSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set tor general",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -409,8 +487,13 @@ func newTorGeneralSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.GeneralSet(context.Background(), nil)
+			resp, err := s.GeneralSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -418,6 +501,8 @@ func newTorGeneralSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newTorServiceCmd() *cobra.Command {
@@ -442,7 +527,7 @@ func newTorServiceCmd() *cobra.Command {
 }
 
 func newTorServiceCreateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "create",
 		Short: "Create tor service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -450,8 +535,13 @@ func newTorServiceCreateCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.HiddenserviceAddservice(context.Background(), nil)
+			resp, err := s.HiddenserviceAddservice(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -459,10 +549,12 @@ func newTorServiceCreateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newTorServiceDeleteCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "delete <uuid>",
 		Short: "Delete tor service",
 		Args:  cobra.ExactArgs(1),
@@ -472,7 +564,12 @@ func newTorServiceDeleteCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.HiddenserviceDelservice(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.HiddenserviceDelservice(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -480,6 +577,8 @@ func newTorServiceDeleteCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newTorServiceGetCmd() *cobra.Command {
@@ -503,7 +602,7 @@ func newTorServiceGetCmd() *cobra.Command {
 }
 
 func newTorServiceListCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "list",
 		Short: "List tor service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -511,8 +610,13 @@ func newTorServiceListCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.HiddenserviceSearchservice(context.Background(), nil)
+			resp, err := s.HiddenserviceSearchservice(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -520,10 +624,12 @@ func newTorServiceListCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newTorServiceUpdateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "update <uuid>",
 		Short: "Update tor service",
 		Args:  cobra.ExactArgs(1),
@@ -533,7 +639,12 @@ func newTorServiceUpdateCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.HiddenserviceSetservice(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.HiddenserviceSetservice(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -541,10 +652,12 @@ func newTorServiceUpdateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newTorServiceToggleCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "toggle <uuid>",
 		Short: "Toggle tor service",
 		Args:  cobra.ExactArgs(1),
@@ -554,7 +667,12 @@ func newTorServiceToggleCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.HiddenserviceToggleservice(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.HiddenserviceToggleservice(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -562,6 +680,8 @@ func newTorServiceToggleCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newTorServiceCircuitsCmd() *cobra.Command {
@@ -585,7 +705,7 @@ func newTorServiceCircuitsCmd() *cobra.Command {
 }
 
 func newTorServiceReconfigureCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "reconfigure",
 		Short: "Reconfigure tor service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -593,8 +713,13 @@ func newTorServiceReconfigureCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceReconfigure(context.Background(), nil)
+			resp, err := s.ServiceReconfigure(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -602,10 +727,12 @@ func newTorServiceReconfigureCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newTorServiceRestartCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "restart",
 		Short: "Restart tor service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -613,8 +740,13 @@ func newTorServiceRestartCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceRestart(context.Background(), nil)
+			resp, err := s.ServiceRestart(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -622,10 +754,12 @@ func newTorServiceRestartCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newTorServiceStartCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "start",
 		Short: "Start tor service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -633,8 +767,13 @@ func newTorServiceStartCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceStart(context.Background(), nil)
+			resp, err := s.ServiceStart(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -642,6 +781,8 @@ func newTorServiceStartCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newTorServiceStatusCmd() *cobra.Command {
@@ -665,7 +806,7 @@ func newTorServiceStatusCmd() *cobra.Command {
 }
 
 func newTorServiceStopCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "stop",
 		Short: "Stop tor service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -673,8 +814,13 @@ func newTorServiceStopCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceStop(context.Background(), nil)
+			resp, err := s.ServiceStop(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -682,6 +828,8 @@ func newTorServiceStopCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newTorServiceStreamsCmd() *cobra.Command {
@@ -735,7 +883,7 @@ func newTorHiddenserviceGetCmd() *cobra.Command {
 }
 
 func newTorHiddenserviceSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set tor hiddenservice",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -743,8 +891,13 @@ func newTorHiddenserviceSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.HiddenserviceSet(context.Background(), nil)
+			resp, err := s.HiddenserviceSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -752,6 +905,8 @@ func newTorHiddenserviceSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newTorHiddenserviceaclCmd() *cobra.Command {
@@ -785,7 +940,7 @@ func newTorHiddenserviceaclGetCmd() *cobra.Command {
 }
 
 func newTorHiddenserviceaclSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set tor hiddenserviceacl",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -793,8 +948,13 @@ func newTorHiddenserviceaclSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.HiddenserviceaclSet(context.Background(), nil)
+			resp, err := s.HiddenserviceaclSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -802,6 +962,8 @@ func newTorHiddenserviceaclSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newTorRelayCmd() *cobra.Command {
@@ -835,7 +997,7 @@ func newTorRelayGetCmd() *cobra.Command {
 }
 
 func newTorRelaySetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set tor relay",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -843,8 +1005,13 @@ func newTorRelaySetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.RelaySet(context.Background(), nil)
+			resp, err := s.RelaySet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -852,6 +1019,8 @@ func newTorRelaySetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newTorHiddenServicesCmd() *cobra.Command {
@@ -914,7 +1083,7 @@ func newTorSocksaclGetCmd() *cobra.Command {
 }
 
 func newTorSocksaclSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set tor socksacl",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -922,8 +1091,13 @@ func newTorSocksaclSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SocksaclSet(context.Background(), nil)
+			resp, err := s.SocksaclSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -931,4 +1105,6 @@ func newTorSocksaclSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }

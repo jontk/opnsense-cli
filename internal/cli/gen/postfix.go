@@ -178,7 +178,7 @@ func newPostfixAddressListCmd() *cobra.Command {
 }
 
 func newPostfixAddressSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set postfix address",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -186,8 +186,13 @@ func newPostfixAddressSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.AddressSet(context.Background(), nil)
+			resp, err := s.AddressSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -195,6 +200,8 @@ func newPostfixAddressSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newPostfixAddressUpdateCmd() *cobra.Command {
@@ -277,7 +284,7 @@ func newPostfixAntispamGetCmd() *cobra.Command {
 }
 
 func newPostfixAntispamSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set postfix antispam",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -285,8 +292,13 @@ func newPostfixAntispamSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.AntispamSet(context.Background(), nil)
+			resp, err := s.AntispamSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -294,6 +306,8 @@ func newPostfixAntispamSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 // postfixDomainColumns defines table columns for the Domain resource.
@@ -426,7 +440,7 @@ func newPostfixDomainListCmd() *cobra.Command {
 }
 
 func newPostfixDomainSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set postfix domain",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -434,8 +448,13 @@ func newPostfixDomainSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.DomainSet(context.Background(), nil)
+			resp, err := s.DomainSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -443,6 +462,8 @@ func newPostfixDomainSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newPostfixDomainUpdateCmd() *cobra.Command {
@@ -525,7 +546,7 @@ func newPostfixGeneralGetCmd() *cobra.Command {
 }
 
 func newPostfixGeneralSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set postfix general",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -533,8 +554,13 @@ func newPostfixGeneralSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.GeneralSet(context.Background(), nil)
+			resp, err := s.GeneralSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -542,6 +568,8 @@ func newPostfixGeneralSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 // postfixHeadercheckColumns defines table columns for the Headercheck resource.
@@ -723,7 +751,7 @@ func newPostfixHeadercheckListCmd() *cobra.Command {
 }
 
 func newPostfixHeadercheckSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set postfix headercheck",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -731,8 +759,13 @@ func newPostfixHeadercheckSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.HeaderchecksSet(context.Background(), nil)
+			resp, err := s.HeaderchecksSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -740,6 +773,8 @@ func newPostfixHeadercheckSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 // postfixRecipientColumns defines table columns for the Recipient resource.
@@ -872,7 +907,7 @@ func newPostfixRecipientListCmd() *cobra.Command {
 }
 
 func newPostfixRecipientSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set postfix recipient",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -880,8 +915,13 @@ func newPostfixRecipientSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.RecipientSet(context.Background(), nil)
+			resp, err := s.RecipientSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -889,6 +929,8 @@ func newPostfixRecipientSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newPostfixRecipientUpdateCmd() *cobra.Command {
@@ -1070,7 +1112,7 @@ func newPostfixRecipientbccListCmd() *cobra.Command {
 }
 
 func newPostfixRecipientbccSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set postfix recipientbcc",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1078,8 +1120,13 @@ func newPostfixRecipientbccSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.RecipientbccSet(context.Background(), nil)
+			resp, err := s.RecipientbccSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1087,6 +1134,8 @@ func newPostfixRecipientbccSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newPostfixRecipientbccUpdateCmd() *cobra.Command {
@@ -1268,7 +1317,7 @@ func newPostfixSenderListCmd() *cobra.Command {
 }
 
 func newPostfixSenderSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set postfix sender",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1276,8 +1325,13 @@ func newPostfixSenderSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SenderSet(context.Background(), nil)
+			resp, err := s.SenderSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1285,6 +1339,8 @@ func newPostfixSenderSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newPostfixSenderUpdateCmd() *cobra.Command {
@@ -1466,7 +1522,7 @@ func newPostfixSenderbccListCmd() *cobra.Command {
 }
 
 func newPostfixSenderbccSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set postfix senderbcc",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1474,8 +1530,13 @@ func newPostfixSenderbccSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SenderbccSet(context.Background(), nil)
+			resp, err := s.SenderbccSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1483,6 +1544,8 @@ func newPostfixSenderbccSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newPostfixSenderbccUpdateCmd() *cobra.Command {
@@ -1664,7 +1727,7 @@ func newPostfixSendercanonicalListCmd() *cobra.Command {
 }
 
 func newPostfixSendercanonicalSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set postfix sendercanonical",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1672,8 +1735,13 @@ func newPostfixSendercanonicalSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SendercanonicalSet(context.Background(), nil)
+			resp, err := s.SendercanonicalSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1681,6 +1749,8 @@ func newPostfixSendercanonicalSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newPostfixSendercanonicalUpdateCmd() *cobra.Command {
@@ -1767,7 +1837,7 @@ func newPostfixServiceCheckrspamdCmd() *cobra.Command {
 }
 
 func newPostfixServiceReconfigureCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "reconfigure",
 		Short: "Reconfigure postfix service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1775,8 +1845,13 @@ func newPostfixServiceReconfigureCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceReconfigure(context.Background(), nil)
+			resp, err := s.ServiceReconfigure(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1784,10 +1859,12 @@ func newPostfixServiceReconfigureCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newPostfixServiceRestartCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "restart",
 		Short: "Restart postfix service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1795,8 +1872,13 @@ func newPostfixServiceRestartCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceRestart(context.Background(), nil)
+			resp, err := s.ServiceRestart(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1804,10 +1886,12 @@ func newPostfixServiceRestartCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newPostfixServiceStartCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "start",
 		Short: "Start postfix service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1815,8 +1899,13 @@ func newPostfixServiceStartCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceStart(context.Background(), nil)
+			resp, err := s.ServiceStart(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1824,6 +1913,8 @@ func newPostfixServiceStartCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newPostfixServiceStatusCmd() *cobra.Command {
@@ -1847,7 +1938,7 @@ func newPostfixServiceStatusCmd() *cobra.Command {
 }
 
 func newPostfixServiceStopCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "stop",
 		Short: "Stop postfix service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1855,8 +1946,13 @@ func newPostfixServiceStopCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceStop(context.Background(), nil)
+			resp, err := s.ServiceStop(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1864,4 +1960,6 @@ func newPostfixServiceStopCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }

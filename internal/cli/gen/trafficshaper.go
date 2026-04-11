@@ -54,7 +54,7 @@ func newTrafficshaperServiceCmd() *cobra.Command {
 }
 
 func newTrafficshaperServiceFlushreloadCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "flushreload",
 		Short: "Flushreload trafficshaper service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -62,8 +62,13 @@ func newTrafficshaperServiceFlushreloadCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceFlushreload(context.Background(), nil)
+			resp, err := s.ServiceFlushreload(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -71,10 +76,12 @@ func newTrafficshaperServiceFlushreloadCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newTrafficshaperServiceReconfigureCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "reconfigure",
 		Short: "Reconfigure trafficshaper service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -82,8 +89,13 @@ func newTrafficshaperServiceReconfigureCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceReconfigure(context.Background(), nil)
+			resp, err := s.ServiceReconfigure(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -91,6 +103,8 @@ func newTrafficshaperServiceReconfigureCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newTrafficshaperServiceStatisticsCmd() *cobra.Command {
@@ -821,7 +835,7 @@ func newTrafficshaperSettingsGetCmd() *cobra.Command {
 }
 
 func newTrafficshaperSettingsSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set trafficshaper settings",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -829,8 +843,13 @@ func newTrafficshaperSettingsSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSet(context.Background(), nil)
+			resp, err := s.SettingsSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -838,10 +857,12 @@ func newTrafficshaperSettingsSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newTrafficshaperSettingsUploadPipesCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "upload-pipes",
 		Short: "UploadPipes trafficshaper settings",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -849,8 +870,13 @@ func newTrafficshaperSettingsUploadPipesCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsUploadPipes(context.Background(), nil)
+			resp, err := s.SettingsUploadPipes(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -858,10 +884,12 @@ func newTrafficshaperSettingsUploadPipesCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newTrafficshaperSettingsUploadQueuesCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "upload-queues",
 		Short: "UploadQueues trafficshaper settings",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -869,8 +897,13 @@ func newTrafficshaperSettingsUploadQueuesCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsUploadQueues(context.Background(), nil)
+			resp, err := s.SettingsUploadQueues(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -878,4 +911,6 @@ func newTrafficshaperSettingsUploadQueuesCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }

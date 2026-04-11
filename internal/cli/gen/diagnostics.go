@@ -222,7 +222,7 @@ func newDiagnosticsDnsDiagnosticsGetCmd() *cobra.Command {
 }
 
 func newDiagnosticsDnsDiagnosticsSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set diagnostics dns-diagnostics",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -230,8 +230,13 @@ func newDiagnosticsDnsDiagnosticsSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.DnsDiagnosticsSet(context.Background(), nil)
+			resp, err := s.DnsDiagnosticsSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -239,6 +244,8 @@ func newDiagnosticsDnsDiagnosticsSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newDiagnosticsStateCmd() *cobra.Command {
@@ -251,7 +258,7 @@ func newDiagnosticsStateCmd() *cobra.Command {
 }
 
 func newDiagnosticsStateDeleteCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "delete <stateid> <creatorid>",
 		Short: "Delete diagnostics state",
 		Args:  cobra.ExactArgs(2),
@@ -261,7 +268,12 @@ func newDiagnosticsStateDeleteCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.FirewallDelState(context.Background(), args[0], args[1], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.FirewallDelState(context.Background(), args[0], args[1], body)
 			if err != nil {
 				return err
 			}
@@ -269,6 +281,8 @@ func newDiagnosticsStateDeleteCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newDiagnosticsFirewallCmd() *cobra.Command {
@@ -292,7 +306,7 @@ func newDiagnosticsFirewallCmd() *cobra.Command {
 }
 
 func newDiagnosticsFirewallFlushSourcesCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "flush-sources",
 		Short: "FlushSources diagnostics firewall",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -300,8 +314,13 @@ func newDiagnosticsFirewallFlushSourcesCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.FirewallFlushSources(context.Background(), nil)
+			resp, err := s.FirewallFlushSources(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -309,10 +328,12 @@ func newDiagnosticsFirewallFlushSourcesCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newDiagnosticsFirewallFlushStatesCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "flush-states",
 		Short: "FlushStates diagnostics firewall",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -320,8 +341,13 @@ func newDiagnosticsFirewallFlushStatesCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.FirewallFlushStates(context.Background(), nil)
+			resp, err := s.FirewallFlushStates(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -329,10 +355,12 @@ func newDiagnosticsFirewallFlushStatesCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newDiagnosticsFirewallKillStatesCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "kill-states",
 		Short: "KillStates diagnostics firewall",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -340,8 +368,13 @@ func newDiagnosticsFirewallKillStatesCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.FirewallKillStates(context.Background(), nil)
+			resp, err := s.FirewallKillStates(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -349,6 +382,8 @@ func newDiagnosticsFirewallKillStatesCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newDiagnosticsFirewallListRuleIdsCmd() *cobra.Command {
@@ -452,7 +487,7 @@ func newDiagnosticsFirewallPfStatisticsCmd() *cobra.Command {
 }
 
 func newDiagnosticsFirewallQueryPfTopCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "query-pf-top",
 		Short: "QueryPfTop diagnostics firewall",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -460,8 +495,13 @@ func newDiagnosticsFirewallQueryPfTopCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.FirewallQueryPfTop(context.Background(), nil)
+			resp, err := s.FirewallQueryPfTop(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -469,10 +509,12 @@ func newDiagnosticsFirewallQueryPfTopCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newDiagnosticsFirewallQueryStatesCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "query-states",
 		Short: "QueryStates diagnostics firewall",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -480,8 +522,13 @@ func newDiagnosticsFirewallQueryStatesCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.FirewallQueryStates(context.Background(), nil)
+			resp, err := s.FirewallQueryStates(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -489,6 +536,8 @@ func newDiagnosticsFirewallQueryStatesCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newDiagnosticsFirewallStatsCmd() *cobra.Command {
@@ -543,7 +592,7 @@ func newDiagnosticsInterfaceCmd() *cobra.Command {
 }
 
 func newDiagnosticsInterfaceCarpStatusCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "carp-status <status>",
 		Short: "CarpStatus diagnostics interface",
 		Args:  cobra.ExactArgs(1),
@@ -553,7 +602,12 @@ func newDiagnosticsInterfaceCarpStatusCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.InterfaceCarpStatus(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.InterfaceCarpStatus(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -561,10 +615,12 @@ func newDiagnosticsInterfaceCarpStatusCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newDiagnosticsInterfaceFlushArpCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "flush-arp",
 		Short: "FlushArp diagnostics interface",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -572,8 +628,13 @@ func newDiagnosticsInterfaceFlushArpCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.InterfaceFlushArp(context.Background(), nil)
+			resp, err := s.InterfaceFlushArp(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -581,6 +642,8 @@ func newDiagnosticsInterfaceFlushArpCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newDiagnosticsInterfaceGetCmd() *cobra.Command {
@@ -614,7 +677,7 @@ func newDiagnosticsRouteCmd() *cobra.Command {
 }
 
 func newDiagnosticsRouteDeleteCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "delete",
 		Short: "Delete diagnostics route",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -622,8 +685,13 @@ func newDiagnosticsRouteDeleteCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.InterfaceDelRoute(context.Background(), nil)
+			resp, err := s.InterfaceDelRoute(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -631,6 +699,8 @@ func newDiagnosticsRouteDeleteCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newDiagnosticsRouteGetCmd() *cobra.Command {
@@ -1172,7 +1242,7 @@ func newDiagnosticsLvtemplateListCmd() *cobra.Command {
 }
 
 func newDiagnosticsLvtemplateSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set diagnostics lvtemplate",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1180,8 +1250,13 @@ func newDiagnosticsLvtemplateSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.LvtemplateSet(context.Background(), nil)
+			resp, err := s.LvtemplateSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1189,6 +1264,8 @@ func newDiagnosticsLvtemplateSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newDiagnosticsLvtemplateUpdateCmd() *cobra.Command {
@@ -1272,7 +1349,7 @@ func newDiagnosticsNetflowIsEnabledCmd() *cobra.Command {
 }
 
 func newDiagnosticsNetflowReconfigureCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "reconfigure",
 		Short: "Reconfigure diagnostics netflow",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1280,8 +1357,13 @@ func newDiagnosticsNetflowReconfigureCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.NetflowReconfigure(context.Background(), nil)
+			resp, err := s.NetflowReconfigure(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1289,6 +1371,8 @@ func newDiagnosticsNetflowReconfigureCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newDiagnosticsNetflowStatusCmd() *cobra.Command {
@@ -1598,7 +1682,7 @@ func newDiagnosticsPacketCaptureMacInfoCmd() *cobra.Command {
 }
 
 func newDiagnosticsPacketCaptureRemoveCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "remove <jobid>",
 		Short: "Remove diagnostics packet-capture",
 		Args:  cobra.ExactArgs(1),
@@ -1608,7 +1692,12 @@ func newDiagnosticsPacketCaptureRemoveCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.PacketCaptureRemove(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.PacketCaptureRemove(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -1616,10 +1705,12 @@ func newDiagnosticsPacketCaptureRemoveCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newDiagnosticsPacketCaptureSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set diagnostics packet-capture",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1627,8 +1718,13 @@ func newDiagnosticsPacketCaptureSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.PacketCaptureSet(context.Background(), nil)
+			resp, err := s.PacketCaptureSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1636,10 +1732,12 @@ func newDiagnosticsPacketCaptureSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newDiagnosticsPacketCaptureStartCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "start <jobid>",
 		Short: "Start diagnostics packet-capture",
 		Args:  cobra.ExactArgs(1),
@@ -1649,7 +1747,12 @@ func newDiagnosticsPacketCaptureStartCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.PacketCaptureStart(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.PacketCaptureStart(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -1657,10 +1760,12 @@ func newDiagnosticsPacketCaptureStartCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newDiagnosticsPacketCaptureStopCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "stop <jobid>",
 		Short: "Stop diagnostics packet-capture",
 		Args:  cobra.ExactArgs(1),
@@ -1670,7 +1775,12 @@ func newDiagnosticsPacketCaptureStopCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.PacketCaptureStop(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.PacketCaptureStop(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -1678,6 +1788,8 @@ func newDiagnosticsPacketCaptureStopCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newDiagnosticsPacketCaptureViewCmd() *cobra.Command {
@@ -1764,7 +1876,7 @@ func newDiagnosticsPingGetCmd() *cobra.Command {
 }
 
 func newDiagnosticsPingRemoveCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "remove <jobid>",
 		Short: "Remove diagnostics ping",
 		Args:  cobra.ExactArgs(1),
@@ -1774,7 +1886,12 @@ func newDiagnosticsPingRemoveCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.PingRemove(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.PingRemove(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -1782,10 +1899,12 @@ func newDiagnosticsPingRemoveCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newDiagnosticsPingSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set diagnostics ping",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1793,8 +1912,13 @@ func newDiagnosticsPingSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.PingSet(context.Background(), nil)
+			resp, err := s.PingSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1802,10 +1926,12 @@ func newDiagnosticsPingSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newDiagnosticsPingStartCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "start <jobid>",
 		Short: "Start diagnostics ping",
 		Args:  cobra.ExactArgs(1),
@@ -1815,7 +1941,12 @@ func newDiagnosticsPingStartCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.PingStart(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.PingStart(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -1823,10 +1954,12 @@ func newDiagnosticsPingStartCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newDiagnosticsPingStopCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "stop <jobid>",
 		Short: "Stop diagnostics ping",
 		Args:  cobra.ExactArgs(1),
@@ -1836,7 +1969,12 @@ func newDiagnosticsPingStopCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.PingStop(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.PingStop(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -1844,6 +1982,8 @@ func newDiagnosticsPingStopCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newDiagnosticsPortprobeCmd() *cobra.Command {
@@ -1877,7 +2017,7 @@ func newDiagnosticsPortprobeGetCmd() *cobra.Command {
 }
 
 func newDiagnosticsPortprobeSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set diagnostics portprobe",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1885,8 +2025,13 @@ func newDiagnosticsPortprobeSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.PortprobeSet(context.Background(), nil)
+			resp, err := s.PortprobeSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1894,6 +2039,8 @@ func newDiagnosticsPortprobeSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newDiagnosticsSystemCmd() *cobra.Command {
@@ -2190,7 +2337,7 @@ func newDiagnosticsTracerouteGetCmd() *cobra.Command {
 }
 
 func newDiagnosticsTracerouteSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set diagnostics traceroute",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -2198,8 +2345,13 @@ func newDiagnosticsTracerouteSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.TracerouteSet(context.Background(), nil)
+			resp, err := s.TracerouteSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -2207,6 +2359,8 @@ func newDiagnosticsTracerouteSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newDiagnosticsTrafficCmd() *cobra.Command {

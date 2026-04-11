@@ -4,6 +4,7 @@ package gen
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 
 	"github.com/jontk/opnsense-cli/internal/cli"
@@ -72,7 +73,7 @@ func newFirmwareFirmwareCmd() *cobra.Command {
 }
 
 func newFirmwareFirmwareAuditCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "audit",
 		Short: "Audit firmware firmware",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -80,8 +81,13 @@ func newFirmwareFirmwareAuditCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.FirmwareAudit(context.Background(), nil)
+			resp, err := s.FirmwareAudit(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -89,10 +95,12 @@ func newFirmwareFirmwareAuditCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newFirmwareFirmwareChangelogCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "changelog <version>",
 		Short: "Changelog firmware firmware",
 		Args:  cobra.ExactArgs(1),
@@ -102,7 +110,12 @@ func newFirmwareFirmwareChangelogCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.FirmwareChangelog(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.FirmwareChangelog(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -110,10 +123,12 @@ func newFirmwareFirmwareChangelogCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newFirmwareFirmwareCheckCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "check",
 		Short: "Check firmware firmware",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -121,8 +136,13 @@ func newFirmwareFirmwareCheckCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.FirmwareCheck(context.Background(), nil)
+			resp, err := s.FirmwareCheck(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -130,10 +150,12 @@ func newFirmwareFirmwareCheckCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newFirmwareFirmwareConnectionCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "connection",
 		Short: "Connection firmware firmware",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -141,8 +163,13 @@ func newFirmwareFirmwareConnectionCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.FirmwareConnection(context.Background(), nil)
+			resp, err := s.FirmwareConnection(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -150,6 +177,8 @@ func newFirmwareFirmwareConnectionCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newFirmwareFirmwareGetCmd() *cobra.Command {
@@ -193,7 +222,7 @@ func newFirmwareFirmwareGetoptionsCmd() *cobra.Command {
 }
 
 func newFirmwareFirmwareHealthCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "health",
 		Short: "Health firmware firmware",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -201,8 +230,13 @@ func newFirmwareFirmwareHealthCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.FirmwareHealth(context.Background(), nil)
+			resp, err := s.FirmwareHealth(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -210,6 +244,8 @@ func newFirmwareFirmwareHealthCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newFirmwareFirmwareInfoCmd() *cobra.Command {
@@ -233,7 +269,7 @@ func newFirmwareFirmwareInfoCmd() *cobra.Command {
 }
 
 func newFirmwareFirmwareLogCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "log <clear>",
 		Short: "Log firmware firmware",
 		Args:  cobra.ExactArgs(1),
@@ -243,7 +279,12 @@ func newFirmwareFirmwareLogCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.FirmwareLog(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.FirmwareLog(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -251,10 +292,12 @@ func newFirmwareFirmwareLogCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newFirmwareFirmwarePoweroffCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "poweroff",
 		Short: "Poweroff firmware firmware",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -262,8 +305,13 @@ func newFirmwareFirmwarePoweroffCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.FirmwarePoweroff(context.Background(), nil)
+			resp, err := s.FirmwarePoweroff(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -271,10 +319,12 @@ func newFirmwareFirmwarePoweroffCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newFirmwareFirmwareRebootCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "reboot",
 		Short: "Reboot firmware firmware",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -282,8 +332,13 @@ func newFirmwareFirmwareRebootCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.FirmwareReboot(context.Background(), nil)
+			resp, err := s.FirmwareReboot(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -291,10 +346,12 @@ func newFirmwareFirmwareRebootCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newFirmwareFirmwareResyncpluginsCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "resyncplugins",
 		Short: "Resyncplugins firmware firmware",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -302,8 +359,13 @@ func newFirmwareFirmwareResyncpluginsCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.FirmwareResyncPlugins(context.Background(), nil)
+			resp, err := s.FirmwareResyncPlugins(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -311,6 +373,8 @@ func newFirmwareFirmwareResyncpluginsCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newFirmwareFirmwareRunningCmd() *cobra.Command {
@@ -334,7 +398,7 @@ func newFirmwareFirmwareRunningCmd() *cobra.Command {
 }
 
 func newFirmwareFirmwareSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set firmware firmware",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -342,8 +406,13 @@ func newFirmwareFirmwareSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.FirmwareSet(context.Background(), nil)
+			resp, err := s.FirmwareSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -351,10 +420,12 @@ func newFirmwareFirmwareSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newFirmwareFirmwareStatusCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "status",
 		Short: "Status firmware firmware",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -362,8 +433,13 @@ func newFirmwareFirmwareStatusCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.FirmwareStatus(context.Background(), nil)
+			resp, err := s.FirmwareStatus(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -371,10 +447,12 @@ func newFirmwareFirmwareStatusCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newFirmwareFirmwareSyncpluginsCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "syncplugins",
 		Short: "Syncplugins firmware firmware",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -382,8 +460,13 @@ func newFirmwareFirmwareSyncpluginsCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.FirmwareSyncPlugins(context.Background(), nil)
+			resp, err := s.FirmwareSyncPlugins(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -391,10 +474,12 @@ func newFirmwareFirmwareSyncpluginsCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newFirmwareFirmwareUpdateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "update",
 		Short: "Update firmware firmware",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -402,8 +487,13 @@ func newFirmwareFirmwareUpdateCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.FirmwareUpdate(context.Background(), nil)
+			resp, err := s.FirmwareUpdate(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -411,10 +501,12 @@ func newFirmwareFirmwareUpdateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newFirmwareFirmwareUpgradeCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "upgrade",
 		Short: "Upgrade firmware firmware",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -422,8 +514,13 @@ func newFirmwareFirmwareUpgradeCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.FirmwareUpgrade(context.Background(), nil)
+			resp, err := s.FirmwareUpgrade(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -431,6 +528,8 @@ func newFirmwareFirmwareUpgradeCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newFirmwareFirmwareUpgradestatusCmd() *cobra.Command {
@@ -454,7 +553,7 @@ func newFirmwareFirmwareUpgradestatusCmd() *cobra.Command {
 }
 
 func newFirmwareFirmwareDetailsCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "details <pkg_name>",
 		Short: "Details firmware firmware",
 		Args:  cobra.ExactArgs(1),
@@ -464,7 +563,12 @@ func newFirmwareFirmwareDetailsCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.FirmwareDetails(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.FirmwareDetails(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -472,10 +576,12 @@ func newFirmwareFirmwareDetailsCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newFirmwareFirmwareInstallCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "install <pkg_name>",
 		Short: "Install firmware firmware",
 		Args:  cobra.ExactArgs(1),
@@ -485,7 +591,12 @@ func newFirmwareFirmwareInstallCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.FirmwareInstall(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.FirmwareInstall(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -493,10 +604,12 @@ func newFirmwareFirmwareInstallCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newFirmwareFirmwareLicenseCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "license <pkg_name>",
 		Short: "License firmware firmware",
 		Args:  cobra.ExactArgs(1),
@@ -506,7 +619,12 @@ func newFirmwareFirmwareLicenseCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.FirmwareLicense(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.FirmwareLicense(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -514,10 +632,12 @@ func newFirmwareFirmwareLicenseCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newFirmwareFirmwareLockCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "lock <pkg_name>",
 		Short: "Lock firmware firmware",
 		Args:  cobra.ExactArgs(1),
@@ -527,7 +647,12 @@ func newFirmwareFirmwareLockCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.FirmwareLock(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.FirmwareLock(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -535,10 +660,12 @@ func newFirmwareFirmwareLockCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newFirmwareFirmwareRemoveCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "remove <pkg_name>",
 		Short: "Remove firmware firmware",
 		Args:  cobra.ExactArgs(1),
@@ -548,7 +675,12 @@ func newFirmwareFirmwareRemoveCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.FirmwareRemove(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.FirmwareRemove(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -556,10 +688,12 @@ func newFirmwareFirmwareRemoveCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newFirmwareFirmwareReinstallCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "reinstall <pkg_name>",
 		Short: "Reinstall firmware firmware",
 		Args:  cobra.ExactArgs(1),
@@ -569,7 +703,12 @@ func newFirmwareFirmwareReinstallCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.FirmwareReinstall(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.FirmwareReinstall(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -577,10 +716,12 @@ func newFirmwareFirmwareReinstallCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newFirmwareFirmwareUnlockCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "unlock <pkg_name>",
 		Short: "Unlock firmware firmware",
 		Args:  cobra.ExactArgs(1),
@@ -590,7 +731,12 @@ func newFirmwareFirmwareUnlockCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.FirmwareUnlock(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.FirmwareUnlock(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -598,4 +744,6 @@ func newFirmwareFirmwareUnlockCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }

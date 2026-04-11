@@ -4,6 +4,7 @@ package gen
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 
 	"github.com/jontk/opnsense-cli/internal/cli"
@@ -137,7 +138,7 @@ func newUdpbroadcastrelayServiceRestartCmd() *cobra.Command {
 }
 
 func newUdpbroadcastrelayServiceSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set udpbroadcastrelay service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -145,8 +146,13 @@ func newUdpbroadcastrelayServiceSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceSet(context.Background(), nil)
+			resp, err := s.ServiceSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -154,6 +160,8 @@ func newUdpbroadcastrelayServiceSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newUdpbroadcastrelayServiceStartCmd() *cobra.Command {
@@ -234,7 +242,7 @@ func newUdpbroadcastrelayRelayCmd() *cobra.Command {
 }
 
 func newUdpbroadcastrelayRelayCreateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "create",
 		Short: "Create udpbroadcastrelay relay",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -242,8 +250,13 @@ func newUdpbroadcastrelayRelayCreateCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsAddRelay(context.Background(), nil)
+			resp, err := s.SettingsAddRelay(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -251,10 +264,12 @@ func newUdpbroadcastrelayRelayCreateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newUdpbroadcastrelayRelayDeleteCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "delete <uuid>",
 		Short: "Delete udpbroadcastrelay relay",
 		Args:  cobra.ExactArgs(1),
@@ -264,7 +279,12 @@ func newUdpbroadcastrelayRelayDeleteCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsDelRelay(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.SettingsDelRelay(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -272,6 +292,8 @@ func newUdpbroadcastrelayRelayDeleteCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newUdpbroadcastrelayRelayGetCmd() *cobra.Command {
@@ -315,7 +337,7 @@ func newUdpbroadcastrelayRelayListCmd() *cobra.Command {
 }
 
 func newUdpbroadcastrelayRelayUpdateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "update <uuid>",
 		Short: "Update udpbroadcastrelay relay",
 		Args:  cobra.ExactArgs(1),
@@ -325,7 +347,12 @@ func newUdpbroadcastrelayRelayUpdateCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSetRelay(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.SettingsSetRelay(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -333,10 +360,12 @@ func newUdpbroadcastrelayRelayUpdateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newUdpbroadcastrelayRelayToggleCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "toggle <uuid>",
 		Short: "Toggle udpbroadcastrelay relay",
 		Args:  cobra.ExactArgs(1),
@@ -346,7 +375,12 @@ func newUdpbroadcastrelayRelayToggleCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsToggleRelay(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.SettingsToggleRelay(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -354,6 +388,8 @@ func newUdpbroadcastrelayRelayToggleCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newUdpbroadcastrelaySettingsCmd() *cobra.Command {
@@ -387,7 +423,7 @@ func newUdpbroadcastrelaySettingsGetCmd() *cobra.Command {
 }
 
 func newUdpbroadcastrelaySettingsSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set udpbroadcastrelay settings",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -395,8 +431,13 @@ func newUdpbroadcastrelaySettingsSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSet(context.Background(), nil)
+			resp, err := s.SettingsSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -404,4 +445,6 @@ func newUdpbroadcastrelaySettingsSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }

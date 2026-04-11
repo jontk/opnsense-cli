@@ -297,7 +297,7 @@ func newQuaggaBfdGetCmd() *cobra.Command {
 }
 
 func newQuaggaBfdSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set quagga bfd",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -305,8 +305,13 @@ func newQuaggaBfdSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.BfdSet(context.Background(), nil)
+			resp, err := s.BfdSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -314,6 +319,8 @@ func newQuaggaBfdSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 // quaggaAspathColumns defines table columns for the Aspath resource.
@@ -1535,7 +1542,7 @@ func newQuaggaBgpGetCmd() *cobra.Command {
 }
 
 func newQuaggaBgpSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set quagga bgp",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1543,8 +1550,13 @@ func newQuaggaBgpSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.BgpSet(context.Background(), nil)
+			resp, err := s.BgpSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1552,6 +1564,8 @@ func newQuaggaBgpSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newQuaggaDiagnosticsCmd() *cobra.Command {
@@ -2056,7 +2070,7 @@ func newQuaggaGeneralGetCmd() *cobra.Command {
 }
 
 func newQuaggaGeneralSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set quagga general",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -2064,8 +2078,13 @@ func newQuaggaGeneralSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.GeneralSet(context.Background(), nil)
+			resp, err := s.GeneralSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -2073,6 +2092,8 @@ func newQuaggaGeneralSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 // quaggaInterfaceColumns defines table columns for the Interface resource.
@@ -2523,7 +2544,7 @@ func newQuaggaOspf6SettingsGetCmd() *cobra.Command {
 }
 
 func newQuaggaOspf6SettingsSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set quagga ospf6settings",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -2531,8 +2552,13 @@ func newQuaggaOspf6SettingsSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.Ospf6settingsSet(context.Background(), nil)
+			resp, err := s.Ospf6settingsSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -2540,6 +2566,8 @@ func newQuaggaOspf6SettingsSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 // quaggaAreaColumns defines table columns for the Area resource.
@@ -2750,7 +2778,7 @@ func newQuaggaOspfsettingsGetCmd() *cobra.Command {
 }
 
 func newQuaggaOspfsettingsSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set quagga ospfsettings",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -2758,8 +2786,13 @@ func newQuaggaOspfsettingsSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.OspfsettingsSet(context.Background(), nil)
+			resp, err := s.OspfsettingsSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -2767,6 +2800,8 @@ func newQuaggaOspfsettingsSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newQuaggaRipCmd() *cobra.Command {
@@ -2800,7 +2835,7 @@ func newQuaggaRipGetCmd() *cobra.Command {
 }
 
 func newQuaggaRipSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set quagga rip",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -2808,8 +2843,13 @@ func newQuaggaRipSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.RipSet(context.Background(), nil)
+			resp, err := s.RipSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -2817,6 +2857,8 @@ func newQuaggaRipSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newQuaggaServiceCmd() *cobra.Command {
@@ -2833,7 +2875,7 @@ func newQuaggaServiceCmd() *cobra.Command {
 }
 
 func newQuaggaServiceReconfigureCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "reconfigure",
 		Short: "Reconfigure quagga service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -2841,8 +2883,13 @@ func newQuaggaServiceReconfigureCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceReconfigure(context.Background(), nil)
+			resp, err := s.ServiceReconfigure(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -2850,10 +2897,12 @@ func newQuaggaServiceReconfigureCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newQuaggaServiceRestartCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "restart",
 		Short: "Restart quagga service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -2861,8 +2910,13 @@ func newQuaggaServiceRestartCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceRestart(context.Background(), nil)
+			resp, err := s.ServiceRestart(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -2870,10 +2924,12 @@ func newQuaggaServiceRestartCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newQuaggaServiceStartCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "start",
 		Short: "Start quagga service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -2881,8 +2937,13 @@ func newQuaggaServiceStartCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceStart(context.Background(), nil)
+			resp, err := s.ServiceStart(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -2890,6 +2951,8 @@ func newQuaggaServiceStartCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newQuaggaServiceStatusCmd() *cobra.Command {
@@ -2913,7 +2976,7 @@ func newQuaggaServiceStatusCmd() *cobra.Command {
 }
 
 func newQuaggaServiceStopCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "stop",
 		Short: "Stop quagga service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -2921,8 +2984,13 @@ func newQuaggaServiceStopCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceStop(context.Background(), nil)
+			resp, err := s.ServiceStop(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -2930,6 +2998,8 @@ func newQuaggaServiceStopCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 // quaggaRouteColumns defines table columns for the Route resource.
@@ -3146,7 +3216,7 @@ func newQuaggaStaticGetCmd() *cobra.Command {
 }
 
 func newQuaggaStaticSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set quagga static",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -3154,8 +3224,13 @@ func newQuaggaStaticSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.StaticSet(context.Background(), nil)
+			resp, err := s.StaticSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -3163,4 +3238,6 @@ func newQuaggaStaticSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }

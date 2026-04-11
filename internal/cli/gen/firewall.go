@@ -177,7 +177,7 @@ func newFirewallAliasDeleteCmd() *cobra.Command {
 }
 
 func newFirewallAliasExportCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "export",
 		Short: "Export firewall alias",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -185,8 +185,13 @@ func newFirewallAliasExportCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.AliasExport(context.Background(), nil)
+			resp, err := s.AliasExport(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -194,6 +199,8 @@ func newFirewallAliasExportCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newFirewallAliasGetCmd() *cobra.Command {
@@ -217,7 +224,7 @@ func newFirewallAliasGetCmd() *cobra.Command {
 }
 
 func newFirewallAliasImportCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "import",
 		Short: "Import firewall alias",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -225,8 +232,13 @@ func newFirewallAliasImportCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.AliasImport(context.Background(), nil)
+			resp, err := s.AliasImport(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -234,6 +246,8 @@ func newFirewallAliasImportCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newFirewallAliasListCategoriesCmd() *cobra.Command {
@@ -317,7 +331,7 @@ func newFirewallAliasListUserGroupsCmd() *cobra.Command {
 }
 
 func newFirewallAliasReconfigureCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "reconfigure",
 		Short: "Reconfigure firewall alias",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -325,8 +339,13 @@ func newFirewallAliasReconfigureCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.AliasReconfigure(context.Background(), nil)
+			resp, err := s.AliasReconfigure(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -334,6 +353,8 @@ func newFirewallAliasReconfigureCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newFirewallAliasListCmd() *cobra.Command {
@@ -361,7 +382,7 @@ func newFirewallAliasListCmd() *cobra.Command {
 }
 
 func newFirewallAliasSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set firewall alias",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -369,8 +390,13 @@ func newFirewallAliasSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.AliasSet(context.Background(), nil)
+			resp, err := s.AliasSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -378,6 +404,8 @@ func newFirewallAliasSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newFirewallAliasUpdateCmd() *cobra.Command {
@@ -595,7 +623,7 @@ func newFirewallAliasUtilCmd() *cobra.Command {
 }
 
 func newFirewallAliasUtilAddCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "add <alias>",
 		Short: "Add firewall alias-util",
 		Args:  cobra.ExactArgs(1),
@@ -605,7 +633,12 @@ func newFirewallAliasUtilAddCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.AliasUtilAdd(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.AliasUtilAdd(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -613,6 +646,8 @@ func newFirewallAliasUtilAddCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newFirewallAliasUtilAliasesCmd() *cobra.Command {
@@ -636,7 +671,7 @@ func newFirewallAliasUtilAliasesCmd() *cobra.Command {
 }
 
 func newFirewallAliasUtilDeleteCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "delete <alias>",
 		Short: "Delete firewall alias-util",
 		Args:  cobra.ExactArgs(1),
@@ -646,7 +681,12 @@ func newFirewallAliasUtilDeleteCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.AliasUtilDelete(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.AliasUtilDelete(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -654,10 +694,12 @@ func newFirewallAliasUtilDeleteCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newFirewallAliasUtilFindReferencesCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "find-references",
 		Short: "FindReferences firewall alias-util",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -665,8 +707,13 @@ func newFirewallAliasUtilFindReferencesCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.AliasUtilFindReferences(context.Background(), nil)
+			resp, err := s.AliasUtilFindReferences(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -674,10 +721,12 @@ func newFirewallAliasUtilFindReferencesCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newFirewallAliasUtilFlushCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "flush <alias>",
 		Short: "Flush firewall alias-util",
 		Args:  cobra.ExactArgs(1),
@@ -687,7 +736,12 @@ func newFirewallAliasUtilFlushCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.AliasUtilFlush(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.AliasUtilFlush(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -695,6 +749,8 @@ func newFirewallAliasUtilFlushCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newFirewallAliasUtilListCmd() *cobra.Command {
@@ -870,7 +926,7 @@ func newFirewallCategoryListCmd() *cobra.Command {
 }
 
 func newFirewallCategorySetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set firewall category",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -878,8 +934,13 @@ func newFirewallCategorySetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.CategorySet(context.Background(), nil)
+			resp, err := s.CategorySet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -887,6 +948,8 @@ func newFirewallCategorySetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newFirewallCategoryUpdateCmd() *cobra.Command {
@@ -1143,7 +1206,7 @@ func newFirewallDNatMoveRuleBeforeCmd() *cobra.Command {
 }
 
 func newFirewallDNatApplyCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "apply",
 		Short: "Apply firewall d-nat",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1151,8 +1214,13 @@ func newFirewallDNatApplyCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.DNatApply(context.Background(), nil)
+			resp, err := s.DNatApply(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1160,10 +1228,12 @@ func newFirewallDNatApplyCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newFirewallDNatCancelRollbackCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "cancel-rollback <rollback_revision>",
 		Short: "CancelRollback firewall d-nat",
 		Args:  cobra.ExactArgs(1),
@@ -1173,7 +1243,12 @@ func newFirewallDNatCancelRollbackCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.DNatCancelRollback(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.DNatCancelRollback(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -1181,6 +1256,8 @@ func newFirewallDNatCancelRollbackCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newFirewallDNatGetCmd() *cobra.Command {
@@ -1264,7 +1341,7 @@ func newFirewallDNatListPortSelectOptionsCmd() *cobra.Command {
 }
 
 func newFirewallDNatRevertCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "revert <revision>",
 		Short: "Revert firewall d-nat",
 		Args:  cobra.ExactArgs(1),
@@ -1274,7 +1351,12 @@ func newFirewallDNatRevertCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.DNatRevert(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.DNatRevert(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -1282,10 +1364,12 @@ func newFirewallDNatRevertCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newFirewallDNatSavepointCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "savepoint",
 		Short: "Savepoint firewall d-nat",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1293,8 +1377,13 @@ func newFirewallDNatSavepointCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.DNatSavepoint(context.Background(), nil)
+			resp, err := s.DNatSavepoint(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1302,10 +1391,12 @@ func newFirewallDNatSavepointCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newFirewallDNatSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set firewall d-nat",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1313,8 +1404,13 @@ func newFirewallDNatSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.DNatSet(context.Background(), nil)
+			resp, err := s.DNatSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1322,6 +1418,8 @@ func newFirewallDNatSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 // firewallRuleLogColumns defines table columns for the RuleLog resource.
@@ -1448,7 +1546,7 @@ func newFirewallFilterDownloadRulesCmd() *cobra.Command {
 }
 
 func newFirewallFilterFlushInspectCacheCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "flush-inspect-cache",
 		Short: "FlushInspectCache firewall filter",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1456,8 +1554,13 @@ func newFirewallFilterFlushInspectCacheCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.FilterFlushInspectCache(context.Background(), nil)
+			resp, err := s.FilterFlushInspectCache(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1465,10 +1568,12 @@ func newFirewallFilterFlushInspectCacheCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newFirewallFilterMoveRuleBeforeCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "move-rule-before <selected_uuid> <target_uuid>",
 		Short: "MoveRuleBefore firewall filter",
 		Args:  cobra.ExactArgs(2),
@@ -1478,7 +1583,12 @@ func newFirewallFilterMoveRuleBeforeCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.FilterMoveRuleBefore(context.Background(), args[0], args[1], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.FilterMoveRuleBefore(context.Background(), args[0], args[1], body)
 			if err != nil {
 				return err
 			}
@@ -1486,10 +1596,12 @@ func newFirewallFilterMoveRuleBeforeCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newFirewallFilterUploadRulesCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "upload-rules",
 		Short: "UploadRules firewall filter",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1497,8 +1609,13 @@ func newFirewallFilterUploadRulesCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.FilterUploadRules(context.Background(), nil)
+			resp, err := s.FilterUploadRules(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1506,10 +1623,12 @@ func newFirewallFilterUploadRulesCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newFirewallFilterApplyCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "apply",
 		Short: "Apply firewall filter",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1517,8 +1636,13 @@ func newFirewallFilterApplyCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.FilterApply(context.Background(), nil)
+			resp, err := s.FilterApply(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1526,10 +1650,12 @@ func newFirewallFilterApplyCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newFirewallFilterCancelRollbackCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "cancel-rollback <rollback_revision>",
 		Short: "CancelRollback firewall filter",
 		Args:  cobra.ExactArgs(1),
@@ -1539,7 +1665,12 @@ func newFirewallFilterCancelRollbackCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.FilterCancelRollback(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.FilterCancelRollback(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -1547,6 +1678,8 @@ func newFirewallFilterCancelRollbackCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newFirewallFilterGetCmd() *cobra.Command {
@@ -1630,7 +1763,7 @@ func newFirewallFilterListPortSelectOptionsCmd() *cobra.Command {
 }
 
 func newFirewallFilterRevertCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "revert <revision>",
 		Short: "Revert firewall filter",
 		Args:  cobra.ExactArgs(1),
@@ -1640,7 +1773,12 @@ func newFirewallFilterRevertCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.FilterRevert(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.FilterRevert(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -1648,10 +1786,12 @@ func newFirewallFilterRevertCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newFirewallFilterSavepointCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "savepoint",
 		Short: "Savepoint firewall filter",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1659,8 +1799,13 @@ func newFirewallFilterSavepointCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.FilterSavepoint(context.Background(), nil)
+			resp, err := s.FilterSavepoint(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1668,10 +1813,12 @@ func newFirewallFilterSavepointCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newFirewallFilterSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set firewall filter",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1679,8 +1826,13 @@ func newFirewallFilterSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.FilterSet(context.Background(), nil)
+			resp, err := s.FilterSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1688,6 +1840,8 @@ func newFirewallFilterSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newFirewallInterfaceListCmd() *cobra.Command {
@@ -1869,7 +2023,7 @@ func newFirewallGroupGetCmd() *cobra.Command {
 }
 
 func newFirewallGroupReconfigureCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "reconfigure",
 		Short: "Reconfigure firewall group",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1877,8 +2031,13 @@ func newFirewallGroupReconfigureCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.GroupReconfigure(context.Background(), nil)
+			resp, err := s.GroupReconfigure(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1886,6 +2045,8 @@ func newFirewallGroupReconfigureCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newFirewallGroupListCmd() *cobra.Command {
@@ -1913,7 +2074,7 @@ func newFirewallGroupListCmd() *cobra.Command {
 }
 
 func newFirewallGroupSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set firewall group",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1921,8 +2082,13 @@ func newFirewallGroupSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.GroupSet(context.Background(), nil)
+			resp, err := s.GroupSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1930,6 +2096,8 @@ func newFirewallGroupSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newFirewallGroupUpdateCmd() *cobra.Command {
@@ -1991,7 +2159,7 @@ func newFirewallMigrationDownloadRulesCmd() *cobra.Command {
 }
 
 func newFirewallMigrationFlushCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "flush",
 		Short: "Flush firewall migration",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1999,8 +2167,13 @@ func newFirewallMigrationFlushCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.MigrationFlush(context.Background(), nil)
+			resp, err := s.MigrationFlush(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -2008,6 +2181,8 @@ func newFirewallMigrationFlushCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newFirewallNptCmd() *cobra.Command {
@@ -2050,7 +2225,7 @@ func newFirewallNptMoveRuleBeforeCmd() *cobra.Command {
 }
 
 func newFirewallNptApplyCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "apply",
 		Short: "Apply firewall npt",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -2058,8 +2233,13 @@ func newFirewallNptApplyCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.NptApply(context.Background(), nil)
+			resp, err := s.NptApply(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -2067,10 +2247,12 @@ func newFirewallNptApplyCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newFirewallNptCancelRollbackCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "cancel-rollback <rollback_revision>",
 		Short: "CancelRollback firewall npt",
 		Args:  cobra.ExactArgs(1),
@@ -2080,7 +2262,12 @@ func newFirewallNptCancelRollbackCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.NptCancelRollback(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.NptCancelRollback(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -2088,6 +2275,8 @@ func newFirewallNptCancelRollbackCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newFirewallNptGetCmd() *cobra.Command {
@@ -2171,7 +2360,7 @@ func newFirewallNptListPortSelectOptionsCmd() *cobra.Command {
 }
 
 func newFirewallNptRevertCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "revert <revision>",
 		Short: "Revert firewall npt",
 		Args:  cobra.ExactArgs(1),
@@ -2181,7 +2370,12 @@ func newFirewallNptRevertCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.NptRevert(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.NptRevert(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -2189,10 +2383,12 @@ func newFirewallNptRevertCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newFirewallNptSavepointCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "savepoint",
 		Short: "Savepoint firewall npt",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -2200,8 +2396,13 @@ func newFirewallNptSavepointCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.NptSavepoint(context.Background(), nil)
+			resp, err := s.NptSavepoint(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -2209,10 +2410,12 @@ func newFirewallNptSavepointCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newFirewallNptSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set firewall npt",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -2220,8 +2423,13 @@ func newFirewallNptSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.NptSet(context.Background(), nil)
+			resp, err := s.NptSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -2229,6 +2437,8 @@ func newFirewallNptSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newFirewallOneToOneCmd() *cobra.Command {
@@ -2271,7 +2481,7 @@ func newFirewallOneToOneMoveRuleBeforeCmd() *cobra.Command {
 }
 
 func newFirewallOneToOneApplyCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "apply",
 		Short: "Apply firewall one-to-one",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -2279,8 +2489,13 @@ func newFirewallOneToOneApplyCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.OneToOneApply(context.Background(), nil)
+			resp, err := s.OneToOneApply(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -2288,10 +2503,12 @@ func newFirewallOneToOneApplyCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newFirewallOneToOneCancelRollbackCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "cancel-rollback <rollback_revision>",
 		Short: "CancelRollback firewall one-to-one",
 		Args:  cobra.ExactArgs(1),
@@ -2301,7 +2518,12 @@ func newFirewallOneToOneCancelRollbackCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.OneToOneCancelRollback(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.OneToOneCancelRollback(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -2309,6 +2531,8 @@ func newFirewallOneToOneCancelRollbackCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newFirewallOneToOneGetCmd() *cobra.Command {
@@ -2392,7 +2616,7 @@ func newFirewallOneToOneListPortSelectOptionsCmd() *cobra.Command {
 }
 
 func newFirewallOneToOneRevertCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "revert <revision>",
 		Short: "Revert firewall one-to-one",
 		Args:  cobra.ExactArgs(1),
@@ -2402,7 +2626,12 @@ func newFirewallOneToOneRevertCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.OneToOneRevert(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.OneToOneRevert(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -2410,10 +2639,12 @@ func newFirewallOneToOneRevertCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newFirewallOneToOneSavepointCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "savepoint",
 		Short: "Savepoint firewall one-to-one",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -2421,8 +2652,13 @@ func newFirewallOneToOneSavepointCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.OneToOneSavepoint(context.Background(), nil)
+			resp, err := s.OneToOneSavepoint(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -2430,10 +2666,12 @@ func newFirewallOneToOneSavepointCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newFirewallOneToOneSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set firewall one-to-one",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -2441,8 +2679,13 @@ func newFirewallOneToOneSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.OneToOneSet(context.Background(), nil)
+			resp, err := s.OneToOneSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -2450,6 +2693,8 @@ func newFirewallOneToOneSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newFirewallSourceNatCmd() *cobra.Command {
@@ -2492,7 +2737,7 @@ func newFirewallSourceNatMoveRuleBeforeCmd() *cobra.Command {
 }
 
 func newFirewallSourceNatApplyCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "apply",
 		Short: "Apply firewall source-nat",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -2500,8 +2745,13 @@ func newFirewallSourceNatApplyCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SourceNatApply(context.Background(), nil)
+			resp, err := s.SourceNatApply(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -2509,10 +2759,12 @@ func newFirewallSourceNatApplyCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newFirewallSourceNatCancelRollbackCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "cancel-rollback <rollback_revision>",
 		Short: "CancelRollback firewall source-nat",
 		Args:  cobra.ExactArgs(1),
@@ -2522,7 +2774,12 @@ func newFirewallSourceNatCancelRollbackCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SourceNatCancelRollback(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.SourceNatCancelRollback(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -2530,6 +2787,8 @@ func newFirewallSourceNatCancelRollbackCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newFirewallSourceNatGetCmd() *cobra.Command {
@@ -2613,7 +2872,7 @@ func newFirewallSourceNatListPortSelectOptionsCmd() *cobra.Command {
 }
 
 func newFirewallSourceNatRevertCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "revert <revision>",
 		Short: "Revert firewall source-nat",
 		Args:  cobra.ExactArgs(1),
@@ -2623,7 +2882,12 @@ func newFirewallSourceNatRevertCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SourceNatRevert(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.SourceNatRevert(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -2631,10 +2895,12 @@ func newFirewallSourceNatRevertCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newFirewallSourceNatSavepointCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "savepoint",
 		Short: "Savepoint firewall source-nat",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -2642,8 +2908,13 @@ func newFirewallSourceNatSavepointCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SourceNatSavepoint(context.Background(), nil)
+			resp, err := s.SourceNatSavepoint(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -2651,10 +2922,12 @@ func newFirewallSourceNatSavepointCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newFirewallSourceNatSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set firewall source-nat",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -2662,8 +2935,13 @@ func newFirewallSourceNatSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SourceNatSet(context.Background(), nil)
+			resp, err := s.SourceNatSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -2671,4 +2949,6 @@ func newFirewallSourceNatSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }

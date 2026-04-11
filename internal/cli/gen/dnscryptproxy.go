@@ -174,7 +174,7 @@ func newDnscryptproxyCloakListCmd() *cobra.Command {
 }
 
 func newDnscryptproxyCloakSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set dnscryptproxy cloak",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -182,8 +182,13 @@ func newDnscryptproxyCloakSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.CloakSet(context.Background(), nil)
+			resp, err := s.CloakSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -191,6 +196,8 @@ func newDnscryptproxyCloakSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newDnscryptproxyCloakUpdateCmd() *cobra.Command {
@@ -273,7 +280,7 @@ func newDnscryptproxyDnsblGetCmd() *cobra.Command {
 }
 
 func newDnscryptproxyDnsblSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set dnscryptproxy dnsbl",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -281,8 +288,13 @@ func newDnscryptproxyDnsblSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.DnsblSet(context.Background(), nil)
+			resp, err := s.DnsblSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -290,6 +302,8 @@ func newDnscryptproxyDnsblSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 // dnscryptproxyForwardColumns defines table columns for the Forward resource.
@@ -422,7 +436,7 @@ func newDnscryptproxyForwardListCmd() *cobra.Command {
 }
 
 func newDnscryptproxyForwardSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set dnscryptproxy forward",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -430,8 +444,13 @@ func newDnscryptproxyForwardSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ForwardSet(context.Background(), nil)
+			resp, err := s.ForwardSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -439,6 +458,8 @@ func newDnscryptproxyForwardSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newDnscryptproxyForwardUpdateCmd() *cobra.Command {
@@ -521,7 +542,7 @@ func newDnscryptproxyGeneralGetCmd() *cobra.Command {
 }
 
 func newDnscryptproxyGeneralSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set dnscryptproxy general",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -529,8 +550,13 @@ func newDnscryptproxyGeneralSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.GeneralSet(context.Background(), nil)
+			resp, err := s.GeneralSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -538,6 +564,8 @@ func newDnscryptproxyGeneralSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 // dnscryptproxyServerColumns defines table columns for the Server resource.
@@ -670,7 +698,7 @@ func newDnscryptproxyServerListCmd() *cobra.Command {
 }
 
 func newDnscryptproxyServerSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set dnscryptproxy server",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -678,8 +706,13 @@ func newDnscryptproxyServerSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServerSet(context.Background(), nil)
+			resp, err := s.ServerSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -687,6 +720,8 @@ func newDnscryptproxyServerSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newDnscryptproxyServerUpdateCmd() *cobra.Command {
@@ -773,7 +808,7 @@ func newDnscryptproxyServiceDnsblCmd() *cobra.Command {
 }
 
 func newDnscryptproxyServiceReconfigureCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "reconfigure",
 		Short: "Reconfigure dnscryptproxy service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -781,8 +816,13 @@ func newDnscryptproxyServiceReconfigureCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceReconfigure(context.Background(), nil)
+			resp, err := s.ServiceReconfigure(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -790,10 +830,12 @@ func newDnscryptproxyServiceReconfigureCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newDnscryptproxyServiceRestartCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "restart",
 		Short: "Restart dnscryptproxy service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -801,8 +843,13 @@ func newDnscryptproxyServiceRestartCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceRestart(context.Background(), nil)
+			resp, err := s.ServiceRestart(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -810,10 +857,12 @@ func newDnscryptproxyServiceRestartCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newDnscryptproxyServiceStartCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "start",
 		Short: "Start dnscryptproxy service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -821,8 +870,13 @@ func newDnscryptproxyServiceStartCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceStart(context.Background(), nil)
+			resp, err := s.ServiceStart(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -830,6 +884,8 @@ func newDnscryptproxyServiceStartCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newDnscryptproxyServiceStatusCmd() *cobra.Command {
@@ -853,7 +909,7 @@ func newDnscryptproxyServiceStatusCmd() *cobra.Command {
 }
 
 func newDnscryptproxyServiceStopCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "stop",
 		Short: "Stop dnscryptproxy service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -861,8 +917,13 @@ func newDnscryptproxyServiceStopCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceStop(context.Background(), nil)
+			resp, err := s.ServiceStop(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -870,6 +931,8 @@ func newDnscryptproxyServiceStopCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 // dnscryptproxyWhitelistColumns defines table columns for the Whitelist resource.
@@ -1002,7 +1065,7 @@ func newDnscryptproxyWhitelistListCmd() *cobra.Command {
 }
 
 func newDnscryptproxyWhitelistSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set dnscryptproxy whitelist",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1010,8 +1073,13 @@ func newDnscryptproxyWhitelistSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.WhitelistSet(context.Background(), nil)
+			resp, err := s.WhitelistSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1019,6 +1087,8 @@ func newDnscryptproxyWhitelistSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newDnscryptproxyWhitelistUpdateCmd() *cobra.Command {

@@ -4,6 +4,7 @@ package gen
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 
 	"github.com/jontk/opnsense-cli/internal/cli"
@@ -74,7 +75,7 @@ func newNginxBanCmd() *cobra.Command {
 }
 
 func newNginxBanDeleteCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "delete <uuid>",
 		Short: "Delete nginx ban",
 		Args:  cobra.ExactArgs(1),
@@ -84,7 +85,12 @@ func newNginxBanDeleteCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.BansDelban(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.BansDelban(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -92,10 +98,12 @@ func newNginxBanDeleteCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxBanListCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "list",
 		Short: "List nginx ban",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -103,8 +111,13 @@ func newNginxBanListCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.BansSearchban(context.Background(), nil)
+			resp, err := s.BansSearchban(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -112,6 +125,8 @@ func newNginxBanListCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxBanGetCmd() *cobra.Command {
@@ -135,7 +150,7 @@ func newNginxBanGetCmd() *cobra.Command {
 }
 
 func newNginxBanSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set nginx ban",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -143,8 +158,13 @@ func newNginxBanSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.BansSet(context.Background(), nil)
+			resp, err := s.BansSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -152,6 +172,8 @@ func newNginxBanSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxLogsCmd() *cobra.Command {
@@ -282,7 +304,7 @@ func newNginxServiceCmd() *cobra.Command {
 }
 
 func newNginxServiceReconfigureCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "reconfigure",
 		Short: "Reconfigure nginx service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -290,8 +312,13 @@ func newNginxServiceReconfigureCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceReconfigure(context.Background(), nil)
+			resp, err := s.ServiceReconfigure(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -299,10 +326,12 @@ func newNginxServiceReconfigureCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxServiceRestartCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "restart",
 		Short: "Restart nginx service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -310,8 +339,13 @@ func newNginxServiceRestartCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceRestart(context.Background(), nil)
+			resp, err := s.ServiceRestart(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -319,10 +353,12 @@ func newNginxServiceRestartCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxServiceStartCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "start",
 		Short: "Start nginx service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -330,8 +366,13 @@ func newNginxServiceStartCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceStart(context.Background(), nil)
+			resp, err := s.ServiceStart(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -339,6 +380,8 @@ func newNginxServiceStartCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxServiceStatusCmd() *cobra.Command {
@@ -415,7 +458,7 @@ func newNginxCachePathCmd() *cobra.Command {
 }
 
 func newNginxCachePathCreateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "create",
 		Short: "Create nginx cache-path",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -423,8 +466,13 @@ func newNginxCachePathCreateCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsAddcachePath(context.Background(), nil)
+			resp, err := s.SettingsAddcachePath(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -432,10 +480,12 @@ func newNginxCachePathCreateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxCachePathDeleteCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "delete <uuid>",
 		Short: "Delete nginx cache-path",
 		Args:  cobra.ExactArgs(1),
@@ -445,7 +495,12 @@ func newNginxCachePathDeleteCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsDelcachePath(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.SettingsDelcachePath(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -453,6 +508,8 @@ func newNginxCachePathDeleteCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxCachePathGetCmd() *cobra.Command {
@@ -476,7 +533,7 @@ func newNginxCachePathGetCmd() *cobra.Command {
 }
 
 func newNginxCachePathListCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "list",
 		Short: "List nginx cache-path",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -484,8 +541,13 @@ func newNginxCachePathListCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSearchcachePath(context.Background(), nil)
+			resp, err := s.SettingsSearchcachePath(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -493,10 +555,12 @@ func newNginxCachePathListCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxCachePathUpdateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "update <uuid>",
 		Short: "Update nginx cache-path",
 		Args:  cobra.ExactArgs(1),
@@ -506,7 +570,12 @@ func newNginxCachePathUpdateCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSetcachePath(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.SettingsSetcachePath(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -514,6 +583,8 @@ func newNginxCachePathUpdateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxCredentialCmd() *cobra.Command {
@@ -530,7 +601,7 @@ func newNginxCredentialCmd() *cobra.Command {
 }
 
 func newNginxCredentialCreateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "create",
 		Short: "Create nginx credential",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -538,8 +609,13 @@ func newNginxCredentialCreateCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsAddcredential(context.Background(), nil)
+			resp, err := s.SettingsAddcredential(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -547,10 +623,12 @@ func newNginxCredentialCreateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxCredentialDeleteCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "delete <uuid>",
 		Short: "Delete nginx credential",
 		Args:  cobra.ExactArgs(1),
@@ -560,7 +638,12 @@ func newNginxCredentialDeleteCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsDelcredential(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.SettingsDelcredential(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -568,6 +651,8 @@ func newNginxCredentialDeleteCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxCredentialGetCmd() *cobra.Command {
@@ -591,7 +676,7 @@ func newNginxCredentialGetCmd() *cobra.Command {
 }
 
 func newNginxCredentialListCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "list",
 		Short: "List nginx credential",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -599,8 +684,13 @@ func newNginxCredentialListCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSearchcredential(context.Background(), nil)
+			resp, err := s.SettingsSearchcredential(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -608,10 +698,12 @@ func newNginxCredentialListCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxCredentialUpdateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "update <uuid>",
 		Short: "Update nginx credential",
 		Args:  cobra.ExactArgs(1),
@@ -621,7 +713,12 @@ func newNginxCredentialUpdateCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSetcredential(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.SettingsSetcredential(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -629,6 +726,8 @@ func newNginxCredentialUpdateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxCustompolicyCmd() *cobra.Command {
@@ -645,7 +744,7 @@ func newNginxCustompolicyCmd() *cobra.Command {
 }
 
 func newNginxCustompolicyCreateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "create",
 		Short: "Create nginx custompolicy",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -653,8 +752,13 @@ func newNginxCustompolicyCreateCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsAddcustompolicy(context.Background(), nil)
+			resp, err := s.SettingsAddcustompolicy(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -662,10 +766,12 @@ func newNginxCustompolicyCreateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxCustompolicyDeleteCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "delete <uuid>",
 		Short: "Delete nginx custompolicy",
 		Args:  cobra.ExactArgs(1),
@@ -675,7 +781,12 @@ func newNginxCustompolicyDeleteCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsDelcustompolicy(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.SettingsDelcustompolicy(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -683,6 +794,8 @@ func newNginxCustompolicyDeleteCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxCustompolicyGetCmd() *cobra.Command {
@@ -706,7 +819,7 @@ func newNginxCustompolicyGetCmd() *cobra.Command {
 }
 
 func newNginxCustompolicyListCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "list",
 		Short: "List nginx custompolicy",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -714,8 +827,13 @@ func newNginxCustompolicyListCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSearchcustompolicy(context.Background(), nil)
+			resp, err := s.SettingsSearchcustompolicy(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -723,10 +841,12 @@ func newNginxCustompolicyListCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxCustompolicyUpdateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "update <uuid>",
 		Short: "Update nginx custompolicy",
 		Args:  cobra.ExactArgs(1),
@@ -736,7 +856,12 @@ func newNginxCustompolicyUpdateCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSetcustompolicy(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.SettingsSetcustompolicy(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -744,6 +869,8 @@ func newNginxCustompolicyUpdateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxErrorpageCmd() *cobra.Command {
@@ -760,7 +887,7 @@ func newNginxErrorpageCmd() *cobra.Command {
 }
 
 func newNginxErrorpageCreateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "create",
 		Short: "Create nginx errorpage",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -768,8 +895,13 @@ func newNginxErrorpageCreateCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsAdderrorpage(context.Background(), nil)
+			resp, err := s.SettingsAdderrorpage(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -777,10 +909,12 @@ func newNginxErrorpageCreateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxErrorpageDeleteCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "delete <uuid>",
 		Short: "Delete nginx errorpage",
 		Args:  cobra.ExactArgs(1),
@@ -790,7 +924,12 @@ func newNginxErrorpageDeleteCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsDelerrorpage(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.SettingsDelerrorpage(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -798,6 +937,8 @@ func newNginxErrorpageDeleteCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxErrorpageGetCmd() *cobra.Command {
@@ -821,7 +962,7 @@ func newNginxErrorpageGetCmd() *cobra.Command {
 }
 
 func newNginxErrorpageListCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "list",
 		Short: "List nginx errorpage",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -829,8 +970,13 @@ func newNginxErrorpageListCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSearcherrorpage(context.Background(), nil)
+			resp, err := s.SettingsSearcherrorpage(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -838,10 +984,12 @@ func newNginxErrorpageListCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxErrorpageUpdateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "update <uuid>",
 		Short: "Update nginx errorpage",
 		Args:  cobra.ExactArgs(1),
@@ -851,7 +999,12 @@ func newNginxErrorpageUpdateCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSeterrorpage(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.SettingsSeterrorpage(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -859,6 +1012,8 @@ func newNginxErrorpageUpdateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxHttprewriteCmd() *cobra.Command {
@@ -875,7 +1030,7 @@ func newNginxHttprewriteCmd() *cobra.Command {
 }
 
 func newNginxHttprewriteCreateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "create",
 		Short: "Create nginx httprewrite",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -883,8 +1038,13 @@ func newNginxHttprewriteCreateCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsAddhttprewrite(context.Background(), nil)
+			resp, err := s.SettingsAddhttprewrite(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -892,10 +1052,12 @@ func newNginxHttprewriteCreateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxHttprewriteDeleteCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "delete <uuid>",
 		Short: "Delete nginx httprewrite",
 		Args:  cobra.ExactArgs(1),
@@ -905,7 +1067,12 @@ func newNginxHttprewriteDeleteCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsDelhttprewrite(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.SettingsDelhttprewrite(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -913,6 +1080,8 @@ func newNginxHttprewriteDeleteCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxHttprewriteGetCmd() *cobra.Command {
@@ -936,7 +1105,7 @@ func newNginxHttprewriteGetCmd() *cobra.Command {
 }
 
 func newNginxHttprewriteListCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "list",
 		Short: "List nginx httprewrite",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -944,8 +1113,13 @@ func newNginxHttprewriteListCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSearchhttprewrite(context.Background(), nil)
+			resp, err := s.SettingsSearchhttprewrite(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -953,10 +1127,12 @@ func newNginxHttprewriteListCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxHttprewriteUpdateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "update <uuid>",
 		Short: "Update nginx httprewrite",
 		Args:  cobra.ExactArgs(1),
@@ -966,7 +1142,12 @@ func newNginxHttprewriteUpdateCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSethttprewrite(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.SettingsSethttprewrite(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -974,6 +1155,8 @@ func newNginxHttprewriteUpdateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxHttpserverCmd() *cobra.Command {
@@ -990,7 +1173,7 @@ func newNginxHttpserverCmd() *cobra.Command {
 }
 
 func newNginxHttpserverCreateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "create",
 		Short: "Create nginx httpserver",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -998,8 +1181,13 @@ func newNginxHttpserverCreateCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsAddhttpserver(context.Background(), nil)
+			resp, err := s.SettingsAddhttpserver(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1007,10 +1195,12 @@ func newNginxHttpserverCreateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxHttpserverDeleteCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "delete <uuid>",
 		Short: "Delete nginx httpserver",
 		Args:  cobra.ExactArgs(1),
@@ -1020,7 +1210,12 @@ func newNginxHttpserverDeleteCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsDelhttpserver(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.SettingsDelhttpserver(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -1028,6 +1223,8 @@ func newNginxHttpserverDeleteCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxHttpserverGetCmd() *cobra.Command {
@@ -1051,7 +1248,7 @@ func newNginxHttpserverGetCmd() *cobra.Command {
 }
 
 func newNginxHttpserverListCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "list",
 		Short: "List nginx httpserver",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1059,8 +1256,13 @@ func newNginxHttpserverListCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSearchhttpserver(context.Background(), nil)
+			resp, err := s.SettingsSearchhttpserver(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1068,10 +1270,12 @@ func newNginxHttpserverListCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxHttpserverUpdateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "update <uuid>",
 		Short: "Update nginx httpserver",
 		Args:  cobra.ExactArgs(1),
@@ -1081,7 +1285,12 @@ func newNginxHttpserverUpdateCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSethttpserver(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.SettingsSethttpserver(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -1089,6 +1298,8 @@ func newNginxHttpserverUpdateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxIpaclCmd() *cobra.Command {
@@ -1105,7 +1316,7 @@ func newNginxIpaclCmd() *cobra.Command {
 }
 
 func newNginxIpaclCreateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "create",
 		Short: "Create nginx ipacl",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1113,8 +1324,13 @@ func newNginxIpaclCreateCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsAddipacl(context.Background(), nil)
+			resp, err := s.SettingsAddipacl(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1122,10 +1338,12 @@ func newNginxIpaclCreateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxIpaclDeleteCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "delete <uuid>",
 		Short: "Delete nginx ipacl",
 		Args:  cobra.ExactArgs(1),
@@ -1135,7 +1353,12 @@ func newNginxIpaclDeleteCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsDelipacl(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.SettingsDelipacl(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -1143,6 +1366,8 @@ func newNginxIpaclDeleteCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxIpaclGetCmd() *cobra.Command {
@@ -1166,7 +1391,7 @@ func newNginxIpaclGetCmd() *cobra.Command {
 }
 
 func newNginxIpaclListCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "list",
 		Short: "List nginx ipacl",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1174,8 +1399,13 @@ func newNginxIpaclListCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSearchipacl(context.Background(), nil)
+			resp, err := s.SettingsSearchipacl(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1183,10 +1413,12 @@ func newNginxIpaclListCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxIpaclUpdateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "update <uuid>",
 		Short: "Update nginx ipacl",
 		Args:  cobra.ExactArgs(1),
@@ -1196,7 +1428,12 @@ func newNginxIpaclUpdateCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSetipacl(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.SettingsSetipacl(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -1204,6 +1441,8 @@ func newNginxIpaclUpdateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxLimitRequestConnectionCmd() *cobra.Command {
@@ -1220,7 +1459,7 @@ func newNginxLimitRequestConnectionCmd() *cobra.Command {
 }
 
 func newNginxLimitRequestConnectionCreateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "create",
 		Short: "Create nginx limit-request-connection",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1228,8 +1467,13 @@ func newNginxLimitRequestConnectionCreateCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsAddlimitRequestConnection(context.Background(), nil)
+			resp, err := s.SettingsAddlimitRequestConnection(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1237,10 +1481,12 @@ func newNginxLimitRequestConnectionCreateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxLimitRequestConnectionDeleteCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "delete <uuid>",
 		Short: "Delete nginx limit-request-connection",
 		Args:  cobra.ExactArgs(1),
@@ -1250,7 +1496,12 @@ func newNginxLimitRequestConnectionDeleteCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsDellimitRequestConnection(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.SettingsDellimitRequestConnection(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -1258,6 +1509,8 @@ func newNginxLimitRequestConnectionDeleteCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxLimitRequestConnectionGetCmd() *cobra.Command {
@@ -1281,7 +1534,7 @@ func newNginxLimitRequestConnectionGetCmd() *cobra.Command {
 }
 
 func newNginxLimitRequestConnectionListCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "list",
 		Short: "List nginx limit-request-connection",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1289,8 +1542,13 @@ func newNginxLimitRequestConnectionListCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSearchlimitRequestConnection(context.Background(), nil)
+			resp, err := s.SettingsSearchlimitRequestConnection(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1298,10 +1556,12 @@ func newNginxLimitRequestConnectionListCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxLimitRequestConnectionUpdateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "update <uuid>",
 		Short: "Update nginx limit-request-connection",
 		Args:  cobra.ExactArgs(1),
@@ -1311,7 +1571,12 @@ func newNginxLimitRequestConnectionUpdateCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSetlimitRequestConnection(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.SettingsSetlimitRequestConnection(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -1319,6 +1584,8 @@ func newNginxLimitRequestConnectionUpdateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxLimitZoneCmd() *cobra.Command {
@@ -1335,7 +1602,7 @@ func newNginxLimitZoneCmd() *cobra.Command {
 }
 
 func newNginxLimitZoneCreateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "create",
 		Short: "Create nginx limit-zone",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1343,8 +1610,13 @@ func newNginxLimitZoneCreateCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsAddlimitZone(context.Background(), nil)
+			resp, err := s.SettingsAddlimitZone(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1352,10 +1624,12 @@ func newNginxLimitZoneCreateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxLimitZoneDeleteCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "delete <uuid>",
 		Short: "Delete nginx limit-zone",
 		Args:  cobra.ExactArgs(1),
@@ -1365,7 +1639,12 @@ func newNginxLimitZoneDeleteCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsDellimitZone(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.SettingsDellimitZone(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -1373,6 +1652,8 @@ func newNginxLimitZoneDeleteCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxLimitZoneGetCmd() *cobra.Command {
@@ -1396,7 +1677,7 @@ func newNginxLimitZoneGetCmd() *cobra.Command {
 }
 
 func newNginxLimitZoneListCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "list",
 		Short: "List nginx limit-zone",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1404,8 +1685,13 @@ func newNginxLimitZoneListCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSearchlimitZone(context.Background(), nil)
+			resp, err := s.SettingsSearchlimitZone(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1413,10 +1699,12 @@ func newNginxLimitZoneListCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxLimitZoneUpdateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "update <uuid>",
 		Short: "Update nginx limit-zone",
 		Args:  cobra.ExactArgs(1),
@@ -1426,7 +1714,12 @@ func newNginxLimitZoneUpdateCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSetlimitZone(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.SettingsSetlimitZone(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -1434,6 +1727,8 @@ func newNginxLimitZoneUpdateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxLocationCmd() *cobra.Command {
@@ -1450,7 +1745,7 @@ func newNginxLocationCmd() *cobra.Command {
 }
 
 func newNginxLocationCreateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "create",
 		Short: "Create nginx location",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1458,8 +1753,13 @@ func newNginxLocationCreateCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsAddlocation(context.Background(), nil)
+			resp, err := s.SettingsAddlocation(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1467,10 +1767,12 @@ func newNginxLocationCreateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxLocationDeleteCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "delete <uuid>",
 		Short: "Delete nginx location",
 		Args:  cobra.ExactArgs(1),
@@ -1480,7 +1782,12 @@ func newNginxLocationDeleteCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsDellocation(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.SettingsDellocation(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -1488,6 +1795,8 @@ func newNginxLocationDeleteCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxLocationGetCmd() *cobra.Command {
@@ -1511,7 +1820,7 @@ func newNginxLocationGetCmd() *cobra.Command {
 }
 
 func newNginxLocationListCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "list",
 		Short: "List nginx location",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1519,8 +1828,13 @@ func newNginxLocationListCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSearchlocation(context.Background(), nil)
+			resp, err := s.SettingsSearchlocation(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1528,10 +1842,12 @@ func newNginxLocationListCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxLocationUpdateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "update <uuid>",
 		Short: "Update nginx location",
 		Args:  cobra.ExactArgs(1),
@@ -1541,7 +1857,12 @@ func newNginxLocationUpdateCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSetlocation(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.SettingsSetlocation(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -1549,6 +1870,8 @@ func newNginxLocationUpdateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxNaxsiruleCmd() *cobra.Command {
@@ -1565,7 +1888,7 @@ func newNginxNaxsiruleCmd() *cobra.Command {
 }
 
 func newNginxNaxsiruleCreateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "create",
 		Short: "Create nginx naxsirule",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1573,8 +1896,13 @@ func newNginxNaxsiruleCreateCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsAddnaxsirule(context.Background(), nil)
+			resp, err := s.SettingsAddnaxsirule(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1582,10 +1910,12 @@ func newNginxNaxsiruleCreateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxNaxsiruleDeleteCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "delete <uuid>",
 		Short: "Delete nginx naxsirule",
 		Args:  cobra.ExactArgs(1),
@@ -1595,7 +1925,12 @@ func newNginxNaxsiruleDeleteCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsDelnaxsirule(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.SettingsDelnaxsirule(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -1603,6 +1938,8 @@ func newNginxNaxsiruleDeleteCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxNaxsiruleGetCmd() *cobra.Command {
@@ -1626,7 +1963,7 @@ func newNginxNaxsiruleGetCmd() *cobra.Command {
 }
 
 func newNginxNaxsiruleListCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "list",
 		Short: "List nginx naxsirule",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1634,8 +1971,13 @@ func newNginxNaxsiruleListCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSearchnaxsirule(context.Background(), nil)
+			resp, err := s.SettingsSearchnaxsirule(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1643,10 +1985,12 @@ func newNginxNaxsiruleListCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxNaxsiruleUpdateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "update <uuid>",
 		Short: "Update nginx naxsirule",
 		Args:  cobra.ExactArgs(1),
@@ -1656,7 +2000,12 @@ func newNginxNaxsiruleUpdateCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSetnaxsirule(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.SettingsSetnaxsirule(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -1664,6 +2013,8 @@ func newNginxNaxsiruleUpdateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxProxyCacheValidCmd() *cobra.Command {
@@ -1680,7 +2031,7 @@ func newNginxProxyCacheValidCmd() *cobra.Command {
 }
 
 func newNginxProxyCacheValidCreateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "create",
 		Short: "Create nginx proxy-cache-valid",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1688,8 +2039,13 @@ func newNginxProxyCacheValidCreateCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsAddproxyCacheValid(context.Background(), nil)
+			resp, err := s.SettingsAddproxyCacheValid(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1697,10 +2053,12 @@ func newNginxProxyCacheValidCreateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxProxyCacheValidDeleteCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "delete <uuid>",
 		Short: "Delete nginx proxy-cache-valid",
 		Args:  cobra.ExactArgs(1),
@@ -1710,7 +2068,12 @@ func newNginxProxyCacheValidDeleteCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsDelproxyCacheValid(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.SettingsDelproxyCacheValid(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -1718,6 +2081,8 @@ func newNginxProxyCacheValidDeleteCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxProxyCacheValidGetCmd() *cobra.Command {
@@ -1741,7 +2106,7 @@ func newNginxProxyCacheValidGetCmd() *cobra.Command {
 }
 
 func newNginxProxyCacheValidListCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "list",
 		Short: "List nginx proxy-cache-valid",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1749,8 +2114,13 @@ func newNginxProxyCacheValidListCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSearchproxyCacheValid(context.Background(), nil)
+			resp, err := s.SettingsSearchproxyCacheValid(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1758,10 +2128,12 @@ func newNginxProxyCacheValidListCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxProxyCacheValidUpdateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "update <uuid>",
 		Short: "Update nginx proxy-cache-valid",
 		Args:  cobra.ExactArgs(1),
@@ -1771,7 +2143,12 @@ func newNginxProxyCacheValidUpdateCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSetproxyCacheValid(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.SettingsSetproxyCacheValid(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -1779,6 +2156,8 @@ func newNginxProxyCacheValidUpdateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxResolverCmd() *cobra.Command {
@@ -1795,7 +2174,7 @@ func newNginxResolverCmd() *cobra.Command {
 }
 
 func newNginxResolverCreateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "create",
 		Short: "Create nginx resolver",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1803,8 +2182,13 @@ func newNginxResolverCreateCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsAddresolver(context.Background(), nil)
+			resp, err := s.SettingsAddresolver(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1812,10 +2196,12 @@ func newNginxResolverCreateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxResolverDeleteCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "delete <uuid>",
 		Short: "Delete nginx resolver",
 		Args:  cobra.ExactArgs(1),
@@ -1825,7 +2211,12 @@ func newNginxResolverDeleteCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsDelresolver(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.SettingsDelresolver(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -1833,6 +2224,8 @@ func newNginxResolverDeleteCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxResolverGetCmd() *cobra.Command {
@@ -1856,7 +2249,7 @@ func newNginxResolverGetCmd() *cobra.Command {
 }
 
 func newNginxResolverListCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "list",
 		Short: "List nginx resolver",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1864,8 +2257,13 @@ func newNginxResolverListCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSearchresolver(context.Background(), nil)
+			resp, err := s.SettingsSearchresolver(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1873,10 +2271,12 @@ func newNginxResolverListCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxResolverUpdateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "update <uuid>",
 		Short: "Update nginx resolver",
 		Args:  cobra.ExactArgs(1),
@@ -1886,7 +2286,12 @@ func newNginxResolverUpdateCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSetresolver(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.SettingsSetresolver(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -1894,6 +2299,8 @@ func newNginxResolverUpdateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxSecurityHeaderCmd() *cobra.Command {
@@ -1910,7 +2317,7 @@ func newNginxSecurityHeaderCmd() *cobra.Command {
 }
 
 func newNginxSecurityHeaderCreateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "create",
 		Short: "Create nginx security-header",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1918,8 +2325,13 @@ func newNginxSecurityHeaderCreateCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsAddsecurityHeader(context.Background(), nil)
+			resp, err := s.SettingsAddsecurityHeader(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1927,10 +2339,12 @@ func newNginxSecurityHeaderCreateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxSecurityHeaderDeleteCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "delete <uuid>",
 		Short: "Delete nginx security-header",
 		Args:  cobra.ExactArgs(1),
@@ -1940,7 +2354,12 @@ func newNginxSecurityHeaderDeleteCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsDelsecurityHeader(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.SettingsDelsecurityHeader(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -1948,6 +2367,8 @@ func newNginxSecurityHeaderDeleteCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxSecurityHeaderGetCmd() *cobra.Command {
@@ -1971,7 +2392,7 @@ func newNginxSecurityHeaderGetCmd() *cobra.Command {
 }
 
 func newNginxSecurityHeaderListCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "list",
 		Short: "List nginx security-header",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1979,8 +2400,13 @@ func newNginxSecurityHeaderListCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSearchsecurityHeader(context.Background(), nil)
+			resp, err := s.SettingsSearchsecurityHeader(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1988,10 +2414,12 @@ func newNginxSecurityHeaderListCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxSecurityHeaderUpdateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "update <uuid>",
 		Short: "Update nginx security-header",
 		Args:  cobra.ExactArgs(1),
@@ -2001,7 +2429,12 @@ func newNginxSecurityHeaderUpdateCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSetsecurityHeader(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.SettingsSetsecurityHeader(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -2009,6 +2442,8 @@ func newNginxSecurityHeaderUpdateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxSnifwdCmd() *cobra.Command {
@@ -2025,7 +2460,7 @@ func newNginxSnifwdCmd() *cobra.Command {
 }
 
 func newNginxSnifwdCreateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "create",
 		Short: "Create nginx snifwd",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -2033,8 +2468,13 @@ func newNginxSnifwdCreateCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsAddsnifwd(context.Background(), nil)
+			resp, err := s.SettingsAddsnifwd(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -2042,10 +2482,12 @@ func newNginxSnifwdCreateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxSnifwdDeleteCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "delete <uuid>",
 		Short: "Delete nginx snifwd",
 		Args:  cobra.ExactArgs(1),
@@ -2055,7 +2497,12 @@ func newNginxSnifwdDeleteCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsDelsnifwd(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.SettingsDelsnifwd(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -2063,6 +2510,8 @@ func newNginxSnifwdDeleteCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxSnifwdGetCmd() *cobra.Command {
@@ -2086,7 +2535,7 @@ func newNginxSnifwdGetCmd() *cobra.Command {
 }
 
 func newNginxSnifwdListCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "list",
 		Short: "List nginx snifwd",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -2094,8 +2543,13 @@ func newNginxSnifwdListCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSearchsnifwd(context.Background(), nil)
+			resp, err := s.SettingsSearchsnifwd(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -2103,10 +2557,12 @@ func newNginxSnifwdListCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxSnifwdUpdateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "update <uuid>",
 		Short: "Update nginx snifwd",
 		Args:  cobra.ExactArgs(1),
@@ -2116,7 +2572,12 @@ func newNginxSnifwdUpdateCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSetsnifwd(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.SettingsSetsnifwd(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -2124,6 +2585,8 @@ func newNginxSnifwdUpdateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxStreamserverCmd() *cobra.Command {
@@ -2140,7 +2603,7 @@ func newNginxStreamserverCmd() *cobra.Command {
 }
 
 func newNginxStreamserverCreateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "create",
 		Short: "Create nginx streamserver",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -2148,8 +2611,13 @@ func newNginxStreamserverCreateCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsAddstreamserver(context.Background(), nil)
+			resp, err := s.SettingsAddstreamserver(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -2157,10 +2625,12 @@ func newNginxStreamserverCreateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxStreamserverDeleteCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "delete <uuid>",
 		Short: "Delete nginx streamserver",
 		Args:  cobra.ExactArgs(1),
@@ -2170,7 +2640,12 @@ func newNginxStreamserverDeleteCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsDelstreamserver(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.SettingsDelstreamserver(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -2178,6 +2653,8 @@ func newNginxStreamserverDeleteCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxStreamserverGetCmd() *cobra.Command {
@@ -2201,7 +2678,7 @@ func newNginxStreamserverGetCmd() *cobra.Command {
 }
 
 func newNginxStreamserverListCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "list",
 		Short: "List nginx streamserver",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -2209,8 +2686,13 @@ func newNginxStreamserverListCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSearchstreamserver(context.Background(), nil)
+			resp, err := s.SettingsSearchstreamserver(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -2218,10 +2700,12 @@ func newNginxStreamserverListCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxStreamserverUpdateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "update <uuid>",
 		Short: "Update nginx streamserver",
 		Args:  cobra.ExactArgs(1),
@@ -2231,7 +2715,12 @@ func newNginxStreamserverUpdateCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSetstreamserver(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.SettingsSetstreamserver(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -2239,6 +2728,8 @@ func newNginxStreamserverUpdateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxSyslogTargetCmd() *cobra.Command {
@@ -2255,7 +2746,7 @@ func newNginxSyslogTargetCmd() *cobra.Command {
 }
 
 func newNginxSyslogTargetCreateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "create",
 		Short: "Create nginx syslog-target",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -2263,8 +2754,13 @@ func newNginxSyslogTargetCreateCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsAddsyslogTarget(context.Background(), nil)
+			resp, err := s.SettingsAddsyslogTarget(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -2272,10 +2768,12 @@ func newNginxSyslogTargetCreateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxSyslogTargetDeleteCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "delete <uuid>",
 		Short: "Delete nginx syslog-target",
 		Args:  cobra.ExactArgs(1),
@@ -2285,7 +2783,12 @@ func newNginxSyslogTargetDeleteCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsDelsyslogTarget(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.SettingsDelsyslogTarget(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -2293,6 +2796,8 @@ func newNginxSyslogTargetDeleteCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxSyslogTargetGetCmd() *cobra.Command {
@@ -2316,7 +2821,7 @@ func newNginxSyslogTargetGetCmd() *cobra.Command {
 }
 
 func newNginxSyslogTargetListCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "list",
 		Short: "List nginx syslog-target",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -2324,8 +2829,13 @@ func newNginxSyslogTargetListCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSearchsyslogTarget(context.Background(), nil)
+			resp, err := s.SettingsSearchsyslogTarget(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -2333,10 +2843,12 @@ func newNginxSyslogTargetListCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxSyslogTargetUpdateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "update <uuid>",
 		Short: "Update nginx syslog-target",
 		Args:  cobra.ExactArgs(1),
@@ -2346,7 +2858,12 @@ func newNginxSyslogTargetUpdateCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSetsyslogTarget(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.SettingsSetsyslogTarget(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -2354,6 +2871,8 @@ func newNginxSyslogTargetUpdateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxTlsFingerprintCmd() *cobra.Command {
@@ -2370,7 +2889,7 @@ func newNginxTlsFingerprintCmd() *cobra.Command {
 }
 
 func newNginxTlsFingerprintCreateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "create",
 		Short: "Create nginx tls-fingerprint",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -2378,8 +2897,13 @@ func newNginxTlsFingerprintCreateCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsAddtlsFingerprint(context.Background(), nil)
+			resp, err := s.SettingsAddtlsFingerprint(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -2387,10 +2911,12 @@ func newNginxTlsFingerprintCreateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxTlsFingerprintDeleteCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "delete <uuid>",
 		Short: "Delete nginx tls-fingerprint",
 		Args:  cobra.ExactArgs(1),
@@ -2400,7 +2926,12 @@ func newNginxTlsFingerprintDeleteCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsDeltlsFingerprint(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.SettingsDeltlsFingerprint(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -2408,6 +2939,8 @@ func newNginxTlsFingerprintDeleteCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxTlsFingerprintGetCmd() *cobra.Command {
@@ -2431,7 +2964,7 @@ func newNginxTlsFingerprintGetCmd() *cobra.Command {
 }
 
 func newNginxTlsFingerprintListCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "list",
 		Short: "List nginx tls-fingerprint",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -2439,8 +2972,13 @@ func newNginxTlsFingerprintListCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSearchtlsFingerprint(context.Background(), nil)
+			resp, err := s.SettingsSearchtlsFingerprint(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -2448,10 +2986,12 @@ func newNginxTlsFingerprintListCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxTlsFingerprintUpdateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "update <uuid>",
 		Short: "Update nginx tls-fingerprint",
 		Args:  cobra.ExactArgs(1),
@@ -2461,7 +3001,12 @@ func newNginxTlsFingerprintUpdateCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSettlsFingerprint(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.SettingsSettlsFingerprint(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -2469,6 +3014,8 @@ func newNginxTlsFingerprintUpdateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxUpstreamCmd() *cobra.Command {
@@ -2485,7 +3032,7 @@ func newNginxUpstreamCmd() *cobra.Command {
 }
 
 func newNginxUpstreamCreateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "create",
 		Short: "Create nginx upstream",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -2493,8 +3040,13 @@ func newNginxUpstreamCreateCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsAddupstream(context.Background(), nil)
+			resp, err := s.SettingsAddupstream(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -2502,10 +3054,12 @@ func newNginxUpstreamCreateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxUpstreamDeleteCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "delete <uuid>",
 		Short: "Delete nginx upstream",
 		Args:  cobra.ExactArgs(1),
@@ -2515,7 +3069,12 @@ func newNginxUpstreamDeleteCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsDelupstream(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.SettingsDelupstream(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -2523,6 +3082,8 @@ func newNginxUpstreamDeleteCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxUpstreamGetCmd() *cobra.Command {
@@ -2546,7 +3107,7 @@ func newNginxUpstreamGetCmd() *cobra.Command {
 }
 
 func newNginxUpstreamListCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "list",
 		Short: "List nginx upstream",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -2554,8 +3115,13 @@ func newNginxUpstreamListCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSearchupstream(context.Background(), nil)
+			resp, err := s.SettingsSearchupstream(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -2563,10 +3129,12 @@ func newNginxUpstreamListCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxUpstreamUpdateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "update <uuid>",
 		Short: "Update nginx upstream",
 		Args:  cobra.ExactArgs(1),
@@ -2576,7 +3144,12 @@ func newNginxUpstreamUpdateCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSetupstream(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.SettingsSetupstream(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -2584,6 +3157,8 @@ func newNginxUpstreamUpdateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxUpstreamserverCmd() *cobra.Command {
@@ -2600,7 +3175,7 @@ func newNginxUpstreamserverCmd() *cobra.Command {
 }
 
 func newNginxUpstreamserverCreateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "create",
 		Short: "Create nginx upstreamserver",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -2608,8 +3183,13 @@ func newNginxUpstreamserverCreateCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsAddupstreamserver(context.Background(), nil)
+			resp, err := s.SettingsAddupstreamserver(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -2617,10 +3197,12 @@ func newNginxUpstreamserverCreateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxUpstreamserverDeleteCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "delete <uuid>",
 		Short: "Delete nginx upstreamserver",
 		Args:  cobra.ExactArgs(1),
@@ -2630,7 +3212,12 @@ func newNginxUpstreamserverDeleteCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsDelupstreamserver(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.SettingsDelupstreamserver(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -2638,6 +3225,8 @@ func newNginxUpstreamserverDeleteCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxUpstreamserverGetCmd() *cobra.Command {
@@ -2661,7 +3250,7 @@ func newNginxUpstreamserverGetCmd() *cobra.Command {
 }
 
 func newNginxUpstreamserverListCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "list",
 		Short: "List nginx upstreamserver",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -2669,8 +3258,13 @@ func newNginxUpstreamserverListCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSearchupstreamserver(context.Background(), nil)
+			resp, err := s.SettingsSearchupstreamserver(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -2678,10 +3272,12 @@ func newNginxUpstreamserverListCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxUpstreamserverUpdateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "update <uuid>",
 		Short: "Update nginx upstreamserver",
 		Args:  cobra.ExactArgs(1),
@@ -2691,7 +3287,12 @@ func newNginxUpstreamserverUpdateCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSetupstreamserver(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.SettingsSetupstreamserver(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -2699,6 +3300,8 @@ func newNginxUpstreamserverUpdateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxUserlistCmd() *cobra.Command {
@@ -2715,7 +3318,7 @@ func newNginxUserlistCmd() *cobra.Command {
 }
 
 func newNginxUserlistCreateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "create",
 		Short: "Create nginx userlist",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -2723,8 +3326,13 @@ func newNginxUserlistCreateCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsAdduserlist(context.Background(), nil)
+			resp, err := s.SettingsAdduserlist(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -2732,10 +3340,12 @@ func newNginxUserlistCreateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxUserlistDeleteCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "delete <uuid>",
 		Short: "Delete nginx userlist",
 		Args:  cobra.ExactArgs(1),
@@ -2745,7 +3355,12 @@ func newNginxUserlistDeleteCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsDeluserlist(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.SettingsDeluserlist(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -2753,6 +3368,8 @@ func newNginxUserlistDeleteCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxUserlistGetCmd() *cobra.Command {
@@ -2776,7 +3393,7 @@ func newNginxUserlistGetCmd() *cobra.Command {
 }
 
 func newNginxUserlistListCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "list",
 		Short: "List nginx userlist",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -2784,8 +3401,13 @@ func newNginxUserlistListCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSearchuserlist(context.Background(), nil)
+			resp, err := s.SettingsSearchuserlist(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -2793,10 +3415,12 @@ func newNginxUserlistListCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxUserlistUpdateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "update <uuid>",
 		Short: "Update nginx userlist",
 		Args:  cobra.ExactArgs(1),
@@ -2806,7 +3430,12 @@ func newNginxUserlistUpdateCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSetuserlist(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.SettingsSetuserlist(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -2814,6 +3443,8 @@ func newNginxUserlistUpdateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxSettingsCmd() *cobra.Command {
@@ -2830,7 +3461,7 @@ func newNginxSettingsCmd() *cobra.Command {
 }
 
 func newNginxSettingsDownloadrulesCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "downloadrules",
 		Short: "Downloadrules nginx settings",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -2838,8 +3469,13 @@ func newNginxSettingsDownloadrulesCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsDownloadrules(context.Background(), nil)
+			resp, err := s.SettingsDownloadrules(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -2847,6 +3483,8 @@ func newNginxSettingsDownloadrulesCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxSettingsGetCmd() *cobra.Command {
@@ -2870,7 +3508,7 @@ func newNginxSettingsGetCmd() *cobra.Command {
 }
 
 func newNginxSettingsSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set nginx settings",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -2878,8 +3516,13 @@ func newNginxSettingsSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSet(context.Background(), nil)
+			resp, err := s.SettingsSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -2887,6 +3530,8 @@ func newNginxSettingsSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newNginxSettingsShowconfigCmd() *cobra.Command {

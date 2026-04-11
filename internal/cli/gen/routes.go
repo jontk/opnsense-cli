@@ -4,6 +4,7 @@ package gen
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 
 	"github.com/jontk/opnsense-cli/internal/cli"
@@ -84,7 +85,7 @@ func newRoutesRouteCmd() *cobra.Command {
 }
 
 func newRoutesRouteCreateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "create",
 		Short: "Create routes route",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -92,8 +93,13 @@ func newRoutesRouteCreateCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.RoutesAddroute(context.Background(), nil)
+			resp, err := s.RoutesAddroute(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -101,10 +107,12 @@ func newRoutesRouteCreateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newRoutesRouteDeleteCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "delete <uuid>",
 		Short: "Delete routes route",
 		Args:  cobra.ExactArgs(1),
@@ -114,7 +122,12 @@ func newRoutesRouteDeleteCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.RoutesDelroute(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.RoutesDelroute(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -122,6 +135,8 @@ func newRoutesRouteDeleteCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newRoutesRouteGetCmd() *cobra.Command {
@@ -145,7 +160,7 @@ func newRoutesRouteGetCmd() *cobra.Command {
 }
 
 func newRoutesRouteListCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "list",
 		Short: "List routes route",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -153,8 +168,13 @@ func newRoutesRouteListCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.RoutesSearchroute(context.Background(), nil)
+			resp, err := s.RoutesSearchroute(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -162,10 +182,12 @@ func newRoutesRouteListCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newRoutesRouteUpdateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "update <uuid>",
 		Short: "Update routes route",
 		Args:  cobra.ExactArgs(1),
@@ -175,7 +197,12 @@ func newRoutesRouteUpdateCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.RoutesSetroute(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.RoutesSetroute(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -183,10 +210,12 @@ func newRoutesRouteUpdateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newRoutesRouteToggleCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "toggle <uuid>",
 		Short: "Toggle routes route",
 		Args:  cobra.ExactArgs(1),
@@ -196,7 +225,12 @@ func newRoutesRouteToggleCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.RoutesToggleroute(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.RoutesToggleroute(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -204,10 +238,12 @@ func newRoutesRouteToggleCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newRoutesRouteReconfigureCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "reconfigure",
 		Short: "Reconfigure routes route",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -215,8 +251,13 @@ func newRoutesRouteReconfigureCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.RoutesReconfigure(context.Background(), nil)
+			resp, err := s.RoutesReconfigure(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -224,10 +265,12 @@ func newRoutesRouteReconfigureCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newRoutesRouteSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set routes route",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -235,8 +278,13 @@ func newRoutesRouteSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.RoutesSet(context.Background(), nil)
+			resp, err := s.RoutesSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -244,4 +292,6 @@ func newRoutesRouteSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }

@@ -97,7 +97,7 @@ func newCaptiveportalAccessLogoffCmd() *cobra.Command {
 }
 
 func newCaptiveportalAccessLogonCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "logon",
 		Short: "Logon captiveportal access",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -105,8 +105,13 @@ func newCaptiveportalAccessLogonCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.AccessLogon(context.Background(), nil)
+			resp, err := s.AccessLogon(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -114,10 +119,12 @@ func newCaptiveportalAccessLogonCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newCaptiveportalAccessStatusCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "status",
 		Short: "Status captiveportal access",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -125,8 +132,13 @@ func newCaptiveportalAccessStatusCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.AccessStatus(context.Background(), nil)
+			resp, err := s.AccessStatus(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -134,6 +146,8 @@ func newCaptiveportalAccessStatusCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newCaptiveportalTemplateCmd() *cobra.Command {
@@ -148,7 +162,7 @@ func newCaptiveportalTemplateCmd() *cobra.Command {
 }
 
 func newCaptiveportalTemplateDeleteCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "delete <uuid>",
 		Short: "Delete captiveportal template",
 		Args:  cobra.ExactArgs(1),
@@ -158,7 +172,12 @@ func newCaptiveportalTemplateDeleteCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceDelTemplate(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.ServiceDelTemplate(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -166,6 +185,8 @@ func newCaptiveportalTemplateDeleteCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newCaptiveportalTemplateGetCmd() *cobra.Command {
@@ -223,7 +244,7 @@ func newCaptiveportalServiceCmd() *cobra.Command {
 }
 
 func newCaptiveportalServiceReconfigureCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "reconfigure",
 		Short: "Reconfigure captiveportal service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -231,8 +252,13 @@ func newCaptiveportalServiceReconfigureCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceReconfigure(context.Background(), nil)
+			resp, err := s.ServiceReconfigure(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -240,10 +266,12 @@ func newCaptiveportalServiceReconfigureCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newCaptiveportalServiceRestartCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "restart",
 		Short: "Restart captiveportal service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -251,8 +279,13 @@ func newCaptiveportalServiceRestartCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceRestart(context.Background(), nil)
+			resp, err := s.ServiceRestart(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -260,10 +293,12 @@ func newCaptiveportalServiceRestartCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newCaptiveportalServiceSaveTemplateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "save-template",
 		Short: "SaveTemplate captiveportal service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -271,8 +306,13 @@ func newCaptiveportalServiceSaveTemplateCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceSaveTemplate(context.Background(), nil)
+			resp, err := s.ServiceSaveTemplate(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -280,10 +320,12 @@ func newCaptiveportalServiceSaveTemplateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newCaptiveportalServiceStartCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "start",
 		Short: "Start captiveportal service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -291,8 +333,13 @@ func newCaptiveportalServiceStartCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceStart(context.Background(), nil)
+			resp, err := s.ServiceStart(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -300,6 +347,8 @@ func newCaptiveportalServiceStartCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newCaptiveportalServiceStatusCmd() *cobra.Command {
@@ -323,7 +372,7 @@ func newCaptiveportalServiceStatusCmd() *cobra.Command {
 }
 
 func newCaptiveportalServiceStopCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "stop",
 		Short: "Stop captiveportal service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -331,8 +380,13 @@ func newCaptiveportalServiceStopCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceStop(context.Background(), nil)
+			resp, err := s.ServiceStop(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -340,6 +394,8 @@ func newCaptiveportalServiceStopCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newCaptiveportalSessionCmd() *cobra.Command {
@@ -356,7 +412,7 @@ func newCaptiveportalSessionCmd() *cobra.Command {
 }
 
 func newCaptiveportalSessionConnectCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "connect",
 		Short: "Connect captiveportal session",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -364,8 +420,13 @@ func newCaptiveportalSessionConnectCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SessionConnect(context.Background(), nil)
+			resp, err := s.SessionConnect(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -373,10 +434,12 @@ func newCaptiveportalSessionConnectCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newCaptiveportalSessionDisconnectCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "disconnect",
 		Short: "Disconnect captiveportal session",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -384,8 +447,13 @@ func newCaptiveportalSessionDisconnectCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SessionDisconnect(context.Background(), nil)
+			resp, err := s.SessionDisconnect(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -393,6 +461,8 @@ func newCaptiveportalSessionDisconnectCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newCaptiveportalSessionListCmd() *cobra.Command {
@@ -693,7 +763,7 @@ func newCaptiveportalSettingsGetCmd() *cobra.Command {
 }
 
 func newCaptiveportalSettingsSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set captiveportal settings",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -701,8 +771,13 @@ func newCaptiveportalSettingsSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSet(context.Background(), nil)
+			resp, err := s.SettingsSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -710,6 +785,8 @@ func newCaptiveportalSettingsSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newCaptiveportalVoucherCmd() *cobra.Command {
@@ -728,7 +805,7 @@ func newCaptiveportalVoucherCmd() *cobra.Command {
 }
 
 func newCaptiveportalVoucherDropExpiredVouchersCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "drop-expired-vouchers <provider> <group>",
 		Short: "DropExpiredVouchers captiveportal voucher",
 		Args:  cobra.ExactArgs(2),
@@ -738,7 +815,12 @@ func newCaptiveportalVoucherDropExpiredVouchersCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.VoucherDropExpiredVouchers(context.Background(), args[0], args[1], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.VoucherDropExpiredVouchers(context.Background(), args[0], args[1], body)
 			if err != nil {
 				return err
 			}
@@ -746,10 +828,12 @@ func newCaptiveportalVoucherDropExpiredVouchersCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newCaptiveportalVoucherDropVoucherGroupCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "drop-voucher-group <provider> <group>",
 		Short: "DropVoucherGroup captiveportal voucher",
 		Args:  cobra.ExactArgs(2),
@@ -759,7 +843,12 @@ func newCaptiveportalVoucherDropVoucherGroupCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.VoucherDropVoucherGroup(context.Background(), args[0], args[1], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.VoucherDropVoucherGroup(context.Background(), args[0], args[1], body)
 			if err != nil {
 				return err
 			}
@@ -767,10 +856,12 @@ func newCaptiveportalVoucherDropVoucherGroupCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newCaptiveportalVoucherExpireVoucherCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "expire-voucher <provider>",
 		Short: "ExpireVoucher captiveportal voucher",
 		Args:  cobra.ExactArgs(1),
@@ -780,7 +871,12 @@ func newCaptiveportalVoucherExpireVoucherCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.VoucherExpireVoucher(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.VoucherExpireVoucher(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -788,10 +884,12 @@ func newCaptiveportalVoucherExpireVoucherCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newCaptiveportalVoucherGenerateVouchersCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "generate-vouchers <provider>",
 		Short: "GenerateVouchers captiveportal voucher",
 		Args:  cobra.ExactArgs(1),
@@ -801,7 +899,12 @@ func newCaptiveportalVoucherGenerateVouchersCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.VoucherGenerateVouchers(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.VoucherGenerateVouchers(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -809,6 +912,8 @@ func newCaptiveportalVoucherGenerateVouchersCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newCaptiveportalVoucherListProvidersCmd() *cobra.Command {

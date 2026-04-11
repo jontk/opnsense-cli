@@ -4,6 +4,7 @@ package gen
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 
 	"github.com/jontk/opnsense-cli/internal/cli"
@@ -52,7 +53,7 @@ func newProxyssoServiceCmd() *cobra.Command {
 }
 
 func newProxyssoServiceCreatekeytabCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "createkeytab",
 		Short: "Createkeytab proxysso service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -60,8 +61,13 @@ func newProxyssoServiceCreatekeytabCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceCreatekeytab(context.Background(), nil)
+			resp, err := s.ServiceCreatekeytab(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -69,6 +75,8 @@ func newProxyssoServiceCreatekeytabCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newProxyssoServiceDeletekeytabCmd() *cobra.Command {
@@ -112,7 +120,7 @@ func newProxyssoServiceShowkeytabCmd() *cobra.Command {
 }
 
 func newProxyssoServiceTestkerbloginCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "testkerblogin",
 		Short: "Testkerblogin proxysso service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -120,8 +128,13 @@ func newProxyssoServiceTestkerbloginCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceTestkerblogin(context.Background(), nil)
+			resp, err := s.ServiceTestkerblogin(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -129,6 +142,8 @@ func newProxyssoServiceTestkerbloginCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newProxyssoCheckListCmd() *cobra.Command {
@@ -191,7 +206,7 @@ func newProxyssoSettingsGetCmd() *cobra.Command {
 }
 
 func newProxyssoSettingsSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set proxysso settings",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -199,8 +214,13 @@ func newProxyssoSettingsSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSet(context.Background(), nil)
+			resp, err := s.SettingsSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -208,4 +228,6 @@ func newProxyssoSettingsSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }

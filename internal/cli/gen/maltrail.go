@@ -4,6 +4,7 @@ package gen
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 
 	"github.com/jontk/opnsense-cli/internal/cli"
@@ -72,7 +73,7 @@ func newMaltrailGeneralGetCmd() *cobra.Command {
 }
 
 func newMaltrailGeneralSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set maltrail general",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -80,8 +81,13 @@ func newMaltrailGeneralSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.GeneralSet(context.Background(), nil)
+			resp, err := s.GeneralSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -89,6 +95,8 @@ func newMaltrailGeneralSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newMaltrailSensorCmd() *cobra.Command {
@@ -122,7 +130,7 @@ func newMaltrailSensorGetCmd() *cobra.Command {
 }
 
 func newMaltrailSensorSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set maltrail sensor",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -130,8 +138,13 @@ func newMaltrailSensorSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SensorSet(context.Background(), nil)
+			resp, err := s.SensorSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -139,6 +152,8 @@ func newMaltrailSensorSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newMaltrailServerCmd() *cobra.Command {
@@ -172,7 +187,7 @@ func newMaltrailServerGetCmd() *cobra.Command {
 }
 
 func newMaltrailServerSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set maltrail server",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -180,8 +195,13 @@ func newMaltrailServerSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServerSet(context.Background(), nil)
+			resp, err := s.ServerSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -189,6 +209,8 @@ func newMaltrailServerSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newMaltrailServerserviceCmd() *cobra.Command {
@@ -205,7 +227,7 @@ func newMaltrailServerserviceCmd() *cobra.Command {
 }
 
 func newMaltrailServerserviceReconfigureCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "reconfigure",
 		Short: "Reconfigure maltrail serverservice",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -213,8 +235,13 @@ func newMaltrailServerserviceReconfigureCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServerserviceReconfigure(context.Background(), nil)
+			resp, err := s.ServerserviceReconfigure(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -222,10 +249,12 @@ func newMaltrailServerserviceReconfigureCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newMaltrailServerserviceRestartCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "restart",
 		Short: "Restart maltrail serverservice",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -233,8 +262,13 @@ func newMaltrailServerserviceRestartCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServerserviceRestart(context.Background(), nil)
+			resp, err := s.ServerserviceRestart(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -242,10 +276,12 @@ func newMaltrailServerserviceRestartCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newMaltrailServerserviceStartCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "start",
 		Short: "Start maltrail serverservice",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -253,8 +289,13 @@ func newMaltrailServerserviceStartCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServerserviceStart(context.Background(), nil)
+			resp, err := s.ServerserviceStart(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -262,6 +303,8 @@ func newMaltrailServerserviceStartCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newMaltrailServerserviceStatusCmd() *cobra.Command {
@@ -285,7 +328,7 @@ func newMaltrailServerserviceStatusCmd() *cobra.Command {
 }
 
 func newMaltrailServerserviceStopCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "stop",
 		Short: "Stop maltrail serverservice",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -293,8 +336,13 @@ func newMaltrailServerserviceStopCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServerserviceStop(context.Background(), nil)
+			resp, err := s.ServerserviceStop(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -302,6 +350,8 @@ func newMaltrailServerserviceStopCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newMaltrailServiceCmd() *cobra.Command {
@@ -318,7 +368,7 @@ func newMaltrailServiceCmd() *cobra.Command {
 }
 
 func newMaltrailServiceReconfigureCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "reconfigure",
 		Short: "Reconfigure maltrail service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -326,8 +376,13 @@ func newMaltrailServiceReconfigureCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceReconfigure(context.Background(), nil)
+			resp, err := s.ServiceReconfigure(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -335,10 +390,12 @@ func newMaltrailServiceReconfigureCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newMaltrailServiceRestartCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "restart",
 		Short: "Restart maltrail service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -346,8 +403,13 @@ func newMaltrailServiceRestartCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceRestart(context.Background(), nil)
+			resp, err := s.ServiceRestart(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -355,10 +417,12 @@ func newMaltrailServiceRestartCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newMaltrailServiceStartCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "start",
 		Short: "Start maltrail service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -366,8 +430,13 @@ func newMaltrailServiceStartCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceStart(context.Background(), nil)
+			resp, err := s.ServiceStart(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -375,6 +444,8 @@ func newMaltrailServiceStartCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newMaltrailServiceStatusCmd() *cobra.Command {
@@ -398,7 +469,7 @@ func newMaltrailServiceStatusCmd() *cobra.Command {
 }
 
 func newMaltrailServiceStopCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "stop",
 		Short: "Stop maltrail service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -406,8 +477,13 @@ func newMaltrailServiceStopCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceStop(context.Background(), nil)
+			resp, err := s.ServiceStop(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -415,4 +491,6 @@ func newMaltrailServiceStopCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }

@@ -2,7 +2,8 @@
 
 package gen
 
-{% set needs_json = m.resources | selectattr("verbs") | map(attribute="verbs") | sum(start=[]) | selectattr("has_data_flag") | list | length > 0 %}
+{% set all_verbs = m.resources | selectattr("verbs") | map(attribute="verbs") | sum(start=[]) | list %}
+{% set needs_json = (all_verbs | selectattr("has_data_flag") | list | length > 0) or (all_verbs | selectattr("has_body_arg") | list | length > 0) %}
 import (
 	"context"
 {% if needs_json %}
@@ -165,7 +166,11 @@ func new{{ m.go_file_ident }}{{ res.go_ident }}{{ verb_go }}Cmd() *cobra.Command
 	return cmd
 {% elif n > 0 %}
 {# ── Positional args (get/delete/toggle/untyped with path params) ── #}
+{% if verb.has_body_arg %}
+	cmd := &cobra.Command{
+{% else %}
 	return &cobra.Command{
+{% endif %}
 		Use:   "{{ verb.cli_verb }}{% for p in verb.positional_params %} <{{ p }}>{% endfor %}",
 		Short: "{{ verb_go }} {{ m.module_name }} {{ res.resource }}",
 		Args:  cobra.ExactArgs({{ n }}),
@@ -176,7 +181,12 @@ func new{{ m.go_file_ident }}{{ res.go_ident }}{{ verb_go }}Cmd() *cobra.Command
 			}
 			s := sdk.NewClient(c)
 {% if verb.has_body_arg %}
-			resp, err := s.{{ verb.go_method }}(context.Background(){% for i in range(n) %}, args[{{ i }}]{% endfor %}, nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.{{ verb.go_method }}(context.Background(){% for i in range(n) %}, args[{{ i }}]{% endfor %}, body)
 {% else %}
 			resp, err := s.{{ verb.go_method }}(context.Background(){% for i in range(n) %}, args[{{ i }}]{% endfor %})
 {% endif %}
@@ -193,9 +203,13 @@ func new{{ m.go_file_ident }}{{ res.go_ident }}{{ verb_go }}Cmd() *cobra.Command
 {% endif %}
 		},
 	}
+{% if verb.has_body_arg %}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
+{% endif %}
 {% elif verb.has_body_arg %}
-{# ── No positional args, untyped POST (pass nil body) ── #}
-	return &cobra.Command{
+{# ── No positional args, untyped POST (--data JSON body) ── #}
+	cmd := &cobra.Command{
 		Use:   "{{ verb.cli_verb }}",
 		Short: "{{ verb_go }} {{ m.module_name }} {{ res.resource }}",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -203,8 +217,13 @@ func new{{ m.go_file_ident }}{{ res.go_ident }}{{ verb_go }}Cmd() *cobra.Command
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.{{ verb.go_method }}(context.Background(), nil)
+			resp, err := s.{{ verb.go_method }}(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -212,6 +231,8 @@ func new{{ m.go_file_ident }}{{ res.go_ident }}{{ verb_go }}Cmd() *cobra.Command
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 {% else %}
 {# ── No positional args, no body (GET-like) ── #}
 	return &cobra.Command{

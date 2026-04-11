@@ -55,7 +55,7 @@ func newAuthGroupCmd() *cobra.Command {
 }
 
 func newAuthGroupAddCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "add",
 		Short: "Add auth group",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -63,8 +63,13 @@ func newAuthGroupAddCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.GroupAdd(context.Background(), nil)
+			resp, err := s.GroupAdd(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -72,10 +77,12 @@ func newAuthGroupAddCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newAuthGroupDelCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "del <uuid>",
 		Short: "Del auth group",
 		Args:  cobra.ExactArgs(1),
@@ -85,7 +92,12 @@ func newAuthGroupDelCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.GroupDel(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.GroupDel(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -93,6 +105,8 @@ func newAuthGroupDelCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newAuthGroupGetCmd() *cobra.Command {
@@ -116,7 +130,7 @@ func newAuthGroupGetCmd() *cobra.Command {
 }
 
 func newAuthGroupSearchCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "search",
 		Short: "Search auth group",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -124,8 +138,13 @@ func newAuthGroupSearchCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.GroupSearch(context.Background(), nil)
+			resp, err := s.GroupSearch(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -133,10 +152,12 @@ func newAuthGroupSearchCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newAuthGroupSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set auth group",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -144,8 +165,13 @@ func newAuthGroupSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.GroupSet(context.Background(), nil)
+			resp, err := s.GroupSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -153,6 +179,8 @@ func newAuthGroupSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 // authPrivColumns defines table columns for the Priv resource.
@@ -225,7 +253,7 @@ func newAuthPrivSearchCmd() *cobra.Command {
 }
 
 func newAuthPrivSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set auth priv",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -233,8 +261,13 @@ func newAuthPrivSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.PrivSet(context.Background(), nil)
+			resp, err := s.PrivSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -242,6 +275,8 @@ func newAuthPrivSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newAuthPrivUpdateCmd() *cobra.Command {
@@ -289,7 +324,7 @@ func newAuthUserCmd() *cobra.Command {
 }
 
 func newAuthUserAddCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "add",
 		Short: "Add auth user",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -297,8 +332,13 @@ func newAuthUserAddCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.UserAdd(context.Background(), nil)
+			resp, err := s.UserAdd(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -306,10 +346,12 @@ func newAuthUserAddCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newAuthUserDelCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "del <uuid>",
 		Short: "Del auth user",
 		Args:  cobra.ExactArgs(1),
@@ -319,7 +361,12 @@ func newAuthUserDelCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.UserDel(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.UserDel(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -327,6 +374,8 @@ func newAuthUserDelCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newAuthUserDownloadCmd() *cobra.Command {
@@ -390,7 +439,7 @@ func newAuthUserNewOtpSeedCmd() *cobra.Command {
 }
 
 func newAuthUserSearchCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "search",
 		Short: "Search auth user",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -398,8 +447,13 @@ func newAuthUserSearchCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.UserSearch(context.Background(), nil)
+			resp, err := s.UserSearch(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -407,10 +461,12 @@ func newAuthUserSearchCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newAuthUserSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set auth user",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -418,8 +474,13 @@ func newAuthUserSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.UserSet(context.Background(), nil)
+			resp, err := s.UserSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -427,10 +488,12 @@ func newAuthUserSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newAuthUserUploadCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "upload",
 		Short: "Upload auth user",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -438,8 +501,13 @@ func newAuthUserUploadCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.UserUpload(context.Background(), nil)
+			resp, err := s.UserUpload(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -447,6 +515,8 @@ func newAuthUserUploadCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newAuthApiKeyCmd() *cobra.Command {
@@ -461,7 +531,7 @@ func newAuthApiKeyCmd() *cobra.Command {
 }
 
 func newAuthApiKeyCreateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "create <username>",
 		Short: "Create auth api-key",
 		Args:  cobra.ExactArgs(1),
@@ -471,7 +541,12 @@ func newAuthApiKeyCreateCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.UserAddApiKey(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.UserAddApiKey(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -479,10 +554,12 @@ func newAuthApiKeyCreateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newAuthApiKeyDeleteCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "delete <id>",
 		Short: "Delete auth api-key",
 		Args:  cobra.ExactArgs(1),
@@ -492,7 +569,12 @@ func newAuthApiKeyDeleteCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.UserDelApiKey(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.UserDelApiKey(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -500,6 +582,8 @@ func newAuthApiKeyDeleteCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newAuthApiKeyListCmd() *cobra.Command {

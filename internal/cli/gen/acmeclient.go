@@ -4,6 +4,7 @@ package gen
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 
 	"github.com/jontk/opnsense-cli/internal/cli"
@@ -61,7 +62,7 @@ func newAcmeclientAccountsCmd() *cobra.Command {
 }
 
 func newAcmeclientAccountsAddCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "add",
 		Short: "Add acmeclient accounts",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -69,8 +70,13 @@ func newAcmeclientAccountsAddCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.AccountsAdd(context.Background(), nil)
+			resp, err := s.AccountsAdd(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -78,10 +84,12 @@ func newAcmeclientAccountsAddCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newAcmeclientAccountsDelCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "del <uuid>",
 		Short: "Del acmeclient accounts",
 		Args:  cobra.ExactArgs(1),
@@ -91,7 +99,12 @@ func newAcmeclientAccountsDelCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.AccountsDel(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.AccountsDel(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -99,6 +112,8 @@ func newAcmeclientAccountsDelCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newAcmeclientAccountsGetCmd() *cobra.Command {
@@ -122,7 +137,7 @@ func newAcmeclientAccountsGetCmd() *cobra.Command {
 }
 
 func newAcmeclientAccountsRegisterCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "register <uuid>",
 		Short: "Register acmeclient accounts",
 		Args:  cobra.ExactArgs(1),
@@ -132,7 +147,12 @@ func newAcmeclientAccountsRegisterCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.AccountsRegister(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.AccountsRegister(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -140,10 +160,12 @@ func newAcmeclientAccountsRegisterCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newAcmeclientAccountsSearchCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "search",
 		Short: "Search acmeclient accounts",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -151,8 +173,13 @@ func newAcmeclientAccountsSearchCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.AccountsSearch(context.Background(), nil)
+			resp, err := s.AccountsSearch(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -160,10 +187,12 @@ func newAcmeclientAccountsSearchCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newAcmeclientAccountsSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set acmeclient accounts",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -171,8 +200,13 @@ func newAcmeclientAccountsSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.AccountsSet(context.Background(), nil)
+			resp, err := s.AccountsSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -180,10 +214,12 @@ func newAcmeclientAccountsSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newAcmeclientAccountsToggleCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "toggle <uuid>",
 		Short: "Toggle acmeclient accounts",
 		Args:  cobra.ExactArgs(1),
@@ -193,7 +229,12 @@ func newAcmeclientAccountsToggleCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.AccountsToggle(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.AccountsToggle(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -201,10 +242,12 @@ func newAcmeclientAccountsToggleCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newAcmeclientAccountsUpdateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "update <uuid>",
 		Short: "Update acmeclient accounts",
 		Args:  cobra.ExactArgs(1),
@@ -214,7 +257,12 @@ func newAcmeclientAccountsUpdateCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.AccountsUpdate(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.AccountsUpdate(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -222,6 +270,8 @@ func newAcmeclientAccountsUpdateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newAcmeclientActionsCmd() *cobra.Command {
@@ -244,7 +294,7 @@ func newAcmeclientActionsCmd() *cobra.Command {
 }
 
 func newAcmeclientActionsAddCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "add",
 		Short: "Add acmeclient actions",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -252,8 +302,13 @@ func newAcmeclientActionsAddCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ActionsAdd(context.Background(), nil)
+			resp, err := s.ActionsAdd(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -261,10 +316,12 @@ func newAcmeclientActionsAddCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newAcmeclientActionsDelCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "del <uuid>",
 		Short: "Del acmeclient actions",
 		Args:  cobra.ExactArgs(1),
@@ -274,7 +331,12 @@ func newAcmeclientActionsDelCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.ActionsDel(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.ActionsDel(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -282,6 +344,8 @@ func newAcmeclientActionsDelCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newAcmeclientActionsGetCmd() *cobra.Command {
@@ -305,7 +369,7 @@ func newAcmeclientActionsGetCmd() *cobra.Command {
 }
 
 func newAcmeclientActionsSearchCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "search",
 		Short: "Search acmeclient actions",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -313,8 +377,13 @@ func newAcmeclientActionsSearchCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ActionsSearch(context.Background(), nil)
+			resp, err := s.ActionsSearch(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -322,10 +391,12 @@ func newAcmeclientActionsSearchCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newAcmeclientActionsSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set acmeclient actions",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -333,8 +404,13 @@ func newAcmeclientActionsSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ActionsSet(context.Background(), nil)
+			resp, err := s.ActionsSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -342,6 +418,8 @@ func newAcmeclientActionsSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newAcmeclientActionsSftpGetIdentityCmd() *cobra.Command {
@@ -425,7 +503,7 @@ func newAcmeclientActionsSshTestConnectionCmd() *cobra.Command {
 }
 
 func newAcmeclientActionsToggleCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "toggle <uuid>",
 		Short: "Toggle acmeclient actions",
 		Args:  cobra.ExactArgs(1),
@@ -435,7 +513,12 @@ func newAcmeclientActionsToggleCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.ActionsToggle(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.ActionsToggle(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -443,10 +526,12 @@ func newAcmeclientActionsToggleCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newAcmeclientActionsUpdateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "update <uuid>",
 		Short: "Update acmeclient actions",
 		Args:  cobra.ExactArgs(1),
@@ -456,7 +541,12 @@ func newAcmeclientActionsUpdateCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.ActionsUpdate(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.ActionsUpdate(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -464,6 +554,8 @@ func newAcmeclientActionsUpdateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newAcmeclientCertificatesCmd() *cobra.Command {
@@ -487,7 +579,7 @@ func newAcmeclientCertificatesCmd() *cobra.Command {
 }
 
 func newAcmeclientCertificatesAddCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "add",
 		Short: "Add acmeclient certificates",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -495,8 +587,13 @@ func newAcmeclientCertificatesAddCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.CertificatesAdd(context.Background(), nil)
+			resp, err := s.CertificatesAdd(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -504,6 +601,8 @@ func newAcmeclientCertificatesAddCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newAcmeclientCertificatesAutomationCmd() *cobra.Command {
@@ -528,7 +627,7 @@ func newAcmeclientCertificatesAutomationCmd() *cobra.Command {
 }
 
 func newAcmeclientCertificatesDelCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "del <uuid>",
 		Short: "Del acmeclient certificates",
 		Args:  cobra.ExactArgs(1),
@@ -538,7 +637,12 @@ func newAcmeclientCertificatesDelCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.CertificatesDel(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.CertificatesDel(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -546,6 +650,8 @@ func newAcmeclientCertificatesDelCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newAcmeclientCertificatesGetCmd() *cobra.Command {
@@ -611,7 +717,7 @@ func newAcmeclientCertificatesRemovekeyCmd() *cobra.Command {
 }
 
 func newAcmeclientCertificatesRevokeCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "revoke <uuid>",
 		Short: "Revoke acmeclient certificates",
 		Args:  cobra.ExactArgs(1),
@@ -621,7 +727,12 @@ func newAcmeclientCertificatesRevokeCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.CertificatesRevoke(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.CertificatesRevoke(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -629,10 +740,12 @@ func newAcmeclientCertificatesRevokeCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newAcmeclientCertificatesSearchCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "search",
 		Short: "Search acmeclient certificates",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -640,8 +753,13 @@ func newAcmeclientCertificatesSearchCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.CertificatesSearch(context.Background(), nil)
+			resp, err := s.CertificatesSearch(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -649,10 +767,12 @@ func newAcmeclientCertificatesSearchCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newAcmeclientCertificatesSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set acmeclient certificates",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -660,8 +780,13 @@ func newAcmeclientCertificatesSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.CertificatesSet(context.Background(), nil)
+			resp, err := s.CertificatesSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -669,10 +794,12 @@ func newAcmeclientCertificatesSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newAcmeclientCertificatesSignCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "sign <uuid>",
 		Short: "Sign acmeclient certificates",
 		Args:  cobra.ExactArgs(1),
@@ -682,7 +809,12 @@ func newAcmeclientCertificatesSignCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.CertificatesSign(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.CertificatesSign(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -690,10 +822,12 @@ func newAcmeclientCertificatesSignCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newAcmeclientCertificatesToggleCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "toggle <uuid>",
 		Short: "Toggle acmeclient certificates",
 		Args:  cobra.ExactArgs(1),
@@ -703,7 +837,12 @@ func newAcmeclientCertificatesToggleCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.CertificatesToggle(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.CertificatesToggle(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -711,10 +850,12 @@ func newAcmeclientCertificatesToggleCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newAcmeclientCertificatesUpdateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "update <uuid>",
 		Short: "Update acmeclient certificates",
 		Args:  cobra.ExactArgs(1),
@@ -724,7 +865,12 @@ func newAcmeclientCertificatesUpdateCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.CertificatesUpdate(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.CertificatesUpdate(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -732,6 +878,8 @@ func newAcmeclientCertificatesUpdateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newAcmeclientServiceCmd() *cobra.Command {
@@ -771,7 +919,7 @@ func newAcmeclientServiceConfigtestCmd() *cobra.Command {
 }
 
 func newAcmeclientServiceReconfigureCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "reconfigure",
 		Short: "Reconfigure acmeclient service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -779,8 +927,13 @@ func newAcmeclientServiceReconfigureCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceReconfigure(context.Background(), nil)
+			resp, err := s.ServiceReconfigure(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -788,6 +941,8 @@ func newAcmeclientServiceReconfigureCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newAcmeclientServiceResetCmd() *cobra.Command {
@@ -811,7 +966,7 @@ func newAcmeclientServiceResetCmd() *cobra.Command {
 }
 
 func newAcmeclientServiceRestartCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "restart",
 		Short: "Restart acmeclient service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -819,8 +974,13 @@ func newAcmeclientServiceRestartCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceRestart(context.Background(), nil)
+			resp, err := s.ServiceRestart(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -828,6 +988,8 @@ func newAcmeclientServiceRestartCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newAcmeclientServiceSignallcertsCmd() *cobra.Command {
@@ -851,7 +1013,7 @@ func newAcmeclientServiceSignallcertsCmd() *cobra.Command {
 }
 
 func newAcmeclientServiceStartCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "start",
 		Short: "Start acmeclient service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -859,8 +1021,13 @@ func newAcmeclientServiceStartCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceStart(context.Background(), nil)
+			resp, err := s.ServiceStart(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -868,6 +1035,8 @@ func newAcmeclientServiceStartCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newAcmeclientServiceStatusCmd() *cobra.Command {
@@ -891,7 +1060,7 @@ func newAcmeclientServiceStatusCmd() *cobra.Command {
 }
 
 func newAcmeclientServiceStopCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "stop",
 		Short: "Stop acmeclient service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -899,8 +1068,13 @@ func newAcmeclientServiceStopCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceStop(context.Background(), nil)
+			resp, err := s.ServiceStop(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -908,6 +1082,8 @@ func newAcmeclientServiceStopCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newAcmeclientSettingsCmd() *cobra.Command {
@@ -923,7 +1099,7 @@ func newAcmeclientSettingsCmd() *cobra.Command {
 }
 
 func newAcmeclientSettingsFetchCronIntegrationCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "fetch-cron-integration",
 		Short: "FetchCronIntegration acmeclient settings",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -931,8 +1107,13 @@ func newAcmeclientSettingsFetchCronIntegrationCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsFetchCronIntegration(context.Background(), nil)
+			resp, err := s.SettingsFetchCronIntegration(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -940,10 +1121,12 @@ func newAcmeclientSettingsFetchCronIntegrationCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newAcmeclientSettingsFetchHaProxyIntegrationCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "fetch-ha-proxy-integration",
 		Short: "FetchHaProxyIntegration acmeclient settings",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -951,8 +1134,13 @@ func newAcmeclientSettingsFetchHaProxyIntegrationCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsFetchHAProxyIntegration(context.Background(), nil)
+			resp, err := s.SettingsFetchHAProxyIntegration(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -960,6 +1148,8 @@ func newAcmeclientSettingsFetchHaProxyIntegrationCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newAcmeclientSettingsGetCmd() *cobra.Command {
@@ -983,7 +1173,7 @@ func newAcmeclientSettingsGetCmd() *cobra.Command {
 }
 
 func newAcmeclientSettingsSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set acmeclient settings",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -991,8 +1181,13 @@ func newAcmeclientSettingsSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSet(context.Background(), nil)
+			resp, err := s.SettingsSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1000,6 +1195,8 @@ func newAcmeclientSettingsSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newAcmeclientBindPluginStatusCmd() *cobra.Command {
@@ -1076,7 +1273,7 @@ func newAcmeclientValidationsCmd() *cobra.Command {
 }
 
 func newAcmeclientValidationsAddCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "add",
 		Short: "Add acmeclient validations",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1084,8 +1281,13 @@ func newAcmeclientValidationsAddCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ValidationsAdd(context.Background(), nil)
+			resp, err := s.ValidationsAdd(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1093,10 +1295,12 @@ func newAcmeclientValidationsAddCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newAcmeclientValidationsDelCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "del <uuid>",
 		Short: "Del acmeclient validations",
 		Args:  cobra.ExactArgs(1),
@@ -1106,7 +1310,12 @@ func newAcmeclientValidationsDelCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.ValidationsDel(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.ValidationsDel(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -1114,6 +1323,8 @@ func newAcmeclientValidationsDelCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newAcmeclientValidationsGetCmd() *cobra.Command {
@@ -1137,7 +1348,7 @@ func newAcmeclientValidationsGetCmd() *cobra.Command {
 }
 
 func newAcmeclientValidationsSearchCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "search",
 		Short: "Search acmeclient validations",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1145,8 +1356,13 @@ func newAcmeclientValidationsSearchCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ValidationsSearch(context.Background(), nil)
+			resp, err := s.ValidationsSearch(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1154,10 +1370,12 @@ func newAcmeclientValidationsSearchCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newAcmeclientValidationsSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set acmeclient validations",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -1165,8 +1383,13 @@ func newAcmeclientValidationsSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ValidationsSet(context.Background(), nil)
+			resp, err := s.ValidationsSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -1174,10 +1397,12 @@ func newAcmeclientValidationsSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newAcmeclientValidationsToggleCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "toggle <uuid>",
 		Short: "Toggle acmeclient validations",
 		Args:  cobra.ExactArgs(1),
@@ -1187,7 +1412,12 @@ func newAcmeclientValidationsToggleCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.ValidationsToggle(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.ValidationsToggle(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -1195,10 +1425,12 @@ func newAcmeclientValidationsToggleCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newAcmeclientValidationsUpdateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "update <uuid>",
 		Short: "Update acmeclient validations",
 		Args:  cobra.ExactArgs(1),
@@ -1208,7 +1440,12 @@ func newAcmeclientValidationsUpdateCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.ValidationsUpdate(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.ValidationsUpdate(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -1216,4 +1453,6 @@ func newAcmeclientValidationsUpdateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }

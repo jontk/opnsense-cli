@@ -73,7 +73,7 @@ func newTelegrafGeneralGetCmd() *cobra.Command {
 }
 
 func newTelegrafGeneralSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set telegraf general",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -81,8 +81,13 @@ func newTelegrafGeneralSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.GeneralSet(context.Background(), nil)
+			resp, err := s.GeneralSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -90,6 +95,8 @@ func newTelegrafGeneralSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newTelegrafInputCmd() *cobra.Command {
@@ -123,7 +130,7 @@ func newTelegrafInputGetCmd() *cobra.Command {
 }
 
 func newTelegrafInputSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set telegraf input",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -131,8 +138,13 @@ func newTelegrafInputSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.InputSet(context.Background(), nil)
+			resp, err := s.InputSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -140,6 +152,8 @@ func newTelegrafInputSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 // telegrafKeyColumns defines table columns for the Key resource.
@@ -272,7 +286,7 @@ func newTelegrafKeyListCmd() *cobra.Command {
 }
 
 func newTelegrafKeySetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set telegraf key",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -280,8 +294,13 @@ func newTelegrafKeySetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.KeySet(context.Background(), nil)
+			resp, err := s.KeySet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -289,6 +308,8 @@ func newTelegrafKeySetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newTelegrafKeyUpdateCmd() *cobra.Command {
@@ -371,7 +392,7 @@ func newTelegrafOutputGetCmd() *cobra.Command {
 }
 
 func newTelegrafOutputSetCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "set",
 		Short: "Set telegraf output",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -379,8 +400,13 @@ func newTelegrafOutputSetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.OutputSet(context.Background(), nil)
+			resp, err := s.OutputSet(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -388,6 +414,8 @@ func newTelegrafOutputSetCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newTelegrafServiceCmd() *cobra.Command {
@@ -404,7 +432,7 @@ func newTelegrafServiceCmd() *cobra.Command {
 }
 
 func newTelegrafServiceReconfigureCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "reconfigure",
 		Short: "Reconfigure telegraf service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -412,8 +440,13 @@ func newTelegrafServiceReconfigureCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceReconfigure(context.Background(), nil)
+			resp, err := s.ServiceReconfigure(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -421,10 +454,12 @@ func newTelegrafServiceReconfigureCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newTelegrafServiceRestartCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "restart",
 		Short: "Restart telegraf service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -432,8 +467,13 @@ func newTelegrafServiceRestartCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceRestart(context.Background(), nil)
+			resp, err := s.ServiceRestart(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -441,10 +481,12 @@ func newTelegrafServiceRestartCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newTelegrafServiceStartCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "start",
 		Short: "Start telegraf service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -452,8 +494,13 @@ func newTelegrafServiceStartCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceStart(context.Background(), nil)
+			resp, err := s.ServiceStart(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -461,6 +508,8 @@ func newTelegrafServiceStartCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newTelegrafServiceStatusCmd() *cobra.Command {
@@ -484,7 +533,7 @@ func newTelegrafServiceStatusCmd() *cobra.Command {
 }
 
 func newTelegrafServiceStopCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "stop",
 		Short: "Stop telegraf service",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -492,8 +541,13 @@ func newTelegrafServiceStopCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.ServiceStop(context.Background(), nil)
+			resp, err := s.ServiceStop(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -501,4 +555,6 @@ func newTelegrafServiceStopCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }

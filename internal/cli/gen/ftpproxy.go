@@ -4,6 +4,7 @@ package gen
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 
 	"github.com/jontk/opnsense-cli/internal/cli"
@@ -191,7 +192,7 @@ func newFtpproxyProxyCmd() *cobra.Command {
 }
 
 func newFtpproxyProxyCreateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "create",
 		Short: "Create ftpproxy proxy",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -199,8 +200,13 @@ func newFtpproxyProxyCreateCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsAddProxy(context.Background(), nil)
+			resp, err := s.SettingsAddProxy(context.Background(), body)
 			if err != nil {
 				return err
 			}
@@ -208,10 +214,12 @@ func newFtpproxyProxyCreateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newFtpproxyProxyDeleteCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "delete <uuid>",
 		Short: "Delete ftpproxy proxy",
 		Args:  cobra.ExactArgs(1),
@@ -221,7 +229,12 @@ func newFtpproxyProxyDeleteCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsDelProxy(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.SettingsDelProxy(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -229,6 +242,8 @@ func newFtpproxyProxyDeleteCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newFtpproxyProxyGetCmd() *cobra.Command {
@@ -272,7 +287,7 @@ func newFtpproxyProxyListCmd() *cobra.Command {
 }
 
 func newFtpproxyProxyUpdateCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "update <uuid>",
 		Short: "Update ftpproxy proxy",
 		Args:  cobra.ExactArgs(1),
@@ -282,7 +297,12 @@ func newFtpproxyProxyUpdateCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsSetProxy(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.SettingsSetProxy(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -290,10 +310,12 @@ func newFtpproxyProxyUpdateCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
 
 func newFtpproxyProxyToggleCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "toggle <uuid>",
 		Short: "Toggle ftpproxy proxy",
 		Args:  cobra.ExactArgs(1),
@@ -303,7 +325,12 @@ func newFtpproxyProxyToggleCmd() *cobra.Command {
 				return err
 			}
 			s := sdk.NewClient(c)
-			resp, err := s.SettingsToggleProxy(context.Background(), args[0], nil)
+			dataStr, _ := cmd.Flags().GetString("data")
+			var body map[string]any
+			if err := json.Unmarshal([]byte(dataStr), &body); err != nil {
+				return fmt.Errorf("parsing --data: %w", err)
+			}
+			resp, err := s.SettingsToggleProxy(context.Background(), args[0], body)
 			if err != nil {
 				return err
 			}
@@ -311,4 +338,6 @@ func newFtpproxyProxyToggleCmd() *cobra.Command {
 			return printer.PrintJSON(resp)
 		},
 	}
+	cmd.Flags().String("data", "{}", "JSON body (can use '-' to read from stdin)")
+	return cmd
 }
