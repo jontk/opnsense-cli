@@ -70,17 +70,18 @@ func (r *{{ r.go_struct_name }}Resource) Schema(_ context.Context, _ resource.Sc
 				},
 			},
 {% for f in r.fields %}
-{% if f.volatile %}
 			"{{ f.tf_name }}": schema.{{ f.tf_schema_type }}Attribute{
+{% if f.volatile %}
 				Description: "{{ f.tf_name | replace('_', ' ') | capitalize }} (read-only).",
 				Computed:    true,
-			},
-{% elif f.required %}
-			"{{ f.tf_name }}": schema.{{ f.tf_schema_type }}Attribute{
+{% elif f.required and f.default_value is none %}
 				Description: "{{ f.tf_name | replace('_', ' ') | capitalize }}.",
-{% if f.default_value is not none %}
+				Required:    true,
+{% else %}
+				Description: "{{ f.tf_name | replace('_', ' ') | capitalize }}.",
 				Optional:    true,
 				Computed:    true,
+{% if f.default_value is not none %}
 {% if f.tf_schema_type == "Bool" %}
 				Default:     booldefault.StaticBool({{ "true" if f.default_value in ("1", "true", "yes") else "false" }}),
 {% elif f.tf_schema_type == "Int64" %}
@@ -88,8 +89,7 @@ func (r *{{ r.go_struct_name }}Resource) Schema(_ context.Context, _ resource.Sc
 {% elif f.tf_schema_type == "String" %}
 				Default:     stringdefault.StaticString("{{ f.default_value }}"),
 {% endif %}
-{% else %}
-				Required:    true,
+{% endif %}
 {% endif %}
 {% if f.sensitive %}
 				Sensitive:   true,
@@ -104,27 +104,6 @@ func (r *{{ r.go_struct_name }}Resource) Schema(_ context.Context, _ resource.Sc
 				},
 {% endif %}
 			},
-{% else %}
-			"{{ f.tf_name }}": schema.{{ f.tf_schema_type }}Attribute{
-				Description: "{{ f.tf_name | replace('_', ' ') | capitalize }}.",
-				Optional:    true,
-{% if f.sensitive %}
-				Sensitive:   true,
-{% endif %}
-{% if f.tf_schema_type != "String" %}
-				Computed:    true,
-{% endif %}
-{% if f.options and f.tf_schema_type == "String" %}
-				Validators: []validator.String{
-					stringvalidator.OneOf(
-{% for opt in f.options %}
-						"{{ opt }}",
-{% endfor %}
-					),
-				},
-{% endif %}
-			},
-{% endif %}
 {% endfor %}
 		},
 	}
@@ -256,11 +235,9 @@ func (r *{{ r.go_struct_name }}Resource) Delete(ctx context.Context, req resourc
 		return
 	}
 
-{% if r.del_has_required_id %}
+	// Both required-UUID (ctx, uuid) and variadic-opts (ctx, opts ...string)
+	// SDK signatures accept a bare string argument.
 	_, err := r.client.{{ r.del_method }}(ctx, state.ID.ValueString())
-{% else %}
-	_, err := r.client.{{ r.del_method }}(ctx, state.ID.ValueString())
-{% endif %}
 	if err != nil {
 		resp.Diagnostics.AddError("Error deleting {{ r.tf_type_name | replace('_', ' ') }}", err.Error())
 		return

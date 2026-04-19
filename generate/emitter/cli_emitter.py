@@ -9,17 +9,11 @@ from pathlib import Path
 from jinja2 import Environment, FileSystemLoader
 
 from generate.model.ir import APISpec, Endpoint, ModelItem, Module
-from generate.parser.name_transform import _group_single_chars, module_to_package
-
-# Go type names that conflict with generated code — must be renamed
-_RESERVED_TYPE_NAMES = {"Client", "NewClient"}
-
-
-def _safe_go_name(name: str) -> str:
-    """Rename reserved type names to avoid conflicts (e.g., Client → ClientConfig)."""
-    if name in _RESERVED_TYPE_NAMES:
-        return name + "Config"
-    return name
+from generate.parser.name_transform import (
+    _group_single_chars,
+    module_to_package,
+    safe_type_name as _safe_go_name,
+)
 
 _TEMPLATES_DIR = Path(__file__).parent.parent / "templates"
 _CLI_OUTPUT_DIR = Path("internal/cli/gen")

@@ -89,7 +89,8 @@ func (c *Client) do(ctx context.Context, method, path string, bodyData []byte, r
 
 	req, err := http.NewRequestWithContext(ctx, method, url, bodyReader)
 	if err != nil {
-		return fmt.Errorf("opnsense: create request: %w", err)
+		// Permanent local failure (malformed URL, bad method). No retry.
+		return &nonRetryableError{fmt.Errorf("opnsense: create request: %w", err)}
 	}
 
 	req.SetBasicAuth(c.apiKey, c.apiSecret)

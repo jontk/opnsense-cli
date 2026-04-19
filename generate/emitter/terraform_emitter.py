@@ -9,20 +9,13 @@ from pathlib import Path
 from jinja2 import Environment, FileSystemLoader
 
 from generate.model.ir import APISpec, Endpoint, ModelField, ModelItem, Module
-from generate.parser.name_transform import module_to_package
+from generate.parser.name_transform import (
+    GO_KEYWORDS as _GO_RESERVED,
+    module_to_package,
+    safe_type_name as _safe_go_name,
+)
 
 _TEMPLATES_DIR = Path(__file__).parent.parent / "templates"
-
-# Go reserved words — package names must avoid these
-_GO_RESERVED = {
-    "break", "case", "chan", "const", "continue", "default", "defer", "else",
-    "fallthrough", "for", "func", "go", "goto", "if", "import", "interface",
-    "map", "package", "range", "return", "select", "struct", "switch", "type",
-    "var",
-}
-
-# Go type names that conflict with generated code — must be renamed
-_RESERVED_TYPE_NAMES = {"Client", "NewClient"}
 
 # Commands that start with a CRUD prefix but are NOT CRUD operations
 _NO_UNDERSCORE_CRUD_BLACKLIST = frozenset({"delete", "deletekeytab"})
@@ -67,19 +60,24 @@ def _is_sensitive_field(item_name: str, field_name: str) -> bool:
 # Corrections for known-invalid defaults in source XML model files.
 # The docs/models directory is auto-generated (gitignored) and the upstream
 # XML occasionally has defaults that do not satisfy the field's own validators.
-# Each entry maps (item_name, field_name) -> corrected_default_value.
+# Each entry maps (module_name, item_name, field_name) -> corrected_default_value.
 # These corrections are applied before the fail-fast validator runs.
-_DEFAULT_CORRECTIONS: dict[tuple[str, str], str] = {
+# Including the module name in the key prevents cross-module collisions (the
+# XML tag "alias" appears as a top-level item in multiple modules, for example).
+_DEFAULT_CORRECTIONS: dict[tuple[str, str, str], str] = {
     # Firewall/Alias.xml: upstream default "alert" is not a valid alias type.
-    ("alias", "type"): "host",
+    ("firewall", "alias", "type"): "host",
     # Syslog/Syslog.xml: "udp" was renamed to "udp4" when IPv6 support was added.
-    ("destination", "transport"): "udp4",
+    ("syslog", "destination", "transport"): "udp4",
     # DynDNS/DynDNS.xml: "web_dyndns" option was removed from the upstream list.
-    ("account", "checkip"): "web_icanhazip",
+    ("dyndns", "account", "checkip"): "web_icanhazip",
     # Freeradius/Proxy.xml: default "1" is a numeric placeholder; "auth" is correct.
-    ("homeserver", "type"): "auth",
+    ("freeradius", "homeserver", "type"): "auth",
     # HAProxy/HAProxy.xml: default "503" uses numeric code; tag-name form is "x503".
-    ("errorfile", "code"): "x503",
+    ("haproxy", "errorfile", "code"): "x503",
+    # Nginx/Nginx.xml: upstream Default is PascalCase "Off" but options are lowercase.
+    ("nginx", "http_server", "verify_client"): "off",
+    ("nginx", "stream_server", "verify_client"): "off",
 }
 
 
@@ -180,19 +178,26 @@ def emit_terraform(spec: APISpec, output_dir: str | Path) -> None:
     seen_packages: set[str] = set()
 
     for module in spec.modules:
+        # Skip modules that produced no SDK package (no non-abstract endpoints).
+        # This must mirror go_emitter._collect_endpoints so that the package
+        # name we compute here matches the SDK directory on disk.
+        has_endpoints = any(
+            not ctrl.is_abstract and ctrl.endpoints
+            for ctrl in module.controllers
+        )
+        if not has_endpoints:
+            continue
+
         pkg = module_to_package(module.name)
         if pkg in _GO_RESERVED:
             pkg += "api"
-
-        # Handle duplicate package names
-        actual_pkg = pkg
         if pkg in seen_packages:
-            actual_pkg = module.category + pkg
-        seen_packages.add(actual_pkg)
+            pkg = module.category + pkg
+        seen_packages.add(pkg)
 
-        sdk_import = f"github.com/jontk/opnsense-cli/opnsense/{actual_pkg}"
+        sdk_import = f"github.com/jontk/opnsense-cli/opnsense/{pkg}"
 
-        resources = _collect_tf_resources(module, actual_pkg, sdk_import)
+        resources = _collect_tf_resources(module, pkg, sdk_import)
         all_resources.extend(resources)
 
         # Generate data sources for each resource
@@ -282,7 +287,7 @@ def _collect_tf_resources(
         item_type = _safe_go_name(model_item.go_name)
 
         # Build field views (excluding fields that would conflict with "id")
-        fields = _build_field_views(model_item)
+        fields = _build_field_views(model_item, module.name)
         if not fields:
             continue
 
@@ -377,15 +382,18 @@ def _normalize_kebab(raw: str) -> str:
 
 
 def _find_crud_ep(eps: list[Endpoint], verb: str) -> Endpoint | None:
-    """Find the best endpoint for a given CRUD verb."""
-    typed = [ep for ep in eps if ep.crud_verb == verb and ep.model_item]
-    if typed:
-        return typed[0]
-    untyped = [ep for ep in eps if ep.crud_verb == verb]
-    return untyped[0] if untyped else None
+    """Find the first endpoint with the given CRUD verb.
+
+    `eps` is guaranteed to contain only endpoints with a linked ModelItem
+    (see `_collect_tf_resources`), so we never need to fall back to untyped.
+    """
+    for ep in eps:
+        if ep.crud_verb == verb:
+            return ep
+    return None
 
 
-def _build_field_views(item: ModelItem) -> list[TFFieldView]:
+def _build_field_views(item: ModelItem, module_name: str = "") -> list[TFFieldView]:
     """Build TFFieldView list from a ModelItem's fields."""
     views: list[TFFieldView] = []
     seen: set[str] = set()
@@ -412,11 +420,14 @@ def _build_field_views(item: ModelItem) -> list[TFFieldView]:
         optional = not f.required and not f.volatile
         computed = f.volatile or (not f.required)
 
-        default_value = f.default if required and f.default else None
+        # Keep XML defaults for both required and optional fields. Volatile
+        # (server-computed) fields can't accept a plan-time default, so we
+        # drop it — the schema emits Computed-only for those.
+        default_value = f.default if f.default and not f.volatile else None
 
         # Apply known corrections for defaults that are wrong in the upstream XML.
         if default_value is not None:
-            corrected = _DEFAULT_CORRECTIONS.get((item.name, f.name))
+            corrected = _DEFAULT_CORRECTIONS.get((module_name, item.name, f.name))
             if corrected is not None:
                 default_value = corrected
 
@@ -427,8 +438,8 @@ def _build_field_views(item: ModelItem) -> list[TFFieldView]:
         if default_value is not None and f.options and not f.multiple:
             if default_value not in f.options:
                 raise ValueError(
-                    f"Field '{item.name}.{f.name}': default value {default_value!r} "
-                    f"is not in options {f.options!r}. "
+                    f"Field '{item.name}.{f.name}' (module {module_name!r}): "
+                    f"default value {default_value!r} is not in options {f.options!r}. "
                     f"Fix the default or the options in the XML source metadata."
                 )
 
@@ -460,13 +471,6 @@ def _map_field_type(f: ModelField) -> tuple[str, str]:
         return "Int64", "types.Int64"
     else:
         return "String", "types.String"
-
-
-def _safe_go_name(name: str) -> str:
-    """Rename reserved type names to avoid conflicts."""
-    if name in _RESERVED_TYPE_NAMES:
-        return name + "Config"
-    return name
 
 
 def _to_pascal(name: str) -> str:

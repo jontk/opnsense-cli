@@ -8,18 +8,14 @@ from pathlib import Path
 from jinja2 import Environment, FileSystemLoader
 
 from generate.model.ir import APISpec, Endpoint, ModelItem, Module
-from generate.parser.name_transform import module_to_package
+from generate.parser.name_transform import (
+    GO_KEYWORDS as _GO_RESERVED,
+    module_to_package,
+    safe_type_name,
+)
 
 _TEMPLATES_DIR = Path(__file__).parent.parent / "templates"
 _OUTPUT_DIR = Path("opnsense")
-
-# Go reserved words — package names must avoid these
-_GO_RESERVED = {
-    "break", "case", "chan", "const", "continue", "default", "defer", "else",
-    "fallthrough", "for", "func", "go", "goto", "if", "import", "interface",
-    "map", "package", "range", "return", "select", "struct", "switch", "type",
-    "var",
-}
 
 
 @dataclass
@@ -145,10 +141,6 @@ def _collect_endpoints(module: Module) -> list[Endpoint]:
     return endpoints
 
 
-# Type names that conflict with generated code in the same package
-_RESERVED_TYPE_NAMES = {"Client", "NewClient"}
-
-
 def _collect_model_items(module: Module) -> list[ModelItem]:
     """Collect all model items from a module's controllers."""
     items: list[ModelItem] = []
@@ -210,10 +202,7 @@ def _endpoint_view(ep: Endpoint) -> EndpointView:
     item_json_key = ""
     crud_verb = ep.crud_verb
     if ep.model_item:
-        go_name = ep.model_item.go_name
-        if go_name in _RESERVED_TYPE_NAMES:
-            go_name = go_name + "Config"
-        item_type = go_name
+        item_type = safe_type_name(ep.model_item.go_name)
         item_json_key = ep.item_json_key
 
     return EndpointView(
@@ -257,12 +246,7 @@ def _type_item_view(item: ModelItem) -> TypeItemView:
             default=f.default,
         ))
 
-    go_name = item.go_name
-    # Avoid conflicts with the Client type in the same package
-    if go_name in _RESERVED_TYPE_NAMES:
-        go_name = go_name + "Config"
-
-    return TypeItemView(name=item.name, go_name=go_name, fields=fields)
+    return TypeItemView(name=item.name, go_name=safe_type_name(item.go_name), fields=fields)
 
 
 def _collect_response_wrappers(ep_views: list[EndpointView]) -> list[dict[str, str]]:

@@ -2,6 +2,26 @@
 
 from __future__ import annotations
 
+# Go reserved words — generated package names must avoid these.
+GO_KEYWORDS: frozenset[str] = frozenset({
+    "break", "case", "chan", "const", "continue", "default", "defer", "else",
+    "fallthrough", "for", "func", "go", "goto", "if", "import", "interface",
+    "map", "package", "range", "return", "select", "struct", "switch", "type",
+    "var",
+})
+
+# Model-item type names that collide with the generated SDK client (type Client
+# struct). The Go / CLI / Terraform emitters rename these to avoid shadowing.
+RESERVED_TYPE_NAMES: frozenset[str] = frozenset({"Client", "NewClient"})
+
+
+def safe_type_name(name: str) -> str:
+    """Rename reserved type names (e.g., Client → ClientConfig)."""
+    if name in RESERVED_TYPE_NAMES:
+        return name + "Config"
+    return name
+
+
 # Words that should always be uppercased as acronyms in Go
 _KNOWN_ACRONYMS = {
     "uuid", "url", "uri", "api", "ip", "tcp", "udp", "dns", "http", "https",
