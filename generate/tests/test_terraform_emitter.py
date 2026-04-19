@@ -53,16 +53,31 @@ class TestBuildFieldViewsDefaultValidation:
             _build_field_views(_make_item([field]))
 
     def test_alias_type_default_alert_is_corrected(self):
-        """alias.type default='alert' must be corrected to 'host' via _DEFAULT_CORRECTIONS."""
+        """alias.type default='alert' must be corrected to 'host' via _DEFAULT_CORRECTIONS.
+
+        The correction is scoped to module='firewall', so other modules that
+        happen to name an item 'alias' are NOT auto-corrected.
+        """
         alias_options = [
             "host", "network", "port", "url", "urltable", "urljson",
             "geoip", "networkgroup", "mac", "asn", "dynipv6host",
             "authgroup", "internal", "external",
         ]
         field = _make_field("type", required=True, default="alert", options=alias_options)
-        views = _build_field_views(_make_item([field], name="alias"))
+        views = _build_field_views(_make_item([field], name="alias"), module_name="firewall")
         assert len(views) == 1
         assert views[0].default_value == "host"
+
+    def test_alias_type_outside_firewall_module_is_not_corrected(self):
+        """A module other than 'firewall' with an item 'alias' and default 'alert' still raises."""
+        alias_options = [
+            "host", "network", "port", "url", "urltable", "urljson",
+            "geoip", "networkgroup", "mac", "asn", "dynipv6host",
+            "authgroup", "internal", "external",
+        ]
+        field = _make_field("type", required=True, default="alert", options=alias_options)
+        with pytest.raises(ValueError, match="default value 'alert' is not in options"):
+            _build_field_views(_make_item([field], name="alias"), module_name="unbound")
 
     def test_unknown_item_alias_type_alert_still_raises(self):
         """Non-alias item with type=alert is NOT corrected — should still raise."""
@@ -73,7 +88,7 @@ class TestBuildFieldViewsDefaultValidation:
         ]
         field = _make_field("type", required=True, default="alert", options=alias_options)
         with pytest.raises(ValueError, match="default value 'alert' is not in options"):
-            _build_field_views(_make_item([field], name="rule"))
+            _build_field_views(_make_item([field], name="rule"), module_name="firewall")
 
     def test_vlan_pcp_default_zero_raises_without_correction(self):
         """pcp with old tag-name options (pcp0, pcp1...) raises when default='0'."""
@@ -97,12 +112,18 @@ class TestBuildFieldViewsDefaultValidation:
         assert len(views) == 1
         assert views[0].default_value == "my default"
 
-    def test_optional_field_default_ignored_by_validator(self):
-        """Optional fields have default_value=None; the check is never reached."""
-        field = _make_field("type", required=False, default="alert", options=["host", "network"])
+    def test_optional_field_default_is_preserved(self):
+        """Optional fields keep their XML default (required for Computed+Default schema)."""
+        field = _make_field("type", required=False, default="host", options=["host", "network"])
         views = _build_field_views(_make_item([field]))
         assert len(views) == 1
-        assert views[0].default_value is None
+        assert views[0].default_value == "host"
+
+    def test_optional_field_invalid_default_still_raises(self):
+        """An optional field with a default not in options now raises (it previously was silently dropped)."""
+        field = _make_field("type", required=False, default="alert", options=["host", "network"])
+        with pytest.raises(ValueError, match="default value 'alert' is not in options"):
+            _build_field_views(_make_item([field]))
 
     def test_volatile_field_default_ignored(self):
         """Volatile fields are always computed; their default is not emitted."""
