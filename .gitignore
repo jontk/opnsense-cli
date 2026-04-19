@@ -4,3 +4,9 @@ docs/models/
 __pycache__/
 /opn
 /opn-cli
+/apikey
+/list-aliases
+
+# Dolt database files (added by bd init)
+.dolt/
+*.db
