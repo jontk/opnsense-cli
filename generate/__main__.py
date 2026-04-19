@@ -2,10 +2,12 @@
 
 from __future__ import annotations
 
+import argparse
 from pathlib import Path
 
 from generate.emitter.cli_emitter import emit_cli
 from generate.emitter.go_emitter import emit
+from generate.emitter.terraform_emitter import emit_terraform
 from generate.model.ir import APISpec
 from generate.parser.endpoint_resolver import resolve_endpoints
 from generate.parser.markdown_parser import parse_all as parse_markdown
@@ -17,8 +19,20 @@ MODELS_DIR = Path("docs/models")
 OUTPUT_DIR = Path("opnsense")
 CLI_OUTPUT_DIR = Path("internal/cli/gen")
 
+# The Terraform provider lives in a sibling repo. Anchor the default to the
+# generator's own location so the path is stable regardless of the caller's
+# working directory; still overridable via --tf-output.
+_REPO_ROOT = Path(__file__).resolve().parents[1]
+TF_OUTPUT_DIR = _REPO_ROOT.parent / "opnsense-terraform" / "internal" / "provider" / "gen"
+
 
 def main() -> None:
+    parser = argparse.ArgumentParser(description="OPNsense Go SDK Generator")
+    parser.add_argument("--terraform", action="store_true", help="Also emit Terraform provider code")
+    parser.add_argument("--tf-output", type=str, default=str(TF_OUTPUT_DIR), help="Terraform output directory")
+    parser.add_argument("--terraform-only", action="store_true", help="Only emit Terraform provider code (skip SDK and CLI)")
+    args = parser.parse_args()
+
     print("=== OPNsense Go SDK Generator ===\n")
 
     # Stage 1: Parse markdown docs
@@ -62,24 +76,35 @@ def main() -> None:
     )
     print(f"  Resolved {typed} typed CRUD endpoints\n")
 
-    # Stage 3: Emit Go SDK code
-    print("Stage 3: Emitting Go SDK code...")
     spec = APISpec(modules=modules, models=models)
-    emit(spec, OUTPUT_DIR)
 
-    # Count output
-    go_files = list(OUTPUT_DIR.rglob("*.go"))
-    generated = [f for f in go_files if f.name not in ("client.go", "request.go", "types.go")]
-    print(f"  Generated {len(generated)} Go files\n")
+    if not args.terraform_only:
+        # Stage 3: Emit Go SDK code
+        print("Stage 3: Emitting Go SDK code...")
+        emit(spec, OUTPUT_DIR)
 
-    # Stage 4: Emit CLI commands
-    print("Stage 4: Emitting CLI commands...")
-    emit_cli(spec, CLI_OUTPUT_DIR)
+        # Count output
+        go_files = list(OUTPUT_DIR.rglob("*.go"))
+        generated = [f for f in go_files if f.name not in ("client.go", "request.go", "types.go")]
+        print(f"  Generated {len(generated)} Go files\n")
 
-    cli_files = list(CLI_OUTPUT_DIR.glob("*.go"))
-    print(f"  Generated {len(cli_files)} CLI Go files\n")
+        # Stage 4: Emit CLI commands
+        print("Stage 4: Emitting CLI commands...")
+        emit_cli(spec, CLI_OUTPUT_DIR)
 
-    print("Done! Run 'gofmt -w opnsense/ internal/cli/gen/' and 'go build ./...' to verify.")
+        cli_files = list(CLI_OUTPUT_DIR.glob("*.go"))
+        print(f"  Generated {len(cli_files)} CLI Go files\n")
+
+    if args.terraform or args.terraform_only:
+        # Stage 5: Emit Terraform provider code
+        tf_output = Path(args.tf_output)
+        print(f"Stage 5: Emitting Terraform provider code to {tf_output}...")
+        emit_terraform(spec, tf_output)
+        print()
+
+    print("Done!")
+    if not args.terraform_only:
+        print("Run 'gofmt -w opnsense/ internal/cli/gen/' and 'go build ./...' to verify.")
 
 
 if __name__ == "__main__":
